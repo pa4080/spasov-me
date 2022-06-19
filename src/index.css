@@ -1,0 +1,67 @@
+@font-face {
+    font-family: "Unicephalon";
+    src: url('assets/fonts/unicephalon/unicephalon.heavy.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-y: auto;
+    font-size: 14px;
+    letter-spacing: .2px;
+    background-color: #333333;
+    user-select: none;
+    color: #ccc;
+}
+
+/** ScrollBar **/
+*::-webkit-scrollbar {
+    width: 18px;
+}
+
+*::-webkit-scrollbar-track {
+    /* background: #eee; */
+    background: #333333;
+
+}
+
+*::-webkit-scrollbar-thumb {
+    /* background: #bbb; */
+    background: #aaa;
+    border-radius: 2px;
+    /* border: 5px solid #eee; */
+    border: 5px solid #333333;
+    border-radius: 12px;
+}
+
+*::-webkit-scrollbar-thumb:vertical:hover {
+    background: #3c7bc9;
+}
+
+/** FireFox Scrollbar **/
+html,
+body {
+    scrollbar-color: #3c7bc9 #9f9f9f2a;
+    scrollbar-width: thin;
+}
+
+/** React Root DOM**/
+#root {
+    height: 100%;
+    width: 100%;
+}

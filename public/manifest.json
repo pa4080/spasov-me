@@ -1,0 +1,15 @@
+{
+  "short_name": "MLT",
+  "name": "Metalevel.tech Home Page",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#aaaaaa",
+  "background_color": "#333333"
+}

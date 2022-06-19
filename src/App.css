@@ -1,0 +1,34 @@
+.mlt-flex-container {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.mlt-log-container {
+	height: max-content;
+	height: fit-content;
+	height: -moz-fit-content;
+    width: 90%;
+    max-width: 640px;
+    margin: auto;
+    position: relative;
+}
+
+.mlt-logo-img {
+    height: auto;
+    width: 100%;
+    filter: drop-shadow(1px 2px 3px #111);
+}
+
+.mlt-redirect-counter {
+    font-family: 'Unicephalon', sans-serif;
+    font-size: 1.6em;
+    position: absolute;
+    top: .2em;
+    right: .2em;
+    color: #888888;
+    /* filter: drop-shadow(1px 2px 3px #111); */
+}
