@@ -35,5 +35,5 @@
 
 .mlw-icon {
     transform: scale(1.1);
-    filter: drop-shadow(1px 2px 3px #111);
+    filter: drop-shadow(1px 2px 3px var(--dark-shadow-1));
 }

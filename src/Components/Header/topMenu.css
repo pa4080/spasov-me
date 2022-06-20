@@ -1,0 +1,31 @@
+.mlt-header-top-container {
+    font-family: var(--font-fancy);
+    letter-spacing: .2vmin;
+    width: max-content;
+	width: fit-content;
+	width: -moz-fit-content;
+    text-decoration: none;
+    font-size: 1.2em;
+    user-select: none;
+}
+
+.mlt-header-top-item {
+    filter: drop-shadow(1px 2px 3px var(--dark-shadow-2));
+    display: inline-block;
+    padding: 0.6em 0.8em;
+    margin: 0 0.4em;
+    user-select: none;
+    cursor: pointer;
+
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.mlt-header-top-item:hover {
+    color: var(--blue-primary);
+}
+
+.mlt-header-top-item:active {
+    color: var(--purple-primary);
+}

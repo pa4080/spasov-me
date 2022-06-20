@@ -1,4 +1,12 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600&family=Roboto+Slab:wght@500;700&family=Roboto:ital,wght@0,400;0,500;1,400;1,500&display=swap'); */
+@font-face {
+    font-family: "Unicephalon";
+    src: url('assets/fonts/Unicephalon/unicephalon.heavy.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
 
 * {
     box-sizing: border-box;
@@ -14,15 +22,32 @@ body {
     padding: 0;
 }
 
+:root {
+    --gray-1: #787878;
+    --gray-2: #a0a0a0;
+    --gray-3: #b4b4b4;
+    --gray-4: #c8c8c8;
+    --gray-5: #d4d4d4;
+    --gray-bg-1: #333333;
+    --gray-bg-2: #3c3c3c;
+    --dark-shadow-1: #111111;
+    --dark-shadow-2: #222222;
+    --blue-primary: #548ADA;
+    --purple-primary: #9468D8;
+    --text-color: var(--gray-4);
+    --font-fancy: "Unicephalon", 'Roboto Slab', sans-serif;
+    --font-text: 'Roboto Mono', monospace;
+
+}
+
 body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-y: hidden;
     font-size: 16px;
     letter-spacing: .2px;
-    background-color: #333333;
-    /* user-select: none; */
-    color: #ccc;
+    background-color: var(--gray-bg-1);
+    color: var(--text-color);
 }
 
 /**
@@ -34,33 +59,33 @@ body {
 
 *::-webkit-scrollbar-track {
     /* background: #eee; */
-    background: #333333;
+    background: var(--gray-bg-1);
 
 }
 
 *::-webkit-scrollbar-thumb {
-    /* background: #bbb; */
-    background: #aaa;
+    background: var(--gray-2);
     border-radius: 2px;
     /* border: 5px solid #eee; */
-    border: 5px solid #333333;
+    border: 5px solid var(--gray-bg-1);
     border-radius: 12px;
 }
 
 *::-webkit-scrollbar-thumb:vertical:hover {
-    background: #3c7bc9;
+    background: var(--blue-primary);
 }
 
 /** FireFox Scrollbar **/
 html,
 body {
-    scrollbar-color: #3c7bc9 #9f9f9f2a;
+    scrollbar-color: var(--blue-primary) var(--gray-bg-1);
     scrollbar-width: thin;
 }
 
 /**
- * React Root DOM Element
+ * React Root DOM Element and root CSS Class
  */
+
 #root {
     font-family: 'Roboto', sans-serif;
     /* Check index.html for the relevant JavaScript for --vf */

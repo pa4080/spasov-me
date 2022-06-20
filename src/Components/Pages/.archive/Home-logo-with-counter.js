@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import mltLogo from "../../assets/images/SVG/mlt.logo.text.svg";
-import "./LogoWithCounter.css";
+import "./home-logo-with-counter.css";
 
-function LogoWithCounter(props) {
+function Logo(props) {
     const [counter, setCounter] = useState(30);
 
     function countDown(seconds) {
@@ -33,4 +33,4 @@ function LogoWithCounter(props) {
     );
 }
 
-export default LogoWithCounter;
+export default Logo;

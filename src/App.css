@@ -9,7 +9,7 @@
 
 .mlt-header {
     /* filter: drop-shadow(1px 2px 3px #222); */
-    background-color: rgb(60 60 60);
+    background-color: var(--gray-bg-2);
     height: 3em;
     display: flex;
     flex-direction: row;
@@ -17,7 +17,7 @@
     align-items: center;
 }
 
-.mlt-body {
+.mlt-pages {
     overflow: auto;
     flex: 1;
     flex-grow: 1;

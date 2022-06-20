@@ -1,0 +1,34 @@
+.mlt-logo-container {
+	height: max-content;
+	height: fit-content;
+	height: -moz-fit-content;
+    width: 90vmin;
+    max-width: 90vmin;
+    margin: auto;
+    position: relative;
+    margin-top: 19vmin;
+}
+
+.mlt-logo-text-img {
+    height: auto;
+    width: 100%;
+    filter: drop-shadow(1px 2px 3px var(--dark-shadow-1));
+    user-select: none;
+}
+
+.mlt-logo-leading-text {
+    font-family: var(--font-fancy);
+    letter-spacing: .15vmin;
+    user-select: none;
+
+    font-size: 2.7vmin;
+    position: absolute;
+    top: 0;
+    right: .6vmin;
+    color: var(--gray-1);
+}
+
+.mlt-logo-leading-text.typewriter {
+    text-align: left;
+    width: 35.6vmin;
+}

@@ -12,7 +12,7 @@
 .mlt-logo-img {
     height: auto;
     width: 100%;
-    filter: drop-shadow(1px 2px 3px #111);
+    filter: drop-shadow(1px 2px 3px var(--dark-shadow-1));
 }
 
 .mlt-redirect-counter {
@@ -21,6 +21,6 @@
     position: absolute;
     top: 0;
     right: 0;
-    color: #888888;
+    color: var(--gray-1);
     /* filter: drop-shadow(1px 2px 3px #111); */
 }
