@@ -29,3 +29,7 @@
 .mlt-header-top-item:active {
     color: var(--purple-primary);
 }
+
+.mlt-header-top-item.mlt-header-top-link-active {
+    color: var(--blue-primary);
+}
