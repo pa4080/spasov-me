@@ -18,6 +18,7 @@
     transition: transform 0.3s ease-in-out;
     width: 2em;
     height: 2em;
+    /* filter: drop-shadow(1px 2px 3px #111); */
 }
 
 @media screen and (max-width: 299px) {
@@ -30,4 +31,9 @@
 .mlt-footer-links>a:hover>img {
     transform: scale(1.4);
     transition: transform 0.2s ease-in-out;
+}
+
+.mlw-icon {
+    transform: scale(1.1);
+    filter: drop-shadow(1px 2px 3px #111);
 }

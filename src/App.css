@@ -8,13 +8,17 @@
 }
 
 .mlt-header {
-    background-color: rgb(61 61 61);
-    height: 3em;
     /* filter: drop-shadow(1px 2px 3px #222); */
+    background-color: rgb(60 60 60);
+    height: 3em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .mlt-body {
-    overflow: auto;/* added an overflow rule to make the main area scroll if necessary */
+    overflow: auto;
     flex: 1;
     flex-grow: 1;
     /* max-width: 100%;  */

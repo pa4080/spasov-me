@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import mltLogo from "../assets/images/SVG/mlt.logo.text.svg";
+import mltLogo from "../../assets/images/SVG/mlt.logo.text.svg";
 import "./LogoWithCounter.css";
 
 function LogoWithCounter(props) {
