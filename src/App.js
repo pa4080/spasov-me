@@ -6,7 +6,7 @@ import "./App.css";
 
 // The main class of the application.
 function App(props) {
-    const [counter, setCounter] = useState(10);
+    const [counter, setCounter] = useState(30);
 
     function countDown(seconds) {
         seconds--;
