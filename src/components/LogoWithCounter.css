@@ -1,0 +1,26 @@
+.mlt-logo-container {
+	height: max-content;
+	height: fit-content;
+	height: -moz-fit-content;
+    width: 90vmin;
+    max-width: 90vmin;
+    margin: auto;
+    position: relative;
+    margin-top: 19vmin;
+}
+
+.mlt-logo-img {
+    height: auto;
+    width: 100%;
+    filter: drop-shadow(1px 2px 3px #111);
+}
+
+.mlt-redirect-counter {
+    font-family: 'Unicephalon', sans-serif;
+    font-size: 3.4vmin;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #888888;
+    /* filter: drop-shadow(1px 2px 3px #111); */
+}

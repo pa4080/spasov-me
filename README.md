@@ -8,8 +8,14 @@ cd app && npm i && npm run build
 ```
 
 ```bash
-mv /var/www/html{,.old}
+mv /var/www/html{,.bak}
 mv ./build /var/www/html
+```
+
+In my case I'm using the following script to sync a build, created on my dev machine to the remote production server.
+
+```
+npm run build-to-remote <passphrase>
 ```
 
 ## Development deploy and run

@@ -1,34 +1,38 @@
 .mlt-flex-container {
-    height: 80%;
-    width: 100%;
+    /* Check index.html for the relevant JavaScript for --vf */
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.mlt-header {
+    background-color: rgb(61 61 61);
+    height: 3em;
+    /* filter: drop-shadow(1px 2px 3px #222); */
+}
+
+.mlt-body {
+    overflow: auto;/* added an overflow rule to make the main area scroll if necessary */
+    flex: 1;
+    flex-grow: 1;
+    /* max-width: 100%;  */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.mlt-footer {
+    /* background-color: rgba(255, 255, 255, 0.05); */
+    height: max-content;
+	height: fit-content;
+	height: -moz-fit-content;
+    min-height: 4.6em;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.mlt-log-container {
-	height: max-content;
-	height: fit-content;
-	height: -moz-fit-content;
-    width: 90%;
-    max-width: 640px;
-    margin: auto;
-    position: relative;
-}
-
-.mlt-logo-img {
-    height: auto;
-    width: 100%;
-    filter: drop-shadow(1px 2px 3px #111);
-}
-
-.mlt-redirect-counter {
-    font-family: 'Unicephalon', sans-serif;
-    font-size: 1.6em;
-    position: absolute;
-    top: .2em;
-    right: .2em;
-    color: #888888;
-    /* filter: drop-shadow(1px 2px 3px #111); */
 }

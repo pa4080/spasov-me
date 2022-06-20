@@ -1,0 +1,33 @@
+.mlt-footer-links {
+    max-width: 98%;
+}
+
+.mlt-footer-links .regular-icon {
+    opacity: .85;
+}
+
+.mlt-footer-links>a {
+    display: inline-block;
+    padding: 0.6em 0.8em;
+    color: transparent;
+    text-decoration: none;
+}
+
+
+.mlt-footer-links>a>img {
+    transition: transform 0.3s ease-in-out;
+    width: 2em;
+    height: 2em;
+}
+
+@media screen and (max-width: 299px) {
+    .mlt-footer-links>a>img {
+        width: 1.8em;
+        height: 1.8em;
+    }
+}
+
+.mlt-footer-links>a:hover>img {
+    transform: scale(1.4);
+    transition: transform 0.2s ease-in-out;
+}

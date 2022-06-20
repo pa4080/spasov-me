@@ -1,14 +1,12 @@
-/**
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-**/
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600&family=Roboto+Slab:wght@500;700&family=Roboto:ital,wght@0,400;0,500;1,400;1,500&display=swap'); */
 
-@font-face {
+/* @font-face {
     font-family: "Unicephalon";
-    src: url('assets/fonts/unicephalon/unicephalon.heavy.ttf') format('truetype');
+    src: url('assets/fonts/Unicephalon/unicephalon.heavy.ttf') format('truetype');
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-}
+} */
 
 * {
     box-sizing: border-box;
@@ -16,24 +14,28 @@
 
 html,
 body {
-    height: 100%;
+    /* Check index.html for the relevant JavaScript for --vf */
+    /* height: 100%; */
+    /* height: calc(var(--vh, 1vh) * 100); */
+
     margin: 0;
     padding: 0;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-y: auto;
-    font-size: 14px;
+    overflow-y: hidden;
+    font-size: 16px;
     letter-spacing: .2px;
     background-color: #333333;
-    user-select: none;
+    /* user-select: none; */
     color: #ccc;
 }
 
-/** ScrollBar **/
+/**
+ * Scroll Bars
+ */
 *::-webkit-scrollbar {
     width: 18px;
 }
@@ -64,8 +66,12 @@ body {
     scrollbar-width: thin;
 }
 
-/** React Root DOM**/
+/**
+ * React Root DOM Element
+ */
 #root {
-    height: 100%;
-    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    /* Check index.html for the relevant JavaScript for --vf */
+    /* height: 100%; */
+    /* height: calc(var(--vh, 1vh) * 100); */
 }
