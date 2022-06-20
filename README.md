@@ -32,3 +32,6 @@ The React's dev web server, by default, will listen at `http://localhost:3000`. 
 ./scripts/wsl-win-port-proxy.vlan.sh 3000 3000
 ```
 
+## References
+
+* PedroTech at YouTube: [React Router V6 Tutorial](https://youtu.be/UjHT_NKR_gU)
