@@ -23,6 +23,7 @@ body {
 }
 
 :root {
+    --gray-0: #646464;
     --gray-1: #787878;
     --gray-2: #a0a0a0;
     --gray-3: #b4b4b4;
@@ -32,11 +33,19 @@ body {
     --gray-bg-2: #3c3c3c;
     --dark-shadow-1: #111111;
     --dark-shadow-2: #222222;
+    --dark-shadow-3: #333333;
+    --dark-shadow-4: #444444;
+    --dark-shadow-5: #555555;
     --blue-primary: #548ADA;
     --purple-primary: #9468D8;
     --text-color: var(--gray-4);
     --font-fancy: "Unicephalon", 'Roboto Slab', sans-serif;
     --font-text: 'Roboto Mono', monospace;
+    --max-width: 90vmin;
+    --top-offset-default: 19vmin;
+    --top-offset-resume: 11vmin;
+    --top-offset-resume-small: 9vmin;
+    --default-rounded-img-width: 28vmin;
 
 }
 
@@ -45,6 +54,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     overflow-y: hidden;
     font-size: 16px;
+    line-height: 1.75;
     letter-spacing: .2px;
     background-color: var(--gray-bg-1);
     color: var(--text-color);
@@ -54,7 +64,7 @@ body {
  * Scroll Bars
  */
 *::-webkit-scrollbar {
-    width: 18px;
+    width: 1em;
 }
 
 *::-webkit-scrollbar-track {
@@ -64,11 +74,13 @@ body {
 }
 
 *::-webkit-scrollbar-thumb {
-    background: var(--gray-2);
-    border-radius: 2px;
+    background: var(--gray-1);
+    /* border-radius: 2px; */
     /* border: 5px solid #eee; */
     border: 5px solid var(--gray-bg-1);
     border-radius: 12px;
+
+    z-index: 10;
 }
 
 *::-webkit-scrollbar-thumb:vertical:hover {
@@ -76,8 +88,8 @@ body {
 }
 
 /** FireFox Scrollbar **/
-html,
-body {
+/* html, body */
+* {
     scrollbar-color: var(--blue-primary) var(--gray-bg-1);
     scrollbar-width: thin;
 }
@@ -88,7 +100,4 @@ body {
 
 #root {
     font-family: 'Roboto', sans-serif;
-    /* Check index.html for the relevant JavaScript for --vf */
-    /* height: 100%; */
-    /* height: calc(var(--vh, 1vh) * 100); */
 }

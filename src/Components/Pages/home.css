@@ -2,11 +2,11 @@
 	height: max-content;
 	height: fit-content;
 	height: -moz-fit-content;
-    width: 90vmin;
-    max-width: 90vmin;
+    width: var(--max-width);
+    max-width: var(--max-width);
     margin: auto;
     position: relative;
-    margin-top: 19vmin;
+    margin-top: var(--top-offset-default);
 }
 
 .mlt-logo-text-img {
@@ -26,9 +26,4 @@
     top: 0;
     right: .6vmin;
     color: var(--gray-1);
-}
-
-.mlt-logo-leading-text.typewriter {
-    text-align: left;
-    width: 35.6vmin;
 }

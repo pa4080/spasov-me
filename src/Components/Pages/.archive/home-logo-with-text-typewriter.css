@@ -2,11 +2,11 @@
 	height: max-content;
 	height: fit-content;
 	height: -moz-fit-content;
-    width: 90vmin;
-    max-width: 90vmin;
+    width: var(--max-width);
+    max-width: var(--max-width);
     margin: auto;
     position: relative;
-    margin-top: 19vmin;
+    margin-top: var(--default-top-offset);
 }
 
 .mlt-logo-img {

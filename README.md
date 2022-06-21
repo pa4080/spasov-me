@@ -35,3 +35,4 @@ The React's dev web server, by default, will listen at `http://localhost:3000`. 
 ## References
 
 * PedroTech at YouTube: [React Router V6 Tutorial](https://youtu.be/UjHT_NKR_gU)
+* U; dev: [A Guide to Query Strings with React Router](https://ui.dev/react-router-query-strings)

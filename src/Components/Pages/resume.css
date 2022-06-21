@@ -2,28 +2,32 @@
 	height: max-content;
 	height: fit-content;
 	height: -moz-fit-content;
-    width: 90vmin;
-    max-width: 90vmin;
-    margin: auto;
+    width: var(--max-width);
+    max-width: var(--max-width);
     position: relative;
-    margin-top: 19vmin;
+    margin: auto;
+    margin-top: var(--top-offset-resume-small);
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.mlt-logo-img {
-    grid-area: img;
-    height: auto;
-    width: 28vmin;
-    filter: drop-shadow(1px 2px 3px var(--dark-shadow-1));
-    user-select: none;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+@media screen and (min-width: 641px) {
+    .mlt-resume-container {
+        margin-top: var(--top-offset-resume);
+    }
 }
 
+.mlt-resume-section {
+    overflow: visible;
+}
+
+.mlt-resume-section:after {
+    display: block;
+    content: " ";
+    clear: both;
+    width: 100%;
+    margin-bottom: 2vmin;
+}

@@ -1,12 +1,13 @@
 .mlt-header-top-container {
     font-family: var(--font-fancy);
     letter-spacing: .2vmin;
+    font-size: 1.2em;
     width: max-content;
 	width: fit-content;
 	width: -moz-fit-content;
     text-decoration: none;
-    font-size: 1.2em;
     user-select: none;
+    text-align: center;
 }
 
 .mlt-header-top-item {
@@ -32,4 +33,26 @@
 
 .mlt-header-top-item.mlt-header-top-link-active {
     color: var(--blue-primary);
+}
+
+@media screen and (max-width: 420px) {
+    .mlt-header-top-item {
+        padding: 0.6em 0.8em;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .mlt-header-top-container {
+        font-size: 1em;
+    }
+    .mlt-header-top-item {
+        padding: 0.25em 0.6em;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .mlt-header-top-container {
+        font-size: .95em;
+    }
 }
