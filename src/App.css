@@ -11,39 +11,29 @@
     background-color: var(--gray-bg-2);
     box-shadow: 0px 2px 6px 3px var(--gray-bg-1);
     z-index: 10;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 3em;
-    line-height: 1;
+    
+    height: max-content;
+    height: fit-content;
+    height: -moz-fit-content;
 }
 
 .mlt-footer {
     /* background-color: var(--gray-bg-2); */
     box-shadow: 0px -2px 6px 3px var(--gray-bg-1);
     z-index: 10;
+    
     height: max-content;
     height: fit-content;
     height: -moz-fit-content;
-    min-height: 3.5em;
-    line-height: .6;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-@media screen and (max-width: 320px) {
-    .mlt-footer {
-        min-height: 3em;
-    }
 }
 
 .mlt-pages {
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     flex: 1;
     flex-grow: 1;
+
+    /* overflow-y: visible; */
 }
 
 .mlt-pages {
@@ -64,4 +54,6 @@
     line-height: 1.2;
     margin-top: 1.2em;
     margin-bottom: .4em;
+    font-weight: 500;
+    font-size: 2em;
 }

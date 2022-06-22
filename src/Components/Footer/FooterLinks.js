@@ -1,4 +1,4 @@
-import "./FooterLinks.css";
+import "./footerLinks.css";
 import iconGitHub from "../../assets/icons/github-gray.svg";
 import iconUbuntu from "../../assets/icons/ubuntu-gray.svg";
 import iconLinkedIn from "../../assets/icons/linked-in-gray-square.svg";

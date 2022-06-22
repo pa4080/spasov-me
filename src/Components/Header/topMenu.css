@@ -1,19 +1,20 @@
 .mlt-header-top-container {
+    line-height: 1.4;
+    min-height: 58px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    
     font-family: var(--font-fancy);
-    letter-spacing: .2vmin;
     font-size: 1.2em;
-    width: max-content;
-	width: fit-content;
-	width: -moz-fit-content;
-    text-decoration: none;
-    user-select: none;
-    text-align: center;
 }
 
 .mlt-header-top-item {
     filter: drop-shadow(1px 2px 3px var(--dark-shadow-2));
     display: inline-block;
-    padding: 0.6em 0.8em;
+    padding: 0.8em 0.8em;
     margin: 0 0.4em;
     user-select: none;
     cursor: pointer;
@@ -47,7 +48,7 @@
         font-size: 1em;
     }
     .mlt-header-top-item {
-        padding: 0.25em 0.6em;
+        padding: 0.6em 0.6em;
     }
 }
 

@@ -14,10 +14,6 @@
 
 html,
 body {
-    /* Check index.html for the relevant JavaScript for --vf */
-    /* height: 100%; */
-    /* height: calc(var(--vh, 1vh) * 100); */
-
     margin: 0;
     padding: 0;
 }
@@ -52,12 +48,14 @@ body {
 body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-y: hidden;
+    overflow: hidden;
     font-size: 16px;
     line-height: 1.75;
     letter-spacing: .2px;
     background-color: var(--gray-bg-1);
     color: var(--text-color);
+
+    /* overflow-y: auto; */
 }
 
 /**
@@ -97,7 +95,8 @@ body {
 /**
  * React Root DOM Element and root CSS Class
  */
-
 #root {
     font-family: 'Roboto', sans-serif;
 }
+
+

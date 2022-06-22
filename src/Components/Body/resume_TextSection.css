@@ -1,0 +1,7 @@
+.mlt-resume-text-section-grid {
+    height: max-content;
+    height: fit-content;
+    height: -moz-fit-content;
+    max-width: var(--max-width);
+    margin: auto;
+}

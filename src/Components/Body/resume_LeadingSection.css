@@ -2,13 +2,12 @@
     height: max-content;
     height: fit-content;
     height: -moz-fit-content;
-    width: var(--max-width);
     max-width: var(--max-width);
     margin: auto;
-    position: relative;
+    /* position: relative; */
 }
 
-@media screen and (min-width: 641px) {
+@media screen and (min-width: 721px) {
     .mlt-resume-leading-section-grid {
         display: grid;
         grid-gap: 2vmin;
@@ -19,7 +18,7 @@
     }
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 720px) {
     .mlt-resume-leading-section-grid {
         grid-template:
             "resume-leading-row-1" 16vmin
@@ -31,13 +30,13 @@
 
 .mlt-resume-photo-container {
     grid-area: resume-leading-img;
-    width: calc(var(--default-rounded-img-width) * 2);
-    height: calc(var(--default-rounded-img-width) * 2);
+    width: calc(var(--default-rounded-img-width) * 1.5);
+    height: calc(var(--default-rounded-img-width) * 1.5);
     overflow: hidden;
     filter: drop-shadow(1px 2px 4px var(--dark-shadow-1));
-    background-color: var(--gray-1);
+    background-color: var(--gray-2);
     border-radius: 50%;
-    margin: 4vmin auto 4.55vmin;
+    margin: 6vmin auto 5vmin;
 
     display: flex;
     flex-direction: column;
@@ -46,7 +45,7 @@
     transform: scale(1.02);
 }
 
-@media screen and (min-width: 641px) {
+@media screen and (min-width: 721px) {
     .mlt-resume-photo-container {
         width: var(--default-rounded-img-width);
         height: var(--default-rounded-img-width);
@@ -55,56 +54,75 @@
 }
 
 .mlt-resume-photo-img {
-    height: 90%;
-    width: 90%;
+    height: 92%;
+    width: 92%;
     height: auto;
     user-select: none;
     border-radius: 50%;
-    filter: drop-shadow(0px 0px 4px var(--dark-shadow-5));
+    filter: drop-shadow(0px 0px 3px var(--dark-shadow-5));
 }
 
 .mlt-resume-leading-section-row-1,
 .mlt-resume-leading-section-row-2 {
     user-select: none;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-}
-
-@media screen and (min-width: 641px) {
-    .mlt-resume-leading-section-row-1,
-    .mlt-resume-leading-section-row-2 {
-        padding-left: 2vmin;
-        flex-direction: column;
-    }
 }
 
 .mlt-resume-leading-section-row-1 {
     grid-area: resume-leading-row-1;
     font-family: var(--font-fancy);
     letter-spacing: 1vmin;
-    font-size: 4.6vmin;
+    font-size: 10vmin;
     color: var(--gray-3);
-    line-height: 1.4;
-    justify-content: center;  
+    line-height: 1.5;
+    justify-content: center;
+
+    text-align: center;
 }
 
-@media screen and (min-width: 641px) {
-    .mlt-resume-leading-section-row-1 {
-        font-size: 4vmin;
-    }
+.mlt-resume-leading-section-row-1 p {
+    margin-bottom: 0;
+    margin-top: 0;
 }
+
 
 .mlt-resume-leading-section-row-2 {
     grid-area: resume-leading-row-2;
     letter-spacing: .15vmin;
-    justify-content: top;
-    text-align: left;
+    justify-content: flex-start;
+    
+    height: max-content;
+    height: fit-content;
+    height: -moz-fit-content;
 }
 
+.mlt-resume-leading-section-row-2 > p {
+    margin: 0;
+}
 
-@media screen and (min-width: 641px) {
-    .mlt-resume-leading-section-row-2 > p {
-        margin: 0;
+@media screen and (min-width: 321px) {
+    .mlt-resume-leading-section-row-1 {
+        font-size: 6.5vmin;
     }
+}
+
+@media screen and (min-width: 721px) {
+    .mlt-resume-leading-section-row-1 {
+        font-size: 4vmin;
+        text-align: left;
+    }
+    
+    .mlt-resume-leading-section-row-1 p {
+        margin-bottom: 1em;
+    }
+    
+
+    .mlt-resume-leading-section-row-1,
+    .mlt-resume-leading-section-row-2 {
+        padding-left: 2vmin;
+        flex-direction: column;
+    }
+
 }

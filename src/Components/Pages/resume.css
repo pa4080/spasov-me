@@ -2,21 +2,24 @@
 	height: max-content;
 	height: fit-content;
 	height: -moz-fit-content;
-    width: var(--max-width);
-    max-width: var(--max-width);
-    position: relative;
-    margin: auto;
-    margin-top: var(--top-offset-resume-small);
+
+    /* margin-top: var(--top-offset-resume-small); */
+    margin-top: var(--top-offset-resume);
+    max-width: 100%;
+    
+    padding-left: 1.5em;
+    padding-right: 1em;
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
 @media screen and (min-width: 641px) {
     .mlt-resume-container {
-        margin-top: var(--top-offset-resume);
+        max-width: 100%;
+        /* margin-top: var(--top-offset-resume); */
     }
 }
 
@@ -29,5 +32,5 @@
     content: " ";
     clear: both;
     width: 100%;
-    margin-bottom: 2vmin;
+    margin-bottom: 1em;
 }
