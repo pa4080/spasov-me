@@ -10,7 +10,7 @@ function Logo(props) {
             <div className="mlt-resume-container">
                 <LeadingSection />
                 <TextSection />
-                <TextSection />
+                {/* <TextSection /> */}
 
             </div>
         </>

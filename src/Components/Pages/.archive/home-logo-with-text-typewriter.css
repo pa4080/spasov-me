@@ -17,9 +17,10 @@
 }
 
 .mlt-logo-leading-text {
-    font-family: var(--font-fancy);
+    font-family: var(--font-family-fancy);
+    font-weight: var(--font-weight-fancy);
+    letter-spacing: var(--letter-spacing-fancy);
     font-size: 2.7vmin;
-    letter-spacing: .15vmin;
     position: absolute;
     top: 0;
     right: 0;

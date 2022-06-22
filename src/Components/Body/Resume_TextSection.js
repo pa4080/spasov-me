@@ -1,4 +1,6 @@
+import ReadMoreButton from "./resume_Button_ReadMore";
 import "./resume_TextSection.css";
+
 
 function TextSection(props) {
     return (
@@ -11,6 +13,7 @@ function TextSection(props) {
                 <p>
                     I’m having interest in DevOps and ethical hacking too. In my free time I like to read books, hiking, or gym. What I am looking for is the opportunity to learn new things and the challenges to solve tasks that are beyond my current knowledge.
                 </p>
+                <ReadMoreButton text="Read more" onClick={props.onClick} />
             </div>
 
         </>

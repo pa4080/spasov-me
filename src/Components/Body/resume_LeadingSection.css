@@ -72,9 +72,12 @@
 
 .mlt-resume-leading-section-row-1 {
     grid-area: resume-leading-row-1;
-    font-family: var(--font-fancy);
-    letter-spacing: 1vmin;
+
+    font-family: var(--font-family-fancy);
+    font-weight: var(--font-weight-fancy);
+    letter-spacing: calc(var(--letter-spacing-fancy) * 5);
     font-size: 10vmin;
+
     color: var(--gray-3);
     line-height: 1.5;
     justify-content: center;
@@ -90,7 +93,7 @@
 
 .mlt-resume-leading-section-row-2 {
     grid-area: resume-leading-row-2;
-    letter-spacing: .15vmin;
+    
     justify-content: flex-start;
     
     height: max-content;

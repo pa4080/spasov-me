@@ -31,7 +31,10 @@
 
 .mlt-http-error-number,
 .mlt-http-error-desc {
-    font-family: var(--font-fancy);
+    font-family: var(--font-family-fancy);
+    font-weight: var(--font-weight-fancy);
+    letter-spacing: var(--letter-spacing-fancy);
+    
     user-select: none;
     
     display: flex;
@@ -41,6 +44,7 @@
 
 .mlt-http-error-number {
     grid-area: error-number;
+
     letter-spacing: 1vmin;
     font-size: 16vmin;
     color: var(--gray-4);
@@ -53,7 +57,9 @@
 
 .mlt-http-error-desc {
     grid-area: error-desc;
-    letter-spacing: .15vmin;
+
+    letter-spacing: var(--letter-spacing-fancy);
+
     font-size: 2.7vmin;
     color: var(--gray-2);
     text-align: center;

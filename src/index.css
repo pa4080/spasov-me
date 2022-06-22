@@ -34,28 +34,56 @@ body {
     --dark-shadow-5: #555555;
     --blue-primary: #548ADA;
     --purple-primary: #9468D8;
-    --text-color: var(--gray-4);
-    --font-fancy: "Unicephalon", 'Roboto Slab', sans-serif;
-    --font-text: 'Roboto Mono', monospace;
     --max-width: 90vmin;
     --top-offset-default: 19vmin;
     --top-offset-resume: 11vmin;
     --top-offset-resume-small: 9vmin;
     --default-rounded-img-width: 28vmin;
+    
+    --text-color: var(--gray-4);
 
+    --font-family-fancy: "Unicephalon", 'Roboto Slab', serif;
+    --font-weight-fancy: 500;
+    --letter-spacing-fancy: .15vmin;
+    
+    --font-family-text: 'Roboto', sans-serif;
+    --font-weight-text: 400;
+    --letter-spacing-text: .6px;
+    
+    --font-family-heading: 'Roboto', sans-serif;
+    --font-weight-heading: 500;
+    --letter-spacing-heading: 1.2px;
+    
+    --font-family-mono: 'Roboto Mono', monospace;
+    --font-weight-mono: 400;
 }
 
 body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow: hidden;
-    font-size: 16px;
-    line-height: 1.75;
-    letter-spacing: .2px;
     background-color: var(--gray-bg-1);
+    
     color: var(--text-color);
 
+    font-family: var(--font-family-text);
+    font-weight: var(--font-weight-text);
+    letter-spacing: var(--letter-spacing-text);
+    font-size: 16px;
+    line-height: 1.75;
+    
     /* overflow-y: auto; */
+}
+
+h1 {
+    line-height: 1.2;
+    margin-top: 1em;
+    margin-bottom: .4em;
+
+    font-family: var(--font-family-heading);
+    font-weight: var(--font-weight-heading);
+    letter-spacing: var(--letter-spacing-heading);
+    font-size: 2em;
 }
 
 /**
@@ -96,7 +124,8 @@ body {
  * React Root DOM Element and root CSS Class
  */
 #root {
-    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    height: 100%;
 }
 
 

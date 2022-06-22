@@ -7,7 +7,9 @@
     align-items: center;
     overflow: hidden;
     
-    font-family: var(--font-fancy);
+    font-family: var(--font-family-fancy);
+    font-weight: var(--font-weight-fancy);
+    letter-spacing: var(--letter-spacing-fancy);
     font-size: 1.2em;
 }
 
