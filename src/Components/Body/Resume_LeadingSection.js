@@ -1,4 +1,4 @@
-import szsPhoto from "../../assets/images/Photos/spas-z-spasov-7-photo.square.small.jpg";
+import szsPhoto from "../../assets/images/Photos/spas-z-spasov-7-photo.square.small.webp";
 import "./resume_LeadingSection.css";
 
 function LeadingSection(props) {
@@ -12,8 +12,10 @@ function LeadingSection(props) {
                 <div className="mlt-resume-photo-container">
                     <img src={szsPhoto} alt="metalevel.tech logo" className="mlt-resume-photo-img" width="260" height="260" />
                 </div>
-                <div className="mlt-resume-leading-section-row-2 clearfix">
-                    <p>Computers and computer science in general have been my hobby since I was eight years old. Last year I decided to follow my dreams and turn this hobby into a new professional career.</p>
+                <div className="mlt-resume-leading-section-row-2">
+                    <p>
+                        Computers and computer science in general have been my hobby since I was eight years old when I wrote my first program in Basic.
+                    </p>
                 </div>
             </div>
 

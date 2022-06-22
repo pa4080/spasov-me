@@ -25,6 +25,7 @@
 
 .mlt-resume-section {
     overflow: visible;
+    position: relative;
 }
 
 .mlt-resume-section:after {

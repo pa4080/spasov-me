@@ -1,4 +1,6 @@
-function ReadMoreButton(props) {
+import "./button.css";
+
+function Button(props) {
     return (
         <button className="mlt-read-more-button" onClick={props.onClick}>
             {props.text}
@@ -6,4 +8,4 @@ function ReadMoreButton(props) {
     );
 }
 
-export default ReadMoreButton;
+export default Button;

@@ -36,16 +36,3 @@
     /* overflow-y: visible; */
 }
 
-.mlt-pages {
-    font-size: 1em;
-}
-@media screen and (max-width: 640px) {
-    .mlt-pages {
-        font-size: .96em;
-    }
-}
-@media screen and (max-width: 320px) {
-    .mlt-pages {
-        font-size: .86em;
-    }
-}

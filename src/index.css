@@ -41,6 +41,7 @@ body {
     --default-rounded-img-width: 28vmin;
     
     --text-color: var(--gray-4);
+    --heading-color: var(--gray-3);
 
     --font-family-fancy: "Unicephalon", 'Roboto Slab', serif;
     --font-weight-fancy: 500;
@@ -48,48 +49,40 @@ body {
     
     --font-family-text: 'Roboto', sans-serif;
     --font-weight-text: 400;
+    --font-size-text: 16px;
+    --font-size-button: calc(var(--font-size-text) * 1.05);
     --letter-spacing-text: .6px;
     
-    --font-family-heading: 'Roboto', sans-serif;
+    /* --font-family-heading: 'Roboto', sans-serif; */
+    --font-family-heading: var(--font-family-fancy);
     --font-weight-heading: 500;
-    --letter-spacing-heading: 1.2px;
+    --letter-spacing-heading: var(--letter-spacing-fancy);
     
     --font-family-mono: 'Roboto Mono', monospace;
     --font-weight-mono: 400;
 }
 
-body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow: hidden;
-    background-color: var(--gray-bg-1);
-    
-    color: var(--text-color);
-
-    font-family: var(--font-family-text);
-    font-weight: var(--font-weight-text);
-    letter-spacing: var(--letter-spacing-text);
-    font-size: 16px;
-    line-height: 1.75;
-    
-    /* overflow-y: auto; */
+@media screen and (max-width: 640px) {
+    :root {
+        --font-size-text: .96em;
+    }
+    /* .mlt-pages {
+        font-size: .96em;
+    } */
 }
-
-h1 {
-    line-height: 1.2;
-    margin-top: 1em;
-    margin-bottom: .4em;
-
-    font-family: var(--font-family-heading);
-    font-weight: var(--font-weight-heading);
-    letter-spacing: var(--letter-spacing-heading);
-    font-size: 2em;
+@media screen and (max-width: 320px) {
+    :root {
+        --font-size-text: .86em;
+    }
+    /* .mlt-pages {
+        font-size: .86em;
+    } */
 }
 
 /**
  * Scroll Bars
  */
-*::-webkit-scrollbar {
+ *::-webkit-scrollbar {
     width: 1em;
 }
 
@@ -113,11 +106,70 @@ h1 {
     background: var(--blue-primary);
 }
 
-/** FireFox Scrollbar **/
-/* html, body */
+/** FireFox Scrollbar **/ /* html, body */
 * {
     scrollbar-color: var(--blue-primary) var(--gray-bg-1);
     scrollbar-width: thin;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+    background-color: var(--gray-bg-1);
+    
+    color: var(--text-color);
+
+    font-family: var(--font-family-text);
+    font-weight: var(--font-weight-text);
+    letter-spacing: var(--letter-spacing-text);
+    font-size: var(--font-size-text);
+    line-height: 1.75;
+    
+    /* overflow-y: auto; */
+}
+
+h1 {
+    line-height: 1.2;
+    margin-top: 1em;
+    margin-bottom: .4em;
+
+    font-family: var(--font-family-heading);
+    font-weight: var(--font-weight-heading);
+    letter-spacing: var(--letter-spacing-heading);
+    color: var(--heading-color);
+    font-size: 1.6em;
+}
+
+button {
+    font-family: var(--font-family-fancy);
+    padding: .6em 1.4em;
+    border-radius: 3em;
+    color: var(--text-color);
+    background-color: var(--gray-bg-2);
+    border: 0 solid var(--gray-bg-2);
+    font-size: var(--font-size-button);
+    transform: scale(0.9);
+    font-weight: 600;
+    letter-spacing: var(--letter-spacing-fancy);
+    cursor: pointer;
+    transition: background-color .3s ease-in-out, color .2s ease-in-out;
+    z-index: 1000;
+    user-select: none;
+}
+
+button:hover {
+    /* filter: drop-shadow(1px 2px 3px var(--dark-shadow-2)); */
+    background-color: var(--gray-4);
+    color: var(--gray-bg-1);
+    /* transition: background-color .3s ease-in-out, color .3s ease-in-out; */
+}
+
+button:active {
+    /* filter: drop-shadow(1px 2px 3px var(--dark-shadow-2)); */
+    background-color: var(--gray-2);
+    color: var(--gray-bg-1);
+    transition: background-color .2s ease-in-out, color .1s ease-in-out;
 }
 
 /**

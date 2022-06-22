@@ -4,7 +4,6 @@
     height: -moz-fit-content;
     max-width: var(--max-width);
     margin: auto;
-    /* position: relative; */
 }
 
 @media screen and (min-width: 721px) {
