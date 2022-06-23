@@ -1,26 +1,33 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // import React, { useState, useEffect, createContext } from "react";
-// import React, { useState, useEffect } from "react";
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Logo from "./Components/Pages/Home";
-import Error from "./Components/Pages/Error";
-import Resume from "./Components/Pages/Resume";
+import ScrollToTop from "./components/helpers/ScrollToTop";
+import calculateHWUnits from "./components/helpers/CalcHWUnits";
 
-import FooterLinks from "./Components/Footer/FooterLinks";
-import TopMenu from "./Components/Header/TopMenu";
-// import FooterLinks from "./Components/Footer/FooterLinks";
+import Logo from "./Pages/Home";
+import Error from "./Pages/Error";
+import Resume from "./Pages/Resume";
+import FooterLinks from "./components/footer/FooterLinks";
+import TopMenu from "./components/header/TopMenu";
 import "./App.css";
 
 // The main class of the application.
 function App(props) {
+    useEffect(() => {
+        calculateHWUnits();
+        window.addEventListener("resize", calculateHWUnits);
+    }, []);
+
     return (
         <div className="mlt-flex-container">
             <Router>
+                <ScrollToTop />
                 <div className="mlt-header">
                     <TopMenu />
                 </div>
+
                 <div className="mlt-pages">
                     <Routes>
                         <Route path="/" element={<Logo leadingText="by Spas Z. Spasov" />} />

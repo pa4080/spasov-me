@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Button from "./Button";
-import "./resume_TextSection.css";
+import Button from "../button/Button";
+import "./textSection.css";
 
 
 function TextSection(props) {
@@ -44,10 +44,10 @@ function TextSection(props) {
                         <p>
                             Since then, I’ve learned how to administer and automate Linux servers at a satisfactory level. I’ve gained semiprofessional experience with CMS systems as MediaWiki and WordPress – deployment, administration, and customization by creating features (plugins/extensions) in HTML/CSS, JavaScript, PHP, Lua, etc. Few years ago, I’ve setup a home laboratory, based on a bare metal hypervisor which allows me to learn many things about virtualization's technologies at a practical level. And here we come to the beginning of this resume.
                         </p>
-                        <Button text="Show less" onClick={expandSection} />
+                        <Button text="Show less" onClick={expandSection} btnType="show-less" />
                     </>
                     :
-                    <Button text="Read more" onClick={expandSection} />
+                    <Button text="Read more" onClick={expandSection} btnType="read-more" />
                 }
             </div>
 

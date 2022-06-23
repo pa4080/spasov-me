@@ -1,5 +1,5 @@
 import szsPhoto from "../../assets/images/Photos/spas-z-spasov-7-photo.square.small.webp";
-import "./resume_LeadingSection.css";
+import "./leadingSection.css";
 
 function LeadingSection(props) {
     return (
@@ -10,7 +10,9 @@ function LeadingSection(props) {
                     <p>Spas Zdravkov Spasov</p>
                 </div>
                 <div className="mlt-resume-photo-container">
-                    <img src={szsPhoto} alt="metalevel.tech logo" className="mlt-resume-photo-img" width="260" height="260" />
+                    <div className="mlt-resume-photo-wrapper">
+                        <img src={szsPhoto} alt="metalevel.tech logo" className="mlt-resume-photo-img" width="260" height="260" />
+                    </div>
                 </div>
                 <div className="mlt-resume-leading-section-row-2">
                     <p>

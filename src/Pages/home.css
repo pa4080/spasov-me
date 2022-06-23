@@ -1,12 +1,10 @@
 .mlt-logo-container {
+    margin: var(--top-offset) auto auto;
+    max-width: var(--max-width);
 	height: max-content;
 	height: fit-content;
 	height: -moz-fit-content;
-    width: var(--max-width);
-    max-width: var(--max-width);
-    margin: auto;
     position: relative;
-    margin-top: var(--top-offset-default);
 }
 
 .mlt-logo-text-img {
@@ -20,11 +18,11 @@
     font-family: var(--font-family-fancy);
     font-weight: var(--font-weight-fancy);
     letter-spacing: var(--letter-spacing-fancy);
-    font-size: 2.7vmin;
+    font-size: calc(var(--scale-param) * 0.27);
     
     user-select: none;
     position: absolute;
     top: 0;
-    right: .6vmin;
+    right: .3rem;
     color: var(--gray-1);
 }

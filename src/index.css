@@ -34,55 +34,62 @@ body {
     --dark-shadow-5: #555555;
     --blue-primary: #548ADA;
     --purple-primary: #9468D8;
-    --max-width: 90vmin;
-    --top-offset-default: 19vmin;
-    --top-offset-resume: 11vmin;
-    --top-offset-resume-small: 9vmin;
-    --default-rounded-img-width: 28vmin;
-    
+
+    --scale-param: 10vw;
+    --scale-param: calc(var(--mlt-vw, 1vw) * 10);
+
+    --max-width: calc(var(--scale-param) * 9);
+
+    --top-offset: 11vmin;
+    --top-offset: calc(var(--mlt-vmin, 1vmin) * 11);
+
+    --default-rounded-img-width: calc(var(--scale-param) * 2.8);
+
     --text-color: var(--gray-4);
     --heading-color: var(--gray-3);
 
     --font-family-fancy: "Unicephalon", 'Roboto Slab', serif;
     --font-weight-fancy: 500;
-    --letter-spacing-fancy: .15vmin;
-    
+    --letter-spacing-fancy: calc(var(--scale-param) * 0.015);
+
     --font-family-text: 'Roboto', sans-serif;
     --font-weight-text: 400;
     --font-size-text: 16px;
     --font-size-button: calc(var(--font-size-text) * 1.05);
     --letter-spacing-text: .6px;
-    
+
     /* --font-family-heading: 'Roboto', sans-serif; */
     --font-family-heading: var(--font-family-fancy);
     --font-weight-heading: 500;
     --letter-spacing-heading: var(--letter-spacing-fancy);
-    
+
     --font-family-mono: 'Roboto Mono', monospace;
     --font-weight-mono: 400;
 }
 
 @media screen and (max-width: 640px) {
     :root {
-        --font-size-text: .96em;
+        --font-size-text: .96rem;
     }
-    /* .mlt-pages {
-        font-size: .96em;
-    } */
 }
+
 @media screen and (max-width: 320px) {
     :root {
-        --font-size-text: .86em;
+        --font-size-text: .86rem;
     }
-    /* .mlt-pages {
-        font-size: .86em;
-    } */
+}
+
+@media screen and (min-width: 880px) {
+    :root {
+        --max-width: 840px;
+        --scale-param: 4.85rem;
+    }
 }
 
 /**
  * Scroll Bars
  */
- *::-webkit-scrollbar {
+*::-webkit-scrollbar {
     width: 1em;
 }
 
@@ -106,7 +113,8 @@ body {
     background: var(--blue-primary);
 }
 
-/** FireFox Scrollbar **/ /* html, body */
+/** FireFox Scrollbar **/
+/* html, body */
 * {
     scrollbar-color: var(--blue-primary) var(--gray-bg-1);
     scrollbar-width: thin;
@@ -117,7 +125,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     overflow: hidden;
     background-color: var(--gray-bg-1);
-    
+
     color: var(--text-color);
 
     font-family: var(--font-family-text);
@@ -125,7 +133,7 @@ body {
     letter-spacing: var(--letter-spacing-text);
     font-size: var(--font-size-text);
     line-height: 1.75;
-    
+
     /* overflow-y: auto; */
 }
 
@@ -179,5 +187,3 @@ button:active {
     width: 100%;
     height: 100%;
 }
-
-

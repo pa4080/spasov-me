@@ -1,0 +1,46 @@
+.mlt-resume-container {
+	height: max-content;
+	height: fit-content;
+	height: -moz-fit-content;
+
+    margin-top: var(--top-offset);
+    /* max-width: 100%; */
+    
+    /* padding-left: 1rem;
+    padding-right: 1rem; */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* @media screen and (min-width: 641px) {
+    .mlt-resume-container {
+        max-width: var(--max-width);
+    }
+} */
+
+.mlt-resume-section {
+    overflow: visible;
+    position: relative;
+    
+    max-width: var(--max-width);
+    width: var(--max-width);
+    margin: auto;
+
+    height: max-content;
+    height: fit-content;
+    height: -moz-fit-content;
+    /* max-width: var(--max-width); */
+    margin: auto;
+}
+
+.mlt-resume-section:after {
+    display: block;
+    content: " ";
+    clear: both;
+    width: 100%;
+    margin-bottom: 1em;
+}

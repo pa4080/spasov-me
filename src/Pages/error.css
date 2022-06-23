@@ -6,13 +6,13 @@
     max-width: var(--max-width);
     margin: auto;
     position: relative;
-    margin-top: var(--top-offset-default);
+    margin-top: var(--top-offset);
 
     display: grid;
-    grid-gap: 2vmin;
+    grid-gap: calc(var(--scale-param) * 0.2);
     grid-template:
-        "img error-number" 19vmin
-        "img error-desc" 7vmin
+        "img error-number" calc(var(--scale-param) * 1.9)
+        "img error-desc" calc(var(--scale-param) * 0.7)
         / max-content 1fr;
 }
 
@@ -45,11 +45,11 @@
 .mlt-http-error-number {
     grid-area: error-number;
 
-    letter-spacing: 1vmin;
-    font-size: 16vmin;
+    letter-spacing: calc(var(--scale-param) * 0.1);
+    font-size: calc(var(--scale-param) * 1.6);
     color: var(--gray-4);
     line-height: 1;
-    padding-top: 2vmin;
+    padding-top: calc(var(--scale-param) * 0.2);
     box-sizing: border-box;
     
     align-items: bottom;
@@ -60,7 +60,7 @@
 
     letter-spacing: var(--letter-spacing-fancy);
 
-    font-size: 2.7vmin;
+    font-size: calc(var(--scale-param) * 0.27);
     color: var(--gray-2);
     text-align: center;
 

@@ -2,7 +2,7 @@ import "./button.css";
 
 function Button(props) {
     return (
-        <button className="mlt-read-more-button" onClick={props.onClick}>
+        <button className={`mlt-button-${props.btnType}`} onClick={props.onClick}>
             {props.text}
         </button>
     );

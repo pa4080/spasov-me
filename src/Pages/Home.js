@@ -1,4 +1,4 @@
-import mltLogoText from "../../assets/images/SVG/mlt.logo.text.svg";
+import mltLogoText from "../assets/images/SVG/mlt.logo.text.svg";
 import "./home.css";
 
 function Logo(props) {
