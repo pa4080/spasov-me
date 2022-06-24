@@ -11,9 +11,13 @@ function TextSection(props) {
     }
 
     return (
-        <>
-            <div className="mlt-resume-text-section-grid mlt-resume-section">
-                <h1>Resume</h1>
+        <div className="mlt-resume-text-section-grid mlt-resume-section">
+            <h1>Resume</h1>
+            {isExpanded
+                ? <Button text="Show less" onClick={expandSection} btnType="show-less" />
+                : <Button text="Read more" onClick={expandSection} btnType="read-more" />
+            }
+            <div className="mlt-resume-text-section-wrapper">
                 <p>
                     Last year I decided to follow my dreams and turn this hobby into a new professional career. I left my previous job, shortly after I applied to a JavaScript advanced course with React.
                 </p>
@@ -44,14 +48,11 @@ function TextSection(props) {
                         <p>
                             Since then, I’ve learned how to administer and automate Linux servers at a satisfactory level. I’ve gained semiprofessional experience with CMS systems as MediaWiki and WordPress – deployment, administration, and customization by creating features (plugins/extensions) in HTML/CSS, JavaScript, PHP, Lua, etc. Few years ago, I’ve setup a home laboratory, based on a bare metal hypervisor which allows me to learn many things about virtualization's technologies at a practical level. And here we come to the beginning of this resume.
                         </p>
-                        <Button text="Show less" onClick={expandSection} btnType="show-less" />
-                    </>
-                    :
-                    <Button text="Read more" onClick={expandSection} btnType="read-more" />
-                }
-            </div>
 
-        </>
+                    </>
+                    : null}
+            </div>
+        </div>
     );
 }
 

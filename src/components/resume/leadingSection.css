@@ -25,8 +25,10 @@
     user-select: none;
     transform: scale(1.02);
    
-    width: calc(var(--default-rounded-img-width) * 2);
-    height: calc(var(--default-rounded-img-width) * 2);
+    /* width: calc(var(--default-rounded-img-width) * 1.6);
+    height: calc(var(--default-rounded-img-width) * 1.6); */
+    width: 320px;
+    height: 320px;
 
     border-radius: 50%;
 
@@ -76,10 +78,10 @@
     margin: 0;
 }
 
-@media screen and (max-width: 321px) {
+@media screen and (max-width: 441px) {
     .mlt-resume-photo-wrapper {
-        width: calc(var(--default-rounded-img-width) * 2.5);
-        height: calc(var(--default-rounded-img-width) * 2.5);
+        width: calc(var(--default-rounded-img-width) * 2.6);
+        height: calc(var(--default-rounded-img-width) * 2.6);
     }
 }
 
@@ -95,8 +97,8 @@
         display: grid;
         grid-gap: calc(var(--scale-param) * 0.2);
         grid-template:
-            "resume-leading-img resume-leading-row-1" calc(var(--scale-param) * 1.7)
-            "resume-leading-img resume-leading-row-2" calc(var(--scale-param) * 1.1)
+            "resume-leading-img resume-leading-row-1" calc(var(--scale-param) * 1.65)
+            "resume-leading-img resume-leading-row-2" calc(var(--scale-param) * 1.15)
             / max-content 1fr;
     }
 

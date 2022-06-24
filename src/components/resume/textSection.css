@@ -5,3 +5,7 @@
     max-width: var(--max-width);
     margin: auto;
 }
+
+.mlt-resume-text-section-wrapper {
+    display: flow-root;
+}

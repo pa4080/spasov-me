@@ -1,0 +1,25 @@
+.mlt-table-unit-2x2-grid {
+    display: flow-root;
+}
+
+@media screen and (min-width: 721px) {
+    .mlt-table-unit-2x2-grid {
+        display: grid;
+    
+        display: grid;
+            grid-gap: calc(var(--scale-param) * 0.2);
+            grid-template:
+                "period-location office-at-description" 1em
+                "period-location office-at-description" auto
+                / max-content 1fr;
+    }
+
+    .mlt-table-unit-2x2-period-location {
+        grid-area: period-location;
+    }
+    
+    .mlt-table-unit-2x2-office-at-description {
+        grid-area: office-at-description;
+    
+    }
+}
