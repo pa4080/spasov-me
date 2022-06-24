@@ -12,13 +12,12 @@ function TextSection(props) {
     const section = useRef(null);
 
     const expandSection = () => {
-        if (isExpanded) {
-            setIsExpanded(false);
-        } else {
-            setIsExpanded(true);
-            setTimeout(()=>{section.current.scrollIntoView({ behavior: "smooth", block: "start" })}, 100);
-        }
-    }
+        isExpanded ? setIsExpanded(false) : setIsExpanded(true);
+    };
+
+    const scrollToSection = () => {
+        setTimeout(()=>{section.current.scrollIntoView({ behavior: "smooth", block: "start" })}, 1);
+    };
 
     async function fetchData(file, type = "json") {
         const res = await fetch(file);
@@ -58,6 +57,7 @@ function TextSection(props) {
                             <p key={`resume-text-${index + leadingParagraphs}`}>{paragraph}</p>
                             )
                         }
+                        {scrollToSection()}
                     </>
                     : null}
             </div>

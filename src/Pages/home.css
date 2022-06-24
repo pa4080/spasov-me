@@ -8,8 +8,8 @@
 }
 
 .mlt-logo-text-img {
-    height: auto;
     width: 100%;
+    height: auto;
     filter: drop-shadow(1px 2px 3px var(--dark-shadow-1));
     user-select: none;
 }
@@ -22,7 +22,9 @@
     
     user-select: none;
     position: absolute;
-    top: 0;
-    right: .3rem;
+    /* top: 0; */
+    /* right: .3rem; */
+    top: -.1rem;
+    right: -.25rem;
     color: var(--gray-1);
 }

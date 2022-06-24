@@ -20,7 +20,8 @@ function TableUnit2x2(props) {
             <div className="mlt-table-unit-2x2-office-at-description">
                 <p className="mlt-table-unit-2x2-office-at">
                     {office ? <span className="mlt-table-unit-2x2-office">{office}</span> : null}
-                    {at ? <span className="mlt-table-unit-2x2-at"> {at}.</span> : "."}
+                    {office && at ? " at " : null}
+                    {at ? <span className="mlt-table-unit-2x2-at">{at}.</span> : "."}
                 </p>
                 {description ? <p className="mlt-table-unit-2x2-description">{description}.</p> : null}
 

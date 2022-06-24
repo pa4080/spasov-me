@@ -51,7 +51,7 @@ body {
 
     --font-family-fancy: "Unicephalon", 'Roboto Slab', serif;
     --font-weight-fancy: 500;
-    --letter-spacing-fancy: calc(var(--scale-param) * 0.015);
+    --letter-spacing-fancy: calc(var(--scale-param) * 0.03);
 
     --font-family-text: 'Roboto', sans-serif;
     --font-weight-text: 400;
@@ -77,6 +77,7 @@ body {
 @media screen and (max-width: 320px) {
     :root {
         --font-size-text: .86rem;
+        --max-width: calc(var(--scale-param) * 8.6);
     }
 }
 
@@ -133,7 +134,8 @@ body {
     font-weight: var(--font-weight-text);
     letter-spacing: var(--letter-spacing-text);
     font-size: var(--font-size-text);
-    line-height: 1.75;
+    /* line-height: 1.75; */
+    line-height: 1.7;
 
     /* overflow-y: auto; */
 }

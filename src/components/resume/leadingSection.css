@@ -49,7 +49,7 @@
 
     font-family: var(--font-family-fancy);
     font-weight: var(--font-weight-fancy);
-    letter-spacing: calc(var(--letter-spacing-fancy) * 5);
+    letter-spacing: calc(var(--letter-spacing-fancy) * 2);
     font-size: calc(var(--scale-param) * 1);
 
     color: var(--gray-3);

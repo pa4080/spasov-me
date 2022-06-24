@@ -33,8 +33,6 @@
 .mlt-http-error-desc {
     font-family: var(--font-family-fancy);
     font-weight: var(--font-weight-fancy);
-    letter-spacing: var(--letter-spacing-fancy);
-    
     user-select: none;
     
     display: flex;
@@ -58,7 +56,7 @@
 .mlt-http-error-desc {
     grid-area: error-desc;
 
-    letter-spacing: var(--letter-spacing-fancy);
+    letter-spacing: calc(var(--letter-spacing-fancy) / 2);
 
     font-size: calc(var(--scale-param) * 0.27);
     color: var(--gray-2);

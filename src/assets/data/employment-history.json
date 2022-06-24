@@ -5,7 +5,61 @@
         "country": "Bulgaria",
         "city": "Sofia",
         "office": "Management consultant",
-        "at": "at \"Information Technologies and the Future of the Economic Science Foundation\"",
+        "at": "Information Technologies and the Future of the Economic Science Foundation",
         "description": "Positions and activities: Development of training programs and presentations of the company; Executive of trainings of the personal of the company; Consultant of ERP/PLM systems and industrial enterprise management; Project management; System administrator of the IT infrastructure of the company and support its Internet presence"
+    },
+    {
+        "from": "2017",
+        "to": "2019",
+        "country": "Bulgaria",
+        "city": "Sofia",
+        "office": "Management consultant",
+        "at": "Engineering Culture in the Management of the Future Foundation",
+        "description": "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Development of presentations of the company, acquiring new investors; Project management; System administrator of the IT infrastructure of the company"
+    },
+    {
+        "from": "2015",
+        "to": "2017",
+        "country": "Bulgaria",
+        "city": "Sofia",
+        "office": "Management consultant",
+        "at": "Trivium AD",
+        "description": "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Project management; Development of training programs and executive of trainings of the personal of the customers"
+    },
+    {
+        "from": "2011",
+        "to": "2015",
+        "country": "Bulgaria",
+        "city": "Yambol",
+        "office": "Management consultant",
+        "at": "Trivium AD",
+        "description": "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Project management; Development of training programs and executive of trainings of the personal of the customers"
+    },
+    {
+        "from": "2007",
+        "to": "2011",
+        "country": "Bulgaria",
+        "city": "Yambol",
+        "office": "Production engineer and technologist",
+        "at": "Hydraulic Elements and Systems (HES) AD",
+        "description": ""
+    },
+    {
+        "from": "2006",
+        "to": "2007",
+        "country": "Bulgaria",
+        "city": "Sofia",
+        "office": "Technologist",
+        "at": "Teximp S.A. branch Bulgaria",
+        "description": "Positions and activities: Technologist, technical consultant, warehouse manager; service team coordinator"
+    },
+    {
+        "from": "2004",
+        "to": "2006",
+        "country": "Bulgaria",
+        "city": "Sofia",
+        "office": "Associate in the Laboratory of Mechanical Engineering Technology",
+        "at": "Technical University of Sofia",
+        "description": "Positions and activities: Work as an assistant of the head of the laboratory of mechanical engineering"
     }
 ]
