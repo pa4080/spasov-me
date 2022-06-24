@@ -35,7 +35,13 @@
 }
 
 .mlt-header-top-item.mlt-header-top-link-active {
+    color: var(--blue-selected);
+    filter: drop-shadow(1px 2px 3px var(--dark-shadow-1));
+}
+
+.mlt-header-top-item.mlt-header-top-link-active:hover {
     color: var(--blue-primary);
+    filter: drop-shadow(1px 2px 3px var(--dark-shadow-2));
 }
 
 @media screen and (max-width: 420px) {

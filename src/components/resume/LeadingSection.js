@@ -4,7 +4,7 @@ import "./leadingSection.css";
 function LeadingSection(props) {
     return (
         <>
-            <link rel="preload" as="image" href={szsPhoto} />
+            {/* <link rel="preload" as="image" href={szsPhoto} /> */}
             <div className="mlt-resume-leading-section-grid mlt-resume-section">
                 <div className="mlt-resume-leading-section-row-1">
                     <p>Spas Zdravkov Spasov</p>

@@ -1,25 +1,28 @@
 import React from "react";
 import './tableUnit2x2.css';
 
-function TableUnit2x2({ data }) {
+function TableUnit2x2(props) {
+    const {
+        from, to, country, city, office, at, description
+    } = props.data;
+
+
     return (
         <div className="mlt-table-unit-2x2-grid">
             <div className="mlt-table-unit-2x2-period-location">
                 <p className="mlt-table-unit-2x2-period" >
-                    <span>2019</span> - <span>2021</span>
+                    <span>{from} - {to}</span>
                 </p>
                 <p className="mlt-table-unit-2x2-location">
-                    <span>Sofia</span>, <span>Bulgaria</span>
+                    { country ? <span>{city}, {country}</span> : null}
                 </p>
             </div>
             <div className="mlt-table-unit-2x2-office-at-description">
                 <p className="mlt-table-unit-2x2-office-at">
-                    <span className="mlt-table-unit-2x2-office">Management consultant</span>{' '}
-                    <span className="mlt-table-unit-2x2-at">at Somewhere...</span>.
+                    {office ? <span className="mlt-table-unit-2x2-office">{office}</span> : null}
+                    {at ? <span className="mlt-table-unit-2x2-at"> {at}.</span> : "."}
                 </p>
-                <p className="mlt-table-unit-2x2-description">
-                    Positions and activities: ... Positions and activities: ... Positions and activities: ... Positions and activities: ... Positions and activities: ... Positions and activities: ...
-                </p>
+                {description ? <p className="mlt-table-unit-2x2-description">{description}.</p> : null}
 
             </div>
         </div>

@@ -33,6 +33,7 @@ body {
     --dark-shadow-4: #444444;
     --dark-shadow-5: #555555;
     --blue-primary: #548ADA;
+    --blue-selected: #5d9fff;
     --purple-primary: #9468D8;
 
     --scale-param: 10vw;
@@ -79,7 +80,7 @@ body {
     }
 }
 
-@media screen and (min-width: 880px) {
+@media screen and (min-width: 881px) {
     :root {
         --max-width: 840px;
         --scale-param: 4.85rem;

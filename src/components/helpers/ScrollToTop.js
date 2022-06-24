@@ -9,7 +9,7 @@ export default function ScrollToTop() {
     const { pathname } = useLocation();
 
     useEffect(() => {
-        console.log(pathname);
+        // console.log(pathname);
         window.document.querySelector('.mlt-pages').scrollTo(0, 0);
     }, [pathname]);
 
