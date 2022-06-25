@@ -34,5 +34,9 @@
     flex-grow: 1;
 
     /* overflow-y: visible; */
+    
+    hyphens: auto;
 }
-
+.mlt-pages p {
+    text-align: justify;
+}

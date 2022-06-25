@@ -1,4 +1,4 @@
-import szsPhoto from "../../assets/images/Photos/spas-z-spasov-7-photo.square.small.webp";
+import photo from "../../assets/images/Photos/spas-z-spasov-7-photo.square.small.webp";
 import "./leadingSection.css";
 
 function LeadingSection(props) {
@@ -7,11 +7,11 @@ function LeadingSection(props) {
             {/* <link rel="preload" as="image" href={szsPhoto} /> */}
             <div className="mlt-resume-leading-section-grid mlt-resume-section">
                 <div className="mlt-resume-leading-section-row-1">
-                    <p>Spas Zdravkov Spasov</p>
+                    <div>Spas Zdravkov Spasov</div>
                 </div>
                 <div className="mlt-resume-photo-container">
                     <div className="mlt-resume-photo-wrapper">
-                        <img src={szsPhoto} alt="metalevel.tech logo" className="mlt-resume-photo-img" width="260" height="260" />
+                        <img src={photo} alt="metalevel.tech logo" className="mlt-resume-photo-img" width="260" height="260" />
                     </div>
                 </div>
                 <div className="mlt-resume-leading-section-row-2">

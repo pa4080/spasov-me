@@ -43,3 +43,5 @@ The React's dev web server, by default, will listen at `http://localhost:3000`. 
 * NPM: [Old Browser Detector](https://www.npmjs.com/package/old-browser-detector)
 * Stack Overflow: [React app not working in Internet Explorer 11](https://stackoverflow.com/questions/56421417/react-app-not-working-in-internet-explorer-11)
 * Pluralsight: [Re-render a React Component on Window Resize](https://www.pluralsight.com/guides/re-render-react-component-on-window-resize)
+* MDN: [Hyphens](https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens) - it looks like this optin works correctly with English.
+

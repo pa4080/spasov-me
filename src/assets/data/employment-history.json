@@ -1,5 +1,14 @@
 [
     {
+        "from": "2021",
+        "to": "now",
+        "country": "Bulgaria",
+        "city": "Sofia",
+        "office": "Retraining",
+        "at": "",
+        "description": ""
+    },
+    {
         "from": "2019",
         "to": "2021",
         "country": "Bulgaria",
@@ -41,7 +50,7 @@
         "country": "Bulgaria",
         "city": "Yambol",
         "office": "Production engineer and technologist",
-        "at": "Hydraulic Elements and Systems (HES) AD",
+        "at": "Hydraulic Elements and Systems AD",
         "description": "Positions and activities: Production engineer, team leader, project manager, chief technologist of the metal-cutting processes with CNC machines"
     },
     {

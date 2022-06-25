@@ -59,10 +59,10 @@
     text-align: center;
 }
 
-.mlt-resume-leading-section-row-1 p {
+/* .mlt-resume-leading-section-row-1 p {
     margin-bottom: 0;
     margin-top: 0;
-}
+} */
 
 .mlt-resume-leading-section-row-2 {
     grid-area: resume-leading-row-2;

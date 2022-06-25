@@ -5,13 +5,13 @@ function TableUnit2x2(props) {
     const {
         from, to, country, city, office, at, description
     } = props.data;
-
+    const toYear = to === 'now' ? new Date().getFullYear() : to;
 
     return (
         <div className="mlt-table-unit-2x2-grid">
             <div className="mlt-table-unit-2x2-period-location">
                 <p className="mlt-table-unit-2x2-period" >
-                    <span>{from} - {to}</span>
+                    <span>{from} - {toYear}</span>
                 </p>
                 <p className="mlt-table-unit-2x2-location">
                     { country ? <span>{city}, {country}</span> : null}
