@@ -34,9 +34,15 @@
     flex-grow: 1;
 
     /* overflow-y: visible; */
-    
-    hyphens: auto;
 }
+
 .mlt-pages p {
-    text-align: justify;
+    hyphens: auto;
+    
+}
+
+@media screen and (min-width: 768px) {
+    .mlt-pages p {
+        text-align: justify;
+    }
 }
