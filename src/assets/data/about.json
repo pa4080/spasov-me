@@ -19,8 +19,9 @@
             "to": "2015",
             "country": "Bulgaria",
             "city": "Sofia",
-            "office": "Doctor of Engineering Science in Automated Systems for Data Processing and Management",
-            "at": "",
+            "position": "Doctor of Engineering Science in Automated Systems for Data Processing and Management",
+            "at": false,
+            "office": "",
             "description": "Technical University of Sofia, Faculty of Mechanical Engineering, Department of Automation of Discrete Production Engineering"
         },
         {
@@ -28,8 +29,9 @@
             "to": "2007",
             "country": "Bulgaria",
             "city": "Sofia",
-            "office": "Master of Science in Computer Technologies in Mechanical Engineering",
-            "at": "",
+            "position": "Master of Science in Computer Technologies in Mechanical Engineering",
+            "at": false,
+            "office": "",
             "description": "Technical University of Sofia, Faculty of Machine Technology, Department of Technology of Machine Building and Metal Cutting Machines"
         },
         {
@@ -37,8 +39,9 @@
             "to": "2005",
             "country": "Bulgaria",
             "city": "Sofia",
-            "office": "Bachelor of Science in Mechanical Engineering",
-            "at": "",
+            "position": "Bachelor of Science in Mechanical Engineering",
+            "at": false,
+            "office": "",
             "description": "Technical University of Sofia, Faculty of Machine Technology, Department of Technology of Machine Building and Metal Cutting Machines"
         },
         {
@@ -46,8 +49,9 @@
             "to": "2001",
             "country": "",
             "city": "",
-            "office": "",
-            "at": "Army service in Special Forces of Bulgarian Army, Paratrooper",
+            "position": "",
+            "at": false,
+            "office": "Army service in Special Forces of Bulgarian Army, Paratrooper",
             "description": ""
         },
         {
@@ -55,8 +59,9 @@
             "to": "1999",
             "country": "Bulgaria",
             "city": "Pazardjik",
-            "office": "Specialist Degree",
-            "at": "",
+            "position": "Specialist Degree",
+            "at": false,
+            "office": "",
             "description": "High School of Machine Technologies, Pazardjik, Bulgaria, Department of Machine-Building and Device-Building"
         }
     ],
@@ -66,8 +71,9 @@
             "to": "now",
             "country": "Bulgaria",
             "city": "Sofia",
-            "office": "Retraining to be software engineer",
-            "at": "",
+            "position": "Retraining to be software engineer",
+            "at": " at ",
+            "office": "",
             "description": ""
         },
         {
@@ -75,8 +81,9 @@
             "to": "2021",
             "country": "Bulgaria",
             "city": "Sofia",
-            "office": "Management consultant",
-            "at": "Information Technologies and the Future of the Economic Science Foundation",
+            "position": "Management consultant",
+            "at": " at ",
+            "office": "Information Technologies and the Future of the Economic Science Foundation",
             "description": "Positions and activities: Development of training programs and presentations of the company; Executive of trainings of the personal of the company; Consultant of ERP/PLM systems and industrial enterprise management; Project management; System administrator of the IT infrastructure of the company and support its Internet presence"
         },
         {
@@ -84,8 +91,9 @@
             "to": "2019",
             "country": "Bulgaria",
             "city": "Sofia",
-            "office": "Management consultant",
-            "at": "Engineering Culture in the Management of the Future Foundation",
+            "position": "Management consultant",
+            "at": " at ",
+            "office": "Engineering Culture in the Management of the Future Foundation",
             "description": "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Development of presentations of the company, acquiring new investors; Project management; System administrator of the IT infrastructure of the company"
         },
         {
@@ -93,8 +101,9 @@
             "to": "2017",
             "country": "Bulgaria",
             "city": "Sofia",
-            "office": "Management consultant",
-            "at": "Trivium AD",
+            "position": "Management consultant",
+            "at": " at ",
+            "office": "Trivium AD",
             "description": "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Project management; Development of training programs and executive of trainings of the personal of the customers"
         },
         {
@@ -102,8 +111,9 @@
             "to": "2015",
             "country": "Bulgaria",
             "city": "Yambol",
-            "office": "Management consultant",
-            "at": "Trivium AD",
+            "position": "Management consultant",
+            "at": " at ",
+            "office": "Trivium AD",
             "description": "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Project management; Development of training programs and executive of trainings of the personal of the customers"
         },
         {
@@ -111,8 +121,9 @@
             "to": "2011",
             "country": "Bulgaria",
             "city": "Yambol",
-            "office": "Production engineer and technologist",
-            "at": "Hydraulic Elements and Systems AD",
+            "position": "Production engineer and technologist",
+            "at": " at ",
+            "office": "Hydraulic Elements and Systems AD",
             "description": "Positions and activities: Production engineer, team leader, project manager, chief technologist of the metal-cutting processes with CNC machines"
         },
         {
@@ -120,8 +131,9 @@
             "to": "2007",
             "country": "Bulgaria",
             "city": "Sofia",
-            "office": "Technologist",
-            "at": "Teximp S.A. branch Bulgaria",
+            "position": "Technologist",
+            "at": " at ",
+            "office": "Teximp S.A. branch Bulgaria",
             "description": "Positions and activities: Technologist, technical consultant, warehouse manager; service team coordinator"
         },
         {
@@ -129,8 +141,9 @@
             "to": "2006",
             "country": "Bulgaria",
             "city": "Sofia",
-            "office": "Associate in the Laboratory of Mechanical Engineering Technology",
-            "at": "Technical University of Sofia",
+            "position": "Associate in the Laboratory of Mechanical Engineering Technology",
+            "at": " at ",
+            "office": "Technical University of Sofia",
             "description": "Positions and activities: Work as an assistant of the head of the laboratory of mechanical engineering"
         }
     ],

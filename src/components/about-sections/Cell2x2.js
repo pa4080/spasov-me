@@ -3,27 +3,27 @@ import './cell2x2.css';
 
 function Cell2x2(props) {
     const {
-        from, to, country, city, office, at, description
+        from, to, country, city, position, at, office, description
     } = props.data;
     const toYear = to === 'now' ? new Date().getFullYear() : to;
 
     return (
-        <div className="mlt-table-unit-2x2-grid">
-            <div className="mlt-table-unit-2x2-period-location">
-                <p className="mlt-table-unit-2x2-period" >
+        <div className="mlt-cell-2x2-grid">
+            <div className="mlt-cell-2x2-col-1">
+                <p className="mlt-cell-2x2-col-1-row-1" >
                     <span>{from} - {toYear}</span>
                 </p>
-                <p className="mlt-table-unit-2x2-location">
+                <p className="mlt-cell-2x2-col-1-row-2">
                     { country ? <span>{city}, {country}</span> : null}
                 </p>
             </div>
-            <div className="mlt-table-unit-2x2-office-at-description">
-                <p className="mlt-table-unit-2x2-office-at">
-                    {office ? <span className="mlt-table-unit-2x2-office">{office}</span> : null}
-                    {office && at ? " at " : null}
-                    {at ? <span className="mlt-table-unit-2x2-at">{at}.</span> : "."}
+            <div className="mlt-cell-2x2-col-2">
+                <p className="mlt-cell-2x2-col-2-row-1">
+                    {position ? <span className="mlt-cell-2x2-col-2-row-1-position">{position}</span> : null}
+                    {position && office && at ? <span>{at}</span> : null}
+                    {office ? <span className="mlt-cell-2x2-col-2-row-1-position-at">{office}.</span> : "."}
                 </p>
-                {description ? <p className="mlt-table-unit-2x2-description">{description}.</p> : null}
+                {description ? <p className="mlt-cell-2x2-col-2-row-2">{description}.</p> : null}
 
             </div>
         </div>

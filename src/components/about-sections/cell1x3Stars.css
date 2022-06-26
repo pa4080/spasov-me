@@ -1,0 +1,75 @@
+.mlt-cell-1x3-grid {
+    display: grid;
+
+    display: grid;
+    grid-gap: calc(var(--scale-param) * 0.2);
+    grid-template:
+        "column-1 column-2 column-3" 2.4em
+        / 4.5em 6.1em 1fr;
+}
+
+.mlt-cell-1x3-col-1 {
+    grid-area: column-1;
+}
+
+.mlt-cell-1x3-col-2 {
+    grid-area: column-2;
+}
+
+.mlt-cell-1x3-col-3 {
+    grid-area: column-3;
+}
+
+.mlt-cell-1x3-col-1-row-1 {
+    font-weight: 500;
+}
+
+.mlt-cell-1x3-col-3-row-1 {
+    color: var(--gray-2);
+}
+
+@media screen and (min-width: 721px) {
+    .mlt-cell-1x3-grid {
+        display: grid;
+
+        display: grid;
+        grid-gap: calc(var(--scale-param) * 0.2);
+        grid-template:
+            "column-1 column-2 column-3" 2.4em
+            / 6.8em 6.8em 1fr;
+    }
+}
+
+/**
+ * Stars 
+ */
+.icon-stars {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    margin: 0 .1em;
+    
+    -webkit-mask-size: cover;
+    mask-size: cover;
+}
+
+.icon-full-stars {
+    -webkit-mask: url('../../assets/icons/star.svg') no-repeat 50% 50%;
+    mask: url('../../assets/icons/star.svg') no-repeat 50% 50%;
+}
+
+.icon-half-stars {
+    -webkit-mask: url('../../assets/icons/star-half-stroke.svg') no-repeat 50% 50%;
+    mask: url('../../assets/icons/star-half-stroke.svg') no-repeat 50% 50%;
+}
+
+.icon-empty-stars {
+    -webkit-mask: url('../../assets/icons/star-stroke.svg') no-repeat 50% 50%;
+    mask: url('../../assets/icons/star-stroke.svg') no-repeat 50% 50%;
+}
+
+.icon-background {
+    /* background-color: var(--blue-primary); */
+    background-color: var(--blue-selected);
+    background-color: var(--gray-3);
+}

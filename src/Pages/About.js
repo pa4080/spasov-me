@@ -9,18 +9,19 @@ import imageTitle from "../assets/images/Photos/spas-z-spasov-7-photo.square.sma
 
 import data from "../assets/data/about.json";
 
-function Logo(props) {
+function About(props) {
     return (
         <>
             <link rel="preload" as="image" href={imageTitle} />
             <div className="mlt-resume-container">
                 <Title   photo={imageTitle} data={data.title} />
-                <Section title="Resume" data={data.resume} component="Cell1x1Text" />
-                <Section title="Education" data={data.education} component="Cell2x2" />
-                <Section title="Employment history" data={data.employmentHistory} component="Cell2x2" />
+                <Section title="Resume" data={data.resume} component="Cell1x1Text" staticRows={1} />
+                <Section title="Education" data={data.education} component="Cell2x2" staticRows={1} />
+                <Section title="Employment history" data={data.employmentHistory} component="Cell2x2" staticRows={1} />
+                <Section title="Languages" data={data.languages} component="Cell1x3Stars" staticRows={data.languages.length - 1} />
             </div>
         </>
     );
 }
 
-export default Logo;
+export default About;

@@ -1,4 +1,5 @@
 # Metalevel.tech Home Page
+
 This is a homepage template for https://metalevel.tech.
 
 ## Production build and run
@@ -14,7 +15,7 @@ mv ./build /var/www/html
 
 In my case I'm using the following script to sync a build, created on my dev machine to the remote production server.
 
-```
+```bash
 npm run build-to-remote <passphrase>
 ```
 
@@ -43,5 +44,7 @@ The React's dev web server, by default, will listen at `http://localhost:3000`. 
 * NPM: [Old Browser Detector](https://www.npmjs.com/package/old-browser-detector)
 * Stack Overflow: [React app not working in Internet Explorer 11](https://stackoverflow.com/questions/56421417/react-app-not-working-in-internet-explorer-11)
 * Pluralsight: [Re-render a React Component on Window Resize](https://www.pluralsight.com/guides/re-render-react-component-on-window-resize)
-* MDN: [Hyphens](https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens) - it looks like this optin works correctly with English.
+* MDN: [Hyphens](https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens) - it looks like this option works correctly with English.
 * NPM: [Hyphen](https://www.npmjs.com/package/hyphen)
+* Pluralsight: [How to Show Components Conditionally in React](https://www.pluralsight.com/guides/how-to-show-components-conditionally-react)
+* Q&A with experts: [How to change color of SVG - Various ways using CSS](https://qawithexperts.com/article/html/how-to-change-color-of-svg-various-ways-using-css/414)

@@ -3,7 +3,7 @@ import './cell1x1Text.css';
 
 function Cell1x1Text(props) {
     return (
-        <p>{props.paragraph}</p>
+        <p>{props.data}</p>
     )
 }
 

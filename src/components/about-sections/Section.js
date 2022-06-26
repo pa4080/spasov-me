@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import Button from "../button/Button";
 import Cell2x2 from "./Cell2x2";
 import Cell1x1Text from "./Cell1x1Text";
+import Cell1x3Stars from "./Cell1x3Stars";
 import "./section.css";
 
 function ComponentIf({ component, data }) {
@@ -11,7 +12,9 @@ function ComponentIf({ component, data }) {
                 if (component === "Cell2x2") {
                     return <Cell2x2 data={data} />;
                 } else if (component === "Cell1x1Text") {
-                    return <Cell1x1Text paragraph={data} />;
+                    return <Cell1x1Text data={data} />;
+                } else if (component === "Cell1x3Stars") {
+                    return <Cell1x3Stars data={data} />;
                 }
             })()}
         </>
@@ -20,8 +23,6 @@ function ComponentIf({ component, data }) {
 
 function Table2x2(props) {
     const [isExpanded, setIsExpanded] = useState(false);
-
-    const leadingParagraphs = 1;
     const section = useRef(null);
 
     const expandSection = () => {
@@ -36,30 +37,39 @@ function Table2x2(props) {
 
     return (
         <div className={`mlt-${props.title.toLowerCase()}-section-grid mlt-resume-section`} ref={section}>
-            {isExpanded
-                ? <Button text="Show less" onClick={expandSection} btnType="show-less" />
-                : <Button text="Read more" onClick={expandSection} btnType="read-more" />
+            {(props.staticRows !== props.data.length) ?
+                isExpanded
+                    ? <Button text="Show less" onClick={expandSection} btnType="show-less" />
+                    : <Button text="Read more" onClick={expandSection} btnType="read-more" />
+                : null
             }
             <h1>{props.title}</h1>
             <div className={`mlt-${props.title.toLowerCase()}-section-wrapper`}>
-                {props.data
-                    .slice(0, leadingParagraphs)
-                    .map((entry, index) =>
-                        <ComponentIf component={props.component} key={`${props.title}-entry-${index}`} data={entry} />
-                    )
+                {props.data.slice(0, props.staticRows).map((entry, index) =>
+                    <ComponentIf
+                        key={`${props.title}-entry-${index}`}
+                        component={props.component}
+                        data={entry}
+                    />
+                )
                 }
 
-                {isExpanded ?
-                    <>
-                        {props.data
-                            .slice(leadingParagraphs)
-                            .map((entry, index) =>
-                                <ComponentIf component={props.component} key={`${props.title}-entry-${index + leadingParagraphs}`} data={entry} />
+                {(props.staticRows !== props.data.length) ?
+                    isExpanded ?
+                        <>
+                            {props.data.slice(props.staticRows).map((entry, index) =>
+                                <ComponentIf
+                                    key={`${props.title}-entry-${index + props.staticRows}`}
+                                    component={props.component}
+                                    data={entry}
+                                />
                             )
-                        }
-                        {scrollToSection()}
-                    </>
-                    : null}
+                            }
+                            {scrollToSection()}
+                        </>
+                        : null
+                    : null
+                }
 
             </div>
         </div>

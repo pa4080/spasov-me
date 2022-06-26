@@ -3,6 +3,7 @@
  *   className={`mlt-${props.title.toLowerCase()}-section-grid mlt-resume-section`}
  *   className={`mlt-${props.title.toLowerCase()}-section-wrapper`}
  */
+ /* resume section */
 .mlt-resume-section-grid {
     height: max-content;
     height: fit-content;
@@ -13,4 +14,9 @@
 
 .mlt-resume-section-wrapper {
     display: flow-root;
+}
+
+/* language section */
+.mlt-languages-section-wrapper {
+    margin-top: 1.75em;
 }
