@@ -1,0 +1,154 @@
+{
+    "title": {
+        "title": "Spas Zdravkov Spasov",
+        "subtitle": "Computers and computer science in general have been my hobby since I was eight years old when I wrote my first program in Basic."
+    },
+    "resume": [
+        "Last year I decided to follow my dreams and turn this hobby into a new professional career. I left my previous job, shortly after I applied to a JavaScript advanced course with React. I decided JavaScript is а good starting point, because of the possibility to work at frontend and backend in a single language, and because of my previous experience. ",
+        "Meanwhile I’ve accomplished a few other JavaScript courses and two of the Cisco's NDG modules to examine my knowledge in Linux server's administration. I’m having interest in DevOps area too. In my free time I like to read books, hiking, or gym.",
+        "What I am looking for is the opportunity to focus my efforts to the right direction, to learn new things, and the challenges to solve tasks that are beyond my current knowledge. I’m a good student and fast learner, and I believe the most effective way to learn something is to teach it – that's why I was very valuable in my previous area.",
+        "I'm a Mechanical Engineer and Doctor of Engineering Science. My doctor’s thesis is in the field of effective production plant management by the help of the modern systems for enterprise’s knowledge management, so called ERP/PLM systems and related to them satellite software.",
+        "My employment history looks quite long – actually, it is not. For the past 10 years (2011 – 2021) I’ve worked as consultant and organizational engineer in three different companies, but they all belong to the same structure. One interesting fact during this period is that in 2018, as result of two developed by me documents, our team held a consultation meeting with the President of the Republic of Bulgaria.",
+        "Previously in (2007 – 2011), I was working as CNC machine technologist, production, and organizational engineer and later as project manager at a metal cutting company where the CEO was a board member of directors of the above organization. During the time of 2008 – 2010, our team managed to increase the efficiency of more than 60 production cells by 5 to 10 times via organizational changes and internal training using minimal investment. This was one of the key factors that allowed the company to survive during the crisis.",
+        "After defending my dissertation in 2015, I started supporting my employer's online presentation as a hobby.  This was the beginning and the end of my previous career because I found out I enjoy working in this direction.",
+        "Since then, I’ve learned how to administer and automate Linux servers at a satisfactory level. I’ve gained semiprofessional experience with CMS systems as MediaWiki and WordPress – deployment, administration, and customization by creating features (plugins/extensions) in HTML/CSS, JavaScript, PHP, Lua, etc. Few years ago, I’ve setup a home laboratory, based on a bare metal hypervisor which allows me to learn many things about virtualization's technologies at a practical level. And here we come to the beginning of this resume."
+    ],
+    "education": [
+        {
+            "from": "2010",
+            "to": "2015",
+            "country": "Bulgaria",
+            "city": "Sofia",
+            "office": "Doctor of Engineering Science in Automated Systems for Data Processing and Management",
+            "at": "",
+            "description": "Technical University of Sofia, Faculty of Mechanical Engineering, Department of Automation of Discrete Production Engineering"
+        },
+        {
+            "from": "2005",
+            "to": "2007",
+            "country": "Bulgaria",
+            "city": "Sofia",
+            "office": "Master of Science in Computer Technologies in Mechanical Engineering",
+            "at": "",
+            "description": "Technical University of Sofia, Faculty of Machine Technology, Department of Technology of Machine Building and Metal Cutting Machines"
+        },
+        {
+            "from": "2001",
+            "to": "2005",
+            "country": "Bulgaria",
+            "city": "Sofia",
+            "office": "Bachelor of Science in Mechanical Engineering",
+            "at": "",
+            "description": "Technical University of Sofia, Faculty of Machine Technology, Department of Technology of Machine Building and Metal Cutting Machines"
+        },
+        {
+            "from": "2000",
+            "to": "2001",
+            "country": "",
+            "city": "",
+            "office": "",
+            "at": "Army service in Special Forces of Bulgarian Army, Paratrooper",
+            "description": ""
+        },
+        {
+            "from": "1995",
+            "to": "1999",
+            "country": "Bulgaria",
+            "city": "Pazardjik",
+            "office": "Specialist Degree",
+            "at": "",
+            "description": "High School of Machine Technologies, Pazardjik, Bulgaria, Department of Machine-Building and Device-Building"
+        }
+    ],
+    "employmentHistory": [
+        {
+            "from": "2021",
+            "to": "now",
+            "country": "Bulgaria",
+            "city": "Sofia",
+            "office": "Retraining to be software engineer",
+            "at": "",
+            "description": ""
+        },
+        {
+            "from": "2019",
+            "to": "2021",
+            "country": "Bulgaria",
+            "city": "Sofia",
+            "office": "Management consultant",
+            "at": "Information Technologies and the Future of the Economic Science Foundation",
+            "description": "Positions and activities: Development of training programs and presentations of the company; Executive of trainings of the personal of the company; Consultant of ERP/PLM systems and industrial enterprise management; Project management; System administrator of the IT infrastructure of the company and support its Internet presence"
+        },
+        {
+            "from": "2017",
+            "to": "2019",
+            "country": "Bulgaria",
+            "city": "Sofia",
+            "office": "Management consultant",
+            "at": "Engineering Culture in the Management of the Future Foundation",
+            "description": "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Development of presentations of the company, acquiring new investors; Project management; System administrator of the IT infrastructure of the company"
+        },
+        {
+            "from": "2015",
+            "to": "2017",
+            "country": "Bulgaria",
+            "city": "Sofia",
+            "office": "Management consultant",
+            "at": "Trivium AD",
+            "description": "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Project management; Development of training programs and executive of trainings of the personal of the customers"
+        },
+        {
+            "from": "2011",
+            "to": "2015",
+            "country": "Bulgaria",
+            "city": "Yambol",
+            "office": "Management consultant",
+            "at": "Trivium AD",
+            "description": "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Project management; Development of training programs and executive of trainings of the personal of the customers"
+        },
+        {
+            "from": "2007",
+            "to": "2011",
+            "country": "Bulgaria",
+            "city": "Yambol",
+            "office": "Production engineer and technologist",
+            "at": "Hydraulic Elements and Systems AD",
+            "description": "Positions and activities: Production engineer, team leader, project manager, chief technologist of the metal-cutting processes with CNC machines"
+        },
+        {
+            "from": "2006",
+            "to": "2007",
+            "country": "Bulgaria",
+            "city": "Sofia",
+            "office": "Technologist",
+            "at": "Teximp S.A. branch Bulgaria",
+            "description": "Positions and activities: Technologist, technical consultant, warehouse manager; service team coordinator"
+        },
+        {
+            "from": "2004",
+            "to": "2006",
+            "country": "Bulgaria",
+            "city": "Sofia",
+            "office": "Associate in the Laboratory of Mechanical Engineering Technology",
+            "at": "Technical University of Sofia",
+            "description": "Positions and activities: Work as an assistant of the head of the laboratory of mechanical engineering"
+        }
+    ],
+    "languages": [
+        {
+            "name": "Bulgarian",
+            "points": 50,
+            "description": "Native"
+        },
+        {
+            "name": "English",
+            "points": 35,
+            "description": "Conversational"
+        },
+        {
+            "name": "Russian",
+            "points": 10,
+            "description": "Basic"
+        }
+    ]
+}

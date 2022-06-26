@@ -1,22 +1,25 @@
 // import { useEffect, useState } from "react";
 
-import Title from "../components/resume-sections/Title";
-import Section from "../components/resume-sections/Section"
+import Title from "../components/about-sections/Title";
+import Section from "../components/about-sections/Section"
 
 import "./about.css";
 
-import dataResume from "../assets/data/resume-text.json";
-import dataEducation from "../assets/data/resume-education.json";
-import dataEmpHistory from "../assets/data/resume-emp-history.json";
+import imageTitle from "../assets/images/Photos/spas-z-spasov-7-photo.square.small.webp";
+
+import data from "../assets/data/about.json";
 
 function Logo(props) {
     return (
-        <div className="mlt-resume-container">
-            <Title />
-            <Section title="Resume" data={dataResume} component="Cell1x1Text" />
-            <Section title="Education" data={dataEducation} component="Cell2x2" />
-            <Section title="Employment history" data={dataEmpHistory} component="Cell2x2" />
-        </div>
+        <>
+            <link rel="preload" as="image" href={imageTitle} />
+            <div className="mlt-resume-container">
+                <Title   photo={imageTitle} data={data.title} />
+                <Section title="Resume" data={data.resume} component="Cell1x1Text" />
+                <Section title="Education" data={data.education} component="Cell2x2" />
+                <Section title="Employment history" data={data.employmentHistory} component="Cell2x2" />
+            </div>
+        </>
     );
 }
 

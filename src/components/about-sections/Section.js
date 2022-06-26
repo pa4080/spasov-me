@@ -20,7 +20,6 @@ function ComponentIf({ component, data }) {
 
 function Table2x2(props) {
     const [isExpanded, setIsExpanded] = useState(false);
-    const [tableData, setTableData] = useState([]);
 
     const leadingParagraphs = 1;
     const section = useRef(null);
@@ -35,13 +34,6 @@ function Table2x2(props) {
         }, 1);
     };
 
-    useEffect(() => {
-        if (tableData.length === 0) {
-            setTableData(props.data);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     return (
         <div className={`mlt-${props.title.toLowerCase()}-section-grid mlt-resume-section`} ref={section}>
             {isExpanded
@@ -50,7 +42,7 @@ function Table2x2(props) {
             }
             <h1>{props.title}</h1>
             <div className={`mlt-${props.title.toLowerCase()}-section-wrapper`}>
-                {tableData
+                {props.data
                     .slice(0, leadingParagraphs)
                     .map((entry, index) =>
                         <ComponentIf component={props.component} key={`${props.title}-entry-${index}`} data={entry} />
@@ -59,7 +51,7 @@ function Table2x2(props) {
 
                 {isExpanded ?
                     <>
-                        {tableData
+                        {props.data
                             .slice(leadingParagraphs)
                             .map((entry, index) =>
                                 <ComponentIf component={props.component} key={`${props.title}-entry-${index + leadingParagraphs}`} data={entry} />
