@@ -10,7 +10,7 @@ function TopMenu(props) {
             active: false
         },
         resume: {
-            label: "resume",
+            label: "about",
             active: false
         },
         contacts: {

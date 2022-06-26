@@ -57,7 +57,7 @@ body {
     --font-weight-text: 400;
     --font-size-text: 16px;
     --font-size-button: calc(var(--font-size-text) * 1.05);
-    --letter-spacing-text: .6px;
+    --letter-spacing-text: .4px;
 
     /* --font-family-heading: 'Roboto', sans-serif; */
     --font-family-heading: var(--font-family-fancy);

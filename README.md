@@ -28,7 +28,7 @@ npm start
 
 The React's dev web server, by default, will listen at `http://localhost:3000`. So on WSL2 you can use the following script to forward WSL:3000 to WindowsHost:3000.
 
-```
+```bash
 ./scripts/wsl-win-port-proxy.vlan.sh 3000 3000
 ```
 
@@ -44,4 +44,4 @@ The React's dev web server, by default, will listen at `http://localhost:3000`. 
 * Stack Overflow: [React app not working in Internet Explorer 11](https://stackoverflow.com/questions/56421417/react-app-not-working-in-internet-explorer-11)
 * Pluralsight: [Re-render a React Component on Window Resize](https://www.pluralsight.com/guides/re-render-react-component-on-window-resize)
 * MDN: [Hyphens](https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens) - it looks like this optin works correctly with English.
-
+* NPM: [Hyphen](https://www.npmjs.com/package/hyphen)

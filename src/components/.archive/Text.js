@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import Button from "../button/Button";
-import "./textSection.css";
+import "./text.css";
 
-import resumeTextFile from "../../assets/data/resume.txt";
 
-function TextSection(props) {
+function Text(props) {
     const [isExpanded, setIsExpanded] = useState(false);
     const [resumeText, setResumeText] = useState([]);
 
@@ -16,36 +15,30 @@ function TextSection(props) {
     };
 
     const scrollToSection = () => {
-        setTimeout(()=>{section.current.scrollIntoView({ behavior: "smooth", block: "start" })}, 1);
+        setTimeout(() => {
+            section.current.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 1);
     };
 
-    async function fetchData(file, type = "json") {
-        const res = await fetch(file);
-        return res[type](); // res.json(); res.text(); ...
-    }
-
-    async function processResumeData() {
+    useEffect(() => {
         if (resumeText.length === 0) {
-            const text = await fetchData(resumeTextFile, 'text');
-            setResumeText(text.split('\n'));
+            setResumeText(props.data);
         }
-    }
-    
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => { processResumeData(); }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
-        <div className="mlt-resume-text-section-grid mlt-resume-section"  ref={section}>
-            <h1>Resume</h1>
+        <div className={`mlt-${props.title.toLowerCase()}-section-grid mlt-resume-section`} ref={section}>
             {isExpanded
                 ? <Button text="Show less" onClick={expandSection} btnType="show-less" />
                 : <Button text="Read more" onClick={expandSection} btnType="read-more" />
             }
-            <div className="mlt-resume-text-section-wrapper">
+            <h1>{props.title}</h1>
+            <div className={`mlt-${props.title.toLowerCase()}-section-wrapper`}>
                 {resumeText
                     .slice(0, leadingParagraphs)
                     .map((paragraph, index) =>
-                        <p key={`resume-text-${index}`}>{paragraph}</p>
+                        <p key={`${props.title}-entry-${index}`}>{paragraph}</p>
                     )
                 }
 
@@ -54,7 +47,7 @@ function TextSection(props) {
                         {resumeText
                             .slice(leadingParagraphs)
                             .map((paragraph, index) =>
-                            <p key={`resume-text-${index + leadingParagraphs}`}>{paragraph}</p>
+                                <p key={`${props.title}-entry-${index + leadingParagraphs}`}>{paragraph}</p>
                             )
                         }
                         {scrollToSection()}
@@ -65,4 +58,4 @@ function TextSection(props) {
     );
 }
 
-export default TextSection;
+export default Text;

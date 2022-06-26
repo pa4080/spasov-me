@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import Button from "../button/Button";
-import TableUnit2x2 from "./TableUnit2x2";
-import "./empHistSection.css";
+import Button from "../../components/button/Button";
+import TableUnit2x2 from "../../components/resume-sections/Table_2x2_Cell";
+import "./empHistory.css";
 
-import empHistEntriesFile from "../../assets/data/employment-history.json";
+import empHistEntriesFile from "../../assets/data/resume-emp-history.json";
 
 function EmpHistSection(props) {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -17,25 +17,25 @@ function EmpHistSection(props) {
     };
 
     const scrollToSection = () => {
-        setTimeout(()=>{section.current.scrollIntoView({ behavior: "smooth", block: "start" })}, 1);
+        setTimeout(() => {
+            section.current.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 1);
     };
 
-    async function processEmpHistData() {
+    useEffect(() => {
         if (empHistEntries.length === 0) {
             setEmpHistEntries(empHistEntriesFile);
         }
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => { processEmpHistData(); }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className="mlt-resume-emp-hist-section-grid mlt-resume-section" ref={section}>
-            <h1>Employment history</h1>
             {isExpanded
                 ? <Button text="Show less" onClick={expandSection} btnType="show-less" />
                 : <Button text="Read more" onClick={expandSection} btnType="read-more" />
             }
+            <h1>Employment history</h1>
             <div className="mlt-resume-emp-hist-section-wrapper">
                 {empHistEntries
                     .slice(0, leadingParagraphs)

@@ -1,13 +1,26 @@
+import React, { useState, useEffect} from "react";
 import photo from "../../assets/images/Photos/spas-z-spasov-7-photo.square.small.webp";
-import "./leadingSection.css";
+import "./title.css";
 
-function LeadingSection(props) {
+import titleEntriesFile from "../../assets/data/resume-title.json";
+
+function Title(props) {
+    const [titleEntries, setTitleEntries] = useState({});
+
+
+    useEffect(() => {
+        if (!titleEntries.length) {
+            setTitleEntries(titleEntriesFile);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <>
             {/* <link rel="preload" as="image" href={szsPhoto} /> */}
             <div className="mlt-resume-leading-section-grid mlt-resume-section">
                 <div className="mlt-resume-leading-section-row-1">
-                    <div>Spas Zdravkov Spasov</div>
+                    <div>{titleEntries.title}</div>
                 </div>
                 <div className="mlt-resume-photo-container">
                     <div className="mlt-resume-photo-wrapper">
@@ -16,7 +29,7 @@ function LeadingSection(props) {
                 </div>
                 <div className="mlt-resume-leading-section-row-2">
                     <p>
-                        Computers and computer science in general have been my hobby since I was eight years old when I wrote my first program in Basic.
+                    {titleEntries.subtitle}
                     </p>
                 </div>
             </div>
@@ -25,4 +38,4 @@ function LeadingSection(props) {
     );
 }
 
-export default LeadingSection;
+export default Title;

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import Button from "../button/Button";
-import TableUnit2x2 from "./TableUnit2x2";
-import "./educationSection.css";
+import TableCell from "./Cell1x3";
+import "./languages.css";
 
-import educationEntriesFile from "../../assets/data/education.json";
+import languagesEntriesFile from "../../assets/data/resume-languages.json";
 
-function EducationSection(props) {
+function LanguagesSection(props) {
     const [isExpanded, setIsExpanded] = useState(false);
-    const [educationEntries, setEducationEntries] = useState([]);
+    const [languagesEntries, setLanguagesEntries] = useState([]);
 
     const leadingParagraphs = 1;
     const section = useRef(null);
@@ -17,39 +17,39 @@ function EducationSection(props) {
     };
 
     const scrollToSection = () => {
-        setTimeout(()=>{section.current.scrollIntoView({ behavior: "smooth", block: "start" })}, 1);
+        setTimeout(() => {
+            section.current.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 1);
     };
 
-    async function processResumeData() {
-        if (educationEntries.length === 0) {
-            setEducationEntries(educationEntriesFile);
+    useEffect(() => {
+        if (languagesEntries.length === 0) {
+            setLanguagesEntries(languagesEntriesFile);
         }
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => { processResumeData(); }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
-        <div className="mlt-resume-education-section-grid mlt-resume-section" ref={section}>
-            <h1>Education</h1>
+        <div className="mlt-resume-languages-section-grid mlt-resume-section" ref={section}>
             {isExpanded
                 ? <Button text="Show less" onClick={expandSection} btnType="show-less" />
                 : <Button text="Read more" onClick={expandSection} btnType="read-more" />
             }
+            <h1>Education</h1>
             <div className="mlt-resume-education-section-wrapper">
-                {educationEntries
+                {languagesEntries
                     .slice(0, leadingParagraphs)
                     .map((entry, index) =>
-                        <TableUnit2x2 key={`education-entry-${index}`} data={entry} />
+                        <TableCell key={`education-entry-${index}`} data={entry} />
                     )
                 }
 
                 {isExpanded ?
                     <>
-                        {educationEntries
+                        {languagesEntries
                             .slice(leadingParagraphs)
                             .map((entry, index) =>
-                                <TableUnit2x2 key={`education-entry-${index + leadingParagraphs}`} data={entry} />
+                                <TableCell key={`education-entry-${index + leadingParagraphs}`} data={entry} />
                             )
                         }
                         {scrollToSection()}
@@ -61,4 +61,4 @@ function EducationSection(props) {
     );
 }
 
-export default EducationSection;
+export default LanguagesSection;

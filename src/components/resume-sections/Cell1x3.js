@@ -1,7 +1,7 @@
 import React from "react";
-import './tableUnit2x2.css';
+import './cell1x3.css';
 
-function TableUnit2x2(props) {
+function Cell1x3(props) {
     const {
         from, to, country, city, office, at, description
     } = props.data;
@@ -30,4 +30,4 @@ function TableUnit2x2(props) {
     )
 }
 
-export default TableUnit2x2;
+export default Cell1x3;

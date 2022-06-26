@@ -15,7 +15,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build-to-remote": "react-scripts build && ./scripts/rsync-build-to-remote-home.bin",
+    "build-to-remote": "react-scripts build && ./scripts/rsync-build-to-remote-home.sh",
     "wsl-port-proxy": "./scripts/wsl-win-port-proxy.vlan.sh 3000 3000",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
