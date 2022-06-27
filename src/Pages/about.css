@@ -1,4 +1,4 @@
-.mlt-resume-container {
+.mlt-about-container {
 	height: max-content;
 	height: fit-content;
 	height: -moz-fit-content;
@@ -17,12 +17,12 @@
 }
 
 /* @media screen and (min-width: 641px) {
-    .mlt-resume-container {
+    .mlt-about-container {
         max-width: var(--max-width);
     }
 } */
 
-.mlt-resume-section {
+.mlt-about-section {
     overflow: visible;
     position: relative;
     
@@ -37,7 +37,7 @@
     margin: auto;
 }
 
-.mlt-resume-section:after {
+.mlt-about-section:after {
     display: block;
     content: " ";
     clear: both;

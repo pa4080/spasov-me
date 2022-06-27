@@ -15,6 +15,7 @@
     ],
     "education": [
         {
+            "id": 0,
             "from": "2010",
             "to": "2015",
             "country": "Bulgaria",
@@ -25,6 +26,7 @@
             "description": "Technical University of Sofia, Faculty of Mechanical Engineering, Department of Automation of Discrete Production Engineering"
         },
         {
+            "id": 1,
             "from": "2005",
             "to": "2007",
             "country": "Bulgaria",
@@ -35,6 +37,7 @@
             "description": "Technical University of Sofia, Faculty of Machine Technology, Department of Technology of Machine Building and Metal Cutting Machines"
         },
         {
+            "id": 2,
             "from": "2001",
             "to": "2005",
             "country": "Bulgaria",
@@ -45,6 +48,7 @@
             "description": "Technical University of Sofia, Faculty of Machine Technology, Department of Technology of Machine Building and Metal Cutting Machines"
         },
         {
+            "id": 3,
             "from": "2000",
             "to": "2001",
             "country": "",
@@ -55,6 +59,7 @@
             "description": ""
         },
         {
+            "id": 4,
             "from": "1995",
             "to": "1999",
             "country": "Bulgaria",
@@ -67,6 +72,7 @@
     ],
     "employmentHistory": [
         {
+            "id": 0,
             "from": "2021",
             "to": "now",
             "country": "Bulgaria",
@@ -77,6 +83,7 @@
             "description": ""
         },
         {
+            "id": 2,
             "from": "2019",
             "to": "2021",
             "country": "Bulgaria",
@@ -84,9 +91,10 @@
             "position": "Management consultant",
             "at": " at ",
             "office": "Information Technologies and the Future of the Economic Science Foundation",
-            "description": "Positions and activities: Development of training programs and presentations of the company; Executive of trainings of the personal of the company; Consultant of ERP/PLM systems and industrial enterprise management; Project management; System administrator of the IT infrastructure of the company and support its Internet presence"
+            "description": "Positions and activities: Development of training programs and presentations of the company; Executive of trainings of the personal of the company; Consultant of ERP/PLM systems and industrial enterprise management; System administrator of the IT infrastructure of the company and support its Internet presence"
         },
         {
+            "id": 3,
             "from": "2017",
             "to": "2019",
             "country": "Bulgaria",
@@ -97,6 +105,7 @@
             "description": "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Development of presentations of the company, acquiring new investors; Project management; System administrator of the IT infrastructure of the company"
         },
         {
+            "id": 3,
             "from": "2015",
             "to": "2017",
             "country": "Bulgaria",
@@ -107,6 +116,7 @@
             "description": "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Project management; Development of training programs and executive of trainings of the personal of the customers"
         },
         {
+            "id": 4,
             "from": "2011",
             "to": "2015",
             "country": "Bulgaria",
@@ -117,6 +127,7 @@
             "description": "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Project management; Development of training programs and executive of trainings of the personal of the customers"
         },
         {
+            "id": 5,
             "from": "2007",
             "to": "2011",
             "country": "Bulgaria",
@@ -127,6 +138,7 @@
             "description": "Positions and activities: Production engineer, team leader, project manager, chief technologist of the metal-cutting processes with CNC machines"
         },
         {
+            "id": 6,
             "from": "2006",
             "to": "2007",
             "country": "Bulgaria",
@@ -137,6 +149,7 @@
             "description": "Positions and activities: Technologist, technical consultant, warehouse manager; service team coordinator"
         },
         {
+            "id": 7,
             "from": "2004",
             "to": "2006",
             "country": "Bulgaria",
@@ -149,19 +162,187 @@
     ],
     "languages": [
         {
+            "id": 0,
             "name": "Bulgarian",
             "points": 50,
             "description": "Native"
         },
         {
+            "id": 1,
             "name": "English",
             "points": 35,
             "description": "Conversational"
         },
         {
+            "id": 2,
             "name": "Russian",
             "points": 10,
             "description": "Basic"
         }
+    ],
+    "skills": [
+        {
+            "id": 0,
+            "name": "HTML/CSS",
+            "points": 40,
+            "description": "Good experience, need more practice with SCSS and similar preprocessors."
+        },
+        {
+            "id": 1,
+            "name": "JavaScript",
+            "points": 35,
+            "description": "Experience with Functional and Object orientated paradigm."
+        },
+        {
+            "id": 2,
+            "name": "Node.js",
+            "points": 25,
+            "description": "Extensively used within the accomplished JS courses, continue to studying it."
+        },
+        {
+            "id": 3,
+            "name": "React.js",
+            "points": 35,
+            "description": "Accomplished an Advanced JS with React course, continue to studying it."
+        },
+        {
+            "id": 4,
+            "name": "TypeScript",
+            "points": 15,
+            "description": "Basic knowledge, my next goal is to dive deeper in it."
+        },
+        {
+            "id": 5,
+            "name": "PHP",
+            "points": 20,
+            "description": "Basic knowledge, creating simple plugins for MediaWiki and WordPress."
+        },
+        {
+            "id": 6,
+            "name": "Lua",
+            "points": 15,
+            "description": "Basic knowledge, creating modules for MediaWiki."
+        },
+        {
+            "id": 7,
+            "name": "Python",
+            "points": 10,
+            "description": "Very basic knowledge, solving some hobby tasks."
+        },
+        {
+            "id": 8,
+            "name": "MySQL",
+            "points": 10,
+            "description": "Basic knowledge, managing databases for CMS as MediaWiki and WordPress."
+        },
+        {
+            "id": 9,
+            "name": "Bash/Dash",
+            "points": 40,
+            "description": "Good experience with various tasks, at Linux server and desktop environment."
+        },
+        {
+            "id": 10,
+            "name": "Linux Server",
+            "points": 35,
+            "description": "Deployment, administration and security of few production and dev servers."
+        },
+        {
+            "id": 11,
+            "name": "Apache2",
+            "points": 35,
+            "description": "Administration; HTTPS, HTTP/2, PHP/FPM, ModSecurity, Mod Rewrite, etc."
+        },
+        {
+            "id": 12,
+            "name": "WordPress",
+            "points": 35,
+            "description": "Deployment, setup, and customization; few custom plugins created."
+        },
+        {
+            "id": 13,
+            "name": "MediaWiki",
+            "points": 40,
+            "description": "Deployment, and full setup, templates, extensions, MW API, JS, PHP, Lua, etc."
+        },
+        {
+            "id": 14,
+            "name": "NextCloud",
+            "points": 35,
+            "description": "Used for few years as private integrated cloud solution."
+        },
+        {
+            "id": 15,
+            "name": "ApacheGuac",
+            "points": 30,
+            "description": "Used for few years as private RDP/VNC web client."
+        },
+        {
+            "id": 16,
+            "name": "ProxmoxVE",
+            "points": 35,
+            "description": "Used for few years as bare metal hypervisor at my dev lab."
+        },
+        {
+            "id": 17,
+            "name": "QEMU/KVM",
+            "points": 35,
+            "description": "Used for past few years as passthrough hypervisor on various Linux distros."
+        },
+        {
+            "id": 18,
+            "name": "LXD/LXC",
+            "points": 35,
+            "description": "Experience with local and remote instances, deployment, setup, and backup."
+        },
+        {
+            "id": 19,
+            "name": "Docker",
+            "points": 30,
+            "description": "Basic usage, using and creating images and containers."
+        },
+        {
+            "id": 20,
+            "name": "Git",
+            "points": 30,
+            "description": "Basic usage, CLI, experience with GitHub, now learning about GitHub actions."
+        },
+        {
+            "id": 21,
+            "name": "Design/UI",
+            "points": 25,
+            "description": "Experience with GIMP; Adobe Illustrator and PhotoShop. CAD/CAM background."
+        },
+        {
+            "id": 22,
+            "name": "Microsoft365",
+            "points": 20,
+            "description": "Experience with Microsoft 365 (and Azure) basic setup and administration."
+        },
+        {
+            "id": 23,
+            "name": "PowerShell",
+            "points": 10,
+            "description": "Basic usage and scripting, in this count experience with CMD batch scripting."
+        },
+        {
+            "id": 24,
+            "name": "Desktop",
+            "points": 45,
+            "description": "Wide experience with Windows10 with WSL2, Kali Linux, Ubuntu, PopOS, etc."
+        },
+        {
+            "id": 25,
+            "name": "Browsers",
+            "points": 45,
+            "description": "Chromium and Firefox on Linux and Windows, DuckDuckGo on Android, Lynx."
+        },
+        {
+            "id": 26,
+            "name": "Editors",
+            "points": 35,
+            "description": "Visual Studio Code, Notepad++, MS Office, OpenOffice, OnlyOffice, Nano, Vim."
+        }
+
     ]
 }

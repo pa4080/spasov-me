@@ -36,30 +36,31 @@ function Table2x2(props) {
     };
 
     return (
-        <div className={`mlt-${props.title.toLowerCase()}-section-grid mlt-resume-section`} ref={section}>
-            {(props.staticRows !== props.data.length) ?
+        <div id={`mlt-${props.title.toLowerCase().replace(" ", "-")}-section`}
+        className={`mlt-about-section mlt-${props.component}-section-grid`} ref={section}>
+            {(props.staticRows < props.data.length) ?
                 isExpanded
                     ? <Button text="Show less" onClick={expandSection} btnType="show-less" />
                     : <Button text="Read more" onClick={expandSection} btnType="read-more" />
                 : null
             }
             <h1>{props.title}</h1>
-            <div className={`mlt-${props.title.toLowerCase()}-section-wrapper`}>
+            <div className={`mlt-${props.component}-section-wrapper`}>
                 {props.data.slice(0, props.staticRows).map((entry, index) =>
                     <ComponentIf
-                        key={`${props.title}-entry-${index}`}
+                        key={`${props.title.toLowerCase().replace(" ", "-")}-entry-${index}`}
                         component={props.component}
                         data={entry}
                     />
                 )
                 }
 
-                {(props.staticRows !== props.data.length) ?
+                {(props.staticRows < props.data.length) ?
                     isExpanded ?
                         <>
                             {props.data.slice(props.staticRows).map((entry, index) =>
                                 <ComponentIf
-                                    key={`${props.title}-entry-${index + props.staticRows}`}
+                                    key={`${props.title.toLowerCase().replace(" ", "-")}-entry-${index + props.staticRows}`}
                                     component={props.component}
                                     data={entry}
                                 />

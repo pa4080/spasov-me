@@ -1,4 +1,7 @@
 <IfModule mod_deflate.c>
+    # See also the relevant RewriteRule in the ApacheVH configuration
+    FallbackResource ./index.html
+
     # Compress HTML, CSS, JavaScript, Text, XML and fonts
     AddOutputFilterByType DEFLATE application/javascript
     AddOutputFilterByType DEFLATE application/rss+xml
@@ -108,6 +111,25 @@
     ExpiresByType video/webm A31536000
     ExpiresByType application/x-font-otf A31536000
     ExpiresByType audio/ogg A31536000
+    ExpiresByType application/pdf A31536000
+    ExpiresByType image/png A31536000
+    ExpiresByType audio/x-realaudio A31536000
+    ExpiresByType image/svg+xml A31536000
+    ExpiresByType application/x-shockwave-flash A31536000
+    ExpiresByType application/x-tar A31536000
+    ExpiresByType image/tiff A31536000
+    ExpiresByType application/x-font-ttf A31536000
+    ExpiresByType font/ttf A31536000
+    ExpiresByType audio/wav A31536000
+    ExpiresByType audio/wma A31536000
+    ExpiresByType application/font-woff A31536000
+    ExpiresByType application/font-woff2 A31536000
+    ExpiresByType application/zip A31536000
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+
     ExpiresByType application/pdf A31536000
     ExpiresByType image/png A31536000
     ExpiresByType audio/x-realaudio A31536000
