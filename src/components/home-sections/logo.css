@@ -1,0 +1,34 @@
+.mlt-logo-container {
+    margin: var(--top-offset) auto auto;
+    max-width: var(--max-width);
+	height: max-content;
+	height: fit-content;
+	height: -moz-fit-content;
+    position: relative;
+}
+
+.mlt-logo-text-img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(1px 2px 3px var(--dark-shadow-1));
+    user-select: none;
+}
+
+.mlt-logo-leading-text {
+    font-family: var(--font-family-fancy);
+    font-weight: var(--font-weight-fancy);
+    letter-spacing: var(--letter-spacing-fancy);
+    font-size: calc(var(--scale-param) * 0.4);
+    
+    user-select: none;
+    position: absolute;
+    top: -.3rem;
+    right: -.35rem;
+    color: var(--gray-1);
+}
+
+@media screen and (min-width: 581px) {
+    .mlt-logo-leading-text {
+        font-size: calc(var(--scale-param) * 0.3);
+    }
+}

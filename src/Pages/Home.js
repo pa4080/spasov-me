@@ -1,18 +1,13 @@
-import mltLogoText from "../assets/images/SVG/mlt.logo.text.svg";
+// import mltLogoText from "../assets/images/SVG/mlt.logo.text.svg";
+import Logo from "../components/home-sections/Logo";
 import "./home.css";
 
-function Logo(props) {
+function Home(props) {
     return (
         <>
-            <link rel="preload" as="image" href={mltLogoText} />
-            <div className="mlt-logo-container">
-                <img src={mltLogoText} alt="metalevel.tech logo" className="mlt-logo-text-img" width="640" height="119" />
-                <div className="mlt-logo-leading-text">
-                    {props.leadingText}
-                </div>
-            </div>
+            <Logo leadingText={props.leadingText} logoFull={props.logoFull} logoSmall={props.logoSmall} />
         </>
     );
 }
 
-export default Logo;
+export default Home;
