@@ -2,7 +2,7 @@
     /* Check index.html for the relevant JavaScript for --mlt-vf */
     height: 100vh;
     height: calc(var(--mlt-vh, 1vh) * 100);
-    
+
     display: flex;
     flex-direction: column;
 }
@@ -11,7 +11,7 @@
     background-color: var(--gray-bg-2);
     box-shadow: 0px 2px 6px 3px var(--gray-bg-1);
     z-index: 10;
-    
+
     height: max-content;
     height: fit-content;
     height: -moz-fit-content;
@@ -21,7 +21,7 @@
     /* background-color: var(--gray-bg-2); */
     box-shadow: 0px -2px 6px 3px var(--gray-bg-1);
     z-index: 10;
-    
+
     height: max-content;
     height: fit-content;
     height: -moz-fit-content;
@@ -37,8 +37,10 @@
 }
 
 .mlt-pages p {
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
     hyphens: auto;
-    
+
 }
 
 @media screen and (min-width: 721px) {

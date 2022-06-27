@@ -68,6 +68,12 @@ body {
     --font-weight-mono: 400;
 }
 
+@media screen and (max-width: 720px) {
+    :root {
+        --font-size-button: calc(var(--font-size-text) * .9);
+    }
+}
+
 @media screen and (max-width: 640px) {
     :root {
         --font-size-text: .96rem;
@@ -135,7 +141,7 @@ body {
     letter-spacing: var(--letter-spacing-text);
     font-size: var(--font-size-text);
     /* line-height: 1.75; */
-    line-height: 1.7;
+    line-height: 1.6;
 
     /* overflow-y: auto; */
 }
@@ -155,7 +161,7 @@ h1 {
 button {
     font-family: var(--font-family-fancy);
     padding: .6em 1.4em;
-    border-radius: 3em;
+    border-radius: 3rem;
     color: var(--text-color);
     background-color: var(--gray-bg-2);
     border: 0 solid var(--gray-bg-2);
@@ -189,4 +195,8 @@ button:active {
 #root {
     width: 100%;
     height: 100%;
+
+    /* Check index.html for the relevant JavaScript for --mlt-vf */
+    height: 100vh;
+    height: calc(var(--mlt-vh, 1vh) * 100);
 }

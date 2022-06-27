@@ -1,31 +1,22 @@
-/* @media screen and (max-width: 520px) {
-    .mlt-button-show-less,
-    .mlt-button-read-more {
-        margin-top: -1.1em;
+@media screen and (max-width: 720px) {
+
+    .mlt-button-show-less, .mlt-button-read-more {
         position: relative;
         float: right;
-        top: 0.8em;
+        top: -.1em;
         right: -.8em;
-        font-size: .8em;
-
-        position: absolute;
-        top: 1.7em;
-        right: -.5em;
+        /* font-size: .9rem; */
+        line-height: .8;
+        padding: 0.69em 1.23em 0.6em;
     }
 }
 
-@media screen and (min-width: 521px) {
+@media screen and (min-width: 721px) {
+
     .mlt-button-show-less,
     .mlt-button-read-more {
         position: absolute;
         top: 1.2em;
         right: -.5em;
     }
-} */
-
-.mlt-button-show-less,
-.mlt-button-read-more {
-    position: absolute;
-    top: 1.2em;
-    right: -.5em;
 }

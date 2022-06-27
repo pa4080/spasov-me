@@ -1,5 +1,6 @@
 .mlt-cell-2x2-grid {
     display: flow-root;
+    width: 100%;
 }
 
 .mlt-cell-2x2-col-1-row-1,

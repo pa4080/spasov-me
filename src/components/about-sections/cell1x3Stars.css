@@ -1,11 +1,13 @@
 .mlt-cell-1x3-grid {
     display: grid;
     grid-gap: calc(var(--scale-param) * 0.2);
+
     grid-template:
         "column-1 column-2 column-3" max-content
-        / 4.5em 6.1em 1fr;
+        / 6em 6em 1fr;
 
     margin-bottom: .4em;
+    width: 100%;
 }
 
 .mlt-cell-1x3-col-1 {
@@ -32,12 +34,28 @@
     margin: 0;
 }
 
+@media screen and (max-width: 720px) {
+    /* #mlt-it-skills-and-experience-section */
+    #mlt-it-skills-and-experience-section .mlt-cell-1x3-grid {
+        display: grid;
+        grid-gap: calc(var(--scale-param) * 0.2);
+        row-gap: 0;
+
+        grid-template:
+            "column-1 column-2" max-content
+            "column-3 column-3" max-content
+            / 6em 1fr;
+
+        margin-bottom: .8em;
+        width: 100%;
+    }
+}
+
 @media screen and (min-width: 721px) {
     .mlt-cell-1x3-grid {
         display: grid;
-
-        display: grid;
         grid-gap: calc(var(--scale-param) * 0.2);
+
         grid-template:
             "column-1 column-2 column-3" max-content
             / 6.8em 6.2em 1fr;

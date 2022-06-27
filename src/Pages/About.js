@@ -16,10 +16,10 @@ function About(props) {
             <div className="mlt-about-container">
                 <Title   photo={imageTitle} data={data.title} />
                 <Section title="Resume" data={data.resume} component="Cell1x1Text" staticRows={1} />
-                <Section title="Education" data={data.education} component="Cell2x2" staticRows={1} />
-                <Section title="Employment history" data={data.employmentHistory} component="Cell2x2" staticRows={1} />
-                <Section title="Languages" data={data.languages} component="Cell1x3Stars" staticRows={data.languages.length} />
-                <Section title="IT Skills and Experience" data={data.skills} component="Cell1x3Stars" staticRows={11} />
+                <Section title="Edu­cation" data={data.education} component="Cell2x2" staticRows={1} />
+                <Section title="Employ­ment History" data={data.employmentHistory} component="Cell2x2" staticRows={1} />
+                <Section title="Spo­ken Lang­uag­es" data={data.languages} component="Cell1x3Stars" staticRows={data.languages.length} />
+                <Section title="IT Skills and Expe­rien­ce" data={data.skills} component="Cell1x3Stars" staticRows={11} />
                 <div>&nbsp;</div>
             </div>
         </>
