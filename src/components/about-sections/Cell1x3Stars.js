@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TapToShow from "./TapToShow";
 import './cell1x3Stars.css';
 
 function Cell1x3Stars(props) {
@@ -21,13 +22,13 @@ function Cell1x3Stars(props) {
         const emptyStars = maxStars - fullStars - halfStars;
 
         for (let i = 0; i < fullStars; i++) {
-            stars.push(<i className="icon-stars icon-full-stars icon-background" key={`${name}-star-${i}`} />);
+            stars.push(<i className="icon i-full-star i-default-bg" key={`${name}-star-${i}`} />);
         }
         for (let i = fullStars; i < (fullStars + halfStars); i++) {
-            stars.push(<i className="icon-stars icon-half-stars icon-background" key={`${name}-star-${i}`} />);
+            stars.push(<i className="icon i-half-star i-default-bg" key={`${name}-star-${i}`} />);
         }
         for (let i = (fullStars + halfStars); i < (fullStars + halfStars + emptyStars); i++) {
-            stars.push(<i className="icon-stars icon-empty-stars icon-background" key={`${name}-star-${i}`} />);
+            stars.push(<i className="icon i-empty-star i-default-bg" key={`${name}-star-${i}`} />);
         }
 
         return stars;
@@ -45,19 +46,11 @@ function Cell1x3Stars(props) {
                     {stars}
                 </p>
             </div>
-            {(props.tapToShow)
-                ?
-                <div className="mlt-cell-1x3-tapToShow-row">
-                    <div
-                        className={`mlt-cell-1x3-tapToShow mlt-tapToShow-${isExpanded ? "active" : "disabled"}`}
-                        onClick={expandSection}
-                    >
-                        <i className="icon-fingerprint" />
-                    </div>
-                </div>
+            {(props.tapToShow && description) 
+                ? <TapToShow expandSection={expandSection} isExpanded={isExpanded} />
                 : null
             }
-            <div className={`mlt-cell-1x3-col-3 mlt-tapToShow-${isExpanded ? "expanded" : "collapsed"}`} >
+            <div className={`mlt-cell-1x3-col-3 mlt-tapToShow-${isExpanded ? "expanded" : "collapsed"}`}>
                 <p className="mlt-cell-1x3-col-3-row-1">
                     {description}
                 </p>

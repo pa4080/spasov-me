@@ -121,13 +121,56 @@ body {
     background: var(--blue-primary);
 }
 
-/** FireFox Scrollbar **/
-/* html, body */
+/** FireFox Scrollbar * html, body {..} **/
 * {
     scrollbar-color: var(--blue-primary) var(--gray-bg-1);
     scrollbar-width: thin;
 }
 
+/**
+ * Icons
+ */
+
+.icon {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    margin: 0 .1em;
+
+    -webkit-mask-size: cover;
+    mask-size: cover;
+}
+
+.i-default-bg {
+    /* background-color: var(--blue-primary); */
+    /* background-color: var(--blue-selected); */
+    background-color: var(--gray-3);
+}
+
+.i-full-star {
+    -webkit-mask: url('./assets/icons/star.svg') no-repeat 50% 50%;
+    mask: url('./assets/icons/star.svg') no-repeat 50% 50%;
+}
+
+.i-half-star {
+    -webkit-mask: url('./assets/icons/star-half-stroke.svg') no-repeat 50% 50%;
+    mask: url('./assets/icons/star-half-stroke.svg') no-repeat 50% 50%;
+}
+
+.i-empty-star {
+    -webkit-mask: url('./assets/icons/star-stroke.svg') no-repeat 50% 50%;
+    mask: url('./assets/icons/star-stroke.svg') no-repeat 50% 50%;
+}
+
+.i-fingerprint {
+    -webkit-mask: url('./assets/icons/fingerprint.svg') no-repeat 50% 50%;
+    mask: url('./assets/icons/fingerprint.svg') no-repeat 50% 50%;
+}
+
+
+/**
+ * General
+ */
 body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
