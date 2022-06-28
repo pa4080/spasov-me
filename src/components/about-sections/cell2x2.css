@@ -34,11 +34,11 @@
 }
 
 @media screen and (max-width: 720px) {
+    .mlt-cell-2x2-grid.mlt-tapToShow .mlt-tapToShow-wrapper {
+        float: right;
+    }
     .mlt-cell-2x2-grid.mlt-tapToShow .mlt-tapToShow-button {
-        position: absolute;
-        display: block;
-        right: 0;
-        bottom: -.35em;
+        top: 1em;
     }
 }
 

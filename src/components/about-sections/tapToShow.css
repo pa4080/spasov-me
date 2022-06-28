@@ -9,12 +9,13 @@
     /* left: 0; */
     right: 0;
     top: 0;
+    margin: 0 .4em 0 0;
 }
 
 .mlt-tapToShow-button .i-fingerprint {
     width: 1.4em;
     height: 1.4em;
-    padding: .6em 1.4em;
+    /* padding: .6em 1.4em; */
     margin: 0;
 }
 
@@ -41,13 +42,8 @@
             display: block;
         }
 
-        95% {
-            height: 1.05em;
-            display: block;
-        }
-
         to {
-            height: 1.05em;
+            height: 1.2em;
             display: block;
         }
     }
@@ -62,18 +58,18 @@
         display: none;
         height: 0;
 
-        animation-duration: 0.3s;
+        animation-duration: 0.4s;
         animation-name: lineInserted;
-        transition: height 0.3s ease-out;
+        transition: height 0.4s ease-out;
         animation-direction: reverse;
     }
 
     .mlt-tapToShow .mlt-tapToShow-expanded {
         display: block;
         
-        animation-duration: 0.3s;
+        animation-duration: 0.4s;
         animation-name: lineInserted;
-        transition: height 0.3s ease-in;
+        transition: height 0.4s ease-in;
         animation-direction: normal;
     }
     
