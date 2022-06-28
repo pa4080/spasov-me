@@ -18,7 +18,7 @@ function About({ data, aboutTitleImage }) {
                 <Section title="Edu­cation" data={data.education} component="Cell2x2" staticRows={1} />
                 <Section title="Employ­ment History" data={data.employmentHistory} component="Cell2x2" staticRows={1} />
                 <Section title="Spo­ken Lang­uag­es" data={data.languages} component="Cell1x3Stars" staticRows={data.languages.length} />
-                <Section title="IT Skills and Expe­rien­ce" data={data.skills} component="Cell1x3Stars" staticRows={11} />
+                <Section title="IT Skills and Expe­rien­ce" data={data.skills} component="Cell1x3Stars" staticRows={7} tapToShow={true} />
                 <div>&nbsp;</div>
             </div>
         </>

@@ -41,6 +41,7 @@ The React's dev web server, by default, will listen at `http://localhost:3000`. 
 * React Router Web Docs: [Scroll Restoration](https://v5.reactrouter.com/web/guides/scroll-restoration)
 * Parallax at GitHub: [jsPDF](https://github.com/parallax/jsPDF)
 * Stack Overflow: [Generate pdf from HTML in div using Javascript](https://stackoverflow.com/q/18191893/6543935)
+* Stack Overflow: [How to do I conditional rendering according to screen width in react?](https://stackoverflow.com/a/62954922/6543935)
 * NPM: [Old Browser Detector](https://www.npmjs.com/package/old-browser-detector)
 * Stack Overflow: [React app not working in Internet Explorer 11](https://stackoverflow.com/questions/56421417/react-app-not-working-in-internet-explorer-11)
 * Pluralsight: [Re-render a React Component on Window Resize](https://www.pluralsight.com/guides/re-render-react-component-on-window-resize)

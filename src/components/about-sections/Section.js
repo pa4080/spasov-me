@@ -5,16 +5,19 @@ import Cell1x1Text from "./Cell1x1Text";
 import Cell1x3Stars from "./Cell1x3Stars";
 import "./section.css";
 
-function ComponentIf({ component, data }) {
+function ComponentIf({ component, data, tapToShow }) {
+    /**
+     * The 'tapToShow' options enables auto hide of the description on small screens
+     */
     return (
         <>
             {(() => {
                 if (component === "Cell2x2") {
-                    return <Cell2x2 data={data} />;
+                    return <Cell2x2 data={data} tapToShow={tapToShow} />;
                 } else if (component === "Cell1x1Text") {
-                    return <Cell1x1Text data={data} />;
+                    return <Cell1x1Text data={data} tapToShow={tapToShow} />;
                 } else if (component === "Cell1x3Stars") {
-                    return <Cell1x3Stars data={data} />;
+                    return <Cell1x3Stars data={data} tapToShow={tapToShow} />;
                 }
             })()}
         </>
@@ -35,8 +38,16 @@ function Table2x2(props) {
         }, 1);
     };
 
+    const calculateKey = (index = 0) => {
+        return `${props.title.toLowerCase().replace(/\s+/g, "-")}-entry-${index}`
+    };
+
+    const generateId = (title = 'Default Title') => {
+        return `mlt-${title.toLowerCase().replace(/(\u00AD|\u200B)/gi, '').replace(/\s+/g, "-")}-section`
+    };
+
     return (
-        <div id={`mlt-${props.title.toLowerCase().replace(/(\u00AD|\u200B)/gi, '').replace(/\s+/g, "-")}-section`}
+        <div id={generateId(props.title)}
             className={`mlt-about-section mlt-${props.component}-section-grid`} ref={section}>
             <div>
                 {(props.staticRows < props.data.length) ?
@@ -52,7 +63,8 @@ function Table2x2(props) {
             <div className={`mlt-${props.component}-section-wrapper`}>
                 {props.data.slice(0, props.staticRows).map((entry, index) =>
                     <ComponentIf
-                        key={`${props.title.toLowerCase().replace(/\s+/g, "-")}-entry-${index}`}
+                        key={calculateKey(index)}
+                        tapToShow={props.tapToShow}
                         component={props.component}
                         data={entry}
                     />
@@ -62,7 +74,8 @@ function Table2x2(props) {
                         <>
                             {props.data.slice(props.staticRows).map((entry, index) =>
                                 <ComponentIf
-                                    key={`${props.title.toLowerCase().replace(/\s+/g, "-")}-entry-${index + props.staticRows}`}
+                                    key={calculateKey(index + props.staticRows)}
+                                    tapToShow={props.tapToShow}
                                     component={props.component}
                                     data={entry}
                                 />

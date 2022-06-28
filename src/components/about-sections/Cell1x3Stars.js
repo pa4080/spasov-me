@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import './cell1x3Stars.css';
 
 function Cell1x3Stars(props) {
     const {
         name, points, description
     } = props.data;
+
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const expandSection = () => {
+        isExpanded ? setIsExpanded(false) : setIsExpanded(true);
+    };
 
     const stars = (function drawStars(points) {
         const stars = [];
@@ -28,7 +34,7 @@ function Cell1x3Stars(props) {
     })(points);
 
     return (
-        <div className="mlt-cell-1x3-grid">
+        <div className={`mlt-cell-1x3-grid ${props.tapToShow ? "mlt-tapToShow" : ""}`}>
             <div className="mlt-cell-1x3-col-1">
                 <p className="mlt-cell-1x3-col-1-row-1">
                     {name}
@@ -39,7 +45,19 @@ function Cell1x3Stars(props) {
                     {stars}
                 </p>
             </div>
-            <div className="mlt-cell-1x3-col-3">
+            {(props.tapToShow)
+                ?
+                <div className="mlt-cell-1x3-tapToShow-row">
+                    <div
+                        className={`mlt-cell-1x3-tapToShow mlt-tapToShow-${isExpanded ? "active" : "disabled"}`}
+                        onClick={expandSection}
+                    >
+                        <i className="icon-fingerprint" />
+                    </div>
+                </div>
+                : null
+            }
+            <div className={`mlt-cell-1x3-col-3 mlt-tapToShow-${isExpanded ? "expanded" : "collapsed"}`} >
                 <p className="mlt-cell-1x3-col-3-row-1">
                     {description}
                 </p>

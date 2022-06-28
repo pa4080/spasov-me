@@ -183,69 +183,69 @@
     "skills": [
         {
             "id": 0,
-            "name": "HTML/CSS",
-            "points": 40,
-            "description": "Good experience, need more practice with SCSS and similar preprocessors."
-        },
-        {
-            "id": 1,
-            "name": "JavaScript",
-            "points": 35,
-            "description": "Experience with Functional and Object orientated paradigm."
-        },
-        {
-            "id": 2,
-            "name": "Node.js",
-            "points": 25,
-            "description": "Extensively used within the accomplished JS courses, continue to studying it."
-        },
-        {
-            "id": 3,
-            "name": "React.js",
-            "points": 35,
-            "description": "Accomplished an Advanced JS with React course, continue to studying it."
-        },
-        {
-            "id": 4,
-            "name": "TypeScript",
-            "points": 15,
-            "description": "Basic knowledge, my next goal is to dive deeper in it."
-        },
-        {
-            "id": 5,
-            "name": "PHP",
-            "points": 20,
-            "description": "Basic knowledge, creating simple plugins for MediaWiki and WordPress."
-        },
-        {
-            "id": 6,
-            "name": "Lua",
-            "points": 15,
-            "description": "Basic knowledge, creating modules for MediaWiki."
-        },
-        {
-            "id": 7,
-            "name": "Python",
-            "points": 10,
-            "description": "Very basic knowledge, solving some hobby tasks."
-        },
-        {
-            "id": 8,
-            "name": "MySQL",
-            "points": 10,
-            "description": "Basic knowledge, managing databases for CMS as MediaWiki and WordPress."
-        },
-        {
-            "id": 9,
             "name": "Bash/Dash",
             "points": 40,
             "description": "Good experience with various tasks, at Linux server and desktop environment."
         },
         {
-            "id": 10,
+            "id": 1,
             "name": "Linux Server",
             "points": 35,
             "description": "Deployment, administration and security of few production and dev servers."
+        },
+        {
+            "id": 2,
+            "name": "HTML/CSS",
+            "points": 40,
+            "description": "Good experience, need more practice with SCSS and similar preprocessors."
+        },
+        {
+            "id": 3,
+            "name": "JavaScript",
+            "points": 35,
+            "description": "Experience with Functional and Object orientated paradigm."
+        },
+        {
+            "id": 4,
+            "name": "Node.js",
+            "points": 25,
+            "description": "Extensively used within the accomplished JS courses, continue to studying it."
+        },
+        {
+            "id": 5,
+            "name": "React.js",
+            "points": 35,
+            "description": "Accomplished an Advanced JS with React course, continue to studying it."
+        },
+        {
+            "id": 6,
+            "name": "TypeScript",
+            "points": 15,
+            "description": "Basic knowledge, my next goal is to dive deeper in it."
+        },
+        {
+            "id": 7,
+            "name": "PHP",
+            "points": 20,
+            "description": "Basic knowledge, creating simple plugins for MediaWiki and WordPress."
+        },
+        {
+            "id": 8,
+            "name": "Lua",
+            "points": 15,
+            "description": "Basic knowledge, creating modules for MediaWiki."
+        },
+        {
+            "id": 9,
+            "name": "Python",
+            "points": 10,
+            "description": "Very basic knowledge, solving some hobby tasks."
+        },
+        {
+            "id": 10,
+            "name": "MySQL",
+            "points": 10,
+            "description": "Basic knowledge, managing databases for CMS as MediaWiki and WordPress."
         },
         {
             "id": 11,
