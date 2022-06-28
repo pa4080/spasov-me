@@ -15,23 +15,22 @@
 .mlt-tapToShow-button .i-fingerprint {
     width: 1.4em;
     height: 1.4em;
-    /* padding: .6em 1.4em; */
     margin: 0;
 }
 
 .mlt-tapToShow-button .i-fingerprint {
-    background-color: var(--gray-1);
+    background-color: var(--gray-0);
     cursor: pointer;
 }
 
 .mlt-tapToShow-button:active .i-fingerprint,
 .mlt-tapToShow-button:hover .i-fingerprint,
 .mlt-tapToShow-button.mlt-tapToShow-active .i-fingerprint {
-    background-color: var(--gray-3);
+    background-color: var(--gray-2);
 }
 
 @media screen and (max-width: 720px) {
-    @keyframes lineInserted {
+    /* @keyframes lineInserted {
         from {
             height: 0;
             display: none;
@@ -46,7 +45,7 @@
             height: 1.2em;
             display: block;
         }
-    }
+    } */
 
     .mlt-tapToShow {
         display: block;
@@ -58,19 +57,19 @@
         display: none;
         height: 0;
 
-        animation-duration: 0.4s;
+        /* animation-duration: 0.4s;
         animation-name: lineInserted;
         transition: height 0.4s ease-out;
-        animation-direction: reverse;
+        animation-direction: reverse; */
     }
 
     .mlt-tapToShow .mlt-tapToShow-expanded {
         display: block;
         
-        animation-duration: 0.4s;
+        /* animation-duration: 0.4s;
         animation-name: lineInserted;
         transition: height 0.4s ease-in;
-        animation-direction: normal;
+        animation-direction: normal; */
     }
     
     .mlt-tapToShow-wrapper {
