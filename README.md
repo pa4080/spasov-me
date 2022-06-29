@@ -1,6 +1,6 @@
-# Metalevel.tech Home Page
+# [![Metalevel.tech Logo](./src/assets/images/PNG/mlt.logo.text.png)](https://metalevel.tech)
 
-This is a homepage template for https://metalevel.tech.
+This is a homepage template for [https://metalevel.tech](https://metalevel.tech).
 
 ## Production build and run
 
@@ -50,3 +50,5 @@ The React's dev web server, by default, will listen at `http://localhost:3000`. 
 * Pluralsight: [How to Show Components Conditionally in React](https://www.pluralsight.com/guides/how-to-show-components-conditionally-react)
 * Q&A with experts: [How to change color of SVG - Various ways using CSS](https://qawithexperts.com/article/html/how-to-change-color-of-svg-various-ways-using-css/414)
 * React.school: [React Button Examples](https://react.school/ui/button)
+* Free online web fonts [Fingerprint icon](https://www.onlinewebfonts.com/icon/search?q=fingerprint)
+* Font Awesome: [Fingerprint](https://fontawesome.com/icons/fingerprint)
