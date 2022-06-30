@@ -1,6 +1,11 @@
+import Button from '../button/Button';
 import "./businessCard.css";
 
 function BusinessCard(props) {
+    const takeSnapShot = () => {
+        console.log('takeSnapShot');
+    };
+
     return (
         <div className="mlt-contacts-section">
             <div className="mlt-business-card-section-grid">
@@ -23,6 +28,9 @@ function BusinessCard(props) {
                     <p>
                         {props.data.location}
                     </p>
+                </div>
+                <div className="mlt-business-card-section-row-3">
+                    <Button text="Contact us" onClick={takeSnapShot} />
                 </div>
             </div>
         </div>
