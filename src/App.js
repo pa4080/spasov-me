@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // import React, { useState, useEffect, createContext } from "react";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import ScrollToTop from "./components/helpers/ScrollToTop";
@@ -8,12 +8,14 @@ import calculateHWUnits from "./components/helpers/CalcHWUnits";
 
 import TopMenu from "./components/header/TopMenu";
 import Home from "./Pages/Home";
-import Error from "./Pages/Error";
+import Contacts from "./Pages/Contacts";
 import About from "./Pages/About";
 import FooterLinks from "./components/footer/FooterLinks";
 
+import mltLogo from "./assets/images/SVG/mlt.logo.svg";
 import mltLogoTextWide from "./assets/images/SVG/mlt.logo.text.svg";
 import mltLogoTextSmall from "./assets/images/SVG/mlt.logo.text.small.svg";
+import mltQrCode from "./assets/images/SVG/mlt.qr-code.c8c8c8-transparent.svg";
 
 import aboutTitleImage from "./assets/images/Photos/spas-z-spasov-7-photo.square.small.webp";
 import data from "./assets/data/about.json";
@@ -38,6 +40,7 @@ function App(props) {
             <link rel="preload" as="image" href={mltLogoTextWide} />
             <link rel="preload" as="image" href={mltLogoTextSmall} />
             <link rel="preload" as="image" href={aboutTitleImage} />
+            <link rel="preload" as="image" href={mltLogo} />
             <Router>
                 <ScrollToTop />
                 <div className="mlt-header">
@@ -49,7 +52,7 @@ function App(props) {
                         <Route path="/" element={<Home leadingText="by Spas Z. Spasov" logoFull={mltLogoTextWide} logoSmall={mltLogoTextSmall} />} />
                         <Route path="/home" element={<Home leadingText="by Spas Z. Spasov" logoFull={mltLogoTextWide} logoSmall={mltLogoTextSmall} />} />
                         <Route path="/about" element={<About data={data} aboutTitleImage={aboutTitleImage} />} />
-                        <Route path="*" element={<Error number="404" desc="Page not found" />} />
+                        <Route path="*" element={<Contacts data={data.identity} contactsTitleImage={mltQrCode} />} />
                     </Routes>
                 </div>
             </Router>

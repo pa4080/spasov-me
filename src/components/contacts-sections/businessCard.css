@@ -1,0 +1,144 @@
+.mlt-business-card-section-grid {
+    display: block;
+    background-color: var(--gray-bg-2);
+    border-radius: 1.2em;
+    padding: 1em;
+}
+
+.mlt-contacts-section.mlt-business-card-section-grid {
+    margin-bottom: 1em;
+}
+
+.mlt-business-card-image-container,
+.mlt-business-card-image-wrapper,
+.mlt-business-card-section-row-1,
+.mlt-business-card-section-row-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.mlt-business-card-image-container {
+    grid-area: resume-leading-img;
+    user-select: none;
+    margin: calc(var(--scale-param) * 0) auto calc(var(--scale-param) * 0.2);
+}
+
+.mlt-business-card-image-wrapper {
+    overflow: hidden;
+    user-select: none;
+
+    width: 320px;
+    height: 320px;
+
+    filter: drop-shadow(1px 2px 4px var(--dark-shadow-1));
+}
+
+.mlt-business-card-image {
+    height: 100%;
+    width: 100%;
+}
+
+.mlt-business-card-section-row-1 {
+    grid-area: resume-leading-row-1;
+
+    font-family: var(--font-family-fancy);
+    font-weight: var(--font-weight-fancy);
+    letter-spacing: calc(var(--letter-spacing-fancy) * 2);
+    font-size: calc(var(--scale-param) * .8);
+    /* word-break: break-all; */
+
+    color: var(--gray-3);
+    line-height: 1.5;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.mlt-business-card-section-row-2 {
+    grid-area: resume-leading-row-2;
+    
+    justify-content: flex-start;
+    
+    height: max-content;
+    height: fit-content;
+    height: -moz-fit-content;
+}
+
+.mlt-business-card-section-row-2 > p {
+    margin: .2em 0;
+}
+
+@media screen and (max-width: 441px) {
+    .mlt-business-card-image-wrapper {
+        width: calc(var(--default-rounded-img-width) * 3);
+        height: calc(var(--default-rounded-img-width) * 3);
+    }
+}
+
+@media screen and (min-width: 321px) {
+    
+    .mlt-business-card-section-row-1 {
+        font-size: calc(var(--scale-param) * 0.6);
+        word-break: keep-all; 
+    }
+}
+
+@media screen and (min-width: 721px) {
+    .mlt-business-card-section-grid {
+        display: grid;
+        grid-gap: calc(var(--scale-param) * 0.2);
+        row-gap: calc(var(--scale-param) * 0.01);
+        grid-template:
+            "resume-leading-img resume-leading-row-1" calc(var(--scale-param) * 1.8)
+            "resume-leading-img resume-leading-row-2" calc(var(--scale-param) * 0.9)
+            "resume-leading-img resume-leading-row-3" calc(var(--scale-param) * 0.9)
+            / calc(var(--scale-param) * 3.6) 1fr;
+    }
+
+    .mlt-business-card-image-container,
+    .mlt-business-card-image-wrapper {
+        width: calc(var(--scale-param) * 3.6);
+        height: calc(var(--scale-param) * 3.6);
+        margin: auto;
+    }
+
+    .mlt-business-card-section-row-1 {
+        font-size: calc(var(--scale-param) * 0.41);
+    }
+    
+    .mlt-business-card-section-row-1,
+    .mlt-business-card-section-row-2 {
+        flex-direction: column;
+    }
+
+    .mlt-business-card-section-row-2 {
+        padding: .3em 0 0;
+    }
+} 
+
+@media screen and (min-width: 881px) {
+    .mlt-business-card-section-grid {
+        display: grid;
+        grid-gap: calc(var(--scale-param) * 0.2);
+        row-gap: calc(var(--scale-param) * 0.01);
+        grid-template:
+            "resume-leading-img resume-leading-row-1" calc(var(--scale-param) * 2)
+            "resume-leading-img resume-leading-row-2" calc(var(--scale-param) * 1)
+            "resume-leading-img resume-leading-row-3" calc(var(--scale-param) * 1)
+            / calc(var(--scale-param) * 4) 1fr;
+    }
+    
+    .mlt-business-card-image-container,
+    .mlt-business-card-image-wrapper {
+        width: calc(var(--scale-param) * 4);
+        height: calc(var(--scale-param) * 4);
+        margin: auto;
+    }
+
+    .mlt-business-card-section-row-1 {
+        font-size: calc(var(--scale-param) * 0.5);
+    }
+}

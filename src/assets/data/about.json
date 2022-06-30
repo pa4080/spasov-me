@@ -1,7 +1,9 @@
 {
-    "title": {
+    "identity": {
         "title": "Spas Zdravkov Spasov",
-        "subtitle": "Computers and computer science in general have been my hobby since I was eight years old when I wrote my first program in Basic."
+        "subtitle": "Computers and computer science in general have been my hobby since I was eight years old when I wrote my first program in Basic.",
+        "email": "spas.z.spasov@metalevel.tech",
+        "location": "Sofia, Bulgaria"
     },
     "resume": [
         "Last year I decided to follow my dreams and turn this hobby into a new professional career. I left my previous job, shortly after I applied to a JavaScript advanced course with React. I decided JavaScript is а good starting point, because of the possibility to work at frontend and backend in a single language, and because of my previous experience. ",

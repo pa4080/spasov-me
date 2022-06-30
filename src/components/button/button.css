@@ -1,11 +1,11 @@
 @media screen and (max-width: 720px) {
 
-    .mlt-button-show-less, .mlt-button-read-more {
+    .mlt-button-show-less,
+    .mlt-button-read-more {
         position: relative;
         float: right;
         top: -.1em;
         right: -.8em;
-        /* font-size: .9rem; */
         line-height: .8;
         padding: 0.69em 1.23em 0.6em;
     }
@@ -16,7 +16,7 @@
     .mlt-button-show-less,
     .mlt-button-read-more {
         position: absolute;
-        top: 1.2em;
+        top: 2em;
         right: -.5em;
     }
 }

@@ -1,4 +1,4 @@
-.mlt-about-container {
+.mlt-contacts-container {
 	height: max-content;
 	height: fit-content;
 	height: -moz-fit-content;
@@ -12,7 +12,7 @@
     flex-wrap: wrap;
 }
 
-.mlt-about-section {
+.mlt-contacts-section {
     overflow: visible;
     position: relative;
     
@@ -23,12 +23,14 @@
     height: max-content;
     height: fit-content;
     height: -moz-fit-content;
+    /* max-width: var(--max-width); */
     margin: auto;
 }
 
-.mlt-about-section:after {
+.mlt-contacts-section:after {
     display: block;
     content: " ";
     clear: both;
     width: 100%;
+    /* margin-bottom: 1em; */
 }

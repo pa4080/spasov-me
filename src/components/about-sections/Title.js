@@ -8,7 +8,11 @@ function Title(props) {
             </div>
             <div className="mlt-about-photo-container">
                 <div className="mlt-about-photo-wrapper">
-                    <img src={props.photo} alt="Illustration of this section." className="mlt-about-photo-img" width="260" height="260" />
+                    <img
+                        alt="Illustration of this section." width="260" height="260"
+                        src={props.photo}
+                        className="mlt-about-photo-img"
+                    />
                 </div>
             </div>
             <div className="mlt-about-title-section-row-2">

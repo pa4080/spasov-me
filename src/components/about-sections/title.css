@@ -29,8 +29,6 @@
     user-select: none;
     transform: scale(1.02);
    
-    /* width: calc(var(--default-rounded-img-width) * 1.6);
-    height: calc(var(--default-rounded-img-width) * 1.6); */
     width: 320px;
     height: 320px;
 
@@ -62,11 +60,6 @@
 
     text-align: center;
 }
-
-/* .mlt-about-title-section-row-1 p {
-    margin-bottom: 0;
-    margin-top: 0;
-} */
 
 .mlt-about-title-section-row-2 {
     grid-area: resume-leading-row-2;
