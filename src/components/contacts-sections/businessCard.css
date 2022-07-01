@@ -21,7 +21,7 @@
 }
 
 .mlt-business-card-image-container {
-    grid-area: resume-leading-img;
+    /* grid-area: mlt-business-card-img; */
     user-select: none;
     margin: calc(var(--scale-param) * 0) auto calc(var(--scale-param) * 0.2);
 }
@@ -33,16 +33,16 @@
     width: 320px;
     height: 320px;
 
-    filter: drop-shadow(1px 2px 4px var(--dark-shadow-1));
+    filter: drop-shadow(1px 2px 4px var(--dark-shadow-2));
 }
 
 .mlt-business-card-image {
-    height: 100%;
-    width: 100%;
+    height: 92%;
+    width: 92%;
 }
 
 .mlt-business-card-section-row-1 {
-    grid-area: resume-leading-row-1;
+    /* grid-area: mlt-business-card-row-1; */
 
     font-family: var(--font-family-fancy);
     font-weight: var(--font-weight-fancy);
@@ -58,17 +58,65 @@
 }
 
 .mlt-business-card-section-row-2 {
-    grid-area: resume-leading-row-2;
-    
+    /* grid-area: mlt-business-card-row-2; */
+
     justify-content: flex-start;
-    
+
     height: max-content;
     height: fit-content;
     height: -moz-fit-content;
 }
 
-.mlt-business-card-section-row-2 > p {
+.mlt-business-card-section-row-2>p {
     margin: .2em 0;
+}
+
+.mlt-business-card-section-row-3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    align-content: flex-end;
+    padding-right: .8em;
+    padding-top: .8em;
+    padding-bottom: .4em;
+    overflow: visible;
+    position: relative;
+    filter: drop-shadow(1px 2px 4px var(--dark-shadow-2));
+}
+
+.mlt-business-card-section-row-3 .icon,
+.mlt-business-card-section-row-3 .mlt-bc-img-icon {
+    width: 2.2em;
+    height: 1.6em;
+    cursor: pointer;
+    margin-left: 1em;
+    margin-right: 0;
+    z-index: 1000;
+}
+
+[data-tooltip]:before {
+    position: absolute;
+    /* top: .1em; */
+    left: .6em;
+    content: attr(data-tooltip);
+    opacity: 0;
+    z-index: 1005;
+    color: var(--text-color);
+}
+
+[data-tooltip]:active:before,
+[data-tooltip]:hover:before {
+    opacity: 1;
+}
+
+[data-tooltip]:not([data-tooltip-persistent]):before {
+    pointer-events: none;
+}
+
+.mlt-business-card-print .mlt-business-card-section-row-3,
+.mlt-business-card-print .mlt-business-card-section-row-3 [data-tooltip]:before {
+    display: none;
 }
 
 @media screen and (max-width: 441px) {
@@ -76,13 +124,33 @@
         width: calc(var(--default-rounded-img-width) * 3);
         height: calc(var(--default-rounded-img-width) * 3);
     }
+
+
+    .mlt-business-card-section-row-3 {
+        justify-content: center;
+        padding-right: 0;
+    }
+
+    
+    .mlt-business-card-section-row-3 .icon,
+    .mlt-business-card-section-row-3 .mlt-bc-img-icon {
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+
+    [data-tooltip]:before {
+        left: inherit;
+        right: -1em;
+        top: inherit;
+        bottom: -3.6em;
+    }
 }
 
 @media screen and (min-width: 321px) {
-    
+
     .mlt-business-card-section-row-1 {
         font-size: calc(var(--scale-param) * 0.6);
-        word-break: keep-all; 
+        word-break: keep-all;
     }
 }
 
@@ -92,10 +160,23 @@
         grid-gap: calc(var(--scale-param) * 0.2);
         row-gap: calc(var(--scale-param) * 0.01);
         grid-template:
-            "resume-leading-img resume-leading-row-1" calc(var(--scale-param) * 1.8)
-            "resume-leading-img resume-leading-row-2" calc(var(--scale-param) * 0.9)
-            "resume-leading-img resume-leading-row-3" calc(var(--scale-param) * 0.9)
-            / calc(var(--scale-param) * 3.6) 1fr;
+            "mlt-business-card-img mlt-business-card-row-1" calc(var(--scale-param) * 1.8) "mlt-business-card-img mlt-business-card-row-2" calc(var(--scale-param) * 1.08) "mlt-business-card-img mlt-business-card-row-3" calc(var(--scale-param) * 0.72) / calc(var(--scale-param) * 3.6) 1fr;
+    }
+
+    .mlt-business-card-image-container {
+        grid-area: mlt-business-card-img;
+    }
+
+    .mlt-business-card-section-row-1 {
+        grid-area: mlt-business-card-row-1;
+    }
+
+    .mlt-business-card-section-row-2 {
+        grid-area: mlt-business-card-row-2;
+    }
+
+    .mlt-business-card-section-row-3 {
+        grid-area: mlt-business-card-row-3;
     }
 
     .mlt-business-card-image-container,
@@ -108,7 +189,7 @@
     .mlt-business-card-section-row-1 {
         font-size: calc(var(--scale-param) * 0.41);
     }
-    
+
     .mlt-business-card-section-row-1,
     .mlt-business-card-section-row-2 {
         flex-direction: column;
@@ -117,7 +198,20 @@
     .mlt-business-card-section-row-2 {
         padding: .3em 0 0;
     }
-} 
+
+    .mlt-business-card-section-row-3 {
+        padding-top: 0;
+        padding-right: .6em;
+        padding-bottom: .3em;
+    }
+
+    [data-tooltip]:before {
+        left: .6em;
+        right: inherit;
+        top: inherit;
+        bottom: inherit;
+    }
+}
 
 @media screen and (min-width: 881px) {
     .mlt-business-card-section-grid {
@@ -125,12 +219,9 @@
         grid-gap: calc(var(--scale-param) * 0.2);
         row-gap: calc(var(--scale-param) * 0.01);
         grid-template:
-            "resume-leading-img resume-leading-row-1" calc(var(--scale-param) * 2)
-            "resume-leading-img resume-leading-row-2" calc(var(--scale-param) * 1)
-            "resume-leading-img resume-leading-row-3" calc(var(--scale-param) * 1)
-            / calc(var(--scale-param) * 4) 1fr;
+            "mlt-business-card-img mlt-business-card-row-1" calc(var(--scale-param) * 2) "mlt-business-card-img mlt-business-card-row-2" calc(var(--scale-param) * 1.2) "mlt-business-card-img mlt-business-card-row-3" calc(var(--scale-param) * 0.8) / calc(var(--scale-param) * 4) 1fr;
     }
-    
+
     .mlt-business-card-image-container,
     .mlt-business-card-image-wrapper {
         width: calc(var(--scale-param) * 4);

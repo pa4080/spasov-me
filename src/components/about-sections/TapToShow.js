@@ -4,7 +4,7 @@ function TapToShow({ expandSection, isExpanded }) {
     return (
         <div className="mlt-tapToShow-wrapper">
             <div
-                className={`mlt-tapToShow-button mlt-tapToShow-${isExpanded ? "active" : "disabled"}`}
+                className={`mlt-tapToShow-button noSelect mlt-tapToShow-${isExpanded ? "active" : "disabled"}`}
                 onClick={expandSection}
             >
                 <i className="icon i-fingerprint" />

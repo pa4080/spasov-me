@@ -12,7 +12,7 @@ function About({ data, aboutTitleImage }) {
             <Section title="Employ­ment History" data={data.employmentHistory} component="Cell2x2" staticRows={2} tapToShow={true} />
             <Section title="Spo­ken Lang­uag­es" data={data.languages} component="Cell1x3Stars" staticRows={data.languages.length} />
             <Section title="IT Skills and Expe­rien­ce" data={data.skills} component="Cell1x3Stars" staticRows={6} tapToShow={true} />
-            <p>&nbsp;</p>
+            {/* <p>&nbsp;</p> */}
         </div>
     );
 }

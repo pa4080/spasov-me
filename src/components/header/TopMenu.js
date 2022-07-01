@@ -40,21 +40,21 @@ function TopMenu(props) {
     return (
         <nav className="mlt-header-top-container">
             <Link
-                className={`mlt-header-top-item ${menuItems.home.active ? "mlt-header-top-link-active" : ""}`}
+                className={`mlt-header-top-item noSelect ${menuItems.home.active ? "mlt-header-top-link-active" : ""}`}
                 onClick={() => { state.switch(menuItems.home.label) }}
                 to={menuItems.home.label}
             >
                 {menuItems.home.label}
             </Link>
             <Link
-                className={`mlt-header-top-item ${menuItems.resume.active ? "mlt-header-top-link-active" : ""}`}
+                className={`mlt-header-top-item noSelect ${menuItems.resume.active ? "mlt-header-top-link-active" : ""}`}
                 onClick={() => { state.switch(menuItems.resume.label) }}
                 to={menuItems.resume.label}
             >
                 {menuItems.resume.label}
             </Link>
             <Link
-                className={`mlt-header-top-item ${menuItems.contacts.active ? "mlt-header-top-link-active" : ""}`}
+                className={`mlt-header-top-item noSelect ${menuItems.contacts.active ? "mlt-header-top-link-active" : ""}`}
                 onClick={() => { state.switch(menuItems.contacts.label) }}
                 to={menuItems.contacts.label}
             >

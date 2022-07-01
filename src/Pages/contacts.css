@@ -3,7 +3,8 @@
 	height: fit-content;
 	height: -moz-fit-content;
 
-    margin-top: var(--top-offset);
+    margin-top: calc(var(--top-offset) - .8em);
+    margin-bottom: -.8em;
 
     display: flex;
     flex-direction: column;
@@ -32,5 +33,4 @@
     content: " ";
     clear: both;
     width: 100%;
-    /* margin-bottom: 1em; */
 }

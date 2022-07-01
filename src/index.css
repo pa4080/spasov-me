@@ -167,6 +167,20 @@ body {
     mask: url('./assets/icons/fingerprint.svg') no-repeat 50% 50%;
 }
 
+.i-download-cv {
+    -webkit-mask: url('./assets/icons/i-download-cv.svg') no-repeat 50% 50%;
+    mask: url('./assets/icons/i-download-cv.svg') no-repeat 50% 50%;
+}
+
+.i-save-business-card {
+    -webkit-mask: url('./assets/icons/i-save-business-card.svg') no-repeat 50% 50%;
+    mask: url('./assets/icons/i-save-business-card.svg') no-repeat 50% 50%;
+}
+
+.i-send-email {
+    -webkit-mask: url('./assets/icons/i-send-email.svg') no-repeat 50% 50%;
+    mask: url('./assets/icons/i-send-email.svg') no-repeat 50% 50%;
+}
 
 /**
  * General
@@ -230,6 +244,19 @@ button:active {
     background-color: var(--gray-2);
     color: var(--gray-bg-1);
     transition: background-color .2s ease-in-out, color .1s ease-in-out;
+}
+
+.noSelect {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.noSelect:focus {
+    outline: none !important;
 }
 
 /**
