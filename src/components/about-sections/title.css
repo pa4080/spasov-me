@@ -73,6 +73,11 @@
 
 .mlt-about-title-section-row-2 > p {
     margin: 0;
+
+    /* font-style: italic; */
+    letter-spacing: 1.6px;
+    font-size: 1.1em;
+    color: var(--gray-3);
 }
 
 @media screen and (max-width: 441px) {
