@@ -77,13 +77,20 @@
     /* font-style: italic; */
     letter-spacing: 1.6px;
     font-size: 1.1em;
-    color: var(--gray-3);
+    color: var(--gray-2);
 }
 
 @media screen and (max-width: 441px) {
     .mlt-about-photo-wrapper {
         width: calc(var(--default-rounded-img-width) * 2.6);
         height: calc(var(--default-rounded-img-width) * 2.6);
+    }
+}
+
+
+@media screen and (max-width: 720px) {
+    .mlt-about-title-section-row-2 > p {
+        text-align: center;
     }
 }
 

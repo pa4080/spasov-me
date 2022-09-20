@@ -1,1 +1,1 @@
-../../UbuntuEnv/rsync-build/rsync-build-to-remote-home.sh
+../../mlt-linux-environment/rsync-build/rsync-build-to-remote-home.sh
