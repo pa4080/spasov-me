@@ -36,10 +36,13 @@ function Cell2x2(props) {
                 </p>
                 
                 {description
-                    ? <p className={`mlt-cell-2x2-col-2-row-2 mlt-tapToShow-${isExpanded ? "expanded" : "collapsed"}`}>
-                        {description}.
-                    </p>
-                    : null
+                    ? description.map((line, index) => 
+                        <p key={`${line.length}.${index}`}
+                            className={`mlt-cell-2x2-col-2-row-2 mlt-tapToShow-${isExpanded ? "expanded" : "collapsed"}`}              
+                        > 
+                            {line}
+                        </p>
+                    ) : null
                 }
             </div>
         </div>

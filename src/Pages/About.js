@@ -9,7 +9,7 @@ function About({ data, aboutTitleImage }) {
             <Title photo={aboutTitleImage} data={data.identity} />
             <Section title="Resume" data={data.resume} component="Cell1x1Text" staticRows={2} />
             <Section title="Edu­cation" data={data.education} component="Cell2x2" staticRows={2} tapToShow={true} />
-            <Section title="Employ­ment History" data={data.employmentHistory} component="Cell2x2" staticRows={2} tapToShow={true} />
+            <Section title="Employ­ment History" data={data.employmentHistory} component="Cell2x2" staticRows={1} tapToShow={true} />
             <Section title="Spo­ken Lang­uag­es" data={data.languages} component="Cell1x3Stars" staticRows={data.languages.length} />
             <Section title="IT Skills and Expe­rien­ce" data={data.skills} component="Cell1x3Stars" staticRows={6} tapToShow={true} />
             {/* <p>&nbsp;</p> */}
