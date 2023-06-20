@@ -1,130 +1,128 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600&family=Roboto+Slab:wght@500;700&family=Roboto:ital,wght@0,400;0,500;1,400;1,500&display=swap'); */
 @font-face {
-    font-family: "Unicephalon";
-    src: url('assets/fonts/Unicephalon/unicephalon.heavy.ttf') format('truetype');
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
+  font-family: "Unicephalon";
+  src: url("assets/fonts/Unicephalon/unicephalon.heavy.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
 }
 
-
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html,
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 :root {
-    --gray-0: #646464;
-    --gray-1: #787878;
-    --gray-2: #a0a0a0;
-    --gray-3: #b4b4b4;
-    --gray-4: #c8c8c8;
-    --gray-5: #d4d4d4;
-    --gray-bg-1: #333333;
-    --gray-bg-2: #3c3c3c;
-    --dark-shadow-1: #111111;
-    --dark-shadow-2: #222222;
-    --dark-shadow-3: #333333;
-    --dark-shadow-4: #444444;
-    --dark-shadow-5: #555555;
-    --blue-primary: #548ADA;
-    --blue-selected: #5d9fff;
-    --purple-primary: #9468D8;
+  --gray-0: #646464;
+  --gray-1: #787878;
+  --gray-2: #a0a0a0;
+  --gray-3: #b4b4b4;
+  --gray-4: #c8c8c8;
+  --gray-5: #d4d4d4;
+  --gray-bg-1: #333333;
+  --gray-bg-2: #3c3c3c;
+  --dark-shadow-1: #111111;
+  --dark-shadow-2: #222222;
+  --dark-shadow-3: #333333;
+  --dark-shadow-4: #444444;
+  --dark-shadow-5: #555555;
+  --blue-primary: #548ada;
+  --blue-selected: #5d9fff;
+  --purple-primary: #9468d8;
 
-    --scale-param: 10vw;
-    --scale-param: calc(var(--mlt-vw, 1vw) * 10);
+  --scale-param: 10vw;
+  --scale-param: calc(var(--mlt-vw, 1vw) * 10);
 
-    --max-width: calc(var(--scale-param) * 9);
+  --max-width: calc(var(--scale-param) * 9);
 
-    --top-offset: 11vmin;
-    --top-offset: calc(var(--mlt-vmin, 1vmin) * 11);
+  --top-offset: 11vmin;
+  --top-offset: calc(var(--mlt-vmin, 1vmin) * 11);
 
-    --default-rounded-img-width: calc(var(--scale-param) * 2.8);
+  --default-rounded-img-width: calc(var(--scale-param) * 2.8);
 
-    --text-color: var(--gray-4);
-    --heading-color: var(--gray-3);
+  --text-color: var(--gray-4);
+  --heading-color: var(--gray-3);
 
-    --font-family-fancy: "Unicephalon", 'Roboto Slab', serif;
-    --font-weight-fancy: 500;
-    --letter-spacing-fancy: calc(var(--scale-param) * 0.03);
+  --font-family-fancy: "Unicephalon", "Roboto Slab", serif;
+  --font-weight-fancy: 500;
+  --letter-spacing-fancy: calc(var(--scale-param) * 0.03);
 
-    --font-family-text: 'Roboto', sans-serif;
-    --font-weight-text: 400;
-    --font-size-text: 16px;
-    --font-size-button: calc(var(--font-size-text) * 1.05);
-    --letter-spacing-text: .4px;
+  --font-family-text: "Roboto", sans-serif;
+  --font-weight-text: 400;
+  --font-size-text: 16px;
+  --font-size-button: calc(var(--font-size-text) * 1.05);
+  --letter-spacing-text: 0.4px;
 
-    /* --font-family-heading: 'Roboto', sans-serif; */
-    --font-family-heading: var(--font-family-fancy);
-    --font-weight-heading: 500;
-    --letter-spacing-heading: var(--letter-spacing-fancy);
+  /* --font-family-heading: 'Roboto', sans-serif; */
+  --font-family-heading: var(--font-family-fancy);
+  --font-weight-heading: 500;
+  --letter-spacing-heading: var(--letter-spacing-fancy);
 
-    --font-family-mono: 'Roboto Mono', monospace;
-    --font-weight-mono: 400;
+  --font-family-mono: "Roboto Mono", monospace;
+  --font-weight-mono: 400;
 }
 
 @media screen and (max-width: 720px) {
-    :root {
-        --font-size-button: calc(var(--font-size-text) * .9);
-    }
+  :root {
+    --font-size-button: calc(var(--font-size-text) * 0.9);
+  }
 }
 
 @media screen and (max-width: 640px) {
-    :root {
-        --font-size-text: .96rem;
-    }
+  :root {
+    --font-size-text: 0.96rem;
+  }
 }
 
 @media screen and (max-width: 320px) {
-    :root {
-        --font-size-text: .86rem;
-        --max-width: calc(var(--scale-param) * 8.6);
-    }
+  :root {
+    --font-size-text: 0.86rem;
+    --max-width: calc(var(--scale-param) * 8.6);
+  }
 }
 
 @media screen and (min-width: 881px) {
-    :root {
-        --max-width: 840px;
-        --scale-param: 4.85rem;
-    }
+  :root {
+    --max-width: 840px;
+    --scale-param: 4.85rem;
+  }
 }
 
 /**
  * Scroll Bars
  */
 *::-webkit-scrollbar {
-    width: 1em;
+  width: 1em;
 }
 
 *::-webkit-scrollbar-track {
-    /* background: #eee; */
-    background: var(--gray-bg-1);
-
+  /* background: #eee; */
+  background: var(--gray-bg-1);
 }
 
 *::-webkit-scrollbar-thumb {
-    background: var(--gray-1);
-    /* border-radius: 2px; */
-    /* border: 5px solid #eee; */
-    border: 5px solid var(--gray-bg-1);
-    border-radius: 12px;
+  background: var(--gray-1);
+  /* border-radius: 2px; */
+  /* border: 5px solid #eee; */
+  border: 5px solid var(--gray-bg-1);
+  border-radius: 12px;
 
-    z-index: 10;
+  z-index: 10;
 }
 
 *::-webkit-scrollbar-thumb:vertical:hover {
-    background: var(--blue-primary);
+  background: var(--blue-primary);
 }
 
 /** FireFox Scrollbar * html, body {..} **/
 * {
-    scrollbar-color: var(--blue-primary) var(--gray-bg-1);
-    scrollbar-width: thin;
+  scrollbar-color: var(--blue-primary) var(--gray-bg-1);
+  scrollbar-width: thin;
 }
 
 /**
@@ -132,141 +130,141 @@ body {
  */
 
 .icon {
-    width: 1em;
-    height: 1em;
-    display: inline-block;
-    margin: 0 .1em;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  margin: 0 0.1em;
 
-    -webkit-mask-size: cover;
-    mask-size: cover;
+  -webkit-mask-size: cover;
+  mask-size: cover;
 }
 
 .i-default-bg {
-    /* background-color: var(--blue-primary); */
-    /* background-color: var(--blue-selected); */
-    background-color: var(--gray-3);
+  /* background-color: var(--blue-primary); */
+  /* background-color: var(--blue-selected); */
+  background-color: var(--gray-3);
 }
 
 .i-full-star {
-    -webkit-mask: url('./assets/icons/star.svg') no-repeat 50% 50%;
-    mask: url('./assets/icons/star.svg') no-repeat 50% 50%;
+  -webkit-mask: url("./assets/icons/star.svg") no-repeat 50% 50%;
+  mask: url("./assets/icons/star.svg") no-repeat 50% 50%;
 }
 
 .i-half-star {
-    -webkit-mask: url('./assets/icons/star-half-stroke.svg') no-repeat 50% 50%;
-    mask: url('./assets/icons/star-half-stroke.svg') no-repeat 50% 50%;
+  -webkit-mask: url("./assets/icons/star-half-stroke.svg") no-repeat 50% 50%;
+  mask: url("./assets/icons/star-half-stroke.svg") no-repeat 50% 50%;
 }
 
 .i-empty-star {
-    -webkit-mask: url('./assets/icons/star-stroke.svg') no-repeat 50% 50%;
-    mask: url('./assets/icons/star-stroke.svg') no-repeat 50% 50%;
+  -webkit-mask: url("./assets/icons/star-stroke.svg") no-repeat 50% 50%;
+  mask: url("./assets/icons/star-stroke.svg") no-repeat 50% 50%;
 }
 
 .i-fingerprint {
-    -webkit-mask: url('./assets/icons/fingerprint.svg') no-repeat 50% 50%;
-    mask: url('./assets/icons/fingerprint.svg') no-repeat 50% 50%;
+  -webkit-mask: url("./assets/icons/fingerprint.svg") no-repeat 50% 50%;
+  mask: url("./assets/icons/fingerprint.svg") no-repeat 50% 50%;
 }
 
 .i-download-cv {
-    -webkit-mask: url('./assets/icons/i-download-cv.svg') no-repeat 50% 50%;
-    mask: url('./assets/icons/i-download-cv.svg') no-repeat 50% 50%;
+  -webkit-mask: url("./assets/icons/i-download-cv.svg") no-repeat 50% 50%;
+  mask: url("./assets/icons/i-download-cv.svg") no-repeat 50% 50%;
 }
 
 .i-save-business-card {
-    -webkit-mask: url('./assets/icons/i-save-business-card.svg') no-repeat 50% 50%;
-    mask: url('./assets/icons/i-save-business-card.svg') no-repeat 50% 50%;
+  -webkit-mask: url("./assets/icons/i-save-business-card.svg") no-repeat 50% 50%;
+  mask: url("./assets/icons/i-save-business-card.svg") no-repeat 50% 50%;
 }
 
 .i-send-email {
-    -webkit-mask: url('./assets/icons/i-send-email.svg') no-repeat 50% 50%;
-    mask: url('./assets/icons/i-send-email.svg') no-repeat 50% 50%;
+  -webkit-mask: url("./assets/icons/i-send-email.svg") no-repeat 50% 50%;
+  mask: url("./assets/icons/i-send-email.svg") no-repeat 50% 50%;
 }
 
 /**
  * General
  */
 body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow: hidden;
-    background-color: var(--gray-bg-1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  background-color: var(--gray-bg-1);
 
-    color: var(--text-color);
+  color: var(--text-color);
 
-    font-family: var(--font-family-text);
-    font-weight: var(--font-weight-text);
-    letter-spacing: var(--letter-spacing-text);
-    font-size: var(--font-size-text);
-    /* line-height: 1.75; */
-    line-height: 1.6;
+  font-family: var(--font-family-text);
+  font-weight: var(--font-weight-text);
+  letter-spacing: var(--letter-spacing-text);
+  font-size: var(--font-size-text);
+  /* line-height: 1.75; */
+  line-height: 1.6;
 
-    /* overflow-y: auto; */
+  /* overflow-y: auto; */
 }
 
 h1 {
-    line-height: 1.2;
-    margin-top: 1.6em;
-    margin-bottom: .4em;
+  line-height: 1.2;
+  margin-top: 1.6em;
+  margin-bottom: 0.4em;
 
-    font-family: var(--font-family-heading);
-    font-weight: var(--font-weight-heading);
-    letter-spacing: var(--letter-spacing-heading);
-    color: var(--heading-color);
-    font-size: 1.6em;
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--letter-spacing-heading);
+  color: var(--heading-color);
+  font-size: 1.6em;
 }
 
 button {
-    font-family: var(--font-family-fancy);
-    padding: .6em 1.4em;
-    border-radius: 3rem;
-    color: var(--text-color);
-    background-color: var(--gray-bg-2);
-    border: 0 solid var(--gray-bg-2);
-    font-size: var(--font-size-button);
-    transform: scale(0.9);
-    font-weight: 600;
-    letter-spacing: var(--letter-spacing-fancy);
-    cursor: pointer;
-    transition: background-color .3s ease-in-out, color .2s ease-in-out;
-    z-index: 1000;
-    user-select: none;
+  font-family: var(--font-family-fancy);
+  padding: 0.6em 1.4em;
+  border-radius: 3rem;
+  color: var(--text-color);
+  background-color: var(--gray-bg-2);
+  border: 0 solid var(--gray-bg-2);
+  font-size: var(--font-size-button);
+  transform: scale(0.9);
+  font-weight: 600;
+  letter-spacing: var(--letter-spacing-fancy);
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, color 0.2s ease-in-out;
+  z-index: 1000;
+  user-select: none;
 }
 
 button:hover {
-    /* filter: drop-shadow(1px 2px 3px var(--dark-shadow-2)); */
-    background-color: var(--gray-4);
-    color: var(--gray-bg-1);
-    /* transition: background-color .3s ease-in-out, color .3s ease-in-out; */
+  /* filter: drop-shadow(1px 2px 3px var(--dark-shadow-2)); */
+  background-color: var(--gray-4);
+  color: var(--gray-bg-1);
+  /* transition: background-color .3s ease-in-out, color .3s ease-in-out; */
 }
 
 button:active {
-    /* filter: drop-shadow(1px 2px 3px var(--dark-shadow-2)); */
-    background-color: var(--gray-2);
-    color: var(--gray-bg-1);
-    transition: background-color .2s ease-in-out, color .1s ease-in-out;
+  /* filter: drop-shadow(1px 2px 3px var(--dark-shadow-2)); */
+  background-color: var(--gray-2);
+  color: var(--gray-bg-1);
+  transition: background-color 0.2s ease-in-out, color 0.1s ease-in-out;
 }
 
 .noSelect {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .noSelect:focus {
-    outline: none !important;
+  outline: none !important;
 }
 
 /**
  * React Root DOM Element and root CSS Class
  */
 #root {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 
-    /* Check index.html for the relevant JavaScript for --mlt-vf */
-    height: 100vh;
-    height: calc(var(--mlt-vh, 1vh) * 100);
+  /* Check index.html for the relevant JavaScript for --mlt-vf */
+  height: 100vh;
+  height: calc(var(--mlt-vh, 1vh) * 100);
 }
