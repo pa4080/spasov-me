@@ -1,376 +1,423 @@
 {
-    "identity": {
-        "title": "Spas Zdravkov Spasov",
-        "subtitle": "The world is drowning in information but is slow in acquisition of knowledge.",
-        "email": "spas.z.spasov@metalevel.tech",
-        "location": "Sofia, Bulgaria"
-    },
-    "resume": [
-        "Computers and computer science in general have been my hobby since I was eight years old when I wrote my first program in Basic.",
-        "Last year I decided to follow my dream and turn this hobby into a new professional career. I left my previous job as a management consultant, shortly after I applied to some courses to improve my skills in the area of IT.",
-        "Since then, I’ve completed a few JavaScript courses and several of the Cisco’s NDG modules. Based on this, along with my previous semi-professional experience within the area of IT and in line with my hobby interests, I’ve come to the conclusion that the field of DevOps and system administration is the one where I am a perfect fit. But I also like web development especially JavaScript tasks. In my free time, when I’m not playing with computers, I like reading books, hiking & gym training.",
-        "My belief is that the world grows through sharing knowledge between individuals. My practice constantly confirms that the most effective way to learn something is to teach it – that's why I was very valuable in my previous area. What I am looking for is the opportunity to focus my efforts in the right direction, to learn new things and the challenge to solve tasks that are beyond my current knowledge.",
-        "I'm a Mechanical Engineer and Doctor of Engineering Science. My doctor’s thesis is in the field of effective production plant management by the help of the modern systems for enterprise’s knowledge management, so called ERP/PLM systems and related to them satellite software. I'm also an editor-in-chief of a book and author of several articles devoted to the area of the industrial management.",
-        "My employment history looks quite long – actually, it is not. For the past 10 years (2011 – 2021) I’ve worked as consultant and organizational engineer in three different companies, but they all belong to the same structure. An interesting fact during this period is that in 2018, as a result of two documents developed by me, our team held a consultation meeting with the President of the Republic of Bulgaria.",
-        "Previously in (2007 – 2011), I was working as CNC machine technologist, production, and organizational engineer and later as project manager at a metal cutting company where the CEO was a board member of directors of the above organization. During the time of 2008 – 2010, our team managed to increase the efficiency of more than 60 production cells by 5 to 10 times via organizational changes and internal training using minimal investment. This was one of the key factors that allowed the company to survive during the crisis.",
-        "After defending my dissertation in 2015, I started supporting my employer's online presentation as a hobby.  This was the beginning and the end of my previous career because I found out I enjoy working in this direction.",
-        "Since then, I’ve learned how to administer and automate Linux servers at a satisfactory level. I’ve gained semiprofessional experience with CMS systems as MediaWiki and WordPress – deployment, administration, and customization by creating features (plugins/extensions) in HTML/CSS, JavaScript, PHP, Lua, etc. Few years ago, I’ve setup a home laboratory, based on a bare metal hypervisor which allows me to learn many things about virtualization's technologies at a practical level. And here we come to the beginning of this resume."
-    ],
-    "education": [
-        {
-            "id": 0,
-            "from": "2010",
-            "to": "2015",
-            "country": "Bulgaria",
-            "city": "Sofia",
-            "position": "Doctor of Engineering Science in Automated Systems for Data Processing and Management",
-            "at": false,
-            "office": "",
-            "description": [
-                "Technical University of Sofia, Faculty of Mechanical Engineering, Department of Automation of Discrete Production Engineering"
-            ]
-        },
-        {
-            "id": 1,
-            "from": "2005",
-            "to": "2007",
-            "country": "Bulgaria",
-            "city": "Sofia",
-            "position": "Master of Science in Computer Technologies in Mechanical Engineering",
-            "at": false,
-            "office": "",
-            "description": [
-                "Technical University of Sofia, Faculty of Machine Technology, Department of Technology of Machine Building and Metal Cutting Machines"
-            ]
-        },
-        {
-            "id": 2,
-            "from": "2001",
-            "to": "2005",
-            "country": "Bulgaria",
-            "city": "Sofia",
-            "position": "Bachelor of Science in Mechanical Engineering",
-            "at": false,
-            "office": "",
-            "description": [
-                "Technical University of Sofia, Faculty of Machine Technology, Department of Technology of Machine Building and Metal Cutting Machines"
-            ]
-        },
-        {
-            "id": 3,
-            "from": "2000",
-            "to": "2001",
-            "country": "",
-            "city": "",
-            "position": "",
-            "at": false,
-            "office": "Army service in Special Forces of Bulgarian Army, Paratrooper",
-            "description": []
-        },
-        {
-            "id": 4,
-            "from": "1995",
-            "to": "1999",
-            "country": "Bulgaria",
-            "city": "Pazardjik",
-            "position": "Specialist Degree",
-            "at": false,
-            "office": "",
-            "description": [
-                "High School of Machine Technologies, Pazardjik, Bulgaria, Department of Machine-Building and Device-Building"
-            ]
-        }
-    ],
-    "employmentHistory": [
-        {
-            "id": 7,
-            "from": "2021",
-            "to": "now",
-            "country": "Bulgaria",
-            "city": "Sofia",
-            "position": "Carrer break",
-            "at": " and ",
-            "office": "retraining",
-            "description": [
-                "Last year I decided to follow my dream and turn my hobby into a new professional career. I left my previous job as a management consultant, shortly after I applied to some courses to improve my skills in the area of IT.",
-                "Since then, I’ve completed a few JavaScript courses and several of the Cisco’s NDG modules. Based on this, along with my previous semi-professional experience within the area of IT and in line with my hobby interests, I’ve come to the conclusion that the field of DevOps and system administration is the one where I am a perfect fit."
-            ]
-        },
-        {
-            "id": 6,
-            "from": "2019",
-            "to": "2021",
-            "country": "Bulgaria",
-            "city": "Sofia",
-            "position": "Management consultant and System administrator",
-            "at": " at ",
-            "office": "Information Tech­nolo­gies and the Fu­tu­re of the Eco­no­mic Scien­ce Foun­dation",
-            "description": [
-                "Positions and activities: Development of training programs and presentations of the company; Executive of trainings of the personal of the company; Consultant of ERP/PLM systems and industrial enterprise management; System administrator of the IT infrastructure of the company and support its Internet presence."
-            ]
-        },
-        {
-            "id": 5,
-            "from": "2017",
-            "to": "2019",
-            "country": "Bulgaria",
-            "city": "Sofia",
-            "position": "Management consultant",
-            "at": " at ",
-            "office": "Engineering Culture in the Manage­ment of the Fu­tu­re Foun­da­tion",
-            "description": [
-                "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Development of presentations of the company, acquiring new investors; Project management; System administrator of the IT infrastructure of the company."
-            ]
-        },
-        {
-            "id": 4,
-            "from": "2015",
-            "to": "2017",
-            "country": "Bulgaria",
-            "city": "Sofia",
-            "position": "Management consultant",
-            "at": " at ",
-            "office": "Trivium AD",
-            "description": [
-                "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Project management; Development of training programs and executive of trainings of the personal of the customers."
-            ]
-        },
-        {
-            "id": 4,
-            "from": "2011",
-            "to": "2015",
-            "country": "Bulgaria",
-            "city": "Yambol",
-            "position": "Management consultant",
-            "at": " at ",
-            "office": "Trivium AD",
-            "description": [
-                "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Project management; Development of training programs and executive of trainings of the personal of the customers."
-            ]
-        },
-        {
-            "id": 2,
-            "from": "2007",
-            "to": "2011",
-            "country": "Bulgaria",
-            "city": "Yambol",
-            "position": "Production engineer and technologist",
-            "at": " at ",
-            "office": "Hydraulic Ele­ments and Sys­tems AD",
-            "description": [
-                "Positions and activities: Production engineer, team leader, project manager, chief technologist of the metal-cutting processes with CNC machines."
-            ]
-        },
-        {
-            "id": 1,
-            "from": "2006",
-            "to": "2007",
-            "country": "Bulgaria",
-            "city": "Sofia",
-            "position": "Technologist",
-            "at": " at ",
-            "office": "Teximp S.A. branch Bulgaria",
-            "description": [
-                "Positions and activities: Technologist, technical consultant, warehouse manager; service team coordinator."
-            ]
-        },
-        {
-            "id": 0,
-            "from": "2004",
-            "to": "2006",
-            "country": "Bulgaria",
-            "city": "Sofia",
-            "position": "Associate in the Laboratory of Mechanical Engineering Technology",
-            "at": " at ",
-            "office": "Technical University of Sofia",
-            "description": [
-                "Positions and activities: Work as an assistant of the head of the laboratory of mechanical engineering."
-            ]
-        }
-    ],
-    "languages": [
-        {
-            "id": 0,
-            "name": "Bulgarian",
-            "points": 50,
-            "description": "Native"
-        },
-        {
-            "id": 1,
-            "name": "English",
-            "points": 35,
-            "description": "Conversational"
-        },
-        {
-            "id": 2,
-            "name": "Russian",
-            "points": 10,
-            "description": "Basic"
-        }
-    ],
-    "skills": [
-        {
-            "id": 0,
-            "name": "Bash/Dash",
-            "points": 40,
-            "description": "Good experience with various tasks, at Linux server and desktop environment."
-        },
-        {
-            "id": 1,
-            "name": "Linux Server",
-            "points": 35,
-            "description": "Deployment, administration and security of few production and dev servers."
-        },
-        {
-            "id": 2,
-            "name": "HTML/CSS",
-            "points": 40,
-            "description": "Good experience, need more practice with SCSS and similar preprocessors."
-        },
-        {
-            "id": 3,
-            "name": "JavaScript",
-            "points": 35,
-            "description": "Experience with Functional and Object orientated paradigm."
-        },
-        {
-            "id": 4,
-            "name": "Node.js",
-            "points": 25,
-            "description": "Extensively used within the accomplished JS courses, continue to studying it."
-        },
-        {
-            "id": 5,
-            "name": "React.js",
-            "points": 35,
-            "description": "Accomplished an Advanced JS with React course, continue to studying it."
-        },
-        {
-            "id": 6,
-            "name": "TypeScript",
-            "points": 15,
-            "description": "Basic knowledge, my next goal is to dive deeper in it."
-        },
-        {
-            "id": 7,
-            "name": "PHP",
-            "points": 20,
-            "description": "Basic knowledge, creating simple plugins for MediaWiki and WordPress."
-        },
-        {
-            "id": 8,
-            "name": "Lua",
-            "points": 15,
-            "description": "Basic knowledge, creating modules for MediaWiki."
-        },
-        {
-            "id": 9,
-            "name": "Python",
-            "points": 10,
-            "description": "Very basic knowledge, solving some hobby tasks."
-        },
-        {
-            "id": 10,
-            "name": "MySQL",
-            "points": 10,
-            "description": "Basic knowledge, managing databases for CMS as MediaWiki and WordPress."
-        },
-        {
-            "id": 11,
-            "name": "Apache2",
-            "points": 35,
-            "description": "Administration; HTTPS, HTTP/2, PHP/FPM, ModSecurity, Mod Rewrite, etc."
-        },
-        {
-            "id": 12,
-            "name": "WordPress",
-            "points": 35,
-            "description": "Deployment, setup, and customization; few custom plugins created."
-        },
-        {
-            "id": 13,
-            "name": "MediaWiki",
-            "points": 40,
-            "description": "Deployment, and full setup, templates, extensions, MW API, JS, PHP, Lua, etc."
-        },
-        {
-            "id": 14,
-            "name": "NextCloud",
-            "points": 35,
-            "description": "Used for few years as private integrated cloud solution."
-        },
-        {
-            "id": 15,
-            "name": "ApacheGuac",
-            "points": 30,
-            "description": "Used for few years as private RDP/VNC web client."
-        },
-        {
-            "id": 16,
-            "name": "ProxmoxVE",
-            "points": 35,
-            "description": "Used for few years as bare metal hypervisor at my dev lab."
-        },
-        {
-            "id": 17,
-            "name": "QEMU/KVM",
-            "points": 35,
-            "description": "Used for past few years as passthrough hypervisor on various Linux distros."
-        },
-        {
-            "id": 18,
-            "name": "LXD/LXC",
-            "points": 35,
-            "description": "Experience with local and remote instances, deployment, setup, and backup."
-        },
-        {
-            "id": 19,
-            "name": "Docker",
-            "points": 30,
-            "description": "Basic usage, using and creating images and containers."
-        },
-        {
-            "id": 20,
-            "name": "Git",
-            "points": 30,
-            "description": "Basic usage, CLI, experience with GitHub, now learning about GitHub actions."
-        },
-        {
-            "id": 21,
-            "name": "Design/UI",
-            "points": 25,
-            "description": "GIMP; Adobe Illustrator and PhotoShop. Previous experience with CAD/CAM."
-        },
-        {
-            "id": 22,
-            "name": "Microsoft365",
-            "points": 20,
-            "description": "Experience with Microsoft 365 (and Azure) basic setup and administration."
-        },
-        {
-            "id": 23,
-            "name": "PowerShell",
-            "points": 10,
-            "description": "Basic usage and scripting, in this count experience with CMD batch scripting."
-        },
-        {
-            "id": 24,
-            "name": "Desktop",
-            "points": 45,
-            "description": "Wide experience with Windows10 with WSL2, Kali Linux, Ubuntu, PopOS, etc."
-        },
-        {
-            "id": 25,
-            "name": "Browsers",
-            "points": 45,
-            "description": "Chromium and Firefox on Linux and Windows, DuckDuckGo on Android, Lynx."
-        },
-        {
-            "id": 26,
-            "name": "Editors",
-            "points": 35,
-            "description": "Visual Studio Code, Notepad++, MS Office, OpenOffice, OnlyOffice, Nano, Vim."
-        }
+  "identity": {
+    "title": "Spas Zdravkov Spasov",
+    "subtitle": "The world is drowning in information but is slow in acquisition of knowledge.",
+    "email": "spas.z.spasov@metalevel.tech",
+    "location": "Sofia, Bulgaria"
+  },
+  "resume": [
+    "Computers and computer science in general have been my hobby since I was eight years old when I wrote my first program in Basic.",
 
-    ]
+    "In 2021 I decided to follow my dream and turn this hobby into a new professional career. I left my previous job as a management consultant, shortly after I applied to some courses to improve my skills in the area of IT.",
+
+    "Since then, I've completed a few JavaScript courses and finished few small freelance projects. At the beginning of 2023 I started my first job as a software developer with TypeScript, React.js, Next.js, etc. My interests at this moment are in the direction of full stack development.",
+
+    "In my free time, when I’m not playing with computers, I like reading books, hiking & gym training.",
+
+    "My belief is that the world grows through sharing knowledge between individuals. What I am looking for is the opportunity to focus my efforts in the right direction, to learn new things and the challenge to solve tasks that are beyond my current knowledge.",
+
+    "I'm a Mechanical Engineer and Doctor of Engineering Science. My doctor’s thesis is in the field of effective production plant management by the help of the modern systems for enterprise’s knowledge management, so called ERP/PLM systems and related to them satellite software. I'm also an editor-in-chief of a book and author of several articles devoted to the area of the industrial management.",
+    "My employment history looks quite long – actually, it is not. For the past 10 years (2011 – 2021) I’ve worked as consultant and organizational engineer in three different companies, but they all belong to the same structure. An interesting fact during this period is that in 2018, as a result of two documents developed by me, our team held a consultation meeting with the President of the Republic of Bulgaria.",
+    "Previously in (2007 – 2011), I was working as CNC machine technologist, production, and organizational engineer and later as project manager at a metal cutting company where the CEO was a board member of directors of the above organization. During the time of 2008 – 2010, our team managed to increase the efficiency of more than 60 production cells by 5 to 10 times via organizational changes and internal training using minimal investment. This was one of the key factors that allowed the company to survive during the crisis.",
+    "After defending my dissertation in 2015, I started supporting my employer's online presentation as a hobby.  This was the beginning and the end of my previous career because I found out I enjoy working in this direction.",
+    "Since then, I’ve learned how to administer and automate Linux servers at a satisfactory level. I’ve gained semiprofessional experience with CMS systems as MediaWiki and WordPress – deployment, administration, and customization by creating features (plugins/extensions) in HTML/CSS, JavaScript, PHP, Lua, etc. Few years ago, I’ve setup a home laboratory, based on a bare metal hypervisor which allows me to learn many things about virtualization's technologies at a practical level. And here we come to the beginning of this resume."
+  ],
+  "education": [
+    {
+      "id": 0,
+      "from": "2010",
+      "to": "2015",
+      "country": "Bulgaria",
+      "city": "Sofia",
+      "position": "Doctor of Engineering Science in Automated Systems for Data Processing and Management",
+      "at": false,
+      "office": "",
+      "description": [
+        "Technical University of Sofia, Faculty of Mechanical Engineering, Department of Automation of Discrete Production Engineering"
+      ]
+    },
+    {
+      "id": 1,
+      "from": "2005",
+      "to": "2007",
+      "country": "Bulgaria",
+      "city": "Sofia",
+      "position": "Master of Science in Computer Technologies in Mechanical Engineering",
+      "at": false,
+      "office": "",
+      "description": [
+        "Technical University of Sofia, Faculty of Machine Technology, Department of Technology of Machine Building and Metal Cutting Machines"
+      ]
+    },
+    {
+      "id": 2,
+      "from": "2001",
+      "to": "2005",
+      "country": "Bulgaria",
+      "city": "Sofia",
+      "position": "Bachelor of Science in Mechanical Engineering",
+      "at": false,
+      "office": "",
+      "description": [
+        "Technical University of Sofia, Faculty of Machine Technology, Department of Technology of Machine Building and Metal Cutting Machines"
+      ]
+    },
+    {
+      "id": 3,
+      "from": "2000",
+      "to": "2001",
+      "country": "",
+      "city": "",
+      "position": "",
+      "at": false,
+      "office": "Army service in Special Forces of Bulgarian Army, Paratrooper",
+      "description": []
+    },
+    {
+      "id": 4,
+      "from": "1995",
+      "to": "1999",
+      "country": "Bulgaria",
+      "city": "Pazardjik",
+      "position": "Specialist Degree",
+      "at": false,
+      "office": "",
+      "description": [
+        "High School of Machine Technologies, Pazardjik, Bulgaria, Department of Machine-Building and Device-Building"
+      ]
+    }
+  ],
+  "employmentHistory": [
+    {
+      "id": 8,
+      "from": "2023",
+      "to": "now",
+      "country": "Bulgaria",
+      "city": "Sofia",
+      "position": "Software Developer",
+      "at": " at ",
+      "office": "Browserbite OOD",
+      "description": [
+        "Development of web applications with JavaScript related technologies.",
+        "One of the best teams I've ever worked with. Nice company where I got the opportunity to start my actual IT career. Regrettably, due to a lack of new client acquisitions in recent months, the company has had to make the difficult decision to release all members of its staff from their roles.",
+        "In the last months at Browserbite, I was working with TypeScript, Next.js, React.js and Material-UI, and developed an application for \"application cost estimations\" for the company's projects: <a href=\"https://appstimate.io/\" target=\"_blank\">appstimate.io</a>.",
+        "Another interesting fact about me and Browserbite was that as an entry assignment they challenged me to lean TypeScript and few (new to me) React.js conceptions for a week – here is the result: <a href=\"https://swapi.metalevel.tech/\" target=\"_blank\">swapi.metalevel.tech</a>."
+      ]
+    },
+    {
+      "id": 7,
+      "from": "2021",
+      "to": "2023",
+      "country": "Bulgaria",
+      "city": "Sofia",
+      "position": "Career Break",
+      "at": " and ",
+      "office": "Retraining",
+      "description": [
+        "Accomplish few JavaScript courses. Done few freelance tasks related to web (mainly frontend) development and Linux server administration.",
+
+        "Probably the most impressive of these freelance tasks is the refactoring and polishing of the <a href=\"https://github.com/metalevel-tech/prj-hyperzon.io-home-page\" target=\"_blank\">Hyperzon's website</a> and trining it to a SPA by pure JavaScript."
+      ]
+    },
+    {
+      "id": 6,
+      "from": "2019",
+      "to": "2021",
+      "country": "Bulgaria",
+      "city": "Sofia",
+      "position": "Management consultant and System administrator",
+      "at": " at ",
+      "office": "Information Tech­nolo­gies and the Fu­tu­re of the Eco­no­mic Scien­ce Foun­dation",
+      "description": [
+        "Positions and activities: Development of training programs and presentations of the company; Executive of trainings of the personal of the company; Consultant of ERP/PLM systems and industrial enterprise management; System administrator of the IT infrastructure of the company and support its Internet presence."
+      ]
+    },
+    {
+      "id": 5,
+      "from": "2017",
+      "to": "2019",
+      "country": "Bulgaria",
+      "city": "Sofia",
+      "position": "Management consultant",
+      "at": " at ",
+      "office": "Engineering Culture in the Manage­ment of the Fu­tu­re Foun­da­tion",
+      "description": [
+        "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Development of presentations of the company, acquiring new investors; Project management; System administrator of the IT infrastructure of the company."
+      ]
+    },
+    {
+      "id": 4,
+      "from": "2015",
+      "to": "2017",
+      "country": "Bulgaria",
+      "city": "Sofia",
+      "position": "Management consultant",
+      "at": " at ",
+      "office": "Trivium AD",
+      "description": [
+        "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Project management; Development of training programs and executive of trainings of the personal of the customers."
+      ]
+    },
+    {
+      "id": 4,
+      "from": "2011",
+      "to": "2015",
+      "country": "Bulgaria",
+      "city": "Yambol",
+      "position": "Management consultant",
+      "at": " at ",
+      "office": "Trivium AD",
+      "description": [
+        "Positions and activities: Consultant of ERP/PLM systems and industrial enterprise management; Project management; Development of training programs and executive of trainings of the personal of the customers."
+      ]
+    },
+    {
+      "id": 2,
+      "from": "2007",
+      "to": "2011",
+      "country": "Bulgaria",
+      "city": "Yambol",
+      "position": "Production engineer and technologist",
+      "at": " at ",
+      "office": "Hydraulic Ele­ments and Sys­tems AD",
+      "description": [
+        "Positions and activities: Production engineer, team leader, project manager, chief technologist of the metal-cutting processes with CNC machines."
+      ]
+    },
+    {
+      "id": 1,
+      "from": "2006",
+      "to": "2007",
+      "country": "Bulgaria",
+      "city": "Sofia",
+      "position": "Technologist",
+      "at": " at ",
+      "office": "Teximp S.A. branch Bulgaria",
+      "description": [
+        "Positions and activities: Technologist, technical consultant, warehouse manager; service team coordinator."
+      ]
+    },
+    {
+      "id": 0,
+      "from": "2004",
+      "to": "2006",
+      "country": "Bulgaria",
+      "city": "Sofia",
+      "position": "Associate in the Laboratory of Mechanical Engineering Technology",
+      "at": " at ",
+      "office": "Technical University of Sofia",
+      "description": [
+        "Positions and activities: Work as an assistant of the head of the laboratory of mechanical engineering."
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "id": 0,
+      "name": "Bulgarian",
+      "points": 50,
+      "description": "Native"
+    },
+    {
+      "id": 1,
+      "name": "English",
+      "points": 35,
+      "description": "Conversational"
+    },
+    {
+      "id": 2,
+      "name": "Russian",
+      "points": 10,
+      "description": "Basic"
+    }
+  ],
+  "skills": [
+    {
+      "id": 3,
+      "name": "JavaScript",
+      "points": 45,
+      "description": "Experience with Functional and Object orientated paradigm."
+    },
+    {
+      "id": 3,
+      "name": "TypeScript",
+      "points": 35,
+      "description": "Experience with Functional and Object programming within React and Next.js."
+    },
+
+    {
+      "id": 5,
+      "name": "React.js",
+      "points": 35,
+      "description": "Accomplished few projects, continue studying it. Next goal React Native."
+    },
+    {
+      "id": 27,
+      "name": "Next.js",
+      "points": 35,
+      "description": "Accomplished few projects with the Pages and the new App router."
+    },
+    {
+      "id": 4,
+      "name": "Node.js",
+      "points": 25,
+      "description": "Extensively used within the accomplished JS courses, continue to studying it."
+    },
+    {
+      "id": 2,
+      "name": "HTML/CSS",
+      "points": 40,
+      "description": "Good experience, need more practice with SCSS and similar preprocessors."
+    },
+    {
+      "id": 28,
+      "name": "Material-UI",
+      "points": 30,
+      "description": "Gain a degree of experience within the wast project."
+    },
+    {
+      "id": 28,
+      "name": "Tailwind-CSS",
+      "points": 35,
+      "description": "I like very much its capabilities and lightness."
+    },
+    {
+      "id": 0,
+      "name": "Bash/Dash",
+      "points": 40,
+      "description": "Good experience with various tasks, at Linux server and desktop environment."
+    },
+    {
+      "id": 1,
+      "name": "Linux Server",
+      "points": 35,
+      "description": "Deployment, administration and security of few production and dev servers."
+    },
+    {
+      "id": 7,
+      "name": "PHP",
+      "points": 20,
+      "description": "Basic knowledge, creating simple plugins for MediaWiki and WordPress."
+    },
+    {
+      "id": 8,
+      "name": "Lua",
+      "points": 15,
+      "description": "Basic knowledge, creating modules for MediaWiki."
+    },
+    {
+      "id": 9,
+      "name": "Python",
+      "points": 10,
+      "description": "Very basic knowledge, solving some hobby tasks."
+    },
+    {
+      "id": 10,
+      "name": "MySQL",
+      "points": 10,
+      "description": "Basic knowledge, managing databases for CMS as MediaWiki and WordPress."
+    },
+    {
+      "id": 11,
+      "name": "Apache2",
+      "points": 40,
+      "description": "Administration; HTTPS, HTTP/2, PHP/FPM, ModSecurity, Mod Rewrite, etc."
+    },
+    {
+      "id": 30,
+      "name": "Nginx",
+      "points": 35,
+      "description": "Administration; HTTPS, HTTP/2, PHP/FPM, Nginx proxy manager, etc."
+    },
+    {
+      "id": 12,
+      "name": "WordPress",
+      "points": 35,
+      "description": "Deployment, setup, and customization; few custom plugins created."
+    },
+    {
+      "id": 13,
+      "name": "MediaWiki",
+      "points": 40,
+      "description": "Deployment, and full setup, templates, extensions, MW API, JS, PHP, Lua, etc."
+    },
+    {
+      "id": 14,
+      "name": "NextCloud",
+      "points": 35,
+      "description": "Used for few years as private integrated cloud solution."
+    },
+    {
+      "id": 15,
+      "name": "ApacheGuac",
+      "points": 30,
+      "description": "Used for few years as private RDP/VNC web client."
+    },
+    {
+      "id": 16,
+      "name": "ProxmoxVE",
+      "points": 35,
+      "description": "Used for few years as bare metal hypervisor at my dev lab."
+    },
+    {
+      "id": 17,
+      "name": "QEMU/KVM",
+      "points": 35,
+      "description": "Used for past few years as passthrough hypervisor on various Linux distros."
+    },
+    {
+      "id": 18,
+      "name": "LXD/LXC",
+      "points": 35,
+      "description": "Experience with local and remote instances, deployment, setup, and backup."
+    },
+    {
+      "id": 19,
+      "name": "Docker",
+      "points": 30,
+      "description": "Basic usage, using and creating images and containers."
+    },
+    {
+      "id": 20,
+      "name": "Git",
+      "points": 30,
+      "description": "CLI, experience with GitHub and GitLab, learning GitHub actions and hooks."
+    },
+    {
+      "id": 21,
+      "name": "Design/UI",
+      "points": 25,
+      "description": "GIMP; Adobe Illustrator and PhotoShop. Previous experience with CAD/CAM."
+    },
+    {
+      "id": 22,
+      "name": "Microsoft365",
+      "points": 20,
+      "description": "Experience with Microsoft 365 (and Azure) basic setup and administration."
+    },
+    {
+      "id": 23,
+      "name": "PowerShell",
+      "points": 10,
+      "description": "Basic usage and scripting, in this count experience with CMD batch scripting."
+    },
+    {
+      "id": 24,
+      "name": "Desktop",
+      "points": 45,
+      "description": "Wide experience with Windows10 with WSL2, Kali Linux, Ubuntu, PopOS, etc."
+    },
+    {
+      "id": 25,
+      "name": "Browsers",
+      "points": 45,
+      "description": "Chromium and Firefox on Linux and Windows, DuckDuckGo on Android, Lynx."
+    },
+    {
+      "id": 26,
+      "name": "Editors",
+      "points": 35,
+      "description": "Visual Studio Code, Notepad++, MS Office, OpenOffice, OnlyOffice, Nano, Vim."
+    }
+  ]
 }
