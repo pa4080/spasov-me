@@ -36,20 +36,6 @@
   margin-top: -0.4em;
 }
 
-/* Anchors */
-
-.mlt-cell-2x2-col-2-row-2 a,
-.mlt-cell-2x2-col-2-row-2 a:visited {
-  color: var(--blue-selected);
-  text-decoration: none;
-}
-
-.mlt-cell-2x2-col-2-row-2 a:hover,
-.mlt-cell-2x2-col-2-row-2 a:active {
-  color: var(--blue-primary);
-  text-decoration: none;
-}
-
 @media screen and (max-width: 720px) {
   .mlt-cell-2x2-grid.mlt-tapToShow .mlt-tapToShow-wrapper {
     float: right;
