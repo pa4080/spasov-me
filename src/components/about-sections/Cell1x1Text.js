@@ -1,10 +1,8 @@
 import React from "react";
-import './cell1x1Text.css';
+import "./cell1x1Text.css";
 
 function Cell1x1Text(props) {
-    return (
-        <p>{props.data}</p>
-    )
+  return <p dangerouslySetInnerHTML={{ __html: props.data }} />;
 }
 
 export default Cell1x1Text;
