@@ -10,17 +10,17 @@
 
     "In 2021 I decided to follow my dream and turn this hobby into a new professional career. I left my previous job as a management consultant, shortly after I applied to some courses to improve my skills in the area of IT.",
 
-    "Since then, I've completed a few JavaScript courses and finished few small freelance projects. At the beginning of 2023 I started my first job as a software developer with TypeScript, React.js, Next.js, etc. My interests at this moment are in the direction of full stack development.",
+    "Since then, I've completed a couple of courses and finished few small freelance projects. At the beginning of 2023 I started my first job as a software developer with TypeScript, React.js, Next.js, etc. My interests at this moment are in the direction of full stack development.",
 
-    "In my free time, when I’m not playing with computers, I like reading books, hiking & gym training.",
+    "In my free time, when I'm not playing with computers, I like reading books, hiking & gym training.",
 
     "My belief is that the world grows through sharing knowledge between individuals. What I am looking for is the opportunity to focus my efforts in the right direction, to learn new things and the challenge to solve tasks that are beyond my current knowledge.",
 
-    "I'm a Mechanical Engineer and Doctor of Engineering Science. My doctor’s thesis is in the field of effective production plant management by the help of the modern systems for enterprise’s knowledge management, so called ERP/PLM systems and related to them satellite software. I'm also an editor-in-chief of a book and author of several articles devoted to the area of the industrial management.",
-    "My employment history looks quite long – actually, it is not. For the past 10 years (2011 – 2021) I’ve worked as consultant and organizational engineer in three different companies, but they all belong to the same structure. An interesting fact during this period is that in 2018, as a result of two documents developed by me and the fruitful efforts of our public relations consultant, our team held a consultation meeting with the President of the Republic of Bulgaria.",
+    "I'm a Mechanical Engineer and Doctor of Engineering Science. My doctor's thesis is in the field of effective production plant management by the help of the modern systems for enterprise's knowledge management, so called ERP/PLM systems and related to them satellite software. I'm also an editor-in-chief of a book and author of several articles devoted to the area of the industrial management.",
+    "My employment history looks quite long – actually, it is not. For the past 10 years (2011 – 2021) I've worked as consultant and organizational engineer in three different companies, but they all belong to the same structure. An interesting fact during this period is that in 2018, as a result of two documents developed by me and the fruitful efforts of our public relations consultant, our team held a consultation meeting with the President of the Republic of Bulgaria.",
     "Previously in (2007 – 2011), I was working as CNC machine technologist, production, and organizational engineer and later as project manager at a metal cutting company where the CEO was a board member of directors of the above organization. During the time of 2008 – 2010, our team managed to increase the efficiency of more than 60 production cells by 5 to 10 times via organizational changes and internal training using minimal investment. This was one of the key factors that allowed the company to survive during the crisis.",
     "After defending my <a href=\"https://bg.trivictoria.org/wiki/User:Spas\" target=\"_blank\">doctor's dissertation thesis</a> in 2015, I started supporting my employer's online presentation as a hobby. The first project I did was a wiki related to the theory around which my employer's product was built. This was the beginning and the end of my previous career because I found out I enjoy working in this direction.",
-    "Since then, I’ve learned how to administer and automate Linux servers at a satisfactory level. I’ve gained semiprofessional experience with CMS systems as MediaWiki and WordPress – deployment, administration, and customization by creating features (plugins/extensions) in HTML/CSS, JavaScript, PHP, Lua, etc. Few years ago, I’ve setup a home laboratory, based on a bare metal hypervisor which allows me to learn many things about virtualization's technologies at a practical level. And here we come to the beginning of this resume."
+    "Since then, I've learned how to administer and automate Linux servers at a satisfactory level. I've gained semiprofessional experience with CMS systems as MediaWiki and WordPress – deployment, administration, and customization by creating features (plugins/extensions) in HTML/CSS, JavaScript, PHP, Lua, etc. Few years ago, I've setup a home laboratory, based on a bare metal hypervisor which allows me to learn many things about virtualization's technologies at a practical level. And here we come to the beginning of this resume."
   ],
   "education": [
     {
@@ -89,6 +89,22 @@
   ],
   "employmentHistory": [
     {
+      "id": 9,
+      "from": "2023",
+      "to": "now",
+      "country": "Bulgaria",
+      "city": "Sofia",
+      "position": "Software Developer",
+      "at": " as a ",
+      "office": "Freelance",
+      "description": [
+        "After my contract with Browserbite ended, I reflected on the valuable experience gained from the last project. This led me to the decision of honing my skills in the field of full-stack development using JavaScript and, more specifically, Typescript, with a particular emphasis on Next.js and MongoDB.",
+        "In the last weeks, I have made significant progress on a project - <a href=\"https://promptopia.metalevel.tech/\" target=\"_blank\">promp&shy;t&shy;opia.&#8203;meta&shy;level.&#8203;tech</a>, that heavily incorporates these technologies. The project is written with Typescript and is hosted on Vercel, utilizing MongoDB/Atlas as its database solution.",
+        "For the front-end, React and Tailwind CSS have been employed, all powered by Next.js with the efficient \"app router\" implementation.",
+        "On the back-end side, I've utilized the Next.js' serverless functions and next-auth for authentication. It's multilingual-ready with next-intl for localization."
+      ]
+    },
+    {
       "id": 8,
       "from": "2023",
       "to": "now",
@@ -100,7 +116,11 @@
       "description": [
         "Development of web applications with JavaScript related technologies.",
         "One of the best teams I've ever worked with. Nice company where I got the opportunity to start my actual IT career. Regrettably, due to a lack of new client acquisitions in recent months, the company has had to make the difficult decision to release all members of its staff from their roles.",
-        "In the last months at Browserbite, I was working with TypeScript, Next.js, React.js and Material-UI, and developed an application for \"application cost estimations\" for the company's projects: <a href=\"https://appstimate.io/\" target=\"_blank\">appstimate.io</a>.",
+
+        "During the period of service at Browserbite, I had the opportunity to work extensively with TypeScript, Next.js, React.js, and Material-UI, leading to the development of an application for \"application cost estimations\" dedicated to the company's projects: <a href=\"https://appstimate.io/\" target=\"_blank\">appstimate.io</a>",
+
+        "Alongside my regular work tasks, I dedicated considerable time to further enhancing my proficiency in TypeScript, Next.js, and React, while also delving into Git to gain a comprehensive understanding of its intricacies.",
+
         "Another interesting fact about me and Browserbite was that as an entry assignment they challenged me to lean TypeScript and few (new to me) React.js conceptions for a week – here is the result: <a href=\"https://swapi.metalevel.tech/\" target=\"_blank\">swapi.metalevel.tech</a>."
       ]
     },
