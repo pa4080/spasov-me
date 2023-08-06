@@ -1,74 +1,16 @@
-# Next.js 13 Full Course 2023
+# Spasov.me home page
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/10f065d50d484d40ba42320f8814cc7d)](https://app.codacy.com/gh/metalevel-tech/prj-nextjs-promptopia-shared-propmpts/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/25a5b655a9ce437aa5867df55352e90c)](https://app.codacy.com/gh/metalevel-tech/spasov-me/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
-***Fullstack <s>CRUD</s> REST App with Next.js, MongoDB, Tailwind CSS, and TypeScript***
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-This project is based on [**Next.js 13 Full Course 2023 | Build and Deploy a Full Stack App Using the Official React Framework**](https://youtu.be/wm5gMKuwSYk), with the following objectives:
+## References
 
-- Next.js 13 App Folder Structure
-- Next.js 13 Client Components vs Server Components
-- Next.js 13 File-based Routing (including dynamic and nested routes)
-- Next.js 13 page, layout, loading, and error Special Files
-- Next.js 13 Serverless Route Handlers (Next API, Full Stack Apps)
-- Next.js 13 Metadata and Search Engine Optimization (SEO)
-- Three ways to fetch data in Next.js:
-  - Server Side Rendering (SSR),
-  - Static Site Generation (SSG)
-  - Incremental Static Generation (ISR)
-
-Notes:
-
-- **This is a [TypeScript](https://www.typescriptlang.org/) implementation of the tutorial.**
-- Another cool feature that is implemented here is the [Internationalization](https://next-intl-docs.vercel.app/docs/next-13) support. It is enabled via `middleware.ts` as it is described in the official documentation. It is possible to use the client components or the (beta) server side rendering.
-
-  If one prefers they can setup [`next-i18next`](https://github.com/i18next/next-i18next) instead.
-
-  *Currently the we are supporting only English language, but the project is ready to be extended to support more languages.*
-
-- Many improvements and added features as:
-
-  - Two major types of Prompt/Posts: 1) GPT and 2) Stable Diffusion (I decide to do not spend more time to improve these categories names).
-    - For the GPT category one may attach a link to a shared chat...
-    - For the Stable Diffusion category one may upload an image...
-
-References:
-
-- <https://github.com/adrianhajdin/project_next_13_ai_prompt_sharing>
-- <https://gist.github.com/adrianhajdin/6df61c6cd5ed052dce814a765bff9032>
 - <https://nextjs.org/docs>
 - <https://next-intl-docs.vercel.app/docs/next-13>
 - <https://www.npmjs.com/package/slugify>
 - [***Setting the properties in an object parameter to optional > Set the entire object parameter to optional***](https://bobbyhadz.com/blog/typescript-function-optional-parameters#setting-the-properties-in-an-object-parameter-to-optional)
 - <https://pagespeed.web.dev/analysis/https-promptopia-metalevel-tech/n0pcgydmgq?form_factor=mobile>
-
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## TODO
-
-- [x] Display the `<Form />` errors.
-- [x] <s>Upload images to [imgur.com](https://apidocs.imgur.com/#intro) or something similar.</s>
-
-  Currently we are using the the Mongo's GridFS.
-  - <https://reacthustle.com/blog/how-to-upload-retrieve-images-to-mongodb-using-nextjs-13-app-router>
-  - <https://www.mongodb.com/docs/manual/core/gridfs/>
-  - [x] Modify `/api/posts/new/`... to `/api/files` REST API ready path.
-  - [x] Rewrite the `/api/files/` to use **Mongoose**.
-  - [x] Limit the image size to ~100-200KB.
-  - [x] 1) Upload the file, 2) Get the file ID, 3) Attach the file ID to the post and populate it on retrieve.
-  - [ ] Further use Imgur or similar service.
-- [x] <s>Combine the API requests to `/api/posts/` and `/api/files/` to a single one. This will reduce the number of requests to the server.</s>.. The request should use `new FormData()` withe `post` and `file` fields... **I will leave it as it is for now. Because I will not learn anything new from this.**
-  
-- [x] Apply `useForm()` hook for the `<Form />` component... **I will leave it as it is for now. Because I will not learn anything new from this.** ...Right now the errors are handled good enough, despite there is an API call that could be avoided.
-- [x] Delete posts functionality.
-- [x] Edit posts functionality.
-- [x] Search functionality with filters.
-- [x] Page footer.
-- [x] Post page user description.
-- [ ] Profile page. Edit and delete user profile.
-- [ ] Complete the google application.
-- [ ] Pagination for the `/api/posts/` REST API. Include search functionality.
-- [ ] Delete user functionality.
 
 ## Getting Started
 
@@ -102,6 +44,13 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Use Vercel CLI
+
+```bash
+npx vercel link
+npx vercel env pull
+```
 
 ## UseForm
 
