@@ -18,8 +18,8 @@
  * [example for: Get the Session in a Client Component by useSession()]: /app/[locale]/components/Nav.tsx
  */
 
-import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
+// import GoogleProvider from "next-auth/providers/google";
 // import CredentialsProvider from "next-auth/providers/credentials"; // For DB auth...
 
 import { getTranslations } from "next-intl/server";
@@ -30,18 +30,13 @@ import User from "@/models/user";
 
 import type { NextAuthOptions } from "next-auth";
 
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } =
-	process.env;
+const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = process.env;
 
 export const authOptions: NextAuthOptions = {
 	session: {
 		strategy: "jwt",
 	},
 	providers: [
-		GoogleProvider({
-			clientId: String(GOOGLE_CLIENT_ID),
-			clientSecret: String(GOOGLE_CLIENT_SECRET),
-		}),
 		GithubProvider({
 			clientId: String(GITHUB_CLIENT_ID),
 			clientSecret: String(GITHUB_CLIENT_SECRET),
