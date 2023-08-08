@@ -12,14 +12,14 @@ import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 interface Props {
 	size?: "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
-	textHidePoint?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | false;
-	textBreakpoint?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | false;
+	textHidePoint?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "none";
+	textBreakpoint?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "none";
 	textBreakRelativeSize?: number;
 }
 const SiteLogo: React.FC<Props> = ({
 	size = "md",
-	textHidePoint = "xs",
-	textBreakpoint = "md",
+	textHidePoint = "none",
+	textBreakpoint = "sm",
 	textBreakRelativeSize = 0.7,
 }) => {
 	const t = useTranslations("SiteLogo");
