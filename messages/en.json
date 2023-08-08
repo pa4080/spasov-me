@@ -5,7 +5,7 @@
 	},
 	"Common": {
 		"model": "Model",
-		"defaultUserDescription": "Promptopia User",
+		"defaultUserDescription": "Default user description",
 		"aiCats": {
 			"chat": "Chat",
 			"image": "Image"

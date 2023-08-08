@@ -456,24 +456,6 @@ body {
 }
 
 /* Nav Component */
-.logo_text {
-	@apply max-sm:hidden font-Unicephalon font-semibold text-3xl translate-y-[2px];
-
-	letter-spacing: 1.8px;
-}
-
-.logo_text_str0 {
-	@apply text-mlt-blue-primary;
-}
-
-.logo_text_str1 {
-	@apply text-mlt-blue-secondary;
-}
-
-.logo_text_str2 {
-	@apply text-mlt-purple-primary;
-}
-
 .dropdown {
 	@apply absolute -right-2 -top-2 mt-0 w-full p-5 pt-16 pb-3 rounded-lg min-w-[210px] flex flex-col gap-4 justify-end items-end shadow-lg shadow-mlt-orange-secondary/10 bg-mlt-gray-6 drop-shadow-lg;
 }
