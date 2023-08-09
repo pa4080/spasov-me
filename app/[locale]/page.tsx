@@ -1,18 +1,19 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 
-import Header from "@/components/Header";
 import Feed from "@/components/Feed";
-import Footer from "@/components/Footer";
+import SiteLogo from "@/components/fragments/SiteLogo";
 
 const Home: React.FC = () => {
 	const t = useTranslations("Home");
 
 	return (
-		<section className="page_section_center">
-			<Header desc={t("subHeading")} titleBlack={t("headingLn1")} titleGradient={t("headingLn2")} />
+		<section className="">
+			<header className="text-center">
+				<SiteLogo />
+			</header>
+
 			<Feed />
-			<Footer />
 		</section>
 	);
 };

@@ -42,7 +42,7 @@ const IconEmbedSvgPop: React.FC<Props> = ({
 }) => {
 	return (
 		<div
-			className={`icon_pop_style ${bgColor} ${isActive ? "active" : ""}`}
+			className={`${bgColor} ${isActive ? "active" : ""}`}
 			style={{ width: "40px", height: "40px", ...style }}
 			onClick={onClick}
 		>

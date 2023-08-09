@@ -13,14 +13,12 @@ import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { Path } from "@/interfaces/Path";
 import { usePromptopiaContext } from "@/contexts/PromptopiaContext";
 
-import IconImageBased from "./fragments/IconImageBased";
 import { Skeleton } from "./ui/skeleton";
 import SiteLogo from "./fragments/SiteLogo";
+import IconEmbedSvg from "./fragments/IconEmbedSvg";
 
-const providersIcons = ["google", "github"];
-
-const Nav: React.FC = () => {
-	const t = useTranslations("Nav");
+const NavBar: React.FC = () => {
+	const t = useTranslations("NavBar");
 	const { authProviders, session } = usePromptopiaContext();
 	const [toggleDropDown, setToggleDropDown] = useState(false);
 	// const pathName = usePathname();
@@ -30,11 +28,11 @@ const Nav: React.FC = () => {
 		setToggleDropDown((prevState) => !prevState);
 	};
 
-	const listLoginProviders = (
+	const ligInButton = (
 		<>
 			{authProviders ? (
 				Object.values(authProviders).map((provider) => {
-					if (providersIcons.includes(provider.id)) {
+					if (provider.id === "github") {
 						return (
 							<button
 								key={provider.name}
@@ -43,81 +41,45 @@ const Nav: React.FC = () => {
 								type="button"
 								onClick={() => signIn(provider.id)}
 							>
-								<IconImageBased icon={{ name: provider.id, size: 22 }} />
+								<IconEmbedSvg
+									color1="mlt-gray-2"
+									color2="mlt-blue-primary"
+									opacity2="BB"
+									type="arrow-right-to-bracket"
+								/>
 							</button>
 						);
 					}
-
-					return (
-						<button
-							key={provider.name}
-							className="_btn gray_invert "
-							type="button"
-							onClick={() => signIn(provider.id)}
-						>
-							{t("signIn")}
-						</button>
-					);
 				})
 			) : (
-				<>
-					<Skeleton className="login_provider_btn">
-						<div className="w-[28px] h-[28px] rounded-full bg-mlt-gray-6" />
-					</Skeleton>
-					<Skeleton className="login_provider_btn">
-						<div className="w-[28px] h-[28px] rounded-full bg-mlt-gray-5" />
-					</Skeleton>
-				</>
+				<Skeleton className="bg-transparent">
+					<IconEmbedSvg
+						color1="mlt-gray-2"
+						color2="mlt-gray-2"
+						opacity2="CC"
+						type="arrow-right-to-bracket"
+					/>
+				</Skeleton>
 			)}
 		</>
 	);
 
 	const profilePicture = (
-		<div
-			className={`flex justify-center items-center w-12 h-12 cursor-pointer rounded-full z-10  ${
-				toggleDropDown ? "bg-white drop-shadow-sm" : "bg-white drop-shadow-md"
-			}`}
-			onClick={isBelowSm ? openMobileNavBar : undefined}
-		>
-			<Image
-				alt={t("altUserProfile")}
-				className="rounded-full"
-				height={37}
-				src={session?.user?.image ?? logo}
-				width={37}
+		<div className="z-20" onClick={openMobileNavBar}>
+			<IconEmbedSvg
+				color1="mlt-gray-3"
+				color2="mlt-blue-primary"
+				opacity2="BB"
+				type="sidebar-flip"
 			/>
 		</div>
 	);
 
 	return (
-		<nav className="flex justify-between items-center w-full mb-16 pt-4 sm:pt-8 h-16">
-			<SiteLogo />
+		<>
+			<SiteLogo size="2xs" />
 
-			<div className="sm:flex hidden">
-				<div className="flex justify-center items-center gap-3 md:gap-3">
-					{session?.user ? (
-						<>
-							<Link className="_btn gray_invert " href={Path.POST_CREATE}>
-								{t("createPrompt")}
-							</Link>
-
-							<button
-								className="_btn gray_light"
-								type="button"
-								onClick={() => signOut({ callbackUrl: "/" })}
-							>
-								{t("signOut")}
-							</button>
-
-							<Link href={Path.PROFILE}>{profilePicture}</Link>
-						</>
-					) : (
-						listLoginProviders
-					)}
-				</div>
-			</div>
-
-			<div className="sm:hidden flex relative">
+			<div className="flex relative">
 				{session?.user ? (
 					<div className="flex">
 						{profilePicture}
@@ -152,13 +114,11 @@ const Nav: React.FC = () => {
 						)}
 					</div>
 				) : (
-					<div className="flex justify-center items-center gap-3 md:gap-3">
-						{listLoginProviders}
-					</div>
+					<div className="flex justify-center items-center gap-3 md:gap-3">{ligInButton}</div>
 				)}
 			</div>
-		</nav>
+		</>
 	);
 };
 
-export default Nav;
+export default NavBar;

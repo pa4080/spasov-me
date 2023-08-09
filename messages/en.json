@@ -16,7 +16,7 @@
 			"author": "Author"
 		}
 	},
-	"Nav": {
+	"NavBar": {
 		"home": "Home",
 		"about": "About",
 		"login": "Login",
@@ -32,6 +32,7 @@
 		"altUserProfile": "User Profile",
 		"myProfile": "My Profile"
 	},
+	"Footer": {},
 	"SiteLogo": {
 		"logoSubText": {
 			"str0": "spasov",
@@ -105,10 +106,5 @@
 		"accountRemoveDisclaimer": "If you need to remove your account, please contact us at { email } and we will do it for you.",
 		"placeholderUser": "User...",
 		"placeholderUserDescription": "User description..."
-	},
-	"Footer": {
-		"projectDesc": "Check out the project at",
-		"projectDescShort": "See the project at",
-		"projectLink": "Link to the project repository"
 	}
 }

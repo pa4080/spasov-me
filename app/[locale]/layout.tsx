@@ -8,7 +8,9 @@ import { Inter } from "next/font/google";
 
 import { PromptopiaContextProvider } from "@/contexts/PromptopiaContext";
 import AuthSessionProvider from "@/contexts/AuthSessionProvider";
-import Nav from "@/components/Nav";
+import NavBar from "@/components/NavBar";
+import SiteLogo from "@/components/fragments/SiteLogo";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -55,16 +57,19 @@ const LocaleLayout: React.FC<LocaleLayoutProps> = async ({ children, params }) =
 					{/* <div className="main">
 						<div className="gradient" />
 					</div> */}
-					<main className="app">
+					<div className="app">
 						<NextIntlClientProvider locale={locale} messages={messages}>
-							<div className="app_inner">
-								<PromptopiaContextProvider>
-									<Nav />
-									{children}
-								</PromptopiaContextProvider>
-							</div>
+							<PromptopiaContextProvider>
+								<nav className="flex justify-between items-center w-full h-16 bg-mlt-dark-4 px-4">
+									<NavBar />
+								</nav>
+								<main>{children}</main>
+								<footer className="w-full flex justify-center items-center flex-row overflow-hidden">
+									<Footer />
+								</footer>
+							</PromptopiaContextProvider>
 						</NextIntlClientProvider>
-					</main>
+					</div>
 				</AuthSessionProvider>
 			</body>
 		</html>

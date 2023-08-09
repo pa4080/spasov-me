@@ -2,13 +2,18 @@
 import React, { useLayoutEffect } from "react";
 import { useTranslations } from "next-intl";
 
-import { usePromptopiaContext } from "@/contexts/PromptopiaContext";
+import Image from "next/image";
+
+import iconMlt from "@/public/icons/svg/mlt/mlw.icon.blue-gray.svg";
+
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 
-import IconEmbedSvg from "./fragments/IconEmbedSvg";
+import iconGitHub from "@/public/assets/icons/github-gray.svg";
+import iconUbuntu from "@/public/assets/icons/ubuntu-gray.svg";
+import iconLinkedIn from "@/public/assets/icons/linked-in-gray-square.svg";
+import iconWikiMedia from "@/public/assets/icons/wikimedia-gray.svg";
 
 const Footer: React.FC = () => {
-	const { postCardListSize } = usePromptopiaContext();
 	const t = useTranslations("Footer");
 
 	const [isBwXs, setIsBwXs] = React.useState<boolean>(false);
@@ -19,23 +24,48 @@ const Footer: React.FC = () => {
 	}, [isBelowXs]);
 
 	return (
-		<footer className="page_footer" style={{ width: `${postCardListSize ?? 480}px` }}>
-			<div className="footer_col footer_col_1">Footer col 1</div>
-			<div className="footer_col footer_col_2">Footer col 2</div>
-			<div className="footer_col footer_col_3">
-				<a
-					aria-label={t("projectLink")}
-					href={process.env.NEXT_PUBLIC_PROJECT_REPOSITORY}
-					rel="noreferrer"
-					target="_blank"
-				>
-					<span className="inline-flex gap-2 items-center text-mlt-dark-6 font-Unicephalon text-sm opacity-80 hover:opacity-95 active:brightness-125">
-						{isBwXs ? t("projectDescShort") : t("projectDesc")}
-						<IconEmbedSvg color2="mlt-dark-6" style={{ display: "inline-block" }} type="github" />
-					</span>
-				</a>
-			</div>
-		</footer>
+		<>
+			<a
+				className="regular-icon"
+				href="https://github.com/metalevel-tech"
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				<Image alt="GitHub Icon" height={32} src={iconGitHub} width={32} />
+			</a>
+			<a
+				className="regular-icon"
+				href="https://askubuntu.com/users/566421/pa4080"
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				<Image alt="AskUbuntu Icon" height={32} src={iconUbuntu} width={32} />
+			</a>
+			<a
+				className="regular-icon special-icon"
+				href="https://wiki.metalevel.tech"
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				<Image alt="Wiki Metalevel.tech Icon" height={32} src={iconMlt} width={32} />
+			</a>
+			<a
+				className="regular-icon"
+				href="https://www.linkedin.com/in/spas-z-spasov"
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				<Image alt="LinkedIn Icon" height={32} src={iconLinkedIn} width={32} />
+			</a>
+			<a
+				className="regular-icon"
+				href="https://meta.wikimedia.org/wiki/User:Spas.Z.Spasov"
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				<Image alt="MediaWiki Icon" height={32} src={iconWikiMedia} width={32} />
+			</a>
+		</>
 	);
 };
 

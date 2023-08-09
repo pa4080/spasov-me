@@ -94,7 +94,7 @@ const DeletePost_Page: React.FC = () => {
 				<Header
 					desc={t("description")}
 					gradient="red_gradient"
-					textStyle="text-left"
+					className="text-left"
 					titleGradient={t("title", {
 						id: `${postToDelete._id.slice(0, 3)}...${postToDelete._id.slice(-3)}`,
 					})}
