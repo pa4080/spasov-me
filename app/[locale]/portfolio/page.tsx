@@ -9,7 +9,7 @@ const Portfolio: React.FC = () => {
 	return (
 		<section className="">
 			<header className="text-center">
-				<SiteLogo size="3xl" textBreakpoint="xs" textHidePoint="none" />
+				<SiteLogo size="3xl" />
 			</header>
 		</section>
 	);
