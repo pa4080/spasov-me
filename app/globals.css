@@ -148,19 +148,9 @@ body {
 
 /* Tailwind Styles */
 .app {
-	/* @apply relative z-10; */
-
 	overflow-x: hidden;
 	overflow-y: auto;
 }
-
-/* .app a {
-	@apply text-mlt-purple-primary;
-}
-
-.app a:hover {
-	@apply text-mlt-purple-secondary;
-} */
 
 @media screen and (width > theme("screens.xs420")) {
 	body {
@@ -387,6 +377,17 @@ body {
 
 .post_button {
 	@apply py-0.5 px-2 inline-block rounded-full cursor-pointer select-none transition-colors duration-200 active:scale-95 bg-opacity-60 hover:bg-opacity-100 active:bg-opacity-80;
+}
+
+/* Main Layout*/
+.footer_container {
+	@apply relative;
+	box-shadow: 0 -2px 6px 3px theme("colors.mlt-dark-3");
+}
+
+.nav_container {
+	@apply relative;
+	box-shadow: 0 2px 6px 3px theme("colors.mlt-dark-3");
 }
 
 /* Nav items */

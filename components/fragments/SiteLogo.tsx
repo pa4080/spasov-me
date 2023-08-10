@@ -83,7 +83,7 @@ const SiteLogo: React.FC<Props> = ({
 	return (
 		<div
 			className={cn(
-				"logo_container flex justify-center items-center gap-1 hover:drop-shadow-md transition-all duration-300 select-none",
+				"logo_container flex justify-center items-center gap-1 transition-all duration-300 select-none",
 				className
 			)}
 		>
