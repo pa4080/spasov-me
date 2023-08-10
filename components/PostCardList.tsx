@@ -31,7 +31,7 @@ const PostCardList: React.FC<PromptCardListProps> = ({ data }) => {
 
 	const handleTagClick = (tag: string) => {
 		// eslint-disable-next-line no-console
-		router.push(`${Path.HOME}?tag=${tag}`);
+		router.push(`${Path.pblic.HOME}?tag=${tag}`);
 	};
 
 	const handleDelete = (post: PostTypeFromDb) => {

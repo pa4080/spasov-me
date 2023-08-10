@@ -75,7 +75,7 @@ const DeletePost_Page: React.FC = () => {
 				}
 
 				setPosts(posts.filter((post) => post._id !== postId));
-				router.push(Path.PROFILE);
+				router.push(Path.deprecated.PROFILE);
 			} catch (error) {
 				console.error("Something went wrong on post delete:", error);
 			} finally {
@@ -95,7 +95,7 @@ const DeletePost_Page: React.FC = () => {
 					<div className="flex justify-end items-center gap-4 flex-row w-full mb-8">
 						<Link
 							className="text-sm text-mlt-dark-4 hover:text-mlt-purple-primary"
-							href={Path.PROFILE}
+							href={Path.deprecated.PROFILE}
 						>
 							{tForm("cancel")}
 						</Link>
