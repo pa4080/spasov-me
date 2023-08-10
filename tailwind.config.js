@@ -50,6 +50,7 @@ const appTwConfig = {
 		extend: {
 			// https://tailwindcss.com/docs/screens
 			screens: {
+				sm580: "580px",
 				xs: "480px",
 				xs420: "420px",
 				xs380: "380px",
@@ -60,6 +61,10 @@ const appTwConfig = {
 				satoshi: ["Satoshi", "sans-serif"],
 				inter: ["Inter", "sans-serif"],
 				Unicephalon: ["Unicephalon", "sans-serif"],
+			},
+			letterSpacing: {
+				"menu-items": "1px",
+				"menu-items-wide": "1.8px",
 			},
 			colors: {
 				border: "hsl(var(--border))",
@@ -88,8 +93,8 @@ const appTwConfig = {
 					foreground: "hsl(var(--accent-foreground))",
 				},
 				popover: {
-					DEFAULT: "hsl(var(--popover))",
-					foreground: "hsl(var(--popover-foreground))",
+					DEFAULT: ThemeColors["mlt-dark-6"], // "hsl(var(--popover))",
+					foreground: ThemeColors["mlt-blue-secondary"], // "hsl(var(--popover-foreground))",
 				},
 				card: {
 					DEFAULT: "hsl(var(--card))",

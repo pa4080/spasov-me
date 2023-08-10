@@ -1,13 +1,13 @@
 import React, { useLayoutEffect } from "react";
 
-import { usePromptopiaContext } from "@/contexts/PromptopiaContext";
+import { useAppContext } from "@/contexts/AppContext";
 
 import { Skeleton } from "./ui/skeleton";
 import Btn_PostTag from "./fragments/Btn_PostTag";
 import IconEmbedSvgPop from "./fragments/IconEmbedSvgPop";
 
 const PostCardListLoading: React.FC = () => {
-	const { setPostCardListSize } = usePromptopiaContext();
+	const { setPostCardListSize } = useAppContext();
 	const postCardListRef = React.useRef<HTMLDivElement>(null);
 
 	useLayoutEffect(() => {

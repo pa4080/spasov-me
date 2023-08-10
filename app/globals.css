@@ -54,7 +54,9 @@
 		--ring: 20 14.3% 4.1%;
 
 		--radius: 0.5rem;
+
 		accent-color: theme("colors.mlt-blue-primary");
+		--scrollbar-width: 16px;
 	}
 
 	.dark {
@@ -140,27 +142,25 @@ body {
 	background-color: theme("colors.mlt-blue-primary");
 }
 
-@media screen and (width <= theme("screens.sm")) {
-	.main {
-		padding: 0;
-	}
+*::-webkit-scrollbar-corner {
+	background-color: theme("colors.mlt-dark-6");
 }
 
 /* Tailwind Styles */
 .app {
-	@apply relative z-10;
+	/* @apply relative z-10; */
 
 	overflow-x: hidden;
 	overflow-y: auto;
 }
 
-.app a {
+/* .app a {
 	@apply text-mlt-purple-primary;
 }
 
 .app a:hover {
 	@apply text-mlt-purple-secondary;
-}
+} */
 
 @media screen and (width > theme("screens.xs420")) {
 	body {
@@ -228,7 +228,7 @@ body {
 
 .special-icon {
 	transform: scale(1.05);
-	filter: drop-shadow(1px 2px 3px theme("colors.mlt-dark-0"));
+	filter: drop-shadow(1px 2px 3px theme("colors.mlt-dark-1"));
 }
 
 .feed {
@@ -283,17 +283,6 @@ body {
 
 .search_filters_container {
 	@apply w-full pl-0.5 flex items-center justify-between gap-1 mt-1 text-mlt-dark-6 flex-col xs:flex-row;
-}
-
-/* Nav Component */
-.dropdown {
-	@apply absolute -right-2 -top-2 mt-0 w-full p-5 pt-16 pb-3 rounded-lg min-w-[210px] flex flex-col gap-4 justify-end items-end shadow-lg shadow-mlt-orange-secondary/10 bg-mlt-gray-6 drop-shadow-lg;
-}
-
-.dropdown_link {
-	@apply text-sm font-inter text-gray-700 pr-1 hover:text-mlt-purple-primary font-semibold py-1;
-
-	letter-spacing: 0.4px;
 }
 
 /* PromptCard Component and Post/Prompt feed */
@@ -398,4 +387,64 @@ body {
 
 .post_button {
 	@apply py-0.5 px-2 inline-block rounded-full cursor-pointer select-none transition-colors duration-200 active:scale-95 bg-opacity-60 hover:bg-opacity-100 active:bg-opacity-80;
+}
+
+/* Nav items */
+.nav_item_common {
+	@apply transition-colors duration-100;
+	filter: drop-shadow(1px 2px 3px theme("colors.mlt-dark-1"));
+}
+
+.nav_item_common:hover {
+	@apply transition-colors duration-200;
+}
+
+.nav_item {
+	@apply font-Unicephalon h-full text-[18px] pt-[4px] hover:text-mlt-blue-primary active:text-mlt-purple-primary;
+}
+
+.nav_item_side_menu {
+	@apply font-Unicephalon h-full text-[18px] hover:text-mlt-blue-primary active:text-mlt-purple-primary;
+}
+
+.private_menu_item {
+	@apply p-3 block rounded;
+}
+
+.private_menu_item + .private_menu_item {
+	@apply mt-1;
+}
+
+.private_menu_item:hover {
+	@apply bg-mlt-gray-6/10;
+}
+
+/* Site Logo */
+.logo-cls_mlt-gray-1 {
+	fill: theme("colors.mlt-gray-1");
+}
+
+.logo-cls_mlt-gray-2 {
+	fill: theme("colors.mlt-gray-2");
+}
+
+.logo-cls_mlt-gray-3 {
+	fill: theme("colors.mlt-gray-3");
+}
+
+.logo_container .logo-cls_mlt-blue-primary,
+.logo_container .logo-cls_mlt-purple-primary {
+	@apply transition-colors duration-100;
+}
+
+.logo_container:hover .logo-cls_mlt-blue-primary {
+	@apply transition-colors duration-200;
+	color: theme("colors.mlt-blue-primary");
+	fill: theme("colors.mlt-blue-primary");
+}
+
+.logo_container:hover .logo-cls_mlt-purple-primary {
+	@apply transition-colors duration-200;
+	color: theme("colors.mlt-purple-primary");
+	fill: theme("colors.mlt-purple-primary");
 }

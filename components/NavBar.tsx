@@ -1,17 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import Image from "next/image";
+import { usePathname } from "next/navigation";
+
 import { signIn, signOut } from "next-auth/react";
-// import { usePathname } from "next/navigation";
 
-import logo from "@/public/icons/svg/spasov.me.logo.svg";
+import { useAppContext } from "@/contexts/AppContext";
 
-import { useBreakpoint } from "@/hooks/useBreakpoint";
+import {
+	NavigationMenu,
+	NavigationMenuContent,
+	NavigationMenuItem,
+	NavigationMenu_NextLink_Styled,
+	NavigationMenuList,
+	NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+
+import {
+	Sheet,
+	SheetContent,
+	SheetClose,
+	SheetMenu,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
+} from "@/components/ui/sheet";
+
 import { Path } from "@/interfaces/Path";
-import { usePromptopiaContext } from "@/contexts/PromptopiaContext";
 
 import { Skeleton } from "./ui/skeleton";
 import SiteLogo from "./fragments/SiteLogo";
@@ -19,16 +36,10 @@ import IconEmbedSvg from "./fragments/IconEmbedSvg";
 
 const NavBar: React.FC = () => {
 	const t = useTranslations("NavBar");
-	const { authProviders, session } = usePromptopiaContext();
-	const [toggleDropDown, setToggleDropDown] = useState(false);
-	// const pathName = usePathname();
-	const { isBelowSm } = useBreakpoint("sm");
+	const currentPathName = usePathname();
+	const { authProviders, session } = useAppContext();
 
-	const openMobileNavBar = () => {
-		setToggleDropDown((prevState) => !prevState);
-	};
-
-	const ligInButton = (
+	const logIn_Button = (
 		<>
 			{authProviders ? (
 				Object.values(authProviders).map((provider) => {
@@ -37,7 +48,6 @@ const NavBar: React.FC = () => {
 							<button
 								key={provider.name}
 								aria-label={t("signInWith", { provider: provider.name })}
-								className="login_provider_btn"
 								type="button"
 								onClick={() => signIn(provider.id)}
 							>
@@ -64,58 +74,115 @@ const NavBar: React.FC = () => {
 		</>
 	);
 
-	const profilePicture = (
-		<div className="z-20" onClick={openMobileNavBar}>
-			<IconEmbedSvg
-				color1="mlt-gray-3"
-				color2="mlt-blue-primary"
-				opacity2="BB"
-				type="sidebar-flip"
-			/>
-		</div>
+	const loggedIn_Menu = (
+		<NavigationMenu className="-mr-4" viewportPosition="right-4">
+			<NavigationMenuList>
+				<NavigationMenuItem>
+					<NavigationMenuTrigger chevronLeft>
+						<IconEmbedSvg
+							color1="mlt-gray-3"
+							color2="mlt-blue-primary"
+							opacity2="BB"
+							type="sidebar-flip"
+						/>
+					</NavigationMenuTrigger>
+
+					<NavigationMenuContent className="w-48">
+						<NavigationMenu_NextLink_Styled
+							desc={t("filesDescription")}
+							href={Path.private.FILES}
+							title={t("files")}
+						/>
+
+						<NavigationMenu_NextLink_Styled
+							desc={t("signOutDescription")}
+							href="#"
+							title={t("signOut")}
+							onClick={(e) => {
+								e.preventDefault();
+								signOut();
+							}}
+						/>
+					</NavigationMenuContent>
+				</NavigationMenuItem>
+			</NavigationMenuList>
+		</NavigationMenu>
+	);
+
+	const publicMenu_Wide = Object.keys(Path.public).map((path, index) => {
+		if (Path.public[path] === Path.public.HOME) {
+			return (
+				<Link key={index} className="text-mlt-gray-3 nav_item_common" href={Path.public.HOME}>
+					<SiteLogo
+						shouldBreakText={true}
+						size="2xs"
+						textColor={currentPathName !== Path.public.HOME ? "mlt-gray-3" : undefined}
+					/>
+				</Link>
+			);
+		} else {
+			return (
+				<Link
+					key={index}
+					className={`nav_item nav_item_common tracking-menu-items sm:tracking-menu-items-wide ${
+						currentPathName !== Path.public[path] ? "text-mlt-gray-3" : "text-mlt-blue-primary"
+					}`}
+					href={Path.public[path]}
+				>
+					{t(path)}
+				</Link>
+			);
+		}
+	});
+
+	const publicMenu_Narrow = (
+		<Sheet>
+			<SheetTrigger className="text-mlt-gray-3 nav_item_common outline-none">
+				<SiteLogo shouldBreakText={true} size="2xs" />
+			</SheetTrigger>
+
+			<SheetContent side="left">
+				<SheetHeader>
+					<SheetTitle className="text-mlt-gray-3 nav_item_common outline-none">
+						<SheetClose>
+							<SiteLogo
+								className="justify-start -ml-[4px] -mt-[2px]"
+								shouldBreakText={true}
+								size="xs"
+							/>
+						</SheetClose>
+					</SheetTitle>
+
+					<SheetMenu className="flex flex-col gap-4 pt-5 pl-2">
+						{Object.keys(Path.public).map((path, index) => (
+							<Link
+								key={index}
+								className={`nav_item_side_menu nav_item_common ${
+									currentPathName !== Path.public[path]
+										? "text-mlt-gray-3"
+										: "text-mlt-blue-primary"
+								}`}
+								href={Path.public[path]}
+								tabIndex={-1}
+							>
+								<SheetClose className="border-x-8 border-y-2 border-transparent tracking-menu-items-wide">
+									{t(path)}
+								</SheetClose>
+							</Link>
+						))}
+					</SheetMenu>
+				</SheetHeader>
+			</SheetContent>
+		</Sheet>
 	);
 
 	return (
 		<>
-			<SiteLogo size="2xs" />
+			<div className="items-center justify-center gap-4 hidden sm580:flex">{publicMenu_Wide}</div>
+			<div className="items-center justify-center gap-4 flex sm580:hidden">{publicMenu_Narrow}</div>
 
-			<div className="flex relative">
-				{session?.user ? (
-					<div className="flex">
-						{profilePicture}
-						{toggleDropDown && (
-							<div className="dropdown">
-								<Link
-									className="dropdown_link mt-3"
-									href={Path.PROFILE}
-									onClick={() => setToggleDropDown(false)}
-								>
-									{t("myProfile")}
-								</Link>
-								<Link
-									className="dropdown_link"
-									href={Path.POST_CREATE}
-									onClick={() => setToggleDropDown(false)}
-								>
-									{t("createPrompt")}
-								</Link>
-
-								<button
-									className="mt-2 w-full _btn gray_heavy_invert "
-									type="button"
-									onClick={() => {
-										setToggleDropDown(false);
-										signOut();
-									}}
-								>
-									{t("signOut")}
-								</button>
-							</div>
-						)}
-					</div>
-				) : (
-					<div className="flex justify-center items-center gap-3 md:gap-3">{ligInButton}</div>
-				)}
+			<div className="items-center justify-center gap-4 flex pt-1">
+				{session?.user ? loggedIn_Menu : logIn_Button}
 			</div>
 		</>
 	);

@@ -5,10 +5,11 @@ import { useTranslations } from "next-intl";
 
 import Link from "next/link";
 
+import { useAppContext } from "@/contexts/AppContext";
+
 import { PostTypeFromDb } from "@/interfaces/Post";
 import logo from "@/public/icons/svg/spasov.me.logo.svg";
 import { Path } from "@/interfaces/Path";
-import { usePromptopiaContext } from "@/contexts/PromptopiaContext";
 
 import Btn_PostTag from "./fragments/Btn_PostTag";
 import IconEmbedSvgPop from "./fragments/IconEmbedSvgPop";
@@ -33,7 +34,7 @@ const PostCard: React.FC<PostCardProps> = ({
 }) => {
 	const t = useTranslations("PostCard");
 	const pathName = usePathname();
-	const { session } = usePromptopiaContext();
+	const { session } = useAppContext();
 	const isEditMode = session?.user?.id === post.creator._id && pathName === Path.PROFILE;
 	const isDelMode = session?.user?.id === post.creator._id && pathName === Path.POST_DELETE;
 

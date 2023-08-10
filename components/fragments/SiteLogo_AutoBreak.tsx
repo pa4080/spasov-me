@@ -1,9 +1,13 @@
-import React from "react";
+"use client";
+
+import React, { useLayoutEffect, useState } from "react";
 
 import { useTranslations } from "next-intl";
 
 import resolveConfig from "tailwindcss/resolveConfig";
 import { Config } from "tailwindcss/types/config";
+
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 import tailwindConfig from "@/tailwind.config";
 import { cn } from "@/lib/utils";
@@ -12,17 +16,21 @@ const fullConfig = resolveConfig(tailwindConfig as unknown as Config);
 
 interface Props {
 	size?: "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
-	shouldBreakText?: boolean;
-	shouldHideText?: boolean;
+	textHidePoint?: "xs" | "sm" | "sm580" | "md" | "lg" | "xl" | "2xl" | "3xl" | "none";
+	textHidePoint_Default?: boolean;
+	textBreakpoint?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "none";
+	textBreakpoint_Default?: boolean;
 	textBreakRelativeSize?: number;
 	textColor?: string;
 	className?: string;
 }
 
-const SiteLogo: React.FC<Props> = ({
+const SiteLogo_AutoBreak: React.FC<Props> = ({
 	size = "md",
-	shouldBreakText = false,
-	shouldHideText = false,
+	textHidePoint = "none",
+	textBreakpoint_Default = false,
+	textBreakpoint = "sm",
+	textHidePoint_Default = false,
 	textBreakRelativeSize = 0.7,
 	textColor,
 	className,
@@ -35,6 +43,16 @@ const SiteLogo: React.FC<Props> = ({
 	let fontSize = 28;
 	let mrLogo = 0;
 
+	const textBreakpointObj = useBreakpoint(textBreakpoint);
+	const textHidePointObj = useBreakpoint(textHidePoint);
+	const [shouldBreakText, setShouldBreakText] = useState<number | boolean>(textBreakpoint_Default);
+	const [shouldHideText, setShouldHideText] = useState<number | boolean>(textHidePoint_Default);
+
+	useLayoutEffect(() => {
+		setShouldBreakText(Object.values(textBreakpointObj)[2] ?? textBreakpoint_Default);
+		setShouldHideText(Object.values(textHidePointObj)[2] ?? textHidePoint_Default);
+	}, [textBreakpointObj, textBreakpoint_Default, textHidePointObj, textHidePoint_Default]);
+
 	switch (size) {
 		case "2xs":
 			logoSize = 28;
@@ -44,7 +62,7 @@ const SiteLogo: React.FC<Props> = ({
 			break;
 		case "xs":
 			logoSize = 32;
-			yTranslate = 1.5;
+			yTranslate = 1.2;
 			fontSize = 22;
 			mrLogo = 0;
 			break;
@@ -219,4 +237,4 @@ const SiteLogo: React.FC<Props> = ({
 	);
 };
 
-export default SiteLogo;
+export default SiteLogo_AutoBreak;

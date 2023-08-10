@@ -1,7 +1,7 @@
 {
 	"Site": {
-		"title": "Promptopia",
-		"description": "A Next.js App Router Exercise by @Spas. Z. Spasov"
+		"title": "Spasov.me",
+		"description": "Personal portfolio site of Spas. Z. Spasov"
 	},
 	"Common": {
 		"model": "Model",
@@ -17,17 +17,20 @@
 		}
 	},
 	"NavBar": {
-		"home": "Home",
-		"about": "About",
-		"login": "Login",
-		"logout": "Logout",
+		"CV": "CV",
+		"BLOG": "Blog",
+		"PORTFOLIO": "Portfolio",
+		"CONTACT": "Contact",
+		"HOME": "Home",
+
 		"signUp": "Sign Up",
 		"signIn": "Sign In",
 		"signInWith": "Sign In {provider}",
 		"signOut": "Sign Out",
-		"search": "Search",
-		"searchPlaceholder": "Search for a tag or username",
-		"createPrompt": "Add Prompt",
+		"signOutDescription": "Exit the edit mode",
+
+		"files": "Files",
+		"filesDescription": "Upload, browse and manage files",
 
 		"altUserProfile": "User Profile",
 		"myProfile": "My Profile"
@@ -39,14 +42,9 @@
 			"str1": ".",
 			"str2": "me"
 		},
-		"altLogo": "Promptopia.MLT Logo"
+		"altLogo": "Site Logo"
 	},
-	"Home": {
-		"headingLn1": "Discover & Share",
-		"headingLn2": "AI-Powered Prompts",
-		"subHeading": "Promptopia is an open-source AI prompting tool for modern word to discover, create and share creative prompts",
-		"inputPlaceholder": "Search for a tag or username"
-	},
+	"Home": {},
 	"Form": {
 		"postType": "{ type } Post",
 		"postTypeDesc": "{ type } and share amazing prompts with the world, and let your imagination run wild with any AI-powered platform.",
@@ -86,8 +84,6 @@
 		"altProfilePicture": "Prompt Creator Profile Picture",
 		"altCopyPrompt": "Copy Prompt",
 		"altPromptImage": "Prompt Image",
-		"defaultUsername": "Promptopia Metalevel.tech",
-		"defaultEmail": "promptopia@metalevel.tech",
 		"spamProtect": "@spam.protect",
 		"edit": "Edit",
 		"delete": "Delete",

@@ -1,21 +1,18 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 
-import Feed from "@/components/Feed";
 import SiteLogo from "@/components/fragments/SiteLogo";
 
-const Home: React.FC = () => {
-	const t = useTranslations("Home");
+const CurriculumVitae: React.FC = () => {
+	const t = useTranslations("Site");
 
 	return (
 		<section className="">
 			<header className="text-center">
-				<SiteLogo size="3xl" />
+				<SiteLogo size="3xl" textBreakpoint="xs" textHidePoint="none" />
 			</header>
-
-			<Feed />
 		</section>
 	);
 };
 
-export default Home;
+export default CurriculumVitae;

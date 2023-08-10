@@ -5,7 +5,8 @@ import { useTranslations } from "next-intl";
 
 import { useSearchParams, useRouter } from "next/navigation";
 
-import { usePromptopiaContext } from "@/contexts/PromptopiaContext";
+import { useAppContext } from "@/contexts/AppContext";
+
 import { AiCategories, PostTypeFromDb, SearchTypes } from "@/interfaces/Post";
 
 import { Path } from "@/interfaces/Path";
@@ -18,7 +19,7 @@ import IconEmbedSvg from "./fragments/IconEmbedSvg";
 const Feed: React.FC = () => {
 	const t = useTranslations("Feed");
 	const tCommon = useTranslations("Common");
-	const { posts } = usePromptopiaContext();
+	const { posts } = useAppContext();
 	const [searchText, setSearchText] = useState("");
 	const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout>(null!);
 	const [searchResults, setSearchResults] = useState<PostTypeFromDb[]>([]);

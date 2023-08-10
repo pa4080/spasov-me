@@ -16,7 +16,7 @@ type AuthProvidersType = Record<
 	ClientSafeProvider
 > | null;
 
-interface PromptopiaContextProps {
+interface AppContextProps {
 	posts: PostTypeFromDb[];
 	setPosts: React.Dispatch<React.SetStateAction<PostTypeFromDb[]>>;
 	users: UserTypeFromDb[];
@@ -27,15 +27,13 @@ interface PromptopiaContextProps {
 	setPostCardListSize: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const PromptopiaContext = createContext<PromptopiaContextProps>({} as PromptopiaContextProps);
+const AppContext = createContext<AppContextProps>({} as AppContextProps);
 
-interface PromptopiaContextProviderProps {
+interface AppContextProviderProps {
 	children: React.ReactNode;
 }
 
-export const PromptopiaContextProvider: React.FC<PromptopiaContextProviderProps> = ({
-	children,
-}) => {
+export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
 	const [posts, setPosts] = useState<PostTypeFromDb[]>([]);
 	const [users, setUsers] = useState<UserTypeFromDb[]>([]);
 	const [authProviders, setAuthProviders] = useState<AuthProvidersType>(null);
@@ -50,7 +48,7 @@ export const PromptopiaContextProvider: React.FC<PromptopiaContextProviderProps>
 	}, []);
 
 	return (
-		<PromptopiaContext.Provider
+		<AppContext.Provider
 			value={{
 				posts,
 				setPosts,
@@ -63,8 +61,8 @@ export const PromptopiaContextProvider: React.FC<PromptopiaContextProviderProps>
 			}}
 		>
 			{children}
-		</PromptopiaContext.Provider>
+		</AppContext.Provider>
 	);
 };
 
-export const usePromptopiaContext = () => useContext(PromptopiaContext);
+export const useAppContext = () => useContext(AppContext);
