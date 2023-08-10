@@ -13,12 +13,11 @@ export const Path: PathType = {
 	private: {
 		FILES: "/manage-files",
 	},
+	deprecated: {
+		PROFILE: "/user-profile",
+		POSTS: "/user-posts",
+		POST_CREATE: "/post-create",
+		POST_UPDATE: "/post-update",
+		POST_DELETE: "/post-delete",
+	},
 };
-
-// {
-// 	PROFILE: "/user-profile",
-// 	POSTS: "/user-posts",
-// 	POST_CREATE: "/post-create",
-// 	POST_UPDATE: "/post-update",
-// 	POST_DELETE: "/post-delete",
-// };

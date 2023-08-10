@@ -35,8 +35,9 @@ const PostCard: React.FC<PostCardProps> = ({
 	const t = useTranslations("PostCard");
 	const pathName = usePathname();
 	const { session } = useAppContext();
-	const isEditMode = session?.user?.id === post.creator._id && pathName === Path.PROFILE;
-	const isDelMode = session?.user?.id === post.creator._id && pathName === Path.POST_DELETE;
+	const isEditMode = session?.user?.id === post.creator._id && pathName === Path.deprecated.PROFILE;
+	const isDelMode =
+		session?.user?.id === post.creator._id && pathName === Path.deprecated.POST_DELETE;
 
 	const handlePromptCopy = () => {
 		if (setCopied === undefined) {

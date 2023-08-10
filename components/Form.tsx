@@ -158,7 +158,7 @@ const Form: React.FC<FormProps> = ({
 					<div className="flex justify-end items-center gap-4 flex-row w-full">
 						<Link
 							className="text-sm text-mlt-dark-4 hover:text-mlt-orange-primary"
-							href={type === FormTypes.EDIT ? Path.PROFILE : Path.HOME}
+							href={type === FormTypes.EDIT ? Path.PROFILE : Path.pblic.HOME}
 						>
 							{t("cancel")}
 						</Link>
