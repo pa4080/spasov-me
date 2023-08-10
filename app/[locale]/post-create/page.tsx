@@ -14,12 +14,12 @@ import { FormTypes } from "@/interfaces/Form";
 import Form from "@/components/Form";
 import { Path } from "@/interfaces/Path";
 import { preparePostBodyToUpload, uploadOrReplaceImage } from "@/lib/fetch-helpers";
-import { usePromptopiaContext } from "@/contexts/PromptopiaContext";
+import { useAppContext } from "@/contexts/AppContext";
 
 const CreatePost_Page: React.FC = () => {
 	const t = useTranslations("CreatePost");
 	const router = useRouter();
-	const { setPosts, session } = usePromptopiaContext();
+	const { setPosts, session } = useAppContext();
 	const [submitting, setSubmitting] = useState(false);
 	const [post, setPost] = useState<PostType | PostTypeFromDb>(postInit);
 	const [errors, setErrors] = useState<PostErrorsType>(null!);

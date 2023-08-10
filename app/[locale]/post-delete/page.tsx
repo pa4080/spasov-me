@@ -5,19 +5,19 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import Link from "next/link";
 
+import { useAppContext } from "@/contexts/AppContext";
+
 import { fetchPosts } from "@/lib/fetch-helpers";
 
 import { PostTypeFromDb, postFromDbInit } from "@/interfaces/Post";
 import { Path } from "@/interfaces/Path";
-import Header from "@/components/Header";
 import PostCard from "@/components/PostCard";
-import { usePromptopiaContext } from "@/contexts/PromptopiaContext";
 
 const DeletePost_Page: React.FC = () => {
 	const t = useTranslations("DeletePost");
 	const tForm = useTranslations("Form");
 	const router = useRouter();
-	const { posts, setPosts } = usePromptopiaContext();
+	const { posts, setPosts } = useAppContext();
 	const [copied, setCopied] = useState("");
 	const [postToDelete, setPostToDelete] = useState<PostTypeFromDb>(postFromDbInit);
 	const [submitting, setSubmitting] = useState(false);
@@ -91,14 +91,6 @@ const DeletePost_Page: React.FC = () => {
 	return (
 		postToDelete && (
 			<section className="page_section_left w-fit max-w-3xl">
-				<Header
-					desc={t("description")}
-					gradient="red_gradient"
-					textStyle="text-left"
-					titleGradient={t("title", {
-						id: `${postToDelete._id.slice(0, 3)}...${postToDelete._id.slice(-3)}`,
-					})}
-				/>
 				<form className="mt-10 w-full" onSubmit={handleDeleteSubmit}>
 					<div className="flex justify-end items-center gap-4 flex-row w-full mb-8">
 						<Link

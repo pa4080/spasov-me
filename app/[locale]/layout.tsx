@@ -6,9 +6,11 @@ import { Inter } from "next/font/google";
 // import { getServerSession } from "next-auth";
 // import { authOptions } from "@/lib/auth-options";
 
-import { PromptopiaContextProvider } from "@/contexts/PromptopiaContext";
+import { AppContextProvider } from "@/contexts/AppContext";
+
 import AuthSessionProvider from "@/contexts/AuthSessionProvider";
-import Nav from "@/components/Nav";
+import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,8 +18,8 @@ export async function generateMetadata() {
 	const t = await getTranslations();
 
 	return {
-		title: `${t("Site.title")} - ${t("Home.headingLn1")} ${t("Home.headingLn1")}`,
-		description: t("Home.subHeading"),
+		title: `${t("Site.title")}`,
+		description: t("Site.description"),
 	};
 }
 
@@ -50,21 +52,18 @@ const LocaleLayout: React.FC<LocaleLayoutProps> = async ({ children, params }) =
 	return (
 		<html lang={locale}>
 			<body className={inter.className}>
-				{/* <Provider session={session}> */}
 				<AuthSessionProvider>
-					{/* <div className="main">
-						<div className="gradient" />
-					</div> */}
-					<main className="app">
+					<div className="app app_flex_container">
 						<NextIntlClientProvider locale={locale} messages={messages}>
-							<div className="app_inner">
-								<PromptopiaContextProvider>
-									<Nav />
+							<AppContextProvider>
+								<NavBar />
+								<main className="flex-1 flex-grow overflow-x-hidden overflow-y-auto">
 									{children}
-								</PromptopiaContextProvider>
-							</div>
+								</main>
+								<Footer />
+							</AppContextProvider>
 						</NextIntlClientProvider>
-					</main>
+					</div>
 				</AuthSessionProvider>
 			</body>
 		</html>

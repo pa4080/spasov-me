@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 
+import { useAppContext } from "@/contexts/AppContext";
+
 import { fetchPosts, preparePostBodyToUpload, uploadOrReplaceImage } from "@/lib/fetch-helpers";
 
 import {
@@ -15,12 +17,11 @@ import {
 import { FormTypes } from "@/interfaces/Form";
 import Form from "@/components/Form";
 import { Path } from "@/interfaces/Path";
-import { usePromptopiaContext } from "@/contexts/PromptopiaContext";
 
 const UpdatePost_Page: React.FC = () => {
 	const t = useTranslations("CreatePost");
 	const router = useRouter();
-	const { posts, setPosts } = usePromptopiaContext();
+	const { posts, setPosts } = useAppContext();
 	const [postToEdit, setPostToEdit] = useState<PostType | PostTypeFromDb>(postFromDbInit);
 	const [submitting, setSubmitting] = useState(false);
 	const [errors, setErrors] = useState<PostErrorsType>(null!);

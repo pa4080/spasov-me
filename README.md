@@ -104,7 +104,7 @@ Plugins:
 
 - [Flowbite (quick start)](https://flowbite.com/docs/getting-started/quickstart/) used for the [radio buttons](https://flowbite.com/docs/forms/radio/).
 
-## Promptopia additional packages
+## Additional packages
 
 ```bash
 npm i bcrypt mongodb mongoose next-auth

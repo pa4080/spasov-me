@@ -1,9 +1,10 @@
 import React, { useLayoutEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+import { useAppContext } from "@/contexts/AppContext";
+
 import { PostTypeFromDb } from "@/interfaces/Post";
 import { Path } from "@/interfaces/Path";
-import { usePromptopiaContext } from "@/contexts/PromptopiaContext";
 
 import PostCard from "./PostCard";
 
@@ -14,7 +15,7 @@ interface PromptCardListProps {
 const PostCardList: React.FC<PromptCardListProps> = ({ data }) => {
 	const [copied, setCopied] = useState("");
 	const router = useRouter();
-	const { setPostCardListSize } = usePromptopiaContext();
+	const { setPostCardListSize } = useAppContext();
 	const postCardListRef = React.useRef<HTMLDivElement>(null);
 
 	useLayoutEffect(() => {

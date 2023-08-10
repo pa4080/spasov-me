@@ -18,7 +18,7 @@ const UserPosts: React.FC<UserProfileType> = ({ user, posts }) => {
 						: t("placeholderUserDescription")
 				}
 				gradient="blue_gradient"
-				textStyle="text-left"
+				className="text-left"
 				titleGradient={user?.name ?? t("placeholderUser")}
 			/>
 

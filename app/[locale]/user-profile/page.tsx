@@ -5,10 +5,10 @@ import UserProfile from "@/components/UserProfile";
 import { PostTypeFromDb } from "@/interfaces/Post";
 import { fetchPosts } from "@/lib/fetch-helpers";
 import { UserTypeFromDb } from "@/interfaces/User";
-import { usePromptopiaContext } from "@/contexts/PromptopiaContext";
+import { useAppContext } from "@/contexts/AppContext";
 
 const UserProfile_Page: React.FC = () => {
-	const { posts, session } = usePromptopiaContext();
+	const { posts, session } = useAppContext();
 	const [userPosts, setUserPosts] = useState<PostTypeFromDb[]>([]);
 
 	useEffect(() => {

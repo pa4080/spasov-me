@@ -14,7 +14,6 @@ import CheckList, { ListItemType } from "@/components/fragments/CheckList";
 import { Path } from "@/interfaces/Path";
 
 import IconEmbedSvg from "./fragments/IconEmbedSvg";
-import Header from "./Header";
 
 const Form: React.FC<FormProps> = ({
 	handleSubmit,
@@ -56,13 +55,6 @@ const Form: React.FC<FormProps> = ({
 
 	return (
 		<section className="page_section_left w-full">
-			<Header
-				desc={t("postTypeDesc", i18nFormType)}
-				gradient="blue_gradient"
-				textStyle="text-left"
-				titleGradient={t("postType", i18nFormType)}
-			/>
-
 			<form
 				className="mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism"
 				onSubmit={handleSubmit}
