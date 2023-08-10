@@ -8,13 +8,11 @@ const Home: React.FC = () => {
 	const t = useTranslations("Home");
 
 	return (
-		<section className="">
-			<header className="text-center">
-				<SiteLogo size="3xl" />
-			</header>
+		<>
+			<SiteLogo size="3xl" />
 
 			<Feed />
-		</section>
+		</>
 	);
 };
 

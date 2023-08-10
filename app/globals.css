@@ -5,10 +5,8 @@
 
 /**
  * @clues
- *
  theme("screens.xs420")
  theme("colors.mlt-purple-secondary_tr1")
- *
  */
 
 @font-face {
@@ -95,16 +93,17 @@
 		@apply border-border;
 	}
 	body {
-		@apply bg-background text-foreground;
+		@apply bg-mlt-dark-3 text-mlt-gray-4;
 	}
 }
 
 body {
-	@apply bg-mlt-dark-3 text-foreground;
+	@apply bg-mlt-dark-3 text-mlt-gray-4;
 	display: block;
 	overflow-x: hidden;
 	overflow-y: auto;
-	min-width: 180px;
+	min-width: 240px;
+	height: 100vh;
 }
 
 @media screen and (width <= theme("screens.xs320")) {
@@ -113,6 +112,35 @@ body {
 	}
 }
 
+/* Main Layout*/
+.app {
+	overflow-x: hidden;
+	overflow-y: overlay;
+}
+
+@media screen and (width > theme("screens.xs420")) {
+	.app_flex_container {
+		height: 100%;
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+.nav_container {
+	@apply relative flex justify-between items-center w-full h-[62px] bg-mlt-dark-4 px-4 py-3;
+	box-sizing: border-box;
+	z-index: 1;
+	box-shadow: 0 2px 6px 3px theme("colors.mlt-dark-3");
+}
+
+.footer_container {
+	@apply relative flex items-center justify-center w-full h-[58px] overflow-hidden;
+	z-index: 1;
+	box-shadow: 0 -2px 6px 3px theme("colors.mlt-dark-3");
+}
+
+/* Scroll bars */
 * {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -144,250 +172,6 @@ body {
 
 *::-webkit-scrollbar-corner {
 	background-color: theme("colors.mlt-dark-6");
-}
-
-/* Tailwind Styles */
-.app {
-	overflow-x: hidden;
-	overflow-y: auto;
-}
-
-@media screen and (width > theme("screens.xs420")) {
-	body {
-		display: flex;
-		flex-direction: column;
-		height: 100vh;
-	}
-
-	.app {
-		overflow-y: scroll;
-	}
-}
-
-.red_gradient {
-	@apply bg-gradient-to-r from-red-500 via-red-700 to-red-600 bg-clip-text text-transparent;
-}
-
-.orange_gradient {
-	@apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
-}
-
-.green_gradient {
-	@apply bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent;
-}
-
-.blue_gradient {
-	@apply bg-gradient-to-r from-mlt-blue-primary to-mlt-purple-primary bg-clip-text text-transparent;
-}
-/* https://tailwindcss-glassmorphism.vercel.app/ */
-.glassmorphism {
-	/* @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5; */
-	@apply rounded-xl border-2 border-mlt-purple-secondary/40 bg-mlt-purple-secondary/10
-	shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] drop-shadow-lg backdrop-blur p-5;
-}
-
-.regular-icon {
-	opacity: 0.85;
-
-	display: inline-block;
-	padding: 0.8em 0.8em;
-	color: transparent;
-	text-decoration: none;
-}
-
-.regular-icon > img {
-	transition: transform 0.3s ease-in-out;
-	width: 2rem;
-	height: 2rem;
-}
-
-@media screen and (max-width: theme("screens.xs320")) {
-	.regular-icon {
-		padding: 0.7em 0.6em;
-	}
-	.regular-icon > img {
-		width: 1.7rem;
-		height: 1.7rem;
-	}
-}
-
-.regular-icon:hover > img {
-	transform: scale(1.4);
-	transition: transform 0.2s ease-in-out;
-}
-
-.special-icon {
-	transform: scale(1.05);
-	filter: drop-shadow(1px 2px 3px theme("colors.mlt-dark-1"));
-}
-
-.feed {
-	@apply mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2;
-}
-
-/* Form Component */
-.form_input_title {
-	@apply font-Unicephalon font-semibold text-base text-mlt-dark-6;
-}
-
-.form_input {
-	@apply w-full flex rounded-lg mt-2 p-3 text-base text-mlt-dark-0 opacity-70 outline-0 active:drop-shadow-lg focus:drop-shadow-lg transition-all duration-300 active:opacity-95 focus:opacity-95 hover:opacity-95 active:text-mlt-dark-4 focus:text-mlt-dark-4 focus:outline-0;
-}
-
-.form_input:focus-visible {
-	outline: none;
-}
-
-.search_input {
-	@apply opacity-100 active:opacity-100 focus:opacity-100 drop-shadow-md
-	border-2 border-mlt-purple-secondary/30 font-medium text-mlt-dark-5
-	active:border-mlt-purple-secondary/60 focus:border-mlt-purple-secondary/60;
-}
-
-.form_textarea {
-	@apply h-[180px] min-h-[50px];
-}
-
-.input_file_wrapper {
-	@apply w-full flex rounded-lg mt-2 px-3 py-2 outline-0 gap-3 items-center justify-center
-	text-lg text-mlt-purple-secondary/100
-	active:drop-shadow-lg focus:drop-shadow-lg hover:drop-shadow-lg 
-	transition-all duration-300 cursor-pointer
-	bg-white opacity-70 active:opacity-70 focus:opacity-70 hover:opacity-95
-	border-2 border-mlt-purple-secondary/30 active:border-mlt-purple-secondary/30 focus:border-mlt-purple-secondary/30 hover:border-mlt-purple-secondary/60;
-
-	letter-spacing: 0.4px;
-}
-
-.input_file_wrapper input[type="file"] {
-	display: none;
-}
-
-.search_input_container {
-	@apply w-full flex justify-center items-center relative;
-}
-
-.wipe_search_btn {
-	@apply absolute z-10 right-4 translate-y-[3.5px] hover:brightness-75 hover:saturate-150 transition-all hover:drop-shadow-lg duration-300;
-}
-
-.search_filters_container {
-	@apply w-full pl-0.5 flex items-center justify-between gap-1 mt-1 text-mlt-dark-6 flex-col xs:flex-row;
-}
-
-/* PromptCard Component and Post/Prompt feed */
-.post_card_list {
-	@apply gap-8 mt-16 w-full
-				md:w-max
-				lg:gap-10
-				2xl:gap-12
-				min-h-[10rem];
-
-	/**
-	 * > "min-h-[10rem]" fix a bug in Firefox where the container is not expanding
-	 *   while height (or min-height) is not provided as concrete value!?
-	 * > "sm:columns-2 2xl:columns-3" is moved in the component  because
-	 *   we calculating the number of columns based on the post number.
-	 */
-}
-
-.post_card {
-	@apply flex-1 break-inside-avoid rounded-xl border-2 border-mlt-gray-5/80 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter w-full h-fit 
-	drop-shadow-md shadow-[inset_10px_-50px_94px_0_rgb(176,123,255,0.1)]
-	mb-8 lg:mb-10 2xl:mb-12
-	transition-all;
-
-	/* duration-300 -- this duration overrides the <Skeleton />'s animation-pulse duration */
-
-	/* shadow-[inset_10px_-50px_94px_0_rgb(176,123,255,0.05)]
-	hover:shadow-[inset_10px_-50px_94px_0_rgb(176,123,255,0.15)]; */
-}
-
-.post_card_header {
-	/* @apply flex flex-1 justify-start gap-3 cursor-pointer flex-row items-center z-10; */
-	@apply grid justify-start gap-3 cursor-pointer flex-row items-center z-10;
-
-	grid-template-columns: 56px 1fr;
-}
-
-.post_card_del_mode {
-	@apply flex-1 break-inside-avoid rounded-xl border-2 border-red-300/80 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter w-full h-fit 
-	transition-all duration-300 
-	drop-shadow-md shadow-[inset_10px_-50px_94px_0_rgb(252,165,165,0.1)];
-
-	/* shadow-[inset_10px_-50px_94px_0_rgb(176,123,255,0.05)]
-	hover:shadow-[inset_10px_-50px_94px_0_rgb(176,123,255,0.15)]; */
-}
-
-.post_card_list .post_card {
-	@apply md:max-w-[340px] 
-				md820:max-w-[380px] 
-				lg:max-w-[460px]
-				xl:max-w-[480px]
-				2xl:max-w-[420px];
-}
-
-.post_card_prompt {
-	@apply mb-6 rounded-3xl bg-white/60 hover:bg-white/90 p-4 transition-all duration-300 cursor-pointer select-none text-mlt-dark-2 relative;
-
-	z-index: 1;
-}
-
-.post_card_prompt_wit_image::after {
-	@apply rounded-3xl rounded-b-none bg-gradient-to-b from-[#f7f7f7] via-[1.6rem] via-[#f7f7f7] to-white/0;
-
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	display: block;
-	width: 100%;
-	height: 3.2rem;
-	z-index: -1;
-}
-
-.post_card_prompt_text {
-	@apply hyphens-auto pr-3.5 block 2xl:max-h-[146px] overflow-y-auto overflow-x-hidden scroll-smooth;
-}
-
-.post_card_prompt_text::-webkit-scrollbar-thumb {
-	border: calc(var(--scrollbar-width) / 2.8) solid transparent;
-	border-top: 1.2rem solid transparent;
-	border-right: 0.31rem solid transparent;
-	border-left: 0.4rem solid transparent;
-	border-radius: 0;
-}
-
-.post_card_image_container {
-	@apply mt-6;
-}
-
-.post_card_image {
-	@apply rounded-3xl rounded-b-none w-full 2xl:h-auto max-h-96 object-cover m-0;
-}
-
-.post_card_edit_section {
-	@apply w-full flex items-center flex-row justify-end mt-6 pt-4 border-t-2 border-t-mlt-gray-5/80;
-}
-
-/* Misc */
-.form_error {
-	@apply text-red-500 text-xs italic pt-2;
-}
-
-.post_button {
-	@apply py-0.5 px-2 inline-block rounded-full cursor-pointer select-none transition-colors duration-200 active:scale-95 bg-opacity-60 hover:bg-opacity-100 active:bg-opacity-80;
-}
-
-/* Main Layout*/
-.footer_container {
-	@apply relative;
-	box-shadow: 0 -2px 6px 3px theme("colors.mlt-dark-3");
-}
-
-.nav_container {
-	@apply relative;
-	box-shadow: 0 2px 6px 3px theme("colors.mlt-dark-3");
 }
 
 /* Nav items */
@@ -448,4 +232,205 @@ body {
 	@apply transition-colors duration-200;
 	color: theme("colors.mlt-purple-primary");
 	fill: theme("colors.mlt-purple-primary");
+}
+
+/* Footer */
+.footer_icon {
+	opacity: 0.85;
+
+	display: inline-block;
+	padding: 0.8em 0.8em;
+	color: transparent;
+	text-decoration: none;
+}
+
+.footer_icon > img {
+	transition: transform 0.3s ease-in-out;
+	width: 2rem;
+	height: 2rem;
+}
+
+@media screen and (max-width: theme("screens.xs320")) {
+	.footer_icon {
+		padding: 0.7em 0.6em;
+	}
+	.footer_icon > img {
+		width: 1.7rem;
+		height: 1.7rem;
+	}
+}
+
+.footer_icon:hover > img {
+	transform: scale(1.4);
+	transition: transform 0.2s ease-in-out;
+}
+
+.footer_special_icon {
+	transform: scale(1.05);
+	filter: drop-shadow(1px 2px 3px theme("colors.mlt-dark-1"));
+}
+
+/* Fancy styles */
+
+.red_gradient {
+	@apply bg-gradient-to-r from-red-500 via-red-700 to-red-600 bg-clip-text text-transparent;
+}
+
+.orange_gradient {
+	@apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
+}
+
+.green_gradient {
+	@apply bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent;
+}
+
+.blue_gradient {
+	@apply bg-gradient-to-r from-mlt-blue-primary to-mlt-purple-primary bg-clip-text text-transparent;
+}
+
+/* https://tailwindcss-glassmorphism.vercel.app/ */
+.glassmorphism {
+	/* @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5; */
+	@apply rounded-xl border-2 border-mlt-purple-secondary/40 bg-mlt-purple-secondary/10
+	shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] drop-shadow-lg backdrop-blur p-5;
+}
+
+/* To be removed */
+.feed {
+	@apply mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2;
+}
+
+.form_input_title {
+	@apply font-Unicephalon font-semibold text-base text-mlt-dark-6;
+}
+
+.form_input {
+	@apply w-full flex rounded-lg mt-2 p-3 text-base text-mlt-dark-0 opacity-70 outline-0 active:drop-shadow-lg focus:drop-shadow-lg transition-all duration-300 active:opacity-95 focus:opacity-95 hover:opacity-95 active:text-mlt-dark-4 focus:text-mlt-dark-4 focus:outline-0;
+}
+
+.form_input:focus-visible {
+	outline: none;
+}
+
+.search_input {
+	@apply opacity-100 active:opacity-100 focus:opacity-100 drop-shadow-md
+	border-2 border-mlt-purple-secondary/30 font-medium text-mlt-dark-5
+	active:border-mlt-purple-secondary/60 focus:border-mlt-purple-secondary/60;
+}
+
+.form_textarea {
+	@apply h-[180px] min-h-[50px];
+}
+
+.input_file_wrapper {
+	@apply w-full flex rounded-lg mt-2 px-3 py-2 outline-0 gap-3 items-center justify-center
+	text-lg text-mlt-purple-secondary/100
+	active:drop-shadow-lg focus:drop-shadow-lg hover:drop-shadow-lg 
+	transition-all duration-300 cursor-pointer
+	bg-white opacity-70 active:opacity-70 focus:opacity-70 hover:opacity-95
+	border-2 border-mlt-purple-secondary/30 active:border-mlt-purple-secondary/30 focus:border-mlt-purple-secondary/30 hover:border-mlt-purple-secondary/60;
+
+	letter-spacing: 0.4px;
+}
+
+.input_file_wrapper input[type="file"] {
+	display: none;
+}
+
+.search_input_container {
+	@apply w-full flex justify-center items-center relative;
+}
+
+.wipe_search_btn {
+	@apply absolute z-10 right-4 translate-y-[3.5px] hover:brightness-75 hover:saturate-150 transition-all hover:drop-shadow-lg duration-300;
+}
+
+.search_filters_container {
+	@apply w-full pl-0.5 flex items-center justify-between gap-1 mt-1 text-mlt-dark-6 flex-col xs:flex-row;
+}
+
+.post_card_list {
+	@apply gap-8 mt-16 w-full
+				md:w-max
+				lg:gap-10
+				2xl:gap-12
+				min-h-[10rem];
+}
+
+.post_card {
+	@apply flex-1 break-inside-avoid rounded-xl border-2 border-mlt-gray-5/80 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter w-full h-fit 
+	drop-shadow-md shadow-[inset_10px_-50px_94px_0_rgb(176,123,255,0.1)]
+	mb-8 lg:mb-10 2xl:mb-12
+	transition-all;
+}
+
+.post_card_header {
+	@apply grid justify-start gap-3 cursor-pointer flex-row items-center z-10;
+
+	grid-template-columns: 56px 1fr;
+}
+
+.post_card_del_mode {
+	@apply flex-1 break-inside-avoid rounded-xl border-2 border-red-300/80 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter w-full h-fit 
+	transition-all duration-300 
+	drop-shadow-md shadow-[inset_10px_-50px_94px_0_rgb(252,165,165,0.1)];
+}
+
+.post_card_list .post_card {
+	@apply md:max-w-[340px] 
+				md820:max-w-[380px] 
+				lg:max-w-[460px]
+				xl:max-w-[480px]
+				2xl:max-w-[420px];
+}
+
+.post_card_prompt {
+	@apply mb-6 rounded-3xl bg-white/60 hover:bg-white/90 p-4 transition-all duration-300 cursor-pointer select-none text-mlt-dark-2 relative;
+
+	z-index: 1;
+}
+
+.post_card_prompt_wit_image::after {
+	@apply rounded-3xl rounded-b-none bg-gradient-to-b from-[#f7f7f7] via-[1.6rem] via-[#f7f7f7] to-white/0;
+
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	height: 3.2rem;
+	z-index: -1;
+}
+
+.post_card_prompt_text {
+	@apply hyphens-auto pr-3.5 block 2xl:max-h-[146px] overflow-y-auto overflow-x-hidden scroll-smooth;
+}
+
+.post_card_prompt_text::-webkit-scrollbar-thumb {
+	border: calc(var(--scrollbar-width) / 2.8) solid transparent;
+	border-top: 1.2rem solid transparent;
+	border-right: 0.31rem solid transparent;
+	border-left: 0.4rem solid transparent;
+	border-radius: 0;
+}
+
+.post_card_image_container {
+	@apply mt-6;
+}
+
+.post_card_image {
+	@apply rounded-3xl rounded-b-none w-full 2xl:h-auto max-h-96 object-cover m-0;
+}
+
+.post_card_edit_section {
+	@apply w-full flex items-center flex-row justify-end mt-6 pt-4 border-t-2 border-t-mlt-gray-5/80;
+}
+
+.form_error {
+	@apply text-red-500 text-xs italic pt-2;
+}
+
+.post_button {
+	@apply py-0.5 px-2 inline-block rounded-full cursor-pointer select-none transition-colors duration-200 active:scale-95 bg-opacity-60 hover:bg-opacity-100 active:bg-opacity-80;
 }

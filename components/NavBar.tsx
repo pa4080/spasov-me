@@ -177,14 +177,14 @@ const NavBar: React.FC = () => {
 	);
 
 	return (
-		<>
+		<nav className="nav_container">
 			<div className="items-center justify-center gap-4 hidden sm580:flex">{publicMenu_Wide}</div>
 			<div className="items-center justify-center gap-4 flex sm580:hidden">{publicMenu_Narrow}</div>
 
 			<div className="items-center justify-center gap-4 flex pt-1">
 				{session?.user ? loggedIn_Menu : logIn_Button}
 			</div>
-		</>
+		</nav>
 	);
 };
 

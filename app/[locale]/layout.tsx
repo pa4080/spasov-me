@@ -53,16 +53,14 @@ const LocaleLayout: React.FC<LocaleLayoutProps> = async ({ children, params }) =
 		<html lang={locale}>
 			<body className={inter.className}>
 				<AuthSessionProvider>
-					<div className="app">
+					<div className="app app_flex_container">
 						<NextIntlClientProvider locale={locale} messages={messages}>
 							<AppContextProvider>
-								<nav className="nav_container flex justify-between items-center w-full h-16 bg-mlt-dark-4 px-4">
-									<NavBar />
-								</nav>
-								<main>{children}</main>
-								<footer className="footer_container w-full flex justify-center items-center flex-row overflow-hidden">
-									<Footer />
-								</footer>
+								<NavBar />
+								<main className="flex-1 flex-grow overflow-x-hidden overflow-y-auto">
+									{children}
+								</main>
+								<Footer />
 							</AppContextProvider>
 						</NextIntlClientProvider>
 					</div>
