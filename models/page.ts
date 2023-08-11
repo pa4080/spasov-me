@@ -13,7 +13,7 @@ const PageSchema = new Schema({
 	},
 	uri: {
 		type: String,
-		match: [/^[a-z]*/, "The URI must start wit lowercase lati alphabet!"],
+		match: [/^[a-z][a-z0-9-]+$/, "The URI must start wit lowercase lati alphabet!"],
 	},
 	image: {
 		type: Schema.Types.ObjectId,

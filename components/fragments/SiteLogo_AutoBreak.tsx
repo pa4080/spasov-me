@@ -123,7 +123,7 @@ const SiteLogo_AutoBreak: React.FC<Props> = ({
 	return (
 		<div
 			className={cn(
-				"logo_container flex justify-center items-center gap-1 hover:drop-shadow-md transition-all duration-300 select-none min-w-min",
+				"logo_container flex justify-center items-center gap-1 transition-all duration-300 select-none min-w-min",
 				className
 			)}
 		>

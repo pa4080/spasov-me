@@ -48,9 +48,10 @@ const appTwConfig = {
 			},
 		},
 		extend: {
-			// https://tailwindcss.com/docs/screens
 			screens: {
+				// https://tailwindcss.com/docs/screens
 				sm580: "580px",
+				sm520: "520px",
 				xs: "480px",
 				xs420: "420px",
 				xs380: "380px",
@@ -61,6 +62,10 @@ const appTwConfig = {
 				satoshi: ["Satoshi", "sans-serif"],
 				inter: ["Inter", "sans-serif"],
 				Unicephalon: ["Unicephalon", "sans-serif"],
+			},
+			fontSize: {
+				// https://tailwindcss.com/docs/font-size
+				md: "1.05rem",
 			},
 			letterSpacing: {
 				"menu-items": "1px",

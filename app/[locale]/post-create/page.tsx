@@ -102,7 +102,7 @@ const CreatePost_Page: React.FC = () => {
 				const newPost = (await response.json()).post;
 
 				setPosts((prevPosts) => [...prevPosts, newPost]);
-				router.push(Path.pblic.HOME);
+				router.push(Path.public.HOME);
 			} else {
 				// The error handling here should be a bit complex in order to apply the translations.
 				// At all it is better to make a complete check on the FE, before fetch the API.

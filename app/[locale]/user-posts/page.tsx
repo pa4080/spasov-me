@@ -22,7 +22,7 @@ const UserProfile_Page: React.FC = () => {
 
 	useEffect(() => {
 		if (!userId) {
-			redirect(Path.pblic.HOME);
+			redirect(Path.public.HOME);
 		}
 
 		const findUser = users.length > 0 ? users.find((user) => user._id === userId) : null;
@@ -37,9 +37,9 @@ const UserProfile_Page: React.FC = () => {
 					setUsers([...users, addUser]);
 					setUser(addUser);
 				} else {
-					// In this place "redirect(Path.pblic.HOME)" is not working
+					// In this place "redirect(Path.public.HOME)" is not working
 					// probably it is a bug in "next/navigation"
-					router.push(Path.pblic.HOME);
+					router.push(Path.public.HOME);
 				}
 			})();
 		}

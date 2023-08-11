@@ -56,7 +56,7 @@ const Feed: React.FC = () => {
 			: posts.filter((post) => aiCAtegoriesNames.includes(post.aiCategory));
 
 		if (tagId) {
-			router.push(Path.pblic.HOME);
+			router.push(Path.public.HOME);
 		}
 
 		const filter = searchTypes.reduce(
@@ -104,7 +104,7 @@ const Feed: React.FC = () => {
 	}, [tagId]);
 
 	const handleWipe = () => {
-		router.push(Path.pblic.HOME);
+		router.push(Path.public.HOME);
 
 		setSearchText("");
 

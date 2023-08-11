@@ -9,8 +9,8 @@ interface Props {
 
 const HomePage_Logo: React.FC<Props> = ({ greeting_ln1, greeting_ln2 }) => {
 	return (
-		<div className="scale-90 xs320:scale-100 xs:scale-125 sm:scale-150 md:scale-[218%] flex w-full justify-center items-center">
-			<div className="w-max relative">
+		<div className="scale-90 mb-[18px] xs320:scale-100 xs320:mt-[1px] xs320:mb-[26px] xs:scale-125 xs420:my-[1px] xs:my-[8px] sm:scale-150 sm:my-[16px] md:scale-[218%] md:my-[37px] flex w-full justify-center items-center">
+			<div className="w-max h-max relative">
 				<div className="absolute z-10 font-Unicephalon text-[14px] xs420:text-[12px] xs480:text-[10px] text-mlt-gray-1 right-[2px] -top-[4px] xs420:-top-[2px] tracking-menu-items">
 					<span>{greeting_ln1}</span>{" "}
 					<span className="hidden xs420:inline-block">{greeting_ln2}</span>
