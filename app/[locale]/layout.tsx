@@ -57,7 +57,7 @@ const LocaleLayout: React.FC<LocaleLayoutProps> = async ({ children, params }) =
 						<NextIntlClientProvider locale={locale} messages={messages}>
 							<AppContextProvider>
 								<NavBar />
-								<main className="flex-1 flex-grow overflow-x-hidden overflow-y-auto">
+								<main className="flex-1 flex-grow overflow-x-hidden overflow-y-auto py-32 px-3 xs420:px-6">
 									{children}
 								</main>
 								<Footer />

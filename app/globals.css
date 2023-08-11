@@ -174,10 +174,15 @@ body {
 	background-color: theme("colors.mlt-dark-6");
 }
 
+/* Common styles */
+.emphasize_drop_shadow {
+	/* filter: drop-shadow(1px 2px 3px theme("colors.mlt-dark-1")); */
+	filter: drop-shadow(1px 2px 2px theme("colors.mlt-dark-1"));
+}
+
 /* Nav items */
 .nav_item_common {
 	@apply transition-colors duration-100;
-	filter: drop-shadow(1px 2px 3px theme("colors.mlt-dark-1"));
 }
 
 .nav_item_common:hover {

@@ -112,7 +112,11 @@ const NavBar: React.FC = () => {
 	const publicMenu_Wide = Object.keys(Path.public).map((path, index) => {
 		if (Path.public[path] === Path.public.HOME) {
 			return (
-				<Link key={index} className="text-mlt-gray-3 nav_item_common" href={Path.public.HOME}>
+				<Link
+					key={index}
+					className="text-mlt-gray-3 nav_item_common emphasize_drop_shadow"
+					href={Path.public.HOME}
+				>
 					<SiteLogo
 						shouldBreakText={true}
 						size="2xs"
@@ -124,7 +128,7 @@ const NavBar: React.FC = () => {
 			return (
 				<Link
 					key={index}
-					className={`nav_item nav_item_common tracking-menu-items sm:tracking-menu-items-wide ${
+					className={`nav_item nav_item_common emphasize_drop_shadow tracking-menu-items sm:tracking-menu-items-wide ${
 						currentPathName !== Path.public[path] ? "text-mlt-gray-3" : "text-mlt-blue-primary"
 					}`}
 					href={Path.public[path]}
@@ -137,13 +141,13 @@ const NavBar: React.FC = () => {
 
 	const publicMenu_Narrow = (
 		<Sheet>
-			<SheetTrigger className="text-mlt-gray-3 nav_item_common outline-none">
+			<SheetTrigger className="text-mlt-gray-3 nav_item_common emphasize_drop_shadow outline-none">
 				<SiteLogo shouldBreakText={true} size="2xs" />
 			</SheetTrigger>
 
 			<SheetContent side="left">
 				<SheetHeader>
-					<SheetTitle className="text-mlt-gray-3 nav_item_common outline-none">
+					<SheetTitle className="text-mlt-gray-3 nav_item_common emphasize_drop_shadow outline-none">
 						<SheetClose>
 							<SiteLogo
 								className="justify-start -ml-[4px] -mt-[2px]"
@@ -157,7 +161,7 @@ const NavBar: React.FC = () => {
 						{Object.keys(Path.public).map((path, index) => (
 							<Link
 								key={index}
-								className={`nav_item_side_menu nav_item_common ${
+								className={`nav_item_side_menu nav_item_common emphasize_drop_shadow ${
 									currentPathName !== Path.public[path]
 										? "text-mlt-gray-3"
 										: "text-mlt-blue-primary"
@@ -178,8 +182,12 @@ const NavBar: React.FC = () => {
 
 	return (
 		<nav className="nav_container">
-			<div className="items-center justify-center gap-4 hidden sm580:flex">{publicMenu_Wide}</div>
-			<div className="items-center justify-center gap-4 flex sm580:hidden">{publicMenu_Narrow}</div>
+			<div className="items-center justify-center gap-4 pb-[4px] hidden sm580:flex">
+				{publicMenu_Wide}
+			</div>
+			<div className="items-center justify-center gap-4 pb-[4px] flex sm580:hidden">
+				{publicMenu_Narrow}
+			</div>
 
 			<div className="items-center justify-center gap-4 flex pt-1">
 				{session?.user ? loggedIn_Menu : logIn_Button}
