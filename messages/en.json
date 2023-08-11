@@ -44,7 +44,12 @@
 		},
 		"altLogo": "Site Logo"
 	},
-	"Home": {},
+	"Home": {
+		"greeting": {
+			"ln1": "Welcome to",
+			"ln2": "my personal page"
+		}
+	},
 	"Form": {
 		"postType": "{ type } Post",
 		"postTypeDesc": "{ type } and share amazing prompts with the world, and let your imagination run wild with any AI-powered platform.",

@@ -16,9 +16,31 @@ const fullConfig = resolveConfig(tailwindConfig as unknown as Config);
 
 interface Props {
 	size?: "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
-	textHidePoint?: "xs" | "sm" | "sm580" | "md" | "lg" | "xl" | "2xl" | "3xl" | "none";
+	textHidePoint?:
+		| "xs320"
+		| "xs420"
+		| "xs"
+		| "sm"
+		| "sm580"
+		| "md"
+		| "lg"
+		| "xl"
+		| "2xl"
+		| "3xl"
+		| "none";
 	textHidePoint_Default?: boolean;
-	textBreakpoint?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "none";
+	textBreakpoint?:
+		| "xs320"
+		| "xs420"
+		| "xs"
+		| "sm"
+		| "sm580"
+		| "md"
+		| "lg"
+		| "xl"
+		| "2xl"
+		| "3xl"
+		| "none";
 	textBreakpoint_Default?: boolean;
 	textBreakRelativeSize?: number;
 	textColor?: string;
@@ -101,7 +123,7 @@ const SiteLogo_AutoBreak: React.FC<Props> = ({
 	return (
 		<div
 			className={cn(
-				"logo_container flex justify-center items-center gap-1 hover:drop-shadow-md transition-all duration-300 select-none",
+				"logo_container flex justify-center items-center gap-1 hover:drop-shadow-md transition-all duration-300 select-none min-w-min",
 				className
 			)}
 		>
