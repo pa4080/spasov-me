@@ -13,6 +13,10 @@ export const Path: PathType = {
 	private: {
 		FILES: "/manage-files",
 	},
+	api: {
+		POSTS: "/api/data/posts",
+		PAGES: "/api/data/pages",
+	},
 	deprecated: {
 		PROFILE: "/user-profile",
 		POSTS: "/user-posts",

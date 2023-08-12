@@ -67,7 +67,7 @@ const SheetContent = React.forwardRef<
 		<SheetPrimitive.Content ref={ref} className={cn(sheetVariants({ side }), className)} {...props}>
 			{children}
 			<SheetPrimitive.Close className="close_btn">
-				<X className="close_btn_x" strokeWidth={3} />
+				<X className="close_btn_x text-mlt-blue-primary" strokeWidth={3} />
 				<span className="sr-only">Close</span>
 			</SheetPrimitive.Close>
 		</SheetPrimitive.Content>

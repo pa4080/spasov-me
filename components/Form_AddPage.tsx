@@ -31,6 +31,9 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
+import { Path } from "@/interfaces/Path";
+import { preparePageObjectToFetch } from "@/interfaces/Page";
+
 // https://github.com/colinhacks/zod#nullable
 const FormSchema = z.object({
 	title: z.string().min(2, {
@@ -70,23 +73,87 @@ const AddPageForm: React.FC<Props> = ({ className }) => {
 		resolver: zodResolver(FormSchema),
 	});
 
-	// https://youtu.be/3ijyZllWBwU?t=353
-	const [isOpen, setIsOpen] = useState(false);
+	const [submitting, setSubmitting] = useState(false);
+	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
-		toast({
-			title: "You submitted the following values:",
-			description: (
-				<pre className="mt-2 max-w-full whitespace-pre-wrap break-words rounded-md bg-mlt-dark-1 p-4">
-					<code className="text-white whitespace-pre-wrap">{JSON.stringify(data, null, 2)}</code>
-				</pre>
-			),
-		}) && setIsOpen(false);
-	}
-
+	// Clear the image field if the dialog is closed,
+	// Otherwise on the next open "it" will attempt to set
+	// the image field programmatically, which is not allowed by the browser.
 	useEffect(() => {
 		!isOpen && form.getValues("image") && form.setValue("image", undefined);
 	}, [form, isOpen]);
+
+	const createPage = async (data: z.infer<typeof FormSchema>) => {
+		setSubmitting(true);
+
+		// if (post.aiCategory === AiCategories.IMAGE && !formDataToUpload) {
+		// 	setErrors((prevErrors) => ({ ...prevErrors, image: { message: t("imageRequiredError") } }));
+		// 	setSubmitting(false);
+
+		// 	return;
+		// } else if (post.aiCategory === AiCategories.IMAGE && formDataToUpload) {
+		// 	setErrors((prevErrors) => clearSpecificError(prevErrors, "image"));
+		// }
+
+		// const image_id: string | null = await uploadOrReplaceImage({
+		// 	formDataToUpload,
+		// 	postImageFilename,
+		// 	post,
+		// });
+
+		try {
+			const response = await fetch(Path.api.PAGES, {
+				method: "POST",
+				body: preparePageObjectToFetch({
+					data,
+					user_id: session?.user.id, // can be skipped on PUT/Update
+				}),
+			});
+
+			if (response.ok) {
+				const newPage = (await response.json()).data;
+				// setPages((prevPages) => [...prevPages, newPage]);
+
+				toast({
+					title: `The server response with status "${response.status}" and data:`,
+					description: (
+						<pre className="mt-2 rounded-md bg-mlt-dark-1 p-4 max-w-full whitespace-pre-wrap break-words">
+							{JSON.stringify(newPage, null, 2)}
+						</pre>
+					),
+				}) && form.reset();
+			} else {
+				const errors = (await response.json()).errors;
+
+				toast({
+					title: `The server response with status "${response.status}" and data:`,
+					description: (
+						<pre className="mt-2 rounded-md bg-mlt-dark-1 p-4 max-w-full whitespace-pre-wrap break-words">
+							{JSON.stringify(errors, null, 2)}
+						</pre>
+					),
+					variant: "destructive",
+				});
+			}
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setSubmitting(false);
+		}
+	};
+
+	const onSubmit = (data: z.infer<typeof FormSchema>) => {
+		createPage(data);
+
+		toast({
+			title: "You submitted the following values:",
+			description: (
+				<pre className="mt-2 rounded-md bg-mlt-dark-1 p-4 max-w-full whitespace-pre-wrap break-words">
+					{JSON.stringify(data, null, 2)}
+				</pre>
+			),
+		}) && setIsOpen(false);
+	};
 
 	return (
 		<>
@@ -100,7 +167,7 @@ const AddPageForm: React.FC<Props> = ({ className }) => {
 									""
 								)}
 							>
-								Add a page
+								{submitting ? "Submitting..." : "Add a page"}
 							</div>
 						</DialogTrigger>
 						<DialogContent>
@@ -178,7 +245,7 @@ const AddPageForm: React.FC<Props> = ({ className }) => {
 										)}
 									/>
 
-									<Button type="submit">Submit</Button>
+									<Button type="submit">{submitting ? "Submitting..." : "Submit"}</Button>
 								</form>
 							</Form>
 						</DialogContent>

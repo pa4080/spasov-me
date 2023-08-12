@@ -449,9 +449,10 @@ body {
 
 /* Shadcn-UI components style */
 .close_btn {
-	@apply absolute right-4 top-4 rounded-sm opacity-95 ring-offset-mlt-dark-4 transition-opacity hover:opacity-100 focus:outline-none focus:ring-1 focus:ring-mlt-blue-secondary focus:bg-mlt-blue-secondary/50 focus:ring-offset-4 disabled:pointer-events-none data-[state=open]:bg-secondary data-[state=open]:text-muted-foreground;
+	@apply absolute right-4 top-4 rounded-sm opacity-95 ring-offset-mlt-dark-4 transition-opacity hover:opacity-100 focus:outline-none focus:ring-1 focus:ring-mlt-blue-secondary focus:bg-mlt-blue-secondary/50 hover:bg-mlt-blue-secondary/50 focus:ring-offset-4 disabled:pointer-events-none data-[state=open]:bg-secondary data-[state=open]:text-muted-foreground;
 }
 
 .close_btn_x {
-	@apply h-8 w-8 text-mlt-blue-primary emphasize_drop_shadow;
+	@apply h-8 w-8 emphasize_drop_shadow;
+	/* text-mlt-blue-primary */
 }

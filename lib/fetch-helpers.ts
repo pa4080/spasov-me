@@ -91,25 +91,3 @@ export async function uploadOrReplaceImage({
 
 	return image_id ?? old_image._id?.toString() ?? null;
 }
-
-export function preparePostBodyToUpload({
-	post,
-	image_id,
-	user_id,
-}: {
-	post: PostType | PostTypeFromDb;
-	image_id?: string | null;
-	user_id?: string | undefined;
-}): string {
-	return JSON.stringify({
-		...post,
-		tags: String(post.tags)
-			.split(",")
-			.map((tag) => tag.trim().toLowerCase())
-			.filter((value, index, array) => array.indexOf(value) === index)
-			.sort((a, b) => a.localeCompare(b)),
-		// https://stackoverflow.com/a/14438954/6543935
-		image: image_id,
-		creator: user_id,
-	});
-}

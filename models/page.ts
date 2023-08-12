@@ -1,14 +1,19 @@
 import { Schema, model, models } from "mongoose";
 
 import { GridFS } from "./grid_fs";
+import User from "./user";
 
 const PageSchema = new Schema({
+	creator: {
+		type: Schema.Types.ObjectId,
+		ref: User,
+	},
 	title: {
 		type: String,
 		required: [true, "Title is required!"],
 	},
 	description: {
-		type: Array,
+		type: String,
 		required: [true, "Description is required!"],
 	},
 	uri: {
@@ -21,5 +26,5 @@ const PageSchema = new Schema({
 	},
 });
 
-const Page = models.Page || model("Post", PageSchema);
+const Page = models.Page || model("Page", PageSchema);
 export default Page;

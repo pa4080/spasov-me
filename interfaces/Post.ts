@@ -1,6 +1,6 @@
 import { GridFSFile } from "mongodb";
 
-import { UserTypeFromDb } from "@/interfaces/User";
+import { UserObject } from "@/interfaces/User";
 
 export interface PostType {
 	prompt: string;
@@ -13,7 +13,7 @@ export interface PostType {
 export interface PostTypeFromDb extends Omit<PostType, "tags"> {
 	_id: string;
 	tags: string[];
-	creator: UserTypeFromDb;
+	creator: UserObject;
 	image: GridFSFile;
 }
 
@@ -41,7 +41,7 @@ export const postFromDbInit: PostTypeFromDb = {
 	aiCategory: AiCategories.CHAT,
 	link: "",
 	_id: "",
-	creator: {} as UserTypeFromDb,
+	creator: {} as UserObject,
 	image: {} as GridFSFile,
 };
 

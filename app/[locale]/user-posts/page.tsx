@@ -5,7 +5,7 @@ import { redirect, useSearchParams, useRouter } from "next/navigation";
 
 import { PostTypeFromDb } from "@/interfaces/Post";
 import { fetchPosts, fetchSingleUser } from "@/lib/fetch-helpers";
-import { UserTypeFromDb } from "@/interfaces/User";
+import { UserObject } from "@/interfaces/User";
 import { useAppContext } from "@/contexts/AppContext";
 import { Path } from "@/interfaces/Path";
 import UserPosts from "@/components/UserPosts";
@@ -13,7 +13,7 @@ import UserPosts from "@/components/UserPosts";
 const UserProfile_Page: React.FC = () => {
 	const { posts, users, setUsers } = useAppContext();
 	const [userPosts, setUserPosts] = useState<PostTypeFromDb[]>([]);
-	const [user, setUser] = useState<UserTypeFromDb>({} as UserTypeFromDb);
+	const [user, setUser] = useState<UserObject>({} as UserObject);
 
 	const router = useRouter();
 

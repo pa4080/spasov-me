@@ -46,5 +46,15 @@
 		"voluptas",
 		"voluptates",
 		"wikimedia"
-	]
+	],
+	"material-icon-theme.files.associations": {
+		// https://github.com/PKief/vscode-material-icon-theme
+	},
+	"material-icon-theme.folders.associations": {
+		"files": "upload",
+		"files/[[...query]]": "upload",
+		"data": "database",
+		"data/[[...query]]": "database",
+		"session-info": "meta"
+	}
 }

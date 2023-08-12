@@ -9,7 +9,7 @@ import { BuiltInProviderType } from "next-auth/providers";
 
 import { PostTypeFromDb } from "@/interfaces/Post";
 import { fetchPosts } from "@/lib/fetch-helpers";
-import { UserTypeFromDb } from "@/interfaces/User";
+import { UserObject } from "@/interfaces/User";
 
 type AuthProvidersType = Record<
 	LiteralUnion<BuiltInProviderType, string>,
@@ -19,8 +19,8 @@ type AuthProvidersType = Record<
 interface AppContextProps {
 	posts: PostTypeFromDb[];
 	setPosts: React.Dispatch<React.SetStateAction<PostTypeFromDb[]>>;
-	users: UserTypeFromDb[];
-	setUsers: React.Dispatch<React.SetStateAction<UserTypeFromDb[]>>;
+	users: UserObject[];
+	setUsers: React.Dispatch<React.SetStateAction<UserObject[]>>;
 	authProviders: AuthProvidersType;
 	session: Session | null;
 	postCardListSize: number;
@@ -35,7 +35,7 @@ interface AppContextProviderProps {
 
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
 	const [posts, setPosts] = useState<PostTypeFromDb[]>([]);
-	const [users, setUsers] = useState<UserTypeFromDb[]>([]);
+	const [users, setUsers] = useState<UserObject[]>([]);
 	const [authProviders, setAuthProviders] = useState<AuthProvidersType>(null);
 	const [postCardListSize, setPostCardListSize] = useState(0);
 	const { data: session } = useSession();

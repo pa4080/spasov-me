@@ -22,7 +22,7 @@ import GithubProvider from "next-auth/providers/github";
 // import GoogleProvider from "next-auth/providers/google";
 // import CredentialsProvider from "next-auth/providers/credentials"; // For DB auth...
 
-// import { getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 
@@ -55,13 +55,16 @@ export const authOptions: NextAuthOptions = {
 
 			return session; // The return type will match the one returned in `useSession()`
 		},
-		async signIn({ /*account,*/ profile }) {
-			// console.log(profile, account);
+		async signIn({ account, profile }) {
+			// Extended check for Google users, https://next-auth.js.org/providers/google
+			// if (account?.provider === "google" && !profile?.email_verified) {	return false; }
 
-			// https://next-auth.js.org/providers/google
-			// if (account?.provider === "google" && !profile?.email_verified) {
-			// 	return false;
-			// }
+			// Check if the user is allowed to sign in and skip the creation of a new user...
+			if (process.env.GITHUB_ALLOWED_USER_SECRET === `email:${profile?.email},id:${profile?.id}`) {
+				return true;
+			} else {
+				return false;
+			}
 
 			try {
 				await connectToMongoDb();
@@ -70,44 +73,32 @@ export const authOptions: NextAuthOptions = {
 				const userExist = await User.findOne({ email: profile?.email });
 
 				/**
+				 * If the user not exists, create a new one in the database..m-0.5
 				 * NOTE: .picture does not exist on { session } depending on the provider
 				 * .image does not exist on { profile } - i.e. for GitHub 'avatar_url'...
 				 * @see '@/app/components/Nav.tsx' and '@/types/next-auth.d.ts'
 				 */
-
-				// If not create a new user in the database
 				if (!userExist) {
-					return false;
-
 					/**
 					 * @attention We do not want to create a new user in the database.
 					 * 						This code should be uncommented only once.
-					 * 
+					 */
 					const name = String(profile?.name ?? profile?.login ?? profile?.username);
-					
+
 					await User.create({
 						email: String(profile?.email),
 						username: String(
 							`${profile?.email}${Math.floor(Math.random() * 10000)}${account?.provider}`
-							?.replace(/(\s|\.|-|@)/g, ".")
-							.replace(/\.+/g, "")
-							.toLocaleLowerCase()
-							.replace(/[^a-z0-9]/gi, "")
-							),
-							name,
-							image: String(profile?.picture ?? profile?.image ?? profile?.avatar_url),
-							accountProvider: String(account?.provider),
-							description: (await getTranslations("Common"))("defaultUserDescription"),
-						});
-
-						*/
-				}
-
-				// Additional allowed user check
-				if (
-					process.env.GITHUB_ALLOWED_USER_SECRET !== `email:${profile?.email},id:${profile?.id}`
-				) {
-					return false;
+								?.replace(/(\s|\.|-|@)/g, ".")
+								.replace(/\.+/g, "")
+								.toLocaleLowerCase()
+								.replace(/[^a-z0-9]/gi, "")
+						),
+						name,
+						image: String(profile?.picture ?? profile?.image ?? profile?.avatar_url),
+						accountProvider: String(account?.provider),
+						description: (await getTranslations("Common"))("defaultUserDescription"),
+					});
 				}
 
 				return true;

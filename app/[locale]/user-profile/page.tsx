@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import UserProfile from "@/components/UserProfile";
 import { PostTypeFromDb } from "@/interfaces/Post";
 import { fetchPosts } from "@/lib/fetch-helpers";
-import { UserTypeFromDb } from "@/interfaces/User";
+import { UserObject } from "@/interfaces/User";
 import { useAppContext } from "@/contexts/AppContext";
 
 const UserProfile_Page: React.FC = () => {
@@ -28,9 +28,7 @@ const UserProfile_Page: React.FC = () => {
 		}
 	}, [posts, session]);
 
-	return (
-		session && <UserProfile posts={userPosts} user={session?.user as unknown as UserTypeFromDb} />
-	);
+	return session && <UserProfile posts={userPosts} user={session?.user as unknown as UserObject} />;
 };
 
 export default UserProfile_Page;
