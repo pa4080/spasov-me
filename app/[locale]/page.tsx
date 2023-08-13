@@ -18,7 +18,7 @@ const Home: React.FC = () => {
 			}}
 		>
 			<HomePage_Logo greeting_ln1={t("greeting.ln1")} greeting_ln2={t("greeting.ln2")} />
-			<AddPageForm />
+			<AddPageForm className="z-1" />
 		</div>
 	);
 };

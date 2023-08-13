@@ -58,6 +58,27 @@
 			"trigger_submitting": "Submitting...",
 			"toast_submit_title": "You submitted the following values:",
 			"toast_response_title": "The server response with status { status } and data:"
+		},
+		"Form": {
+			"pageTitle": "Page title",
+			"pageTitlePlaceholder": "Page title...",
+			"pageTitleDescription": "Enter the display title/name of the page.",
+			"pageDescription": "Page description",
+			"pageDescriptionPlaceholder": "Page description...",
+			"pageDescriptionDescription": "Enter the description of the page.",
+			"pageSlug": "Page slug",
+			"pageSlugPlaceholder": "page-slug",
+			"pageSlugDescription": "This will be used in the URL. Don't use spaces or special characters.",
+			"pageImage": "Page image",
+			"pageImageDescription": "Upload an image for the page.",
+			"trigger_label": "Submit",
+			"trigger_submitting": "Submitting...",
+			"schema": {
+				"title": "The page title must be at least 2 characters.",
+				"description": "The description must be at least 20 characters.",
+				"uri": "The page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
+				"image": "The allowed formats are: png, jpg, jpeg, svg, webp."
+			}
 		}
 	},
 	"Form": {

@@ -158,6 +158,10 @@ body {
 	box-shadow: 0 2px 6px 3px theme("colors.mlt-dark-3");
 }
 
+.content_container {
+	@apply flex-1 flex-grow overflow-x-hidden overflow-y-auto py-32 px-3 xs420:px-6 w-full max-w-4xl mx-auto min-h-[calc(100vh-62px-58px)];
+}
+
 .footer_container {
 	@apply relative flex items-center justify-center w-full h-[58px] overflow-hidden;
 	z-index: 1;

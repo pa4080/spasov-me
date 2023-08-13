@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect } from "react";
+import { useTranslations } from "next-intl";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -19,32 +21,36 @@ import {
 import { cn } from "@/lib/utils";
 
 // https://github.com/colinhacks/zod#nullable
-export const FormSchema = z.object({
-	title: z.string().min(2, {
-		message: "The page title must be at least 2 characters.",
-	}),
-	description: z.string().min(2, {
-		message: "The description must be at least 20 characters.",
-	}),
-	uri: z
-		.string()
-		.min(2, {
-			message:
-				"The page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
-		})
-		.toLowerCase()
-		.regex(/^[a-z][a-z0-9-]+$/)
-		.trim(),
-	image: z // https://stackoverflow.com/a/74028632/6543935
-		.union([
-			z.string().regex(/\.(png|jpg|jpeg|svg|webp)$/, {
-				message: "The allowed formats are: png, jpg, jpeg, svg, webp.",
-			}),
-			z.string().length(0),
-		])
-		.optional()
-		.transform((e) => (e === "" ? undefined : e)),
-});
+// Here is applied a tricky solution to translate the messages,
+// outside React  component on the client side...?
+export const FormSchemaGenerator = (messages?: string[]) =>
+	z.object({
+		title: z.string().min(2, {
+			message: messages?.shift(),
+		}),
+		description: z.string().min(2, {
+			message: messages?.shift(),
+		}),
+		uri: z
+			.string()
+			.min(2, {
+				message: messages?.shift(),
+			})
+			.toLowerCase()
+			.regex(/^[a-z][a-z0-9-]+$/)
+			.trim(),
+		image: z // https://stackoverflow.com/a/74028632/6543935
+			.union([
+				z.string().regex(/\.(png|jpg|jpeg|svg|webp)$/, {
+					message: messages?.shift(),
+				}),
+				z.string().length(0),
+			])
+			.optional()
+			.transform((e) => (e === "" ? undefined : e)),
+	});
+
+export const FormSchema = FormSchemaGenerator();
 
 interface Props {
 	className?: string;
@@ -59,6 +65,14 @@ const Pages_Form: React.FC<Props> = ({
 	submitting = false,
 	isContainerDialogOpen = true,
 }) => {
+	const t = useTranslations("PagesFeed.Form");
+	const FormSchema = FormSchemaGenerator([
+		t("schema.title"),
+		t("schema.description"),
+		t("schema.uri"),
+		t("schema.image"),
+	]);
+
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 	});
@@ -78,11 +92,11 @@ const Pages_Form: React.FC<Props> = ({
 					name="title"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Page name</FormLabel>
+							<FormLabel>{t("pageTitle")}</FormLabel>
 							<FormControl>
-								<Input placeholder="Page name" {...field} />
+								<Input placeholder={t("pageTitlePlaceholder")} {...field} />
 							</FormControl>
-							<FormDescription>Enter the display name of the page.</FormDescription>
+							<FormDescription>{t("pageTitleDescription")}</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -93,11 +107,11 @@ const Pages_Form: React.FC<Props> = ({
 					name="description"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Page description</FormLabel>
+							<FormLabel>{t("pageDescription")}</FormLabel>
 							<FormControl>
-								<Input placeholder="Page description" {...field} />
+								<Input placeholder={t("pageDescriptionPlaceholder")} {...field} />
 							</FormControl>
-							<FormDescription>Enter the display description of the page.</FormDescription>
+							<FormDescription>{t("pageDescriptionDescription")}</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -108,13 +122,11 @@ const Pages_Form: React.FC<Props> = ({
 					name="uri"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Page slug</FormLabel>
+							<FormLabel>{t("pageSlug")}</FormLabel>
 							<FormControl>
-								<Input placeholder="example-slug" {...field} />
+								<Input placeholder={t("pageSlugPlaceholder")} {...field} />
 							</FormControl>
-							<FormDescription>
-								Enter the URI (slug) of the page. No capital letters and spaces.
-							</FormDescription>
+							<FormDescription>{t("pageSlugDescription")}</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -125,17 +137,17 @@ const Pages_Form: React.FC<Props> = ({
 					name="image"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Page image</FormLabel>
+							<FormLabel>{t("pageImage")}</FormLabel>
 							<FormControl>
 								<Input {...field} accept="image/*" type="file" />
 							</FormControl>
-							<FormDescription>Upload an image of the page.</FormDescription>
+							<FormDescription>{t("pageImageDescription")}</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
 
-				<Button type="submit">{submitting ? "Submitting..." : "Submit"}</Button>
+				<Button type="submit">{submitting ? t("trigger_submitting") : t("trigger_label")}</Button>
 			</form>
 		</Form>
 	);
