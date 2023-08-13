@@ -50,6 +50,16 @@
 			"ln2": "my personal page"
 		}
 	},
+	"PagesFeed": {
+		"Pages_AddDialog": {
+			"title": "Add a new page",
+			"description": "This must be a valid/existing public page, defined within the project. By adding it here it will be available as a card at the homepage.",
+			"trigger_label": "Add a page",
+			"trigger_submitting": "Submitting...",
+			"toast_submit_title": "You submitted the following values:",
+			"toast_response_title": "The server response with status { status } and data:"
+		}
+	},
 	"Form": {
 		"postType": "{ type } Post",
 		"postTypeDesc": "{ type } and share amazing prompts with the world, and let your imagination run wild with any AI-powered platform.",

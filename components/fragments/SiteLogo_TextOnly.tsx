@@ -3,7 +3,7 @@ import React from "react";
 import { useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils";
-import { roundToTwo } from "@/lib/round";
+import { roundTo } from "@/lib/round";
 
 interface Props {
 	fontSize?: number;
@@ -25,14 +25,14 @@ const SiteLogo_TextOnly: React.FC<Props> = ({
 	const t = useTranslations("SiteLogo");
 	const textColorClass = `text-${textColor}`;
 
-	const firstLetterFontSize = roundToTwo(fontSize * 1.12);
-	const fontSizeCompensation = roundToTwo((firstLetterFontSize - fontSize) / 1 / 5);
+	const firstLetterFontSize = roundTo(fontSize * 1.12);
+	const fontSizeCompensation = roundTo((firstLetterFontSize - fontSize) / 1 / 5);
 	const shapeFactor = 1.27;
-	const shapeSize = roundToTwo(firstLetterFontSize * shapeFactor);
+	const shapeSize = roundTo(firstLetterFontSize * shapeFactor);
 	const leftFactor = 0.58;
-	const leftValue = roundToTwo(firstLetterFontSize * leftFactor);
+	const leftValue = roundTo(firstLetterFontSize * leftFactor);
 	const topFactor = 0.04;
-	const topValue = roundToTwo(firstLetterFontSize * topFactor);
+	const topValue = roundTo(firstLetterFontSize * topFactor);
 
 	return (
 		<div

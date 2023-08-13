@@ -11,11 +11,12 @@ import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 import tailwindConfig from "@/tailwind.config";
 import { cn } from "@/lib/utils";
+import { roundTo } from "@/lib/round";
 
 const fullConfig = resolveConfig(tailwindConfig as unknown as Config);
 
 interface Props {
-	size?: "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
+	fontSize?: number;
 	textHidePoint?:
 		| "xs320"
 		| "xs420"
@@ -48,7 +49,7 @@ interface Props {
 }
 
 const SiteLogo_AutoBreak: React.FC<Props> = ({
-	size = "md",
+	fontSize = 28,
 	textHidePoint = "none",
 	textBreakpoint_Default = false,
 	textBreakpoint = "sm",
@@ -60,10 +61,21 @@ const SiteLogo_AutoBreak: React.FC<Props> = ({
 	const t = useTranslations("SiteLogo");
 	const textColorClass = `text-${textColor}`;
 
-	let logoSize = 40;
-	let yTranslate = 3;
-	let fontSize = 28;
-	let mrLogo = 0;
+	let mrLogo = roundTo(fontSize / 25);
+	let yTranslate = roundTo(fontSize / 20);
+
+	if (fontSize < 20) {
+		mrLogo = roundTo(fontSize / 30);
+		yTranslate = roundTo(fontSize / 15);
+	} else if (fontSize < 46) {
+		mrLogo = roundTo(fontSize / 25);
+		yTranslate = roundTo(fontSize / 14);
+	} else {
+		mrLogo = roundTo(fontSize / 21);
+		yTranslate = roundTo(fontSize / 12);
+	}
+
+	const logoSize = roundTo(fontSize * 1.5);
 
 	const textBreakpointObj = useBreakpoint(textBreakpoint);
 	const textHidePointObj = useBreakpoint(textHidePoint);
@@ -75,57 +87,16 @@ const SiteLogo_AutoBreak: React.FC<Props> = ({
 		setShouldHideText(Object.values(textHidePointObj)[2] ?? textHidePoint_Default);
 	}, [textBreakpointObj, textBreakpoint_Default, textHidePointObj, textHidePoint_Default]);
 
-	switch (size) {
-		case "2xs":
-			logoSize = 28;
-			yTranslate = 2;
-			fontSize = 18;
-			mrLogo = -0.5;
-			break;
-		case "xs":
-			logoSize = 32;
-			yTranslate = 1.2;
-			fontSize = 22;
-			mrLogo = 0;
-			break;
-		case "sm":
-			logoSize = 36;
-			yTranslate = 2.3;
-			fontSize = 25;
-			mrLogo = 0.5;
-			break;
-		case "md":
-			logoSize = 40;
-			yTranslate = 3;
-			fontSize = 28;
-			mrLogo = 1;
-			break;
-		case "xl":
-			logoSize = 48;
-			yTranslate = 2.5;
-			fontSize = 33;
-			mrLogo = 1.5;
-			break;
-		case "2xl":
-			logoSize = 54;
-			yTranslate = 2.5;
-			fontSize = 37;
-			mrLogo = 2;
-			break;
-		case "3xl":
-			logoSize = 60;
-			yTranslate = 2.5;
-			fontSize = 42;
-			mrLogo = 2.5;
-			break;
-	}
-
 	return (
 		<div
 			className={cn(
 				"logo_container flex justify-center items-center gap-1 transition-all duration-300 select-none min-w-min",
 				className
 			)}
+			style={{
+				fontSize: `${fontSize}px`,
+				marginBottom: shouldBreakText ? `${textBreakRelativeSize}em` : "unset",
+			}}
 		>
 			<svg
 				aria-label={t("altLogo")}
@@ -219,7 +190,6 @@ const SiteLogo_AutoBreak: React.FC<Props> = ({
 				style={{
 					transform: `translateY(${yTranslate}px)`,
 					fontSize: `${fontSize}px`,
-					// letterSpacing: "1.8px",
 					display: shouldHideText ? "none" : "block",
 				}}
 			>
@@ -235,23 +205,26 @@ const SiteLogo_AutoBreak: React.FC<Props> = ({
 					style={{
 						display: shouldBreakText ? "block" : "contents",
 						right: shouldBreakText ? "0" : "unset",
-						bottom: shouldBreakText ? `-${textBreakRelativeSize * 1.45}em` : "unset",
+						bottom: shouldBreakText ? `-${textBreakRelativeSize}em` : "unset",
 						fontSize: shouldBreakText ? `${textBreakRelativeSize}em` : "inherit",
+						transform: shouldBreakText ? `translateY(${1 - textBreakRelativeSize}em)` : "unset",
 					}}
 				>
-					<span
-						className={`${
-							textColor ? textColorClass : "text-mlt-purple-primary"
-						} logo-cls_mlt-purple-primary`}
-					>
-						{t("logoSubText.str1")}
-					</span>
-					<span
-						className={`${
-							textColor ? textColorClass : "text-mlt-purple-primary"
-						} logo-cls_mlt-purple-primary`}
-					>
-						{t("logoSubText.str2")}
+					<span style={{ lineHeight: "1em" }}>
+						<span
+							className={`${
+								textColor ? textColorClass : "text-mlt-purple-primary"
+							} logo-cls_mlt-purple-primary`}
+						>
+							{t("logoSubText.str1")}
+						</span>
+						<span
+							className={`${
+								textColor ? textColorClass : "text-mlt-purple-primary"
+							} logo-cls_mlt-purple-primary`}
+						>
+							{t("logoSubText.str2")}
+						</span>
 					</span>
 				</span>
 			</p>

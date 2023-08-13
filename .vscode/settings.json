@@ -25,6 +25,8 @@
 		"laboriosam",
 		"laborum",
 		"maxage",
+		"multivac",
+		"Multivac",
 		"NEXTAUT",
 		"nextauth",
 		"NEXTAUTH",
@@ -55,6 +57,7 @@
 		"files/[[...query]]": "upload",
 		"data": "database",
 		"data/[[...query]]": "database",
-		"session-info": "meta"
+		"session-info": "meta",
+		"components/home": "base"
 	}
 }

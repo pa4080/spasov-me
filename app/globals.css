@@ -17,6 +17,30 @@
 	font-display: swap;
 }
 
+@font-face {
+	font-family: MultivacInterference;
+	font-weight: 400;
+	font-style: normal;
+	src: url("/fonts/Unicephalon/multivac.interference.ttf") format("truetype");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: MultivacGhost;
+	font-weight: 400;
+	font-style: normal;
+	src: url("/fonts/Unicephalon/multivac.ghost.ttf") format("truetype");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Sector017;
+	font-weight: 400;
+	font-style: normal;
+	src: url("/fonts/Unicephalon/sector-017.regular.ttf") format("truetype");
+	font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -197,7 +221,7 @@ body {
 }
 
 .nav_item {
-	@apply font-Unicephalon h-full text-[18px] pt-[4px] hover:text-mlt-blue-primary active:text-mlt-purple-primary;
+	@apply font-Unicephalon h-full text-[18px] pt-[3px] hover:text-mlt-blue-primary active:text-mlt-purple-primary;
 }
 
 .nav_item_side_menu {

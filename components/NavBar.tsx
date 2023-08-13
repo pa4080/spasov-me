@@ -31,7 +31,7 @@ import {
 import { Path } from "@/interfaces/Path";
 
 import { Skeleton } from "./ui/skeleton";
-import SiteLogo from "./fragments/SiteLogo";
+import SiteLogo_ManualBreak from "./fragments/SiteLogo_ManualBreak";
 import IconEmbedSvg from "./fragments/IconEmbedSvg";
 
 const NavBar: React.FC = () => {
@@ -117,9 +117,10 @@ const NavBar: React.FC = () => {
 					className="text-mlt-gray-3 nav_item_common emphasize_drop_shadow"
 					href={Path.public.HOME}
 				>
-					<SiteLogo
+					<SiteLogo_ManualBreak
+						className="mt-[13px]"
+						fontSize={19}
 						shouldBreakText={true}
-						size="2xs"
 						textColor={currentPathName !== Path.public.HOME ? "mlt-gray-3" : undefined}
 					/>
 				</Link>
@@ -142,17 +143,18 @@ const NavBar: React.FC = () => {
 	const publicMenu_Narrow = (
 		<Sheet>
 			<SheetTrigger className="text-mlt-gray-3 nav_item_common emphasize_drop_shadow outline-none">
-				<SiteLogo shouldBreakText={true} size="2xs" />
+				<SiteLogo_ManualBreak className="mt-[13px]" fontSize={19} shouldBreakText={true} />
+				{/* <SiteLogo_ManualBreak className="" fontSize={19} shouldBreakText={false} /> */}
 			</SheetTrigger>
 
 			<SheetContent side="left">
 				<SheetHeader>
 					<SheetTitle className="text-mlt-gray-3 nav_item_common emphasize_drop_shadow outline-none">
 						<SheetClose>
-							<SiteLogo
+							<SiteLogo_ManualBreak
 								className="justify-start -ml-[4px] -mt-[2px]"
+								fontSize={28}
 								shouldBreakText={true}
-								size="xs"
 							/>
 						</SheetClose>
 					</SheetTitle>

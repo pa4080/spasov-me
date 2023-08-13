@@ -62,6 +62,9 @@ const appTwConfig = {
 				satoshi: ["Satoshi", "sans-serif"],
 				inter: ["Inter", "sans-serif"],
 				Unicephalon: ["Unicephalon", "sans-serif"],
+				MultivacInterference: ["MultivacInterference", "sans-serif"],
+				MultivacGhost: ["MultivacGhost", "sans-serif"],
+				Sector017: ["Sector017", "sans-serif"],
 			},
 			fontSize: {
 				// https://tailwindcss.com/docs/font-size
