@@ -47,37 +47,29 @@ const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageI
 		!isOpen && form.getValues("image") && form.setValue("image", undefined);
 	}, [form, isOpen]);
 
-	const createPage = async (data: z.infer<typeof FormSchema>) => {
+	const editPage = async (data: z.infer<typeof FormSchema>) => {
 		setSubmitting(true);
 
-		// if (post.aiCategory === AiCategories.IMAGE && !formDataToUpload) {
-		// 	setErrors((prevErrors) => ({ ...prevErrors, image: { message: t("imageRequiredError") } }));
-		// 	setSubmitting(false);
-
-		// 	return;
-		// } else if (post.aiCategory === AiCategories.IMAGE && formDataToUpload) {
-		// 	setErrors((prevErrors) => clearSpecificError(prevErrors, "image"));
-		// }
-
-		// const image_id: string | null = await uploadOrReplaceImage({
-		// 	formDataToUpload,
-		// 	postImageFilename,
-		// 	post,
-		// });
-
 		try {
-			const response = await fetch(Path.api.PAGES, {
-				method: "PUT",
+			const response = await fetch(`${Path.api.PAGES}/${pageId}`, {
+				method: "PATCH",
 				body: preparePageObjectToFetch({
 					data,
-					user_id: session?.user.id, // can be skipped on PUT/Update
+					user_id: session?.user.id,
 				}),
 			});
 
 			if (response.ok) {
 				const newPage = (await response.json()).data;
 
-				setPages((prevPages) => [...prevPages, newPage]);
+				setPages((prevPages) => {
+					const newPages = [...prevPages];
+					const index = newPages.findIndex((page) => page._id === newPage._id);
+
+					newPages[index] = newPage;
+
+					return newPages;
+				});
 
 				toast({
 					title: t("toast_response_title", { status: response.status }),
@@ -108,8 +100,6 @@ const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageI
 	};
 
 	const onSubmit = (data: z.infer<typeof FormSchema>) => {
-		createPage(data);
-
 		toast({
 			title: t("toast_submit_title"),
 			description: (
@@ -118,6 +108,8 @@ const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageI
 				</pre>
 			),
 		}) && setIsOpen(false);
+
+		editPage(data);
 	};
 
 	if (!pageData || !pageId) {

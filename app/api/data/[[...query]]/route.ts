@@ -184,26 +184,26 @@ export async function PUT(request: NextRequest, { params }: Context) {
 		await connectToMongoDb();
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let dbObject: any;
+		let dbObjectOperator: any;
 
 		switch (type) {
 			case "pages": {
-				dbObject = new Page(request_object);
+				dbObjectOperator = Page;
 				break;
 			}
 
 			case "posts": {
-				dbObject = new Post(request_object);
+				dbObjectOperator = Post;
 				break;
 			}
 
 			case "users": {
-				dbObject = new User(request_object);
+				dbObjectOperator = User;
 				break;
 			}
 		}
 
-		const updatedObject = await dbObject.findOneAndUpdate(_id(id), request_object, {
+		const updatedObject = await dbObjectOperator.findOneAndUpdate(_id(id), request_object, {
 			new: true,
 		});
 
@@ -249,26 +249,26 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 		await connectToMongoDb();
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let dbObject: any;
+		let dbObjectOperator: any;
 
 		switch (type) {
 			case "pages": {
-				dbObject = new Page(request_object);
+				dbObjectOperator = Page;
 				break;
 			}
 
 			case "posts": {
-				dbObject = new Post(request_object);
+				dbObjectOperator = Post;
 				break;
 			}
 
 			case "users": {
-				dbObject = new User(request_object);
+				dbObjectOperator = User;
 				break;
 			}
 		}
 
-		const updatedObject = await dbObject.findOneAndUpdate(_id(id), request_object, {
+		const updatedObject = await dbObjectOperator.findOneAndUpdate(_id(id), request_object, {
 			new: true,
 		});
 

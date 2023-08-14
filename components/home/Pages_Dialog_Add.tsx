@@ -49,21 +49,6 @@ const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
 	const createPage = async (data: z.infer<typeof FormSchema>) => {
 		setSubmitting(true);
 
-		// if (post.aiCategory === AiCategories.IMAGE && !formDataToUpload) {
-		// 	setErrors((prevErrors) => ({ ...prevErrors, image: { message: t("imageRequiredError") } }));
-		// 	setSubmitting(false);
-
-		// 	return;
-		// } else if (post.aiCategory === AiCategories.IMAGE && formDataToUpload) {
-		// 	setErrors((prevErrors) => clearSpecificError(prevErrors, "image"));
-		// }
-
-		// const image_id: string | null = await uploadOrReplaceImage({
-		// 	formDataToUpload,
-		// 	postImageFilename,
-		// 	post,
-		// });
-
 		try {
 			const response = await fetch(Path.api.PAGES, {
 				method: "POST",
@@ -90,7 +75,7 @@ const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
 				const errors = (await response.json()).errors;
 
 				toast({
-					title: t("toast_response_title_add", { status: response.status }),
+					title: t("toast_response_title", { status: response.status }),
 					description: (
 						<pre className="mt-2 rounded-md bg-mlt-dark-1 p-4 max-w-full whitespace-pre-wrap break-words">
 							{JSON.stringify(errors, null, 2)}
@@ -124,7 +109,7 @@ const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
 			{session?.user && (
 				<div className={cn("w-full flex items-center justify-end my-12", className)}>
 					<Dialog open={isOpen} onOpenChange={setIsOpen}>
-						<DialogTrigger>
+						<DialogTrigger disabled={submitting}>
 							<div className="rounded-full bg-mlt-dark-4 hover:bg-mlt-gray-4 text-mlt-gray-2 hover:text-mlt-dark-3 transition-colors duration-200 py-1 px-4 md:py-2 md:px-6 font-Unicephalon tracking-widest text-sm md:text-md">
 								{submitting ? t("btn_add_a_page_submitting") : t("btn_add_a_page")}
 							</div>

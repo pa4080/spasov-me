@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-import { NewPageObject, EditDataOfPageObject, PageObject } from "@/interfaces/Page";
+import { EditDataOfPageObject, PageObject } from "@/interfaces/Page";
 import { cn } from "@/lib/utils";
 
 import { useAppContext } from "@/contexts/AppContext";
@@ -62,8 +62,8 @@ const Pages_Feed: React.FC<Props> = ({ className, pages }) => {
 										onClick={(e) => handleRemove(e, page)}
 									>
 										<IconEmbedSvg
-											c1={"mlt-purple-dark"}
-											c2={"mlt-purple-dark"}
+											c1={"mlt-purple-bright"}
+											c2={"mlt-purple-bright"}
 											type="trash"
 											width={18}
 										/>
@@ -73,8 +73,8 @@ const Pages_Feed: React.FC<Props> = ({ className, pages }) => {
 										onClick={(e) => handleEdit(e, page)}
 									>
 										<IconEmbedSvg
-											c1={"mlt-purple-dark"}
-											c2={"mlt-purple-dark"}
+											c1={"mlt-purple-bright"}
+											c2={"mlt-purple-bright"}
 											type="brush"
 											width={18}
 										/>
