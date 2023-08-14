@@ -1,5 +1,8 @@
 type PathType = {
-	[key: string]: { [key: string]: string };
+	public: Record<string, string>;
+	private: Record<string, string>;
+	api: Record<string, string>;
+	deprecated: Record<string, string>;
 };
 
 export const Path: PathType = {
@@ -12,6 +15,10 @@ export const Path: PathType = {
 	},
 	private: {
 		FILES: "/manage-files",
+	},
+	api: {
+		PAGES: "/api/data/pages",
+		POSTS: "/api/data/posts",
 	},
 	deprecated: {
 		PROFILE: "/user-profile",

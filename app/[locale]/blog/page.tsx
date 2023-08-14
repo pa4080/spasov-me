@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 
-import SiteLogo from "@/components/fragments/SiteLogo";
+import SiteLogo_ManualBreak from "@/components/fragments/SiteLogo_ManualBreak";
 
 const Blog: React.FC = () => {
 	const t = useTranslations("Site");
@@ -9,7 +9,7 @@ const Blog: React.FC = () => {
 	return (
 		<section className="">
 			<header className="text-center">
-				<SiteLogo size="3xl" />
+				<SiteLogo_ManualBreak />
 			</header>
 		</section>
 	);

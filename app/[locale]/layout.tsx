@@ -11,6 +11,7 @@ import { AppContextProvider } from "@/contexts/AppContext";
 import AuthSessionProvider from "@/contexts/AuthSessionProvider";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -57,10 +58,11 @@ const LocaleLayout: React.FC<LocaleLayoutProps> = async ({ children, params }) =
 						<NextIntlClientProvider locale={locale} messages={messages}>
 							<AppContextProvider>
 								<NavBar />
-								<main className="flex-1 flex-grow overflow-x-hidden overflow-y-auto py-32 px-3 xs420:px-6">
-									{children}
+								<main className="content_container">
+									<div className="content_wrapper">{children}</div>
 								</main>
 								<Footer />
+								<Toaster />
 							</AppContextProvider>
 						</NextIntlClientProvider>
 					</div>

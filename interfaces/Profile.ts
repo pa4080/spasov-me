@@ -1,7 +1,7 @@
 import { PostTypeFromDb } from "./Post";
-import { UserTypeFromDb } from "./User";
+import { UserObject } from "./User";
 
 export interface UserProfileType {
-	user: UserTypeFromDb;
+	user: UserObject;
 	posts: PostTypeFromDb[];
 }

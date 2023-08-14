@@ -33,10 +33,10 @@ const Btn_PostActions: React.FC<Props> = ({
 	return (
 		<span className={`post_button ml-2 ${bgColor}`} style={{ ...style }} onClick={onClick}>
 			<IconEmbedSvg
-				color1={c1}
-				color2={c2}
+				c1={c1}
+				c2={c2}
 				height={20}
-				opacity1="84"
+				op1="84"
 				style={{ zIndex: 10, display: "inline-block", marginRight: "3px", ...icon.style }}
 				type={icon.type}
 				width={20}

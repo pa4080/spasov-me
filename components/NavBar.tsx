@@ -31,7 +31,7 @@ import {
 import { Path } from "@/interfaces/Path";
 
 import { Skeleton } from "./ui/skeleton";
-import SiteLogo from "./fragments/SiteLogo";
+import SiteLogo_ManualBreak from "./fragments/SiteLogo_ManualBreak";
 import IconEmbedSvg from "./fragments/IconEmbedSvg";
 
 const NavBar: React.FC = () => {
@@ -52,9 +52,9 @@ const NavBar: React.FC = () => {
 								onClick={() => signIn(provider.id)}
 							>
 								<IconEmbedSvg
-									color1="mlt-gray-2"
-									color2="mlt-blue-primary"
-									opacity2="BB"
+									c1="mlt-gray-2"
+									c2="mlt-blue-dark"
+									op2="BB"
 									type="arrow-right-to-bracket"
 								/>
 							</button>
@@ -63,12 +63,7 @@ const NavBar: React.FC = () => {
 				})
 			) : (
 				<Skeleton className="bg-transparent">
-					<IconEmbedSvg
-						color1="mlt-gray-2"
-						color2="mlt-gray-2"
-						opacity2="CC"
-						type="arrow-right-to-bracket"
-					/>
+					<IconEmbedSvg c1="mlt-gray-2" c2="mlt-gray-2" op2="CC" type="arrow-right-to-bracket" />
 				</Skeleton>
 			)}
 		</>
@@ -79,12 +74,7 @@ const NavBar: React.FC = () => {
 			<NavigationMenuList>
 				<NavigationMenuItem>
 					<NavigationMenuTrigger chevronLeft>
-						<IconEmbedSvg
-							color1="mlt-gray-3"
-							color2="mlt-blue-primary"
-							opacity2="BB"
-							type="sidebar-flip"
-						/>
+						<IconEmbedSvg c1="mlt-gray-3" c2="mlt-blue-dark" op2="BB" type="sidebar-flip" />
 					</NavigationMenuTrigger>
 
 					<NavigationMenuContent className="w-48">
@@ -117,10 +107,17 @@ const NavBar: React.FC = () => {
 					className="text-mlt-gray-3 nav_item_common emphasize_drop_shadow"
 					href={Path.public.HOME}
 				>
-					<SiteLogo
+					<SiteLogo_ManualBreak
+						hover
+						className={`mt-[13px] transition-all logo_menu_item ${
+							currentPathName === Path.public.HOME ? "" : ""
+						}`}
+						fontSize={19}
 						shouldBreakText={true}
-						size="2xs"
-						textColor={currentPathName !== Path.public.HOME ? "mlt-gray-3" : undefined}
+						textColor={currentPathName === Path.public.HOME ? "mlt-blue-bright" : "mlt-gray-3"}
+						textColorBreak={
+							currentPathName === Path.public.HOME ? "mlt-purple-bright" : "mlt-gray-3"
+						}
 					/>
 				</Link>
 			);
@@ -129,7 +126,7 @@ const NavBar: React.FC = () => {
 				<Link
 					key={index}
 					className={`nav_item nav_item_common emphasize_drop_shadow tracking-menu-items sm:tracking-menu-items-wide ${
-						currentPathName !== Path.public[path] ? "text-mlt-gray-3" : "text-mlt-blue-primary"
+						currentPathName !== Path.public[path] ? "text-mlt-gray-3" : "text-mlt-blue-bright"
 					}`}
 					href={Path.public[path]}
 				>
@@ -142,17 +139,18 @@ const NavBar: React.FC = () => {
 	const publicMenu_Narrow = (
 		<Sheet>
 			<SheetTrigger className="text-mlt-gray-3 nav_item_common emphasize_drop_shadow outline-none">
-				<SiteLogo shouldBreakText={true} size="2xs" />
+				<SiteLogo_ManualBreak className="mt-[13px]" fontSize={19} shouldBreakText={true} />
+				{/* <SiteLogo_ManualBreak className="" fontSize={19} shouldBreakText={false} /> */}
 			</SheetTrigger>
 
 			<SheetContent side="left">
 				<SheetHeader>
 					<SheetTitle className="text-mlt-gray-3 nav_item_common emphasize_drop_shadow outline-none">
 						<SheetClose>
-							<SiteLogo
+							<SiteLogo_ManualBreak
 								className="justify-start -ml-[4px] -mt-[2px]"
+								fontSize={28}
 								shouldBreakText={true}
-								size="xs"
 							/>
 						</SheetClose>
 					</SheetTitle>
@@ -162,9 +160,7 @@ const NavBar: React.FC = () => {
 							<Link
 								key={index}
 								className={`nav_item_side_menu nav_item_common emphasize_drop_shadow ${
-									currentPathName !== Path.public[path]
-										? "text-mlt-gray-3"
-										: "text-mlt-blue-primary"
+									currentPathName === Path.public[path] ? "text-mlt-blue-bright" : "text-mlt-gray-3"
 								}`}
 								href={Path.public[path]}
 								tabIndex={-1}
