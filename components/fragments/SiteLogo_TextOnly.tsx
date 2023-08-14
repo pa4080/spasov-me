@@ -137,8 +137,8 @@ const SiteLogo_TextOnly: React.FC<Props> = ({
 				>
 					<span
 						className={`${
-							textColor ? textColorClass : "text-mlt-blue-primary"
-						} logo-cls_mlt-blue-primary`}
+							textColor ? textColorClass : "text-mlt-blue-dark"
+						} logo-cls_mlt-blue-dark`}
 						style={{ fontSize: `${firstLetterFontSize}px` }}
 					>
 						{t("logoSubText.str0").charAt(0)}
@@ -151,8 +151,8 @@ const SiteLogo_TextOnly: React.FC<Props> = ({
 					>
 						<span
 							className={`${
-								textColor ? textColorClass : "text-mlt-blue-primary"
-							} logo-cls_mlt-blue-primary`}
+								textColor ? textColorClass : "text-mlt-blue-dark"
+							} logo-cls_mlt-blue-dark`}
 						>
 							{t("logoSubText.str0").slice(1)}
 						</span>
@@ -167,15 +167,15 @@ const SiteLogo_TextOnly: React.FC<Props> = ({
 						>
 							<span
 								className={`${
-									textColor ? textColorClass : "text-mlt-purple-primary"
-								} logo-cls_mlt-purple-primary`}
+									textColor ? textColorClass : "text-mlt-purple-dark"
+								} logo-cls_mlt-purple-dark`}
 							>
 								{t("logoSubText.str1")}
 							</span>
 							<span
 								className={`${
-									textColor ? textColorClass : "text-mlt-purple-primary"
-								} logo-cls_mlt-purple-primary`}
+									textColor ? textColorClass : "text-mlt-purple-dark"
+								} logo-cls_mlt-purple-dark`}
 							>
 								{t("logoSubText.str2")}
 							</span>

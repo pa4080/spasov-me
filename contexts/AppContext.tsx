@@ -7,9 +7,8 @@ import { Session } from "next-auth";
 
 import { BuiltInProviderType } from "next-auth/providers";
 
-import { PostTypeFromDb } from "@/interfaces/Post";
-import { fetchPosts } from "@/lib/fetch-helpers";
 import { UserObject } from "@/interfaces/User";
+import { PageObject } from "@/interfaces/Page";
 
 type AuthProvidersType = Record<
 	LiteralUnion<BuiltInProviderType, string>,
@@ -17,8 +16,8 @@ type AuthProvidersType = Record<
 > | null;
 
 interface AppContextProps {
-	posts: PostTypeFromDb[];
-	setPosts: React.Dispatch<React.SetStateAction<PostTypeFromDb[]>>;
+	pages: PageObject[];
+	setPages: React.Dispatch<React.SetStateAction<PageObject[]>>;
 	users: UserObject[];
 	setUsers: React.Dispatch<React.SetStateAction<UserObject[]>>;
 	authProviders: AuthProvidersType;
@@ -36,9 +35,10 @@ interface AppContextProviderProps {
 }
 
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
-	const [posts, setPosts] = useState<PostTypeFromDb[]>([]);
 	const [users, setUsers] = useState<UserObject[]>([]);
+	const [pages, setPages] = useState<PageObject[]>([]);
 	const [logoScaleFactor, setLogoScaleFactor] = useState(0);
+
 	const [authProviders, setAuthProviders] = useState<AuthProvidersType>(null);
 	const [postCardListSize, setPostCardListSize] = useState(0);
 	const { data: session } = useSession();
@@ -46,15 +46,14 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 	useEffect(() => {
 		(async () => {
 			setAuthProviders(await getProviders());
-			setPosts(await fetchPosts("/api/posts"));
 		})();
 	}, []);
 
 	return (
 		<AppContext.Provider
 			value={{
-				posts,
-				setPosts,
+				pages,
+				setPages,
 				users,
 				setUsers,
 				logoScaleFactor,

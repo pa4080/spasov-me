@@ -51,14 +51,21 @@
 		}
 	},
 	"PagesFeed": {
-		"Pages_AddDialog": {
-			"title": "Add a new page",
+		"Pages_Dialog": {
+			"title_add": "Add a new page",
+			"title_edit": "Edit the \"{ title }\" page entry",
+			"title_remove": "You are about to delete the \"{ title }\" page entry",
 			"description": "This must be a valid/existing public page, defined within the project. By adding it here it will be available as a card at the homepage.",
-			"trigger_label": "Add a page",
-			"trigger_submitting": "Submitting...",
+			"description_remove": "This action cannot be undone. This will permanently delete the \"{ title }\" page entry (id \"{ id }\") and remove its data from our servers. Are you absolutely sure?",
+			"btn_add_a_page": "Add a page",
+			"btn_add_a_page_submitting": "Submitting...",
 			"toast_submit_title": "You submitted the following values:",
-			"toast_response_title": "The server response with status { status } and data:"
+			"toast_response_title": "The server response with status { status } and data:",
+			"btn_cancel": "Cancel",
+			"btn_delete": "Delete",
+			"btn_delete_submitting": "Deleting..."
 		},
+
 		"Form": {
 			"pageTitle": "Page title",
 			"pageTitlePlaceholder": "Page title...",

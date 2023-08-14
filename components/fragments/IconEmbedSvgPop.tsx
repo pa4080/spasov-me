@@ -52,11 +52,11 @@ const IconEmbedSvgPop: React.FC<Props> = ({
 			>
 				<IconEmbedSvg
 					alt={text}
-					color1={c1}
-					color2={c2}
+					c1={c1}
+					c2={c2}
 					height={height}
-					opacity1={op1}
-					opacity2={op2}
+					op1={op1}
+					op2={op2}
 					style={{ zIndex: 10, ...styleIcon }}
 					type={type}
 					width={width}

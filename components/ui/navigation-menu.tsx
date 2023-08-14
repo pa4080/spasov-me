@@ -67,7 +67,7 @@ const NavigationMenuTrigger = React.forwardRef<
 		{chevronLeft && (
 			<ChevronDown
 				aria-hidden="true"
-				className="relative top-[1px] mr-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180 text-mlt-blue-primary"
+				className="relative top-[1px] mr-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180 text-mlt-blue-dark"
 				strokeWidth={4}
 			/>
 		)}
@@ -75,7 +75,7 @@ const NavigationMenuTrigger = React.forwardRef<
 		{!chevronLeft && (
 			<ChevronDown
 				aria-hidden="true"
-				className="relative top-[1px] ml-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180 text-mlt-blue-primary"
+				className="relative top-[1px] ml-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180 text-mlt-blue-dark"
 				strokeWidth={4}
 			/>
 		)}

@@ -57,6 +57,7 @@ interface Props {
 	onSubmit: (data: z.infer<typeof FormSchema>) => void;
 	submitting?: boolean;
 	isContainerDialogOpen?: boolean;
+	formData?: z.infer<typeof FormSchema>;
 }
 
 const Pages_Form: React.FC<Props> = ({
@@ -64,6 +65,7 @@ const Pages_Form: React.FC<Props> = ({
 	onSubmit,
 	submitting = false,
 	isContainerDialogOpen = true,
+	formData,
 }) => {
 	const t = useTranslations("PagesFeed.Form");
 	const FormSchema = FormSchemaGenerator([
@@ -76,6 +78,12 @@ const Pages_Form: React.FC<Props> = ({
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 	});
+
+	useEffect(() => {
+		if (formData) {
+			form.reset(formData);
+		}
+	}, [form, formData]);
 
 	// Clear the image field if the dialog is closed,
 	// Otherwise on the next open "it" will attempt to set

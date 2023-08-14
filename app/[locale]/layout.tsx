@@ -58,7 +58,9 @@ const LocaleLayout: React.FC<LocaleLayoutProps> = async ({ children, params }) =
 						<NextIntlClientProvider locale={locale} messages={messages}>
 							<AppContextProvider>
 								<NavBar />
-								<main className="content_container">{children}</main>
+								<main className="content_container">
+									<div className="content_wrapper">{children}</div>
+								</main>
 								<Footer />
 								<Toaster />
 							</AppContextProvider>

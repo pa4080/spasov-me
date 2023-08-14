@@ -47,13 +47,23 @@ interface Context {
 	params: { query: string[] };
 }
 
-function idFindObject(id: string) {
+function _id(id: string) {
 	return id ? { _id: id } : {};
 }
 
+const errorMessages = {
+	e401: "Unauthorized!",
+	e404: "Not found!",
+	e500a: "Internal server error!",
+	e500b: "Failed to retrieve!",
+	e500c: "Failed to create!",
+	e500d: "Failed to update!",
+	e510: "Extensions to the request are required.",
+};
+
 export async function GET(request: NextRequest, { params }: Context) {
 	if (!params.query) {
-		return NextResponse.json({ error: "Extensions to the request are required." }, { status: 510 });
+		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
 	}
 
 	const [type, id] = params.query;
@@ -66,17 +76,17 @@ export async function GET(request: NextRequest, { params }: Context) {
 
 		switch (type) {
 			case "pages": {
-				response = await Page.find(idFindObject(id)).populate(["creator", "image"]);
+				response = await Page.find(_id(id)).populate(["creator", "image"]);
 				break;
 			}
 
 			case "posts": {
-				response = await Post.find(idFindObject(id)).populate(["creator", "image"]);
+				response = await Post.find(_id(id)).populate(["creator", "image"]);
 				break;
 			}
 
 			case "users": {
-				response = await User.find(idFindObject(id));
+				response = await User.find(_id(id));
 				break;
 			}
 		}
@@ -89,54 +99,59 @@ export async function GET(request: NextRequest, { params }: Context) {
 			{ status: 200 }
 		);
 	} catch (error) {
-		return NextResponse.json({ error: "Failed to retrieve!" }, { status: 500 });
+		return NextResponse.json(error, { status: 500 });
 	}
 }
 
 export async function POST(request: NextRequest, { params }: Context) {
-	if (!params.query) {
-		return NextResponse.json({ error: "Extensions to the request are required." }, { status: 510 });
-	}
-
 	const session = await getServerSession(authOptions);
 
 	if (!session) {
-		return NextResponse.json({ error: "Unauthorized!" }, { status: 401 });
+		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+	}
+
+	if (!params.query) {
+		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
 	}
 
 	const [type] = params.query;
+
+	if (!type) {
+		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+	}
+
 	const request_object = await request.json();
 
 	try {
 		await connectToMongoDb();
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let db_object: any;
+		let dbObject: any;
 
 		switch (type) {
 			case "pages": {
-				db_object = new Page(request_object);
+				dbObject = new Page(request_object);
 				break;
 			}
 
 			case "posts": {
-				db_object = new Post(request_object);
+				dbObject = new Post(request_object);
 				break;
 			}
 
 			case "users": {
-				db_object = new User(request_object);
+				dbObject = new User(request_object);
 				break;
 			}
 		}
 
-		await db_object.save();
-		await db_object.populate(["creator", "image"]);
+		await dbObject.save();
+		await dbObject.populate(["creator", "image"]);
 
 		return NextResponse.json(
 			{
 				message: { type, created: true, method: request.method },
-				data: db_object,
+				data: dbObject,
 			},
 			{ status: 201 }
 		);
@@ -147,68 +162,188 @@ export async function POST(request: NextRequest, { params }: Context) {
 }
 
 export async function PUT(request: NextRequest, { params }: Context) {
-	const { creator, prompt, tags, aiCategory, link, image } = await request.json();
+	const session = await getServerSession(authOptions);
+
+	if (!session) {
+		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+	}
+
+	if (!params.query) {
+		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+	}
+
+	const [type, id] = params.query;
+
+	if (!type || !id) {
+		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+	}
+
+	const request_object = await request.json();
 
 	try {
 		await connectToMongoDb();
-		const updatedPost = await Post.findOneAndUpdate(
-			idFindObject(params[1]),
-			{ creator, prompt, tags, aiCategory, link, image },
-			{ new: true }
-		);
 
-		if (!updatedPost) {
-			return NextResponse.json({ error: "Post not found!" }, { status: 404 });
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		let dbObject: any;
+
+		switch (type) {
+			case "pages": {
+				dbObject = new Page(request_object);
+				break;
+			}
+
+			case "posts": {
+				dbObject = new Post(request_object);
+				break;
+			}
+
+			case "users": {
+				dbObject = new User(request_object);
+				break;
+			}
 		}
 
-		await updatedPost.populate(["creator", "image"]);
+		const updatedObject = await dbObject.findOneAndUpdate(_id(id), request_object, {
+			new: true,
+		});
+
+		if (!updatedObject) {
+			return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
+		}
+
+		await updatedObject.populate(["creator", "image"]);
 
 		return NextResponse.json(
-			{ message: "Post updated successfully!", post: updatedPost },
+			{
+				message: { type, updated: true, method: request.method },
+				data: updatedObject,
+			},
 			{ status: 200 }
 		);
 	} catch (error) {
-		return NextResponse.json({ error: "Failed to update post!" }, { status: 500 });
+		return NextResponse.json(error, { status: 500 });
 	}
 }
 
+// The same as PUT()...
 export async function PATCH(request: NextRequest, { params }: Context) {
-	const { creator, prompt, tags, aiCategory, link, image } = await request.json();
+	const session = await getServerSession(authOptions);
+
+	if (!session) {
+		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+	}
+
+	if (!params.query) {
+		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+	}
+
+	const [type, id] = params.query;
+
+	if (!type || !id) {
+		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+	}
+
+	const request_object = await request.json();
 
 	try {
 		await connectToMongoDb();
 
-		const updatedPost = await Post.findOneAndUpdate(
-			idFindObject(params),
-			{ creator, prompt, tags, aiCategory, link, image },
-			{ new: true }
-		);
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		let dbObject: any;
 
-		if (!updatedPost) {
-			return NextResponse.json({ error: "Post not found!" }, { status: 404 });
+		switch (type) {
+			case "pages": {
+				dbObject = new Page(request_object);
+				break;
+			}
+
+			case "posts": {
+				dbObject = new Post(request_object);
+				break;
+			}
+
+			case "users": {
+				dbObject = new User(request_object);
+				break;
+			}
 		}
 
+		const updatedObject = await dbObject.findOneAndUpdate(_id(id), request_object, {
+			new: true,
+		});
+
+		if (!updatedObject) {
+			return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
+		}
+
+		await updatedObject.populate(["creator", "image"]);
+
 		return NextResponse.json(
-			{ message: "Post updated successfully!", post: updatedPost },
+			{
+				message: { type, updated: true, method: request.method },
+				data: updatedObject,
+			},
 			{ status: 200 }
 		);
 	} catch (error) {
-		return NextResponse.json({ error: "Failed to update post!" }, { status: 500 });
+		return NextResponse.json(error, { status: 500 });
 	}
 }
 
 export async function DELETE(request: NextRequest, { params }: Context) {
+	const session = await getServerSession(authOptions);
+
+	if (!session) {
+		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+	}
+
+	if (!params.query) {
+		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+	}
+
+	const [type, id] = params.query;
+
+	if (!type || !id) {
+		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+	}
+
 	try {
 		await connectToMongoDb();
 
-		const deletedPost = await Post.findOneAndDelete(idFindObject(params));
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		let dbObjectOperator: any;
 
-		if (!deletedPost) {
-			return NextResponse.json({ error: "Post not found!" }, { status: 404 });
+		switch (type) {
+			case "pages": {
+				dbObjectOperator = Page;
+				break;
+			}
+
+			case "posts": {
+				dbObjectOperator = Post;
+				break;
+			}
+
+			case "users": {
+				dbObjectOperator = User;
+				break;
+			}
 		}
 
-		return NextResponse.json({ message: "Post deleted successfully!" }, { status: 200 });
+		const deletedObject = await dbObjectOperator.findOneAndDelete(_id(id));
+
+		if (!deletedObject) {
+			return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
+		}
+
+		return NextResponse.json(
+			{
+				message: { type, delete: true, method: request.method },
+				data: deletedObject,
+			},
+			{ status: 200 }
+		);
 	} catch (error) {
-		return NextResponse.json({ error: "Failed to delete post!" }, { status: 500 });
+		return NextResponse.json(error, { status: 500 });
 	}
 }

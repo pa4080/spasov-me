@@ -9,7 +9,7 @@ const Blog: React.FC = () => {
 	return (
 		<section className="">
 			<header className="text-center">
-				<SiteLogo_ManualBreak size="3xl" />
+				<SiteLogo_ManualBreak />
 			</header>
 		</section>
 	);

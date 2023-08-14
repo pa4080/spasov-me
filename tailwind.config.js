@@ -15,20 +15,16 @@ const ThemeColors = {
 	"mlt-dark-4": "#3c3c3c",
 	"mlt-dark-5": "#444444",
 	"mlt-dark-6": "#555555",
-	"mlt-blue-primary": "#548ada",
-	"mlt-blue-secondary": "#5d9fff",
-	"mlt-purple-primary": "#9468d8",
-	"mlt-purple-secondary": "#b07bff",
-	"mlt-purple-secondary_tr1": "#b07bff59",
-	"mlt-purple-secondary_tr2": "#b07bffaa",
+	"mlt-blue-dark": "#548ada",
+	"mlt-blue-bright": "#5d9fff",
+	"mlt-purple-dark": "#9468d8",
+	"mlt-purple-bright": "#b27bff",
 	"mlt-yellow-primary": "#facc15",
 	"mlt-yellow-secondary": "rgb(254 240 138)",
 	"mlt-yellow-tertiary": "rgb(254 249 195)",
 	"mlt-orange-primary": "#FF5722",
 	"mlt-orange-dark": "#d4491d",
 	"mlt-orange-secondary": "#ef720e",
-	"mlt-orange-secondary_tr1": "#ef720e7a",
-	"mlt-orange-secondary_tr2": "#ef720eaa",
 };
 
 const appTwConfig = {
@@ -70,6 +66,16 @@ const appTwConfig = {
 				// https://tailwindcss.com/docs/font-size
 				md: "1.05rem",
 			},
+			spacing: {
+				21: "5.25rem",
+				22: "5.5rem",
+				23: "5.75rem",
+			},
+			padding: {
+				21: "5.25rem",
+				22: "5.5rem",
+				23: "5.75rem",
+			},
 			letterSpacing: {
 				"menu-items": "1px",
 				"menu-items-wide": "1.8px",
@@ -102,7 +108,7 @@ const appTwConfig = {
 				},
 				popover: {
 					DEFAULT: ThemeColors["mlt-dark-6"], // "hsl(var(--popover))",
-					foreground: ThemeColors["mlt-blue-secondary"], // "hsl(var(--popover-foreground))",
+					foreground: ThemeColors["mlt-blue-bright"], // "hsl(var(--popover-foreground))",
 				},
 				card: {
 					DEFAULT: "hsl(var(--card))",

@@ -46,10 +46,10 @@ export type IconEmbSvgPathType =
 interface IconEmbedSvgType {
 	width?: number;
 	height?: number;
-	color1?: ThemeColorsList;
-	color2?: ThemeColorsList;
-	opacity1?: string;
-	opacity2?: string;
+	c1?: ThemeColorsList;
+	c2?: ThemeColorsList;
+	op1?: string;
+	op2?: string;
 	type?: IconEmbSvgPathType;
 	cursor?: "pointer" | "default" | "inherit";
 	style?: CSSProperties;
@@ -57,12 +57,12 @@ interface IconEmbedSvgType {
 }
 
 const IconEmbedSvg: React.FC<IconEmbedSvgType> = ({
-	width = 24,
+	width = 20,
 	height,
-	color1 = "mlt-purple-secondary",
-	color2 = "mlt-purple-secondary",
-	opacity1 = "44",
-	opacity2 = "FF",
+	c1: color1 = "mlt-blue-dark",
+	c2: color2 = "mlt-blue-dark",
+	op1: opacity1 = "44",
+	op2: opacity2 = "FF",
 	type = "check-square",
 	cursor = "pointer",
 	style,

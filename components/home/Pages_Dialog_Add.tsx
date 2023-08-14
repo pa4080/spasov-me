@@ -28,9 +28,9 @@ interface Props {
 	className?: string;
 }
 
-const AddPageForm: React.FC<Props> = ({ className }) => {
-	const t = useTranslations("PagesFeed.Pages_AddDialog");
-	const { session } = useAppContext();
+const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
+	const t = useTranslations("PagesFeed.Pages_Dialog");
+	const { session, setPages } = useAppContext();
 
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
@@ -75,7 +75,8 @@ const AddPageForm: React.FC<Props> = ({ className }) => {
 
 			if (response.ok) {
 				const newPage = (await response.json()).data;
-				// setPages((prevPages) => [...prevPages, newPage]);
+
+				setPages((prevPages) => [...prevPages, newPage]);
 
 				toast({
 					title: t("toast_response_title", { status: response.status }),
@@ -89,7 +90,7 @@ const AddPageForm: React.FC<Props> = ({ className }) => {
 				const errors = (await response.json()).errors;
 
 				toast({
-					title: t("toast_response_title", { status: response.status }),
+					title: t("toast_response_title_add", { status: response.status }),
 					description: (
 						<pre className="mt-2 rounded-md bg-mlt-dark-1 p-4 max-w-full whitespace-pre-wrap break-words">
 							{JSON.stringify(errors, null, 2)}
@@ -106,8 +107,6 @@ const AddPageForm: React.FC<Props> = ({ className }) => {
 	};
 
 	const onSubmit = (data: z.infer<typeof FormSchema>) => {
-		createPage(data);
-
 		toast({
 			title: t("toast_submit_title"),
 			description: (
@@ -116,26 +115,23 @@ const AddPageForm: React.FC<Props> = ({ className }) => {
 				</pre>
 			),
 		}) && setIsOpen(false);
+
+		createPage(data);
 	};
 
 	return (
 		<>
 			{session?.user && (
-				<div className={cn("h-16 w-full flex items-end justify-end", className)}>
+				<div className={cn("w-full flex items-center justify-end my-12", className)}>
 					<Dialog open={isOpen} onOpenChange={setIsOpen}>
 						<DialogTrigger>
-							<div
-								className={cn(
-									"rounded-full bg-mlt-dark-4 hover:bg-mlt-gray-4 text-mlt-gray-2 hover:text-mlt-dark-3 transition-colors duration-200 py-1 px-4 md:py-2 md:px-6 font-Unicephalon tracking-widest text-sm md:text-md",
-									""
-								)}
-							>
-								{submitting ? t("trigger_submitting") : t("trigger_label")}
+							<div className="rounded-full bg-mlt-dark-4 hover:bg-mlt-gray-4 text-mlt-gray-2 hover:text-mlt-dark-3 transition-colors duration-200 py-1 px-4 md:py-2 md:px-6 font-Unicephalon tracking-widest text-sm md:text-md">
+								{submitting ? t("btn_add_a_page_submitting") : t("btn_add_a_page")}
 							</div>
 						</DialogTrigger>
 						<DialogContent>
 							<DialogHeader>
-								<DialogTitle>{t("title")}</DialogTitle>
+								<DialogTitle>{t("title_add")}</DialogTitle>
 								<DialogDescription>{t("description")}</DialogDescription>
 							</DialogHeader>
 
@@ -152,4 +148,4 @@ const AddPageForm: React.FC<Props> = ({ className }) => {
 	);
 };
 
-export default AddPageForm;
+export default Pages_Dialog_Add;

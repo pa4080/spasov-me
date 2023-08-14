@@ -52,9 +52,9 @@ const NavBar: React.FC = () => {
 								onClick={() => signIn(provider.id)}
 							>
 								<IconEmbedSvg
-									color1="mlt-gray-2"
-									color2="mlt-blue-primary"
-									opacity2="BB"
+									c1="mlt-gray-2"
+									c2="mlt-blue-dark"
+									op2="BB"
 									type="arrow-right-to-bracket"
 								/>
 							</button>
@@ -63,12 +63,7 @@ const NavBar: React.FC = () => {
 				})
 			) : (
 				<Skeleton className="bg-transparent">
-					<IconEmbedSvg
-						color1="mlt-gray-2"
-						color2="mlt-gray-2"
-						opacity2="CC"
-						type="arrow-right-to-bracket"
-					/>
+					<IconEmbedSvg c1="mlt-gray-2" c2="mlt-gray-2" op2="CC" type="arrow-right-to-bracket" />
 				</Skeleton>
 			)}
 		</>
@@ -79,12 +74,7 @@ const NavBar: React.FC = () => {
 			<NavigationMenuList>
 				<NavigationMenuItem>
 					<NavigationMenuTrigger chevronLeft>
-						<IconEmbedSvg
-							color1="mlt-gray-3"
-							color2="mlt-blue-primary"
-							opacity2="BB"
-							type="sidebar-flip"
-						/>
+						<IconEmbedSvg c1="mlt-gray-3" c2="mlt-blue-dark" op2="BB" type="sidebar-flip" />
 					</NavigationMenuTrigger>
 
 					<NavigationMenuContent className="w-48">
@@ -118,10 +108,16 @@ const NavBar: React.FC = () => {
 					href={Path.public.HOME}
 				>
 					<SiteLogo_ManualBreak
-						className="mt-[13px]"
+						hover
+						className={`mt-[13px] transition-all logo_menu_item ${
+							currentPathName === Path.public.HOME ? "" : ""
+						}`}
 						fontSize={19}
 						shouldBreakText={true}
-						textColor={currentPathName !== Path.public.HOME ? "mlt-gray-3" : undefined}
+						textColor={currentPathName === Path.public.HOME ? "mlt-blue-bright" : "mlt-gray-3"}
+						textColorBreak={
+							currentPathName === Path.public.HOME ? "mlt-purple-bright" : "mlt-gray-3"
+						}
 					/>
 				</Link>
 			);
@@ -130,7 +126,7 @@ const NavBar: React.FC = () => {
 				<Link
 					key={index}
 					className={`nav_item nav_item_common emphasize_drop_shadow tracking-menu-items sm:tracking-menu-items-wide ${
-						currentPathName !== Path.public[path] ? "text-mlt-gray-3" : "text-mlt-blue-primary"
+						currentPathName !== Path.public[path] ? "text-mlt-gray-3" : "text-mlt-blue-bright"
 					}`}
 					href={Path.public[path]}
 				>
@@ -164,9 +160,7 @@ const NavBar: React.FC = () => {
 							<Link
 								key={index}
 								className={`nav_item_side_menu nav_item_common emphasize_drop_shadow ${
-									currentPathName !== Path.public[path]
-										? "text-mlt-gray-3"
-										: "text-mlt-blue-primary"
+									currentPathName === Path.public[path] ? "text-mlt-blue-bright" : "text-mlt-gray-3"
 								}`}
 								href={Path.public[path]}
 								tabIndex={-1}

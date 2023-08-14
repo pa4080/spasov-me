@@ -14,7 +14,7 @@ export interface CheckListItemType {
 
 const CheckListItem: React.FC<CheckListItemType> = ({
 	size = 32,
-	color = "mlt-purple-secondary",
+	color = "mlt-purple-bright",
 	checked,
 	type = "check-square",
 	style,
@@ -29,11 +29,11 @@ const CheckListItem: React.FC<CheckListItemType> = ({
 
 	return (
 		<IconEmbedSvg
-			color1={color}
-			color2={color}
+			c1={color}
+			c2={color}
 			height={size}
-			opacity1={opacity1}
-			opacity2={opacity2}
+			op1={opacity1}
+			op2={opacity2}
 			style={style}
 			type={type}
 			width={size}
