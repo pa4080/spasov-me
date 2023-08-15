@@ -5,13 +5,13 @@ import { useTranslations } from "next-intl";
 
 import Pages_Feed from "@/components/home/Pages_Feed";
 
-import HomePage_Logo from "@/components/home/Logo";
+import Logo from "@/components/logo/Logo";
 import { useAppContext } from "@/contexts/AppContext";
 import { Path } from "@/interfaces/Path";
 
 const Home: React.FC = () => {
 	const t = useTranslations("Home");
-	const { logoScaleFactor, pages, setPages } = useAppContext();
+	const { pages, setPages } = useAppContext();
 
 	useEffect(() => {
 		(async () => {
@@ -34,14 +34,8 @@ const Home: React.FC = () => {
 
 	return (
 		<>
-			<div
-				style={{
-					opacity: logoScaleFactor ? 1 : 0,
-				}}
-			>
-				<HomePage_Logo greeting_ln1={t("greeting.ln1")} greeting_ln2={t("greeting.ln2")} />
-				{pages.length > 0 && <Pages_Feed className="mt-12 sm580:mt-16 mb-4" pages={pages} />}
-			</div>
+			<Logo greeting_ln1={t("greeting.ln1")} greeting_ln2={t("greeting.ln2")} />
+			<Pages_Feed className="mt-12 sm580:mt-16 mb-4" pages={pages} />
 		</>
 	);
 };

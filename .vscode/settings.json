@@ -58,6 +58,12 @@
 		"data": "database",
 		"data/[[...query]]": "database",
 		"session-info": "meta",
-		"components/home": "base"
-	}
+		"components/home": "base",
+		"components/files": "base",
+		"components": "home",
+		"components/ui": "core",
+		"components/fragments": "core"
+	},
+	// https://youtu.be/3_-Je5XpbqY?t=688, https://stackoverflow.com/a/76125894/6543935; https://github.com/microsoft/vscode/issues/170589
+	"css.customData": [".vscode/css-linting-vscode-workarounds.json"]
 }

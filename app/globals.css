@@ -3,14 +3,10 @@
 /* stylelint-disable at-rule-no-unknown */
 /* stylelint-disable function-no-unknown */
 
-/**
- * @clues
- theme("screens.xs420")
- theme("colors.mlt-purple-bright_tr1")
- */
+/* Clues: theme("screens.xs420"); theme("colors.mlt-purple-bright_tr1"); */
 
 @font-face {
-	font-family: Unicephalon;
+	font-family: "Unicephalon";
 	font-weight: 400;
 	font-style: normal;
 	src: url("/fonts/Unicephalon/unicephalon.heavy.ttf") format("truetype");
@@ -18,7 +14,7 @@
 }
 
 @font-face {
-	font-family: MultivacInterference;
+	font-family: "MultivacInterference";
 	font-weight: 400;
 	font-style: normal;
 	src: url("/fonts/Unicephalon/multivac.interference.ttf") format("truetype");
@@ -26,7 +22,7 @@
 }
 
 @font-face {
-	font-family: MultivacGhost;
+	font-family: "MultivacGhost";
 	font-weight: 400;
 	font-style: normal;
 	src: url("/fonts/Unicephalon/multivac.ghost.ttf") format("truetype");
@@ -34,7 +30,7 @@
 }
 
 @font-face {
-	font-family: Sector017;
+	font-family: "Sector017";
 	font-weight: 400;
 	font-style: normal;
 	src: url("/fonts/Unicephalon/sector-017.regular.ttf") format("truetype");
@@ -116,6 +112,7 @@
 	* {
 		@apply border-border;
 	}
+
 	body {
 		@apply bg-mlt-dark-3 text-mlt-gray-4;
 	}
@@ -127,7 +124,6 @@ body {
 	overflow-x: hidden;
 	overflow-y: auto;
 	min-width: 240px;
-	/* height: 100vh; */
 }
 
 @media screen and (width <= theme("screens.xs320")) {
@@ -136,7 +132,7 @@ body {
 	}
 }
 
-/* Main Layout*/
+/* Main Layout */
 .app {
 	overflow-x: hidden;
 	overflow-y: overlay;
@@ -153,15 +149,14 @@ body {
 
 .nav_container {
 	@apply relative flex justify-between items-center w-full h-[62px] bg-mlt-dark-4 px-4 py-3;
+
 	box-sizing: border-box;
 	z-index: 1;
 	box-shadow: 0 2px 6px 3px theme("colors.mlt-dark-3");
 }
 
 .content_container {
-	@apply flex-1 flex-grow overflow-x-hidden overflow-y-auto pt-22 pb-16 sm580:pb-2 w-full min-h-[calc(100vh-62px-58px)]
-	px-3 xs420:px-6 md:px-8 lg:px-10;
-	/* gap-10 sm580:gap-8 sm:gap-10 md:gap-10 lg:gap-14; */
+	@apply flex-1 flex-grow overflow-x-hidden overflow-y-auto pt-22 pb-16 sm580:pb-2 w-full min-h-[calc(100vh-62px-58px)] px-4 sm580:px-8;
 }
 
 .content_wrapper {
@@ -170,6 +165,7 @@ body {
 
 .footer_container {
 	@apply relative flex items-center justify-center w-full h-[58px] overflow-hidden;
+
 	z-index: 1;
 	box-shadow: 0 -2px 6px 3px theme("colors.mlt-dark-3");
 }
@@ -251,6 +247,14 @@ body {
 }
 
 /* Site Logo */
+.logo_scalable_container {
+	container-type: inline-size;
+}
+
+.logo_scalable_text {
+	font-size: 3cqw;
+}
+
 .logo-cls_mlt-gray-1 {
 	fill: theme("colors.mlt-gray-1");
 }
@@ -263,35 +267,39 @@ body {
 	fill: theme("colors.mlt-gray-3");
 }
 
-.logo_container .logo-cls_mlt-blue-dark,
-.logo_container .logo-cls_mlt-purple-dark {
+.logo_color_container .logo-cls_mlt-blue-dark,
+.logo_color_container .logo-cls_mlt-purple-dark {
 	@apply transition-colors duration-100;
 }
 
-.logo_container:hover .logo-cls_mlt-blue-dark {
+.logo_color_container:hover .logo-cls_mlt-blue-dark {
 	@apply transition-colors duration-200;
+
 	color: theme("colors.mlt-blue-dark");
 	fill: theme("colors.mlt-blue-dark");
 }
 
-.logo_container:hover .logo-cls_mlt-purple-dark,
-.logo_container:active .logo-cls_mlt-blue-dark,
-.logo_container:active .logo-cls_mlt-purple-dark {
+.logo_color_container:hover .logo-cls_mlt-purple-dark,
+.logo_color_container:active .logo-cls_mlt-blue-dark,
+.logo_color_container:active .logo-cls_mlt-purple-dark {
 	@apply transition-colors duration-200;
+
 	color: theme("colors.mlt-purple-dark");
 	fill: theme("colors.mlt-purple-dark");
 }
 
-.logo_container:hover .logo-cls_mlt-blue-bright {
+.logo_color_container:hover .logo-cls_mlt-blue-bright {
 	@apply transition-colors duration-200;
+
 	color: theme("colors.mlt-blue-bright");
 	fill: theme("colors.mlt-blue-bright");
 }
 
-.logo_container:hover .logo-cls_mlt-purple-bright,
-.logo_container:active .logo-cls_mlt-blue-bright,
-.logo_container:active .logo-cls_mlt-purple-bright {
+.logo_color_container:hover .logo-cls_mlt-purple-bright,
+.logo_color_container:active .logo-cls_mlt-blue-bright,
+.logo_color_container:active .logo-cls_mlt-purple-bright {
 	@apply transition-colors duration-200;
+
 	color: theme("colors.mlt-purple-bright");
 	fill: theme("colors.mlt-purple-bright");
 }
@@ -316,6 +324,7 @@ body {
 	.footer_icon {
 		padding: 0.7em 0.6em;
 	}
+
 	.footer_icon > img {
 		width: 1.7rem;
 		height: 1.7rem;
@@ -439,11 +448,7 @@ body {
 }
 
 .post_card_list .post_card {
-	@apply md:max-w-[340px] 
-				md820:max-w-[380px] 
-				lg:max-w-[460px]
-				xl:max-w-[480px]
-				2xl:max-w-[420px];
+	@apply md:max-w-[340px] md820:max-w-[380px] lg:max-w-[460px] xl:max-w-[480px] 2xl:max-w-[420px];
 }
 
 .post_card_prompt {
@@ -504,7 +509,6 @@ body {
 
 .close_btn_x {
 	@apply h-8 w-8 emphasize_drop_shadow;
-	/* text-mlt-blue-dark */
 }
 
 /* Pages feed */
@@ -514,6 +518,7 @@ body {
 
 .pages_card {
 	@apply flex items-start flex-col gap-3 justify-start bg-mlt-dark-4/[20%] rounded-2xl cursor-pointer h-full p-6 md:p-8 relative;
+
 	transition: background-color 0.5s, box-shadow 0.5s, opacity 0.5s, box-shadow 0.5s;
 }
 .pages_card_actions {
@@ -525,6 +530,7 @@ body {
 
 .pages_card:hover {
 	@apply bg-mlt-dark-2/[20%];
+
 	box-shadow: 0 8px 32px theme("colors.mlt-dark-2");
 	transition: background-color 0.5s, box-shadow 0.5s, opacity 0.5s, box-shadow 0.5s;
 }

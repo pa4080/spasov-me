@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 import { Path } from "@/interfaces/Path";
 import { preparePageObjectToFetch } from "@/interfaces/Page";
 
-import Pages_Form, { FormSchema } from "./Pages_Form";
+import Pages_Form, { Pages_FormSchema } from "./Pages_Form";
 
 interface Props {
 	className?: string;
@@ -32,8 +32,8 @@ const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
 	const t = useTranslations("PagesFeed.Pages_Dialog");
 	const { session, setPages } = useAppContext();
 
-	const form = useForm<z.infer<typeof FormSchema>>({
-		resolver: zodResolver(FormSchema),
+	const form = useForm<z.infer<typeof Pages_FormSchema>>({
+		resolver: zodResolver(Pages_FormSchema),
 	});
 
 	const [submitting, setSubmitting] = useState(false);
@@ -46,7 +46,7 @@ const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
 		!isOpen && form.getValues("image") && form.setValue("image", undefined);
 	}, [form, isOpen]);
 
-	const createPage = async (data: z.infer<typeof FormSchema>) => {
+	const createPage = async (data: z.infer<typeof Pages_FormSchema>) => {
 		setSubmitting(true);
 
 		try {
@@ -91,7 +91,7 @@ const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
 		}
 	};
 
-	const onSubmit = (data: z.infer<typeof FormSchema>) => {
+	const onSubmit = (data: z.infer<typeof Pages_FormSchema>) => {
 		toast({
 			title: t("toast_submit_title"),
 			description: (

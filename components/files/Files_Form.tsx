@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils";
 // https://github.com/colinhacks/zod#nullable
 // Here is applied a tricky solution to translate the messages,
 // outside React  component on the client side...?
-export const Pages_FormSchemaGenerator = (messages?: string[]) =>
+export const FormSchemaGenerator = (messages?: string[]) =>
 	z.object({
 		title: z.string().min(2, {
 			message: messages?.shift(),
@@ -50,17 +50,17 @@ export const Pages_FormSchemaGenerator = (messages?: string[]) =>
 			.transform((e) => (e === "" ? undefined : e)),
 	});
 
-export const Pages_FormSchema = Pages_FormSchemaGenerator();
+export const Files_FormSchema = FormSchemaGenerator();
 
 interface Props {
 	className?: string;
-	onSubmit: (data: z.infer<typeof Pages_FormSchema>) => void;
+	onSubmit: (data: z.infer<typeof Files_FormSchema>) => void;
 	submitting?: boolean;
 	isContainerDialogOpen?: boolean;
-	formData?: z.infer<typeof Pages_FormSchema>;
+	formData?: z.infer<typeof Files_FormSchema>;
 }
 
-const Pages_Form: React.FC<Props> = ({
+const Files_Form: React.FC<Props> = ({
 	className,
 	onSubmit,
 	submitting = false,
@@ -68,7 +68,7 @@ const Pages_Form: React.FC<Props> = ({
 	formData,
 }) => {
 	const t = useTranslations("PagesFeed.Form");
-	const FormSchema = Pages_FormSchemaGenerator([
+	const FormSchema = FormSchemaGenerator([
 		t("schema.title"),
 		t("schema.description"),
 		t("schema.uri"),
@@ -161,4 +161,4 @@ const Pages_Form: React.FC<Props> = ({
 	);
 };
 
-export default Pages_Form;
+export default Files_Form;

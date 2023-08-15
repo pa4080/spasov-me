@@ -37,7 +37,7 @@ const SiteLogo_TextOnly: React.FC<Props> = ({
 	return (
 		<div
 			className={cn(
-				"logo_container flex justify-center items-center gap-1 transition-all duration-300 select-none min-w-min",
+				"logo_color_container flex justify-center items-center gap-1 transition-all duration-300 select-none min-w-min",
 				className
 			)}
 			style={{

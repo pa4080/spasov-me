@@ -162,7 +162,12 @@ const Form: React.FC<FormProps> = ({
 						>
 							{t("cancel")}
 						</Link>
-						<button className="_btn orange_invert" disabled={submitting} type="submit">
+						<button
+							aria-label={t("submit", i18nFormType)}
+							className="_btn orange_invert"
+							disabled={submitting}
+							type="submit"
+						>
 							{submitting ? t("processing", i18nFormType) : t("submit", i18nFormType)}
 						</button>
 					</div>
