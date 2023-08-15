@@ -31,7 +31,7 @@ import {
 import { Path } from "@/interfaces/Path";
 
 import { Skeleton } from "./ui/skeleton";
-import SiteLogo_ManualBreak from "./fragments/SiteLogo_ManualBreak";
+import SiteLogo_ManualBreak from "./logo/SiteLogo_ManualBreak";
 import IconEmbedSvg from "./fragments/IconEmbedSvg";
 
 const NavBar: React.FC = () => {
@@ -73,7 +73,7 @@ const NavBar: React.FC = () => {
 		<NavigationMenu className="-mr-4" viewportPosition="right-4">
 			<NavigationMenuList>
 				<NavigationMenuItem>
-					<NavigationMenuTrigger chevronLeft>
+					<NavigationMenuTrigger chevronLeft aria-label={t("loggedInUserMenu")}>
 						<IconEmbedSvg c1="mlt-gray-3" c2="mlt-blue-dark" op2="BB" type="sidebar-flip" />
 					</NavigationMenuTrigger>
 

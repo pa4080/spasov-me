@@ -2,12 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 
-import SiteLogo_AutoBreak from "@/components/fragments/SiteLogo_AutoBreak";
 import { roundTo } from "@/lib/round";
-import { useAppContext } from "@/contexts/AppContext";
 import { cn } from "@/lib/utils";
 
-import SiteLogo_ManualBreak from "../fragments/SiteLogo_ManualBreak";
+// import SiteLogo_AutoBreak from "./SiteLogo_AutoBreak";
+import SiteLogo_ManualBreak from "./SiteLogo_ManualBreak";
 
 interface Props {
 	className?: string;
@@ -16,8 +15,7 @@ interface Props {
 }
 
 const HomePage_Logo: React.FC<Props> = ({ className, greeting_ln1, greeting_ln2 }) => {
-	const { logoScaleFactor: scale, setLogoScaleFactor: setScale } = useAppContext();
-	// const [scale, setScale] = useState<number>(0);
+	const [scale, setScale] = useState<number>(0);
 	const [containerHeight, setContainerHeight] = useState<number | null>(null);
 	const containerRef = React.useRef<HTMLDivElement>(null);
 	const logoRef = React.useRef<HTMLDivElement>(null);

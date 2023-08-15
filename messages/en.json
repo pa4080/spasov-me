@@ -25,9 +25,10 @@
 
 		"signUp": "Sign Up",
 		"signIn": "Sign In",
-		"signInWith": "Sign In {provider}",
 		"signOut": "Sign Out",
 		"signOutDescription": "Exit the edit mode",
+		"signInWith": "Sign In with { provider }",
+		"loggedInUserMenu": "Logged in as user menu",
 
 		"files": "Files",
 		"filesDescription": "Upload, browse and manage files",

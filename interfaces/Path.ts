@@ -14,7 +14,7 @@ export const Path: PathType = {
 		CONTACT: "/contact",
 	},
 	private: {
-		FILES: "/manage-files",
+		FILES: "/files",
 	},
 	api: {
 		PAGES: "/api/data/pages",

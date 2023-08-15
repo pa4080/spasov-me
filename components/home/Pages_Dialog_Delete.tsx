@@ -19,7 +19,7 @@ import {
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-import { FormSchema } from "./Pages_Form";
+import { Pages_FormSchema } from "./Pages_Form";
 import { buttonVariants } from "../ui/button";
 
 interface DeletionData {
@@ -28,14 +28,14 @@ interface DeletionData {
 	action: "DELETE";
 	api: string;
 	route: string;
-	pageData: z.infer<typeof FormSchema>;
+	pageData: z.infer<typeof Pages_FormSchema>;
 }
 
 interface Props {
 	className?: string;
 	isOpen: boolean;
 	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-	pageData: z.infer<typeof FormSchema>;
+	pageData: z.infer<typeof Pages_FormSchema>;
 	pageId: string;
 }
 

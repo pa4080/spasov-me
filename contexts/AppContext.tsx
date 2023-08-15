@@ -21,8 +21,6 @@ interface AppContextProps {
 	users: UserObject[];
 	setUsers: React.Dispatch<React.SetStateAction<UserObject[]>>;
 	authProviders: AuthProvidersType;
-	logoScaleFactor: number;
-	setLogoScaleFactor: React.Dispatch<React.SetStateAction<number>>;
 	session: Session | null;
 	postCardListSize: number;
 	setPostCardListSize: React.Dispatch<React.SetStateAction<number>>;
@@ -37,7 +35,6 @@ interface AppContextProviderProps {
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
 	const [users, setUsers] = useState<UserObject[]>([]);
 	const [pages, setPages] = useState<PageObject[]>([]);
-	const [logoScaleFactor, setLogoScaleFactor] = useState(0);
 
 	const [authProviders, setAuthProviders] = useState<AuthProvidersType>(null);
 	const [postCardListSize, setPostCardListSize] = useState(0);
@@ -56,8 +53,6 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 				setPages,
 				users,
 				setUsers,
-				logoScaleFactor,
-				setLogoScaleFactor,
 				authProviders,
 				session,
 				postCardListSize,
