@@ -30,7 +30,8 @@ export type IconEmbSvgPathType =
 	| "arrow-right-from-bracket"
 	| "arrow-right-to-bracket"
 	| "sidebar"
-	| "sidebar-flip";
+	| "sidebar-flip"
+	| "rectangle-history-circle-plus";
 
 /**
  * @param width Width of the SVG element
@@ -54,11 +55,12 @@ interface IconEmbedSvgType {
 	cursor?: "pointer" | "default" | "inherit";
 	style?: CSSProperties;
 	alt?: string;
+	className?: string;
 }
 
 const IconEmbedSvg: React.FC<IconEmbedSvgType> = ({
 	width = 20,
-	height,
+	height = 20,
 	c1: color1 = "mlt-blue-dark",
 	c2: color2 = "mlt-blue-dark",
 	op1: opacity1 = "44",
@@ -66,6 +68,8 @@ const IconEmbedSvg: React.FC<IconEmbedSvgType> = ({
 	type = "check-square",
 	cursor = "pointer",
 	style,
+	alt,
+	className,
 }) => {
 	const viewBoxWidth = 512;
 	const viewBoxHeight = 512;
@@ -80,6 +84,8 @@ const IconEmbedSvg: React.FC<IconEmbedSvgType> = ({
 
 	return (
 		<svg
+			aria-label={alt}
+			className={className}
 			fill="none"
 			height={displayHeight}
 			style={{ cursor, ...style }}
@@ -374,6 +380,19 @@ const SvgPathLib: React.FC<SvgPathLibProps> = ({ type, c1, c2 }) => {
 					/>
 					<path
 						d="M566.6 54.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192 45.3 45.3 192-192zM464 512a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"
+						fill={c1}
+					/>
+				</>
+			);
+		case "rectangle-history-circle-plus":
+			return (
+				<>
+					<path
+						d="M352 368a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-80c-8.8 0-16 7.2-16 16v48H432c-8.8 0-16 7.2-16 16s7.2 16 16 16h48v48c0 8.8 7.2 16 16 16s16-7.2 16-16V384h48c8.8 0 16-7.2 16-16s-7.2-16-16-16H512V304c0-8.8-7.2-16-16-16z"
+						fill={c2}
+					/>
+					<path
+						d="M394.8 512C349.5 480.1 320 427.5 320 368c0-97.2 78.8-176 176-176c2.5 0 5 .1 7.5 .2c-11-19.2-31.8-32.2-55.5-32.2L64 160c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64l330.8 0zM464 104c0-13.3-10.7-24-24-24L72 80c-13.3 0-24 10.7-24 24s10.7 24 24 24l368 0c13.3 0 24-10.7 24-24zM416 24c0-13.3-10.7-24-24-24H120C106.7 0 96 10.7 96 24s10.7 24 24 24l272 0c13.3 0 24-10.7 24-24z"
 						fill={c1}
 					/>
 				</>

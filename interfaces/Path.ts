@@ -19,6 +19,7 @@ export const Path: PathType = {
 	api: {
 		PAGES: "/api/data/pages",
 		POSTS: "/api/data/posts",
+		FILES: "/api/files",
 	},
 	deprecated: {
 		PROFILE: "/user-profile",

@@ -5,6 +5,8 @@ import { ObjectId, GridFSFile } from "mongodb";
 import { gridFSBucket } from "@/lib/mongodb-mongoose";
 import { GridFS } from "@/models/grid_fs";
 
+import { errorMessages } from "../../common";
+
 import { Readable } from "stream";
 
 interface Context {
@@ -26,6 +28,12 @@ function paramsToObject(params: Context["params"]) {
  * 3) If the query has no parameters, return the file list.
  */
 export async function GET(request: NextRequest, { params }: Context) {
+	// if (!params.query) {
+	// 	return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+	// }
+
+	// const [type, id] = params.query;
+
 	try {
 		// connect to the database and get the bucket
 		const bucket = await gridFSBucket();
@@ -100,7 +108,7 @@ export async function POST(request: NextRequest) {
 
 		const response = [];
 
-		// map through all the entries
+		// Loop through all the entries
 		for (const entry of Array.from(data.entries())) {
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const [key, value] = entry;
@@ -126,9 +134,9 @@ export async function POST(request: NextRequest) {
 				// pipe the readable stream to a writeable stream to save it to the database
 				stream.pipe(uploadStream!);
 
-				const res = stream.pipe(uploadStream!);
+				const dbObject = stream.pipe(uploadStream!);
 
-				response.push({ filename, _id: res.id.toString() });
+				response.push({ filename, _id: dbObject.id.toString() });
 			}
 		}
 

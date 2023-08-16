@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { useTranslations } from "next-intl";
+import React, { useRef, useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+
+import slugify from "slugify";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -20,34 +22,45 @@ import {
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 
+import { roundTo } from "@/lib/round";
+
+import IconEmbedSvg from "../fragments/IconEmbedSvg";
+
 // https://github.com/colinhacks/zod#nullable
 // Here is applied a tricky solution to translate the messages,
 // outside React  component on the client side...?
 export const FormSchemaGenerator = (messages?: string[]) =>
 	z.object({
-		title: z.string().min(2, {
-			message: messages?.shift(),
-		}),
-		description: z.string().min(2, {
-			message: messages?.shift(),
-		}),
-		uri: z
+		file: z.union([
+			z.instanceof(FileList, {
+				message: messages?.shift(),
+			}),
+			z.instanceof(File, {
+				message: messages?.shift(),
+			}),
+		]),
+		name: z
 			.string()
-			.min(2, {
+			.regex(/^[a-zA-Z][.a-zA-Z0-9-_]+$/, {
 				message: messages?.shift(),
 			})
-			.toLowerCase()
-			.regex(/^[a-z][a-z0-9-]+$/)
-			.trim(),
-		image: z // https://stackoverflow.com/a/74028632/6543935
-			.union([
-				z.string().regex(/\.(png|jpg|jpeg|svg|webp)$/, {
-					message: messages?.shift(),
-				}),
-				z.string().length(0),
-			])
-			.optional()
-			.transform((e) => (e === "" ? undefined : e)),
+			.regex(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx)$/, {
+				message: messages?.shift(),
+			}),
+		description: z.string().optional(),
+		/**
+		 * Optional file with check
+		 * @see https://stackoverflow.com/a/74028632/6543935
+		 *
+		 * image: z.union([
+		 * 			z.string().regex(/\.(png|jpg|jpeg|svg|webp)$/, {
+		 * 				message: messages?.shift(),
+		 * 			}),
+		 * 			z.string().length(0),
+		 * 		])
+		 * 		.optional()
+		 * 		.transform((e) => (e === "" ? undefined : e)),
+		 */
 	});
 
 export const Files_FormSchema = FormSchemaGenerator();
@@ -64,47 +77,162 @@ const Files_Form: React.FC<Props> = ({
 	className,
 	onSubmit,
 	submitting = false,
-	isContainerDialogOpen = true,
-	formData,
+	// isContainerDialogOpen = true,
+	// formData,
 }) => {
-	const t = useTranslations("PagesFeed.Form");
+	const t = useTranslations("FilesFeed.Form");
+	const locale = useLocale();
+	const displayImageRef = useRef<HTMLImageElement>(null);
+	const [fileToUpload, setFileToUpload] = useState<File | null>(null);
+
 	const FormSchema = FormSchemaGenerator([
-		t("schema.title"),
+		t("schema.file"),
+		t("schema.name"),
+		t("fileInputDescription"),
 		t("schema.description"),
-		t("schema.uri"),
-		t("schema.image"),
 	]);
 
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 	});
 
-	useEffect(() => {
-		if (formData) {
-			form.reset(formData);
-		}
-	}, [form, formData]);
+	const handleInputFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const file = event.target.files?.item(0) ?? null;
 
-	// Clear the image field if the dialog is closed,
-	// Otherwise on the next open "it" will attempt to set
-	// the image field programmatically, which is not allowed by the browser.
-	useEffect(() => {
-		!isContainerDialogOpen && form.getValues("image") && form.setValue("image", undefined);
-	}, [form, isContainerDialogOpen]);
+		if (file) {
+			// const fileName = file.name.replace(/[^\.a-zA-Z0-9_-]/g, "-").replace(/^[^a-zA-Z]/g, "");
+			const fileName = slugify(
+				file.name.replace(/[^\.a-zA-Z0-9_-]/g, "-").replace(/^[^a-zA-Z]/g, ""),
+				{
+					lower: false,
+					remove: /[*+~()'"!:@]/g,
+					locale: "en",
+				}
+			);
+
+			if (!fileName.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx)$/)) {
+				form.setError("file", {
+					type: "manual",
+					message: t("fileInputDescription"),
+				});
+
+				return;
+			} else {
+				form.clearErrors("file");
+			}
+
+			if (fileName.match(/\.(png|jpg|jpeg|svg|webp)$/)) {
+				displayImageRef.current?.setAttribute("src", URL.createObjectURL(file));
+			} else if (fileName.match(/\.(pdf|pptx|xlsx|docx)$/)) {
+				displayImageRef.current?.setAttribute(
+					"src",
+					`/assets/images/mime-type-icons/${fileName.split(".").pop()}.png`
+				);
+			}
+
+			const modifiedDate = new Date(file.lastModified).toLocaleString(locale);
+			const fileSizeKb = roundTo(file.size / 1000, 1);
+
+			form.setValue("name", fileName);
+			form.setValue("description", `${modifiedDate} ~${fileSizeKb}Kb`);
+			setFileToUpload(file);
+		}
+	};
+
+	const handleSubmit = async (data: z.infer<typeof FormSchema>) => {
+		if (!fileToUpload) {
+			form.setError("file", {
+				type: "manual",
+				message: t("schema.file"),
+			});
+
+			return;
+		}
+
+		data.file = fileToUpload;
+		onSubmit(data);
+	};
 
 	return (
 		<Form {...form}>
-			<form className={cn("w-full space-y-6", className)} onSubmit={form.handleSubmit(onSubmit)}>
+			<form
+				className={cn("w-full space-y-6 relative", className)}
+				onSubmit={form.handleSubmit(handleSubmit)}
+			>
+				<FormItem>
+					<FormLabel>{t("fileInput")}</FormLabel>
+
+					<FormControl>
+						<div
+							className={cn(
+								"input_file_wrapper w-full cursor-pointer relative rounded-md",
+								"border border-input bg-background text-md ring-offset-background text-mlt-dark-1 hover:outline-none hover:ring-2 hover:ring-mlt-blue-dark hover:ring-offset-2 disabled:cursor-not-allowed"
+							)}
+						>
+							<div className="absolute left-0 top-0 w-full h-full flex justify-center items-center gap-1 -z-1">
+								{fileToUpload ? (
+									<IconEmbedSvg
+										c1="mlt-blue-bright"
+										c2=""
+										height={32}
+										op1="cc"
+										op2="ff"
+										type="cloud-check"
+										width={60}
+									/>
+								) : (
+									<IconEmbedSvg
+										c1="mlt-blue-bright"
+										c2=""
+										height={32}
+										op1="cc"
+										op2="ff"
+										type="cloud-arrow-up"
+										width={60}
+									/>
+								)}
+								<p
+									className="max-w-[85%] text-mlt-gray-0 mr-3"
+									style={{
+										direction: "rtl",
+										textAlign: "left",
+										whiteSpace: "nowrap",
+										overflow: "hidden",
+										textOverflow: "ellipsis",
+									}}
+								>
+									{fileToUpload ? fileToUpload.name : t("fileInputChoiceFile")}
+								</p>
+							</div>
+							<input
+								{...form.register("file")}
+								accept="*"
+								className="z-10 h-12"
+								type="file"
+								onChange={handleInputFileChange}
+							/>
+						</div>
+					</FormControl>
+
+					<FormDescription>{t("fileInputDescription")}</FormDescription>
+
+					{form.formState.errors.file && (
+						<p className="text-sm font-medium text-destructive">
+							{form.formState.errors.file.message}
+						</p>
+					)}
+				</FormItem>
+
 				<FormField
 					control={form.control}
-					name="title"
+					name="name"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>{t("pageTitle")}</FormLabel>
+							<FormLabel>{t("fileName")}</FormLabel>
 							<FormControl>
-								<Input placeholder={t("pageTitlePlaceholder")} {...field} />
+								<Input placeholder={t("fileNamePlaceholder")} {...field} />
 							</FormControl>
-							<FormDescription>{t("pageTitleDescription")}</FormDescription>
+							<FormDescription>{t("fileNameDescription")}</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -114,48 +242,29 @@ const Files_Form: React.FC<Props> = ({
 					control={form.control}
 					name="description"
 					render={({ field }) => (
-						<FormItem>
-							<FormLabel>{t("pageDescription")}</FormLabel>
+						<FormItem className="mr-56">
+							<FormLabel>{t("fileDescription")}</FormLabel>
 							<FormControl>
-								<Input placeholder={t("pageDescriptionPlaceholder")} {...field} />
+								<Input placeholder={t("fileDescriptionPlaceholder")} {...field} />
 							</FormControl>
-							<FormDescription>{t("pageDescriptionDescription")}</FormDescription>
+							<FormDescription>{t("fileDescriptionDescription")}</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
-
-				<FormField
-					control={form.control}
-					name="uri"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>{t("pageSlug")}</FormLabel>
-							<FormControl>
-								<Input placeholder={t("pageSlugPlaceholder")} {...field} />
-							</FormControl>
-							<FormDescription>{t("pageSlugDescription")}</FormDescription>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-
-				<FormField
-					control={form.control}
-					name="image"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>{t("pageImage")}</FormLabel>
-							<FormControl>
-								<Input {...field} accept="image/*" type="file" />
-							</FormControl>
-							<FormDescription>{t("pageImageDescription")}</FormDescription>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-
-				<Button type="submit">{submitting ? t("trigger_submitting") : t("trigger_label")}</Button>
+				<Button type="submit">{submitting ? t("btn_submitting") : t("btn_submit")}</Button>
+				<div className="absolute right-0 bottom-0 w-52 h-48 rounded-md overflow-hidden">
+					{/* It is not possible to use next Image here, because we cannot modify its src property */}
+					{/* eslint-disable-next-line @next/next/no-img-element */}
+					<img
+						ref={displayImageRef}
+						alt="Display image before upload"
+						className="object-cover w-full h-full rounded-md"
+						height={192}
+						src="/assets/images/image-placeholder.webp"
+						width={208}
+					/>
+				</div>
 			</form>
 		</Form>
 	);

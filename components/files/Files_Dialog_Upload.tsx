@@ -22,14 +22,17 @@ import { cn } from "@/lib/utils";
 import { Path } from "@/interfaces/Path";
 import { preparePageObjectToFetch } from "@/interfaces/Page";
 
+import { uploadOrReplaceImage } from "@/lib/fetch-helpers";
+
 import Files_Form, { Files_FormSchema } from "./Files_Form";
+import ButtonIcon from "../fragments/ButtonIcon";
 
 interface Props {
 	className?: string;
 }
 
 const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
-	const t = useTranslations("PagesFeed.Pages_Dialog");
+	const t = useTranslations("FilesFeed.Files_Dialog");
 	const { session, setPages } = useAppContext();
 
 	const form = useForm<z.infer<typeof Files_FormSchema>>({
@@ -42,11 +45,11 @@ const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
 	// Clear the image field if the dialog is closed,
 	// Otherwise on the next open "it" will attempt to set
 	// the image field programmatically, which is not allowed by the browser.
-	useEffect(() => {
-		!isOpen && form.getValues("image") && form.setValue("image", undefined);
-	}, [form, isOpen]);
+	// useEffect(() => {
+	// 	!isOpen && form.getValues("file") && form.setValue("file", "");
+	// }, [form, isOpen]);
 
-	const createPage = async (data: z.infer<typeof Files_FormSchema>) => {
+	const _uploadFile = async (data: z.infer<typeof Files_FormSchema>) => {
 		setSubmitting(true);
 
 		try {
@@ -91,32 +94,78 @@ const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
 		}
 	};
 
+	const uploadFile = async (data: z.infer<typeof Files_FormSchema>) => {
+		const formData = new FormData();
+
+		formData.append("file", data.file as File);
+		formData.append("name", data.name);
+		formData.append("description", data.description || "");
+
+		const response = await fetch(Path.api.FILES, {
+			method: "POST",
+			body: formData,
+		});
+
+		// if (response.ok) {
+		// 	image_id = (await response.json())[0]._id;
+
+		// 	const old_id = old_image?._id?.toString();
+
+		// 	if (image_id && old_id && image_id !== old_id) {
+		// 		const response = await fetch(`/api/files/${old_id}`, {
+		// 			method: "DELETE",
+		// 		});
+
+		// 		if (!response.ok) {
+		// 			console.error(response);
+		// 		}
+		// 	}
+		// }
+	};
+
 	const onSubmit = (data: z.infer<typeof Files_FormSchema>) => {
+		const dataVisualRepresentation = {
+			...data,
+			file: {
+				name: (data.file as File).name,
+				size: (data.file as File).size,
+				type: (data.file as File).type,
+				lastModified: (data.file as File).lastModified,
+			},
+		};
+
 		toast({
 			title: t("toast_submit_title"),
 			description: (
 				<pre className="mt-2 rounded-md bg-mlt-dark-1 p-4 max-w-full whitespace-pre-wrap break-words">
-					{JSON.stringify(data, null, 2)}
+					{JSON.stringify(dataVisualRepresentation, null, 2)}
 				</pre>
 			),
 		}) && setIsOpen(false);
 
-		createPage(data);
+		uploadFile(data);
 	};
 
 	return (
 		<>
 			{session?.user && (
-				<div className={cn("w-full flex items-center justify-end my-12", className)}>
+				<div className={cn("w-full h-0 relative", className)}>
 					<Dialog open={isOpen} onOpenChange={setIsOpen}>
 						<DialogTrigger disabled={submitting}>
-							<div className="rounded-full bg-mlt-dark-4 hover:bg-mlt-gray-4 text-mlt-gray-2 hover:text-mlt-dark-3 transition-colors duration-200 py-1 px-4 md:py-2 md:px-6 font-Unicephalon tracking-widest text-sm md:text-md">
-								{submitting ? t("btn_add_a_page_submitting") : t("btn_add_a_page")}
-							</div>
+							<ButtonIcon
+								className="pl-3 pr-[0.7rem] rounded-lg absolute -top-14 sm580:right-0"
+								height={26}
+								label={t("btn_label_upload")}
+								labelSubmitting={t("btn_label_uploading")}
+								submitting={submitting}
+								width={42}
+								widthOffset={24}
+								onClick={() => setIsOpen(true)}
+							/>
 						</DialogTrigger>
 						<DialogContent>
 							<DialogHeader>
-								<DialogTitle>{t("title_add")}</DialogTitle>
+								<DialogTitle>{t("title_upload")}</DialogTitle>
 								<DialogDescription>{t("description")}</DialogDescription>
 							</DialogHeader>
 

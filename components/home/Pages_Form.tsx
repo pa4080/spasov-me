@@ -48,6 +48,19 @@ export const Pages_FormSchemaGenerator = (messages?: string[]) =>
 			])
 			.optional()
 			.transform((e) => (e === "" ? undefined : e)),
+		/**
+		 * Optional file with check
+		 * @see https://stackoverflow.com/a/74028632/6543935
+		 *
+		 * image: z.union([
+		 * 			z.string().regex(/\.(png|jpg|jpeg|svg|webp)$/, {
+		 * 				message: messages?.shift(),
+		 * 			}),
+		 * 			z.string().length(0),
+		 * 		])
+		 * 		.optional()
+		 * 		.transform((e) => (e === "" ? undefined : e)),
+		 */
 	});
 
 export const Pages_FormSchema = Pages_FormSchemaGenerator();
@@ -155,7 +168,7 @@ const Pages_Form: React.FC<Props> = ({
 					)}
 				/>
 
-				<Button type="submit">{submitting ? t("trigger_submitting") : t("trigger_label")}</Button>
+				<Button type="submit">{submitting ? t("btn_submitting") : t("btn_submit")}</Button>
 			</form>
 		</Form>
 	);

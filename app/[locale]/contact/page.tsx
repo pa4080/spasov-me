@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import { useTranslations } from "next-intl";
 
 import SiteLogo_ManualBreak from "@/components/logo/SiteLogo_ManualBreak";

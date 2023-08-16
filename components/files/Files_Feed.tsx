@@ -8,17 +8,17 @@ import { cn } from "@/lib/utils";
 
 import { useAppContext } from "@/contexts/AppContext";
 
-import Pages_Dialog_Edit from "./Pages_Dialog_Edit";
-import Pages_Dialog_Add from "./Pages_Dialog_Add";
-import Pages_Dialog_Delete from "./Pages_Dialog_Delete";
+// import Pages_Dialog_Edit from "./Pages_Dialog_Edit";
+import Files_Dialog_Upload from "./Files_Dialog_Upload";
+// import Pages_Dialog_Delete from "./Pages_Dialog_Delete";
 import ButtonIcon from "../fragments/ButtonIcon";
 
 interface Props {
 	className?: string;
-	pages: PageObject[];
+	files: PageObject[];
 }
 
-const Pages_Feed: React.FC<Props> = ({ className, pages }) => {
+const Files_Feed: React.FC<Props> = ({ className, files }) => {
 	const { session } = useAppContext();
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState(false);
@@ -51,10 +51,9 @@ const Pages_Feed: React.FC<Props> = ({ className, pages }) => {
 
 	return (
 		<div className={cn("", className)}>
-			<Pages_Dialog_Add />
-
-			<div className="pages_feed">
-				{pages?.map((page, index) => (
+			<Files_Dialog_Upload />
+			{/* <div className="pages_feed">
+				{files?.map((page, index) => (
 					<Link key={index} href={`/${page.uri}`}>
 						<div key={index} className="pages_card">
 							{session?.user && (
@@ -80,22 +79,21 @@ const Pages_Feed: React.FC<Props> = ({ className, pages }) => {
 						</div>
 					</Link>
 				))}
-			</div>
-
-			<Pages_Dialog_Edit
+			</div> */}
+			{/* <Pages_Dialog_Edit
 				isOpen={isEditDialogOpen}
 				pageData={actionPage}
 				pageId={actionPageId}
 				setIsOpen={setIsEditDialogOpen}
-			/>
-			<Pages_Dialog_Delete
+			/> */}
+			{/* <Pages_Dialog_Delete
 				isOpen={isRemoveDialogOpen}
 				pageData={actionPage}
 				pageId={actionPageId}
 				setIsOpen={setIsRemoveDialogOpen}
-			/>
+			/> */}
 		</div>
 	);
 };
 
-export default Pages_Feed;
+export default Files_Feed;

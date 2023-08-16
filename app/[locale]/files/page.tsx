@@ -1,17 +1,17 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 
-import SiteLogo_ManualBreak from "@/components/logo/SiteLogo_ManualBreak";
+import Files_Feed from "@/components/files/Files_Feed";
 
 const ManageFiles: React.FC = () => {
 	const t = useTranslations("Site");
 
 	return (
-		<section className="">
-			<header className="text-center">
-				<SiteLogo_ManualBreak />
-			</header>
-		</section>
+		<>
+			<section>
+				<Files_Feed files={[]} />
+			</section>
+		</>
 	);
 };
 

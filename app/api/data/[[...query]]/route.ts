@@ -43,6 +43,8 @@ import Post from "@/models/post";
 import User from "@/models/user";
 import Page from "@/models/page";
 
+import { errorMessages } from "../../common";
+
 interface Context {
 	params: { query: string[] };
 }
@@ -50,16 +52,6 @@ interface Context {
 function _id(id: string) {
 	return id ? { _id: id } : {};
 }
-
-const errorMessages = {
-	e401: "Unauthorized!",
-	e404: "Not found!",
-	e500a: "Internal server error!",
-	e500b: "Failed to retrieve!",
-	e500c: "Failed to create!",
-	e500d: "Failed to update!",
-	e510: "Extensions to the request are required.",
-};
 
 export async function GET(request: NextRequest, { params }: Context) {
 	if (!params.query) {

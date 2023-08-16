@@ -34,8 +34,12 @@ const Home: React.FC = () => {
 
 	return (
 		<>
-			<Logo greeting_ln1={t("greeting.ln1")} greeting_ln2={t("greeting.ln2")} />
-			<Pages_Feed className="mt-12 sm580:mt-16 mb-4" pages={pages} />
+			<section>
+				<Logo greeting_ln1={t("greeting.ln1")} greeting_ln2={t("greeting.ln2")} />
+			</section>
+			<section>
+				<Pages_Feed className="mt-12 sm580:mt-16 mb-4" pages={pages} />
+			</section>
 		</>
 	);
 };

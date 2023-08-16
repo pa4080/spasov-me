@@ -66,9 +66,6 @@ const Pages_Dialog_Delete: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pag
 	const deletePage = async (delData: DeletionData) => {
 		setSubmitting(true);
 
-		// const imageId = (postToDelete as PostTypeFromDb)?.image?._id;
-		// const postId = (postToDelete as PostTypeFromDb)?._id;
-
 		try {
 			const response = await fetch(delData.route, {
 				method: "DELETE",

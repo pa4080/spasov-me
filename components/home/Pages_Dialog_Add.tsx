@@ -23,6 +23,7 @@ import { Path } from "@/interfaces/Path";
 import { preparePageObjectToFetch } from "@/interfaces/Page";
 
 import Pages_Form, { Pages_FormSchema } from "./Pages_Form";
+import ButtonIcon from "../fragments/ButtonIcon";
 
 interface Props {
 	className?: string;
@@ -107,12 +108,17 @@ const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
 	return (
 		<>
 			{session?.user && (
-				<div className={cn("w-full flex items-center justify-end my-12", className)}>
+				<div className={cn("w-full h-0 relative", className)}>
 					<Dialog open={isOpen} onOpenChange={setIsOpen}>
 						<DialogTrigger disabled={submitting}>
-							<div className="rounded-full bg-mlt-dark-4 hover:bg-mlt-gray-4 text-mlt-gray-2 hover:text-mlt-dark-3 transition-colors duration-200 py-1 px-4 md:py-2 md:px-6 font-Unicephalon tracking-widest text-sm md:text-md">
-								{submitting ? t("btn_add_a_page_submitting") : t("btn_add_a_page")}
-							</div>
+							<ButtonIcon
+								className="pl-3 pr-[0.7rem] rounded-lg absolute -top-14 sm580:right-0"
+								height={26}
+								submitting={submitting}
+								width={42}
+								widthOffset={24}
+								onClick={() => setIsOpen(true)}
+							/>
 						</DialogTrigger>
 						<DialogContent>
 							<DialogHeader>
