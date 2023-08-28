@@ -10,6 +10,7 @@
 		"clsx",
 		"Codacy",
 		"Dolorum",
+		"ecma",
 		"eius",
 		"elit",
 		"flowbite",
@@ -65,5 +66,12 @@
 		"components/fragments": "core"
 	},
 	// https://youtu.be/3_-Je5XpbqY?t=688, https://stackoverflow.com/a/76125894/6543935; https://github.com/microsoft/vscode/issues/170589
-	"css.customData": [".vscode/css-linting-vscode-workarounds.json"]
+	"css.customData": [".vscode/css-linting-vscode-workarounds.json"],
+	"compile-hero.disable-compile-files-on-did-save-code": true,
+	"editor.guides.bracketPairs": true,
+	"editor.guides.highlightActiveBracketPair": true,
+	"editor.guides.highlightActiveIndentation": true,
+	"editor.guides.bracketPairsHorizontal": "active",
+	"editor.bracketPairColorization.enabled": true,
+	"typescript.tsdk": "node_modules/typescript/lib"
 }

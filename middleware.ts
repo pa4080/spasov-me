@@ -2,6 +2,7 @@
  * @see https://nextjs.org/docs/app/building-your-application/routing/middleware
  * @see https://github.com/pillarjs/path-to-regexp#path-to-regexp-1
  * @see https://next-intl-docs.vercel.app/docs/routing/middleware#example-auth-js
+ * @see https://next-intl-docs.vercel.app/docs/getting-started/app-router-server-components | npm install next-intl@3.0.0-beta.12
  */
 
 import { NextRequestWithAuth, withAuth } from "next-auth/middleware";

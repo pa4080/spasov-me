@@ -1,7 +1,7 @@
 {
-	"name": "MLT",
-	"short_name": "MLT Next.js Starter",
-	"description": "A Next.js starter template for Metalevel.tech projects",
+	"name": "Spasov.me",
+	"short_name": "Spasov.me",
+	"description": "Spas. Z. Spasov's personal portfolio site",
 	"start_url": "/",
 	"display": "standalone",
 	"scope": "/",
@@ -11,7 +11,7 @@
 	"icons": [
 		{
 			"sizes": "any",
-			"src": "/public/icons/svg/mlt.logo.svg",
+			"src": "/favicon.svg",
 			"type": "image/svg+xml",
 			"purpose": "any maskable"
 		},

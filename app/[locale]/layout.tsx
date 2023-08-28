@@ -1,6 +1,5 @@
-import { NextIntlClientProvider, useLocale } from "next-intl";
+import { NextIntlClientProvider, useLocale, createTranslator } from "next-intl";
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
 import { Inter } from "next/font/google";
 
 // import { getServerSession } from "next-auth";
@@ -15,8 +14,14 @@ import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export async function generateMetadata() {
-	const t = await getTranslations();
+interface GenerateMetadata {
+	params: {
+		locale: string;
+	};
+}
+export async function generateMetadata({ params: { locale } }: GenerateMetadata) {
+	const messages = (await import(`@/messages/${locale}.json`)).default;
+	const t = createTranslator({ locale, messages });
 
 	return {
 		title: `${t("Site.title")}`,

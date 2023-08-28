@@ -1,9 +1,9 @@
 /**
- * https://codevoweb.com/setup-and-use-nextauth-in-nextjs-13-app-directory/
- * https://next-auth.js.org/configuration/nextjs#getServerSession
- * https://next-auth.js.org/getting-started/client#usesession
- * https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps
- * https://developers.google.com/identity/protocols/oauth2
+ * @see https://codevoweb.com/setup-and-use-nextauth-in-nextjs-13-app-directory/
+ * @see https://next-auth.js.org/configuration/nextjs#getServerSession
+ * @see https://next-auth.js.org/getting-started/client#usesession
+ * @see https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps
+ * @see https://developers.google.com/identity/protocols/oauth2
  *
  * There are three locations where we can obtain the session data.
  * 1) The first is server-side in a React server component
@@ -22,7 +22,7 @@ import GithubProvider from "next-auth/providers/github";
 // import GoogleProvider from "next-auth/providers/google";
 // import CredentialsProvider from "next-auth/providers/credentials"; // For DB auth...
 
-import { getTranslations } from "next-intl/server";
+// import { getTranslations } from "next-intl/server";
 
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 
@@ -58,6 +58,8 @@ export const authOptions: NextAuthOptions = {
 		async signIn({ account, profile }) {
 			// Extended check for Google users, https://next-auth.js.org/providers/google
 			// if (account?.provider === "google" && !profile?.email_verified) {	return false; }
+
+			return true;
 
 			// Check if the user is allowed to sign in and skip the creation of a new user...
 			if (process.env.GITHUB_ALLOWED_USER_SECRET === `email:${profile?.email},id:${profile?.id}`) {
@@ -97,7 +99,8 @@ export const authOptions: NextAuthOptions = {
 						name,
 						image: String(profile?.picture ?? profile?.image ?? profile?.avatar_url),
 						accountProvider: String(account?.provider),
-						description: (await getTranslations("Common"))("defaultUserDescription"),
+						description: "defaultUserDescription",
+						// description: (await getTranslations("Common"))("defaultUserDescription"),
 					});
 				}
 

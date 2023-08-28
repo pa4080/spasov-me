@@ -90,7 +90,7 @@ export async function GET(request: NextRequest, { params }: Context) {
 /**
  * Post a file to the database.
  * An example of how to post a file using fetch:
- * 
+ *
 const formData = new FormData();
 formData.append('file', file); // 'file' is the key name for the uploaded file
 
@@ -150,7 +150,7 @@ export async function POST(request: NextRequest) {
 /**
  * Delete a file from the database.
  * An example of how to delete a file using fetch:
- * 
+ *
 fetch('/api/files/123', { method: 'DELETE' })
   .then(response => {
     if (response.ok) console.log('File deleted successfully');

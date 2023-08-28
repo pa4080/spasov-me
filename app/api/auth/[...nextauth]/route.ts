@@ -1,5 +1,4 @@
 /**
- * @see [Promptopia] Next.js 13 Full Course 2023 @see https://youtu.be/wm5gMKuwSYk?t=4860
  * @see [Next-Auth] Tutorial with Next.js 13 @see https://youtu.be/w2h54xz6Ndw
  * @see https://next-auth.js.org/getting-started/example
  * @see https://next-auth.js.org/getting-started/typescript
