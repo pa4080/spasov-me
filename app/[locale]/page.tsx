@@ -3,11 +3,12 @@
 import React, { useEffect } from "react";
 import { useTranslations } from "next-intl";
 
+import { Route } from "@/routes";
+
 import Pages_Feed from "@/components/home/Pages_Feed";
 
 import Logo from "@/components/logo/Logo";
 import { useAppContext } from "@/contexts/AppContext";
-import { Path } from "@/interfaces/Path";
 
 const Home: React.FC = () => {
 	const t = useTranslations("Home");
@@ -16,7 +17,7 @@ const Home: React.FC = () => {
 	useEffect(() => {
 		(async () => {
 			try {
-				const response = await fetch(Path.api.PAGES);
+				const response = await fetch(Route.api.PAGES);
 
 				if (!response.ok) {
 					return null;

@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import * as z from "zod";
 
 import { useAppContext } from "@/contexts/AppContext";
-import { Path } from "@/interfaces/Path";
+import { Route } from "@/routes";
 
 import { toast } from "@/components/ui/use-toast";
 import {
@@ -47,8 +47,8 @@ const Pages_Dialog_Delete: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pag
 		pageId,
 		imageId: pages.find((page) => page._id === pageId)?.image?._id.toString(),
 		action: "DELETE",
-		api: `${Path.api.PAGES}`,
-		route: `${Path.api.PAGES}/${pageId}`,
+		api: `${Route.api.PAGES}`,
+		route: `${Route.api.PAGES}/${pageId}`,
 		pageData,
 	});
 
@@ -57,8 +57,8 @@ const Pages_Dialog_Delete: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pag
 			pageId,
 			imageId: pages.find((page) => page._id === pageId)?.image?._id.toString(),
 			action: "DELETE",
-			api: `${Path.api.PAGES}`,
-			route: `${Path.api.PAGES}/${pageId}`,
+			api: `${Route.api.PAGES}`,
+			route: `${Route.api.PAGES}/${pageId}`,
 			pageData,
 		});
 	}, [pageId, pageData, pages]);

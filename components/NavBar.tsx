@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation";
 
 import { signIn, signOut } from "next-auth/react";
 
+import { Route } from "@/routes";
+
 import { useAppContext } from "@/contexts/AppContext";
 
 import {
@@ -27,8 +29,6 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@/components/ui/sheet";
-
-import { Path } from "@/interfaces/Path";
 
 import { Skeleton } from "./ui/skeleton";
 import SiteLogo_ManualBreak from "./logo/SiteLogo_ManualBreak";
@@ -80,7 +80,7 @@ const NavBar: React.FC = () => {
 					<NavigationMenuContent className="w-48">
 						<NavigationMenu_NextLink_Styled
 							desc={t("filesDescription")}
-							href={Path.private.FILES}
+							href={Route.private.FILES}
 							title={t("files")}
 						/>
 
@@ -99,24 +99,24 @@ const NavBar: React.FC = () => {
 		</NavigationMenu>
 	);
 
-	const publicMenu_Wide = Object.keys(Path.public).map((path, index) => {
-		if (Path.public[path] === Path.public.HOME) {
+	const publicMenu_Wide = Object.keys(Route.public).map((path, index) => {
+		if (Route.public[path] === Route.public.HOME) {
 			return (
 				<Link
 					key={index}
 					className="text-mlt-gray-3 nav_item_common emphasize_drop_shadow"
-					href={Path.public.HOME}
+					href={Route.public.HOME}
 				>
 					<SiteLogo_ManualBreak
 						hover
 						className={`mt-[13px] transition-all logo_menu_item ${
-							currentPathName === Path.public.HOME ? "" : ""
+							currentPathName === Route.public.HOME ? "" : ""
 						}`}
 						fontSize={19}
 						shouldBreakText={true}
-						textColor={currentPathName === Path.public.HOME ? "mlt-blue-bright" : "mlt-gray-3"}
+						textColor={currentPathName === Route.public.HOME ? "mlt-blue-bright" : "mlt-gray-3"}
 						textColorBreak={
-							currentPathName === Path.public.HOME ? "mlt-purple-bright" : "mlt-gray-3"
+							currentPathName === Route.public.HOME ? "mlt-purple-bright" : "mlt-gray-3"
 						}
 					/>
 				</Link>
@@ -126,9 +126,9 @@ const NavBar: React.FC = () => {
 				<Link
 					key={index}
 					className={`nav_item nav_item_common emphasize_drop_shadow tracking-menu-items sm:tracking-menu-items-wide ${
-						currentPathName !== Path.public[path] ? "text-mlt-gray-3" : "text-mlt-blue-bright"
+						currentPathName !== Route.public[path] ? "text-mlt-gray-3" : "text-mlt-blue-bright"
 					}`}
-					href={Path.public[path]}
+					href={Route.public[path]}
 				>
 					{t(path)}
 				</Link>
@@ -156,13 +156,15 @@ const NavBar: React.FC = () => {
 					</SheetTitle>
 
 					<SheetMenu className="flex flex-col gap-4 pt-5 pl-2">
-						{Object.keys(Path.public).map((path, index) => (
+						{Object.keys(Route.public).map((path, index) => (
 							<Link
 								key={index}
 								className={`nav_item_side_menu nav_item_common emphasize_drop_shadow ${
-									currentPathName === Path.public[path] ? "text-mlt-blue-bright" : "text-mlt-gray-3"
+									currentPathName === Route.public[path]
+										? "text-mlt-blue-bright"
+										: "text-mlt-gray-3"
 								}`}
-								href={Path.public[path]}
+								href={Route.public[path]}
 								tabIndex={-1}
 							>
 								<SheetClose className="border-x-8 border-y-2 border-transparent tracking-menu-items-wide">

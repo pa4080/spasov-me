@@ -6,12 +6,12 @@ import { useTranslations } from "next-intl";
 
 import Link from "next/link";
 
+import { Route } from "@/routes";
+
 import { FormProps, FormTypes } from "@/interfaces/Form";
 import { AiCategories, PostTypeFromDb } from "@/interfaces/Post";
 
 import CheckList, { ListItemType } from "@/components/fragments/CheckList";
-
-import { Path } from "@/interfaces/Path";
 
 import IconEmbedSvg from "./fragments/IconEmbedSvg";
 
@@ -158,7 +158,7 @@ const Form: React.FC<FormProps> = ({
 					<div className="flex justify-end items-center gap-4 flex-row w-full">
 						<Link
 							className="text-sm text-mlt-dark-4 hover:text-mlt-orange-primary"
-							href={type === FormTypes.EDIT ? Path.deprecated.PROFILE : Path.public.HOME}
+							href={type === FormTypes.EDIT ? Route.deprecated.PROFILE : Route.public.HOME}
 						>
 							{t("cancel")}
 						</Link>

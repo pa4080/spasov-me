@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
-import { Path } from "@/interfaces/Path";
+import { Route } from "@/routes";
 import { preparePageObjectToFetch } from "@/interfaces/Page";
 
 import { uploadOrReplaceImage } from "@/lib/fetch-helpers";
@@ -53,7 +53,7 @@ const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await fetch(Path.api.PAGES, {
+			const response = await fetch(Route.api.PAGES, {
 				method: "POST",
 				body: preparePageObjectToFetch({
 					data,
@@ -101,7 +101,7 @@ const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
 		formData.append("name", data.name);
 		formData.append("description", data.description || "");
 
-		const response = await fetch(Path.api.FILES, {
+		const response = await fetch(Route.api.FILES, {
 			method: "POST",
 			body: formData,
 		});

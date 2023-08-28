@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
-import { Path } from "@/interfaces/Path";
+import { Route } from "@/routes";
 import { preparePageObjectToFetch } from "@/interfaces/Page";
 
 import Pages_Form, { Pages_FormSchema } from "./Pages_Form";
@@ -51,7 +51,7 @@ const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await fetch(Path.api.PAGES, {
+			const response = await fetch(Route.api.PAGES, {
 				method: "POST",
 				body: preparePageObjectToFetch({
 					data,

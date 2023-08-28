@@ -1,11 +1,11 @@
-type PathType = {
+interface Route {
 	public: Record<string, string>;
 	private: Record<string, string>;
 	api: Record<string, string>;
 	deprecated: Record<string, string>;
-};
+}
 
-export const Path: PathType = {
+export const Route: Route = {
 	public: {
 		HOME: "/",
 		PORTFOLIO: "/portfolio",

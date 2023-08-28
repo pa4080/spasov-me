@@ -34,6 +34,8 @@ export async function GET(request: NextRequest, { params }: Context) {
 
 	// const [type, id] = params.query;
 
+	return NextResponse.json(params, { status: 200 });
+
 	try {
 		// connect to the database and get the bucket
 		const bucket = await gridFSBucket();
@@ -87,98 +89,98 @@ export async function GET(request: NextRequest, { params }: Context) {
 	}
 }
 
-/**
- * Post a file to the database.
- * An example of how to post a file using fetch:
- *
-const formData = new FormData();
-formData.append('file', file); // 'file' is the key name for the uploaded file
+// /**
+//  * Post a file to the database.
+//  * An example of how to post a file using fetch:
+//  *
+// const formData = new FormData();
+// formData.append('file', file); // 'file' is the key name for the uploaded file
 
-fetch('/api/files/', { method: 'POST', body: formData })
- 	.then(response => response.json())
- 	.then(data => { console.log(data); })
- 	.catch(error => { console.error(error); });
- */
-export async function POST(request: NextRequest) {
-	try {
-		// connect to the database and get the bucket
-		const bucket = await gridFSBucket();
-		// get the form data
-		const data = await request.formData();
+// fetch('/api/files/', { method: 'POST', body: formData })
+//  	.then(response => response.json())
+//  	.then(data => { console.log(data); })
+//  	.catch(error => { console.error(error); });
+//  */
+// export async function POST(request: NextRequest) {
+// 	try {
+// 		// connect to the database and get the bucket
+// 		const bucket = await gridFSBucket();
+// 		// get the form data
+// 		const data = await request.formData();
 
-		const response = [];
+// 		const response = [];
 
-		// Loop through all the entries
-		for (const entry of Array.from(data.entries())) {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			const [key, value] = entry;
+// 		// Loop through all the entries
+// 		for (const entry of Array.from(data.entries())) {
+// 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// 			const [key, value] = entry;
 
-			// FormDataEntryValue can either be type `Blob` or `string`
-			// if its type is object then it's a Blob
-			const isFile = typeof value === "object";
+// 			// FormDataEntryValue can either be type `Blob` or `string`
+// 			// if its type is object then it's a Blob
+// 			const isFile = typeof value === "object";
 
-			if (isFile) {
-				const blob = value as Blob;
-				const filename = blob.name;
+// 			if (isFile) {
+// 				const blob = value as Blob;
+// 				const filename = blob.name;
 
-				//convert the blob to stream
-				const buffer = Buffer.from(await blob.arrayBuffer());
-				const stream = Readable.from(buffer);
+// 				//convert the blob to stream
+// 				const buffer = Buffer.from(await blob.arrayBuffer());
+// 				const stream = Readable.from(buffer);
 
-				const uploadStream = bucket.openUploadStream(filename, {
-					// make sure to add content type so that it will be easier to set later.
-					contentType: blob.type,
-					metadata: {}, // add your metadata here if any
-				});
+// 				const uploadStream = bucket.openUploadStream(filename, {
+// 					// make sure to add content type so that it will be easier to set later.
+// 					contentType: blob.type,
+// 					metadata: {}, // add your metadata here if any
+// 				});
 
-				// pipe the readable stream to a writeable stream to save it to the database
-				stream.pipe(uploadStream!);
+// 				// pipe the readable stream to a writeable stream to save it to the database
+// 				stream.pipe(uploadStream!);
 
-				const dbObject = stream.pipe(uploadStream!);
+// 				const dbObject = stream.pipe(uploadStream!);
 
-				response.push({ filename, _id: dbObject.id.toString() });
-			}
-		}
+// 				response.push({ filename, _id: dbObject.id.toString() });
+// 			}
+// 		}
 
-		// return the response after all the entries have been processed.
-		return NextResponse.json(response, { status: 201 });
-	} catch (error) {
-		return NextResponse.json(error, { status: 500 });
-	}
-}
+// 		// return the response after all the entries have been processed.
+// 		return NextResponse.json(response, { status: 201 });
+// 	} catch (error) {
+// 		return NextResponse.json(error, { status: 500 });
+// 	}
+// }
 
-/**
- * Delete a file from the database.
- * An example of how to delete a file using fetch:
- *
-fetch('/api/files/123', { method: 'DELETE' })
-  .then(response => {
-    if (response.ok) console.log('File deleted successfully');
-    else if (response.status === 404) console.log('File not found');
-    else console.error('Error deleting file');
-  })
-  .catch(error => { console.error(error); });
- */
-export async function DELETE(request: NextRequest, { params }: Context) {
-	try {
-		const bucket = await gridFSBucket();
+// /**
+//  * Delete a file from the database.
+//  * An example of how to delete a file using fetch:
+//  *
+// fetch('/api/files/123', { method: 'DELETE' })
+//   .then(response => {
+//     if (response.ok) console.log('File deleted successfully');
+//     else if (response.status === 404) console.log('File not found');
+//     else console.error('Error deleting file');
+//   })
+//   .catch(error => { console.error(error); });
+//  */
+// export async function DELETE(request: NextRequest, { params }: Context) {
+// 	try {
+// 		const bucket = await gridFSBucket();
 
-		if (params?.query.length === 1) {
-			const fileId = new ObjectId(params?.query[0]);
+// 		if (params?.query.length === 1) {
+// 			const fileId = new ObjectId(params?.query[0]);
 
-			const file = await bucket.find({ _id: fileId }).toArray();
+// 			const file = await bucket.find({ _id: fileId }).toArray();
 
-			if (file.length === 0) {
-				return new NextResponse(null, { status: 404, statusText: "Not found" });
-			}
+// 			if (file.length === 0) {
+// 				return new NextResponse(null, { status: 404, statusText: "Not found" });
+// 			}
 
-			await bucket.delete(fileId);
+// 			await bucket.delete(fileId);
 
-			return new NextResponse(null, { status: 204 });
-		} else {
-			throw new Error("Invalid query. When 1 parameter is provided, it must be the file ID.");
-		}
-	} catch (error) {
-		return NextResponse.json(error, { status: 500 });
-	}
-}
+// 			return new NextResponse(null, { status: 204 });
+// 		} else {
+// 			throw new Error("Invalid query. When 1 parameter is provided, it must be the file ID.");
+// 		}
+// 	} catch (error) {
+// 		return NextResponse.json(error, { status: 500 });
+// 	}
+// }
