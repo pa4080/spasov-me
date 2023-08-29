@@ -117,25 +117,23 @@ const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageI
 	}
 
 	return (
-		<>
-			{session?.user && (
-				<Dialog open={isOpen} onOpenChange={setIsOpen}>
-					<DialogContent>
-						<DialogHeader>
-							<DialogTitle>{t("title_edit", { title: pageData.title })}</DialogTitle>
-							<DialogDescription>{t("description")}</DialogDescription>
-						</DialogHeader>
+		session?.user && (
+			<Dialog open={isOpen} onOpenChange={setIsOpen}>
+				<DialogContent>
+					<DialogHeader>
+						<DialogTitle>{t("title_edit", { title: pageData.title })}</DialogTitle>
+						<DialogDescription>{t("description")}</DialogDescription>
+					</DialogHeader>
 
-						<Pages_Form
-							formData={pageData}
-							isContainerDialogOpen={isOpen}
-							submitting={submitting}
-							onSubmit={onSubmit}
-						/>
-					</DialogContent>
-				</Dialog>
-			)}
-		</>
+					<Pages_Form
+						formData={pageData}
+						isContainerDialogOpen={isOpen}
+						submitting={submitting}
+						onSubmit={onSubmit}
+					/>
+				</DialogContent>
+			</Dialog>
+		)
 	);
 };
 

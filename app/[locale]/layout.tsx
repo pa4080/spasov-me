@@ -2,11 +2,8 @@ import { NextIntlClientProvider, useLocale, createTranslator } from "next-intl";
 import { notFound } from "next/navigation";
 import { Inter } from "next/font/google";
 
-// import { getServerSession } from "next-auth";
-// import { authOptions } from "@/lib/auth-options";
-
+import manifest from "@/public/manifest.json";
 import { AppContextProvider } from "@/contexts/AppContext";
-
 import AuthSessionProvider from "@/contexts/AuthSessionProvider";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
@@ -26,6 +23,14 @@ export async function generateMetadata({ params: { locale } }: GenerateMetadata)
 	return {
 		title: `${t("Site.title")}`,
 		description: t("Site.description"),
+		manifest: "/manifest.json",
+		viewport: "width=device-width, initial-scale=1",
+		robots: "index,follow",
+		keywords: manifest.keywords,
+		themeColor: manifest.theme_color,
+		publisher: manifest.author,
+		creator: manifest.author,
+		colorScheme: "dark",
 	};
 }
 
@@ -37,10 +42,8 @@ interface LocaleLayoutProps {
 }
 
 const LocaleLayout: React.FC<LocaleLayoutProps> = async ({ children, params }) => {
+	// note the "locale" value is also available by "params.locale"
 	const locale = useLocale();
-
-	// const session = await getServerSession(authOptions);
-	// console.log(session);
 
 	// Show a 404 error if the user requests an unknown locale
 	if (params.locale !== locale) {

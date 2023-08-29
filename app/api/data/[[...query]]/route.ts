@@ -91,7 +91,7 @@ export async function GET(request: NextRequest, { params }: Context) {
 			{ status: 200 }
 		);
 	} catch (error) {
-		return NextResponse.json(error, { status: 500 });
+		return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
 	}
 }
 
@@ -148,8 +148,7 @@ export async function POST(request: NextRequest, { params }: Context) {
 			{ status: 201 }
 		);
 	} catch (error) {
-		return NextResponse.json(error, { status: 500 });
-		// return new Response(JSON.stringify(error), { status: 500 });
+		return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
 	}
 }
 
@@ -213,7 +212,7 @@ export async function PUT(request: NextRequest, { params }: Context) {
 			{ status: 200 }
 		);
 	} catch (error) {
-		return NextResponse.json(error, { status: 500 });
+		return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
 	}
 }
 
@@ -278,7 +277,7 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 			{ status: 200 }
 		);
 	} catch (error) {
-		return NextResponse.json(error, { status: 500 });
+		return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
 	}
 }
 
@@ -336,6 +335,6 @@ export async function DELETE(request: NextRequest, { params }: Context) {
 			{ status: 200 }
 		);
 	} catch (error) {
-		return NextResponse.json(error, { status: 500 });
+		return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
 	}
 }

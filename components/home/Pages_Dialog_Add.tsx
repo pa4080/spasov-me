@@ -106,36 +106,34 @@ const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
 	};
 
 	return (
-		<>
-			{session?.user && (
-				<div className={cn("w-full h-0 relative", className)}>
-					<Dialog open={isOpen} onOpenChange={setIsOpen}>
-						<DialogTrigger disabled={submitting}>
-							<ButtonIcon
-								className="pl-3 pr-[0.7rem] rounded-lg absolute -top-14 sm580:right-0"
-								height={26}
-								submitting={submitting}
-								width={42}
-								widthOffset={24}
-								onClick={() => setIsOpen(true)}
-							/>
-						</DialogTrigger>
-						<DialogContent>
-							<DialogHeader>
-								<DialogTitle>{t("title_add")}</DialogTitle>
-								<DialogDescription>{t("description")}</DialogDescription>
-							</DialogHeader>
+		session?.user && (
+			<div className={cn("w-full h-0 relative", className)}>
+				<Dialog open={isOpen} onOpenChange={setIsOpen}>
+					<DialogTrigger disabled={submitting}>
+						<ButtonIcon
+							className="pl-3 pr-[0.7rem] rounded-lg absolute -top-14 sm580:right-0"
+							height={26}
+							submitting={submitting}
+							width={42}
+							widthOffset={24}
+							onClick={() => setIsOpen(true)}
+						/>
+					</DialogTrigger>
+					<DialogContent>
+						<DialogHeader>
+							<DialogTitle>{t("title_add")}</DialogTitle>
+							<DialogDescription>{t("description")}</DialogDescription>
+						</DialogHeader>
 
-							<Pages_Form
-								isContainerDialogOpen={isOpen}
-								submitting={submitting}
-								onSubmit={onSubmit}
-							/>
-						</DialogContent>
-					</Dialog>
-				</div>
-			)}
-		</>
+						<Pages_Form
+							isContainerDialogOpen={isOpen}
+							submitting={submitting}
+							onSubmit={onSubmit}
+						/>
+					</DialogContent>
+				</Dialog>
+			</div>
+		)
 	);
 };
 

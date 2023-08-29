@@ -1,7 +1,7 @@
 #!/bin/bash
 
+# Run the script from the root of the project!
 # Generate square app icon, from a HQ (svg) source image.
-# Run the script from the root of the project.
 # Requirements: sudo apt install imagemagick
 
 # LOGO_SOURCE_FILE="public/icons/svg/mlt.logo.orange.svg"
@@ -19,7 +19,7 @@ for res in 192 512; do
     "$LOGO_SOURCE_FILE" "${LOGO_DEST_DIRECTORY}/app-icon-${res}.png"
 done
 
-for res in 114 120 144 152 180 57 60 72 76; do
+for res in 114 120 144 152 180 57 60 72 76 36; do
   convert -background transparent -resize "${res}x${res}" \
     "$LOGO_SOURCE_FILE" "${LOGO_DEST_DIRECTORY}/apple-touch-icon-${res}x${res}.png"
 done

@@ -1,3 +1,8 @@
+/**
+ * For internationalization, for example,
+ * you can use the following package:
+ * @see https://github.com/alexsk/mongoose-intl
+ */
 import { Schema, model, models } from "mongoose";
 
 import { GridFS } from "./grid_fs";
@@ -18,7 +23,7 @@ const PageSchema = new Schema({
 	},
 	uri: {
 		type: String,
-		match: [/^[a-z][a-z0-9-]+$/, "The URI must start wit lowercase lati alphabet!"],
+		match: [/^[a-z][a-z0-9-]+$/, "The URI must start wit lowercase latin alphabet!"],
 	},
 	image: {
 		type: Schema.Types.ObjectId,

@@ -9,6 +9,7 @@ import { BuiltInProviderType } from "next-auth/providers";
 
 import { UserObject } from "@/interfaces/User";
 import { PageObject } from "@/interfaces/Page";
+import { FileObject } from "@/interfaces/File";
 
 type AuthProvidersType = Record<
 	LiteralUnion<BuiltInProviderType, string>,
@@ -16,14 +17,14 @@ type AuthProvidersType = Record<
 > | null;
 
 interface AppContextProps {
-	pages: PageObject[];
-	setPages: React.Dispatch<React.SetStateAction<PageObject[]>>;
 	users: UserObject[];
 	setUsers: React.Dispatch<React.SetStateAction<UserObject[]>>;
-	authProviders: AuthProvidersType;
 	session: Session | null;
-	postCardListSize: number;
-	setPostCardListSize: React.Dispatch<React.SetStateAction<number>>;
+	authProviders: AuthProvidersType;
+	pages: PageObject[];
+	setPages: React.Dispatch<React.SetStateAction<PageObject[]>>;
+	files: FileObject[];
+	setFiles: React.Dispatch<React.SetStateAction<FileObject[]>>;
 }
 
 const AppContext = createContext<AppContextProps>({} as AppContextProps);
@@ -33,11 +34,11 @@ interface AppContextProviderProps {
 }
 
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
+	const [authProviders, setAuthProviders] = useState<AuthProvidersType>(null);
 	const [users, setUsers] = useState<UserObject[]>([]);
 	const [pages, setPages] = useState<PageObject[]>([]);
+	const [files, setFiles] = useState<FileObject[]>([]);
 
-	const [authProviders, setAuthProviders] = useState<AuthProvidersType>(null);
-	const [postCardListSize, setPostCardListSize] = useState(0);
 	const { data: session } = useSession();
 
 	useEffect(() => {
@@ -55,8 +56,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 				setUsers,
 				authProviders,
 				session,
-				postCardListSize,
-				setPostCardListSize,
+				files,
+				setFiles,
 			}}
 		>
 			{children}

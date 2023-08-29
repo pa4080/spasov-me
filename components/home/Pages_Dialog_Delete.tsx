@@ -124,35 +124,31 @@ const Pages_Dialog_Delete: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pag
 	}
 
 	return (
-		<>
-			{session?.user && (
-				<>
-					<AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-						<AlertDialogContent>
-							<AlertDialogHeader>
-								<AlertDialogTitle className="text-mlt-orange-dark">
-									{t("title_remove", { title: pageData.title })}
-								</AlertDialogTitle>
-								<AlertDialogDescription>
-									{t("description_remove", { title: pageData.title, id: pageId })}
-								</AlertDialogDescription>
-							</AlertDialogHeader>
-							<AlertDialogFooter>
-								<AlertDialogAction
-									className={buttonVariants({ variant: "destructive" })}
-									onClick={handleDelete}
-								>
-									{submitting ? t("btn_delete_submitting") : t("btn_delete")}
-								</AlertDialogAction>
-								<AlertDialogCancel className={buttonVariants({ variant: "secondary" })}>
-									{t("btn_cancel")}
-								</AlertDialogCancel>
-							</AlertDialogFooter>
-						</AlertDialogContent>
-					</AlertDialog>
-				</>
-			)}
-		</>
+		session?.user && (
+			<AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+				<AlertDialogContent>
+					<AlertDialogHeader>
+						<AlertDialogTitle className="text-mlt-orange-dark">
+							{t("title_remove", { title: pageData.title })}
+						</AlertDialogTitle>
+						<AlertDialogDescription>
+							{t("description_remove", { title: pageData.title, id: pageId })}
+						</AlertDialogDescription>
+					</AlertDialogHeader>
+					<AlertDialogFooter>
+						<AlertDialogAction
+							className={buttonVariants({ variant: "destructive" })}
+							onClick={handleDelete}
+						>
+							{submitting ? t("btn_delete_submitting") : t("btn_delete")}
+						</AlertDialogAction>
+						<AlertDialogCancel className={buttonVariants({ variant: "secondary" })}>
+							{t("btn_cancel")}
+						</AlertDialogCancel>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
+		)
 	);
 };
 

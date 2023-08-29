@@ -15,11 +15,10 @@ import ButtonIcon from "../fragments/ButtonIcon";
 
 interface Props {
 	className?: string;
-	pages: PageObject[];
 }
 
-const Pages_Feed: React.FC<Props> = ({ className, pages }) => {
-	const { session } = useAppContext();
+const Pages_Feed: React.FC<Props> = ({ className }) => {
+	const { session, pages } = useAppContext();
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState(false);
 	const [actionPage, setActionPage] = useState<EditDataOfPageObject>({} as EditDataOfPageObject);
@@ -88,6 +87,7 @@ const Pages_Feed: React.FC<Props> = ({ className, pages }) => {
 				pageId={actionPageId}
 				setIsOpen={setIsEditDialogOpen}
 			/>
+
 			<Pages_Dialog_Delete
 				isOpen={isRemoveDialogOpen}
 				pageData={actionPage}

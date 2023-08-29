@@ -12,7 +12,7 @@ import { useAppContext } from "@/contexts/AppContext";
 
 const Home: React.FC = () => {
 	const t = useTranslations("Home");
-	const { pages, setPages } = useAppContext();
+	const { setPages } = useAppContext();
 
 	useEffect(() => {
 		(async () => {
@@ -39,7 +39,7 @@ const Home: React.FC = () => {
 				<Logo greeting_ln1={t("greeting.ln1")} greeting_ln2={t("greeting.ln2")} />
 			</section>
 			<section>
-				<Pages_Feed className="mt-12 sm580:mt-16 mb-4" pages={pages} />
+				<Pages_Feed className="mt-12 sm580:mt-16 mb-4" />
 			</section>
 		</>
 	);
