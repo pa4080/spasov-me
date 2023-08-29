@@ -1,7 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
-
+import { getServerSession } from "next-auth";
 import { ObjectId, GridFSFile } from "mongodb";
 
+import { authOptions } from "@/lib/auth-options";
 import { gridFSBucket } from "@/lib/mongodb-mongoose";
 import { GridFS } from "@/models/grid_fs";
 
@@ -11,10 +12,6 @@ import { Readable } from "stream";
 
 interface Context {
 	params: { query: string[] };
-}
-
-function paramsToObject(params: Context["params"]) {
-	return Object.keys(params).length > 0 ? { filename: params?.query[0] } : {};
 }
 
 /**
@@ -28,23 +25,32 @@ function paramsToObject(params: Context["params"]) {
  * 3) If the query has no parameters, return the file list.
  */
 export async function GET(request: NextRequest, { params }: Context) {
-	// if (!params.query) {
-	// 	return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
-	// }
-
-	// const [type, id] = params.query;
-
-	return NextResponse.json(params, { status: 200 });
-
 	try {
 		// connect to the database and get the bucket
 		const bucket = await gridFSBucket();
 
-		if (params?.query.length > 1) {
-			if (params?.query[0] === "id") {
-				const _id = new ObjectId(params?.query[1]);
+		switch (params?.query?.length ?? 0) {
+			// Return the list of all files
+			case 0: {
+				const files = await bucket.find().toArray();
+
+				if (files?.length === 0) {
+					return new NextResponse(null, { status: 404, statusText: errorMessages.e404 });
+				}
+
+				return NextResponse.json({ data: files }, { status: 200 });
+			}
+
+			case 1: {
+				const [fileId] = params?.query;
+				const _id = new ObjectId(fileId);
 
 				const file = (await GridFS.find({ _id }))[0] as GridFSFile;
+
+				if (!file) {
+					return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
+				}
+
 				const stream = bucket.openDownloadStream(_id) as unknown as ReadableStream;
 
 				return new NextResponse(stream, {
@@ -53,134 +59,123 @@ export async function GET(request: NextRequest, { params }: Context) {
 					},
 					status: 200,
 				});
-			} else {
-				throw new Error(
-					"Invalid query. When 1 parameter is provided, it must be filename. When two are provided, the first must be string 'id' and the second must be the id."
-				);
-			}
-		} else {
-			const files = await bucket.find(paramsToObject(params)).toArray();
-
-			switch (files?.length) {
-				case 0: {
-					return new NextResponse(null, { status: 404, statusText: "Not found" });
-				}
-
-				case 1: {
-					const file = files.at(0)!;
-					const stream = bucket.openDownloadStreamByName(
-						file.filename
-					) as unknown as ReadableStream;
-
-					return new NextResponse(stream, {
-						headers: {
-							"Content-Type": file?.contentType || "image",
-						},
-						status: 200,
-					});
-				}
-
-				default:
-					return NextResponse.json(files, { status: 200 });
 			}
 		}
 	} catch (error) {
-		return NextResponse.json(error, { status: 500 });
+		return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
 	}
 }
 
-// /**
-//  * Post a file to the database.
-//  * An example of how to post a file using fetch:
-//  *
-// const formData = new FormData();
-// formData.append('file', file); // 'file' is the key name for the uploaded file
+/**
+ * Post a file to the database.
+ * An example of how to post a file using fetch:
+ *
+const formData = new FormData();
+formData.append('file', file); // 'file' is the key name for the uploaded file
 
-// fetch('/api/files/', { method: 'POST', body: formData })
-//  	.then(response => response.json())
-//  	.then(data => { console.log(data); })
-//  	.catch(error => { console.error(error); });
-//  */
-// export async function POST(request: NextRequest) {
-// 	try {
-// 		// connect to the database and get the bucket
-// 		const bucket = await gridFSBucket();
-// 		// get the form data
-// 		const data = await request.formData();
+fetch('/api/files/', { method: 'POST', body: formData })
+ 	.then(response => response.json())
+ 	.then(data => { console.log(data); })
+ 	.catch(error => { console.error(error); });
+ */
 
-// 		const response = [];
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function POST(request: NextRequest, { params }: Context) {
+	const session = await getServerSession(authOptions);
 
-// 		// Loop through all the entries
-// 		for (const entry of Array.from(data.entries())) {
-// 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// 			const [key, value] = entry;
+	if (!session) {
+		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+	}
 
-// 			// FormDataEntryValue can either be type `Blob` or `string`
-// 			// if its type is object then it's a Blob
-// 			const isFile = typeof value === "object";
+	try {
+		// connect to the database and get the bucket
+		const bucket = await gridFSBucket();
+		// get the form data
+		const data = await request.formData();
 
-// 			if (isFile) {
-// 				const blob = value as Blob;
-// 				const filename = blob.name;
+		const response = [];
+		const formEntries = Array.from(data.entries());
+		const description = formEntries.find((entry) => entry[0] === "description")?.[1] ?? "";
 
-// 				//convert the blob to stream
-// 				const buffer = Buffer.from(await blob.arrayBuffer());
-// 				const stream = Readable.from(buffer);
+		// Loop through all the entries
+		for (const entry of Array.from(data.entries())) {
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			const [key, value] = entry;
 
-// 				const uploadStream = bucket.openUploadStream(filename, {
-// 					// make sure to add content type so that it will be easier to set later.
-// 					contentType: blob.type,
-// 					metadata: {}, // add your metadata here if any
-// 				});
+			// FormDataEntryValue can either be type `Blob` or `string`
+			// if its type is object then it's a Blob
+			const isFile = typeof value === "object";
 
-// 				// pipe the readable stream to a writeable stream to save it to the database
-// 				stream.pipe(uploadStream!);
+			if (isFile) {
+				const blob = value as Blob;
+				const filename = blob.name;
 
-// 				const dbObject = stream.pipe(uploadStream!);
+				//convert the blob to stream
+				const buffer = Buffer.from(await blob.arrayBuffer());
+				const stream = Readable.from(buffer);
 
-// 				response.push({ filename, _id: dbObject.id.toString() });
-// 			}
-// 		}
+				const uploadStream = bucket.openUploadStream(filename, {
+					// make sure to add content type so that it will be easier to set later.
+					contentType: blob.type,
+					metadata: {
+						description,
+					}, // add your metadata here if any
+				});
 
-// 		// return the response after all the entries have been processed.
-// 		return NextResponse.json(response, { status: 201 });
-// 	} catch (error) {
-// 		return NextResponse.json(error, { status: 500 });
-// 	}
-// }
+				// pipe the readable stream to a writeable stream to save it to the database
+				stream.pipe(uploadStream!);
 
-// /**
-//  * Delete a file from the database.
-//  * An example of how to delete a file using fetch:
-//  *
-// fetch('/api/files/123', { method: 'DELETE' })
-//   .then(response => {
-//     if (response.ok) console.log('File deleted successfully');
-//     else if (response.status === 404) console.log('File not found');
-//     else console.error('Error deleting file');
-//   })
-//   .catch(error => { console.error(error); });
-//  */
-// export async function DELETE(request: NextRequest, { params }: Context) {
-// 	try {
-// 		const bucket = await gridFSBucket();
+				const dbObject = stream.pipe(uploadStream!);
 
-// 		if (params?.query.length === 1) {
-// 			const fileId = new ObjectId(params?.query[0]);
+				response.push({ filename, _id: dbObject.id.toString() });
+			}
+		}
 
-// 			const file = await bucket.find({ _id: fileId }).toArray();
+		// return the response after all the entries have been processed.
+		return NextResponse.json(response, { status: 201 });
+	} catch (error) {
+		return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
+	}
+}
 
-// 			if (file.length === 0) {
-// 				return new NextResponse(null, { status: 404, statusText: "Not found" });
-// 			}
+/**
+ * Delete a file from the database.
+ * An example of how to delete a file using fetch:
+ *
+fetch('/api/files/123', { method: 'DELETE' })
+  .then(response => {
+    if (response.ok) console.log('File deleted successfully');
+    else if (response.status === 404) console.log('File not found');
+    else console.error('Error deleting file');
+  })
+  .catch(error => { console.error(error); });
+ */
+export async function DELETE(request: NextRequest, { params }: Context) {
+	const session = await getServerSession(authOptions);
 
-// 			await bucket.delete(fileId);
+	if (!session) {
+		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+	}
 
-// 			return new NextResponse(null, { status: 204 });
-// 		} else {
-// 			throw new Error("Invalid query. When 1 parameter is provided, it must be the file ID.");
-// 		}
-// 	} catch (error) {
-// 		return NextResponse.json(error, { status: 500 });
-// 	}
-// }
+	try {
+		const bucket = await gridFSBucket();
+
+		if (params?.query.length === 1) {
+			const fileId = new ObjectId(params?.query[0]);
+
+			const file = await bucket.find({ _id: fileId }).toArray();
+
+			if (file.length === 0) {
+				return new NextResponse(null, { status: 404, statusText: "Not found" });
+			}
+
+			await bucket.delete(fileId);
+
+			return new NextResponse(null, { status: 204 });
+		} else {
+			throw new Error("Invalid query. When 1 parameter is provided, it must be the file ID.");
+		}
+	} catch (error) {
+		return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
+	}
+}
