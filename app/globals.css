@@ -6,43 +6,6 @@
 
 /* Clues: theme("screens.xs420"); theme("colors.mlt-purple-bright_tr1"); */
 
-/**
- * The font declarations are in the tailwind.config.js file and
- * the fonts are loaded by NextJs font optimization features via
- * @/app/fonts.ts and @/app/[locale]/layout.tsx
- *
-@font-face {
-	font-family: "Unicephalon";
-	font-weight: 400;
-	font-style: normal;
-	src:
-		url("/fonts/disaster-fonts/unicephalon.heavy.woff2") format("woff2"),
-		url("/fonts/disaster-fonts/unicephalon.heavy.ttf") format("truetype");
-	font-display: swap;
-}
-
-
-@font-face {
-	font-family: "MultivacInterference";
-	font-weight: 400;
-	font-style: normal;
-	src:
-		url("/fonts/disaster-fonts/multivac.interference.woff2") format("woff2"),
-		url("/fonts/disaster-fonts/multivac.interference.ttf") format("truetype");
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "MultivacGhost";
-	font-weight: 400;
-	font-style: normal;
-	src:
-		url("/fonts/disaster-fonts/multivac.ghost.woff2") format("woff2"),
-		url("/fonts/disaster-fonts/multivac.ghost.ttf") format("truetype");
-	font-display: swap;
-}
-*/
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
