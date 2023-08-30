@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Run the script from the root of the project!
+
 # Generate square app icon, from a HQ (svg) source image.
 # Requirements: sudo apt install imagemagick
 

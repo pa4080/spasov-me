@@ -20,7 +20,7 @@ const ButtonDiv: React.FC<Props> = ({
 	return (
 		<div
 			className={cn(
-				"rounded-full bg-mlt-dark-4 hover:bg-mlt-gray-4 text-mlt-gray-2 hover:text-mlt-dark-3 transition-colors duration-200 py-1 px-4 md:py-2 md:px-6 font-Unicephalon tracking-widest text-sm md:text-md",
+				"rounded-full bg-mlt-dark-4 hover:bg-mlt-gray-4 text-mlt-gray-2 hover:text-mlt-dark-3 transition-colors duration-200 py-1 px-4 md:py-2 md:px-6 font-unicephalon tracking-widest text-sm md:text-md",
 				className
 			)}
 			onClick={(e) => {

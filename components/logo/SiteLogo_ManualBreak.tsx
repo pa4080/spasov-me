@@ -151,7 +151,7 @@ const SiteLogo_ManualBreak: React.FC<Props> = ({
 				/>
 			</svg>
 			<p
-				className={`font-Unicephalon relative text-[28px] translate-y-[3px] tracking-menu-items-wide`}
+				className={`font-unicephalon relative text-[28px] translate-y-[3px] tracking-menu-items-wide`}
 				style={{
 					transform: `translateY(${yTranslate}px)`,
 					fontSize: `${fontSize}px`,

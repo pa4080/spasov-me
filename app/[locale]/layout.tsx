@@ -1,6 +1,7 @@
 import { NextIntlClientProvider, useLocale, createTranslator } from "next-intl";
 import { notFound } from "next/navigation";
-import { Roboto_Slab, Inter } from "next/font/google";
+
+import { inter, roboto_slab, unicephalon, multivacGhost, multivacInterference } from "@/app/fonts";
 
 import manifest from "@/public/manifest.json";
 import { AppContextProvider } from "@/contexts/AppContext";
@@ -8,13 +9,6 @@ import AuthSessionProvider from "@/contexts/AuthSessionProvider";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
-
-// From this order here depends the priority of the font,
-// the last one have the highest priority.
-const robotoSlab = Roboto_Slab({ subsets: ["latin"] });
-const inter = Inter({ subsets: ["latin"] });
-// The order here doesn't matter for the priority of the font.
-const fontClassNames = [inter.className, robotoSlab.className];
 
 interface GenerateMetadata {
 	params: {
@@ -65,7 +59,13 @@ const LocaleLayout: React.FC<LocaleLayoutProps> = async ({ children, params }) =
 
 	return (
 		<html lang={locale}>
-			<body className={`${fontClassNames.join(" ")}`}>
+			<body
+				className={
+					`${inter.className} ${inter.variable} ` +
+					`${roboto_slab.variable} ${unicephalon.variable} ` +
+					`${multivacGhost.variable} ${multivacInterference.variable}`
+				}
+			>
 				<AuthSessionProvider>
 					<div className="app app_flex_container">
 						<NextIntlClientProvider locale={locale} messages={messages}>

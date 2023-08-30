@@ -27,7 +27,7 @@ const HomePage_Logo: React.FC<Props> = ({ className, greeting_ln1, greeting_ln2 
 			<div className="w-max h-max relative">
 				<div
 					className={cn(
-						"absolute z-1 font-Unicephalon text-mlt-gray-1 tracking-menu-items",
+						"absolute z-1 font-unicephalon text-mlt-gray-1 tracking-menu-items",
 						// "text-[1em] xs420:text-[1.1em] sm520:text-[1.2em] sm:text-[1.4em]",
 						"-right-[0.15em] -top-[0.4em] xs420:-top-[0.25em]",
 						"text-[6cqw] xs420:text-[4.5cqw] sm580:text-[3.5cqw]"

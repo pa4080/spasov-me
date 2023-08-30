@@ -65,7 +65,7 @@ const HomePage_Logo: React.FC<Props> = ({ className, greeting_ln1, greeting_ln2 
 			}}
 		>
 			<div ref={logoRef} className="w-max h-max relative">
-				<div className="absolute z-10 font-Unicephalon text-[14px] xs420:text-[12px] xs480:text-[10px] text-mlt-gray-1 right-[2px] -top-[4px] xs420:-top-[2px] tracking-menu-items">
+				<div className="absolute z-10 font-unicephalon text-[14px] xs420:text-[12px] xs480:text-[10px] text-mlt-gray-1 right-[2px] -top-[4px] xs420:-top-[2px] tracking-menu-items">
 					<span>{greeting_ln1}</span>{" "}
 					<span className="hidden sm580:inline-block">{greeting_ln2}</span>
 				</div>

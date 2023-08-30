@@ -129,7 +129,7 @@ const SiteLogo_TextOnly: React.FC<Props> = ({
 					/>
 				</svg>
 				<p
-					className={`font-Unicephalon relative tracking-menu-items-wide`}
+					className={`font-unicephalon relative tracking-menu-items-wide`}
 					style={{
 						fontSize: `${fontSize}px`,
 						display: shouldHideText ? "none" : "block",

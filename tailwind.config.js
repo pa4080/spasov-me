@@ -55,12 +55,15 @@ const appTwConfig = {
 				md820: "820px",
 			},
 			fontFamily: {
-				satoshi: ["Satoshi", "sans-serif"],
-				inter: ["Inter", "sans-serif"],
-				Unicephalon: ["Unicephalon", "sans-serif"],
-				MultivacInterference: ["MultivacInterference", "sans-serif"],
-				MultivacGhost: ["MultivacGhost", "sans-serif"],
-				Sector017: ["Sector017", "sans-serif"],
+				robotoSlab: ["var(--font-roboto-slab)", "sans-serif"],
+				inter: ["var(--font-inter)", "sans-serif"],
+				unicephalon: ["var(--font-unicephalon)", "sans-serif"],
+				multivacInterference: ["var(--font-multivac-interference)", "sans-serif"],
+				multivacGhost: ["var(--font-multivac-ghost)", "sans-serif"],
+				// inter: ["Inter", "sans-serif"],
+				// Unicephalon: ["Unicephalon", "sans-serif"],
+				// MultivacInterference: ["MultivacInterference", "sans-serif"],
+				// MultivacGhost: ["MultivacGhost", "sans-serif"],
 			},
 			fontSize: {
 				// https://tailwindcss.com/docs/font-size
