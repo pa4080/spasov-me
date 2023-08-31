@@ -4,10 +4,9 @@ import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 
 import { useAppContext } from "@/contexts/AppContext";
-
+import { Route } from "@/routes";
 import { toast } from "@/components/ui/use-toast";
 import {
 	Dialog,
@@ -18,14 +17,10 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-
-import { Route } from "@/routes";
 import { preparePageObjectToFetch } from "@/interfaces/Page";
-
-import { uploadOrReplaceImage } from "@/lib/fetch-helpers";
+import ButtonIcon from "@/components/fragments/ButtonIcon";
 
 import Files_Form, { Files_FormSchema } from "./Files_Form";
-import ButtonIcon from "../fragments/ButtonIcon";
 
 interface Props {
 	className?: string;
@@ -35,21 +30,10 @@ const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
 	const t = useTranslations("FilesFeed.Files_Dialog");
 	const { session, setPages } = useAppContext();
 
-	const form = useForm<z.infer<typeof Files_FormSchema>>({
-		resolver: zodResolver(Files_FormSchema),
-	});
-
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
 
-	// Clear the image field if the dialog is closed,
-	// Otherwise on the next open "it" will attempt to set
-	// the image field programmatically, which is not allowed by the browser.
-	// useEffect(() => {
-	// 	!isOpen && form.getValues("file") && form.setValue("file", "");
-	// }, [form, isOpen]);
-
-	const _uploadFile = async (data: z.infer<typeof Files_FormSchema>) => {
+	const _uploadFile = async (data: Files_FormSchema) => {
 		setSubmitting(true);
 
 		try {
@@ -68,22 +52,14 @@ const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
 
 				toast({
 					title: t("toast_response_title", { status: response.status }),
-					description: (
-						<pre className="mt-2 rounded-md bg-mlt-dark-1 p-4 max-w-full whitespace-pre-wrap break-words">
-							{JSON.stringify(newPage, null, 2)}
-						</pre>
-					),
-				}) && form.reset();
+					description: <pre className="toast_pre_info">{JSON.stringify(newPage, null, 2)}</pre>,
+				});
 			} else {
 				const errors = (await response.json()).errors;
 
 				toast({
 					title: t("toast_response_title", { status: response.status }),
-					description: (
-						<pre className="mt-2 rounded-md bg-mlt-dark-1 p-4 max-w-full whitespace-pre-wrap break-words">
-							{JSON.stringify(errors, null, 2)}
-						</pre>
-					),
+					description: <pre className="toast_pre_info">{JSON.stringify(errors, null, 2)}</pre>,
 					variant: "destructive",
 				});
 			}
@@ -94,7 +70,7 @@ const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
 		}
 	};
 
-	const uploadFile = async (data: z.infer<typeof Files_FormSchema>) => {
+	const uploadFile = async (data: Files_FormSchema) => {
 		if (!session?.user.id || !data.file) {
 			return;
 		}
@@ -131,7 +107,7 @@ const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
 		// }
 	};
 
-	const onSubmit = (data: z.infer<typeof Files_FormSchema>) => {
+	const onSubmit = (data: Files_FormSchema) => {
 		const dataVisualRepresentation = {
 			...data,
 			file: {
@@ -145,9 +121,7 @@ const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
 		toast({
 			title: t("toast_submit_title"),
 			description: (
-				<pre className="mt-2 rounded-md bg-mlt-dark-1 p-4 max-w-full whitespace-pre-wrap break-words">
-					{JSON.stringify(dataVisualRepresentation, null, 2)}
-				</pre>
+				<pre className="toast_pre_info">{JSON.stringify(dataVisualRepresentation, null, 2)}</pre>
 			),
 		}) && setIsOpen(false);
 

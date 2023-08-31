@@ -1,12 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { useTranslations } from "next-intl";
-import * as z from "zod";
 
 import { useAppContext } from "@/contexts/AppContext";
 import { Route } from "@/routes";
-
 import { toast } from "@/components/ui/use-toast";
 import {
 	AlertDialog,
@@ -18,82 +16,44 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { buttonVariants } from "@/components//ui/button";
 
 import { Files_FormSchema } from "./Files_Form";
-import { buttonVariants } from "../ui/button";
-
-interface DeletionData {
-	fileId: string;
-	imageId: string | undefined;
-	action: "DELETE";
-	api: string;
-	route: string;
-	pageData: z.infer<typeof Files_FormSchema>;
-}
 
 interface Props {
 	className?: string;
 	isOpen: boolean;
-	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-	fileData: z.infer<typeof Files_FormSchema>;
+	setIsOpen: Dispatch<SetStateAction<boolean>>;
+	fileData: Files_FormSchema;
 	fileId: string;
 }
 
 const Files_Dialog_Delete: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileId }) => {
 	const t = useTranslations("PagesFeed.Pages_Dialog");
-	const { session, pages, setPages } = useAppContext();
+	const { session, setFiles } = useAppContext();
 	const [submitting, setSubmitting] = useState(false);
-	const [delData, setDelData] = useState<DeletionData>({
-		fileId: fileId,
-		imageId: pages.find((page) => page._id === fileId)?.image?._id.toString(),
-		action: "DELETE",
-		api: `${Route.api.FILES}`,
-		route: `${Route.api.PAGES}/${fileId}`,
-		pageData: fileData,
-	});
 
-	useEffect(() => {
-		setDelData({
-			fileId: fileId,
-			imageId: pages.find((page) => page._id === fileId)?.image?._id.toString(),
-			action: "DELETE",
-			api: `${Route.api.PAGES}`,
-			route: `${Route.api.PAGES}/${fileId}`,
-			pageData: fileData,
-		});
-	}, [fileId, fileData, pages]);
-
-	const deletePage = async (delData: DeletionData) => {
+	const deletePage = async () => {
 		setSubmitting(true);
 
 		try {
-			const response = await fetch(delData.route, {
-				method: "DELETE",
-			});
+			const response = await fetch(`${Route.api.FILES}/${fileId}`, { method: "DELETE" });
 
 			if (response.ok) {
-				const deletedPage = (await response.json()).data;
+				const deletedFile = (await response.json()).data;
 
-				setPages((prevPages) => prevPages.filter((page) => page._id !== deletedPage._id));
+				setFiles((prevFiles) => prevFiles.filter((file) => file._id !== deletedFile._id));
 
 				toast({
 					title: t("toast_response_title", { status: response.status }),
-					description: (
-						<pre className="mt-2 rounded-md bg-mlt-dark-1 p-4 max-w-full whitespace-pre-wrap break-words">
-							{JSON.stringify(deletedPage, null, 2)}
-						</pre>
-					),
+					description: <pre className="toast_pre_info">{JSON.stringify(deletedFile, null, 2)}</pre>,
 				});
 			} else {
 				const errors = (await response.json()).errors;
 
 				toast({
 					title: t("toast_response_title", { status: response.status }),
-					description: (
-						<pre className="mt-2 rounded-md bg-mlt-dark-1 p-4 max-w-full whitespace-pre-wrap break-words">
-							{JSON.stringify(errors, null, 2)}
-						</pre>
-					),
+					description: <pre className="toast_pre_info">{JSON.stringify(errors, null, 2)}</pre>,
 					variant: "destructive",
 				});
 			}
@@ -110,13 +70,13 @@ const Files_Dialog_Delete: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fil
 		toast({
 			title: t("toast_submit_title"),
 			description: (
-				<pre className="mt-2 rounded-md bg-mlt-dark-1 p-4 max-w-full whitespace-pre-wrap break-words">
-					{JSON.stringify(delData, null, 2)}
+				<pre className="toast_pre_info">
+					{JSON.stringify({ action: "DELETE", fileId, fileData }, null, 2)}
 				</pre>
 			),
 		}) && setIsOpen(false);
 
-		deletePage(delData);
+		deletePage();
 	};
 
 	if (!fileData || !fileId) {
@@ -129,10 +89,10 @@ const Files_Dialog_Delete: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fil
 				<AlertDialogContent>
 					<AlertDialogHeader>
 						<AlertDialogTitle className="text-mlt-orange-dark">
-							{t("title_remove", { title: fileData.title })}
+							{t("title_remove", { filename: fileData.filename })}
 						</AlertDialogTitle>
 						<AlertDialogDescription>
-							{t("description_remove", { title: fileData.title, id: fileId })}
+							{t("description_remove", { filename: fileData.filename, id: fileId })}
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter>

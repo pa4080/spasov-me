@@ -78,7 +78,6 @@ fetch('/api/files/', { method: 'POST', body: formData })
  	.then(data => { console.log(data); })
  	.catch(error => { console.error(error); });
  */
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function POST(request: NextRequest, { params }: Context) {
 	const session = await getServerSession(authOptions);
@@ -152,24 +151,24 @@ export async function DELETE(request: NextRequest, { params }: Context) {
 		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
 	}
 
+	if (!params.query || params.query.length !== 1) {
+		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+	}
+
+	const [id] = params.query;
+
 	try {
 		const bucket = await gridFSBucket();
+		const fileId = new ObjectId(id);
+		const files = await bucket.find({ _id: fileId }).toArray();
 
-		if (params?.query.length === 1) {
-			const fileId = new ObjectId(params?.query[0]);
-
-			const file = await bucket.find({ _id: fileId }).toArray();
-
-			if (file.length === 0) {
-				return new NextResponse(null, { status: 404, statusText: "Not found" });
-			}
-
-			await bucket.delete(fileId);
-
-			return new NextResponse(null, { status: 204 });
-		} else {
-			throw new Error("Invalid query. When 1 parameter is provided, it must be the file ID.");
+		if (files.length === 0) {
+			return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
 		}
+
+		await bucket.delete(fileId);
+
+		return NextResponse.json({ data: files[0], message: errorMessages.e205 }, { status: 200 });
 	} catch (error) {
 		return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
 	}

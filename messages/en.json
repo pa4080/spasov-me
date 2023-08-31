@@ -55,9 +55,9 @@
 		"Pages_Dialog": {
 			"title_add": "Add a new page",
 			"title_edit": "Edit the \"{ title }\" page entry",
-			"title_remove": "You are about to delete the \"{ title }\" page entry",
+			"title_remove": "You are about to delete the file \"{ filename }\"",
 			"description": "This must be a valid/existing public page, defined within the project. By adding it here it will be available as a card at the homepage.",
-			"description_remove": "This action cannot be undone. This will permanently delete the \"{ title }\" page entry (id \"{ id }\") and remove its data from our servers. Are you absolutely sure?",
+			"description_remove": "This action cannot be undone. This will permanently delete the file entry \"{ filename }\" (id \"{ id }\") and remove its data from our servers. Are you absolutely sure?",
 			"btn_add_a_page": "Add a page",
 			"btn_add_a_page_submitting": "Submitting...",
 			"btn_cancel": "Cancel",

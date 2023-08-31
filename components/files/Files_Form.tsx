@@ -65,13 +65,14 @@ export const FormSchemaGenerator = (messages?: string[]) =>
 	});
 
 export const Files_FormSchema = FormSchemaGenerator();
+export type Files_FormSchema = z.infer<typeof Files_FormSchema>;
 
 interface Props {
 	className?: string;
-	onSubmit: (data: z.infer<typeof Files_FormSchema>) => void;
+	onSubmit: (data: Files_FormSchema) => void;
 	submitting?: boolean;
 	isContainerDialogOpen?: boolean;
-	formData?: z.infer<typeof Files_FormSchema>;
+	formData?: Files_FormSchema;
 }
 
 const Files_Form: React.FC<Props> = ({
@@ -93,7 +94,7 @@ const Files_Form: React.FC<Props> = ({
 		t("schema.description"),
 	]);
 
-	const form = useForm<z.infer<typeof FormSchema>>({
+	const form = useForm<Files_FormSchema>({
 		resolver: zodResolver(FormSchema),
 	});
 
@@ -101,7 +102,6 @@ const Files_Form: React.FC<Props> = ({
 		const file = event.target.files?.item(0) ?? null;
 
 		if (file) {
-			// const fileName = file.name.replace(/[^\.a-zA-Z0-9_-]/g, "-").replace(/^[^a-zA-Z]/g, "");
 			const filename = slugify(
 				file.name.replace(/[^\.a-zA-Z0-9_-]/g, "-").replace(/^[^a-zA-Z]/g, ""),
 				{
@@ -140,7 +140,7 @@ const Files_Form: React.FC<Props> = ({
 		}
 	};
 
-	const handleSubmit = async (data: z.infer<typeof FormSchema>) => {
+	const handleSubmit = async (data: Files_FormSchema) => {
 		if (!fileToUpload) {
 			form.setError("file", {
 				type: "manual",

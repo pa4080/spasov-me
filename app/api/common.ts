@@ -1,4 +1,7 @@
 export const errorMessages = {
+	e204: "No content!",
+	e205: "Reset content!",
+	e206: "Partial content!",
 	e400: "Bad request!",
 	e401: "Unauthorized!",
 	e404: "Not found!",

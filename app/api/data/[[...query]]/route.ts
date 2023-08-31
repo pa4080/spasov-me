@@ -288,7 +288,7 @@ export async function DELETE(request: NextRequest, { params }: Context) {
 		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
 	}
 
-	if (!params.query) {
+	if (!params.query || params.query.length !== 2) {
 		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
 	}
 

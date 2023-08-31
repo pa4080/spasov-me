@@ -82,14 +82,17 @@ const Files_Feed: React.FC<Props> = ({ className, files }) => {
 									/>
 								</div>
 							)}
-							<Image
-								priority
-								alt={file.filename + " " + file.metadata.description}
-								className="files_image"
-								height={200}
-								src={`/api/files/${file._id.toString()}`}
-								width={200}
-							/>
+							{/* If it is another file type, it will be displayed as a link with icon... */}
+							<Link href={`/api/files/${file._id.toString()}`} target="_blank">
+								<Image
+									priority
+									alt={file.filename + " " + file.metadata.description}
+									className="files_image"
+									height={200}
+									src={`/api/files/${file._id.toString()}`}
+									width={356}
+								/>
+							</Link>
 						</div>
 					</div>
 				))}
