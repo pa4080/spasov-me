@@ -5,7 +5,7 @@
  */
 import { Schema, model, models } from "mongoose";
 
-import { GridFS } from "./grid_fs";
+import GridFS from "./grid_fs";
 import User from "./user";
 
 const PageSchema = new Schema({

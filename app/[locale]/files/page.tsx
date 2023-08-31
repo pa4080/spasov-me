@@ -1,32 +1,39 @@
-import React from "react";
-import { useTranslations } from "next-intl";
+"use client";
+
+import React, { useEffect } from "react";
 
 import { Route } from "@/routes";
 
 import Files_Feed from "@/components/files/Files_Feed";
+import { useAppContext } from "@/contexts/AppContext";
 
-const getFiles = async () => {
-	try {
-		const res = await fetch(Route.api.FILES);
-		const data = await res.json();
+const ManageFiles: React.FC = () => {
+	const { files, setFiles } = useAppContext();
 
-		return data;
-	} catch (error) {
-		console.warn(error);
-	}
-};
+	useEffect(() => {
+		(async () => {
+			try {
+				const response = await fetch(Route.api.FILES);
 
-const ManageFiles: React.FC = async () => {
-	// const t = useTranslations("Site");
+				if (!response.ok) {
+					return null;
+				}
 
-	const files = getFiles();
+				const data = (await response.json()).data;
 
-	// eslint-disable-next-line no-console
-	console.log(files);
+				setFiles(data.length > 0 ? data : []);
+			} catch (error) {
+				return null;
+			}
+		})();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<>
-			<section>{/* <Files_Feed files={[]} /> */}</section>
+			<section>
+				<Files_Feed files={files} />
+			</section>
 		</>
 	);
 };

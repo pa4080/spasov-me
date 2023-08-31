@@ -24,7 +24,7 @@ const Pages_Feed: React.FC<Props> = ({ className }) => {
 	const [actionPage, setActionPage] = useState<EditDataOfPageObject>({} as EditDataOfPageObject);
 	const [actionPageId, setActionPageId] = useState("");
 
-	const handleRemove = (e: React.SyntheticEvent, page: PageObject) => {
+	const handleDelete = (e: React.SyntheticEvent, page: PageObject) => {
 		e.preventDefault();
 		setActionPage({
 			title: page.title,
@@ -63,7 +63,7 @@ const Pages_Feed: React.FC<Props> = ({ className }) => {
 										height={18}
 										type="trash"
 										width={18}
-										onClick={(e) => handleRemove(e, page)}
+										onClick={(e) => handleDelete(e, page)}
 									/>
 									<ButtonIcon
 										className="pl-[5px] bg-transparent"

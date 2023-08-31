@@ -1,4 +1,5 @@
 export const errorMessages = {
+	e400: "Bad request!",
 	e401: "Unauthorized!",
 	e404: "Not found!",
 	e500a: "Internal server error!",

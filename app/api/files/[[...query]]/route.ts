@@ -4,7 +4,7 @@ import { ObjectId, GridFSFile } from "mongodb";
 
 import { authOptions } from "@/lib/auth-options";
 import { gridFSBucket } from "@/lib/mongodb-mongoose";
-import { GridFS } from "@/models/grid_fs";
+import GridFS from "@/models/grid_fs";
 
 import { errorMessages } from "../../common";
 
@@ -95,44 +95,39 @@ export async function POST(request: NextRequest, { params }: Context) {
 
 		const response = [];
 		const formEntries = Array.from(data.entries());
-		const description = formEntries.find((entry) => entry[0] === "description")?.[1] ?? "";
+		const description = formEntries.find((entry) => entry[0] === "description")?.[1] as string;
+		const fileName = formEntries.find((entry) => entry[0] === "name")?.[1] as string;
+		const user_id = formEntries.find((entry) => entry[0] === "user_id")?.[1] as string;
+		const file = formEntries.find((entry) => entry[0] === "file")?.[1];
 
-		// Loop through all the entries
-		for (const entry of Array.from(data.entries())) {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			const [key, value] = entry;
+		if (typeof file === "object") {
+			const blob = file as File; // convert the file to a blob, alt.: file as Blob
+			const filename = fileName || blob.name;
 
-			// FormDataEntryValue can either be type `Blob` or `string`
-			// if its type is object then it's a Blob
-			const isFile = typeof value === "object";
+			//convert the blob to stream
+			const buffer = Buffer.from(await blob.arrayBuffer());
+			const stream = Readable.from(buffer);
 
-			if (isFile) {
-				const blob = value as Blob;
-				const filename = blob.name;
+			const uploadStream = bucket.openUploadStream(filename, {
+				// make sure to add content type so that it will be easier to set later.
+				contentType: blob.type,
+				metadata: {
+					description,
+					creator: new ObjectId(user_id),
+				},
+			});
 
-				//convert the blob to stream
-				const buffer = Buffer.from(await blob.arrayBuffer());
-				const stream = Readable.from(buffer);
+			// pipe the readable stream to a writeable stream to save it to the database
+			const dbObject = stream.pipe(uploadStream!);
 
-				const uploadStream = bucket.openUploadStream(filename, {
-					// make sure to add content type so that it will be easier to set later.
-					contentType: blob.type,
-					metadata: {
-						description,
-					}, // add your metadata here if any
-				});
-
-				// pipe the readable stream to a writeable stream to save it to the database
-				stream.pipe(uploadStream!);
-
-				const dbObject = stream.pipe(uploadStream!);
-
-				response.push({ filename, _id: dbObject.id.toString() });
-			}
+			response.push({ filename, _id: dbObject.id.toString() });
 		}
 
-		// return the response after all the entries have been processed.
-		return NextResponse.json(response, { status: 201 });
+		if (response.length === 0) {
+			return NextResponse.json({ error: errorMessages.e400 }, { status: 400 });
+		}
+
+		return NextResponse.json({ data: response }, { status: 201 });
 	} catch (error) {
 		return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
 	}

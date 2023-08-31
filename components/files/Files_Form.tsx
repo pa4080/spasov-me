@@ -32,14 +32,15 @@ import IconEmbedSvg from "../fragments/IconEmbedSvg";
 export const FormSchemaGenerator = (messages?: string[]) =>
 	z.object({
 		file: z.union([
-			z.instanceof(FileList, {
-				message: messages?.shift(),
-			}),
+			// z.instanceof(FileList, { message: messages?.shift() }), // This throws an error in the server's log
+			// @see https://conform.guide/file-upload
+			// @see https://github.com/colinhacks/zod/issues/387#issuecomment-1191390673 // This is the solution
+			z.any().refine((files) => files?.length === 1, messages?.shift()),
 			z.instanceof(File, {
 				message: messages?.shift(),
 			}),
 		]),
-		name: z
+		filename: z
 			.string()
 			.regex(/^[a-zA-Z][.a-zA-Z0-9-_]+$/, {
 				message: messages?.shift(),
@@ -101,7 +102,7 @@ const Files_Form: React.FC<Props> = ({
 
 		if (file) {
 			// const fileName = file.name.replace(/[^\.a-zA-Z0-9_-]/g, "-").replace(/^[^a-zA-Z]/g, "");
-			const fileName = slugify(
+			const filename = slugify(
 				file.name.replace(/[^\.a-zA-Z0-9_-]/g, "-").replace(/^[^a-zA-Z]/g, ""),
 				{
 					lower: false,
@@ -110,7 +111,7 @@ const Files_Form: React.FC<Props> = ({
 				}
 			);
 
-			if (!fileName.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx)$/)) {
+			if (!filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx)$/)) {
 				form.setError("file", {
 					type: "manual",
 					message: t("fileInputDescription"),
@@ -121,19 +122,19 @@ const Files_Form: React.FC<Props> = ({
 				form.clearErrors("file");
 			}
 
-			if (fileName.match(/\.(png|jpg|jpeg|svg|webp)$/)) {
+			if (filename.match(/\.(png|jpg|jpeg|svg|webp)$/)) {
 				displayImageRef.current?.setAttribute("src", URL.createObjectURL(file));
-			} else if (fileName.match(/\.(pdf|pptx|xlsx|docx)$/)) {
+			} else if (filename.match(/\.(pdf|pptx|xlsx|docx)$/)) {
 				displayImageRef.current?.setAttribute(
 					"src",
-					`/assets/images/mime-type-icons/${fileName.split(".").pop()}.png`
+					`/assets/images/mime-type-icons/${filename.split(".").pop()}.png`
 				);
 			}
 
 			const modifiedDate = new Date(file.lastModified).toLocaleString(locale);
 			const fileSizeKb = roundTo(file.size / 1000, 1);
 
-			form.setValue("name", fileName);
+			form.setValue("filename", filename);
 			form.setValue("description", `${modifiedDate} ~${fileSizeKb}Kb`);
 			setFileToUpload(file);
 		}
@@ -160,7 +161,7 @@ const Files_Form: React.FC<Props> = ({
 				onSubmit={form.handleSubmit(handleSubmit)}
 			>
 				<FormItem>
-					<FormLabel>{t("fileInput")}</FormLabel>
+					<FormLabel htmlFor="file-input">{t("fileInput")}</FormLabel>
 
 					<FormControl>
 						<div
@@ -205,6 +206,7 @@ const Files_Form: React.FC<Props> = ({
 								</p>
 							</div>
 							<input
+								id="file-input"
 								{...form.register("file")}
 								accept="*"
 								className="z-10 h-12"
@@ -218,14 +220,14 @@ const Files_Form: React.FC<Props> = ({
 
 					{form.formState.errors.file && (
 						<p className="text-sm font-medium text-destructive">
-							{form.formState.errors.file.message}
+							{String(form.formState.errors.file.message)}
 						</p>
 					)}
 				</FormItem>
 
 				<FormField
 					control={form.control}
-					name="name"
+					name="filename"
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>{t("fileName")}</FormLabel>

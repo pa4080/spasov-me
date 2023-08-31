@@ -1,11 +1,4 @@
-interface Route {
-	public: Record<string, string>;
-	private: Record<string, string>;
-	api: Record<string, string>;
-	deprecated: Record<string, string>;
-}
-
-export const Route: Route = {
+export const Route = {
 	public: {
 		HOME: "/",
 		PORTFOLIO: "/portfolio",

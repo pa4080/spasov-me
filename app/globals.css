@@ -483,13 +483,21 @@ body {
 
 .files_card,
 .pages_card {
-	@apply flex items-start flex-col gap-3 justify-start bg-mlt-dark-4/[20%] rounded-2xl cursor-pointer h-full p-6 md:p-8 relative;
+	@apply bg-mlt-dark-4/[20%] rounded-2xl cursor-pointer h-full p-6 md:p-8 relative;
 
 	transition:
 		background-color 0.5s,
 		box-shadow 0.5s,
 		opacity 0.5s,
 		box-shadow 0.5s;
+}
+
+.pages_card {
+	@apply flex items-start flex-col gap-3 justify-start;
+}
+
+.files_card {
+	@apply flex items-start flex-col sm:flex-row gap-3 justify-between;
 }
 
 .files_card:hover,
@@ -505,11 +513,12 @@ body {
 }
 
 .pages_card_actions {
-	@apply flex gap-1 absolute right-0 top-0 py-4 px-4 rounded-2xl;
+	@apply flex gap-1 absolute right-0 top-0 p-4 rounded-2xl;
 }
 
 .files_card_actions {
-	@apply flex gap-1 absolute left-0 bottom-0 py-4 px-4 rounded-2xl;
+	@apply flex gap-2 sm:gap-1 absolute left-0 bottom-2 sm:bottom-0 p-2 sm:p-4 md:p-6 rounded-2xl
+	max-sm:translate-x-1/4 max-sm:w-4/6 max-sm:bg-mlt-dark-4/[90%] justify-center;
 }
 
 .pages_card_title {
@@ -518,4 +527,13 @@ body {
 
 .files_card_title {
 	@apply font-robotoSlab text-xl tracking-wider text-mlt-gray-3;
+}
+
+.files_image_container {
+	@apply flex items-center justify-center sm:justify-end sm:min-h-fit max-sm:relative
+	min-w-full xs380:min-w-fit mx-auto sm:mr-0;
+}
+
+.files_image {
+	@apply object-contain h-auto max-h-32 xs380:w-auto min-w-full;
 }

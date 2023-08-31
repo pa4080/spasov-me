@@ -95,16 +95,24 @@ const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
 	};
 
 	const uploadFile = async (data: z.infer<typeof Files_FormSchema>) => {
+		if (!session?.user.id || !data.file) {
+			return;
+		}
+
 		const formData = new FormData();
 
 		formData.append("file", data.file as File);
-		formData.append("name", data.name);
+		formData.append("name", data.filename);
 		formData.append("description", data.description || "");
+		formData.append("user_id", session?.user.id);
 
 		const response = await fetch(Route.api.FILES, {
 			method: "POST",
 			body: formData,
 		});
+
+		// eslint-disable-next-line no-console
+		console.log(response);
 
 		// if (response.ok) {
 		// 	image_id = (await response.json())[0]._id;
