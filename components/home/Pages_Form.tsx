@@ -64,13 +64,14 @@ export const Pages_FormSchemaGenerator = (messages?: string[]) =>
 	});
 
 export const Pages_FormSchema = Pages_FormSchemaGenerator();
+export type Pages_FormSchema = z.infer<typeof Pages_FormSchema>;
 
 interface Props {
 	className?: string;
-	onSubmit: (data: z.infer<typeof Pages_FormSchema>) => void;
+	onSubmit: (data: Pages_FormSchema) => void;
 	submitting?: boolean;
 	isContainerDialogOpen?: boolean;
-	formData?: z.infer<typeof Pages_FormSchema>;
+	formData?: Pages_FormSchema;
 }
 
 const Pages_Form: React.FC<Props> = ({
@@ -88,7 +89,7 @@ const Pages_Form: React.FC<Props> = ({
 		t("schema.image"),
 	]);
 
-	const form = useForm<z.infer<typeof FormSchema>>({
+	const form = useForm<Pages_FormSchema>({
 		resolver: zodResolver(FormSchema),
 	});
 

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-import { EditDataOfPageObject, PageObject } from "@/interfaces/Page";
+import { PageObject } from "@/interfaces/Page";
 import { cn } from "@/lib/utils";
 
 import { useAppContext } from "@/contexts/AppContext";
@@ -12,6 +12,7 @@ import Pages_Dialog_Edit from "./Pages_Dialog_Edit";
 import Pages_Dialog_Add from "./Pages_Dialog_Add";
 import Pages_Dialog_Delete from "./Pages_Dialog_Delete";
 import ButtonIcon from "../fragments/ButtonIcon";
+import { Pages_FormSchema } from "./Pages_Form";
 
 interface Props {
 	className?: string;
@@ -21,31 +22,35 @@ const Pages_Feed: React.FC<Props> = ({ className }) => {
 	const { session, pages } = useAppContext();
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState(false);
-	const [actionPage, setActionPage] = useState<EditDataOfPageObject>({} as EditDataOfPageObject);
 	const [actionPageId, setActionPageId] = useState("");
+	const [actionPage, setActionPage] = useState<Pages_FormSchema>();
 
 	const handleDelete = (e: React.SyntheticEvent, page: PageObject) => {
 		e.preventDefault();
+
 		setActionPage({
 			title: page.title,
 			description: page.description,
 			uri: page.uri,
 			image: page.image?.filename,
 		});
-		setIsRemoveDialogOpen(true);
 		setActionPageId(page._id);
+
+		setIsRemoveDialogOpen(true);
 	};
 
 	const handleEdit = (e: React.SyntheticEvent, page: PageObject) => {
 		e.preventDefault();
+
 		setActionPage({
 			title: page.title,
 			description: page.description,
 			uri: page.uri,
 			image: page.image?.filename,
 		});
-		setIsEditDialogOpen(true);
 		setActionPageId(page._id);
+
+		setIsEditDialogOpen(true);
 	};
 
 	return (

@@ -1,13 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { useTranslations } from "next-intl";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
 
 import { useAppContext } from "@/contexts/AppContext";
-
 import { toast } from "@/components/ui/use-toast";
 import {
 	Dialog,
@@ -25,29 +21,18 @@ import Pages_Form, { Pages_FormSchema } from "./Pages_Form";
 interface Props {
 	className?: string;
 	isOpen: boolean;
-	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-	pageData: z.infer<typeof Pages_FormSchema>;
-	pageId: string;
+	setIsOpen: Dispatch<SetStateAction<boolean>>;
+	pageData?: Pages_FormSchema;
+	pageId?: string;
 }
 
 const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageId }) => {
 	const t = useTranslations("PagesFeed.Pages_Dialog");
 	const { session, setPages } = useAppContext();
 
-	const form = useForm<z.infer<typeof Pages_FormSchema>>({
-		resolver: zodResolver(Pages_FormSchema),
-	});
-
 	const [submitting, setSubmitting] = useState(false);
 
-	// Clear the image field if the dialog is closed,
-	// Otherwise on the next open "it" will attempt to set
-	// the image field programmatically, which is not allowed by the browser.
-	useEffect(() => {
-		!isOpen && form.getValues("image") && form.setValue("image", undefined);
-	}, [form, isOpen]);
-
-	const editPage = async (data: z.infer<typeof Pages_FormSchema>) => {
+	const editPage = async (data: Pages_FormSchema) => {
 		setSubmitting(true);
 
 		try {
@@ -73,22 +58,14 @@ const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageI
 
 				toast({
 					title: t("toast_response_title", { status: response.status }),
-					description: (
-						<pre className="mt-2 rounded-md bg-mlt-dark-1 p-4 max-w-full whitespace-pre-wrap break-words">
-							{JSON.stringify(newPage, null, 2)}
-						</pre>
-					),
-				}) && form.reset();
+					description: <pre className="toast_pre_info">{JSON.stringify(newPage, null, 2)}</pre>,
+				});
 			} else {
 				const errors = (await response.json()).errors;
 
 				toast({
 					title: t("toast_response_title", { status: response.status }),
-					description: (
-						<pre className="mt-2 rounded-md bg-mlt-dark-1 p-4 max-w-full whitespace-pre-wrap break-words">
-							{JSON.stringify(errors, null, 2)}
-						</pre>
-					),
+					description: <pre className="toast_pre_info">{JSON.stringify(errors, null, 2)}</pre>,
 					variant: "destructive",
 				});
 			}
@@ -99,14 +76,10 @@ const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageI
 		}
 	};
 
-	const onSubmit = (data: z.infer<typeof Pages_FormSchema>) => {
+	const handleEditPage = (data: Pages_FormSchema) => {
 		toast({
 			title: t("toast_submit_title"),
-			description: (
-				<pre className="mt-2 rounded-md bg-mlt-dark-1 p-4 max-w-full whitespace-pre-wrap break-words">
-					{JSON.stringify(data, null, 2)}
-				</pre>
-			),
+			description: <pre className="toast_pre_info">{JSON.stringify(data, null, 2)}</pre>,
 		}) && setIsOpen(false);
 
 		editPage(data);
@@ -129,7 +102,7 @@ const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageI
 						formData={pageData}
 						isContainerDialogOpen={isOpen}
 						submitting={submitting}
-						onSubmit={onSubmit}
+						onSubmit={handleEditPage}
 					/>
 				</DialogContent>
 			</Dialog>

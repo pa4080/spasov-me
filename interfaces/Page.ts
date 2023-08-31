@@ -13,10 +13,6 @@ export type PageObject = {
 
 export type NewPageObject = Omit<PageObject, "_id" | "image">;
 
-export type EditDataOfPageObject = Omit<PageObject, "_id" | "creator" | "image"> & {
-	image?: string;
-};
-
 export type ErrorPageObject = {
 	[key in keyof PageObject]: {
 		kind?: string; // "regexp", "required", etc.
