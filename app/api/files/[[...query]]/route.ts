@@ -1,3 +1,8 @@
+/**
+ * @see https://mongodb.github.io/mongo-csharp-driver/2.8/reference/gridfs/uploadingfiles/
+ * @see https://mongodb.github.io/node-mongodb-native/6.0/classes/GridFSBucket.html#openUploadStream
+ * @see https://mongodb.github.io/node-mongodb-native/6.0/classes/GridFSBucket.html#openUploadStreamWithId
+ */
 import { NextResponse, NextRequest } from "next/server";
 import { getServerSession } from "next-auth";
 import { ObjectId, GridFSFile } from "mongodb";
@@ -5,6 +10,8 @@ import { ObjectId, GridFSFile } from "mongodb";
 import { authOptions } from "@/lib/auth-options";
 import { gridFSBucket } from "@/lib/mongodb-mongoose";
 import GridFS from "@/models/grid_fs";
+
+import { FileObject } from "@/interfaces/File";
 
 import { errorMessages } from "../../common";
 
@@ -86,47 +93,64 @@ export async function POST(request: NextRequest, { params }: Context) {
 		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
 	}
 
+	if (params?.query?.length ?? 0 !== 0) {
+		return NextResponse.json({ error: errorMessages.e510b }, { status: 510 });
+	}
+
 	try {
 		// connect to the database and get the bucket
 		const bucket = await gridFSBucket();
 		// get the form data
 		const data = await request.formData();
 
-		const response = [];
 		const formEntries = Array.from(data.entries());
 		const description = formEntries.find((entry) => entry[0] === "description")?.[1] as string;
-		const fileName = formEntries.find((entry) => entry[0] === "name")?.[1] as string;
+		const file_name = formEntries.find((entry) => entry[0] === "name")?.[1] as string;
 		const user_id = formEntries.find((entry) => entry[0] === "user_id")?.[1] as string;
-		const file = formEntries.find((entry) => entry[0] === "file")?.[1];
+		const file_form_field = formEntries.find((entry) => entry[0] === "file")?.[1];
 
-		if (typeof file === "object") {
-			const blob = file as File; // convert the file to a blob, alt.: file as Blob
-			const filename = fileName || blob.name;
+		let responseObject: GridFSFile = {} as FileObject;
 
-			//convert the blob to stream
-			const buffer = Buffer.from(await blob.arrayBuffer());
+		if (typeof file_form_field === "object") {
+			// convert the file to a blob, alt.: file_form_field as Blob
+			const file = file_form_field as File;
+			const filename = file_name || file.name;
+
+			// Convert the blob to stream
+			const buffer = Buffer.from(await file.arrayBuffer());
 			const stream = Readable.from(buffer);
 
 			const uploadStream = bucket.openUploadStream(filename, {
-				// make sure to add content type so that it will be easier to set later.
-				contentType: blob.type,
+				// Make sure to add content type so that it will be easier to set later.
+				contentType: file.type,
 				metadata: {
 					description,
 					creator: new ObjectId(user_id),
 				},
 			});
 
-			// pipe the readable stream to a writeable stream to save it to the database
-			const dbObject = stream.pipe(uploadStream!);
+			// Pipe the readable stream to a writeable stream to save it to the database
+			const dbObject = stream.pipe(uploadStream);
 
-			response.push({ filename, _id: dbObject.id.toString() });
+			// Construct the response file object
+			if (dbObject.id.toString()) {
+				responseObject = {
+					_id: dbObject.id,
+					length: dbObject.length,
+					chunkSize: dbObject.chunkSizeBytes,
+					uploadDate: new Date(),
+					filename: dbObject.filename,
+					contentType: dbObject.options.contentType,
+					metadata: dbObject.options.metadata,
+				};
+			}
 		}
 
-		if (response.length === 0) {
+		if (Object.keys(responseObject).length === 0) {
 			return NextResponse.json({ error: errorMessages.e400 }, { status: 400 });
 		}
 
-		return NextResponse.json({ data: response }, { status: 201 });
+		return NextResponse.json({ data: responseObject }, { status: 201 });
 	} catch (error) {
 		return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
 	}
@@ -152,7 +176,7 @@ export async function DELETE(request: NextRequest, { params }: Context) {
 	}
 
 	if (!params.query || params.query.length !== 1) {
-		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
 	}
 
 	const [id] = params.query;
