@@ -9,5 +9,6 @@ export const errorMessages = {
 	e500b: "Failed to retrieve!",
 	e500c: "Failed to create!",
 	e500d: "Failed to update!",
-	e510: "Extensions to the request are required.",
+	e510a: "Extensions to the request are required.",
+	e510b: "Extensions to the request are prohibited.",
 };

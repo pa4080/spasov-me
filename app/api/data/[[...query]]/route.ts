@@ -55,7 +55,7 @@ function _id(id: string) {
 
 export async function GET(request: NextRequest, { params }: Context) {
 	if (!params.query) {
-		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
 	}
 
 	const [type, id] = params.query;
@@ -103,13 +103,13 @@ export async function POST(request: NextRequest, { params }: Context) {
 	}
 
 	if (!params.query) {
-		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
 	}
 
 	const [type] = params.query;
 
 	if (!type) {
-		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
 	}
 
 	const request_object = await request.json();
@@ -160,13 +160,13 @@ export async function PUT(request: NextRequest, { params }: Context) {
 	}
 
 	if (!params.query) {
-		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
 	}
 
 	const [type, id] = params.query;
 
 	if (!type || !id) {
-		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
 	}
 
 	const request_object = await request.json();
@@ -225,13 +225,13 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 	}
 
 	if (!params.query) {
-		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
 	}
 
 	const [type, id] = params.query;
 
 	if (!type || !id) {
-		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
 	}
 
 	const request_object = await request.json();
@@ -289,13 +289,13 @@ export async function DELETE(request: NextRequest, { params }: Context) {
 	}
 
 	if (!params.query || params.query.length !== 2) {
-		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
 	}
 
 	const [type, id] = params.query;
 
 	if (!type || !id) {
-		return NextResponse.json({ error: errorMessages.e510 }, { status: 510 });
+		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
 	}
 
 	try {

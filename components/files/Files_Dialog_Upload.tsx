@@ -1,9 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useTranslations } from "next-intl";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 
 import { useAppContext } from "@/contexts/AppContext";
 import { Route } from "@/routes";
@@ -17,8 +15,9 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { preparePageObjectToFetch } from "@/interfaces/Page";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
+
+import { FileObject } from "@/interfaces/File";
 
 import Files_Form, { Files_FormSchema } from "./Files_Form";
 
@@ -28,31 +27,43 @@ interface Props {
 
 const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
 	const t = useTranslations("FilesFeed.Files_Dialog");
-	const { session, setPages } = useAppContext();
+	const { session, setFiles } = useAppContext();
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
 
-	const _uploadFile = async (data: Files_FormSchema) => {
+	const uploadFile = async (data: Files_FormSchema) => {
 		setSubmitting(true);
 
 		try {
-			const response = await fetch(Route.api.PAGES, {
+			if (!session?.user.id || !data.file) {
+				throw new Error("No user id or file");
+			}
+
+			const formData = new FormData();
+
+			formData.append("file", data.file as File);
+			formData.append("name", data.filename);
+			formData.append("description", data.description || "");
+			formData.append("user_id", session?.user.id);
+
+			const response = await fetch(Route.api.FILES, {
 				method: "POST",
-				body: preparePageObjectToFetch({
-					data,
-					user_id: session?.user.id, // can be skipped on PUT/Update
-				}),
+				body: formData,
 			});
 
 			if (response.ok) {
-				const newPage = (await response.json()).data;
+				const newFile: FileObject = (await response.json()).data;
 
-				setPages((prevPages) => [...prevPages, newPage]);
+				// TODO: Here we waiting a while for the backend upload stream to finish
+				// find a way to do this without waiting with timeout but with a promise
+				setTimeout(() => {
+					setFiles((prevFiles) => [newFile, ...prevFiles]);
+				}, 1000);
 
 				toast({
 					title: t("toast_response_title", { status: response.status }),
-					description: <pre className="toast_pre_info">{JSON.stringify(newPage, null, 2)}</pre>,
+					description: <pre className="toast_pre_info">{JSON.stringify(newFile, null, 2)}</pre>,
 				});
 			} else {
 				const errors = (await response.json()).errors;
@@ -60,7 +71,6 @@ const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
 				toast({
 					title: t("toast_response_title", { status: response.status }),
 					description: <pre className="toast_pre_info">{JSON.stringify(errors, null, 2)}</pre>,
-					variant: "destructive",
 				});
 			}
 		} catch (error) {
@@ -70,44 +80,7 @@ const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
 		}
 	};
 
-	const uploadFile = async (data: Files_FormSchema) => {
-		if (!session?.user.id || !data.file) {
-			return;
-		}
-
-		const formData = new FormData();
-
-		formData.append("file", data.file as File);
-		formData.append("name", data.filename);
-		formData.append("description", data.description || "");
-		formData.append("user_id", session?.user.id);
-
-		const response = await fetch(Route.api.FILES, {
-			method: "POST",
-			body: formData,
-		});
-
-		// eslint-disable-next-line no-console
-		console.log(response);
-
-		// if (response.ok) {
-		// 	image_id = (await response.json())[0]._id;
-
-		// 	const old_id = old_image?._id?.toString();
-
-		// 	if (image_id && old_id && image_id !== old_id) {
-		// 		const response = await fetch(`/api/files/${old_id}`, {
-		// 			method: "DELETE",
-		// 		});
-
-		// 		if (!response.ok) {
-		// 			console.error(response);
-		// 		}
-		// 	}
-		// }
-	};
-
-	const onSubmit = (data: Files_FormSchema) => {
+	const handleUploadFile = (data: Files_FormSchema) => {
 		const dataVisualRepresentation = {
 			...data,
 			file: {
@@ -129,38 +102,36 @@ const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
 	};
 
 	return (
-		<>
-			{session?.user && (
-				<div className={cn("w-full h-0 relative", className)}>
-					<Dialog open={isOpen} onOpenChange={setIsOpen}>
-						<DialogTrigger disabled={submitting}>
-							<ButtonIcon
-								className="pl-3 pr-[0.7rem] rounded-lg absolute -top-14 sm580:right-0"
-								height={26}
-								label={t("btn_label_upload")}
-								labelSubmitting={t("btn_label_uploading")}
-								submitting={submitting}
-								width={42}
-								widthOffset={24}
-								onClick={() => setIsOpen(true)}
-							/>
-						</DialogTrigger>
-						<DialogContent>
-							<DialogHeader>
-								<DialogTitle>{t("title_upload")}</DialogTitle>
-								<DialogDescription>{t("description")}</DialogDescription>
-							</DialogHeader>
+		session?.user && (
+			<div className={cn("w-full h-0 relative", className)}>
+				<Dialog open={isOpen} onOpenChange={setIsOpen}>
+					<DialogTrigger disabled={submitting}>
+						<ButtonIcon
+							className="pl-3 pr-[0.7rem] rounded-lg absolute -top-14 sm580:right-0"
+							height={26}
+							label={t("btn_label_upload")}
+							labelSubmitting={t("btn_label_uploading")}
+							submitting={submitting}
+							width={42}
+							widthOffset={24}
+							onClick={() => setIsOpen(true)}
+						/>
+					</DialogTrigger>
+					<DialogContent>
+						<DialogHeader>
+							<DialogTitle>{t("title_upload")}</DialogTitle>
+							<DialogDescription>{t("description")}</DialogDescription>
+						</DialogHeader>
 
-							<Files_Form
-								isContainerDialogOpen={isOpen}
-								submitting={submitting}
-								onSubmit={onSubmit}
-							/>
-						</DialogContent>
-					</Dialog>
-				</div>
-			)}
-		</>
+						<Files_Form
+							isContainerDialogOpen={isOpen}
+							submitting={submitting}
+							onSubmit={handleUploadFile}
+						/>
+					</DialogContent>
+				</Dialog>
+			</div>
+		)
 	);
 };
 

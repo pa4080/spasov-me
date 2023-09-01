@@ -24,8 +24,8 @@ interface Props {
 	className?: string;
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
-	fileData: Files_FormSchema;
-	fileId: string;
+	fileData?: Files_FormSchema;
+	fileId?: string;
 }
 
 const Files_Dialog_Delete: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileId }) => {

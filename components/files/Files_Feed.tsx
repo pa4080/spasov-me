@@ -10,12 +10,13 @@ import { cn } from "@/lib/utils";
 import { useAppContext } from "@/contexts/AppContext";
 
 // import Pages_Dialog_Edit from "./Pages_Dialog_Edit";
-import { EditDataOfFileObject, FileObject } from "@/interfaces/File";
+import { FileObject } from "@/interfaces/File";
 
 import Files_Dialog_Upload from "./Files_Dialog_Upload";
 // import Pages_Dialog_Delete from "./Pages_Dialog_Delete";
 import ButtonIcon from "../fragments/ButtonIcon";
 import Files_Dialog_Delete from "./Files_Dialog_Delete";
+import { Files_FormSchema } from "./Files_Form";
 
 interface Props {
 	className?: string;
@@ -26,19 +27,14 @@ const Files_Feed: React.FC<Props> = ({ className, files }) => {
 	const { session } = useAppContext();
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState(false);
-	const [actionPage, setActionPage] = useState<EditDataOfFileObject>({} as EditDataOfFileObject);
-	const [actionPageId, setActionPageId] = useState("");
+	const [actionFileId, setActionFileId] = useState("");
+	const [actionFile, setActionFile] = useState<Files_FormSchema>();
 
 	const handleDelete = (e: React.SyntheticEvent, file: FileObject) => {
 		e.preventDefault();
-		setActionPage({
-			filename: file.filename,
-			uploadDate: file.uploadDate,
-			description: file.metadata.description,
-			contentType: file.contentType,
-		});
+		setActionFile(file);
 		setIsRemoveDialogOpen(true);
-		setActionPageId(file._id.toString());
+		setActionFileId(file._id.toString());
 	};
 
 	// const handleEdit = (e: React.SyntheticEvent, file: FileObject) => {
@@ -99,8 +95,8 @@ const Files_Feed: React.FC<Props> = ({ className, files }) => {
 			</div>
 
 			<Files_Dialog_Delete
-				fileData={actionPage}
-				fileId={actionPageId}
+				fileData={actionFile}
+				fileId={actionFileId}
 				isOpen={isRemoveDialogOpen}
 				setIsOpen={setIsRemoveDialogOpen}
 			/>

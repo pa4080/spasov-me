@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { Route } from "@/routes";
-import { preparePageObjectToFetch } from "@/interfaces/Page";
+import { PageObject, preparePageObjectToFetch } from "@/interfaces/Page";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 
 import Pages_Form, { Pages_FormSchema } from "./Pages_Form";
@@ -39,12 +39,12 @@ const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
 				method: "POST",
 				body: preparePageObjectToFetch({
 					data,
-					user_id: session?.user.id, // can be skipped on PUT/Update
+					user_id: session?.user.id,
 				}),
 			});
 
 			if (response.ok) {
-				const newPage = (await response.json()).data;
+				const newPage: PageObject = (await response.json()).data;
 
 				setPages((prevPages) => [...prevPages, newPage]);
 

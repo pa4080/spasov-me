@@ -50,6 +50,7 @@ export const gridFSBucket = async () => {
 		bucket ||
 		new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
 			bucketName: MONGODB_FILES_BUCKET_NAME,
+			chunkSizeBytes: 1024 * 254,
 		}); // mongoose.connection === mongoose.connections[0]
 
 	return bucket;

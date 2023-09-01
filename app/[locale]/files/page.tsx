@@ -6,6 +6,7 @@ import { Route } from "@/routes";
 
 import Files_Feed from "@/components/files/Files_Feed";
 import { useAppContext } from "@/contexts/AppContext";
+import { FileObject } from "@/interfaces/File";
 
 const ManageFiles: React.FC = () => {
 	const { files, setFiles } = useAppContext();
@@ -19,9 +20,9 @@ const ManageFiles: React.FC = () => {
 					return null;
 				}
 
-				const data = (await response.json()).data;
+				const data: FileObject[] = (await response.json()).data;
 
-				setFiles(data.length > 0 ? data : []);
+				setFiles(data.length > 0 ? data.reverse() : []);
 			} catch (error) {
 				return null;
 			}
