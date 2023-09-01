@@ -100,7 +100,9 @@ const NavBar: React.FC = () => {
 	);
 
 	const publicMenu_Wide = Object.keys(Route.public).map((path, index) => {
-		if (Route.public[path] === Route.public.HOME) {
+		const pathAsKey = path as keyof typeof Route.public;
+
+		if (Route.public[pathAsKey] === Route.public.HOME) {
 			return (
 				<Link
 					key={index}
@@ -126,9 +128,9 @@ const NavBar: React.FC = () => {
 				<Link
 					key={index}
 					className={`nav_item nav_item_common emphasize_drop_shadow tracking-menu-items sm:tracking-menu-items-wide ${
-						currentPathName !== Route.public[path] ? "text-mlt-gray-3" : "text-mlt-blue-bright"
+						currentPathName !== Route.public[pathAsKey] ? "text-mlt-gray-3" : "text-mlt-blue-bright"
 					}`}
-					href={Route.public[path]}
+					href={Route.public[pathAsKey]}
 				>
 					{t(path)}
 				</Link>
@@ -160,11 +162,11 @@ const NavBar: React.FC = () => {
 							<Link
 								key={index}
 								className={`nav_item_side_menu nav_item_common emphasize_drop_shadow ${
-									currentPathName === Route.public[path]
+									currentPathName === Route.public[path as keyof typeof Route.public]
 										? "text-mlt-blue-bright"
 										: "text-mlt-gray-3"
 								}`}
-								href={Route.public[path]}
+								href={Route.public[path as keyof typeof Route.public]}
 								tabIndex={-1}
 							>
 								<SheetClose className="border-x-8 border-y-2 border-transparent tracking-menu-items-wide">
