@@ -62,7 +62,7 @@
 		"data": "database",
 		"data/[[...query]]": "database",
 		"session-info": "meta",
-		"components/home": "base",
+		"components/pages": "base",
 		"components/files": "base",
 		"components": "home",
 		"components/ui": "core",

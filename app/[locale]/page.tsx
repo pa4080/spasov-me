@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useTranslations } from "next-intl";
 
 import { Route } from "@/routes";
-import Pages_Feed from "@/components/home/Pages_Feed";
+import Pages_Feed from "@/components/pages/Pages_Feed";
 import Logo from "@/components/logo/Logo";
 import { useAppContext } from "@/contexts/AppContext";
 
