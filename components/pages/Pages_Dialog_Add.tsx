@@ -25,7 +25,7 @@ interface Props {
 }
 
 const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
-	const t = useTranslations("PagesFeed.Pages_Dialog");
+	const t = useTranslations("PagesFeed.Dialog");
 	const { session, setPages } = useAppContext();
 
 	const [submitting, setSubmitting] = useState(false);

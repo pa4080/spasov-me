@@ -52,12 +52,12 @@
 		}
 	},
 	"PagesFeed": {
-		"Pages_Dialog": {
+		"Dialog": {
 			"title_add": "Add a new page",
 			"title_edit": "Edit the \"{ title }\" page entry",
-			"title_remove": "You are about to delete the file \"{ filename }\"",
+			"title_delete": "You are about to delete the \"{ title }\" file entry",
 			"description": "This must be a valid/existing public page, defined within the project. By adding it here it will be available as a card at the homepage.",
-			"description_remove": "This action cannot be undone. This will permanently delete the file entry \"{ filename }\" (id \"{ id }\") and remove its data from our servers. Are you absolutely sure?",
+			"description_delete": "This action cannot be undone. This will permanently delete the \"{ title }\" entry (id \"{ id }\") and remove its data from our servers. Are you absolutely sure?",
 			"btn_add_a_page": "Add a page",
 			"btn_add_a_page_submitting": "Submitting...",
 			"btn_cancel": "Cancel",
@@ -89,17 +89,20 @@
 		}
 	},
 	"FilesFeed": {
-		"Files_Dialog": {
+		"Dialog": {
 			"title_upload": "Upload a file",
-			"title_edit": "Edit the \"{ title }\" file entry",
-			"title_remove": "You are about to delete the \"{ title }\" file entry",
+			"title_edit": "Edit the file \"{ filename }\"",
+			"title_delete": "You are about to delete the file \"{ filename }\"",
 			"description": "The files uploaded here will be accessible site wide.",
+			"description_delete": "This action cannot be undone. This will permanently delete the file entry \"{ filename }\" (id \"{ id }\") and remove its data from our servers. Are you absolutely sure?",
 			"btn_label_upload": "Upload a file",
 			"btn_label_uploading": "Uploading...",
+			"btn_cancel": "Cancel",
+			"btn_delete": "Delete",
+			"btn_delete_submitting": "Deleting...",
 			"toast_submit_title": "You submitted the following values:",
 			"toast_response_title": "The server response with status { status } and data:"
 		},
-
 		"Form": {
 			"fileName": "Override the file name",
 			"fileNamePlaceholder": "File-name-example.webp",

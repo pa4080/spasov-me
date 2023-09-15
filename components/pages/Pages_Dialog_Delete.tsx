@@ -29,7 +29,7 @@ interface Props {
 }
 
 const Pages_Dialog_Delete: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageId }) => {
-	const t = useTranslations("PagesFeed.Pages_Dialog");
+	const t = useTranslations("PagesFeed.Dialog");
 	const { session, setPages } = useAppContext();
 	const [submitting, setSubmitting] = useState(false);
 
@@ -89,10 +89,10 @@ const Pages_Dialog_Delete: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pag
 				<AlertDialogContent>
 					<AlertDialogHeader>
 						<AlertDialogTitle className="text-mlt-orange-dark">
-							{t("title_remove", { title: pageData.title })}
+							{t("title_delete", { title: pageData.title })}
 						</AlertDialogTitle>
 						<AlertDialogDescription>
-							{t("description_remove", { title: pageData.title, id: pageId })}
+							{t("description_delete", { title: pageData.title, id: pageId })}
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter>

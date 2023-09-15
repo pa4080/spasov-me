@@ -21,7 +21,7 @@ interface Props {
 const Pages_Feed: React.FC<Props> = ({ className }) => {
 	const { session, pages } = useAppContext();
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-	const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState(false);
+	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 	const [actionPageId, setActionPageId] = useState("");
 	const [actionPage, setActionPage] = useState<Pages_FormSchema>();
 
@@ -36,7 +36,7 @@ const Pages_Feed: React.FC<Props> = ({ className }) => {
 		});
 		setActionPageId(page._id);
 
-		setIsRemoveDialogOpen(true);
+		setIsDeleteDialogOpen(true);
 	};
 
 	const handleEdit = (e: React.SyntheticEvent, page: PageObject) => {
@@ -94,10 +94,10 @@ const Pages_Feed: React.FC<Props> = ({ className }) => {
 			/>
 
 			<Pages_Dialog_Delete
-				isOpen={isRemoveDialogOpen}
+				isOpen={isDeleteDialogOpen}
 				pageData={actionPage}
 				pageId={actionPageId}
-				setIsOpen={setIsRemoveDialogOpen}
+				setIsOpen={setIsDeleteDialogOpen}
 			/>
 		</div>
 	);

@@ -16,27 +16,27 @@ import {
 import { Route } from "@/routes";
 import { preparePageObjectToFetch } from "@/interfaces/Page";
 
-import Pages_Form, { Pages_FormSchema } from "./Pages_Form";
+import Files_Form, { Files_FormSchema } from "./Files_Form";
 
 interface Props {
 	className?: string;
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
-	pageData?: Pages_FormSchema;
-	pageId?: string;
+	fileData?: Files_FormSchema;
+	fileId?: string;
 }
 
-const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageId }) => {
-	const t = useTranslations("PagesFeed.Dialog");
+const Files_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileId }) => {
+	const t = useTranslations("FilesFeed.Dialog");
 	const { session, setPages } = useAppContext();
 
 	const [submitting, setSubmitting] = useState(false);
 
-	const editPage = async (data: Pages_FormSchema) => {
+	const editPage = async (data: Files_FormSchema) => {
 		setSubmitting(true);
 
 		try {
-			const response = await fetch(`${Route.api.PAGES}/${pageId}`, {
+			const response = await fetch(`${Route.api.FILES}/${fileId}`, {
 				method: "PATCH",
 				body: preparePageObjectToFetch({
 					data,
@@ -76,7 +76,7 @@ const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageI
 		}
 	};
 
-	const handleEditPage = (data: Pages_FormSchema) => {
+	const handleEditPage = (data: Files_FormSchema) => {
 		toast({
 			title: t("toast_submit_title"),
 			description: <pre className="toast_pre_info">{JSON.stringify(data, null, 2)}</pre>,
@@ -85,7 +85,7 @@ const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageI
 		editPage(data);
 	};
 
-	if (!pageData || !pageId) {
+	if (!fileData || !fileId) {
 		return;
 	}
 
@@ -94,12 +94,12 @@ const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageI
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogContent>
 					<DialogHeader>
-						<DialogTitle>{t("title_edit", { title: pageData.title })}</DialogTitle>
+						<DialogTitle>{t("title_edit", { filename: fileData.filename })}</DialogTitle>
 						<DialogDescription>{t("description")}</DialogDescription>
 					</DialogHeader>
 
-					<Pages_Form
-						formData={pageData}
+					<Files_Form
+						formData={fileData}
 						isContainerDialogOpen={isOpen}
 						submitting={submitting}
 						onSubmit={handleEditPage}
@@ -110,4 +110,4 @@ const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageI
 	);
 };
 
-export default Pages_Dialog_Edit;
+export default Files_Dialog_Edit;

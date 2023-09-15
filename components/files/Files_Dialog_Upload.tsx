@@ -26,7 +26,7 @@ interface Props {
 }
 
 const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
-	const t = useTranslations("FilesFeed.Files_Dialog");
+	const t = useTranslations("FilesFeed.Dialog");
 	const { session, setFiles } = useAppContext();
 
 	const [submitting, setSubmitting] = useState(false);

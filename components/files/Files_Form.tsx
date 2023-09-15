@@ -80,7 +80,7 @@ const Files_Form: React.FC<Props> = ({
 	onSubmit,
 	submitting = false,
 	// isContainerDialogOpen = true,
-	// formData,
+	formData,
 }) => {
 	const t = useTranslations("FilesFeed.Form");
 	const locale = useLocale();
@@ -202,7 +202,8 @@ const Files_Form: React.FC<Props> = ({
 										textOverflow: "ellipsis",
 									}}
 								>
-									{fileToUpload ? fileToUpload.name : t("fileInputChoiceFile")}
+									{formData?.filename ??
+										(fileToUpload ? fileToUpload.name : t("fileInputChoiceFile"))}
 								</p>
 							</div>
 							<input

@@ -29,7 +29,7 @@ interface Props {
 }
 
 const Files_Dialog_Delete: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileId }) => {
-	const t = useTranslations("PagesFeed.Pages_Dialog");
+	const t = useTranslations("FilesFeed.Dialog");
 	const { session, setFiles } = useAppContext();
 	const [submitting, setSubmitting] = useState(false);
 
@@ -89,10 +89,10 @@ const Files_Dialog_Delete: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fil
 				<AlertDialogContent>
 					<AlertDialogHeader>
 						<AlertDialogTitle className="text-mlt-orange-dark">
-							{t("title_remove", { filename: fileData.filename })}
+							{t("title_delete", { filename: fileData.filename })}
 						</AlertDialogTitle>
 						<AlertDialogDescription>
-							{t("description_remove", { filename: fileData.filename, id: fileId })}
+							{t("description_delete", { filename: fileData.filename, id: fileId })}
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter>
