@@ -10,11 +10,14 @@ import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 
+import type { Viewport } from "next";
+
 interface GenerateMetadata {
 	params: {
 		locale: string;
 	};
 }
+
 export async function generateMetadata({ params: { locale } }: GenerateMetadata) {
 	const messages = (await import(`@/messages/${locale}.json`)).default;
 	const t = createTranslator({ locale, messages });
@@ -23,15 +26,21 @@ export async function generateMetadata({ params: { locale } }: GenerateMetadata)
 		title: `${t("Site.title")}`,
 		description: t("Site.description"),
 		manifest: "/manifest.json",
-		viewport: "width=device-width, initial-scale=1",
 		robots: "index,follow",
 		keywords: manifest.keywords,
-		themeColor: manifest.theme_color,
 		publisher: manifest.author,
 		creator: manifest.author,
-		colorScheme: "dark",
+		icons: "/favicon.svg",
 	};
 }
+
+export const viewport: Viewport = {
+	themeColor: [
+		{ color: manifest.theme_color, media: "(prefers-color-scheme: light)" },
+		{ color: manifest.theme_color_dark, media: "(prefers-color-scheme: dark)" },
+	],
+	colorScheme: "light dark",
+};
 
 interface LocaleLayoutProps {
 	children: React.ReactNode;
