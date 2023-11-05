@@ -1,10 +1,10 @@
 import React from "react";
-import { useTranslations } from "next-intl";
+// import { useTranslations } from "next-intl";
 
 import SiteLogo_ManualBreak from "@/components/logo/SiteLogo_ManualBreak";
 
 const Portfolio: React.FC = () => {
-	const t = useTranslations("Site");
+	// const t = useTranslations("Site");
 
 	return (
 		<section className="">

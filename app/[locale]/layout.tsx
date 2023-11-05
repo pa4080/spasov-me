@@ -68,7 +68,7 @@ const LocaleLayout: React.FC<LocaleLayoutProps> = async ({ children, params }) =
 			>
 				<AuthSessionProvider>
 					<div className="app app_flex_container">
-						<NextIntlClientProvider locale={locale} messages={messages}>
+						<NextIntlClientProvider locale={locale} messages={messages} timeZone="Europe/Sofia">
 							<AppContextProvider>
 								<NavBar />
 								<main className="content_container">

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useTranslations } from "next-intl";
+// import { useTranslations } from "next-intl";
 
 import Image from "next/image";
 
@@ -12,7 +12,7 @@ import iconLinkedIn from "@/public/assets/icons/linked-in-gray-square.svg";
 import iconWikiMedia from "@/public/assets/icons/wikimedia-gray.svg";
 
 const Footer: React.FC = () => {
-	const t = useTranslations("Footer");
+	// const t = useTranslations("Footer");
 
 	return (
 		<footer className="footer_container">

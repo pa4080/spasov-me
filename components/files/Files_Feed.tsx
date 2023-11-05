@@ -12,6 +12,8 @@ import { useAppContext } from "@/contexts/AppContext";
 // import Pages_Dialog_Edit from "./Pages_Dialog_Edit";
 import { FileObject } from "@/interfaces/File";
 
+import base64placeholder from "@/public/assets/images/image-placeholder";
+
 import Files_Dialog_Upload from "./Files_Dialog_Upload";
 // import Pages_Dialog_Delete from "./Pages_Dialog_Delete";
 import ButtonIcon from "../fragments/ButtonIcon";
@@ -74,28 +76,31 @@ const Files_Feed: React.FC<Props> = ({ className, files }) => {
 									/>
 								</div>
 							)}
-							{/* If it is another file type, it will be displayed as a link with icon... */}
-							<Link href={`/api/files/${file._id.toString()}`} target="_blank">
-								{file.filename.match(/\.(pdf|pptx|xlsx|docx)$/) ? (
-									<Image
-										priority
-										alt={file.filename + " " + file.metadata.description}
-										className="files_image"
-										height={200}
-										src={`/assets/images/mime-type-icons/${file.filename.split(".").pop()}.png`}
-										width={200}
-									/>
-								) : (
-									<Image
-										priority
-										alt={file.filename + " " + file.metadata.description}
-										className="files_image"
-										height={200}
-										src={`/api/files/${file._id.toString()}`}
-										width={356}
-									/>
-								)}
-							</Link>
+							<div className="files_image_wrapper">
+								{/* If it is another file type, it will be displayed as a link with icon... */}
+								<Link href={`/api/files/${file._id.toString()}`} target="_blank">
+									{file.filename.match(/\.(pdf|pptx|xlsx|docx)$/) ? (
+										<Image
+											priority
+											alt={file.filename + " " + file.metadata.description}
+											className="files_image"
+											height={200}
+											src={`/assets/images/mime-type-icons/${file.filename.split(".").pop()}.png`}
+											width={200}
+										/>
+									) : (
+										<Image
+											priority
+											alt={file.filename + " " + file.metadata.description}
+											className="files_image"
+											height={200}
+											placeholder={`data:image/${base64placeholder}`}
+											src={`/api/files/${file._id.toString()}`}
+											width={356}
+										/>
+									)}
+								</Link>
+							</div>
 						</div>
 					</div>
 				))}
