@@ -1,9 +1,20 @@
 "use client";
+import React from "react";
+import messages from "@/messages/en.json";
 
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
+import { Moon, Sun, SunMoon } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
+import { cn } from "@/lib/cn-utils";
 
-const ThemeSwitch = () => {
+const ThemeSwitch: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -17,11 +28,47 @@ const ThemeSwitch = () => {
   }
 
   return (
-    <select value={theme} onChange={(e) => setTheme(e.target.value)}>
-      <option value="system">System</option>
-      <option value="dark">Dark</option>
-      <option value="light">Light</option>
-    </select>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          aria-label={messages.Theme.themeSelector}
+          className="btn_ui hover:text-backgrounds relative"
+          name={messages.Theme.themeSelector}
+          size="icon"
+          variant="outline"
+        >
+          <Sun
+            className={cn(
+              "h-[1.5rem] w-[1.5rem]",
+              theme && theme === "light" ? "block" : "hidden"
+            )}
+          />
+          <Moon
+            className={cn(
+              "h-[1.5rem] w-[1.5rem]",
+              theme && theme === "dark" ? "block" : "hidden"
+            )}
+          />
+          <SunMoon
+            className={cn(
+              "h-[1.5rem] w-[1.5rem]",
+              theme && theme === "system" ? "block" : "hidden"
+            )}
+          />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="p-4">
+        <DropdownMenuItem onClick={() => setTheme("light")}>
+          {messages.Theme.light}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
+          {messages.Theme.dark}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")}>
+          {messages.Theme.system}
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 

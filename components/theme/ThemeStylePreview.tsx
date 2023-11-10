@@ -74,7 +74,7 @@ const ThemeStylePreview: React.FC<Props> = ({ className }) => {
       {/* input */}
       <input
         placeholder="input"
-        className="h-12 w-full rounded select-all line-clamp-1 whitespace-nowrap overflow-hidden col-span-2 p-2 border-2 border-input"
+        className="h-12 w-full rounded select-all line-clamp-1 whitespace-nowrap overflow-hidden col-span-2 p-2 border-2 border-input bg-secondary"
       />
     </div>
   );
