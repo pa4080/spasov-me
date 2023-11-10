@@ -18,7 +18,15 @@ const ThemesProvider: React.FC<Props> = ({ children }) => {
     return null;
   }
 
-  return <ThemeProvider attribute="class">{children}</ThemeProvider>;
+  return (
+    <ThemeProvider
+      attribute="class"
+      forcedTheme="dark"
+      themes={["light", "dark", "system"]}
+    >
+      {children}
+    </ThemeProvider>
+  );
 };
 
 export default ThemesProvider;
