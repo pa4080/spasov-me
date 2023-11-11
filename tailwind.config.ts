@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const appTwConfig = {
   darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -33,6 +33,15 @@ module.exports = {
 				xl: "1280px",
 				"1xl": "1366px",
 				"2xl": "1536px",
+			},
+      fontFamily: {
+        sans: ['var(--font-geist-sans)'],
+        mono: ['var(--font-geist-mono)'],
+				// inter: ["var(--font-inter)", "sans-serif"],
+				// robotoSlab: ["var(--font-roboto-slab)", "sans-serif"],
+				unicephalon: ["var(--font-unicephalon)", "sans-serif"],
+				// multivacInterference: ["var(--font-multivac-interference)", "sans-serif"],
+				// multivacGhost: ["var(--font-multivac-ghost)", "sans-serif"],
 			},
       colors: {
         border: "hsl(var(--border))",
@@ -112,3 +121,5 @@ module.exports = {
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/forms")],
 }
+
+export default appTwConfig;

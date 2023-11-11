@@ -1,8 +1,127 @@
 {
-  "Theme": {
-    "light": "Light",
-    "dark": "Dark",
-    "system": "System",
-    "themeSelector": "Theme selector"
-  }
+	"Common": {
+		"model": "Model",
+		"defaultUserDescription": "Default user description",
+		"aiCats": {
+			"chat": "Chat",
+			"image": "Image"
+		},
+		"searchTypes": {
+			"prompt": "Prompt",
+			"tags": "Tags",
+			"author": "Author"
+		}
+	},
+	"Theme": {
+		"light": "Light",
+		"dark": "Dark",
+		"system": "System",
+		"themeSelector": "Theme selector"
+	},
+	"NavBar": {
+		"CV": "CV",
+		"BLOG": "Blog",
+		"PORTFOLIO": "Portfolio",
+		"CONTACT": "Contact",
+		"HOME": "Home",
+
+		"signUp": "Sign Up",
+		"signIn": "Sign In",
+		"signOut": "Sign Out",
+		"signOutDescription": "Exit the edit mode",
+		"signInWith": "Sign In with { provider }",
+		"loggedInUserMenu": "Logged in as user menu",
+
+		"files": "Files",
+		"filesDescription": "Upload, browse and manage files",
+
+		"altUserProfile": "User Profile",
+		"myProfile": "My Profile"
+	},
+	"Footer": {},
+	"SiteLogo": {
+		"logoSubText": {
+			"str0": "spasov",
+			"str1": ".",
+			"str2": "me"
+		},
+		"altLogo": "Site Logo"
+	},
+	"Home": {
+		"greeting": {
+			"ln1": "Welcome to",
+			"ln2": "my site"
+		}
+	},
+	"PagesFeed": {
+		"Dialog": {
+			"title_add": "Add a new page",
+			"title_edit": "Edit the \"{ title }\" page entry",
+			"title_delete": "You are about to delete the \"{ title }\" file entry",
+			"description": "This must be a valid/existing public page, defined within the project. By adding it here it will be available as a card at the homepage.",
+			"description_delete": "This action cannot be undone. This will permanently delete the \"{ title }\" entry (id \"{ id }\") and remove its data from our servers. Are you absolutely sure?",
+			"btn_add_a_page": "Add a page",
+			"btn_add_a_page_submitting": "Submitting...",
+			"btn_cancel": "Cancel",
+			"btn_delete": "Delete",
+			"btn_delete_submitting": "Deleting...",
+			"toast_submit_title": "You submitted the following values:",
+			"toast_response_title": "The server response with status { status } and data:"
+		},
+		"Form": {
+			"pageTitle": "Page title",
+			"pageTitlePlaceholder": "Page title...",
+			"pageTitleDescription": "Enter the display title/name of the page.",
+			"pageDescription": "Page description",
+			"pageDescriptionPlaceholder": "Page description...",
+			"pageDescriptionDescription": "Enter the description of the page.",
+			"pageSlug": "Page slug",
+			"pageSlugPlaceholder": "page-slug",
+			"pageSlugDescription": "This will be used in the URL. Don't use spaces or special characters.",
+			"pageImage": "Page image",
+			"pageImageDescription": "Upload an image for the page.",
+			"btn_submit": "Submit",
+			"btn_submitting": "Submitting...",
+			"schema": {
+				"title": "The page title must be at least 2 characters.",
+				"description": "The description must be at least 20 characters.",
+				"uri": "The page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
+				"image": "The allowed formats are: png, jpg, jpeg, svg, webp."
+			}
+		}
+	},
+	"FilesFeed": {
+		"Dialog": {
+			"title_upload": "Upload a file",
+			"title_edit": "Edit the file \"{ filename }\"",
+			"title_delete": "You are about to delete the file \"{ filename }\"",
+			"description": "The files uploaded here will be accessible site wide.",
+			"description_delete": "This action cannot be undone. This will permanently delete the file entry \"{ filename }\" (id \"{ id }\") and remove its data from our servers. Are you absolutely sure?",
+			"btn_label_upload": "Upload a file",
+			"btn_label_uploading": "Uploading...",
+			"btn_cancel": "Cancel",
+			"btn_delete": "Delete",
+			"btn_delete_submitting": "Deleting...",
+			"toast_submit_title": "You submitted the following values:",
+			"toast_response_title": "The server response with status { status } and data:"
+		},
+		"Form": {
+			"fileName": "Override the file name",
+			"fileNamePlaceholder": "File-name-example.webp",
+			"fileNameDescription": "Enter the name of the file. Use numbers, latin alphabet, dashes and underscores.",
+			"fileDescription": "File description",
+			"fileDescriptionPlaceholder": "File description...",
+			"fileDescriptionDescription": "Write a note where the file will be used. The field is optional.",
+			"fileInput": "Upload a file",
+			"fileInputChoiceFile": "Click to choice or drag and drop a file here",
+			"fileInputDescription": "The allowed formats are: png, jpg, jpeg, svg, webp, pdf, pptx, xlsx, docx.",
+			"btn_submit": "Upload",
+			"btn_submitting": "Uploading...",
+			"schema": {
+				"name": "The file name is required it can contain only latin alphanumeric characters, dots, dashes and underscores. Cannot start with a special character.",
+				"description": "The description is optional, it should be a string.",
+				"file": "The file is absolutely required."
+			}
+		}
+	}
 }
