@@ -2,7 +2,7 @@ import React from "react";
 
 import { Analytics } from "@vercel/analytics/react";
 
-// import { AppContextProvider } from "@/contexts/AppContext";
+import { AppContextProvider } from "@/contexts/AppContext";
 
 import { Toaster } from "@/components/ui/toaster";
 
@@ -13,6 +13,10 @@ import manifest from "@/public/manifest.json";
 import "./globals.scss";
 
 import ThemesProvider from "@/contexts/ThemesProvider";
+
+import MainLayout from "@/layouts/MainLayout";
+
+import AuthSessionProvider from "@/contexts/AuthSessionProvider";
 
 import type { Metadata, Viewport } from "next";
 
@@ -48,11 +52,16 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
 					`${GeistMono.variable} ${unicephalon.variable} `
 				}
 			>
-				<ThemesProvider>
-					{children}
-					<Toaster />
-				</ThemesProvider>
-
+				<AuthSessionProvider>
+					<MainLayout>
+						<AppContextProvider>
+							<ThemesProvider>
+								{children}
+								<Toaster />
+							</ThemesProvider>
+						</AppContextProvider>
+					</MainLayout>
+				</AuthSessionProvider>
 				{process.env.VERCEL_ENV === "production" && <Analytics />}
 			</body>
 		</html>

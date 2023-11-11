@@ -1,0 +1,15 @@
+@import "@/app/globals.variables.module.scss";
+
+.mainLayout {
+	overflow-x: hidden;
+	overflow-y: overlay;
+}
+
+.mainLayoutFlexContainer {
+	@screen sm {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		height: 100vh;
+	}
+}

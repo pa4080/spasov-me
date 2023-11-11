@@ -1,68 +1,100 @@
+// Colors
 $background: hsl(var(--background));
-$background-to: hsl(var(--background-to));
 $foreground: hsl(var(--foreground));
-$card: hsl(var(--card));
-$card-foreground: hsl(var(--card-foreground));
-$popover: hsl(var(--popover));
-$popover-foreground: hsl(var(--popover-foreground));
+
 $primary: hsl(var(--primary));
 $primary-foreground: hsl(var(--primary-foreground));
+
 $secondary: hsl(var(--secondary));
 $secondary-foreground: hsl(var(--secondary-foreground));
-$muted: hsl(var(--muted));
-$muted-foreground: hsl(var(--muted-foreground));
+
 $accent: hsl(var(--accent));
 $accent-foreground: hsl(var(--accent-foreground));
+
+$accent: hsl(var(--accent));
+$accent-secondary: hsl(var(--accent-secondary));
+$accent-tertiary: hsl(var(--accent-tertiary));
+$accent-foreground: hsl(var(--accent-foreground));
+
+$ring: hsl(var(--ring));
+$ring-secondary: hsl(var(--ring-secondary));
+
+$card: hsl(var(--card));
+$card-foreground: hsl(var(--card-foreground));
+
+$popover: hsl(var(--popover));
+$popover-foreground: hsl(var(--popover-foreground));
+
+$muted: hsl(var(--muted));
+$muted-foreground: hsl(var(--muted-foreground));
+
 $destructive: hsl(var(--destructive));
 $destructive-foreground: hsl(var(--destructive-foreground));
+
 $border: hsl(var(--border));
 $input: hsl(var(--input));
-$ring: hsl(var(--ring));
+
 $radius: hsl(var(--radius));
 $scrollbar-width: hsl(var(--scrollbar-width));
 
-$font-inter: var(--font-inter), "sans-serif";
-$font-dmSans: var(--font-dm-sans), "sans-serif";
-$font-robotoSlab: var(--font-roboto-slab), "serif";
+// Fonts
 $font-unicephalon: var(--font-unicephalon), "sans-serif";
+$font-sans: var(--font-geist-sans), "sans-serif";
+$font-mono: var(--font-geist-mono), "monospace";
+$font-geist-sans: var(--font-geist-sans), "sans-serif";
+$font-geist-mono: var(--font-geist-mono), "monospace";
+// $font-inter: var(--font-inter), "sans-serif";
+// $font-robotoSlab: var(--font-roboto-slab), "serif";
 
+// functions
 @function vh($quantity) {
 	@return calc(var(--vh, 1vh) * #{$quantity});
 }
 
-$navbar-height: 6rem;
+// Sizes
+$navbar-height: var(--navbar-height);
 
 :export {
-	// colors
+	// Colors
 	background: $background;
-	backgroundTo: $background-to;
 	foreground: $foreground;
-	card: $card;
-	cardForeground: $card-foreground;
-	popover: $popover;
-	popoverForeground: $popover-foreground;
 	primary: $primary;
 	primaryForeground: $primary-foreground;
 	secondary: $secondary;
 	secondaryForeground: $secondary-foreground;
-	muted: $muted;
-	mutedForeground: $muted-foreground;
 	accent: $accent;
 	accentForeground: $accent-foreground;
+	accent: $accent;
+	accentSecondary: $accent-secondary;
+	accentTertiary: $accent-tertiary;
+	accentForeground: $accent-foreground;
+	ring: $ring;
+	ringSecondary: $ring-secondary;
+	card: $card;
+	cardForeground: $card-foreground;
+	popover: $popover;
+	popoverForeground: $popover-foreground;
+	muted: $muted;
+	mutedForeground: $muted-foreground;
 	destructive: $destructive;
 	destructiveForeground: $destructive-foreground;
 	border: $border;
 	input: $input;
-	ring: $ring;
 	radius: $radius;
 	scrollbarWidth: $scrollbar-width;
-	// font-families
-	fontInter: $font-inter;
-	fontDmSans: $font-dmSans;
-	fontRobotoSlab: $font-robotoSlab;
+
+	// Fonts
 	fontUnicephalon: $font-unicephalon;
-	// functions
+	fontSans: $font-sans;
+	fontMono: $font-mono;
+	fontGeistSans: $font-geist-sans;
+	fontGeistMono: $font-geist-mono;
+	// fontInter: $font-inter;
+	// fontRobotoSlab: $font-robotoSlab;
+
+	// Functions
 	vh: vh;
-	// sizes
+
+	// Sizes
 	navbarHeight: $navbar-height;
 }

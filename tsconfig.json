@@ -28,7 +28,7 @@
 		"**/*.tsx",
 		".next/types/**/*.ts",
 		"components/error-boundary/ErrorBoundary.jsx",
-		"contexts/AuthSessionProvider_tsx",
+		"contexts/AuthSessionProvider.tsx",
 		"contexts/AppContext.tsx_"
 	],
 	"exclude": ["node_modules"]

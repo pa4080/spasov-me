@@ -5,7 +5,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { useSession, getProviders, LiteralUnion, ClientSafeProvider } from "next-auth/react";
 import { Session } from "next-auth";
 
-import { BuiltInProviderType } from "next-auth/providers";
+import { BuiltInProviderType } from "next-auth/providers/index";
 
 import { UserObject } from "@/interfaces/User";
 import { PageObject } from "@/interfaces/Page";

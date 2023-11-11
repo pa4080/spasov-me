@@ -35,8 +35,8 @@ const appTwConfig = {
 				"2xl": "1536px",
 			},
 			fontFamily: {
-				sans: ["var(--font-geist-sans)"],
-				mono: ["var(--font-geist-mono)"],
+				sans: ["var(--font-geist-sans)", "sans-serif"],
+				mono: ["var(--font-geist-mono)", "monospace"],
 				// inter: ["var(--font-inter)", "sans-serif"],
 				// robotoSlab: ["var(--font-roboto-slab)", "sans-serif"],
 				unicephalon: ["var(--font-unicephalon)", "sans-serif"],
