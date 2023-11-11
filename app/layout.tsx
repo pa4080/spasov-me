@@ -10,7 +10,7 @@ import { unicephalon, GeistSans, GeistMono } from "@/app/fonts";
 import manifest from "@/public/manifest.json";
 // import messages from "@/messages/en.json";
 
-import "./globals.css";
+import "./globals.scss";
 
 import ThemesProvider from "@/contexts/ThemesProvider";
 

@@ -1,0 +1,68 @@
+$background: hsl(var(--background));
+$background-to: hsl(var(--background-to));
+$foreground: hsl(var(--foreground));
+$card: hsl(var(--card));
+$card-foreground: hsl(var(--card-foreground));
+$popover: hsl(var(--popover));
+$popover-foreground: hsl(var(--popover-foreground));
+$primary: hsl(var(--primary));
+$primary-foreground: hsl(var(--primary-foreground));
+$secondary: hsl(var(--secondary));
+$secondary-foreground: hsl(var(--secondary-foreground));
+$muted: hsl(var(--muted));
+$muted-foreground: hsl(var(--muted-foreground));
+$accent: hsl(var(--accent));
+$accent-foreground: hsl(var(--accent-foreground));
+$destructive: hsl(var(--destructive));
+$destructive-foreground: hsl(var(--destructive-foreground));
+$border: hsl(var(--border));
+$input: hsl(var(--input));
+$ring: hsl(var(--ring));
+$radius: hsl(var(--radius));
+$scrollbar-width: hsl(var(--scrollbar-width));
+
+$font-inter: var(--font-inter), "sans-serif";
+$font-dmSans: var(--font-dm-sans), "sans-serif";
+$font-robotoSlab: var(--font-roboto-slab), "serif";
+$font-unicephalon: var(--font-unicephalon), "sans-serif";
+
+@function vh($quantity) {
+	@return calc(var(--vh, 1vh) * #{$quantity});
+}
+
+$navbar-height: 6rem;
+
+:export {
+	// colors
+	background: $background;
+	backgroundTo: $background-to;
+	foreground: $foreground;
+	card: $card;
+	cardForeground: $card-foreground;
+	popover: $popover;
+	popoverForeground: $popover-foreground;
+	primary: $primary;
+	primaryForeground: $primary-foreground;
+	secondary: $secondary;
+	secondaryForeground: $secondary-foreground;
+	muted: $muted;
+	mutedForeground: $muted-foreground;
+	accent: $accent;
+	accentForeground: $accent-foreground;
+	destructive: $destructive;
+	destructiveForeground: $destructive-foreground;
+	border: $border;
+	input: $input;
+	ring: $ring;
+	radius: $radius;
+	scrollbarWidth: $scrollbar-width;
+	// font-families
+	fontInter: $font-inter;
+	fontDmSans: $font-dmSans;
+	fontRobotoSlab: $font-robotoSlab;
+	fontUnicephalon: $font-unicephalon;
+	// functions
+	vh: vh;
+	// sizes
+	navbarHeight: $navbar-height;
+}

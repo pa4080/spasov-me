@@ -43,7 +43,7 @@ dependencies:
     version: 8.0.0
   next:
     specifier: 14.0.2
-    version: 14.0.2(react-dom@18.2.0)(react@18.2.0)
+    version: 14.0.2(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5)
   next-auth:
     specifier: ^4.24.5
     version: 4.24.5(next@14.0.2)(react-dom@18.2.0)(react@18.2.0)
@@ -139,6 +139,9 @@ devDependencies:
   postcss:
     specifier: ^8.4.31
     version: 8.4.31
+  postcss-import:
+    specifier: ^15.1.0
+    version: 15.1.0(postcss@8.4.31)
   prettier:
     specifier: ^3.0.3
     version: 3.0.3
@@ -148,6 +151,9 @@ devDependencies:
   remark:
     specifier: ^15.0.1
     version: 15.0.1
+  sass:
+    specifier: ^1.69.5
+    version: 1.69.5
   stylelint:
     specifier: ^15.11.0
     version: 15.11.0(typescript@5.2.2)
@@ -3629,7 +3635,7 @@ packages:
     peerDependencies:
       next: ^13.2 || ^14
     dependencies:
-      next: 14.0.2(react-dom@18.2.0)(react@18.2.0)
+      next: 14.0.2(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5)
     dev: false
 
   /generic-pool@3.4.2:
@@ -3959,6 +3965,9 @@ packages:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
     engines: {node: '>= 4'}
     dev: true
+
+  /immutable@4.3.4:
+    resolution: {integrity: sha512-fsXeu4J4i6WNWSikpI88v/PcVflZz+6kMhUfIwc5SY+poQRPnaf5V7qds6SUyUN3cVxEzuCab7QIoLOQ+DQ1wA==}
 
   /import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
@@ -5075,7 +5084,7 @@ packages:
       '@panva/hkdf': 1.1.1
       cookie: 0.5.0
       jose: 4.15.4
-      next: 14.0.2(react-dom@18.2.0)(react@18.2.0)
+      next: 14.0.2(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5)
       oauth: 0.9.15
       openid-client: 5.6.1
       preact: 10.19.1
@@ -5092,12 +5101,12 @@ packages:
       react: '*'
       react-dom: '*'
     dependencies:
-      next: 14.0.2(react-dom@18.2.0)(react@18.2.0)
+      next: 14.0.2(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /next@14.0.2(react-dom@18.2.0)(react@18.2.0):
+  /next@14.0.2(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5):
     resolution: {integrity: sha512-jsAU2CkYS40GaQYOiLl9m93RTv2DA/tTJ0NRlmZIBIL87YwQ/xR8k796z7IqgM3jydI8G25dXvyYMC9VDIevIg==}
     engines: {node: '>=18.17.0'}
     hasBin: true
@@ -5119,6 +5128,7 @@ packages:
       postcss: 8.4.31
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+      sass: 1.69.5
       styled-jsx: 5.1.1(react@18.2.0)
       watchpack: 2.4.0
     optionalDependencies:
@@ -6134,6 +6144,15 @@ packages:
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: true
+
+  /sass@1.69.5:
+    resolution: {integrity: sha512-qg2+UCJibLr2LCVOt3OlPhr/dqVHWOa9XtZf2OjbLs/T4VPSJ00udtgJxH3neXZm+QqX8B+3cU7RaLqp1iVfcQ==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.3
+      immutable: 4.3.4
+      source-map-js: 1.0.2
 
   /scheduler@0.23.0:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}

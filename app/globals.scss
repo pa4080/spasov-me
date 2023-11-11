@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	/* https://www.w3schools.com/colors/colors_hsl.asp */
+	:root {
+		--background: 0 0% 100%;
+		--foreground: 224 71.4% 4.1%;
+
+		--primary: 220.9 39.3% 11%;
+		--primary-foreground: 210 20% 98%;
+
+		--secondary: 220 14.3% 95.9%;
+		--secondary-foreground: 220.9 39.3% 11%;
+
+		--accent: 216 64% 59%;
+		--accent-foreground: 0 0% 5%;
+
+		--accent: 216 64% 59%;
+		--accent-secondary: 264 59% 63%;
+		--accent-tertiary: 32 100% 50%;
+		--accent-foreground: 0 0% 5%;
+
+		--ring: 216 100% 72%;
+		--ring-secondary: 264 100% 74%;
+
+		--card: var(--primary);
+		--card-foreground: var(--foreground);
+
+		--popover: var(--secondary);
+		--popover-foreground: var(--foreground);
+
+		--muted: 220 14.3% 95.9%;
+		--muted-foreground: 220 8.9% 46.1%;
+
+		--destructive: 0 84.2% 60.2%;
+		--destructive-foreground: 210 20% 98%;
+
+		--border: 220 13% 91%;
+		--input: var(--border);
+
+		--radius: 0.5rem;
+		--scrollbar-width: 16px;
+	}
+
+	.dark {
+		--background: 0 0% 20%;
+		--foreground: 0 0% 85%;
+
+		--primary: 0 0% 24%;
+		--primary-foreground: 0 0% 52%;
+
+		--secondary: 0 0% 16%;
+		--secondary-foreground: 0 0% 48%;
+
+		--accent: 216 64% 59%;
+		--accent-secondary: 264 59% 63%;
+		--accent-tertiary: 32 100% 50%;
+		--accent-foreground: 0 0% 5%;
+
+		--ring: 216 100% 72%;
+		--ring-secondary: 264 100% 74%;
+
+		--card: var(--primary);
+		--card-foreground: var(--foreground);
+
+		--popover: var(--secondary);
+		--popover-foreground: var(--foreground);
+
+		--muted: 0 0% 14%;
+		--muted-foreground: 0 0% 32%;
+
+		--destructive: 0 62.8% 30.6%;
+		--destructive-foreground: 210 20% 98%;
+
+		--border: 0 0% 16%;
+		--input: var(--border);
+	}
+}
+
+@import "./globals.variables.module.scss";
+
+@layer base {
+	* {
+		@apply border-border;
+	}
+
+	body {
+		@apply bg-background text-foreground;
+
+		min-width: 320px;
+	}
+}
+
+[type="text"]:focus,
+input:where(:not([type])):focus,
+[type="email"]:focus,
+[type="url"]:focus,
+[type="password"]:focus,
+[type="number"]:focus,
+[type="date"]:focus,
+[type="datetime-local"]:focus,
+[type="month"]:focus,
+[type="search"]:focus,
+[type="tel"]:focus,
+[type="time"]:focus,
+[type="week"]:focus,
+[multiple]:focus,
+textarea:focus,
+select:focus {
+	--tw-ring-color: hsl(var(--ring));
+	border-color: hsl(var(--ring));
+}
+
+input:placeholder-shown {
+	text-overflow: ellipsis;
+}
+
+/* Trick the hidden scroll of Radix Select */
+body [data-radix-select-viewport] {
+	-webkit-overflow-scrolling: scroll;
+	scrollbar-width: 2rem;
+	-ms-overflow-style: scroll;
+}
+
+body [data-radix-select-viewport]::-webkit-scrollbar {
+	display: inherit;
+}
+
+/* Outline */
+:focus-visible,
+:focus {
+	outline-color: hsl(var(--ring));
+}
+
+/* Text selection */
+*::selection {
+	background: hsl(var(--accent-tertiary));
+	color: hsl(var(--accent-foreground));
+}
+
+/* Scroll bars */
+* {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	scrollbar-color: theme("colors.gray.300") transparent;
+	scrollbar-width: auto;
+}
+
+*::-webkit-scrollbar {
+	width: calc(var(--scrollbar-width) / 1.1);
+	height: calc(var(--scrollbar-width) / 1.1);
+	background-color: transparent;
+}
+
+*::-webkit-scrollbar-track {
+	border-radius: var(--scrollbar-width);
+}
+
+*::-webkit-scrollbar-thumb {
+	height: 52px;
+	border: calc(var(--scrollbar-width) / 4.2) solid transparent;
+	border-radius: var(--scrollbar-width);
+	background-color: theme("colors.gray.300");
+	background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	background-color: hsl(var(--accent));
+}
+
+*::-webkit-scrollbar-corner {
+	background-color: hsl(var(--primary-foreground));
+}
+
+/* Logo */
+.cls-1 {
+	fill: none;
+}
+.cls-2 {
+	fill: #787878;
+}
+.cls-3 {
+	fill: #b4b4b4;
+}
+.cls-4 {
+	fill: #a0a0a0;
+}
+.cls-5 {
+	fill: $accent;
+}
+
+/**
+ * NOTE: using syntax with exclamation mark
+ * like "hover:!bg-slate-500",
+ * causes an error in the .scss files!
+ */
