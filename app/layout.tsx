@@ -53,14 +53,12 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
 				}
 			>
 				<AuthSessionProvider>
-					<MainLayout>
-						<AppContextProvider>
-							<ThemesProvider>
-								{children}
-								<Toaster />
-							</ThemesProvider>
-						</AppContextProvider>
-					</MainLayout>
+					<AppContextProvider>
+						<ThemesProvider>
+							<MainLayout>{children}</MainLayout>
+						</ThemesProvider>
+						<Toaster />
+					</AppContextProvider>
 				</AuthSessionProvider>
 				{process.env.VERCEL_ENV === "production" && <Analytics />}
 			</body>

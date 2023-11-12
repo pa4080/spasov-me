@@ -1,0 +1,37 @@
+@import "@/app/globals.variables.module.scss";
+
+.navbar {
+	@apply relative flex justify-between items-center w-full h-navbar max-h-[var(--navbar-height)] overflow-hidden bg-primary px-4 py-3;
+
+	box-sizing: border-box;
+	box-shadow: 0 2px 6px 3px theme("colors.background");
+	z-index: 1;
+
+	.navItemCommon {
+		@apply transition-colors duration-100;
+	}
+
+	.navItemCommon:hover {
+		@apply transition-colors duration-200;
+	}
+
+	.navItem {
+		@apply font-unicephalon h-full text-[18px] pt-[3px] hover:text-accent active:text-ring-secondary;
+	}
+
+	.navItemSideMenu {
+		@apply font-unicephalon h-full text-[18px] hover:text-accent active:text-ring-secondary;
+	}
+
+	.privateMenuItem {
+		@apply p-3 block rounded;
+
+		&:hover {
+			@apply bg-primary/10;
+		}
+
+		& + & {
+			@apply mt-1;
+		}
+	}
+}

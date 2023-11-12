@@ -44,6 +44,15 @@ interface ReturnObj {
 	readonly vh: string | undefined;
 }
 
+/**
+ *
+ * @param elementId // ID of the element which triggers show={false/true}
+ * @returns {
+ * 	show: boolean
+ * 	scrollTo: (offset?: number, timeout?: number) => void
+ * 	readonly vh: string
+ * }
+ */
 export function useActualVh(): ReturnObj {
 	const [show, setShow] = useState(false);
 	const [vh, setVh] = useState<string>();
@@ -65,20 +74,19 @@ export function useActualVh(): ReturnObj {
 		window.addEventListener("resize", setWindowActualVhUnits);
 		window.addEventListener("orientationchange", setWindowActualVhUnits);
 
-		const showFloatNav = () => {
-			// Trigger show/hide of the float nav
+		const showBackToTopWindow = () => {
 			const scrollFromTop = document.body.scrollTop || document.documentElement.scrollTop;
 
 			scrollFromTop > 240 ? setShow(true) : setShow(false);
 		};
 
-		window.addEventListener("scroll", showFloatNav);
+		window.addEventListener("scroll", showBackToTopWindow);
 
 		return () => {
 			window.removeEventListener("scroll", setWindowActualVhUnits);
 			window.removeEventListener("resize", setWindowActualVhUnits);
 			window.removeEventListener("orientationchange", setWindowActualVhUnits);
-			window.removeEventListener("scroll", showFloatNav);
+			window.removeEventListener("scroll", showBackToTopWindow);
 		};
 	}, []);
 

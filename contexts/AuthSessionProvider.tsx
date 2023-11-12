@@ -23,7 +23,11 @@ interface Props {
  * support both server and client side rendering.
  */
 const AuthSessionProvider: React.FC<Props> = ({ children, session }) => {
-	return <SessionProvider session={session}>{children}</SessionProvider>;
+	return (
+		<SessionProvider refetchInterval={5 * 60} session={session}>
+			{children}
+		</SessionProvider>
+	);
 };
 
 export default AuthSessionProvider;

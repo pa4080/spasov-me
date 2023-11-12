@@ -19,10 +19,6 @@
  */
 
 import GithubProvider from "next-auth/providers/github";
-// import GoogleProvider from "next-auth/providers/google";
-// import CredentialsProvider from "next-auth/providers/credentials"; // For DB auth...
-
-// import { getTranslations } from "next-intl/server";
 
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 
@@ -43,10 +39,11 @@ export const authOptions: NextAuthOptions = {
 			authorization: { params: { scope: "user:email login name avatar_url" } },
 		}),
 	],
+	secret: process.env.NEXTAUTH_SECRET,
 	callbacks: {
 		// https://next-auth.js.org/configuration/options#session
 		async session({ session }) {
-			const sessionUser = await User.findOne({ email: session?.user?.email });
+			const sessionUser = await User.findOne({ email: session.user.email });
 
 			session.user = {
 				...session?.user,

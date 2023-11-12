@@ -26,6 +26,7 @@ $popover: hsl(var(--popover));
 $popover-foreground: hsl(var(--popover-foreground));
 
 $muted: hsl(var(--muted));
+$muted-secondary: hsl(var(--muted-secondary));
 $muted-foreground: hsl(var(--muted-foreground));
 
 $destructive: hsl(var(--destructive));
@@ -53,6 +54,8 @@ $font-geist-mono: var(--font-geist-mono), "monospace";
 
 // Sizes
 $navbar-height: var(--navbar-height);
+$footer-height: var(--footer-height);
+$content-height: var(--content-height);
 
 :export {
 	// Colors
@@ -75,6 +78,7 @@ $navbar-height: var(--navbar-height);
 	popover: $popover;
 	popoverForeground: $popover-foreground;
 	muted: $muted;
+	mutedSecondary: $muted-secondary;
 	mutedForeground: $muted-foreground;
 	destructive: $destructive;
 	destructiveForeground: $destructive-foreground;
@@ -97,4 +101,6 @@ $navbar-height: var(--navbar-height);
 
 	// Sizes
 	navbarHeight: $navbar-height;
+	footerHeight: $footer-height;
+	contentHeight: $content-height;
 }

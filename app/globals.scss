@@ -32,6 +32,7 @@
 		--popover-foreground: var(--foreground);
 
 		--muted: 220 14.3% 95.9%;
+		--muted-secondary: 220 14.3% 98.9%;
 		--muted-foreground: 220 8.9% 46.1%;
 
 		--destructive: 0 84.2% 60.2%;
@@ -42,7 +43,10 @@
 
 		--radius: 0.5rem;
 		--scrollbar-width: 1rem;
-		--navbar-height: 5.6rem;
+
+		--navbar-height: 3.875rem;
+		--footer-height: 3.625rem;
+		--content-height: calc((var(--vh, 1vh) * 99.5) - var(--navbar-height) - var(--footer-height));
 	}
 
 	.dark {
@@ -70,6 +74,7 @@
 		--popover-foreground: var(--foreground);
 
 		--muted: 0 0% 14%;
+		--muted-secondary: 0 0% 8%;
 		--muted-foreground: 0 0% 32%;
 
 		--destructive: 0 62.8% 30.6%;
@@ -178,20 +183,48 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 }
 
 /* Logo */
-.cls-1 {
-	fill: none;
+.logoContainer {
+	@apply transition-colors duration-300 outline-none focus-visible:outline-none focus:outline-none;
 }
-.cls-2 {
+
+.cls-1 {
 	fill: #787878;
 }
-.cls-3 {
+
+.cls-4,
+.cls-5,
+.cls-4-gray,
+.cls-5-gray,
+.cls-2 {
 	fill: #b4b4b4;
 }
-.cls-4 {
+
+.cls-4,
+.cls-5,
+.cls-4-gray,
+.cls-5-gray {
+	@apply fill-foreground;
+}
+
+.cls-3 {
 	fill: #a0a0a0;
 }
-.cls-5 {
-	fill: $accent;
+
+.logoContainer .cls-4,
+.logoContainer .cls-5,
+.logoContainer:hover .cls-4,
+.logoContainer:hover .cls-5 {
+	@apply transition-colors duration-300;
+}
+
+.cls-4-color,
+.logoContainer:hover .cls-4 {
+	fill: #5d9fff;
+}
+
+.cls-5-color,
+.logoContainer:hover .cls-5 {
+	fill: #b27bff;
 }
 
 /**
@@ -199,3 +232,9 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
  * like "hover:!bg-slate-500",
  * causes an error in the .scss files!
  */
+
+/* Common styles */
+.emphasize_drop_shadow {
+	/* filter: drop-shadow(1px 2px 3px theme("colors.mlt-dark-1")); */
+	filter: drop-shadow(1px 2px 2px theme("colors.muted.DEFAULT"));
+}

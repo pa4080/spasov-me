@@ -1,15 +1,25 @@
 @import "@/app/globals.variables.module.scss";
 
 .mainLayout {
+	@apply bg-background;
+
 	overflow-x: hidden;
 	overflow-y: overlay;
-}
 
-.mainLayoutFlexContainer {
 	@screen sm {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
 		height: 100vh;
+	}
+
+	.contentContainer {
+		@apply flex-1 flex-grow overflow-x-hidden overflow-y-auto w-full px-4 xa:px-8;
+
+		// min-h-[calc(100vh-62px-58px)] pt-24 pb-16 xa:pb-2;
+	}
+
+	.contentWrapper {
+		@apply max-w-4xl mx-auto;
 	}
 }

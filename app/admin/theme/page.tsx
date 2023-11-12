@@ -6,8 +6,6 @@ const Home: React.FC = () => {
 		<div className="h-full w-full flex justify-center items-center flex-col gap-4 p-4">
 			<ThemeSwitch />
 			<ThemeStylePreview />
-			<ThemeSwitch />
-			<ThemeStylePreview />
 		</div>
 	);
 };

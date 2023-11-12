@@ -15,6 +15,7 @@ const appTwConfig = {
 				"2xl": "1400px",
 			},
 		},
+
 		extend: {
 			screens: {
 				"6xs": "320px",
@@ -66,6 +67,7 @@ const appTwConfig = {
 				},
 				muted: {
 					DEFAULT: "hsl(var(--muted))",
+					secondary: "hsl(var(--muted-secondary))",
 					foreground: "hsl(var(--muted-foreground))",
 				},
 				accent: {
@@ -83,11 +85,13 @@ const appTwConfig = {
 					foreground: "hsl(var(--card-foreground))",
 				},
 			},
+
 			borderRadius: {
 				lg: "var(--radius)",
 				md: "calc(var(--radius) - 2px)",
 				sm: "calc(var(--radius) - 4px)",
 			},
+
 			keyframes: {
 				"accordion-down": {
 					from: { height: 0 },
@@ -117,6 +121,11 @@ const appTwConfig = {
 				fadeIn: "fadeIn 2.5s ease-in-out forwards",
 				fadeInSiderTextDark: "fadeInSiderTextDark 2.5s ease-in-out forwards",
 				fadeInSiderTextLight: "fadeInSiderTextLight 2.5s ease-in-out forwards",
+			},
+			height: {
+				navbar: "var(--navbar-height)",
+				footer: "var(--footer-height)",
+				content: "var(--content-height)",
 			},
 		},
 	},

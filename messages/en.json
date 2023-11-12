@@ -1,16 +1,8 @@
 {
-	"Common": {
-		"model": "Model",
-		"defaultUserDescription": "Default user description",
-		"aiCats": {
-			"chat": "Chat",
-			"image": "Image"
-		},
-		"searchTypes": {
-			"prompt": "Prompt",
-			"tags": "Tags",
-			"author": "Author"
-		}
+	"NotFound": {
+		"error": "404",
+		"errorDesc": "| This page could not be found",
+		"errorLong": "404 | Not Found"
 	},
 	"Theme": {
 		"light": "Light",

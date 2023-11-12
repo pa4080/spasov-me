@@ -67,6 +67,11 @@ const ThemeStylePreview: React.FC<Props> = ({ className }) => {
 				muted
 			</div>
 
+			{/* muted-secondary; muted-foreground */}
+			<div className="h-12 w-full rounded select-all line-clamp-1 whitespace-nowrap overflow-hidden flex justify-center items-center bg-muted-secondary text-muted-foreground col-span-2">
+				muted-secondary
+			</div>
+
 			{/* destructive; destructive-foreground */}
 			<div className="h-12 w-full rounded select-all line-clamp-1 whitespace-nowrap overflow-hidden flex justify-center items-center bg-destructive text-destructive-foreground col-span-2">
 				destructive
