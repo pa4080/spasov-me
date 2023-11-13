@@ -1,7 +1,7 @@
 import React from "react";
 
-import Navbar from "@/layouts/navbar/Navbar";
-import Footer from "@/layouts/footer/Footer";
+import Navbar from "@/components/layouts/navbar/Navbar";
+import Footer from "@/components/layouts/footer/Footer";
 
 import { cn } from "@/lib/cn-utils";
 

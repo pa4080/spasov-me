@@ -37,13 +37,13 @@ const SiteLogo: React.FC<Props> = ({
 				{displayText && (
 					<div
 						className={cn(
-							"absolute z-1 font-unicephalon text-foreground tracking-menu-items",
-							"right-[0.6em] top-0 xa:right-[0.3cqw] ml:right-0",
+							"absolute z-1 font-unicephalon text-foreground-secondary tracking-menu-items",
+							"top-0 right-[0.6em] xa:right-[2cqw] ml:right-3",
 							"text-[6cqw] 3xs:text-[4.5cqw] xa:text-[3.5cqw]"
 						)}
 					>
-						<span>{greeting_ln1}</span>{" "}
-						<span className="hidden xa:inline-block">{greeting_ln2}</span>
+						{greeting_ln1 && <span>{greeting_ln1}</span>}
+						{greeting_ln2 && <span className="hidden xa:inline-block"> {greeting_ln2}</span>}
 					</div>
 				)}
 				<div className={displayText ? "emphasize_drop_shadow" : ""}>

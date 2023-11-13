@@ -17,14 +17,7 @@ import {
 	NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 
-import {
-	Sheet,
-	SheetContent,
-	SheetClose,
-	SheetHeader,
-	SheetTitle,
-	SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetClose, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
 import SiteLogo from "@/components/logo/SiteLogo";
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
@@ -110,8 +103,9 @@ const Navbar: React.FC = () => {
 			return (
 				<Link
 					key={index}
+					as={Route.public.HOME}
 					className={cn(styles.navItemCommon, "emphasize_drop_shadow", "text-mlt-gray-3 shadow")}
-					href={Route.public.HOME}
+					href={"/" + messages.NavBar.HOME.toLocaleLowerCase()}
 					style={{}}
 				>
 					<SiteLogo
@@ -152,25 +146,27 @@ const Navbar: React.FC = () => {
 					"text-mlt-gray-3 outline-none focus-visible:outline-none focus:outline-none"
 				)}
 			>
-				<SiteLogo manualBreak style={{ width: "120px", height: "auto" }} />
+				{/* <SiteLogo manualBreak style={{ width: "120px", height: "auto" }} /> */}
+				<SiteLogo
+					autoBreak={false}
+					hover={currentPathName !== Route.public.HOME}
+					style={{ width: "152px", height: "auto" }}
+				/>
 			</SheetTrigger>
 
-			<SheetContent side="left">
+			<SheetContent className="flex flex-col items-start justify-start gap-10 h-full" side="left">
 				<SheetHeader>
-					<SheetTitle
-						className={cn(
-							styles.navItemCommon,
-							"emphasize_drop_shadow",
-							"text-primary outline-none focus-visible:outline-none focus:outline-none flex items-center justify-start mb-12"
-						)}
-					>
-						<SheetClose>
-							<SiteLogo manualBreak style={{ width: "120px", height: "auto" }} />
-						</SheetClose>
-					</SheetTitle>
+					<SheetClose>
+						{/* <SiteLogo manualBreak style={{ width: "120px", height: "auto" }} /> */}
+						<SiteLogo
+							autoBreak={false}
+							hover={currentPathName !== Route.public.HOME}
+							style={{ width: "152px", height: "auto" }}
+						/>
+					</SheetClose>
 				</SheetHeader>
 
-				<div className="flex flex-col gap-6 pl-2 mt-8">
+				<div className="flex flex-col gap-6">
 					{Object.keys(Route.public).map((path, index) => (
 						<Link
 							key={index}
@@ -179,8 +175,8 @@ const Navbar: React.FC = () => {
 								styles.navItemSideMenu,
 								"emphasize_drop_shadow",
 								currentPathName === Route.public[path as keyof typeof Route.public]
-									? "text-mlt-blue-bright"
-									: "text-mlt-gray-3"
+									? "text-accent"
+									: "text-foreground"
 							)}
 							href={Route.public[path as keyof typeof Route.public]}
 							tabIndex={-1}

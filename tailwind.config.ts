@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-const appTwConfig = {
+
+const appTwConfig: import("tailwindcss").Config = {
 	darkMode: ["class"],
 	content: [
 		"./pages/**/*.{ts,tsx}",
@@ -36,11 +37,11 @@ const appTwConfig = {
 				"2xl": "1536px",
 			},
 			fontFamily: {
-				sans: ["var(--font-geist-sans)", "sans-serif"],
-				mono: ["var(--font-geist-mono)", "monospace"],
-				// inter: ["var(--font-inter)", "sans-serif"],
+				// sans: ["var(--font-geist-sans)", "sans-serif"],
+				// mono: ["var(--font-geist-mono)", "monospace"],
+				inter: ["var(--font-inter)", "sans-serif"],
 				// robotoSlab: ["var(--font-roboto-slab)", "sans-serif"],
-				unicephalon: ["var(--font-unicephalon)", "sans-serif"],
+				unicephalon: ["var(--font-unicephalon)", "serif"],
 				// multivacInterference: ["var(--font-multivac-interference)", "sans-serif"],
 				// multivacGhost: ["var(--font-multivac-ghost)", "sans-serif"],
 			},
@@ -52,7 +53,13 @@ const appTwConfig = {
 					secondary: "hsl(var(--ring-secondary))",
 				},
 				background: "hsl(var(--background))",
-				foreground: "hsl(var(--foreground))",
+				foreground: {
+					DEFAULT: "hsl(var(--foreground))",
+					secondary: "hsl(var(--foreground-secondary))",
+					tertiary: "hsl(var(--foreground-tertiary))",
+					quaternary: "hsl(var(--foreground-quaternary))",
+				},
+
 				primary: {
 					DEFAULT: "hsl(var(--primary))",
 					foreground: "hsl(var(--primary-foreground))",
@@ -94,12 +101,12 @@ const appTwConfig = {
 
 			keyframes: {
 				"accordion-down": {
-					from: { height: 0 },
+					from: { height: "0" },
 					to: { height: "var(--radix-accordion-content-height)" },
 				},
 				"accordion-up": {
 					from: { height: "var(--radix-accordion-content-height)" },
-					to: { height: 0 },
+					to: { height: "0" },
 				},
 				fadeIn: {
 					"0%": { opacity: "0%" },
@@ -121,6 +128,12 @@ const appTwConfig = {
 				fadeIn: "fadeIn 2.5s ease-in-out forwards",
 				fadeInSiderTextDark: "fadeInSiderTextDark 2.5s ease-in-out forwards",
 				fadeInSiderTextLight: "fadeInSiderTextLight 2.5s ease-in-out forwards",
+			},
+			// https://tailwindcss.com/docs/customizing-spacing#default-spacing-scale
+			spacing: {
+				navbar: "var(--navbar-height)",
+				footer: "var(--footer-height)",
+				content: "var(--content-height)",
 			},
 			height: {
 				navbar: "var(--navbar-height)",

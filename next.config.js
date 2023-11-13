@@ -2,6 +2,7 @@
 
 const nextConfig = {
 	reactStrictMode: true,
+	// trailingSlash: true,
 	images: {
 		// https://nextjs.org/docs/messages/next-image-unconfigured-host
 		remotePatterns: [

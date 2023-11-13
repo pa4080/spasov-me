@@ -6,7 +6,7 @@ import { AppContextProvider } from "@/contexts/AppContext";
 
 import { Toaster } from "@/components/ui/toaster";
 
-import { unicephalon, GeistSans, GeistMono } from "@/app/fonts";
+import { unicephalon, inter } from "@/app/fonts";
 import manifest from "@/public/manifest.json";
 // import messages from "@/messages/en.json";
 
@@ -14,7 +14,7 @@ import "./globals.scss";
 
 import ThemesProvider from "@/contexts/ThemesProvider";
 
-import MainLayout from "@/layouts/MainLayout";
+import MainLayout from "@/components/layouts/MainLayout";
 
 import AuthSessionProvider from "@/contexts/AuthSessionProvider";
 
@@ -48,8 +48,8 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
 		<html suppressHydrationWarning lang="en">
 			<body
 				className={
-					`${GeistSans.className} + ${GeistSans.variable} ` +
-					`${GeistMono.variable} ${unicephalon.variable} `
+					`${inter.className} ${unicephalon.variable} `
+					// `{GeistSans.className} ${GeistSans.variable} ${GeistMono.variable}`
 				}
 			>
 				<AuthSessionProvider>

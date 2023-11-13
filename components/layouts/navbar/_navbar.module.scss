@@ -1,7 +1,7 @@
 @import "@/app/globals.variables.module.scss";
 
 .navbar {
-	@apply relative flex justify-between items-center w-full h-navbar max-h-[var(--navbar-height)] overflow-hidden bg-primary px-4 py-3;
+	@apply relative flex justify-between items-center w-full h-navbar max-h-navbar bg-primary px-4 py-3;
 
 	box-sizing: border-box;
 	box-shadow: 0 2px 6px 3px theme("colors.background");

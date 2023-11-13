@@ -1,14 +1,19 @@
-import ThemeStylePreview from "@/components/theme/ThemeStylePreview";
-import ThemeSwitch from "@/components/theme/ThemeSwitch";
+import React from "react";
 
-const Home: React.FC = () => {
+import messages from "@/messages/en.json";
+import HomePages from "@/components/home-page";
+import SiteLogo from "@/components/logo/SiteLogo";
+
+const Home: React.FC = async () => {
+	const {
+		greeting: { ln1, ln2 },
+	} = messages.Home;
+
 	return (
-		<div className="h-full w-full flex justify-center items-center flex-col gap-4 p-4">
-			<ThemeSwitch />
-			<ThemeStylePreview />
-			<ThemeSwitch />
-			<ThemeStylePreview />
-		</div>
+		<>
+			<SiteLogo className="w-full mt-20" greeting_ln1={ln1} greeting_ln2={ln2} />
+			<HomePages className="mt-12 mb-20" />
+		</>
 	);
 };
 

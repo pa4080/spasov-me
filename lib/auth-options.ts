@@ -43,6 +43,7 @@ export const authOptions: NextAuthOptions = {
 	callbacks: {
 		// https://next-auth.js.org/configuration/options#session
 		async session({ session }) {
+			await connectToMongoDb();
 			const sessionUser = await User.findOne({ email: session.user.email });
 
 			session.user = {

@@ -46,14 +46,22 @@
 	"material-icon-theme.folders.associations": {
 		// https://github.com/PKief/vscode-material-icon-theme
 		"files": "upload",
-		"components/home": "base",
 		"components": "home",
-		"components/ui": "core",
 		"components/services": "",
-		"components/fragments": "core",
 		"geo-data/languages": "",
 		"[[...query]]": "api",
-		"exercises": "vscode"
+		"exercises": "vscode",
+
+		"files/[[...query]]": "upload",
+		"data": "database",
+		"data/[[...query]]": "database",
+		"session-info": "meta",
+		"components/pages": "base",
+		"components/files": "base",
+		"components/home": "base",
+		"components/ui": "core",
+		"components/fragments": "core",
+		"app/[locale]": "home"
 	},
 	// https://youtu.be/3_-Je5XpbqY?t=688
 	// https://stackoverflow.com/a/76125894/6543935

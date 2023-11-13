@@ -2,6 +2,10 @@
 $background: hsl(var(--background));
 $foreground: hsl(var(--foreground));
 
+$foreground-secondary: hsl(var(--foreground-secondary));
+$foreground-tertiary: hsl(var(--foreground-tertiary));
+$foreground-quaternary: hsl(var(--foreground-quaternary));
+
 $primary: hsl(var(--primary));
 $primary-foreground: hsl(var(--primary-foreground));
 
@@ -39,12 +43,12 @@ $radius: hsl(var(--radius));
 $scrollbar-width: hsl(var(--scrollbar-width));
 
 // Fonts
-$font-unicephalon: var(--font-unicephalon), "sans-serif";
-$font-sans: var(--font-geist-sans), "sans-serif";
-$font-mono: var(--font-geist-mono), "monospace";
-$font-geist-sans: var(--font-geist-sans), "sans-serif";
-$font-geist-mono: var(--font-geist-mono), "monospace";
-// $font-inter: var(--font-inter), "sans-serif";
+$font-unicephalon: var(--font-unicephalon), "serif";
+// $font-sans: var(--font-geist-sans), "sans-serif";
+// $font-mono: var(--font-geist-mono), "monospace";
+// $font-geist-sans: var(--font-geist-sans), "sans-serif";
+// $font-geist-mono: var(--font-geist-mono), "monospace";
+$font-inter: var(--font-inter), "sans-serif";
 // $font-robotoSlab: var(--font-roboto-slab), "serif";
 
 // functions
@@ -61,6 +65,9 @@ $content-height: var(--content-height);
 	// Colors
 	background: $background;
 	foreground: $foreground;
+	foregroundSecondary: $foreground-secondary;
+	foregroundTertiary: $foreground-tertiary;
+	foregroundQuaternary: $foreground-quaternary;
 	primary: $primary;
 	primaryForeground: $primary-foreground;
 	secondary: $secondary;
@@ -89,11 +96,11 @@ $content-height: var(--content-height);
 
 	// Fonts
 	fontUnicephalon: $font-unicephalon;
-	fontSans: $font-sans;
-	fontMono: $font-mono;
-	fontGeistSans: $font-geist-sans;
-	fontGeistMono: $font-geist-mono;
-	// fontInter: $font-inter;
+	// fontSans: $font-sans;
+	// fontMono: $font-mono;
+	// fontGeistSans: $font-geist-sans;
+	// fontGeistMono: $font-geist-mono;
+	fontInter: $font-inter;
 	// fontRobotoSlab: $font-robotoSlab;
 
 	// Functions
