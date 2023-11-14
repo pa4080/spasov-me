@@ -1,7 +1,7 @@
 import React from "react";
 
 import messages from "@/messages/en.json";
-import HomePages from "@/components/home-page";
+import HomePages from "@/components/home-page-sr";
 import SiteLogo from "@/components/logo/SiteLogo";
 
 const Home: React.FC = async () => {

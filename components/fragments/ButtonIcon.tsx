@@ -10,10 +10,6 @@ interface Props {
 	label?: string;
 	labelSubmitting?: string;
 	onClick?: (e: React.SyntheticEvent) => void;
-	c1?: string;
-	c2?: string;
-	op1?: string;
-	op2?: string;
 	type?: IconEmbSvgPathType;
 	width?: number;
 	height?: number;
@@ -27,10 +23,6 @@ const ButtonIcon: React.FC<Props> = ({
 	label = "Submit",
 	labelSubmitting = "Submitting...",
 	onClick,
-	c1 = "mlt-purple-bright",
-	c2 = "mlt-purple-bright",
-	op1,
-	op2,
 	type = "rectangle-history-circle-plus",
 	width = 20,
 	height = 20,
@@ -63,11 +55,7 @@ const ButtonIcon: React.FC<Props> = ({
 		>
 			<IconEmbedSvg
 				alt={submitting ? labelSubmitting : label}
-				c1={c1}
-				c2={c2}
 				height={height}
-				op1={op1}
-				op2={op2}
 				type={type}
 				width={width}
 			/>

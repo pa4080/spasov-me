@@ -1,6 +1,6 @@
 import React from "react";
 
-import Navbar from "@/components/layouts/navbar/Navbar";
+import Navbar from "@/components/layouts/navbar";
 import Footer from "@/components/layouts/footer/Footer";
 
 import { cn } from "@/lib/cn-utils";

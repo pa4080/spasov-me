@@ -7,31 +7,55 @@
 	box-shadow: 0 2px 6px 3px theme("colors.background");
 	z-index: 1;
 
-	.navItemCommon {
-		@apply transition-colors duration-100;
-	}
-
-	.navItemCommon:hover {
-		@apply transition-colors duration-200;
-	}
-
-	.navItem {
-		@apply font-unicephalon h-full text-[18px] pt-[3px] hover:text-accent active:text-ring-secondary;
-	}
-
-	.navItemSideMenu {
-		@apply font-unicephalon h-full text-[18px] hover:text-accent active:text-ring-secondary;
-	}
-
-	.privateMenuItem {
-		@apply p-3 block rounded;
-
-		&:hover {
-			@apply bg-primary/10;
+	.userMenu {
+		@apply items-center justify-center gap-4 flex pt-1;
+		.logInButton {
+			@apply flex;
 		}
 
-		& + & {
-			@apply mt-1;
+		.loggedInMenu {
+			:global(.dark) & {
+				:global .icon-embed-svg-override-path-1 {
+					fill: theme("colors.foreground.quaternary");
+				}
+
+				:global .icon-embed-svg-override-path-2 {
+					fill: theme("colors.ring.secondary");
+				}
+			}
+		}
+
+		.userMenuItem {
+			@apply p-3 block rounded;
+
+			&:hover {
+				@apply bg-primary/50;
+			}
+
+			& + & {
+				@apply mt-1;
+			}
+		}
+	}
+
+	.publicMenuWrapper {
+		@apply items-center justify-center gap-5 pb-1;
+		//  "flex" this class is triggered via JSX;
+
+		.navItemCommon {
+			@apply transition-colors duration-100;
+		}
+
+		.navItemCommon:hover {
+			@apply transition-colors duration-200;
+		}
+
+		.navItem {
+			@apply font-unicephalon h-full text-[18px] pt-[3px] hover:text-accent active:text-ring-secondary;
+		}
+
+		.navItemSideMenu {
+			@apply font-unicephalon h-full text-[18px] hover:text-accent active:text-ring-secondary;
 		}
 	}
 }

@@ -26,6 +26,10 @@
 
 		"files": "Files",
 		"filesDescription": "Upload, browse and manage files",
+		"theme": "Theme",
+		"themeDescription": "Preview the theme colors and typography",
+		"pagesEdit": "Pages",
+		"pagesEditDescription": "Edit the Home page cards",
 
 		"altUserProfile": "User Profile",
 		"myProfile": "My Profile"

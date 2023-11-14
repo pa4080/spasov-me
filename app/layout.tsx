@@ -14,7 +14,7 @@ import "./globals.scss";
 
 import ThemesProvider from "@/contexts/ThemesProvider";
 
-import MainLayout from "@/components/layouts/MainLayout";
+import MainLayout from "@/components/layouts/main-layout";
 
 import AuthSessionProvider from "@/contexts/AuthSessionProvider";
 

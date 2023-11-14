@@ -11,7 +11,7 @@ import { UserObject } from "@/interfaces/User";
 import { PageObject } from "@/interfaces/Page";
 import { FileObject } from "@/interfaces/File";
 
-type AuthProvidersType = Record<
+export type AuthProviders = Record<
 	LiteralUnion<BuiltInProviderType, string>,
 	ClientSafeProvider
 > | null;
@@ -20,7 +20,7 @@ interface AppContextProps {
 	users: UserObject[];
 	setUsers: React.Dispatch<React.SetStateAction<UserObject[]>>;
 	session: Session | null;
-	authProviders: AuthProvidersType;
+	authProviders: AuthProviders;
 	pages: PageObject[];
 	setPages: React.Dispatch<React.SetStateAction<PageObject[]>>;
 	files: FileObject[];
@@ -34,7 +34,7 @@ interface AppContextProviderProps {
 }
 
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
-	const [authProviders, setAuthProviders] = useState<AuthProvidersType>(null);
+	const [authProviders, setAuthProviders] = useState<AuthProviders>(null);
 	const [users, setUsers] = useState<UserObject[]>([]);
 	const [pages, setPages] = useState<PageObject[]>([]);
 	const [files, setFiles] = useState<FileObject[]>([]);

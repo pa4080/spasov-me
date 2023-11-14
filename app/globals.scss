@@ -242,5 +242,5 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 /* Common styles */
 .emphasize_drop_shadow {
 	/* filter: drop-shadow(1px 2px 3px theme("colors.mlt-dark-1")); */
-	filter: drop-shadow(1px 2px 2px theme("colors.muted.DEFAULT"));
+	filter: drop-shadow(1px 2px 2px theme("colors.muted.secondary"));
 }

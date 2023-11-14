@@ -7,7 +7,9 @@ export const Route = {
 		CONTACT: "/contact",
 	},
 	private: {
-		FILES: "/files",
+		FILES: "/admin/files",
+		PAGES: "/admin/files",
+		THEME: "/admin/theme",
 	},
 	api: {
 		PAGES: "/api/data/pages",

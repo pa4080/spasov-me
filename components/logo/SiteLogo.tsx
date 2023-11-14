@@ -37,9 +37,9 @@ const SiteLogo: React.FC<Props> = ({
 				{displayText && (
 					<div
 						className={cn(
-							"absolute z-1 font-unicephalon text-foreground-secondary tracking-menu-items",
-							"top-0 right-[0.6em] xa:right-[2cqw] ml:right-3",
-							"text-[6cqw] 3xs:text-[4.5cqw] xa:text-[3.5cqw]"
+							"absolute z-1 font-unicephalon text-foreground-quaternary tracking-menu-items",
+							"top-0 -right-1 xa:-right-[0.125rem]",
+							"text-[6cqw] 3xs:text-[6cqw] xa:text-[3.5cqw] tracking-widest"
 						)}
 					>
 						{greeting_ln1 && <span>{greeting_ln1}</span>}
@@ -50,14 +50,14 @@ const SiteLogo: React.FC<Props> = ({
 					<SvgLogo
 						className={`${
 							autoBreak && !manualBreak ? "hidden xa:block" : manualBreak ? "hidden" : "block"
-						} ${displayText ? "p-4" : "p-0"}`}
+						} ${displayText ? "py-4" : "p-0"}`}
 						gray={gray}
 						hover={hover}
 					/>
 					<SvgLogoBreak
 						className={`${
 							autoBreak && !manualBreak ? "block xa:hidden" : manualBreak ? "block" : "hidden"
-						} ${displayText ? "p-4" : "p-0"}`}
+						} ${displayText ? "py-4" : "p-0"}`}
 						gray={gray}
 						hover={hover}
 					/>

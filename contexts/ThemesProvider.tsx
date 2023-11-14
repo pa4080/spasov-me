@@ -4,31 +4,31 @@ import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "next-themes";
 
 interface Props {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }
 
 const ThemesProvider: React.FC<Props> = ({ children }) => {
-  const [mounted, setMounted] = useState(false);
+	const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+	useEffect(() => {
+		setMounted(true);
+	}, []);
 
-  if (!mounted) {
-    return null;
-  }
+	if (!mounted) {
+		return null;
+	}
 
-  return (
-    <ThemeProvider
-      attribute="class"
-      // forcedTheme="dark"
-      defaultTheme="dark"
-      themes={["light", "dark", "system"]}
-      disableTransitionOnChange
-    >
-      {children}
-    </ThemeProvider>
-  );
+	return (
+		<ThemeProvider
+			disableTransitionOnChange
+			attribute="class"
+			defaultTheme="dark"
+			themes={["light", "dark", "system"]}
+			// forcedTheme="dark"
+		>
+			{children}
+		</ThemeProvider>
+	);
 };
 
 export default ThemesProvider;
