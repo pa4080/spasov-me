@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 
 import { PageObject } from "@/interfaces/Page";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn-utils";
 
 import { useAppContext } from "@/contexts/AppContext";
 

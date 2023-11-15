@@ -1,13 +1,10 @@
-import ThemeStylePreview from "@/components/theme/ThemeStylePreview";
-import ThemeSwitch from "@/components/theme/ThemeSwitch";
+import React from "react";
+
+// import HomePage_PagesFeed from "@/components/home-page-csr";
 
 const Pages: React.FC = () => {
-	return (
-		<div className="h-full w-full flex justify-center items-center flex-col gap-4 p-4">
-			<ThemeSwitch />
-			<ThemeStylePreview />
-		</div>
-	);
+	// return <HomePage_PagesFeed className="margin_vh_top margin_vh_bottom" />;
+	return <></>;
 };
 
 export default Pages;

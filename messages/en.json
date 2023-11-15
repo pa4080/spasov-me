@@ -36,88 +36,69 @@
 	},
 	"Footer": {},
 	"SiteLogo": {
-		"logoSubText": {
-			"str0": "spasov",
-			"str1": ".",
-			"str2": "me"
-		},
 		"altLogo": "Site Logo"
 	},
 	"Home": {
-		"greeting": {
-			"ln1": "Welcome to",
-			"ln2": " my site"
-		}
+		"greeting_ln1": "Welcome to",
+		"greeting_ln2": " my site"
 	},
 	"PagesFeed": {
-		"Dialog": {
-			"title_add": "Add a new page",
-			"title_edit": "Edit the \"{ title }\" page entry",
-			"title_delete": "You are about to delete the \"{ title }\" file entry",
-			"description": "This must be a valid/existing public page, defined within the project. By adding it here it will be available as a card at the homepage.",
-			"description_delete": "This action cannot be undone. This will permanently delete the \"{ title }\" entry (id \"{ id }\") and remove its data from our servers. Are you absolutely sure?",
-			"btn_add_a_page": "Add a page",
-			"btn_add_a_page_submitting": "Submitting...",
-			"btn_cancel": "Cancel",
-			"btn_delete": "Delete",
-			"btn_delete_submitting": "Deleting...",
-			"toast_submit_title": "You submitted the following values:",
-			"toast_response_title": "The server response with status { status } and data:"
-		},
-		"Form": {
-			"pageTitle": "Page title",
-			"pageTitlePlaceholder": "Page title...",
-			"pageTitleDescription": "Enter the display title/name of the page.",
-			"pageDescription": "Page description",
-			"pageDescriptionPlaceholder": "Page description...",
-			"pageDescriptionDescription": "Enter the description of the page.",
-			"pageSlug": "Page slug",
-			"pageSlugPlaceholder": "page-slug",
-			"pageSlugDescription": "This will be used in the URL. Don't use spaces or special characters.",
-			"pageImage": "Page image",
-			"pageImageDescription": "Upload an image for the page.",
-			"btn_submit": "Submit",
-			"btn_submitting": "Submitting...",
-			"schema": {
-				"title": "The page title must be at least 2 characters.",
-				"description": "The description must be at least 20 characters.",
-				"uri": "The page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
-				"image": "The allowed formats are: png, jpg, jpeg, svg, webp."
-			}
-		}
+		"dialog_title_add": "Add a new page",
+		"dialog_title_edit": "Edit the \"{ title }\" page entry",
+		"dialog_title_delete": "You are about to delete the \"{ title }\" file entry",
+		"dialog_description": "This must be a valid/existing public page, defined within the project. By adding it here it will be available as a card at the homepage.",
+		"dialog_description_delete": "This action cannot be undone. This will permanently delete the \"{ title }\" entry (id \"{ id }\") and remove its data from our servers. Are you absolutely sure?",
+		"dialog_btn_add_a_page": "Add a page",
+		"dialog_btn_add_a_page_submitting": "Submitting...",
+		"dialog_btn_cancel": "Cancel",
+		"dialog_btn_delete": "Delete",
+		"dialog_btn_delete_submitting": "Deleting...",
+		"dialog_toast_submit_title": "You submitted the following values:",
+		"dialog_toast_response_title": "The server response with status { status } and data:",
+		"form_pageTitle": "Page title",
+		"form_pageTitlePlaceholder": "Page title...",
+		"form_pageTitleDescription": "Enter the display title/name of the page.",
+		"form_pageDescription": "Page description",
+		"form_pageDescriptionPlaceholder": "Page description...",
+		"form_pageDescriptionDescription": "Enter the description of the page.",
+		"form_pageSlug": "Page slug",
+		"form_pageSlugPlaceholder": "page-slug",
+		"form_pageSlugDescription": "This will be used in the URL. Don't use spaces or special characters.",
+		"form_pageImage": "Page image",
+		"form_pageImageDescription": "Upload an image for the page.",
+		"form_btn_submit": "Submit",
+		"form_btn_submitting": "Submitting...",
+		"formSchema_title": "The page title must be at least 2 characters.",
+		"formSchema_description": "The description must be at least 20 characters.",
+		"formSchema_uri": "The page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
+		"formSchema_image": "The allowed formats are: png, jpg, jpeg, svg, webp."
 	},
 	"FilesFeed": {
-		"Dialog": {
-			"title_upload": "Upload a file",
-			"title_edit": "Edit the file \"{ filename }\"",
-			"title_delete": "You are about to delete the file \"{ filename }\"",
-			"description": "The files uploaded here will be accessible site wide.",
-			"description_delete": "This action cannot be undone. This will permanently delete the file entry \"{ filename }\" (id \"{ id }\") and remove its data from our servers. Are you absolutely sure?",
-			"btn_label_upload": "Upload a file",
-			"btn_label_uploading": "Uploading...",
-			"btn_cancel": "Cancel",
-			"btn_delete": "Delete",
-			"btn_delete_submitting": "Deleting...",
-			"toast_submit_title": "You submitted the following values:",
-			"toast_response_title": "The server response with status { status } and data:"
-		},
-		"Form": {
-			"fileName": "Override the file name",
-			"fileNamePlaceholder": "File-name-example.webp",
-			"fileNameDescription": "Enter the name of the file. Use numbers, latin alphabet, dashes and underscores.",
-			"fileDescription": "File description",
-			"fileDescriptionPlaceholder": "File description...",
-			"fileDescriptionDescription": "Write a note where the file will be used. The field is optional.",
-			"fileInput": "Upload a file",
-			"fileInputChoiceFile": "Click to choice or drag and drop a file here",
-			"fileInputDescription": "The allowed formats are: png, jpg, jpeg, svg, webp, pdf, pptx, xlsx, docx.",
-			"btn_submit": "Upload",
-			"btn_submitting": "Uploading...",
-			"schema": {
-				"name": "The file name is required it can contain only latin alphanumeric characters, dots, dashes and underscores. Cannot start with a special character.",
-				"description": "The description is optional, it should be a string.",
-				"file": "The file is absolutely required."
-			}
-		}
+		"dialog_title_upload": "Upload a file",
+		"dialog_title_edit": "Edit the file \"{ filename }\"",
+		"dialog_title_delete": "You are about to delete the file \"{ filename }\"",
+		"dialog_description": "The files uploaded here will be accessible site wide.",
+		"dialog_description_delete": "This action cannot be undone. This will permanently delete the file entry \"{ filename }\" (id \"{ id }\") and remove its data from our servers. Are you absolutely sure?",
+		"dialog_btn_label_upload": "Upload a file",
+		"dialog_btn_label_uploading": "Uploading...",
+		"dialog_btn_cancel": "Cancel",
+		"dialog_btn_delete": "Delete",
+		"dialog_btn_delete_submitting": "Deleting...",
+		"dialog_toast_submit_title": "You submitted the following values:",
+		"dialog_toast_response_title": "The server response with status { status } and data:",
+		"form_fileName": "Override the file name",
+		"form_fileNamePlaceholder": "File-name-example.webp",
+		"form_fileNameDescription": "Enter the name of the file. Use numbers, latin alphabet, dashes and underscores.",
+		"form_fileDescription": "File description",
+		"form_fileDescriptionPlaceholder": "File description...",
+		"form_fileDescriptionDescription": "Write a note where the file will be used. The field is optional.",
+		"form_fileInput": "Upload a file",
+		"form_fileInputChoiceFile": "Click to choice or drag and drop a file here",
+		"form_fileInputDescription": "The allowed formats are: png, jpg, jpeg, svg, webp, pdf, pptx, xlsx, docx.",
+		"form_btn_submit": "Upload",
+		"form_btn_submitting": "Uploading...",
+		"formSchema_name": "The file name is required it can contain only latin alphanumeric characters, dots, dashes and underscores. Cannot start with a special character.",
+		"formSchema_description": "The description is optional, it should be a string.",
+		"formSchema_file": "The file is absolutely required."
 	}
 }

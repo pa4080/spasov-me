@@ -1,10 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useTranslations } from "next-intl";
 
-import { useAppContext } from "@/contexts/AppContext";
-import { toast } from "@/components/ui/use-toast";
 import {
 	Dialog,
 	DialogContent,
@@ -13,7 +10,14 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { cn } from "@/lib/utils";
+
+import { cn } from "@/lib/cn-utils";
+
+import { msgs } from "@/messages";
+
+import { useAppContext } from "@/contexts/AppContext";
+import { toast } from "@/components/ui/use-toast";
+
 import { Route } from "@/routes";
 import { PageObject, preparePageObjectToFetch } from "@/interfaces/Page";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
@@ -25,7 +29,6 @@ interface Props {
 }
 
 const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
-	const t = useTranslations("PagesFeed.Dialog");
 	const { session, setPages } = useAppContext();
 
 	const [submitting, setSubmitting] = useState(false);

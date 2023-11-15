@@ -41,8 +41,8 @@
 		--destructive: 0 84.2% 60.2%;
 		--destructive-foreground: 210 20% 98%;
 
-		--border: 220 13% 91%;
-		--input: var(--border);
+		--border: var(--secondary);
+		--input: var(--secondary);
 
 		--radius: 0.5rem;
 		--scrollbar-width: 1rem;
@@ -86,8 +86,8 @@
 		--destructive: 0 62.8% 30.6%;
 		--destructive-foreground: 210 20% 98%;
 
-		--border: 0 0% 16%;
-		--input: var(--border);
+		--border: var(--secondary);
+		--input: var(--secondary);
 	}
 }
 

@@ -51,7 +51,7 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => (
 					<NavigationMenu_NextLink_Styled
 						className={styles.userMenuItem}
 						desc={messages.NavBar.pagesEditDescription}
-						href={Route.private.FILES}
+						href={Route.private.PAGES}
 						title={messages.NavBar.pagesEdit}
 					/>
 
