@@ -25,19 +25,18 @@ const PublicMenu_Sheet: React.FC<Props> = ({ className, menuItems }) => {
 	const currentPathName = usePathname();
 
 	return (
-		<div className={cn(styles.publicMenuWrapper, className)}>
+		<div className={cn(styles.publicMenu, className)}>
 			<Sheet>
 				<SheetTrigger
+					aria-label={messages.NavBar.altMenuButton}
 					className={cn(
 						styles.navItemCommon,
-						"emphasize_drop_shadow",
-						"text-mlt-gray-3 outline-none focus-visible:outline-none focus:outline-none"
+						"outline-none focus-visible:outline-none focus:outline-none"
 					)}
 				>
-					{/* <SiteLogo manualBreak style={{ width: "120px", height: "auto" }} /> */}
 					<SiteLogo
 						autoBreak={false}
-						hover={currentPathName !== Route.public.HOME}
+						className="emphasize_drop_shadow"
 						style={{ width: "152px", height: "auto" }}
 					/>
 				</SheetTrigger>
@@ -45,22 +44,19 @@ const PublicMenu_Sheet: React.FC<Props> = ({ className, menuItems }) => {
 				<SheetContent className="flex flex-col items-start justify-start gap-10 h-full" side="left">
 					<SheetHeader>
 						<SheetClose>
-							{/* <SiteLogo manualBreak style={{ width: "120px", height: "auto" }} /> */}
 							<SiteLogo
 								autoBreak={false}
-								hover={currentPathName !== Route.public.HOME}
+								className="emphasize_drop_shadow"
 								style={{ width: "152px", height: "auto" }}
 							/>
 						</SheetClose>
 					</SheetHeader>
 
-					<div className="flex flex-col gap-6">
+					<div className="flex flex-col gap-8 pl-2">
 						{menuItems.map((path, index) => (
 							<Link
 								key={index}
 								className={cn(
-									styles.navItemCommon,
-									styles.navItemSideMenu,
 									"emphasize_drop_shadow",
 									currentPathName === Route.public[path as keyof typeof Route.public]
 										? "text-accent"
@@ -69,7 +65,12 @@ const PublicMenu_Sheet: React.FC<Props> = ({ className, menuItems }) => {
 								href={Route.public[path as keyof typeof Route.public]}
 								tabIndex={-1}
 							>
-								<SheetClose className="border-x-8 border-y-2 border-transparent tracking-wide">
+								<SheetClose
+									className={cn(
+										// The SheetClose overrides the CSS from the module so we can't use a specific class here
+										"font-unicephalon !tracking-widest text-[18px] hover:text-ring active:text-ring-secondary hover:transition-colors"
+									)}
+								>
 									{messages.NavBar[path as keyof typeof messages.NavBar]}
 								</SheetClose>
 							</Link>

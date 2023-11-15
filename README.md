@@ -4,12 +4,20 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Todo
+
+- [ ] Copy the Home page editable version prom the old repo
+- [ ] Copy the files page from the old repo
+- [ ] Copy the contact page from Animated-portfolio
+- [ ] Add the project as GitHub repo and deploy to Vercel
+- [ ] Manage the menu items via the pages feed...
+
 ## References
 
 - <https://nextjs.org/docs>
 - <https://next-intl-docs.vercel.app/docs/next-13>
 - <https://www.npmjs.com/package/slugify>
-- [***Setting the properties in an object parameter to optional > Set the entire object parameter to optional***](https://bobbyhadz.com/blog/typescript-function-optional-parameters#setting-the-properties-in-an-object-parameter-to-optional)
+- [**_Setting the properties in an object parameter to optional > Set the entire object parameter to optional_**](https://bobbyhadz.com/blog/typescript-function-optional-parameters#setting-the-properties-in-an-object-parameter-to-optional)
 - <https://pagespeed.web.dev/analysis/https-promptopia-metalevel-tech/n0pcgydmgq?form_factor=mobile>
 
 ## Getting Started
@@ -45,7 +53,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-[***How do I use a Cloudflare domain with Vercel?***](https://vercel.com/guides/using-cloudflare-with-vercel)
+[**_How do I use a Cloudflare domain with Vercel?_**](https://vercel.com/guides/using-cloudflare-with-vercel)
 
 ## Vercel CLI
 
@@ -67,7 +75,7 @@ npm i react-hook-form
 
 ## Shadcn-UI
 
-Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source. **Re-usable components built using *Radix UI* and *Tailwind CSS*.** This is NOT a component library. It's a collection of re-usable components that you can copy and paste into your apps.
+Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source. **Re-usable components built using _Radix UI_ and _Tailwind CSS_.** This is NOT a component library. It's a collection of re-usable components that you can copy and paste into your apps.
 
 - <https://youtu.be/7MKEOfSP2s4> - An example how to implement the [`<Skeleton />`](./app/components/ui/skeleton.tsx) component, while fetch data from the [RAWG](https://rawg.io/) API. This example illustrate also ho to use Next.js 13 App Router [`loading.tsx`](./app/%5Blocale%5D/games/loading.tsx) component.
 - <https://ui.shadcn.com/>
@@ -75,7 +83,7 @@ Beautifully designed components that you can copy and paste into your apps. Acce
 
 ### CLI
 
-**Use the CLI to add components to your project.** Use the `init` command to initialize dependencies for a new project. The `init` command installs dependencies, adds the cn util, *configures `tailwind.config.js`*, and CSS variables for the project.
+**Use the CLI to add components to your project.** Use the `init` command to initialize dependencies for a new project. The `init` command installs dependencies, adds the cn util, _configures `tailwind.config.js`_, and CSS variables for the project.
 
 ```bash
 npx shadcn-ui init slugify

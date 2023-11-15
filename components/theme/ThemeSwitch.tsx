@@ -16,7 +16,11 @@ import {
 	DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
-const ThemeSwitch: React.FC = () => {
+interface Props {
+	classNameBtn?: string;
+}
+
+const ThemeSwitch: React.FC<Props> = ({ classNameBtn }) => {
 	const [mounted, setMounted] = useState(false);
 	const { theme, setTheme } = useTheme();
 
@@ -34,20 +38,29 @@ const ThemeSwitch: React.FC = () => {
 			<DropdownMenuTrigger asChild>
 				<Button
 					aria-label={messages.Theme.themeSelector}
-					className="btn_ui hover:text-backgrounds relative"
+					className={cn(
+						"hover:text-backgrounds relative group transition-colors duration-200",
+						classNameBtn
+					)}
 					name={messages.Theme.themeSelector}
 					size="icon"
 					variant="outline"
 				>
 					<Sun
-						className={cn("h-[1.5rem] w-[1.5rem]", theme && theme === "light" ? "block" : "hidden")}
+						className={cn(
+							"h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200",
+							theme && theme === "light" ? "block" : "hidden"
+						)}
 					/>
 					<Moon
-						className={cn("h-[1.5rem] w-[1.5rem]", theme && theme === "dark" ? "block" : "hidden")}
+						className={cn(
+							"h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200",
+							theme && theme === "dark" ? "block" : "hidden"
+						)}
 					/>
 					<SunMoon
 						className={cn(
-							"h-[1.5rem] w-[1.5rem]",
+							"h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200",
 							theme && theme === "system" ? "block" : "hidden"
 						)}
 					/>

@@ -122,7 +122,7 @@ const NavigationMenu_NextLink_Styled = React.forwardRef<
 			<p className="font-semibold" style={{ letterSpacing: "1px" }}>
 				{title}
 			</p>
-			<p className="line-clamp-2s leading-snug text-mlt-gray-3">{desc}</p>
+			<p className="line-clamp-2s leading-snug text-foreground-tertiary">{desc}</p>
 		</NavigationMenuPrimitive.Link>
 	</Link>
 ));

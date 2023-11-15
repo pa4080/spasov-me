@@ -23,7 +23,7 @@ const PublicMenu_Row: React.FC<Props> = ({ className, menuItems }) => {
 	const currentPathName = usePathname();
 
 	return (
-		<div className={cn(styles.publicMenuWrapper, className)}>
+		<div className={cn(styles.publicMenu, className)}>
 			{menuItems.map((path, index) => {
 				const pathAsKey = path as keyof typeof Route.public;
 
@@ -32,12 +32,13 @@ const PublicMenu_Row: React.FC<Props> = ({ className, menuItems }) => {
 						<Link
 							key={index}
 							as={Route.public.HOME}
-							className={cn(styles.navItemCommon, "emphasize_drop_shadow", "text-mlt-gray-3")}
+							className={cn(styles.navItemCommon, "emphasize_drop_shadow")}
 							href={"/" + messages.NavBar.HOME.toLocaleLowerCase()}
 							style={{}}
 						>
 							<SiteLogo
 								autoBreak={false}
+								className={currentPathName === Route.public.HOME ? "hover:saturate-200" : ""}
 								hover={currentPathName !== Route.public.HOME}
 								style={{ width: "152px", height: "auto" }}
 							/>
@@ -48,13 +49,13 @@ const PublicMenu_Row: React.FC<Props> = ({ className, menuItems }) => {
 						<Link
 							key={index}
 							className={cn(
-								styles.navItem,
+								styles.navItemRow,
 								styles.navItemCommon,
 								"emphasize_drop_shadow",
-								`tracking-menu-items tracking-widest ${
+								`${
 									currentPathName !== Route.public[pathAsKey]
-										? "text-mlt-gray-3"
-										: "text-mlt-blue-bright"
+										? "text-foreground-primary"
+										: "text-accent"
 								}`
 							)}
 							href={Route.public[pathAsKey]}

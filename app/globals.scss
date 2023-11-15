@@ -244,3 +244,15 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 	/* filter: drop-shadow(1px 2px 3px theme("colors.mlt-dark-1")); */
 	filter: drop-shadow(1px 2px 2px theme("colors.muted.secondary"));
 }
+
+.margin_vh_top {
+	margin-top: vh(9);
+}
+
+.margin_vh_middle {
+	margin-top: vh(4);
+}
+
+.margin_vh_bottom {
+	margin-bottom: vh(7);
+}

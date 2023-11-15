@@ -8,7 +8,7 @@
 	z-index: 1;
 
 	.userMenu {
-		@apply items-center justify-center gap-4 flex pt-1;
+		@apply items-center justify-center gap-4 flex;
 		.logInButton {
 			@apply flex;
 		}
@@ -38,24 +38,15 @@
 		}
 	}
 
-	.publicMenuWrapper {
-		@apply items-center justify-center gap-5 pb-1;
-		//  "flex" this class is triggered via JSX;
+	.publicMenu {
+		@apply items-center justify-center gap-4 pb-1; //  "flex" this class is triggered via JSX;
 
 		.navItemCommon {
-			@apply transition-colors duration-100;
+			@apply h-full transition-colors duration-100 hover:text-ring active:text-ring-secondary hover:transition-colors hover:duration-200 tracking-widest font-unicephalon;
 		}
 
-		.navItemCommon:hover {
-			@apply transition-colors duration-200;
-		}
-
-		.navItem {
-			@apply font-unicephalon h-full text-[18px] pt-[3px] hover:text-accent active:text-ring-secondary;
-		}
-
-		.navItemSideMenu {
-			@apply font-unicephalon h-full text-[18px] hover:text-accent active:text-ring-secondary;
+		.navItemRow {
+			@apply text-[18px] pt-[3px];
 		}
 	}
 }

@@ -32,7 +32,7 @@
 		"pagesEditDescription": "Edit the Home page cards",
 
 		"altUserProfile": "User Profile",
-		"myProfile": "My Profile"
+		"altMenuButton": "Menu Button"
 	},
 	"Footer": {},
 	"SiteLogo": {
@@ -46,7 +46,7 @@
 	"Home": {
 		"greeting": {
 			"ln1": "Welcome to",
-			"ln2": "my site"
+			"ln2": " my site"
 		}
 	},
 	"PagesFeed": {

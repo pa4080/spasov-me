@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Analytics } from "@vercel/analytics/react";
+// import { Analytics } from "@vercel/analytics/react";
 
 import { AppContextProvider } from "@/contexts/AppContext";
 
@@ -60,7 +60,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
 						<Toaster />
 					</AppContextProvider>
 				</AuthSessionProvider>
-				{process.env.VERCEL_ENV === "production" && <Analytics />}
+				{/* {process.env.VERCEL_ENV === "production" && <Analytics />} */}
 			</body>
 		</html>
 	);
