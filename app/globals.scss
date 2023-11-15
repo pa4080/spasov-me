@@ -5,16 +5,16 @@
 @layer base {
 	/* https://www.w3schools.com/colors/colors_hsl.asp */
 	:root {
-		--background: 0 0% 100%;
-		--foreground: 224 71.4% 4.1%;
-		--foreground-secondary: 224 71.4% 10%;
-		--foreground-tertiary: 224 71.4% 20%;
-		--foreground-quaternary: 224 71.4% 30%;
+		--background: 0 0% 96%;
+		--foreground: 0 0% 23%;
+		--foreground-secondary: 0 0% 30%;
+		--foreground-tertiary: 0 0% 40%;
+		--foreground-quaternary: 0 0% 50%;
 
-		--primary: 220.9 39.3% 11%;
-		--primary-foreground: 210 20% 98%;
+		--primary: 0 0% 86%;
+		--primary-foreground: 220.9 39.3% 11%;
 
-		--secondary: 220 14.3% 95.9%;
+		--secondary: 0 0% 72%;
 		--secondary-foreground: 220.9 39.3% 11%;
 
 		--accent: 216 64% 59%;
@@ -34,9 +34,9 @@
 		--popover: var(--secondary);
 		--popover-foreground: var(--foreground);
 
-		--muted: 220 14.3% 95.9%;
-		--muted-secondary: 220 14.3% 98.9%;
-		--muted-foreground: 220 8.9% 46.1%;
+		--muted: 0 0% 85%;
+		--muted-secondary: 0 0% 80%;
+		--muted-foreground: 0 0% 40%;
 
 		--destructive: 0 84.2% 60.2%;
 		--destructive-foreground: 210 20% 98%;

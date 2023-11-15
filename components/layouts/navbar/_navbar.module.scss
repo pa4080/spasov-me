@@ -13,14 +13,18 @@
 			@apply flex;
 		}
 
+		:global .icon-embed-svg-override-path-1 {
+			fill: theme("colors.secondary.DEFAULT");
+		}
+
+		:global .icon-embed-svg-override-path-2 {
+			fill: theme("colors.ring.secondary");
+		}
+
 		.loggedInMenu {
 			:global(.dark) & {
 				:global .icon-embed-svg-override-path-1 {
 					fill: theme("colors.foreground.quaternary");
-				}
-
-				:global .icon-embed-svg-override-path-2 {
-					fill: theme("colors.ring.secondary");
 				}
 			}
 		}

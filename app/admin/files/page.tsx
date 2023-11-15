@@ -1,7 +1,7 @@
 import ThemeStylePreview from "@/components/theme/ThemeStylePreview";
 import ThemeSwitch from "@/components/theme/ThemeSwitch";
 
-const Theme: React.FC = () => {
+const Files: React.FC = () => {
 	return (
 		<div className="h-full w-full flex justify-center items-center flex-col gap-4 p-4">
 			<ThemeSwitch />
@@ -10,4 +10,4 @@ const Theme: React.FC = () => {
 	);
 };
 
-export default Theme;
+export default Files;

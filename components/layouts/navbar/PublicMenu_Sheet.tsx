@@ -10,7 +10,7 @@ import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
 import messages from "@/messages/en.json";
 
-import SiteLogo from "@/components/logo/SiteLogo";
+import SiteLogo from "@/components/layouts/logo/SiteLogo";
 
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
 

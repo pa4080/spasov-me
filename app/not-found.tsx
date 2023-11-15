@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 import messages from "@/messages/en.json";
-import SiteLogo from "@/components/logo/SiteLogo";
+import SiteLogo from "@/components/layouts/logo/SiteLogo";
 import { Route } from "@/routes";
 
 export default async function NotFound() {

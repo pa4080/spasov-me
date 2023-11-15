@@ -18,10 +18,9 @@ import {
 
 interface Props {
 	classNameBtn?: string;
-	strokeWidth?: number;
 }
 
-const ThemeSwitch: React.FC<Props> = ({ classNameBtn, strokeWidth }) => {
+const ThemeSwitch: React.FC<Props> = ({ classNameBtn }) => {
 	const [mounted, setMounted] = useState(false);
 	const { theme, setTheme } = useTheme();
 
@@ -52,21 +51,18 @@ const ThemeSwitch: React.FC<Props> = ({ classNameBtn, strokeWidth }) => {
 							"h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200",
 							theme && theme === "light" ? "block" : "hidden"
 						)}
-						strokeWidth={strokeWidth}
 					/>
 					<Moon
 						className={cn(
 							"h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200",
 							theme && theme === "dark" ? "block" : "hidden"
 						)}
-						strokeWidth={strokeWidth}
 					/>
 					<SunMoon
 						className={cn(
 							"h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200",
 							theme && theme === "system" ? "block" : "hidden"
 						)}
-						strokeWidth={strokeWidth}
 					/>
 				</Button>
 			</DropdownMenuTrigger>

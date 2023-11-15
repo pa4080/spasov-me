@@ -8,7 +8,7 @@ export const Route = {
 	},
 	private: {
 		FILES: "/admin/files",
-		PAGES: "/admin/files",
+		PAGES: "/admin/pages",
 		THEME: "/admin/theme",
 	},
 	api: {
