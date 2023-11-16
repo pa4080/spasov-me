@@ -42,8 +42,13 @@ const SiteLogo: React.FC<Props> = ({
 							"text-[6cqw] 3xs:text-[6cqw] xa:text-[3.5cqw] tracking-widest"
 						)}
 					>
-						{greeting_ln1 && <span>{greeting_ln1}</span>}
-						{greeting_ln2 && <span className="hidden xa:inline-block"> {greeting_ln2}</span>}
+						{greeting_ln1 && <span dangerouslySetInnerHTML={{ __html: greeting_ln1 }} />}
+						{greeting_ln2 && (
+							<span
+								dangerouslySetInnerHTML={{ __html: greeting_ln2 }}
+								className="hidden xa:inline-block"
+							/>
+						)}
 					</div>
 				)}
 				<div className={displayText ? "emphasize_drop_shadow" : ""}>

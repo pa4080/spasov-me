@@ -4,17 +4,17 @@ import React, { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun, SunMoon } from "lucide-react";
 
-import messages from "@/messages/en.json";
-
 import { cn } from "@/lib/cn-utils";
 
-import { Button } from "../ui/button";
+import { msgs } from "@/messages";
+
+import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 interface Props {
 	classNameBtn?: string;
@@ -34,16 +34,18 @@ const ThemeSwitch: React.FC<Props> = ({ classNameBtn, strokeWidth }) => {
 		return null;
 	}
 
+	const t = msgs("Theme");
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Button
-					aria-label={messages.Theme.themeSelector}
+					aria-label={t("themeSelector")}
 					className={cn(
 						"hover:text-backgrounds relative group transition-colors duration-200",
 						classNameBtn
 					)}
-					name={messages.Theme.themeSelector}
+					name={t("themeSelector")}
 					size="icon"
 					variant="outline"
 				>
@@ -51,6 +53,13 @@ const ThemeSwitch: React.FC<Props> = ({ classNameBtn, strokeWidth }) => {
 						className={cn(
 							"h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200",
 							theme && theme === "light" ? "block" : "hidden"
+						)}
+						strokeWidth={strokeWidth}
+					/>
+					<Sun
+						className={cn(
+							"h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200",
+							theme && theme === "light-brown" ? "block" : "hidden"
 						)}
 						strokeWidth={strokeWidth}
 					/>
@@ -71,13 +80,10 @@ const ThemeSwitch: React.FC<Props> = ({ classNameBtn, strokeWidth }) => {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end" className="p-4">
-				<DropdownMenuItem onClick={() => setTheme("light")}>
-					{messages.Theme.light}
-				</DropdownMenuItem>
-				<DropdownMenuItem onClick={() => setTheme("dark")}>{messages.Theme.dark}</DropdownMenuItem>
-				<DropdownMenuItem onClick={() => setTheme("system")}>
-					{messages.Theme.system}
-				</DropdownMenuItem>
+				<DropdownMenuItem onClick={() => setTheme("light")}>{t("light")}</DropdownMenuItem>
+				<DropdownMenuItem onClick={() => setTheme("light-brown")}>{t("ltBrown")}</DropdownMenuItem>
+				<DropdownMenuItem onClick={() => setTheme("dark")}>{t("dark")}</DropdownMenuItem>
+				<DropdownMenuItem onClick={() => setTheme("system")}>{t("system")}</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

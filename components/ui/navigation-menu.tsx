@@ -7,7 +7,7 @@ import Link from "next/link";
 
 import { cn } from "@/lib/cn-utils";
 
-type ViewportPosition = "left-0" | "left-4" | "right-4";
+type ViewportPosition = "left-0" | "left-4" | "right-4" | "right-0" | "-right-4";
 
 const NavigationMenu = React.forwardRef<
 	React.ElementRef<typeof NavigationMenuPrimitive.Root>,
@@ -67,7 +67,7 @@ const NavigationMenuTrigger = React.forwardRef<
 		{chevronLeft && (
 			<ChevronDown
 				aria-hidden="true"
-				className="relative top-[1px] mr-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180 text-mlt-blue-dark"
+				className="relative top-[1px] mr-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180"
 				strokeWidth={4}
 			/>
 		)}
@@ -75,7 +75,7 @@ const NavigationMenuTrigger = React.forwardRef<
 		{!chevronLeft && (
 			<ChevronDown
 				aria-hidden="true"
-				className="relative top-[1px] ml-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180 text-mlt-blue-dark"
+				className="relative top-[1px] ml-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180"
 				strokeWidth={4}
 			/>
 		)}

@@ -8,13 +8,13 @@ import messages from "@/messages/en.json";
 
 import { cn } from "@/lib/cn-utils";
 
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 interface Props {
 	classNameBtn?: string;

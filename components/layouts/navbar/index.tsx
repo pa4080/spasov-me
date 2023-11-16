@@ -2,7 +2,7 @@ import React from "react";
 
 import { Route } from "@/routes";
 
-import ThemeSwitch from "@/components/theme/ThemeSwitch";
+import ThemeSwitch from "@/components/layouts/theme/ThemeSwitch";
 
 import styles from "./_navbar.module.scss";
 import PublicMenu_Row from "./PublicMenu_Row";

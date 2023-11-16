@@ -9,11 +9,11 @@ export default async function NotFound() {
 	const { errorLong } = messages.NotFound;
 
 	return (
-		<div className="h-content flex justify-center items-center flex-col gap-6">
+		<div className="h-content flex justify-start items-center flex-col">
 			<Link
 				passHref
 				as={Route.public.HOME}
-				className="w-full"
+				className="w-full margin_vh_top block"
 				href={"/" + messages.NavBar.HOME.toLocaleLowerCase()}
 				style={{}}
 			>
@@ -23,10 +23,6 @@ export default async function NotFound() {
 					greeting_ln2="&nbsp;... back to home"
 				/>
 			</Link>
-			{/* <h1 className="text-foreground text-center flex flex-col items-center gap-6">
-				<span className="text-5xl font-unicephalon">{error}</span>
-				<span className="text-base xs:text-lg sm:text-xl">{errorDesc}</span>
-			</h1> */}
 		</div>
 	);
 }

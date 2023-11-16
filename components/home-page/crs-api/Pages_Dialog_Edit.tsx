@@ -1,9 +1,9 @@
 "use client";
 
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { useTranslations } from "next-intl";
 
-import { useAppContext } from "@/contexts/AppContext";
+import { msgs } from "@/messages";
+
 import { toast } from "@/components/ui/use-toast";
 import {
 	Dialog,
@@ -18,17 +18,24 @@ import { preparePageObjectToFetch } from "@/interfaces/Page";
 
 import Pages_Form, { Pages_FormSchema } from "./Pages_Form";
 
-interface Props {
-	className?: string;
+import { PagesActions } from ".";
+
+interface Props extends PagesActions {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
 	pageData?: Pages_FormSchema;
 	pageId?: string;
 }
 
-const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageId }) => {
-	const t = useTranslations("PagesFeed.Dialog");
-	const { session, setPages } = useAppContext();
+const Pages_Dialog_Edit: React.FC<Props> = ({
+	isOpen,
+	setIsOpen,
+	pageData,
+	pageId,
+	setPages,
+	session,
+}) => {
+	const t = msgs("PagesFeed");
 
 	const [submitting, setSubmitting] = useState(false);
 
@@ -57,14 +64,14 @@ const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageI
 				});
 
 				toast({
-					title: t("toast_response_title", { status: response.status }),
+					title: t("dialog_toast_response_title", { status: response.status }),
 					description: <pre className="toast_pre_info">{JSON.stringify(newPage, null, 2)}</pre>,
 				});
 			} else {
 				const errors = (await response.json()).errors;
 
 				toast({
-					title: t("toast_response_title", { status: response.status }),
+					title: t("dialog_toast_response_title", { status: response.status }),
 					description: <pre className="toast_pre_info">{JSON.stringify(errors, null, 2)}</pre>,
 					variant: "destructive",
 				});
@@ -78,7 +85,7 @@ const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageI
 
 	const handleEditPage = (data: Pages_FormSchema) => {
 		toast({
-			title: t("toast_submit_title"),
+			title: t("dialog_toast_submit_title"),
 			description: <pre className="toast_pre_info">{JSON.stringify(data, null, 2)}</pre>,
 		}) && setIsOpen(false);
 
@@ -94,8 +101,8 @@ const Pages_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, pageData, pageI
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogContent>
 					<DialogHeader>
-						<DialogTitle>{t("title_edit", { title: pageData.title })}</DialogTitle>
-						<DialogDescription>{t("description")}</DialogDescription>
+						<DialogTitle>{t("dialog_title_edit", { title: pageData.title })}</DialogTitle>
+						<DialogDescription>{t("dialog_description")}</DialogDescription>
 					</DialogHeader>
 
 					<Pages_Form

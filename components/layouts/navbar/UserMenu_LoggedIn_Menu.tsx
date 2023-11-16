@@ -22,7 +22,7 @@ interface Props {
 }
 
 const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => (
-	<NavigationMenu className={cn(styles.loggedInMenu, className)} viewportPosition="right-4">
+	<NavigationMenu className={cn(styles.loggedInMenu, className)} viewportPosition="-right-4">
 		<NavigationMenuList>
 			<NavigationMenuItem>
 				<NavigationMenuTrigger

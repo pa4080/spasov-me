@@ -33,7 +33,7 @@ const ButtonIcon: React.FC<Props> = ({
 		<div
 			className={cn(
 				"flex items-center justify-center cursor-pointer",
-				"rounded-sm hover:bg-mlt-gray-2/10 bg-mlt-gray-2/5 grayscale hover:grayscale-0 hover:brightness-110 active:brightness-75 transition-colors duration-300",
+				"rounded-sm hover:bg-accent-secondary/40 bg-accent-secondary/20 grayscale hover:grayscale-0 hover:brightness-110 active:brightness-75 transition-colors duration-300",
 				className
 			)}
 			style={{

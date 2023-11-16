@@ -45,11 +45,26 @@
 		--input: var(--secondary);
 
 		--radius: 0.5rem;
-		--scrollbar-width: 1rem;
+		--scrollbar-width: 0.83rem;
 
 		--navbar-height: 3.875rem;
 		--footer-height: 3.625rem;
 		--content-height: calc((var(--vh, 1vh) * 99.5) - var(--navbar-height) - var(--footer-height));
+	}
+
+	.light-brown {
+		--foreground: 34 30% 33%;
+		--foreground-secondary: 34 30% 39%;
+		--foreground-tertiary: 34 30% 42%;
+		--foreground-quaternary: 34 30% 45%;
+
+		--background: 34 30% 95%;
+		--primary: 34 30% 89%;
+		--secondary: 34 30% 82%;
+
+		--muted: 34 30% 80%;
+		--muted-secondary: 34 30% 77%;
+		--muted-foreground: 34 30% 40%;
 	}
 
 	.dark {
@@ -81,7 +96,7 @@
 
 		--muted: 0 0% 14%;
 		--muted-secondary: 0 0% 8%;
-		--muted-foreground: 0 0% 32%;
+		--muted-foreground: 0 0% 50%;
 
 		--destructive: 0 62.8% 30.6%;
 		--destructive-foreground: 210 20% 98%;
@@ -255,4 +270,31 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 
 .margin_vh_bottom {
 	margin-bottom: vh(7);
+}
+
+/* Switch IconEmbedSvg colors */
+
+.icon_accent_secondary .icon-embed-svg-override-path-1 {
+	fill: theme("colors.secondary.DEFAULT");
+}
+
+.icon_accent_secondary .icon-embed-svg-override-path-2 {
+	fill: theme("colors.ring.secondary");
+}
+
+.dark .icon_accent_secondary .icon-embed-svg-override-path-1 {
+	fill: theme("colors.foreground.quaternary");
+}
+
+/* @/components/ui */
+.toast_pre_info {
+	@apply mt-2 rounded-md bg-secondary p-4 max-w-full whitespace-pre-wrap break-words;
+}
+
+.btn_close_x {
+	@apply h-8 w-8 text-accent saturate-200 brightness-110 emphasize_drop_shadow
+		right-4 top-4 rounded-sm hover:opacity-100 transition-opacity
+		ring-offset-background focus-visible:ring-offset-background
+		focus:outline-none focus:ring-1 focus:ring-ring focus:bg-ring/30
+		hover:bg-ring/30 focus:ring-offset-4 disabled:pointer-events-none data-[state=open]:bg-secondary data-[state=open]:text-muted-foreground;
 }

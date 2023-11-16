@@ -15,14 +15,14 @@ function msgs<T extends Namespace>(ns: T) {
 
 	type Messages = keyof typeof msg;
 
-	return function <T extends Messages>(key: T, replace?: Record<string, string>) {
+	return function <T extends Messages>(key: T, replace?: Record<string, string | number>) {
 		let keyAsString = msg[key as T] as string;
 
 		if (replace) {
 			Object.keys(replace).forEach((k) => {
 				const regex = new RegExp(`{\\s*${k}\\s*}`, "g");
 
-				keyAsString = keyAsString.replace(regex, replace[k]);
+				keyAsString = keyAsString.replace(regex, String(replace[k]));
 			});
 
 			return keyAsString;

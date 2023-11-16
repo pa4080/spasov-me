@@ -7,6 +7,8 @@ interface Props {
 	children: React.ReactNode;
 }
 
+const themes = ["light", "dark", "system", "light-brown"];
+
 const ThemesProvider: React.FC<Props> = ({ children }) => {
 	const [mounted, setMounted] = useState(false);
 
@@ -23,7 +25,7 @@ const ThemesProvider: React.FC<Props> = ({ children }) => {
 			disableTransitionOnChange
 			attribute="class"
 			defaultTheme="dark"
-			themes={["light", "dark", "system"]}
+			themes={themes}
 			// forcedTheme="dark"
 		>
 			{children}

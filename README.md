@@ -11,6 +11,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [ ] Copy the contact page from Animated-portfolio
 - [ ] Add the project as GitHub repo and deploy to Vercel
 - [ ] Manage the menu items via the pages feed...
+- [ ] Yhe footer icons active SVG icons
 
 ## References
 

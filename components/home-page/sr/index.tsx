@@ -4,25 +4,14 @@ import React from "react";
 
 import Link from "next/link";
 
-import { PageObject } from "@/interfaces/Page";
 import { cn } from "@/lib/cn-utils";
 
-import Page from "@/models/page";
-import { connectToMongoDb } from "@/lib/mongodb-mongoose";
-
-import styles from "./_home-page.module.scss";
+import styles from "../_home-page.module.scss";
+import { getPages } from "../_home-page.functions";
 
 interface Props {
 	className?: string;
 }
-
-export const getPages = async (): Promise<PageObject[]> => {
-	"use server";
-	await connectToMongoDb();
-	const response: PageObject[] = await Page.find().populate(["creator", "image"]);
-
-	return response;
-};
 
 const FeedPages: React.FC<Props> = async ({ className }) => {
 	const pages = await getPages();

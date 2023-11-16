@@ -13,15 +13,15 @@
 			@apply flex;
 		}
 
-		:global .icon-embed-svg-override-path-1 {
-			fill: theme("colors.secondary.DEFAULT");
-		}
-
-		:global .icon-embed-svg-override-path-2 {
-			fill: theme("colors.ring.secondary");
-		}
-
 		.loggedInMenu {
+			:global .icon-embed-svg-override-path-1 {
+				fill: theme("colors.secondary.DEFAULT");
+			}
+
+			:global .icon-embed-svg-override-path-2 {
+				fill: theme("colors.ring.secondary");
+			}
+
 			:global(.dark) & {
 				:global .icon-embed-svg-override-path-1 {
 					fill: theme("colors.foreground.quaternary");
@@ -43,10 +43,10 @@
 	}
 
 	.publicMenu {
-		@apply items-center justify-center gap-4 pb-1; //  "flex" this class is triggered via JSX;
+		@apply items-center justify-center gap-4 pb-0; //  "flex" this class is triggered via JSX;
 
 		.navItemCommon {
-			@apply h-full transition-colors duration-100 hover:text-ring active:text-ring-secondary hover:transition-colors hover:duration-200 tracking-widest font-unicephalon;
+			@apply h-full transition-colors duration-100 hover:text-ring active:text-ring-secondary hover:transition-colors hover:duration-200 font-unicephalon tracking-wide sa:tracking-widest;
 		}
 
 		.navItemRow {

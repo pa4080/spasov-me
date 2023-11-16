@@ -23,13 +23,16 @@ import { PageObject, preparePageObjectToFetch } from "@/interfaces/Page";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 
 import Pages_Form, { Pages_FormSchema } from "./Pages_Form";
+import { AddPageReturnType } from "../_home-page.functions";
 
 interface Props {
 	className?: string;
+	addPage: (data: Pages_FormSchema) => Promise<AddPageReturnType>;
 }
 
-const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
+const Pages_Dialog_Add: React.FC<Props> = ({ className, addPage }) => {
 	const { session, setPages } = useAppContext();
+	const t = msgs("PagesFeed");
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
@@ -38,32 +41,36 @@ const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await fetch(Route.api.PAGES, {
-				method: "POST",
-				body: preparePageObjectToFetch({
-					data,
-					user_id: session?.user.id,
-				}),
-			});
+			const response = await addPage(data);
 
-			if (response.ok) {
-				const newPage: PageObject = (await response.json()).data;
+			// eslint-disable-next-line no-console
+			console.log(response);
+			// const response = await fetch(Route.api.PAGES, {
+			// 	method: "POST",
+			// 	body: preparePageObjectToFetch({
+			// 		data,
+			// 		user_id: session?.user.id,
+			// 	}),
+			// });
 
-				setPages((prevPages) => [...prevPages, newPage]);
+			// if (response.created) {
+			// 	const newPage: PageObject = (await response.json()).data;
 
-				toast({
-					title: t("toast_response_title", { status: response.status }),
-					description: <pre className="toast_pre_info">{JSON.stringify(newPage, null, 2)}</pre>,
-				});
-			} else {
-				const errors = (await response.json()).errors;
+			// 	setPages((prevPages) => [...prevPages, newPage]);
 
-				toast({
-					title: t("toast_response_title", { status: response.status }),
-					description: <pre className="toast_pre_info">{JSON.stringify(errors, null, 2)}</pre>,
-					variant: "destructive",
-				});
-			}
+			// 	toast({
+			// 		title: t("dialog_toast_response_title", { status: response.status }),
+			// 		description: <pre className="toast_pre_info">{JSON.stringify(newPage, null, 2)}</pre>,
+			// 	});
+			// } else {
+			// 	const errors = (await response.json()).errors;
+
+			// 	toast({
+			// 		title: t("dialog_toast_response_title", { status: response.status }),
+			// 		description: <pre className="toast_pre_info">{JSON.stringify(errors, null, 2)}</pre>,
+			// 		variant: "destructive",
+			// 	});
+			// }
 		} catch (error) {
 			console.error(error);
 		} finally {
@@ -73,7 +80,7 @@ const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
 
 	const handleAddPage = (data: Pages_FormSchema) => {
 		toast({
-			title: t("toast_submit_title"),
+			title: t("dialog_toast_submit_title"),
 			description: <pre className="toast_pre_info">{JSON.stringify(data, null, 2)}</pre>,
 		}) && setIsOpen(false);
 
@@ -86,7 +93,7 @@ const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
 				<Dialog open={isOpen} onOpenChange={setIsOpen}>
 					<DialogTrigger disabled={submitting}>
 						<ButtonIcon
-							className="pl-3 pr-[0.7rem] rounded-lg absolute -top-14 sm580:right-0"
+							className="pl-3 pr-[0.7rem] rounded-lg absolute -top-14 xa:right-0"
 							height={26}
 							submitting={submitting}
 							width={42}
@@ -96,8 +103,8 @@ const Pages_Dialog_Add: React.FC<Props> = ({ className }) => {
 					</DialogTrigger>
 					<DialogContent>
 						<DialogHeader>
-							<DialogTitle>{t("title_add")}</DialogTitle>
-							<DialogDescription>{t("description")}</DialogDescription>
+							<DialogTitle>{t("dialog_title_add")}</DialogTitle>
+							<DialogDescription>{t("dialog_description")}</DialogDescription>
 						</DialogHeader>
 
 						<Pages_Form

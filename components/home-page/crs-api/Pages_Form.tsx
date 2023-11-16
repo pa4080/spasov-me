@@ -1,14 +1,13 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useTranslations } from "next-intl";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+
 import {
 	Form,
 	FormControl,
@@ -18,7 +17,10 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+import { msgs } from "@/messages";
+import { cn } from "@/lib/cn-utils";
 
 // https://github.com/colinhacks/zod#nullable
 // Here is applied a tricky solution to translate the messages,
@@ -81,16 +83,22 @@ const Pages_Form: React.FC<Props> = ({
 	isContainerDialogOpen = true,
 	formData,
 }) => {
-	const t = useTranslations("PagesFeed.Form");
+	const t = msgs("PagesFeed");
 	const FormSchema = Pages_FormSchemaGenerator([
-		t("schema.title"),
-		t("schema.description"),
-		t("schema.uri"),
-		t("schema.image"),
+		t("formSchema_title"),
+		t("formSchema_description"),
+		t("formSchema_uri"),
+		t("formSchema_image"),
 	]);
 
 	const form = useForm<Pages_FormSchema>({
 		resolver: zodResolver(FormSchema),
+		defaultValues: {
+			title: "",
+			description: "",
+			uri: "",
+			image: "",
+		},
 	});
 
 	useEffect(() => {
@@ -114,11 +122,11 @@ const Pages_Form: React.FC<Props> = ({
 					name="title"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>{t("pageTitle")}</FormLabel>
+							<FormLabel>{t("form_pageTitle")}</FormLabel>
 							<FormControl>
-								<Input placeholder={t("pageTitlePlaceholder")} {...field} />
+								<Input placeholder={t("form_pageTitlePlaceholder")} {...field} />
 							</FormControl>
-							<FormDescription>{t("pageTitleDescription")}</FormDescription>
+							<FormDescription>{t("form_pageTitleDescription")}</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -129,11 +137,11 @@ const Pages_Form: React.FC<Props> = ({
 					name="description"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>{t("pageDescription")}</FormLabel>
+							<FormLabel>{t("form_pageDescription")}</FormLabel>
 							<FormControl>
-								<Input placeholder={t("pageDescriptionPlaceholder")} {...field} />
+								<Input placeholder={t("form_pageDescriptionPlaceholder")} {...field} />
 							</FormControl>
-							<FormDescription>{t("pageDescriptionDescription")}</FormDescription>
+							<FormDescription>{t("form_pageDescriptionDescription")}</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -144,11 +152,11 @@ const Pages_Form: React.FC<Props> = ({
 					name="uri"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>{t("pageSlug")}</FormLabel>
+							<FormLabel>{t("form_pageSlug")}</FormLabel>
 							<FormControl>
-								<Input placeholder={t("pageSlugPlaceholder")} {...field} />
+								<Input placeholder={t("form_pageSlugPlaceholder")} {...field} />
 							</FormControl>
-							<FormDescription>{t("pageSlugDescription")}</FormDescription>
+							<FormDescription>{t("form_pageSlugDescription")}</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -159,17 +167,19 @@ const Pages_Form: React.FC<Props> = ({
 					name="image"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>{t("pageImage")}</FormLabel>
+							<FormLabel>{t("form_pageImage")}</FormLabel>
 							<FormControl>
 								<Input {...field} accept="image/*" type="file" />
 							</FormControl>
-							<FormDescription>{t("pageImageDescription")}</FormDescription>
+							<FormDescription>{t("form_pageImageDescription")}</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
 
-				<Button type="submit">{submitting ? t("btn_submitting") : t("btn_submit")}</Button>
+				<Button type="submit">
+					{submitting ? t("form_btn_submitting") : t("form_btn_submit")}
+				</Button>
 			</form>
 		</Form>
 	);

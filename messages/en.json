@@ -4,8 +4,12 @@
 		"errorDesc": "| This page could not be found",
 		"errorLong": "404 | Not Found"
 	},
+	"Errors": {
+		"invalidUser": "Invalid user"
+	},
 	"Theme": {
 		"light": "Light",
+		"ltBrown": "Light Brown",
 		"dark": "Dark",
 		"system": "System",
 		"themeSelector": "Theme selector"
@@ -40,7 +44,7 @@
 	},
 	"Home": {
 		"greeting_ln1": "Welcome to",
-		"greeting_ln2": " my site"
+		"greeting_ln2": "&nbsp;my site"
 	},
 	"PagesFeed": {
 		"dialog_title_add": "Add a new page",
