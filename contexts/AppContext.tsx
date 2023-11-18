@@ -1,30 +1,31 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+	Dispatch,
+	SetStateAction,
+	createContext,
+	useContext,
+	useEffect,
+	useState,
+} from "react";
 
-import { useSession, getProviders, LiteralUnion, ClientSafeProvider } from "next-auth/react";
+import { getProviders, useSession } from "next-auth/react";
 import { Session } from "next-auth";
 
-import { BuiltInProviderType } from "next-auth/providers/index";
+import { AuthProviders } from "@/types/next-auth-providers";
 
-import { UserObject } from "@/interfaces/User";
 import { PageObject } from "@/interfaces/Page";
 import { FileObject } from "@/interfaces/File";
 
-export type AuthProviders = Record<
-	LiteralUnion<BuiltInProviderType, string>,
-	ClientSafeProvider
-> | null;
+import loadDataFromApiRoute from "@/lib/load-data-fom-api-route";
 
 interface AppContextProps {
-	users: UserObject[];
-	setUsers: React.Dispatch<React.SetStateAction<UserObject[]>>;
 	session: Session | null;
-	authProviders: AuthProviders;
 	pages: PageObject[];
-	setPages: React.Dispatch<React.SetStateAction<PageObject[]>>;
+	setPages: Dispatch<SetStateAction<PageObject[]>>;
 	files: FileObject[];
-	setFiles: React.Dispatch<React.SetStateAction<FileObject[]>>;
+	setFiles: Dispatch<SetStateAction<FileObject[]>>;
+	authProviders: AuthProviders;
 }
 
 const AppContext = createContext<AppContextProps>({} as AppContextProps);
@@ -34,30 +35,42 @@ interface AppContextProviderProps {
 }
 
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
-	const [authProviders, setAuthProviders] = useState<AuthProviders>(null);
-	const [users, setUsers] = useState<UserObject[]>([]);
 	const [pages, setPages] = useState<PageObject[]>([]);
 	const [files, setFiles] = useState<FileObject[]>([]);
+	const [authProviders, setAuthProviders] = useState<AuthProviders>(null);
 
 	const { data: session } = useSession();
 
 	useEffect(() => {
-		(async () => {
-			setAuthProviders(await getProviders());
-		})();
+		if (!authProviders) {
+			(async () => {
+				setAuthProviders(await getProviders());
+			})();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	useEffect(() => {
+		if (!session) {
+			setPages([]);
+			setFiles([]);
+
+			return;
+		}
+
+		loadDataFromApiRoute("PAGES", setPages);
+		loadDataFromApiRoute("FILES", setFiles);
+	}, [session]);
 
 	return (
 		<AppContext.Provider
 			value={{
 				pages,
 				setPages,
-				users,
-				setUsers,
-				authProviders,
 				session,
 				files,
 				setFiles,
+				authProviders,
 			}}
 		>
 			{children}

@@ -2,7 +2,7 @@ import React from "react";
 import { signIn } from "next-auth/react";
 
 import { cn } from "@/lib/cn-utils";
-import { AuthProviders } from "@/contexts/AppContext";
+import { AuthProviders } from "@/types/next-auth-providers";
 import messages from "@/messages/en.json";
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 

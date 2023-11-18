@@ -8,7 +8,6 @@ import { Toaster } from "@/components/ui/toaster";
 
 import { unicephalon, inter } from "@/app/fonts";
 import manifest from "@/public/manifest.json";
-// import messages from "@/messages/en.json";
 
 import "./globals.scss";
 

@@ -21,19 +21,21 @@
 		"CONTACT": "Contact",
 		"HOME": "Home",
 
+		"FILES": "Files",
+		"FILES_DESC": "Upload, browse and manage files",
+		"THEME": "Theme",
+		"THEME_DESC": "Preview the theme colors and typography",
+		"PAGES": "Pages",
+		"PAGES_DESC": "Edit the Home page cards",
+		"PAGES_API": "Pages API",
+		"PAGES_API_DESC": "Edit the Home page cards via API",
+
 		"signUp": "Sign Up",
 		"signIn": "Sign In",
 		"signOut": "Sign Out",
 		"signOutDescription": "Exit the edit mode",
 		"signInWith": "Sign In with { provider }",
 		"loggedInUserMenu": "Logged in as user menu",
-
-		"files": "Files",
-		"filesDescription": "Upload, browse and manage files",
-		"theme": "Theme",
-		"themeDescription": "Preview the theme colors and typography",
-		"pagesEdit": "Pages",
-		"pagesEditDescription": "Edit the Home page cards",
 
 		"altUserProfile": "User Profile",
 		"altMenuButton": "Menu Button"
@@ -68,8 +70,13 @@
 		"form_pageSlug": "Page slug",
 		"form_pageSlugPlaceholder": "page-slug",
 		"form_pageSlugDescription": "This will be used in the URL. Don't use spaces or special characters.",
+
 		"form_pageImage": "Page image",
-		"form_pageImageDescription": "Upload an image for the page.",
+		"form_pageImageDescription": "Choice an image. It must exist on the system.",
+		"form_pageImage_search": "Search for an image...",
+		"form_pageImage_searchNotFound": "The image could not be found.",
+		"form_pageImage_select": "Select an image...",
+
 		"form_btn_submit": "Submit",
 		"form_btn_submitting": "Submitting...",
 		"formSchema_title": "The page title must be at least 2 characters.",

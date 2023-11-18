@@ -1,13 +1,11 @@
-"use server";
-
 import React from "react";
 
 import Link from "next/link";
 
 import { cn } from "@/lib/cn-utils";
 
-import styles from "../_home-page.module.scss";
-import { getPages } from "../_home-page.functions";
+import styles from "../_pages.module.scss";
+import { getPages } from "../_pages.actions";
 
 interface Props {
 	className?: string;

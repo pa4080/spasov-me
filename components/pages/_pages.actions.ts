@@ -1,16 +1,16 @@
+"use server";
+
 import { getServerSession } from "next-auth";
 
 import { revalidatePath } from "next/cache";
 
-import { PageObject, preparePageObjectToFetch } from "@/interfaces/Page";
 import { authOptions } from "@/lib/auth-options";
+import { NewPageObject, PageObject } from "@/interfaces/Page";
+import { UserObject } from "@/interfaces/User";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import Page from "@/models/page";
 import { Route } from "@/routes";
-
 import { msgs } from "@/messages";
-
-import { Pages_FormSchema } from "./csr/Pages_Form";
 
 function _id(id?: string) {
 	return id ? { _id: id } : {};
@@ -44,45 +44,41 @@ export interface AddPageReturnType {
 	error?: string;
 }
 
-export const addPage = async (data: Pages_FormSchema): Promise<AddPageReturnType> => {
+export const addPage = async (data: FormData): Promise<PageObject> => {
 	"use server";
-
-	// eslint-disable-next-line no-console
-	console.log(data);
 
 	const session = await getSession();
 
-	if (!session) {
+	if (!session?.user) {
 		console.error(msgs("Errors")("invalidUser"));
 
-		return {
-			created: false,
-			error: msgs("Errors")("invalidUser"),
-		};
+		return {} as PageObject;
 	}
-
-	// eslint-disable-next-line no-console
-	console.log(session);
 
 	await connectToMongoDb();
 
-	const pageDataToFetch = preparePageObjectToFetch({
-		data,
-		user_id: (await getSession())?.user.id,
-	});
+	const newPageData: NewPageObject = {
+		title: data.get("title") as string,
+		description: data.get("description") as string,
+		uri: data.get("uri") as string,
+		creator: session?.user.id,
+	};
 
-	// // eslint-disable-next-line no-console
-	// console.log(pageDataToFetch);
+	const newPage_document = new Page(newPageData);
 
-	const dbObject = new Page(pageDataToFetch);
+	await newPage_document.save();
+	await newPage_document.populate(["creator", "image"]);
 
-	// await dbObject.save();
-	// await dbObject.populate(["creator", "image"]);
+	revalidatePath(Route.admin.PAGES);
 
-	// revalidatePath(Route.private.PAGES);
-
-	// return {
-	// 	created: true,
-	// 	data: dbObject,
-	// };
+	return {
+		title: newPage_document.title,
+		description: newPage_document.description,
+		uri: newPage_document.uri,
+		_id: newPage_document._id.toString(),
+		creator: {
+			name: newPage_document.creator.name,
+			email: newPage_document.creator.email,
+		} as UserObject,
+	};
 };

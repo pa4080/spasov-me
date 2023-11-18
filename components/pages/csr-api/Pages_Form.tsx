@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+
+import { Check, ChevronsUpDown } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 
@@ -18,9 +20,20 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 
+import {
+	Command,
+	CommandEmpty,
+	CommandGroup,
+	CommandInput,
+	CommandItem,
+} from "@/components/ui/command";
+
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+
 import { Button } from "@/components/ui/button";
 import { msgs } from "@/messages";
 import { cn } from "@/lib/cn-utils";
+import { useAppContext } from "@/contexts/AppContext";
 
 // https://github.com/colinhacks/zod#nullable
 // Here is applied a tricky solution to translate the messages,
@@ -41,32 +54,16 @@ export const Pages_FormSchemaGenerator = (messages?: string[]) =>
 			.toLowerCase()
 			.regex(/^[a-z][a-z0-9-]+$/)
 			.trim(),
-		image: z // https://stackoverflow.com/a/74028632/6543935
-			.union([
-				z.string().regex(/\.(png|jpg|jpeg|svg|webp)$/, {
-					message: messages?.shift(),
-				}),
-				z.string().length(0),
-			])
-			.optional()
-			.transform((e) => (e === "" ? undefined : e)),
-		/**
-		 * Optional file with check
-		 * @see https://stackoverflow.com/a/74028632/6543935
-		 *
-		 * image: z.union([
-		 * 			z.string().regex(/\.(png|jpg|jpeg|svg|webp)$/, {
-		 * 				message: messages?.shift(),
-		 * 			}),
-		 * 			z.string().length(0),
-		 * 		])
-		 * 		.optional()
-		 * 		.transform((e) => (e === "" ? undefined : e)),
-		 */
+		imageFile: z.string().optional(),
 	});
 
 export const Pages_FormSchema = Pages_FormSchemaGenerator();
 export type Pages_FormSchema = z.infer<typeof Pages_FormSchema>;
+
+interface ImageFile {
+	id: string;
+	name: string;
+}
 
 interface Props {
 	className?: string;
@@ -84,6 +81,9 @@ const Pages_Form: React.FC<Props> = ({
 	formData,
 }) => {
 	const t = msgs("PagesFeed");
+	const { files } = useAppContext();
+	const [imageFiles, setImageFiles] = useState<ImageFile[]>([]);
+
 	const FormSchema = Pages_FormSchemaGenerator([
 		t("formSchema_title"),
 		t("formSchema_description"),
@@ -97,7 +97,7 @@ const Pages_Form: React.FC<Props> = ({
 			title: "",
 			description: "",
 			uri: "",
-			image: "",
+			imageFile: "",
 		},
 	});
 
@@ -107,16 +107,23 @@ const Pages_Form: React.FC<Props> = ({
 		}
 	}, [form, formData]);
 
-	// Clear the image field if the dialog is closed,
-	// Otherwise on the next open "it" will attempt to set
-	// the image field programmatically, which is not allowed by the browser.
 	useEffect(() => {
-		!isContainerDialogOpen && form.getValues("image") && form.setValue("image", undefined);
-	}, [form, isContainerDialogOpen]);
+		if (files.length > 0) {
+			setImageFiles(
+				files
+					.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp)$/))
+					.map((file) => ({
+						id: file._id.toString(),
+						name: file.filename,
+					}))
+			);
+		}
+	}, [files]);
 
 	return (
 		<Form {...form}>
 			<form className={cn("w-full space-y-6", className)} onSubmit={form.handleSubmit(onSubmit)}>
+				{/* Title */}
 				<FormField
 					control={form.control}
 					name="title"
@@ -132,6 +139,7 @@ const Pages_Form: React.FC<Props> = ({
 					)}
 				/>
 
+				{/* Description */}
 				<FormField
 					control={form.control}
 					name="description"
@@ -147,6 +155,7 @@ const Pages_Form: React.FC<Props> = ({
 					)}
 				/>
 
+				{/* URI (slug) */}
 				<FormField
 					control={form.control}
 					name="uri"
@@ -162,15 +171,59 @@ const Pages_Form: React.FC<Props> = ({
 					)}
 				/>
 
+				{/* Image */}
 				<FormField
 					control={form.control}
-					name="image"
+					name="imageFile"
 					render={({ field }) => (
-						<FormItem>
+						<FormItem className="flex flex-col">
 							<FormLabel>{t("form_pageImage")}</FormLabel>
-							<FormControl>
-								<Input {...field} accept="image/*" type="file" />
-							</FormControl>
+							<Popover>
+								<PopoverTrigger asChild>
+									<FormControl>
+										<Button
+											className={cn(
+												"w-full justify-between bg-primary text-sm",
+												!field.value && "text-muted-foreground"
+											)}
+											role="combobox"
+											variant="outline"
+										>
+											<div className="line-clamp-1 text-left">
+												{field.value
+													? files.find((file) => file._id.toString() === field.value)?.filename
+													: t("form_pageImage_select")}
+											</div>
+											<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-60" />
+										</Button>
+									</FormControl>
+								</PopoverTrigger>
+								<PopoverContent className="w-full max-w-full p-0 ">
+									<Command>
+										<CommandInput placeholder={t("form_pageImage_search")} />
+										<CommandEmpty>{t("form_pageImage_searchNotFound")}</CommandEmpty>
+										<CommandGroup>
+											{imageFiles.map((imageFile) => (
+												<CommandItem
+													key={imageFile.id}
+													value={imageFile.id}
+													onSelect={() => {
+														form.setValue("imageFile", imageFile.id);
+													}}
+												>
+													<Check
+														className={cn(
+															"mr-2 h-4 w-4",
+															imageFile.id === field.value ? "opacity-100" : "opacity-0"
+														)}
+													/>
+													{imageFile.name}
+												</CommandItem>
+											))}
+										</CommandGroup>
+									</Command>
+								</PopoverContent>
+							</Popover>
 							<FormDescription>{t("form_pageImageDescription")}</FormDescription>
 							<FormMessage />
 						</FormItem>

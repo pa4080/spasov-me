@@ -1,24 +1,23 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 import { useSession } from "next-auth/react";
-
 import { Session } from "next-auth";
+
+import { useAppContext } from "@/contexts/AppContext";
 
 import { PageObject } from "@/interfaces/Page";
 import { cn } from "@/lib/cn-utils";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
-
-import { Route } from "@/routes";
 
 import Pages_Dialog_Edit from "./Pages_Dialog_Edit";
 import Pages_Dialog_Add from "./Pages_Dialog_Add";
 import Pages_Dialog_Delete from "./Pages_Dialog_Delete";
 import { Pages_FormSchema } from "./Pages_Form";
 
-import styles from "../_home-page.module.scss";
+import styles from "../_pages.module.scss";
 
 export interface PagesActions {
 	className?: string;
@@ -30,27 +29,8 @@ interface Props {
 	className?: string;
 }
 
-const Pages_Feed: React.FC<Props> = ({ className }) => {
-	const [pages, setPages] = useState<PageObject[]>([]);
-
-	useEffect(() => {
-		(async () => {
-			try {
-				const response = await fetch(Route.api.PAGES);
-
-				if (!response.ok) {
-					return null;
-				}
-
-				const data = (await response.json()).data;
-
-				setPages(data.length > 0 ? data : []);
-			} catch (error) {
-				return null;
-			}
-		})();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
+	const { pages, setPages } = useAppContext();
 
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -66,7 +46,7 @@ const Pages_Feed: React.FC<Props> = ({ className }) => {
 			title: page.title,
 			description: page.description,
 			uri: page.uri,
-			image: page.image?.filename,
+			imageFile: page.image?.filename,
 		});
 		setActionPageId(page._id);
 
@@ -80,7 +60,7 @@ const Pages_Feed: React.FC<Props> = ({ className }) => {
 			title: page.title,
 			description: page.description,
 			uri: page.uri,
-			image: page.image?.filename,
+			imageFile: page.image?.filename,
 		});
 		setActionPageId(page._id);
 
@@ -141,4 +121,4 @@ const Pages_Feed: React.FC<Props> = ({ className }) => {
 	);
 };
 
-export default Pages_Feed;
+export default PagesFeedAndEditOptions;

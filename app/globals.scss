@@ -286,9 +286,14 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 	fill: theme("colors.foreground.quaternary");
 }
 
+.light-brown .icon_accent_secondary .icon-embed-svg-override-path-1,
+.light .icon_accent_secondary .icon-embed-svg-override-path-1 {
+	fill: theme("colors.foreground.tertiary");
+}
+
 /* @/components/ui */
 .toast_pre_info {
-	@apply mt-2 rounded-md bg-secondary p-4 max-w-full whitespace-pre-wrap break-words;
+	@apply mt-2 rounded-md bg-secondary p-4 max-w-full w-full overflow-x-auto;
 }
 
 .btn_close_x {

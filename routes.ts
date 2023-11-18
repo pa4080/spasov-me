@@ -6,10 +6,11 @@ export const Route = {
 		BLOG: "/blog",
 		CONTACT: "/contact",
 	},
-	private: {
-		FILES: "/admin/files",
-		PAGES: "/admin/pages",
+	admin: {
 		THEME: "/admin/theme",
+		PAGES: "/admin/pages-ssr-attempt",
+		PAGES_API: "/admin/pages",
+		FILES: "/admin/files",
 	},
 	api: {
 		PAGES: "/api/data/pages",

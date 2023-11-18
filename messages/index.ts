@@ -9,6 +9,10 @@ type Namespace = keyof typeof messages;
  * 			The accepted object: { "replacement": "value" }
  * 			The string that will be replaced: { replacement } | {replacement}
  * @limitations The messages JSON must be two levels deep!
+ *
+ * @see https://stackoverflow.com/a/51851844/6543935
+ * 			const t = msgs("NavBar");
+ *			type tType = Parameters<typeof t>[0];
  */
 function msgs<T extends Namespace>(ns: T) {
 	const msg = messages[ns];

@@ -11,7 +11,7 @@ export type PageObject = {
 	image?: GridFSFile;
 };
 
-export type NewPageObject = Omit<PageObject, "_id" | "image">;
+export type NewPageObject = Omit<PageObject, "_id" | "image" | "creator"> & { creator: string };
 
 export type ErrorPageObject = {
 	[key in keyof PageObject]: {

@@ -2,9 +2,9 @@
 
 import React from "react";
 
-import { cn } from "@/lib/cn-utils";
-
 import { useAppContext } from "@/contexts/AppContext";
+
+import { cn } from "@/lib/cn-utils";
 
 import styles from "./_navbar.module.scss";
 import LogIn_Button from "./UserMenu_LogIn_Button";

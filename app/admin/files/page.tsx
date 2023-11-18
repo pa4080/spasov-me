@@ -1,13 +1,9 @@
-import ThemeStylePreview from "@/components/theme/ThemeStylePreview";
-import ThemeSwitch from "@/components/theme/ThemeSwitch";
+import React from "react";
 
-const Files: React.FC = () => {
-	return (
-		<div className="h-full w-full flex justify-center items-center flex-col gap-4 p-4">
-			<ThemeSwitch />
-			<ThemeStylePreview />
-		</div>
-	);
+import FilesFeedAndEditOptions from "@/components/files";
+
+const Pages: React.FC = () => {
+	return <FilesFeedAndEditOptions className="margin_vh_top margin_vh_bottom" />;
 };
 
-export default Files;
+export default Pages;

@@ -1,4 +1,4 @@
-import ThemeStylePreview from "@/components/theme/ThemeStylePreview";
+import ThemeStylePreview from "@/components/layouts/theme/ThemeStylePreview";
 
 const Theme: React.FC = () => {
 	return (
