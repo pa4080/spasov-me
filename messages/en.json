@@ -81,6 +81,9 @@
 		"form_pageImage_select": "Select an image...",
 		"form_pageImage_selectNone": "None",
 
+		"form_pageVisibility_title": "Page visibility",
+		"form_pageVisibility_description": "The page will be visible for the public.",
+
 		"form_btn_submit": "Submit",
 		"form_btn_submitting": "Submitting...",
 

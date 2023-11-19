@@ -9,6 +9,7 @@ export type PageObject = {
 	description: string;
 	uri: string;
 	image?: GridFSFile;
+	visibility: boolean | string;
 };
 
 export type NewPageObject = Omit<PageObject, "_id" | "image" | "creator"> & {

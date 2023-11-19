@@ -34,6 +34,7 @@ import { Button } from "@/components/ui/button";
 import { msgs } from "@/messages";
 import { cn } from "@/lib/cn-utils";
 import { useAppContext } from "@/contexts/AppContext";
+import { Switch } from "@/components/ui/switch";
 
 // https://github.com/colinhacks/zod#nullable
 // Here is applied a tricky solution to translate the messages,
@@ -55,6 +56,7 @@ export const Pages_FormSchemaGenerator = (messages?: string[]) =>
 			.regex(/^[a-z][a-z0-9-]+$/)
 			.trim(),
 		image: z.string().optional(),
+		visibility: z.boolean(),
 	});
 
 export const Pages_FormSchema = Pages_FormSchemaGenerator();
@@ -91,13 +93,14 @@ const Pages_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, 
 			description: "",
 			uri: "",
 			image: "",
+			visibility: false,
 		},
 	});
 
 	useEffect(() => {
-		if (formData) {
-			console.log(formData);
+		console.log("formData", formData);
 
+		if (formData) {
 			form.reset({ ...formData });
 		}
 	}, [form, formData]);
@@ -245,6 +248,22 @@ const Pages_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, 
 							</Popover>
 							<FormDescription>{t("form_pageImageDescription")}</FormDescription>
 							<FormMessage />
+						</FormItem>
+					)}
+				/>
+
+				<FormField
+					control={form.control}
+					name="visibility"
+					render={({ field }) => (
+						<FormItem className="flex flex-row items-center justify-between">
+							<div className="space-y-0.5">
+								<FormLabel>{t("form_pageVisibility_title")}</FormLabel>
+								<FormDescription>{t("form_pageVisibility_description")}</FormDescription>
+							</div>
+							<FormControl>
+								<Switch checked={field.value} onCheckedChange={field.onChange} />
+							</FormControl>
 						</FormItem>
 					)}
 				/>

@@ -42,6 +42,9 @@ const Pages_Dialog_Edit: React.FC<Props> = ({
 	const editPage = async (data: Pages_FormSchema) => {
 		setSubmitting(true);
 
+		// eslint-disable-next-line no-console
+		console.log("editPage", data);
+
 		try {
 			const response = await fetch(`${Route.api.PAGES}/${pageId}`, {
 				method: "PATCH",
@@ -72,7 +75,11 @@ const Pages_Dialog_Edit: React.FC<Props> = ({
 
 				toast({
 					title: t("dialog_toast_response_title", { status: response.status }),
-					description: <pre className="toast_pre_info">{JSON.stringify(errors, null, 2)}</pre>,
+					description: errors ? (
+						<pre className="toast_pre_info">{JSON.stringify(errors, null, 2)}</pre>
+					) : (
+						<div>None...</div>
+					),
 					variant: "destructive",
 				});
 			}

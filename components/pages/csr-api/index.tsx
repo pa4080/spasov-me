@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
 import { useSession } from "next-auth/react";
@@ -17,6 +17,8 @@ import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { Route } from "@/routes";
 
 import { msgs } from "@/messages";
+
+import Page from "@/models/page";
 
 import Pages_Dialog_Edit from "./Pages_Dialog_Edit";
 import Pages_Dialog_Add from "./Pages_Dialog_Add";
@@ -39,6 +41,13 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 	const t = msgs("PagesFeed");
 	const { pages, setPages } = useAppContext();
 
+	useEffect(() => {
+		if (pages) {
+			console.log("pages", pages);
+			// const updated = pages.map((page) => Page.;
+		}
+	}, [pages]);
+
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 	const [actionPageId, setActionPageId] = useState("");
@@ -49,11 +58,19 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 	const handleDelete = (e: React.SyntheticEvent, page: PageObject) => {
 		e.preventDefault();
 
+		console.log("handleDelete", page);
+
 		setActionPage({
 			title: page.title,
 			description: page.description,
 			uri: page.uri,
 			image: page.image?._id.toString(),
+			visibility:
+				typeof page.visibility === "string"
+					? page.visibility === "true"
+						? true
+						: false
+					: page.visibility,
 		});
 
 		setActionPageId(page._id);
@@ -64,11 +81,19 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 	const handleEdit = (e: React.SyntheticEvent, page: PageObject) => {
 		e.preventDefault();
 
+		console.log("handleEdit", page);
+
 		setActionPage({
 			title: page.title,
 			description: page.description,
 			uri: page.uri,
 			image: page.image?._id.toString(),
+			visibility:
+				typeof page.visibility === "string"
+					? page.visibility === "true"
+						? true
+						: false
+					: page.visibility,
 		});
 
 		setActionPageId(page._id);

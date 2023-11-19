@@ -21,6 +21,10 @@ const PageSchema = new Schema({
 		type: String,
 		required: [true, "Description is required!"],
 	},
+	visibility: {
+		type: Boolean,
+		required: [true, "Visibility is required!"],
+	},
 	uri: {
 		type: String,
 		match: [/^[a-z][a-z0-9-]+$/, "The URI must start wit lowercase latin alphabet!"],
