@@ -34,9 +34,9 @@
 		--popover: var(--secondary);
 		--popover-foreground: var(--foreground);
 
-		--muted: 0 0% 85%;
-		--muted-secondary: 0 0% 80%;
-		--muted-foreground: 0 0% 40%;
+		--muted: 0 0% 65%;
+		--muted-secondary: 0 0% 60%;
+		--muted-foreground: 0 0% 30%;
 
 		--destructive: 0 84.2% 60.2%;
 		--destructive-foreground: 210 20% 98%;
@@ -62,9 +62,9 @@
 		--primary: 34 30% 89%;
 		--secondary: 34 30% 82%;
 
-		--muted: 34 30% 80%;
-		--muted-secondary: 34 30% 77%;
-		--muted-foreground: 34 30% 40%;
+		--muted: 34 30% 65%;
+		--muted-secondary: 34 30% 60%;
+		--muted-foreground: 34 30% 30%;
 	}
 
 	.dark {
@@ -173,8 +173,12 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
-	scrollbar-color: theme("colors.gray.300") transparent;
+	scrollbar-color: theme("colors.muted.DEFAULT") transparent;
 	scrollbar-width: auto;
+}
+
+.dark * {
+	scrollbar-color: theme("colors.gray.300") transparent;
 }
 
 *::-webkit-scrollbar {
@@ -188,6 +192,14 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 }
 
 *::-webkit-scrollbar-thumb {
+	height: 52px;
+	border: calc(var(--scrollbar-width) / 4.2) solid transparent;
+	border-radius: var(--scrollbar-width);
+	background-color: theme("colors.muted.DEFAULT");
+	background-clip: content-box;
+}
+
+.dark *::-webkit-scrollbar-thumb {
 	height: 52px;
 	border: calc(var(--scrollbar-width) / 4.2) solid transparent;
 	border-radius: var(--scrollbar-width);

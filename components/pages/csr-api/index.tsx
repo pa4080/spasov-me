@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
+import React, { useState } from "react";
+// import Link from "next/link";
 
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
@@ -18,7 +18,7 @@ import { Route } from "@/routes";
 
 import { msgs } from "@/messages";
 
-import Page from "@/models/page";
+import { Switch } from "@/components/ui/switch";
 
 import Pages_Dialog_Edit from "./Pages_Dialog_Edit";
 import Pages_Dialog_Add from "./Pages_Dialog_Add";
@@ -41,13 +41,6 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 	const t = msgs("PagesFeed");
 	const { pages, setPages } = useAppContext();
 
-	useEffect(() => {
-		if (pages) {
-			console.log("pages", pages);
-			// const updated = pages.map((page) => Page.;
-		}
-	}, [pages]);
-
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 	const [actionPageId, setActionPageId] = useState("");
@@ -57,8 +50,6 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 
 	const handleDelete = (e: React.SyntheticEvent, page: PageObject) => {
 		e.preventDefault();
-
-		console.log("handleDelete", page);
 
 		setActionPage({
 			title: page.title,
@@ -80,8 +71,6 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 
 	const handleEdit = (e: React.SyntheticEvent, page: PageObject) => {
 		e.preventDefault();
-
-		console.log("handleEdit", page);
 
 		setActionPage({
 			title: page.title,
@@ -107,41 +96,52 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 
 			<div className={cn(styles.pagesFeed, className)}>
 				{pages?.map((page, index) => (
-					<Link key={index} href={`/${page.uri}`}>
-						<div key={index} className={styles.pagesCard}>
-							{session?.user && (
-								<div className={styles.pagesCardEditActions}>
-									<ButtonIcon
-										className="pl-[2.6px] bg-transparent icon_accent_secondary"
-										height={18}
-										type="trash"
-										width={18}
-										onClick={(e) => handleDelete(e, page)}
-									/>
-									<ButtonIcon
-										className="pl-[5px] bg-transparent icon_accent_secondary"
-										height={18}
-										type="brush"
-										width={18}
-										onClick={(e) => handleEdit(e, page)}
-									/>
-								</div>
-							)}
-							{page.image && (
-								<div className={styles.pagesCardImageEditMode}>
-									<Image
-										priority
-										alt={t("index_pageImage_alt", { title: page.title })}
-										height={260}
-										src={`${Route.api.FILES}/${page.image?._id.toString()}`}
-										width={462}
-									/>
-								</div>
-							)}
-							<h1 className={styles.title}>{page.title}</h1>
-							<span>{page.description}</span>
-						</div>
-					</Link>
+					// <Link key={index} href={`/${page.uri}`}>
+					<div key={index} className={styles.pagesCard}>
+						{session?.user && (
+							<div className={styles.pagesCardEditActions}>
+								<ButtonIcon
+									className="pl-[2.6px] bg-transparent icon_accent_secondary"
+									height={18}
+									type="trash"
+									width={18}
+									onClick={(e) => handleDelete(e, page)}
+								/>
+								<Switch
+									disabled
+									checked={
+										typeof page.visibility === "string"
+											? page.visibility === "true"
+												? true
+												: false
+											: page.visibility
+									}
+									className="mt-1 mr-1"
+								/>
+								<ButtonIcon
+									className="pl-[5px] bg-transparent icon_accent_secondary"
+									height={18}
+									type="brush"
+									width={18}
+									onClick={(e) => handleEdit(e, page)}
+								/>
+							</div>
+						)}
+						{page.image && (
+							<div className={styles.pagesCardImageEditMode}>
+								<Image
+									priority
+									alt={t("index_pageImage_alt", { title: page.title })}
+									height={260}
+									src={`${Route.api.FILES}/${page.image?._id.toString()}`}
+									width={462}
+								/>
+							</div>
+						)}
+						<h1 className={styles.title}>{page.title}</h1>
+						<span>{page.description}</span>
+					</div>
+					// </Link>
 				))}
 			</div>
 

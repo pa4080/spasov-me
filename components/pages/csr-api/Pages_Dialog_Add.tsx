@@ -34,9 +34,6 @@ const Pages_Dialog_Add: React.FC<PagesActions> = ({ className, session, setPages
 	const createPage = async (data: Pages_FormSchema) => {
 		setSubmitting(true);
 
-		// eslint-disable-next-line no-console
-		console.log("createPage", data);
-
 		try {
 			const response = await fetch(Route.api.PAGES, {
 				method: "POST",

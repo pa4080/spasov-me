@@ -255,8 +255,6 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 	try {
 		await connectToMongoDb();
 
-		console.log("PUT_1", request_object);
-
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		let dbObjectOperator: any;
 
@@ -277,8 +275,6 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 			}
 		}
 
-		console.log("PUT_2", request_object);
-
 		const updatedObject = await dbObjectOperator.findOneAndUpdate(_id(id), request_object, {
 			new: true,
 			strict: true,
@@ -289,8 +285,6 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 			updatedObject.save();
 		}
 
-		console.log("PUT_a", updatedObject);
-
 		if (!updatedObject) {
 			return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
 		}
@@ -300,8 +294,6 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 		} else {
 			await updatedObject.populate(["creator"]);
 		}
-
-		console.log("PUT_b", updatedObject);
 
 		return NextResponse.json(
 			{

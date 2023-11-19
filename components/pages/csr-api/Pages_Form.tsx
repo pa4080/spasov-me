@@ -98,8 +98,6 @@ const Pages_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, 
 	});
 
 	useEffect(() => {
-		console.log("formData", formData);
-
 		if (formData) {
 			form.reset({ ...formData });
 		}

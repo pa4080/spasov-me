@@ -42,9 +42,6 @@ const Pages_Dialog_Edit: React.FC<Props> = ({
 	const editPage = async (data: Pages_FormSchema) => {
 		setSubmitting(true);
 
-		// eslint-disable-next-line no-console
-		console.log("editPage", data);
-
 		try {
 			const response = await fetch(`${Route.api.PAGES}/${pageId}`, {
 				method: "PATCH",
