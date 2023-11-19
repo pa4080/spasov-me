@@ -6,12 +6,17 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- [ ] Copy the Home page editable version prom the old repo
-- [ ] Copy the files page from the old repo
+- [x] Copy the Home page editable version prom the old repo
+- [x] Copy the files page from the old repo
+- [ ] Apply the styles to the files page
+- [ ] Add page form
+  - [x] Change the image input to dropdown from files
+  - [ ] Change the schema of the PageObject?
+  - [ ] Add a switch to choose is the page public or not...
 - [ ] Copy the contact page from Animated-portfolio
 - [ ] Add the project as GitHub repo and deploy to Vercel
 - [ ] Manage the menu items via the pages feed...
-- [ ] Yhe footer icons active SVG icons
+- [ ] The footer icons active SVG icons
 
 ## References
 

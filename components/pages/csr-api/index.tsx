@@ -6,11 +6,17 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 
+import Image from "next/image";
+
 import { useAppContext } from "@/contexts/AppContext";
 
 import { PageObject } from "@/interfaces/Page";
 import { cn } from "@/lib/cn-utils";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
+
+import { Route } from "@/routes";
+
+import { msgs } from "@/messages";
 
 import Pages_Dialog_Edit from "./Pages_Dialog_Edit";
 import Pages_Dialog_Add from "./Pages_Dialog_Add";
@@ -30,6 +36,7 @@ interface Props {
 }
 
 const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
+	const t = msgs("PagesFeed");
 	const { pages, setPages } = useAppContext();
 
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -46,8 +53,9 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 			title: page.title,
 			description: page.description,
 			uri: page.uri,
-			imageFile: page.image?.filename,
+			image: page.image?._id.toString(),
 		});
+
 		setActionPageId(page._id);
 
 		setIsDeleteDialogOpen(true);
@@ -60,8 +68,9 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 			title: page.title,
 			description: page.description,
 			uri: page.uri,
-			imageFile: page.image?.filename,
+			image: page.image?._id.toString(),
 		});
+
 		setActionPageId(page._id);
 
 		setIsEditDialogOpen(true);
@@ -76,7 +85,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 					<Link key={index} href={`/${page.uri}`}>
 						<div key={index} className={styles.pagesCard}>
 							{session?.user && (
-								<div className={styles.pagesCardActions}>
+								<div className={styles.pagesCardEditActions}>
 									<ButtonIcon
 										className="pl-[2.6px] bg-transparent icon_accent_secondary"
 										height={18}
@@ -90,6 +99,17 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 										type="brush"
 										width={18}
 										onClick={(e) => handleEdit(e, page)}
+									/>
+								</div>
+							)}
+							{page.image && (
+								<div className={styles.pagesCardImageEditMode}>
+									<Image
+										priority
+										alt={t("index_pageImage_alt", { title: page.title })}
+										height={260}
+										src={`${Route.api.FILES}/${page.image?._id.toString()}`}
+										width={462}
 									/>
 								</div>
 							)}

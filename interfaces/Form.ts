@@ -1,6 +1,6 @@
 import { PostType, PostErrorsType, PostTypeFromDb } from "@/interfaces/Post";
 
-export interface FormProps {
+interface FormProps {
 	handleSubmit: (e: React.SyntheticEvent) => void;
 	handleFileUploadChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	post: PostType | PostTypeFromDb;
@@ -8,10 +8,10 @@ export interface FormProps {
 	submitting: boolean;
 	type: FormTypes;
 	errors: PostErrorsType | null;
-	postImageFilename: string | null;
+	image: string | null;
 }
 
-export enum FormTypes {
+enum FormTypes {
 	CREATE = "create",
 	EDIT = "edit",
 }

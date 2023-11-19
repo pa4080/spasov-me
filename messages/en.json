@@ -49,6 +49,8 @@
 		"greeting_ln2": "&nbsp;my site"
 	},
 	"PagesFeed": {
+		"index_pageImage_alt": "Image for the page '{ title }'",
+
 		"dialog_title_add": "Add a new page",
 		"dialog_title_edit": "Edit the \"{ title }\" page entry",
 		"dialog_title_delete": "You are about to delete the \"{ title }\" file entry",
@@ -61,6 +63,7 @@
 		"dialog_btn_delete_submitting": "Deleting...",
 		"dialog_toast_submit_title": "You submitted the following values:",
 		"dialog_toast_response_title": "The server response with status { status } and data:",
+
 		"form_pageTitle": "Page title",
 		"form_pageTitlePlaceholder": "Page title...",
 		"form_pageTitleDescription": "Enter the display title/name of the page.",
@@ -76,9 +79,11 @@
 		"form_pageImage_search": "Search for an image...",
 		"form_pageImage_searchNotFound": "The image could not be found.",
 		"form_pageImage_select": "Select an image...",
+		"form_pageImage_selectNone": "None",
 
 		"form_btn_submit": "Submit",
 		"form_btn_submitting": "Submitting...",
+
 		"formSchema_title": "The page title must be at least 2 characters.",
 		"formSchema_description": "The description must be at least 20 characters.",
 		"formSchema_uri": "The page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",

@@ -28,7 +28,7 @@ import {
 	CommandItem,
 } from "@/components/ui/command";
 
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import { Button } from "@/components/ui/button";
 import { msgs } from "@/messages";
@@ -54,7 +54,7 @@ export const Pages_FormSchemaGenerator = (messages?: string[]) =>
 			.toLowerCase()
 			.regex(/^[a-z][a-z0-9-]+$/)
 			.trim(),
-		imageFile: z.string().optional(),
+		image: z.string().optional(),
 	});
 
 export const Pages_FormSchema = Pages_FormSchemaGenerator();
@@ -69,17 +69,10 @@ interface Props {
 	className?: string;
 	onSubmit: (data: Pages_FormSchema) => void;
 	submitting?: boolean;
-	isContainerDialogOpen?: boolean;
 	formData?: Pages_FormSchema;
 }
 
-const Pages_Form: React.FC<Props> = ({
-	className,
-	onSubmit,
-	submitting = false,
-	isContainerDialogOpen = true,
-	formData,
-}) => {
+const Pages_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
 	const t = msgs("PagesFeed");
 	const { files } = useAppContext();
 	const [imageFiles, setImageFiles] = useState<ImageFile[]>([]);
@@ -97,26 +90,28 @@ const Pages_Form: React.FC<Props> = ({
 			title: "",
 			description: "",
 			uri: "",
-			imageFile: "",
+			image: "",
 		},
 	});
 
 	useEffect(() => {
 		if (formData) {
-			form.reset(formData);
+			console.log(formData);
+
+			form.reset({ ...formData });
 		}
 	}, [form, formData]);
 
 	useEffect(() => {
 		if (files.length > 0) {
-			setImageFiles(
-				files
-					.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp)$/))
-					.map((file) => ({
-						id: file._id.toString(),
-						name: file.filename,
-					}))
-			);
+			const filterImageFiles = files
+				.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp)$/))
+				.map((file) => ({
+					id: file._id.toString(),
+					name: file.filename,
+				}));
+
+			setImageFiles(filterImageFiles);
 		}
 	}, [files]);
 
@@ -174,7 +169,7 @@ const Pages_Form: React.FC<Props> = ({
 				{/* Image */}
 				<FormField
 					control={form.control}
-					name="imageFile"
+					name="image"
 					render={({ field }) => (
 						<FormItem className="flex flex-col">
 							<FormLabel>{t("form_pageImage")}</FormLabel>
@@ -203,23 +198,47 @@ const Pages_Form: React.FC<Props> = ({
 										<CommandInput placeholder={t("form_pageImage_search")} />
 										<CommandEmpty>{t("form_pageImage_searchNotFound")}</CommandEmpty>
 										<CommandGroup>
-											{imageFiles.map((imageFile) => (
+											{imageFiles.map((image) => (
 												<CommandItem
-													key={imageFile.id}
-													value={imageFile.id}
+													key={image.id}
+													value={image.id}
 													onSelect={() => {
-														form.setValue("imageFile", imageFile.id);
+														form.setValue("image", image.id);
 													}}
 												>
+													<PopoverClose className="w-full flex items-center justify-start">
+														<Check
+															className={cn(
+																"mr-2 h-4 w-4",
+																image.id === field.value ? "opacity-100" : "opacity-0"
+															)}
+															strokeWidth={3}
+														/>
+														<div className="line-clamp-1 text-left">{image.name}</div>
+													</PopoverClose>
+												</CommandItem>
+											))}
+
+											<CommandItem
+												value={undefined}
+												onSelect={() => {
+													form.setValue("image", undefined);
+												}}
+											>
+												<PopoverClose className="w-full flex items-center justify-start">
 													<Check
 														className={cn(
 															"mr-2 h-4 w-4",
-															imageFile.id === field.value ? "opacity-100" : "opacity-0"
+															undefined === field.value ? "opacity-100" : "opacity-0"
 														)}
+														strokeWidth={3}
 													/>
-													{imageFile.name}
-												</CommandItem>
-											))}
+
+													<div className="line-clamp-1 text-left">
+														{t("form_pageImage_selectNone")}
+													</div>
+												</PopoverClose>
+											</CommandItem>
 										</CommandGroup>
 									</Command>
 								</PopoverContent>

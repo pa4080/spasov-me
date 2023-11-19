@@ -11,7 +11,10 @@ export type PageObject = {
 	image?: GridFSFile;
 };
 
-export type NewPageObject = Omit<PageObject, "_id" | "image" | "creator"> & { creator: string };
+export type NewPageObject = Omit<PageObject, "_id" | "image" | "creator"> & {
+	creator: string;
+	image?: string;
+};
 
 export type ErrorPageObject = {
 	[key in keyof PageObject]: {
@@ -26,14 +29,13 @@ export type ErrorPageObject = {
 
 type PageObjectToFetch = {
 	data: PageObject | NewPageObject | Record<string, unknown>;
-	image_id?: string | null;
+	// image_id?: string | null;
 	user_id?: string | undefined;
 };
 
-export const preparePageObjectToFetch = ({ data, image_id, user_id }: PageObjectToFetch) => {
+export const preparePageObjectToFetch = ({ data, user_id }: PageObjectToFetch) => {
 	return JSON.stringify({
 		...data,
-		image: image_id,
 		creator: user_id,
 	});
 };

@@ -114,6 +114,8 @@ export async function POST(request: NextRequest, { params }: Context) {
 
 	const request_object = await request.json();
 
+	console.log(request_object);
+
 	try {
 		await connectToMongoDb();
 

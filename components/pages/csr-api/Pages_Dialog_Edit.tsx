@@ -105,12 +105,7 @@ const Pages_Dialog_Edit: React.FC<Props> = ({
 						<DialogDescription>{t("dialog_description")}</DialogDescription>
 					</DialogHeader>
 
-					<Pages_Form
-						formData={pageData}
-						isContainerDialogOpen={isOpen}
-						submitting={submitting}
-						onSubmit={handleEditPage}
-					/>
+					<Pages_Form formData={pageData} submitting={submitting} onSubmit={handleEditPage} />
 				</DialogContent>
 			</Dialog>
 		)

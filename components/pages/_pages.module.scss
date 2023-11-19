@@ -29,8 +29,16 @@
 			@apply font-unicephalon text-2xl tracking-wider text-foreground-secondary;
 		}
 
-		.pagesCardActions {
+		.pagesCardEditActions {
 			@apply flex gap-1 absolute right-0 top-0 p-4 rounded-2xl;
+		}
+
+		.pagesCardImageEditMode {
+			@apply mt-8 mb-2 border w-full drop-shadow-2xl rounded-md overflow-hidden;
+
+			img {
+				@apply w-full h-auto;
+			}
 		}
 	}
 }

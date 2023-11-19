@@ -34,13 +34,18 @@ const Pages_Dialog_Add: React.FC<PagesActions> = ({ className, session, setPages
 	const createPage = async (data: Pages_FormSchema) => {
 		setSubmitting(true);
 
+		console.log(data);
+		const pageObjectToFetch = preparePageObjectToFetch({
+			data,
+			user_id: session?.user.id,
+		});
+
+		console.log(pageObjectToFetch);
+
 		try {
 			const response = await fetch(Route.api.PAGES, {
 				method: "POST",
-				body: preparePageObjectToFetch({
-					data,
-					user_id: session?.user.id,
-				}),
+				body: pageObjectToFetch,
 			});
 
 			if (response.ok) {
@@ -99,11 +104,7 @@ const Pages_Dialog_Add: React.FC<PagesActions> = ({ className, session, setPages
 							<DialogDescription>{t("dialog_description")}</DialogDescription>
 						</DialogHeader>
 
-						<Pages_Form
-							isContainerDialogOpen={isOpen}
-							submitting={submitting}
-							onSubmit={handleAddPage}
-						/>
+						<Pages_Form submitting={submitting} onSubmit={handleAddPage} />
 					</DialogContent>
 				</Dialog>
 			</div>
