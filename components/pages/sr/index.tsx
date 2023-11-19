@@ -5,14 +5,14 @@ import Link from "next/link";
 import { cn } from "@/lib/cn-utils";
 
 import styles from "../_pages.module.scss";
-import { getPages } from "../_pages.actions";
+import { getPublicPages } from "../_pages.actions";
 
 interface Props {
 	className?: string;
 }
 
 const FeedPages: React.FC<Props> = async ({ className }) => {
-	const pages = await getPages();
+	const pages = await getPublicPages();
 
 	return (
 		<div className={cn(styles.homePage, className)}>

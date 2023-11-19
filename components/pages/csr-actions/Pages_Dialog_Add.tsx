@@ -95,11 +95,7 @@ const Pages_Dialog_Add: React.FC<PagesActions> = ({ className }) => {
 						<DialogDescription>{t("dialog_description")}</DialogDescription>
 					</DialogHeader>
 
-					<Pages_Form
-						isContainerDialogOpen={isOpen}
-						submitting={submitting}
-						onSubmit={handleAddPage}
-					/>
+					<Pages_Form submitting={submitting} onSubmit={handleAddPage} />
 				</DialogContent>
 			</Dialog>
 		</div>

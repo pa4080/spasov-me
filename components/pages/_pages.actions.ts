@@ -38,6 +38,42 @@ export const getPages = async (): Promise<PageObject[]> => {
 	}
 };
 
+export const getPublicPages = async (): Promise<PageObject[]> => {
+	"use server";
+
+	try {
+		await connectToMongoDb();
+		const pages: PageObject[] = await Page.find(_id()).populate(["creator", "image"]);
+
+		return pages.filter((page) => page.visibility);
+	} catch (error) {
+		console.error(error);
+
+		return [];
+	}
+};
+
+export const getPagesConditionally = async (): Promise<PageObject[]> => {
+	"use server";
+
+	try {
+		await connectToMongoDb();
+		const pages: PageObject[] = await Page.find(_id()).populate(["creator", "image"]);
+
+		const session = await getSession();
+
+		if (session?.user) {
+			return pages;
+		} else {
+			return pages.filter((page) => page.visibility);
+		}
+	} catch (error) {
+		console.error(error);
+
+		return [];
+	}
+};
+
 export interface AddPageReturnType {
 	created: boolean;
 	data?: PageObject;
@@ -61,6 +97,8 @@ export const addPage = async (data: FormData): Promise<PageObject> => {
 		title: data.get("title") as string,
 		description: data.get("description") as string,
 		uri: data.get("uri") as string,
+		image: data.get("image") as string,
+		visibility: data.get("visibility") as string,
 		creator: session?.user.id,
 	};
 
@@ -76,6 +114,8 @@ export const addPage = async (data: FormData): Promise<PageObject> => {
 		description: newPage_document.description,
 		uri: newPage_document.uri,
 		_id: newPage_document._id.toString(),
+		image: newPage_document.image?._id.toString(),
+		visibility: newPage_document.visibility,
 		creator: {
 			name: newPage_document.creator.name,
 			email: newPage_document.creator.email,

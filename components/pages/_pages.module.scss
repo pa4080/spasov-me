@@ -34,7 +34,7 @@
 		}
 
 		.pagesCardImageEditMode {
-			@apply mt-8 mb-2 border w-full drop-shadow-2xl rounded-md overflow-hidden;
+			@apply mt-8 border w-full drop-shadow-2xl rounded-md overflow-hidden;
 
 			img {
 				@apply w-full h-auto;

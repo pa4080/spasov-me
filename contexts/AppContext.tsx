@@ -47,18 +47,20 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 				setAuthProviders(await getProviders());
 			})();
 		}
+
+		loadDataFromApiRoute("PAGES", setPages);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
 		if (!session) {
-			setPages([]);
+			// setPages([]);
 			setFiles([]);
 
 			return;
 		}
 
-		loadDataFromApiRoute("PAGES", setPages);
+		// loadDataFromApiRoute("PAGES", setPages);
 		loadDataFromApiRoute("FILES", setFiles);
 	}, [session]);
 

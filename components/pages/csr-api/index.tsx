@@ -138,7 +138,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 								/>
 							</div>
 						)}
-						<h1 className={styles.title}>{page.title}</h1>
+						<h1 className={cn(styles.title, "mt-4")}>{page.title}</h1>
 						<span>{page.description}</span>
 					</div>
 					// </Link>
