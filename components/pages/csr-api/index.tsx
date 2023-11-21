@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-// import Link from "next/link";
 
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 
 import Image from "next/image";
+
+import { useRouter } from "next/navigation";
 
 import { useAppContext } from "@/contexts/AppContext";
 
@@ -40,6 +41,7 @@ interface Props {
 const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 	const t = msgs("PagesFeed");
 	const { pages, setPages } = useAppContext();
+	const router = useRouter(); // We can't use <Link><ButtonIcon /></Link>, because Tge inner component have onClick()
 
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -94,7 +96,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 		<div className={cn(styles.homePage, className)}>
 			<Pages_Dialog_Add session={session} setPages={setPages} />
 
-			<div className={cn(styles.pagesFeed, className)}>
+			<div className={cn(styles.pagesFeed, "select-none", className)}>
 				{pages?.map((page, index) => (
 					// <Link key={index} href={`/${page.uri}`}>
 					<div key={index} className={styles.pagesCard}>
@@ -106,6 +108,15 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 									type="trash"
 									width={18}
 									onClick={(e) => handleDelete(e, page)}
+								/>
+								<ButtonIcon
+									className="pl-[2.6px] bg-transparent icon_accent_secondary"
+									height={18}
+									type="up-right-from-square"
+									width={18}
+									onClick={() => {
+										router.push(`/${page.uri}`);
+									}}
 								/>
 								<Switch
 									disabled

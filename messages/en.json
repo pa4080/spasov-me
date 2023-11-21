@@ -25,9 +25,9 @@
 		"FILES_DESC": "Upload, browse and manage files",
 		"THEME": "Theme",
 		"THEME_DESC": "Preview the theme colors and typography",
-		"PAGES": "Pages",
-		"PAGES_DESC": "Edit the Home page cards",
-		"PAGES_API": "Pages API",
+		"PAGES": "Pages (SR attempt)",
+		"PAGES_DESC": "Edit the Home page cards vi server ations",
+		"PAGES_API": "Pages",
 		"PAGES_API_DESC": "Edit the Home page cards via API",
 
 		"signUp": "Sign Up",

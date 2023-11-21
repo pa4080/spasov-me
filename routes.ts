@@ -39,7 +39,7 @@ export const Route = {
 	},
 	admin: {
 		THEME: "/admin/theme",
-		PAGES: "/admin/pages-ssr-attempt",
+		// PAGES: "/admin/pages-ssr-attempt",
 		PAGES_API: "/admin/pages",
 		FILES: "/admin/files",
 	},
