@@ -27,19 +27,19 @@ const PublicMenu_Row: React.FC<Props> = ({ className, menuItems }) => {
 			{menuItems.map((path, index) => {
 				const pathAsKey = path as keyof typeof Route.public;
 
-				if (Route.public[pathAsKey] === Route.public.HOME) {
+				if (Route.public[pathAsKey].uri === Route.public.HOME.uri) {
 					return (
 						<Link
 							key={index}
-							as={Route.public.HOME}
+							as={Route.public.HOME.uri}
 							className={cn(styles.navItemCommon, "emphasize_drop_shadow")}
 							href={"/" + messages.NavBar.HOME.toLocaleLowerCase()}
 							style={{}}
 						>
 							<SiteLogo
 								autoBreak={false}
-								className={currentPathName === Route.public.HOME ? "hover:saturate-200" : ""}
-								hover={currentPathName !== Route.public.HOME}
+								className={currentPathName === Route.public.HOME.uri ? "hover:saturate-200" : ""}
+								hover={currentPathName !== Route.public.HOME.uri}
 								style={{ width: "152px", height: "auto" }}
 							/>
 						</Link>
@@ -53,12 +53,12 @@ const PublicMenu_Row: React.FC<Props> = ({ className, menuItems }) => {
 								styles.navItemCommon,
 								"emphasize_drop_shadow",
 								`${
-									currentPathName !== Route.public[pathAsKey]
+									currentPathName !== Route.public[pathAsKey].uri
 										? "text-foreground-primary"
 										: "text-accent"
 								}`
 							)}
-							href={Route.public[pathAsKey]}
+							href={Route.public[pathAsKey].uri}
 						>
 							{messages.NavBar[path as keyof typeof messages.NavBar]}
 						</Link>

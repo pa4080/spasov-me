@@ -12,7 +12,7 @@ export default async function NotFound() {
 		<div className="h-content flex justify-start items-center flex-col">
 			<Link
 				passHref
-				as={Route.public.HOME}
+				as={Route.public.HOME.uri}
 				className="w-full margin_vh_top block"
 				href={"/" + messages.NavBar.HOME.toLocaleLowerCase()}
 				style={{}}

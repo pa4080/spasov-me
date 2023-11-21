@@ -58,11 +58,11 @@ const PublicMenu_Sheet: React.FC<Props> = ({ className, menuItems }) => {
 								key={index}
 								className={cn(
 									"emphasize_drop_shadow",
-									currentPathName === Route.public[path as keyof typeof Route.public]
+									currentPathName === Route.public[path as keyof typeof Route.public].uri
 										? "text-accent"
 										: "text-foreground"
 								)}
-								href={Route.public[path as keyof typeof Route.public]}
+								href={Route.public[path as keyof typeof Route.public].uri}
 								tabIndex={-1}
 							>
 								<SheetClose

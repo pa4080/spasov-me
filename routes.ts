@@ -1,10 +1,41 @@
 export const Route = {
 	public: {
-		HOME: "/",
-		PORTFOLIO: "/portfolio",
-		CV: "/curriculum-vitae",
-		BLOG: "/blog",
-		CONTACT: "/contact",
+		HOME: {
+			inFeed: false,
+			inNavbar: true,
+			uri: "/",
+			visible: true,
+		},
+		PORTFOLIO: {
+			inFeed: true,
+			inNavbar: true,
+			uri: "/portfolio",
+			visible: false,
+		},
+		CV: {
+			inFeed: true,
+			inNavbar: true,
+			uri: "/curriculum-vitae",
+			visible: true,
+		},
+		BLOG: {
+			inFeed: true,
+			inNavbar: true,
+			uri: "/blog",
+			visible: false,
+		},
+		SERVICES: {
+			inFeed: true,
+			inNavbar: true,
+			uri: "/services",
+			visible: false,
+		},
+		CONTACT: {
+			inFeed: true,
+			inNavbar: true,
+			uri: "/contact",
+			visible: true,
+		},
 	},
 	admin: {
 		THEME: "/admin/theme",
