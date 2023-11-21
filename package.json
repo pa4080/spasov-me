@@ -3,11 +3,19 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
+		"check-branch-name": "chmod 755 githooks/check_branch_name.sh && bash githooks/check_branch_name.sh",
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
 		"start1": "next start -p 3001",
-		"lint": "next lint"
+		"lint": "next lint",
+		"prepare": "husky install",
+		"pre-commit": "npm run check-branch-name && lint-staged",
+		"push-u": "git push origin $(git branch | sed 's/^..//') -u"
+	},
+	"lint-staged": {
+		"*.{ts,tsx}": "eslint --fix",
+		"*.css": "stylelint --fix"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.3.2",
