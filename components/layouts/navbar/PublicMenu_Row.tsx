@@ -29,30 +29,30 @@ const PublicMenu_Row: React.FC<Props> = ({ className, menuItems }) => {
 
 	return (
 		<div className={cn(styles.publicMenu, className)}>
+			<Link
+				as={Route.public.HOME.uri}
+				className={cn(styles.navItemCommon, "emphasize_drop_shadow")}
+				// This is a workaround for a Next.js bug, where
+				// the home page is not rerendered after 404 error
+				// which is rendered on the the same URI.
+				href={"/" + t("HOME").toLocaleUpperCase()}
+				style={{}}
+			>
+				<SiteLogo
+					autoBreak={false}
+					className={currentPathName === Route.public.HOME.uri ? "hover:saturate-200" : ""}
+					hover={currentPathName !== Route.public.HOME.uri}
+					style={{ width: "152px", height: "auto" }}
+				/>
+			</Link>
+
 			{menuItems.map((path, index) => {
 				const pathAsKey = path as keyof typeof Route.public;
 
-				if (Route.public[pathAsKey].uri === Route.public.HOME.uri) {
-					return (
-						<Link
-							key={index}
-							as={Route.public.HOME.uri}
-							className={cn(styles.navItemCommon, "emphasize_drop_shadow")}
-							// This is a workaround for a Next.js bug, where
-							// the home page is not rerendered after 404 error
-							// which is rendered on the the same URI.
-							href={"/" + t("HOME").toLocaleUpperCase()}
-							style={{}}
-						>
-							<SiteLogo
-								autoBreak={false}
-								className={currentPathName === Route.public.HOME.uri ? "hover:saturate-200" : ""}
-								hover={currentPathName !== Route.public.HOME.uri}
-								style={{ width: "152px", height: "auto" }}
-							/>
-						</Link>
-					);
-				} else {
+				if (
+					Route.public[pathAsKey].uri !== Route.public.HOME.uri &&
+					Route.public[pathAsKey].visible
+				) {
 					return (
 						<Link
 							key={index}

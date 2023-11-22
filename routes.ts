@@ -12,10 +12,10 @@ export const Route = {
 			uri: "/portfolio",
 			visible: false,
 		},
-		CV: {
+		ABOUT: {
 			inFeed: true,
 			inNavbar: true,
-			uri: "/curriculum-vitae",
+			uri: "/about",
 			visible: true,
 		},
 		BLOG: {

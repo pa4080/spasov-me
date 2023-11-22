@@ -15,10 +15,11 @@
 		"themeSelector": "Theme selector"
 	},
 	"Navigation": {
-		"CV": "CV",
+		"ABOUT": "About",
 		"BLOG": "Blog",
 		"PORTFOLIO": "Portfolio",
 		"CONTACT": "Contact",
+		"SERVICES": "Services",
 		"HOME": "Home",
 
 		"FILES": "Files",
