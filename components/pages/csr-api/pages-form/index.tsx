@@ -64,8 +64,6 @@ interface Props {
 const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
 	const t = msgs("PagesFeed");
 
-	type tType = Parameters<typeof t>[0];
-
 	const { files } = useAppContext();
 
 	const FormSchema = Pages_FormSchemaGenerator([
@@ -84,13 +82,17 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 			image: "",
 			visibility: false,
 		},
+		values: formData,
 	});
 
-	useEffect(() => {
-		if (formData) {
-			form.reset({ ...formData });
-		}
-	}, [form, formData]);
+	/**
+	 * @see https://react-hook-form.com/docs/useform#values
+			useEffect(() => {
+				if (formData) {
+					form.reset({ ...formData });
+				}
+			}, [form, formData]);
+	 */
 
 	// Generate "image files" list
 	const [imageFiles, setImageFiles] = useState<ComboBoxList<Pages_FormSchema>[]>([]);
@@ -108,13 +110,30 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 		}
 	}, [files]);
 
-	// Generate "visibility" switch
-	const routeList = Object.keys(Route.public).map((key) => ({
-		value: Route.public[key as keyof typeof Route.public].uri,
-		label: t(key as tType),
+	// Manage "visibility" switch
+	const routesArr = Object.keys(Route.public)
+		.filter((key) => key !== "HOME")
+		.map((key) => Route.public[key as keyof typeof Route.public]);
+
+	const routeList = routesArr.map((route) => ({
+		value: route.uri.slice(1),
+		label: route.uri.slice(1),
 	}));
 
-	console.log(routeList);
+	useEffect(() => {
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const subscription = form.watch((value, { name, type }) => {
+			if (name === "uri") {
+				const visibilityValue =
+					routesArr.find((route) => route.uri.slice(1) === value.uri)?.visible ?? false;
+
+				form.setValue("visibility", visibilityValue);
+			}
+		});
+
+		return () => subscription.unsubscribe();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [form.watch]);
 
 	return (
 		<Form {...form}>
@@ -152,28 +171,42 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 				/>
 
 				{/* URI (slug) */}
-				<FormField
+				<Combobox
 					control={form.control}
+					list={routeList}
+					messages={{
+						label: t("form_pageUri_label"),
+						description: t("form_pageUri_description"),
+						placeholder: t("form_pageUri_placeholder"),
+						pleaseSelect: t("form_pageUri_select"),
+						notFound: t("form_pageUri_searchNotFound"),
+						selectNone: t("form_pageUri_selectNone"),
+					}}
 					name="uri"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>{t("form_pageSlug")}</FormLabel>
-							<FormControl>
-								<Input placeholder={t("form_pageSlugPlaceholder")} {...field} />
-							</FormControl>
-							<FormDescription>{t("form_pageSlugDescription")}</FormDescription>
-							<FormMessage />
-						</FormItem>
-					)}
+					setValue={form.setValue}
 				/>
 
 				{/* Image */}
-				<Combobox control={form.control} list={imageFiles} name="image" setValue={form.setValue} />
+				<Combobox
+					control={form.control}
+					list={imageFiles}
+					messages={{
+						label: t("form_pageImage_label"),
+						description: t("form_pageImage_description"),
+						placeholder: t("form_pageImage_search"),
+						pleaseSelect: t("form_pageImage_select"),
+						notFound: t("form_pageImage_searchNotFound"),
+						selectNone: t("form_pageImage_selectNone"),
+					}}
+					name="image"
+					setValue={form.setValue}
+				/>
 
 				{/* Checkbox */}
 				<FormField
 					control={form.control}
 					name="visibility"
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					render={({ field }) => (
 						<FormItem className="flex flex-row items-center justify-between">
 							<div className="space-y-0.5">
@@ -181,7 +214,8 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 								<FormDescription>{t("form_pageVisibility_description")}</FormDescription>
 							</div>
 							<FormControl>
-								<Switch checked={field.value} onCheckedChange={field.onChange} />
+								{/* <Switch checked={field.value} onCheckedChange={field.onChange} /> */}
+								<Switch checked={field.value} />
 							</FormControl>
 						</FormItem>
 					)}

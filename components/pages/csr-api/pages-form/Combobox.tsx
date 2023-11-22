@@ -26,7 +26,6 @@ import {
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import { Button } from "@/components/ui/button";
-import { msgs } from "@/messages";
 import { cn } from "@/lib/cn-utils";
 
 export interface ComboBoxList<T> {
@@ -39,6 +38,14 @@ interface Props<T extends FieldValues> {
 	list: ComboBoxList<T>[];
 	name: Path<T>;
 	setValue: UseFormSetValue<T>;
+	messages: {
+		label: string;
+		description: string;
+		placeholder: string;
+		pleaseSelect: string;
+		notFound: string;
+		selectNone: string;
+	};
 }
 
 export default function Combobox<T extends FieldValues>({
@@ -46,16 +53,15 @@ export default function Combobox<T extends FieldValues>({
 	list,
 	name,
 	setValue,
+	messages,
 }: Props<T>) {
-	const t = msgs("PagesFeed");
-
 	return (
 		<FormField
 			control={control}
 			name={name}
 			render={({ field }) => (
 				<FormItem className="flex flex-col">
-					<FormLabel>{t("form_pageImage")}</FormLabel>
+					<FormLabel>{messages.label}</FormLabel>
 					<Popover>
 						<PopoverTrigger asChild>
 							<FormControl>
@@ -70,7 +76,7 @@ export default function Combobox<T extends FieldValues>({
 									<div className="line-clamp-1 text-left">
 										{field.value
 											? list.find((item) => item.value === field.value)?.label
-											: t("form_pageImage_select")}
+											: messages.pleaseSelect}
 									</div>
 									<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-60" />
 								</Button>
@@ -78,8 +84,8 @@ export default function Combobox<T extends FieldValues>({
 						</PopoverTrigger>
 						<PopoverContent className="w-full max-w-full p-0 ">
 							<Command>
-								<CommandInput placeholder={t("form_pageImage_search")} />
-								<CommandEmpty>{t("form_pageImage_searchNotFound")}</CommandEmpty>
+								<CommandInput placeholder={messages.placeholder} />
+								<CommandEmpty>{messages.notFound}</CommandEmpty>
 								<CommandGroup>
 									{list.map((item) => (
 										<CommandItem
@@ -117,14 +123,14 @@ export default function Combobox<T extends FieldValues>({
 												strokeWidth={3}
 											/>
 
-											<div className="line-clamp-1 text-left">{t("form_pageImage_selectNone")}</div>
+											<div className="line-clamp-1 text-left">{messages.selectNone}</div>
 										</PopoverClose>
 									</CommandItem>
 								</CommandGroup>
 							</Command>
 						</PopoverContent>
 					</Popover>
-					<FormDescription>{t("form_pageImageDescription")}</FormDescription>
+					<FormDescription>{messages.description}</FormDescription>
 					<FormMessage />
 				</FormItem>
 			)}

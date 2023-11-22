@@ -10,7 +10,7 @@ export type LoadDataFromApiRoute = <T>(
 const loadDataFromApiRoute: LoadDataFromApiRoute = async (route, setCallback) => {
 	try {
 		const response = await fetch(Route.api[route], {
-			cache: "force-cache",
+			// cache: "force-cache",
 		});
 
 		if (!response.ok) {
