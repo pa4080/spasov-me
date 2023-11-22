@@ -16,7 +16,7 @@
 	.contentContainer {
 		@apply flex-1 flex-grow overflow-x-hidden overflow-y-auto w-full px-4 xa:px-8;
 
-		// min-h-[calc(100vh-62px-58px)] pt-24 pb-16 xa:pb-2;
+		min-height: $content-height;
 	}
 
 	.contentWrapper {

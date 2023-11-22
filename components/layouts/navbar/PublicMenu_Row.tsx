@@ -8,43 +8,51 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
-import messages from "@/messages/en.json";
 
 import SiteLogo from "@/components/layouts/logo/SiteLogo";
+
+import { msgs } from "@/messages";
 
 import styles from "./_navbar.module.scss";
 
 interface Props {
 	className?: string;
-	menuItems: string[];
 }
 
-const PublicMenu_Row: React.FC<Props> = ({ className, menuItems }) => {
+const PublicMenu_Row: React.FC<Props> = ({ className }) => {
+	const t = msgs("Navigation");
+
+	type tType = Parameters<typeof t>[0];
+
 	const currentPathName = usePathname();
+	const menuItems: string[] = Object.keys(Route.public);
 
 	return (
 		<div className={cn(styles.publicMenu, className)}>
+			<Link
+				as={Route.public.HOME.uri}
+				className={cn(styles.navItemCommon, "emphasize_drop_shadow")}
+				// This is a workaround for a Next.js bug, where
+				// the home page is not rerendered after 404 error
+				// which is rendered on the the same URI.
+				href={"/" + t("HOME").toLocaleUpperCase()}
+				style={{}}
+			>
+				<SiteLogo
+					autoBreak={false}
+					className={currentPathName === Route.public.HOME.uri ? "hover:saturate-200" : ""}
+					hover={currentPathName !== Route.public.HOME.uri}
+					style={{ width: "152px", height: "auto" }}
+				/>
+			</Link>
+
 			{menuItems.map((path, index) => {
 				const pathAsKey = path as keyof typeof Route.public;
 
-				if (Route.public[pathAsKey] === Route.public.HOME) {
-					return (
-						<Link
-							key={index}
-							as={Route.public.HOME}
-							className={cn(styles.navItemCommon, "emphasize_drop_shadow")}
-							href={"/" + messages.NavBar.HOME.toLocaleLowerCase()}
-							style={{}}
-						>
-							<SiteLogo
-								autoBreak={false}
-								className={currentPathName === Route.public.HOME ? "hover:saturate-200" : ""}
-								hover={currentPathName !== Route.public.HOME}
-								style={{ width: "152px", height: "auto" }}
-							/>
-						</Link>
-					);
-				} else {
+				if (
+					Route.public[pathAsKey].uri !== Route.public.HOME.uri &&
+					Route.public[pathAsKey].visible
+				) {
 					return (
 						<Link
 							key={index}
@@ -53,14 +61,14 @@ const PublicMenu_Row: React.FC<Props> = ({ className, menuItems }) => {
 								styles.navItemCommon,
 								"emphasize_drop_shadow",
 								`${
-									currentPathName !== Route.public[pathAsKey]
+									currentPathName !== Route.public[pathAsKey].uri
 										? "text-foreground-primary"
 										: "text-accent"
 								}`
 							)}
-							href={Route.public[pathAsKey]}
+							href={Route.public[pathAsKey].uri}
 						>
-							{messages.NavBar[path as keyof typeof messages.NavBar]}
+							{t(path as tType)}
 						</Link>
 					);
 				}

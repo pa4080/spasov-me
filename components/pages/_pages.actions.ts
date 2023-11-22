@@ -2,14 +2,14 @@
 
 import { getServerSession } from "next-auth";
 
-import { revalidatePath } from "next/cache";
+// import { revalidatePath } from "next/cache";
 
 import { authOptions } from "@/lib/auth-options";
 import { NewPageObject, PageObject } from "@/interfaces/Page";
 import { UserObject } from "@/interfaces/User";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import Page from "@/models/page";
-import { Route } from "@/routes";
+// import { Route } from "@/routes";
 import { msgs } from "@/messages";
 
 function _id(id?: string) {
@@ -107,7 +107,7 @@ export const addPage = async (data: FormData): Promise<PageObject> => {
 	await newPage_document.save();
 	await newPage_document.populate(["creator", "image"]);
 
-	revalidatePath(Route.admin.PAGES);
+	// revalidatePath(Route.admin.PAGES);
 
 	return {
 		title: newPage_document.title,

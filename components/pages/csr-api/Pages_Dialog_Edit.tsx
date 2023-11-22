@@ -16,7 +16,7 @@ import {
 import { Route } from "@/routes";
 import { preparePageObjectToFetch } from "@/interfaces/Page";
 
-import Pages_Form, { Pages_FormSchema } from "./Pages_Form";
+import PagesForm, { Pages_FormSchema } from "./pages-form";
 
 import { PagesActions } from ".";
 
@@ -109,7 +109,7 @@ const Pages_Dialog_Edit: React.FC<Props> = ({
 						<DialogDescription>{t("dialog_description")}</DialogDescription>
 					</DialogHeader>
 
-					<Pages_Form formData={pageData} submitting={submitting} onSubmit={handleEditPage} />
+					<PagesForm formData={pageData} submitting={submitting} onSubmit={handleEditPage} />
 				</DialogContent>
 			</Dialog>
 		)

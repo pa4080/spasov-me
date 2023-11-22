@@ -14,20 +14,21 @@
 		"system": "System",
 		"themeSelector": "Theme selector"
 	},
-	"NavBar": {
-		"CV": "CV",
+	"Navigation": {
+		"ABOUT": "About",
 		"BLOG": "Blog",
 		"PORTFOLIO": "Portfolio",
 		"CONTACT": "Contact",
+		"SERVICES": "Services",
 		"HOME": "Home",
 
 		"FILES": "Files",
 		"FILES_DESC": "Upload, browse and manage files",
 		"THEME": "Theme",
 		"THEME_DESC": "Preview the theme colors and typography",
-		"PAGES": "Pages",
-		"PAGES_DESC": "Edit the Home page cards",
-		"PAGES_API": "Pages API",
+		"PAGES": "Pages (SR attempt)",
+		"PAGES_DESC": "Edit the Home page cards vi server ations",
+		"PAGES_API": "Pages",
 		"PAGES_API_DESC": "Edit the Home page cards via API",
 
 		"signUp": "Sign Up",
@@ -70,16 +71,20 @@
 		"form_pageDescription": "Page description",
 		"form_pageDescriptionPlaceholder": "Page description...",
 		"form_pageDescriptionDescription": "Enter the description of the page.",
-		"form_pageSlug": "Page slug",
-		"form_pageSlugPlaceholder": "page-slug",
-		"form_pageSlugDescription": "This will be used in the URL. Don't use spaces or special characters.",
 
-		"form_pageImage": "Page image",
-		"form_pageImageDescription": "Choice an image. It must exist on the system.",
+		"form_pageUri_label": "Select page URI",
+		"form_pageUri_description": "This will be used in the URL. Don't use spaces or special characters.",
+		"form_pageUri_placeholder": "page-slug",
+		"form_pageUri_searchNotFound": "The searched URI could not be found.",
+		"form_pageUri_select": "Select URI for the page...",
+		"form_pageUri_selectNone": "Must be chosen!",
+
+		"form_pageImage_label": "Select page image",
+		"form_pageImage_description": "Choice an image. It must exist on the system.",
 		"form_pageImage_search": "Search for an image...",
 		"form_pageImage_searchNotFound": "The image could not be found.",
 		"form_pageImage_select": "Select an image...",
-		"form_pageImage_selectNone": "None",
+		"form_pageImage_selectNone": "None!",
 
 		"form_pageVisibility_title": "Page visibility",
 		"form_pageVisibility_description": "The page will be visible for the public.",
@@ -89,7 +94,7 @@
 
 		"formSchema_title": "The page title must be at least 2 characters.",
 		"formSchema_description": "The description must be at least 20 characters.",
-		"formSchema_uri": "The page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
+		"formSchema_uri": "The Page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
 		"formSchema_image": "The allowed formats are: png, jpg, jpeg, svg, webp."
 	},
 	"FilesFeed": {

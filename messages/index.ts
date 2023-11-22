@@ -11,7 +11,7 @@ type Namespace = keyof typeof messages;
  * @limitations The messages JSON must be two levels deep!
  *
  * @see https://stackoverflow.com/a/51851844/6543935
- * 			const t = msgs("NavBar");
+ * 			const t = msgs("Navigation");
  *			type tType = Parameters<typeof t>[0];
  */
 function msgs<T extends Namespace>(ns: T) {

@@ -21,7 +21,7 @@ import { Route } from "@/routes";
 import { PageObject, preparePageObjectToFetch } from "@/interfaces/Page";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 
-import Pages_Form, { Pages_FormSchema } from "./Pages_Form";
+import PagesForm, { Pages_FormSchema } from "./pages-form";
 
 import { PagesActions } from ".";
 
@@ -99,7 +99,7 @@ const Pages_Dialog_Add: React.FC<PagesActions> = ({ className, session, setPages
 							<DialogDescription>{t("dialog_description")}</DialogDescription>
 						</DialogHeader>
 
-						<Pages_Form submitting={submitting} onSubmit={handleAddPage} />
+						<PagesForm submitting={submitting} onSubmit={handleAddPage} />
 					</DialogContent>
 				</Dialog>
 			</div>

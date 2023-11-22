@@ -3,10 +3,11 @@ import { signIn } from "next-auth/react";
 
 import { cn } from "@/lib/cn-utils";
 import { AuthProviders } from "@/types/next-auth-providers";
-import messages from "@/messages/en.json";
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 
 import { Skeleton } from "@/components/ui/skeleton";
+
+import { msgs } from "@/messages";
 
 import styles from "./_navbar.module.scss";
 
@@ -16,6 +17,8 @@ interface Props {
 }
 
 const LogIn_Button: React.FC<Props> = ({ className, authProviders }) => {
+	const t = msgs("Navigation");
+
 	return (
 		<div className={cn(styles.logInButton, className)}>
 			{authProviders ? (
@@ -24,7 +27,7 @@ const LogIn_Button: React.FC<Props> = ({ className, authProviders }) => {
 						return (
 							<button
 								key={provider.name}
-								aria-label={messages.NavBar.signInWith.replace(/{\s*provider\s*}/, provider.name)}
+								aria-label={t("signInWith", { provider: provider.name })}
 								type="button"
 								onClick={() => signIn(provider.id)}
 							>

@@ -2,7 +2,6 @@ import React from "react";
 
 import { signOut } from "next-auth/react";
 
-import messages from "@/messages/en.json";
 import { cn } from "@/lib/cn-utils";
 import {
 	NavigationMenu,
@@ -24,9 +23,8 @@ interface Props {
 }
 
 const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
-	const t = msgs("NavBar");
+	const t = msgs("Navigation");
 
-	// https://stackoverflow.com/a/51851844/6543935
 	type tType = Parameters<typeof t>[0];
 
 	return (
@@ -35,7 +33,7 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
 				<NavigationMenuItem>
 					<NavigationMenuTrigger
 						chevronLeft
-						aria-label={messages.NavBar.loggedInUserMenu}
+						aria-label={t("loggedInUserMenu")}
 						className="text-accent-secondary active:text-accent-secondary focus:text-accent-secondary focus-visible:text-accent-secondary"
 					>
 						<IconEmbedSvg type="sidebar-flip" />
@@ -56,9 +54,9 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
 
 						<NavigationMenu_NextLink_Styled
 							className={styles.userMenuItem}
-							desc={messages.NavBar.signOutDescription}
+							desc={t("signOutDescription")}
 							href="#"
-							title={messages.NavBar.signOut}
+							title={t("signOut")}
 							onClick={(e) => {
 								e.preventDefault();
 								signOut();

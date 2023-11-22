@@ -22,6 +22,7 @@ interface Props {
 }
 
 const ThemeSwitch: React.FC<Props> = ({ classNameBtn, strokeWidth }) => {
+	const t = msgs("Theme");
 	const [mounted, setMounted] = useState(false);
 	const { theme, setTheme } = useTheme();
 
@@ -33,8 +34,6 @@ const ThemeSwitch: React.FC<Props> = ({ classNameBtn, strokeWidth }) => {
 	if (!mounted) {
 		return null;
 	}
-
-	const t = msgs("Theme");
 
 	return (
 		<DropdownMenu>

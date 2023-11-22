@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-// import Link from "next/link";
 
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 
 import Image from "next/image";
+
+import { useRouter } from "next/navigation";
 
 import { useAppContext } from "@/contexts/AppContext";
 
@@ -23,7 +24,7 @@ import { Switch } from "@/components/ui/switch";
 import Pages_Dialog_Edit from "./Pages_Dialog_Edit";
 import Pages_Dialog_Add from "./Pages_Dialog_Add";
 import Pages_Dialog_Delete from "./Pages_Dialog_Delete";
-import { Pages_FormSchema } from "./Pages_Form";
+import { Pages_FormSchema } from "./pages-form";
 
 import styles from "../_pages.module.scss";
 
@@ -40,6 +41,7 @@ interface Props {
 const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 	const t = msgs("PagesFeed");
 	const { pages, setPages } = useAppContext();
+	const router = useRouter(); // We can't use <Link><ButtonIcon /></Link>, because Tge inner component have onClick()
 
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -94,7 +96,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 		<div className={cn(styles.homePage, className)}>
 			<Pages_Dialog_Add session={session} setPages={setPages} />
 
-			<div className={cn(styles.pagesFeed, className)}>
+			<div className={cn(styles.pagesFeed, "select-none", className)}>
 				{pages?.map((page, index) => (
 					// <Link key={index} href={`/${page.uri}`}>
 					<div key={index} className={styles.pagesCard}>
@@ -106,6 +108,15 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 									type="trash"
 									width={18}
 									onClick={(e) => handleDelete(e, page)}
+								/>
+								<ButtonIcon
+									className="pl-[2.6px] bg-transparent icon_accent_secondary"
+									height={18}
+									type="up-right-from-square"
+									width={18}
+									onClick={() => {
+										router.push(`/${page.uri}`);
+									}}
 								/>
 								<Switch
 									disabled

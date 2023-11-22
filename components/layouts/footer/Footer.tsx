@@ -1,14 +1,9 @@
 "use client";
 import React from "react";
 
-import Image from "next/image";
-
-import iconMlt from "@/public/icons/svg/mlt/mlw.icon.blue-gray.svg";
-import iconGitHub from "@/public/assets/icons/github-gray.svg";
-import iconUbuntu from "@/public/assets/icons/ubuntu-gray.svg";
-import iconLinkedIn from "@/public/assets/icons/linked-in-gray-square.svg";
-import iconWikiMedia from "@/public/assets/icons/wikimedia-gray.svg";
 import { cn } from "@/lib/cn-utils";
+
+import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 
 import styles from "./_footer.module.scss";
 
@@ -17,11 +12,17 @@ const Footer: React.FC = () => {
 		<footer className={cn(styles.footer)}>
 			<a
 				className={styles.icon}
-				href="https://github.com/metalevel-tech"
+				href="https://github.com/pa4080"
 				rel="noopener noreferrer"
 				target="_blank"
 			>
-				<Image alt="GitHub Icon" height={32} src={iconGitHub} width={32} />
+				<IconEmbedSvg
+					height={32}
+					type="github-rounded"
+					viewBoxHeight={512}
+					viewBoxWidth={496}
+					width={32}
+				/>
 			</a>
 			<a
 				className={styles.icon}
@@ -29,7 +30,13 @@ const Footer: React.FC = () => {
 				rel="noopener noreferrer"
 				target="_blank"
 			>
-				<Image alt="AskUbuntu Icon" height={32} src={iconUbuntu} width={32} />
+				<IconEmbedSvg
+					height={32}
+					type="ubuntu-aka-ask-ubuntu"
+					viewBoxHeight={512}
+					viewBoxWidth={496}
+					width={32}
+				/>
 			</a>
 			<a
 				className={cn(styles.icon, styles.iconSpecial)}
@@ -37,7 +44,13 @@ const Footer: React.FC = () => {
 				rel="noopener noreferrer"
 				target="_blank"
 			>
-				<Image alt="Wiki Metalevel.tech Icon" height={32} src={iconMlt} width={32} />
+				<IconEmbedSvg
+					height={32}
+					type="metalevel-wiki"
+					viewBoxHeight={591.94}
+					viewBoxWidth={557.41}
+					width={32}
+				/>
 			</a>
 			<a
 				className={styles.icon}
@@ -45,7 +58,13 @@ const Footer: React.FC = () => {
 				rel="noopener noreferrer"
 				target="_blank"
 			>
-				<Image alt="LinkedIn Icon" height={32} src={iconLinkedIn} width={32} />
+				<IconEmbedSvg
+					height={32}
+					type="linkedin-square"
+					viewBoxHeight={512}
+					viewBoxWidth={448}
+					width={32}
+				/>
 			</a>
 			<a
 				className={styles.icon}
@@ -53,7 +72,13 @@ const Footer: React.FC = () => {
 				rel="noopener noreferrer"
 				target="_blank"
 			>
-				<Image alt="MediaWiki Icon" height={32} src={iconWikiMedia} width={32} />
+				<IconEmbedSvg
+					height={32}
+					type="wikimedia"
+					viewBoxHeight={897}
+					viewBoxWidth={900}
+					width={32}
+				/>
 			</a>
 		</footer>
 	);
