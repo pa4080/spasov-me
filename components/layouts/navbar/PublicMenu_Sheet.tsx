@@ -19,15 +19,15 @@ import styles from "./_navbar.module.scss";
 
 interface Props {
 	className?: string;
-	menuItems: string[];
 }
 
-const PublicMenu_Sheet: React.FC<Props> = ({ className, menuItems }) => {
+const PublicMenu_Sheet: React.FC<Props> = ({ className }) => {
 	const t = msgs("Navigation");
 
 	type tType = Parameters<typeof t>[0];
 
 	const currentPathName = usePathname();
+	const menuItems: string[] = Object.keys(Route.public);
 
 	return (
 		<div className={cn(styles.publicMenu, className)}>
@@ -58,28 +58,34 @@ const PublicMenu_Sheet: React.FC<Props> = ({ className, menuItems }) => {
 					</SheetHeader>
 
 					<div className="flex flex-col gap-8 pl-2">
-						{menuItems.map((path, index) => (
-							<Link
-								key={index}
-								className={cn(
-									"emphasize_drop_shadow",
-									currentPathName === Route.public[path as keyof typeof Route.public].uri
-										? "text-accent"
-										: "text-foreground"
-								)}
-								href={Route.public[path as keyof typeof Route.public].uri}
-								tabIndex={-1}
-							>
-								<SheetClose
-									className={cn(
-										// The SheetClose overrides the CSS from the module so we can't use a specific class here
-										"font-unicephalon !tracking-widest text-[18px] hover:text-ring active:text-ring-secondary hover:transition-colors"
-									)}
-								>
-									{t(path as tType)}
-								</SheetClose>
-							</Link>
-						))}
+						{menuItems.map((path, index) => {
+							const pathAsKey = path as keyof typeof Route.public;
+
+							if (Route.public[pathAsKey].visible) {
+								return (
+									<Link
+										key={index}
+										className={cn(
+											"emphasize_drop_shadow",
+											currentPathName === Route.public[pathAsKey].uri
+												? "text-accent"
+												: "text-foreground"
+										)}
+										href={Route.public[pathAsKey].uri}
+										tabIndex={-1}
+									>
+										<SheetClose
+											className={cn(
+												// The SheetClose overrides the CSS from the module so we can't use a specific class here
+												"font-unicephalon !tracking-widest text-[18px] hover:text-ring active:text-ring-secondary hover:transition-colors"
+											)}
+										>
+											{t(path as tType)}
+										</SheetClose>
+									</Link>
+								);
+							}
+						})}
 					</div>
 				</SheetContent>
 			</Sheet>

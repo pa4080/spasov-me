@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Route } from "@/routes";
-
 import ThemeSwitch from "@/components/layouts/theme/ThemeSwitch";
 
 import styles from "./_navbar.module.scss";
@@ -10,12 +8,10 @@ import PublicMenu_Sheet from "./PublicMenu_Sheet";
 import UserMenu from "./UserMenu";
 
 const Navbar: React.FC = () => {
-	const menuItems: string[] = Object.keys(Route.public);
-
 	return (
 		<nav className={styles.navbar}>
-			<PublicMenu_Row className="hidden sm:flex" menuItems={menuItems} />
-			<PublicMenu_Sheet className="flex sm:hidden" menuItems={menuItems} />
+			<PublicMenu_Row className="hidden sm:flex" />
+			<PublicMenu_Sheet className="flex sm:hidden" />
 
 			<div className="flex justify-end items-center gap-3 pt-1 -mr-1">
 				<UserMenu />

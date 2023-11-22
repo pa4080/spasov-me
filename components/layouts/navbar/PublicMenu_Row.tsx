@@ -17,15 +17,15 @@ import styles from "./_navbar.module.scss";
 
 interface Props {
 	className?: string;
-	menuItems: string[];
 }
 
-const PublicMenu_Row: React.FC<Props> = ({ className, menuItems }) => {
+const PublicMenu_Row: React.FC<Props> = ({ className }) => {
 	const t = msgs("Navigation");
 
 	type tType = Parameters<typeof t>[0];
 
 	const currentPathName = usePathname();
+	const menuItems: string[] = Object.keys(Route.public);
 
 	return (
 		<div className={cn(styles.publicMenu, className)}>
