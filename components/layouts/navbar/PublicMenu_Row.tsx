@@ -8,9 +8,10 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
-import messages from "@/messages/en.json";
 
 import SiteLogo from "@/components/layouts/logo/SiteLogo";
+
+import { msgs } from "@/messages";
 
 import styles from "./_navbar.module.scss";
 
@@ -20,6 +21,10 @@ interface Props {
 }
 
 const PublicMenu_Row: React.FC<Props> = ({ className, menuItems }) => {
+	const t = msgs("Navigation");
+
+	type tType = Parameters<typeof t>[0];
+
 	const currentPathName = usePathname();
 
 	return (
@@ -33,7 +38,10 @@ const PublicMenu_Row: React.FC<Props> = ({ className, menuItems }) => {
 							key={index}
 							as={Route.public.HOME.uri}
 							className={cn(styles.navItemCommon, "emphasize_drop_shadow")}
-							href={"/" + messages.NavBar.HOME.toLocaleLowerCase()}
+							// This is a workaround for a Next.js bug, where
+							// the home page is not rerendered after 404 error
+							// which is rendered on the the same URI.
+							href={"/" + t("HOME").toLocaleUpperCase()}
 							style={{}}
 						>
 							<SiteLogo
@@ -60,7 +68,7 @@ const PublicMenu_Row: React.FC<Props> = ({ className, menuItems }) => {
 							)}
 							href={Route.public[pathAsKey].uri}
 						>
-							{messages.NavBar[path as keyof typeof messages.NavBar]}
+							{t(path as tType)}
 						</Link>
 					);
 				}

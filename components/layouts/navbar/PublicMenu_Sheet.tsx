@@ -8,11 +8,12 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
-import messages from "@/messages/en.json";
 
 import SiteLogo from "@/components/layouts/logo/SiteLogo";
 
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
+
+import { msgs } from "@/messages";
 
 import styles from "./_navbar.module.scss";
 
@@ -22,13 +23,17 @@ interface Props {
 }
 
 const PublicMenu_Sheet: React.FC<Props> = ({ className, menuItems }) => {
+	const t = msgs("Navigation");
+
+	type tType = Parameters<typeof t>[0];
+
 	const currentPathName = usePathname();
 
 	return (
 		<div className={cn(styles.publicMenu, className)}>
 			<Sheet>
 				<SheetTrigger
-					aria-label={messages.NavBar.altMenuButton}
+					aria-label={t("altMenuButton")}
 					className={cn(
 						styles.navItemCommon,
 						"outline-none focus-visible:outline-none focus:outline-none"
@@ -71,7 +76,7 @@ const PublicMenu_Sheet: React.FC<Props> = ({ className, menuItems }) => {
 										"font-unicephalon !tracking-widest text-[18px] hover:text-ring active:text-ring-secondary hover:transition-colors"
 									)}
 								>
-									{messages.NavBar[path as keyof typeof messages.NavBar]}
+									{t(path as tType)}
 								</SheetClose>
 							</Link>
 						))}

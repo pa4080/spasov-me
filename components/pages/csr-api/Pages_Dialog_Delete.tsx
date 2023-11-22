@@ -19,7 +19,7 @@ import { buttonVariants } from "@/components/ui/button";
 
 import { msgs } from "@/messages";
 
-import { Pages_FormSchema } from "./Pages_Form";
+import { Pages_FormSchema } from "./pages-form";
 
 import { PagesActions } from ".";
 

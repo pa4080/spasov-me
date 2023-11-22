@@ -16,7 +16,7 @@ import { msgs } from "@/messages";
 import { toast } from "@/components/ui/use-toast";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 
-import Pages_Form, { Pages_FormSchema } from "../csr-api/Pages_Form";
+import PagesForm, { Pages_FormSchema } from "../csr-api/pages-form";
 
 import { addPage } from "../_pages.actions";
 
@@ -95,7 +95,7 @@ const Pages_Dialog_Add: React.FC<PagesActions> = ({ className }) => {
 						<DialogDescription>{t("dialog_description")}</DialogDescription>
 					</DialogHeader>
 
-					<Pages_Form submitting={submitting} onSubmit={handleAddPage} />
+					<PagesForm submitting={submitting} onSubmit={handleAddPage} />
 				</DialogContent>
 			</Dialog>
 		</div>

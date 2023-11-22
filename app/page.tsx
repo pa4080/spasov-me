@@ -1,18 +1,18 @@
 import React from "react";
 
-import messages from "@/messages/en.json";
 import HomePage_PagesFeed from "@/components/pages/sr";
 import SiteLogo from "@/components/layouts/logo/SiteLogo";
+import { msgs } from "@/messages";
 
 const Home: React.FC = async () => {
-	const { greeting_ln1, greeting_ln2 } = messages.Home;
+	const t = msgs("Home");
 
 	return (
 		<>
 			<SiteLogo
 				className="w-full margin_vh_top"
-				greeting_ln1={greeting_ln1}
-				greeting_ln2={greeting_ln2}
+				greeting_ln1={t("greeting_ln1")}
+				greeting_ln2={t("greeting_ln2")}
 			/>
 			<HomePage_PagesFeed className="margin_vh_middle margin_vh_bottom" />
 		</>

@@ -24,7 +24,7 @@ import { Switch } from "@/components/ui/switch";
 import Pages_Dialog_Edit from "./Pages_Dialog_Edit";
 import Pages_Dialog_Add from "./Pages_Dialog_Add";
 import Pages_Dialog_Delete from "./Pages_Dialog_Delete";
-import { Pages_FormSchema } from "./Pages_Form";
+import { Pages_FormSchema } from "./pages-form";
 
 import styles from "../_pages.module.scss";
 
