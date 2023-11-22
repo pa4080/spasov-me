@@ -70,7 +70,7 @@
 		"form_pageDescription": "Page description",
 		"form_pageDescriptionPlaceholder": "Page description...",
 		"form_pageDescriptionDescription": "Enter the description of the page.",
-		"form_pageSlug": "Page slug",
+		"form_pageSlug": "Page URI",
 		"form_pageSlugPlaceholder": "page-slug",
 		"form_pageSlugDescription": "This will be used in the URL. Don't use spaces or special characters.",
 
@@ -89,7 +89,7 @@
 
 		"formSchema_title": "The page title must be at least 2 characters.",
 		"formSchema_description": "The description must be at least 20 characters.",
-		"formSchema_uri": "The page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
+		"formSchema_uri": "The Page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
 		"formSchema_image": "The allowed formats are: png, jpg, jpeg, svg, webp."
 	},
 	"FilesFeed": {

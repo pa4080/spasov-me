@@ -6,8 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { Check, ChevronsUpDown } from "lucide-react";
-
 import { Input } from "@/components/ui/input";
 
 import {
@@ -20,21 +18,15 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 
-import {
-	Command,
-	CommandEmpty,
-	CommandGroup,
-	CommandInput,
-	CommandItem,
-} from "@/components/ui/command";
-
-import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-
 import { Button } from "@/components/ui/button";
 import { msgs } from "@/messages";
 import { cn } from "@/lib/cn-utils";
 import { useAppContext } from "@/contexts/AppContext";
 import { Switch } from "@/components/ui/switch";
+
+import { Route } from "@/routes";
+
+import Combobox, { ComboBoxList } from "./Combobox";
 
 // https://github.com/colinhacks/zod#nullable
 // Here is applied a tricky solution to translate the messages,
@@ -62,11 +54,6 @@ export const Pages_FormSchemaGenerator = (messages?: string[]) =>
 export const Pages_FormSchema = Pages_FormSchemaGenerator();
 export type Pages_FormSchema = z.infer<typeof Pages_FormSchema>;
 
-interface ImageFile {
-	id: string;
-	name: string;
-}
-
 interface Props {
 	className?: string;
 	onSubmit: (data: Pages_FormSchema) => void;
@@ -74,10 +61,12 @@ interface Props {
 	formData?: Pages_FormSchema;
 }
 
-const Pages_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
+const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
 	const t = msgs("PagesFeed");
+
+	type tType = Parameters<typeof t>[0];
+
 	const { files } = useAppContext();
-	const [imageFiles, setImageFiles] = useState<ImageFile[]>([]);
 
 	const FormSchema = Pages_FormSchemaGenerator([
 		t("formSchema_title"),
@@ -103,18 +92,29 @@ const Pages_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, 
 		}
 	}, [form, formData]);
 
+	// Generate "image files" list
+	const [imageFiles, setImageFiles] = useState<ComboBoxList<Pages_FormSchema>[]>([]);
+
 	useEffect(() => {
 		if (files.length > 0) {
 			const filterImageFiles = files
 				.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp)$/))
 				.map((file) => ({
-					id: file._id.toString(),
-					name: file.filename,
+					value: file._id.toString(),
+					label: file.filename,
 				}));
 
 			setImageFiles(filterImageFiles);
 		}
 	}, [files]);
+
+	// Generate "visibility" switch
+	const routeList = Object.keys(Route.public).map((key) => ({
+		value: Route.public[key as keyof typeof Route.public].uri,
+		label: t(key as tType),
+	}));
+
+	console.log(routeList);
 
 	return (
 		<Form {...form}>
@@ -168,88 +168,9 @@ const Pages_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, 
 				/>
 
 				{/* Image */}
-				<FormField
-					control={form.control}
-					name="image"
-					render={({ field }) => (
-						<FormItem className="flex flex-col">
-							<FormLabel>{t("form_pageImage")}</FormLabel>
-							<Popover>
-								<PopoverTrigger asChild>
-									<FormControl>
-										<Button
-											className={cn(
-												"w-full justify-between bg-primary text-sm",
-												!field.value && "text-muted-foreground"
-											)}
-											role="combobox"
-											variant="outline"
-										>
-											<div className="line-clamp-1 text-left">
-												{field.value
-													? files.find((file) => file._id.toString() === field.value)?.filename
-													: t("form_pageImage_select")}
-											</div>
-											<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-60" />
-										</Button>
-									</FormControl>
-								</PopoverTrigger>
-								<PopoverContent className="w-full max-w-full p-0 ">
-									<Command>
-										<CommandInput placeholder={t("form_pageImage_search")} />
-										<CommandEmpty>{t("form_pageImage_searchNotFound")}</CommandEmpty>
-										<CommandGroup>
-											{imageFiles.map((image) => (
-												<CommandItem
-													key={image.id}
-													value={image.id}
-													onSelect={() => {
-														form.setValue("image", image.id);
-													}}
-												>
-													<PopoverClose className="w-full flex items-center justify-start">
-														<Check
-															className={cn(
-																"mr-2 h-4 w-4",
-																image.id === field.value ? "opacity-100" : "opacity-0"
-															)}
-															strokeWidth={3}
-														/>
-														<div className="line-clamp-1 text-left">{image.name}</div>
-													</PopoverClose>
-												</CommandItem>
-											))}
+				<Combobox control={form.control} list={imageFiles} name="image" setValue={form.setValue} />
 
-											<CommandItem
-												value={undefined}
-												onSelect={() => {
-													form.setValue("image", undefined);
-												}}
-											>
-												<PopoverClose className="w-full flex items-center justify-start">
-													<Check
-														className={cn(
-															"mr-2 h-4 w-4",
-															undefined === field.value ? "opacity-100" : "opacity-0"
-														)}
-														strokeWidth={3}
-													/>
-
-													<div className="line-clamp-1 text-left">
-														{t("form_pageImage_selectNone")}
-													</div>
-												</PopoverClose>
-											</CommandItem>
-										</CommandGroup>
-									</Command>
-								</PopoverContent>
-							</Popover>
-							<FormDescription>{t("form_pageImageDescription")}</FormDescription>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-
+				{/* Checkbox */}
 				<FormField
 					control={form.control}
 					name="visibility"
@@ -274,4 +195,4 @@ const Pages_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, 
 	);
 };
 
-export default Pages_Form;
+export default PagesForm;
