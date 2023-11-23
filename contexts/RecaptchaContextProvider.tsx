@@ -4,8 +4,6 @@ import React from "react";
 // Note: GoogleReCaptchaProvider require "use client", so we cannot include it in layout.tsx
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
-import { reCaptcha } from "@/components/contact/_contact.actions";
-
 interface Props {
 	children: React.ReactNode;
 }
