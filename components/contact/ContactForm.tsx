@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 
 // Note: GoogleReCaptchaProvider require "use client", so we cannot include it in layout.tsx
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
@@ -30,8 +30,7 @@ import messages from "@/messages/en.json";
 import { cn } from "@/lib/cn-utils";
 
 import styles from "./_contact.module.scss";
-
-import type { ReCaptchaRes, reCaptchaSubmit, SendEmail } from ".";
+import { ReCaptchaRes, reCaptchaSubmit, sendEmail } from "./_contact.actions";
 
 const formMsgs = messages.Contact.form;
 
@@ -51,14 +50,26 @@ export type FormDataType = z.infer<typeof formSchema>;
 
 interface Props {
 	className?: string;
-	sendEmail: SendEmail;
-	reCaptchaSubmit: reCaptchaSubmit;
 }
 
-const ContactForm: React.FC<Props> = ({ className, sendEmail, reCaptchaSubmit }) => {
+const ContactForm: React.FC<Props> = ({ className }) => {
 	const { executeRecaptcha } = useGoogleReCaptcha();
 	const { toast } = useToast();
 	const ref = useRef(null);
+
+	useEffect(() => {
+		const gRecaptchaBadge = document.querySelector(".grecaptcha-badge") as HTMLElement | null;
+
+		if (gRecaptchaBadge) {
+			gRecaptchaBadge.style.translate = "0px -60px";
+		}
+
+		return () => {
+			if (gRecaptchaBadge) {
+				gRecaptchaBadge.style.translate = "100px -60px";
+			}
+		};
+	}, []);
 
 	const form = useForm<FormDataType>({
 		resolver: zodResolver(formSchema),
@@ -84,6 +95,8 @@ const ContactForm: React.FC<Props> = ({ className, sendEmail, reCaptchaSubmit })
 				const reCaptchaRes = await executeRecaptcha("enquiryFormSubmit").then(
 					(googleReCaptchaToken) => reCaptchaSubmit(googleReCaptchaToken)
 				);
+
+				// console.log(reCaptchaRes);
 
 				if (reCaptchaRes.error || !reCaptchaRes.success) {
 					errorMsg = messages.Contact.toast.reCaptcha.selfError;

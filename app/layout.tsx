@@ -3,19 +3,15 @@ import React from "react";
 // import { Analytics } from "@vercel/analytics/react";
 
 import { AppContextProvider } from "@/contexts/AppContext";
-
 import { Toaster } from "@/components/ui/toaster";
-
 import { unicephalon, inter } from "@/app/fonts";
 import manifest from "@/public/manifest.json";
+import ThemesProvider from "@/contexts/ThemesProvider";
+import MainLayout from "@/components/layouts/main-layout";
+import AuthSessionProvider from "@/contexts/AuthSessionProvider";
+import RecaptchaContextProvider from "@/contexts/RecaptchaContextProvider";
 
 import "./globals.scss";
-
-import ThemesProvider from "@/contexts/ThemesProvider";
-
-import MainLayout from "@/components/layouts/main-layout";
-
-import AuthSessionProvider from "@/contexts/AuthSessionProvider";
 
 import type { Metadata, Viewport } from "next";
 
@@ -53,10 +49,12 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
 			>
 				<AuthSessionProvider>
 					<AppContextProvider>
-						<ThemesProvider>
-							<MainLayout>{children}</MainLayout>
-						</ThemesProvider>
-						<Toaster />
+						<RecaptchaContextProvider>
+							<ThemesProvider>
+								<MainLayout>{children}</MainLayout>
+								<Toaster />
+							</ThemesProvider>
+						</RecaptchaContextProvider>
 					</AppContextProvider>
 				</AuthSessionProvider>
 				{/* {process.env.VERCEL_ENV === "production" && <Analytics />} */}

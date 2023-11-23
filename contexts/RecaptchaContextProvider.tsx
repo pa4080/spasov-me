@@ -4,20 +4,13 @@ import React from "react";
 // Note: GoogleReCaptchaProvider require "use client", so we cannot include it in layout.tsx
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
-import ContactForm from "./ContactForm";
-
-import type { reCaptchaSubmit, SendEmail } from ".";
+import { reCaptcha } from "@/components/contact/_contact.actions";
 
 interface Props {
-	reCaptchaSiteKey: string;
-	contactForm: {
-		className?: string;
-		sendEmail: SendEmail;
-		reCaptchaSubmit: reCaptchaSubmit;
-	};
+	children: React.ReactNode;
 }
 
-const RecaptchaContextWrapper: React.FC<Props> = ({ reCaptchaSiteKey, contactForm }) => {
+const RecaptchaContextProvider: React.FC<Props> = ({ children }) => {
 	return (
 		<GoogleReCaptchaProvider
 			container={{
@@ -26,7 +19,7 @@ const RecaptchaContextWrapper: React.FC<Props> = ({ reCaptchaSiteKey, contactFor
 					theme: "dark",
 				},
 			}}
-			reCaptchaKey={reCaptchaSiteKey}
+			reCaptchaKey={String(process.env.NEXT_PUBLIC_GOOGLE_reCAPTCHA_V3e_SITE_KEY)}
 			scriptProps={{
 				async: true,
 				defer: false,
@@ -35,9 +28,9 @@ const RecaptchaContextWrapper: React.FC<Props> = ({ reCaptchaSiteKey, contactFor
 			}}
 			useEnterprise={true}
 		>
-			<ContactForm {...contactForm} />
+			{children}
 		</GoogleReCaptchaProvider>
 	);
 };
 
-export default RecaptchaContextWrapper;
+export default RecaptchaContextProvider;

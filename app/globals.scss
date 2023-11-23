@@ -322,7 +322,8 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
  */
 .grecaptcha-badge {
 	box-shadow: theme("colors.muted.DEFAULT") 0px 0px 5px !important;
-	translate: 0 -60px;
+	@apply transition-all duration-300;
+	translate: 100px -60px;
 }
 
 /* Typography */

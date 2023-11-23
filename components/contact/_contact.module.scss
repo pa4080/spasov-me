@@ -1,6 +1,6 @@
 @import "@/app/globals.variables.module.scss";
 
-.contact {
+.contact {	
 	@apply relative mx-auto my-12 sa:my-auto h-full select-none flex justify-center items-start sa:items-center w-full max-w-screen-1xl;
 
 	.wrapper {
