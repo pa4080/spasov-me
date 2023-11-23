@@ -7,7 +7,7 @@ const Home: React.FC = () => {
 	return (
 		<div className="margin_vh_top margin_vh_bottom">
 			<h1 className="section_title">{t("title")}</h1>
-			<Contact className="bg-secondary px-5 py-3 rounded-2xl" />
+			<Contact />
 		</div>
 	);
 };

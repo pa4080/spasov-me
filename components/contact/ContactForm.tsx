@@ -192,7 +192,12 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 							<FormItem>
 								<FormLabel className={styles.fieldLabel}>{formMsgs.name.label}</FormLabel>
 								<FormControl>
-									<Input placeholder={formMsgs.name.placeholder} {...field} autoComplete="name" />
+									<Input
+										placeholder={formMsgs.name.placeholder}
+										{...field}
+										autoComplete="name"
+										className="ring-offset-secondary focus-visible:ring-offset-secondary focus:ring-offset-secondary"
+									/>
 								</FormControl>
 								{form.formState?.errors?.name ? (
 									<FormMessage />
@@ -210,7 +215,12 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 							<FormItem>
 								<FormLabel className={styles.fieldLabel}>{formMsgs.email.label}</FormLabel>
 								<FormControl>
-									<Input placeholder={formMsgs.email.placeholder} {...field} autoComplete="email" />
+									<Input
+										placeholder={formMsgs.email.placeholder}
+										{...field}
+										autoComplete="email"
+										className="ring-offset-secondary focus-visible:ring-offset-secondary focus:ring-offset-secondary"
+									/>
 								</FormControl>
 								{form.formState?.errors?.email ? (
 									<FormMessage />
@@ -229,7 +239,7 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 								<FormLabel className={styles.fieldLabel}>{formMsgs.message.label}</FormLabel>
 								<FormControl>
 									<Textarea
-										className="resize-none"
+										className="ring-offset-secondary focus-visible:ring-offset-secondary focus:ring-offset-secondary resize-none"
 										placeholder={formMsgs.message.placeholder}
 										{...field}
 									/>
