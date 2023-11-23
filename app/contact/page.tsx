@@ -1,14 +1,13 @@
-import ThemeSwitch from "@/components/layouts/theme/ThemeSwitch";
+import Contact from "@/components/contact";
 import { msgs } from "@/messages";
 
 const Home: React.FC = () => {
-	const t = msgs("Navigation")("signInWith", { provider: "Google" });
+	const t = msgs("Contact");
 
 	return (
-		<div className="h-full w-full flex justify-center items-center flex-col gap-4 p-4">
-			<h1>Contact</h1>
-			<ThemeSwitch />
-			{t}
+		<div className="margin_vh_top margin_vh_bottom">
+			<h1 className="section_title">{t("title")}</h1>
+			<Contact />
 		</div>
 	);
 };

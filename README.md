@@ -14,10 +14,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [x] Change the schema of the PageObject?
   - [x] Add a switch to choose is the page public or not...
 - [ ] Copy the **contact page** from Animated-portfolio
+  - [x] Copy and adapt the code
+  - [ ] CSS style of the contact page
+  - [ ] Texts in the emails
 - [x] Add the project as GitHub repo and deploy to Vercel
 - [ ] Link the local server to Vercel
 - [x] Manage the menu items via the pages feed...
 - [x] The footer icons active SVG icons
+- [ ] Vercel BLOB storage for files and images
 
 ## Tech stack
 
@@ -33,9 +37,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - Next-themes
 - MongoDB
 - Mongoose
-- Auth.js (Next-auth)
-- [Resend](https://resend.com/)
-- [Google reCaptcha](https://www.google.com/recaptcha/admin)
+- [Auth.js v.4](https://authjs.dev/reference/nextjs)\* [Auth.js v.5](https://authjs.dev/guides/upgrade-to-v5)
+- [Resend](https://resend.com/docs/send-with-nextjs)
+- [Google reCaptcha](https://www.google.com/recaptcha/admin) @[react-google-recaptcha-v3](https://www.npmjs.com/package/react-google-recaptcha-v3)
 
 ## Getting Started
 
