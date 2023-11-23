@@ -124,5 +124,70 @@
 		"formSchema_name": "The file name is required it can contain only latin alphanumeric characters, dots, dashes and underscores. Cannot start with a special character.",
 		"formSchema_description": "The description is optional, it should be a string.",
 		"formSchema_file": "The file is absolutely required."
+	},
+	"Contact": {
+		"title": "Let's work together!",
+		"toast": {
+			"submitted": "You submitted the following values:",
+			"success": "Your message was successfully sent.",
+			"error": "Something went wrong. Please try again.",
+			"reCaptcha": {
+				"selfError": "Something went wrong with reCaptcha API. Please try again.",
+				"scoreError": "Please verify that you are not a robot."
+			}
+		},
+		"items": [
+			{
+				"title": "Email",
+				"active": true
+			},
+			{
+				"title": "Address",
+				"active": true
+			},
+			{
+				"title": "Phone",
+				"active": false
+			}
+		],
+		"emailContentClint": {
+			"subject": "{ admin } from MetaLevel.tech",
+			"hello": "Hello, { client }!",
+			"yourMessage": "The following message of yours was successfully submitted:",
+			"thankYou": "Thank you for reaching out to me. I will get back to you as soon as possible.",
+			"bestRegards": "Best regards,"
+		},
+		"emailContentAdmin": {
+			"subject": "New client message at { site_name }",
+			"message": "Message:",
+			"name": "Client name:",
+			"email": "Client email:"
+		},
+		"form": {
+			"name": {
+				"label": "Full name",
+				"placeholder": "Enter your name",
+				"error": "The name is required and must be at least 3 characters.",
+				"description": "We won't share your full name with anyone.",
+				"minLength": 3,
+				"maxLength": null
+			},
+			"email": {
+				"label": "Email",
+				"placeholder": "Enter your email",
+				"description": "We won't share your email with anyone.",
+				"error": "Invalid email.",
+				"minLength": null,
+				"maxLength": null
+			},
+			"message": {
+				"label": "Message",
+				"placeholder": "Enter your message...",
+				"description": "Leave me a message. Ask me anything related to the fields described in the services and projects sections.",
+				"error": "The message is required it must be at least 25 characters.",
+				"minLength": 25,
+				"maxLength": null
+			}
+		}
 	}
 }

@@ -1,0 +1,209 @@
+{
+	"Home": {
+		"title": "Portfolio",
+		"description": "Animated Portfolio"
+	},
+	"Theme": {
+		"light": "Light",
+		"dark": "Dark",
+		"system": "System",
+		"themeSelector": "Theme selector"
+	},
+	"Navbar": {
+		"logoDesc": "The site logo"
+	},
+	"Sections": ["Homepage", "Services", "Portfolio", "Contact", "About"],
+	"Buttons": {
+		"submit": "Submit",
+		"cancel": "Cancel",
+		"reset": "Reset",
+		"save": "Save",
+		"back": "Back",
+		"next": "Next",
+		"finish": "Finish",
+		"login": "Login",
+		"logout": "Logout",
+		"send": "Send",
+		"search": "Search",
+		"discardSearch": "Discard search",
+		"add": "Add",
+		"addUser": "Add a user",
+		"addExpense": "Add expense",
+		"edit": "Edit",
+		"delete": "Delete",
+		"showMore": "Show more",
+		"showLess": "Show less",
+		"showAll": "Show all",
+		"clearSelection": "Clear selection",
+		"prev": "Prev",
+		"mobileMenuName": "Open mobile menu",
+		"go": "Go"
+	},
+	"Hero": {
+		"modelImageAlt": "A picture of the owner of the website",
+		"scrollImageAlt": "Scroll down icon",
+		"presents": "Presents",
+		"latestProjects": "See the latest projects",
+		"contactMe": "Contact Me"
+	},
+	"Services": {
+		"title": "What We do?",
+		"titleImageAlt": "A picture of a dev team",
+		"slogan": "I focus on helping your brand grow <br /> and move forward",
+		"title_ln1": "<b>Unique</b> Ideas",
+		"title_ln2": "<b>For Your</b> Business",
+		"items": [
+			{
+				"id": 1,
+				"title": "Design",
+				"description": "A design service provides professional expertise in creating visually appealing and functional designs for various purposes, helping businesses and individuals effectively communicate their message and enhance their brand image. Through careful research and thoughtful design choices, designers create unique and impactful visual experiences that resonate with the target audience."
+			},
+			{
+				"id": 2,
+				"title": "Development",
+				"description": "A development service provides professional expertise in creating websites, applications, and other digital products that are user-friendly, secure, effective, and built with the latest technologies and industry best practices. Developers write clean and efficient code, implement robust functionalities, and ensure seamless integration across different platforms and devices."
+			},
+			{
+				"id": 3,
+				"title": "Deployment",
+				"description": "A deployment service provides professional expertise in deploying, configuring, and optimizing websites, applications, and other digital products to ensure smooth and efficient operation. Deployments are carefully planned and executed, considering scalability, performance, and security requirements."
+			},
+			{
+				"id": 4,
+				"title": "Support",
+				"description": "A support service provides professional expertise in providing technical support, troubleshooting, and bug fixing for websites, applications, and other digital products to ensure uninterrupted functionality and user satisfaction. Support teams are responsive and knowledgeable, providing timely assistance to resolve issues and address user concerns."
+			},
+			{
+				"id": 5,
+				"title": "Maintenance",
+				"description": "A maintenance service provides professional expertise in regularly updating, monitoring, and optimizing websites, applications, and other digital products to ensure optimal performance, security, and stability. Regular maintenance activities include bug fixes, security patches, performance optimizations, and database management."
+			},
+			{
+				"id": 6,
+				"title": "Consulting",
+				"description": "A consulting service provides professional expertise in offering strategic advice, guidance, and recommendations to businesses and individuals on various aspects related to design, development, and digital transformation. Consultants leverage their industry knowledge and experience to help clients make informed decisions and achieve their business goals."
+			}
+		]
+	},
+	"Portfolio": {
+		"title": "What We Did",
+		"featured": "Featured work",
+		"viewRepo": "Checkout the repo",
+		"viewProject": "View the project",
+		"items": [
+			{
+				"id": 1,
+				"name": "Game Hub",
+				"description": "A simplified replica of the RAWG's site, which uses the non-commercial access of their API. This is a hobby project realizes at my free time. The project uses the latest versions of Next.js (13.6), Tailwind CSS, Shadcn/ui. It offers a color theme selector, two gallery modes (hover and click), advanced image caching, multi-level responsive design, data filters, data search capabilities, and much more.",
+				"image": "/images/projects/game-hub.webp",
+				"link": "https://game-hub.metalevel.tech/",
+				"project": "https://github.com/pa4080/game-hub"
+			},
+			{
+				"id": 2,
+				"name": "Weather Forecast",
+				"description": "A simple Weather forecast application, which uses the One Call API 3.0 of Openweathermap.org. The purpose of the project is to satisfy an exam task for a job interview.",
+				"image": "/images/projects/weather-forecast.webp",
+				"link": "https://weather-forecast.metalevel.tech/",
+				"project": "https://github.com/pa4080/weather-forecast"
+			},
+			{
+				"id": 3,
+				"name": "Promptopia",
+				"description": "Platform that serves as a hub for exchanging AI prompts in a format similar to blog posts. The project is written with TypeScript and is hosted on Vercel, utilizing MongoDB/Atlas as its database solution. For the front-end, React and Tailwind CSS have been employed, all powered by Next.js with the efficient 'app router' implementation. On the back-end side, I've utilized the Next.js's serverless functions and next-auth for authentication. It's multilingual-ready with next-intl for localization. ",
+				"image": "/images/projects/promptopia.webp",
+				"link": "https://promptopia.metalevel.tech/",
+				"project": "https://github.com/pa4080/promptopia"
+			},
+			{
+				"id": 4,
+				"name": "Appstimate.io",
+				"description": "An application that offers a free and efficient app cost calculator to help you estimate the financial investment required for your app development project. This is my inaugural professional project, utilizing cutting-edge technologies such as Typescript, Next.js, Material UI, MongoDB, and more. The project was creates while I was employer at Browserbite.io, so it is their property.",
+				"image": "/images/projects/appstimate.webp",
+				"link": "https://appstimate.io/",
+				"project": "private"
+			},
+			{
+				"id": 5,
+				"name": "StarWars API Search",
+				"description": "This is my first touch with TypeScript. It was a task on the entrance exam at Browserbite.io.",
+				"image": "/images/projects/swapi.webp",
+				"link": "https://swapi.metalevel.tech",
+				"project": "https://github.com/pa4080/swapi"
+			},
+			{
+				"id": 6,
+				"name": "Hyperzon",
+				"description": "Refactoring and polish Hyperzon's site and convert it to a SPA with custom MVC. Hyperzon is a full service amazon marketing agency.",
+				"image": "/images/projects/hyperzon.webp",
+				"link": null,
+				"project": "https://github.com/pa4080/prj-hyperzon.io-home-page"
+			}
+		]
+	},
+	"Contact": {
+		"title": "Let's work together!",
+		"toast": {
+			"submitted": "You submitted the following values:",
+			"success": "Your message was successfully sent.",
+			"error": "Something went wrong. Please try again.",
+			"reCaptcha": {
+				"selfError": "Something went wrong with reCaptcha API. Please try again.",
+				"scoreError": "Please verify that you are not a robot."
+			}
+		},
+		"items": [
+			{
+				"title": "Email",
+				"active": true
+			},
+			{
+				"title": "Address",
+				"active": true
+			},
+			{
+				"title": "Phone",
+				"active": false
+			}
+		],
+		"emailContentClint": {
+			"subject": "{ admin } from MetaLevel.tech",
+			"hello": "Hello, { client }!",
+			"yourMessage": "The following message of yours was successfully submitted:",
+			"thankYou": "Thank you for reaching out to me. I will get back to you as soon as possible.",
+			"bestRegards": "Best regards,"
+		},
+		"emailContentAdmin": {
+			"subject": "New client message at { site_name }",
+			"message": "Message:",
+			"name": "Client name:",
+			"email": "Client email:"
+		},
+		"form": {
+			"name": {
+				"label": "Full name",
+				"placeholder": "Enter your name",
+				"error": "The name is required and must be at least 3 characters.",
+				"description": "We won't share your full name with anyone.",
+				"minLength": 3,
+				"maxLength": null
+			},
+			"email": {
+				"label": "Email",
+				"placeholder": "Enter your email",
+				"description": "We won't share your email with anyone.",
+				"error": "Invalid email.",
+				"minLength": null,
+				"maxLength": null
+			},
+			"message": {
+				"label": "Message",
+				"placeholder": "Enter your message...",
+				"description": "Leave me a message. Ask me anything related to the fields described in the services and projects sections.",
+				"error": "The message is required it must be at least 25 characters.",
+				"minLength": 25,
+				"maxLength": null
+			}
+		}
+	}
+}
