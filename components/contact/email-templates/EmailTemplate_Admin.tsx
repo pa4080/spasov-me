@@ -1,30 +1,38 @@
 import * as React from "react";
 
-import messages from "@/messages/en.json";
-import manifest from "@/public/manifest.json";
+import { msgs } from "@/messages";
 
 import { FormDataType } from "../ContactForm";
 
-const msg = messages.Contact.emailContentAdmin;
+type EmailTemplateProps = FormDataType & {
+	siteName: string;
+};
 
-type EmailTemplateProps = FormDataType;
+const EmailTemplate_Admin: React.FC<Readonly<EmailTemplateProps>> = ({
+	name: clientName,
+	message: theMessage,
+	email: theClientEmail,
+	siteName,
+}) => {
+	const t = msgs("ContactEmail_Admin");
 
-const EmailTemplate_Admin: React.FC<Readonly<EmailTemplateProps>> = ({ name, message, email }) => (
-	<div>
-		<p>
-			<b> {msg.subject.replace(/{\s*site_name\s*}/, manifest.short_name)} </b>
-		</p>
-		<p>
-			{msg.name} <b>{name}</b>
-		</p>
-		<p>
-			{msg.email} <b>{email}</b>
-		</p>
-		<p> {msg.message} </p>
-		<p>
-			<em> {message} </em>
-		</p>
-	</div>
-);
+	return (
+		<div>
+			<p>
+				<b>{t("subjectToAdmin", { siteName })}</b>
+			</p>
+			<p>
+				{t("clientNameMsg")} <b>{clientName}</b>
+			</p>
+			<p>
+				{t("clientEmailMsg")} <b>{theClientEmail}</b>
+			</p>
+			<p>{t("theMessageMsg")}</p>
+			<p>
+				<em>{theMessage}</em>
+			</p>
+		</div>
+	);
+};
 
 export default EmailTemplate_Admin;

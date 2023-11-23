@@ -25,24 +25,24 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 
-import messages from "@/messages/en.json";
-
 import { cn } from "@/lib/cn-utils";
+
+import { msgs } from "@/messages";
 
 import styles from "./_contact.module.scss";
 import { ReCaptchaRes, reCaptchaSubmit, sendEmail } from "./_contact.actions";
 
-const formMsgs = messages.Contact.form;
+const t = msgs("Contact");
 
 const formSchema = z.object({
-	name: z.string().min(formMsgs.name.minLength, {
-		message: formMsgs.name.error,
+	name: z.string().min(Number(t("form_name_minLength")), {
+		message: t("form_name_error"),
 	}),
 	email: z.string().email({
-		message: formMsgs.email.error,
+		message: t("form_email_error"),
 	}),
-	message: z.string().min(formMsgs.message.minLength, {
-		message: formMsgs.message.error,
+	message: z.string().min(Number(t("form_message_minLength")), {
+		message: t("form_message_error"),
 	}),
 });
 
@@ -99,23 +99,23 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 				// console.log(reCaptchaRes);
 
 				if (reCaptchaRes.error || !reCaptchaRes.success) {
-					errorMsg = messages.Contact.toast.reCaptcha.selfError;
+					errorMsg = t("toast_reCaptcha_selfError");
 				}
 
 				if (reCaptchaRes.scoreLimit > reCaptchaRes.score) {
-					errorMsg = messages.Contact.toast.reCaptcha.scoreError;
+					errorMsg = t("toast_reCaptcha_scoreError");
 				}
 
 				if (errorMsg) {
 					reCaptcha = reCaptchaRes;
-					throw new Error("Recaptcha error...");
+					throw new Error(t("toast_reCaptcha_genericError"));
 				}
 
 				toast({
 					description: (
 						<div className="flex flex-col items-center gap-2 justify-center w-full">
 							<div className="flex items-center gap-2 justify-between">
-								<span className="text-base">{messages.Contact.toast.submitted}</span>
+								<span className="text-base">{t("toast_submitted")}</span>
 								<span className="text-3xl">
 									<BsSendCheck />
 								</span>
@@ -137,7 +137,7 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 						description: (
 							<div className="flex flex-col items-center gap-2 justify-center w-full">
 								<div className="flex items-center gap-2 justify-between">
-									<span className="text-base">{messages.Contact.toast.success}</span>
+									<span className="text-base">{t("toast_success")}</span>
 									<span className="text-3xl">
 										<BsSendCheck />
 									</span>
@@ -146,8 +146,8 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 						),
 					});
 				} else {
-					errorMsg = messages.Contact.toast.error;
-					throw new Error("Error sending email: " + response.error);
+					errorMsg = t("toast_error");
+					throw new Error(t("toast_errorSendingEmail", { error: String(response.error) }));
 				}
 			} catch (error) {
 				console.error(error);
@@ -190,10 +190,10 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 						name="name"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel className={styles.fieldLabel}>{formMsgs.name.label}</FormLabel>
+								<FormLabel className={styles.fieldLabel}>{t("form_name_label")}</FormLabel>
 								<FormControl>
 									<Input
-										placeholder={formMsgs.name.placeholder}
+										placeholder={t("form_name_placeholder")}
 										{...field}
 										autoComplete="name"
 										className="ring-offset-secondary focus-visible:ring-offset-secondary focus:ring-offset-secondary"
@@ -202,7 +202,7 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 								{form.formState?.errors?.name ? (
 									<FormMessage />
 								) : (
-									<FormDescription>{formMsgs.name.description}</FormDescription>
+									<FormDescription>{t("form_name_description")}</FormDescription>
 								)}
 							</FormItem>
 						)}
@@ -213,10 +213,10 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 						name="email"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel className={styles.fieldLabel}>{formMsgs.email.label}</FormLabel>
+								<FormLabel className={styles.fieldLabel}>{t("form_email_label")}</FormLabel>
 								<FormControl>
 									<Input
-										placeholder={formMsgs.email.placeholder}
+										placeholder={t("form_email_placeholder")}
 										{...field}
 										autoComplete="email"
 										className="ring-offset-secondary focus-visible:ring-offset-secondary focus:ring-offset-secondary"
@@ -225,7 +225,7 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 								{form.formState?.errors?.email ? (
 									<FormMessage />
 								) : (
-									<FormDescription>{formMsgs.email.description}</FormDescription>
+									<FormDescription>{t("form_email_description")}</FormDescription>
 								)}
 							</FormItem>
 						)}
@@ -236,18 +236,18 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 						name="message"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel className={styles.fieldLabel}>{formMsgs.message.label}</FormLabel>
+								<FormLabel className={styles.fieldLabel}>{t("form_message_label")}</FormLabel>
 								<FormControl>
 									<Textarea
 										className="ring-offset-secondary focus-visible:ring-offset-secondary focus:ring-offset-secondary resize-none"
-										placeholder={formMsgs.message.placeholder}
+										placeholder={t("form_message_placeholder")}
 										{...field}
 									/>
 								</FormControl>
 								{form.formState?.errors?.message ? (
 									<FormMessage />
 								) : (
-									<FormDescription>{formMsgs.message.description}</FormDescription>
+									<FormDescription>{t("form_message_description")}</FormDescription>
 								)}
 							</FormItem>
 						)}

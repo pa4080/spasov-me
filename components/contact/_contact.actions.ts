@@ -1,14 +1,16 @@
 "use server";
+
 import { Resend } from "resend";
 
-import messages from "@/messages/en.json";
 import manifest from "@/public/manifest.json";
+
+import { msgs } from "@/messages";
 
 import EmailTemplate_Client from "./email-templates/EmailTemplate_Client";
 import EmailTemplate_Admin from "./email-templates/EmailTemplate_Admin";
 import { FormDataType } from "./ContactForm";
 
-export const reCaptcha = {
+const reCaptcha = {
 	url: String(process.env.GOOGLE_reCAPTCHA_URL),
 	secretKey: String(process.env.GOOGLE_reCAPTCHA_V3e_SECRET_KEY),
 	siteKey: String(process.env.NEXT_PUBLIC_GOOGLE_reCAPTCHA_V3e_SITE_KEY),
@@ -33,19 +35,23 @@ export type SendEmail = (formData: FormDataType) => Promise<{ ok: boolean; error
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const admin = String(process.env.NEXT_PUBLIC_ME_FULL_NAME);
+const adminEmail = String(process.env.NEXT_PUBLIC_ME_EMAIL);
+const siteName = manifest.short_name;
+const tContactAdmin = msgs("ContactEmail_Admin");
+const tContactClient = msgs("ContactEmail_Client");
+
 export const sendEmail: SendEmail = async (formData: FormDataType) => {
 	"use server";
 
 	// https://resend.com/docs/send-with-nextjs
 	try {
 		const sendEmail_Client = await resend.emails.send({
-			from: `${String(process.env.NEXT_PUBLIC_ME_EMAIL)} <${String(
-				process.env.NEXT_PUBLIC_ME_EMAIL
-			)}>`,
+			from: `${admin} <${adminEmail}>`,
 			text: formData.message,
 			to: formData.email,
-			subject: String(process.env.NEXT_PUBLIC_ME_FULL_NAME),
-			react: EmailTemplate_Client(formData),
+			subject: tContactClient("subjectToClient", { admin, siteName }),
+			react: EmailTemplate_Client({ ...formData, admin }),
 		});
 
 		if (sendEmail_Client.error) {
@@ -53,16 +59,11 @@ export const sendEmail: SendEmail = async (formData: FormDataType) => {
 		}
 
 		const sendEmail_Admin = await resend.emails.send({
-			from: `${String(process.env.NEXT_PUBLIC_ME_EMAIL)} <${String(
-				process.env.NEXT_PUBLIC_ME_EMAIL
-			)}>`,
+			from: `${manifest.short_name} <${adminEmail}>`,
 			text: formData.message,
-			to: String(process.env.NEXT_PUBLIC_ME_EMAIL),
-			subject: messages.Contact.emailContentAdmin.subject.replace(
-				/{\s*site_name\s*}/,
-				manifest.short_name
-			),
-			react: EmailTemplate_Admin(formData),
+			to: adminEmail,
+			subject: tContactAdmin("subjectToAdmin", { admin }),
+			react: EmailTemplate_Admin({ ...formData, siteName }),
 		});
 
 		if (sendEmail_Admin.error) {

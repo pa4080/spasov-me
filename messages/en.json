@@ -127,67 +127,47 @@
 	},
 	"Contact": {
 		"title": "Let's build together!",
-		"toast": {
-			"submitted": "You submitted the following values:",
-			"success": "Your message was successfully sent.",
-			"error": "Something went wrong. Please try again.",
-			"reCaptcha": {
-				"selfError": "Something went wrong with reCaptcha API. Please try again.",
-				"scoreError": "Please verify that you are not a robot."
-			}
-		},
-		"items": [
-			{
-				"title": "Email",
-				"active": true
-			},
-			{
-				"title": "Address",
-				"active": true
-			},
-			{
-				"title": "Phone",
-				"active": false
-			}
-		],
-		"emailContentClint": {
-			"subject": "{ admin } from MetaLevel.tech",
-			"hello": "Hello, { client }!",
-			"yourMessage": "The following message of yours was successfully submitted:",
-			"thankYou": "Thank you for reaching out to me. I will get back to you as soon as possible.",
-			"bestRegards": "Best regards,"
-		},
-		"emailContentAdmin": {
-			"subject": "New client message at { site_name }",
-			"message": "Message:",
-			"name": "Client name:",
-			"email": "Client email:"
-		},
-		"form": {
-			"name": {
-				"label": "Full name",
-				"placeholder": "Enter your name",
-				"error": "The name is required and must be at least 3 characters.",
-				"description": "We won't share your full name with anyone.",
-				"minLength": 3,
-				"maxLength": null
-			},
-			"email": {
-				"label": "Email",
-				"placeholder": "Enter your email",
-				"description": "We won't share your email with anyone.",
-				"error": "Invalid email.",
-				"minLength": null,
-				"maxLength": null
-			},
-			"message": {
-				"label": "Message",
-				"placeholder": "Enter your message...",
-				"description": "Leave me a message. Ask me anything related to the fields described in the services and projects sections.",
-				"error": "The message is required it must be at least 25 characters.",
-				"minLength": 25,
-				"maxLength": null
-			}
-		}
+
+		"toast_submitted": "You submitted the following values:",
+		"toast_success": "Your message was successfully sent.",
+		"toast_error": "Something went wrong. Please try again.",
+		"toast_errorSendingEmail": "Error sending email: { error }",
+		"toast_reCaptcha_selfError": "Something went wrong with reCaptcha API. Please try again.",
+		"toast_reCaptcha_scoreError": "Please verify that you are not a robot.",
+		"toast_reCaptcha_genericError": "Recaptcha error...",
+
+		"form_name_label": "Full name",
+		"form_name_placeholder": "Enter your name",
+		"form_name_error": "The name is required and must be at least 3 characters.",
+		"form_name_description": "We won't share your full name with anyone.",
+		"form_name_minLength": 3,
+		"form_name_maxLength": null,
+
+		"form_email_label": "Email",
+		"form_email_placeholder": "Enter your email",
+		"form_email_description": "We won't share your email with anyone.",
+		"form_email_error": "Invalid email.",
+		"form_email_minLength": null,
+		"form_email_maxLength": null,
+
+		"form_message_label": "Message",
+		"form_message_placeholder": "Enter your message...",
+		"form_message_description": "Leave me a message. Ask me anything related to the fields described in the services and projects sections.",
+		"form_message_error": "The message is required it must be at least 25 characters.",
+		"form_message_minLength": 25,
+		"form_message_maxLength": null
+	},
+	"ContactEmail_Admin": {
+		"subjectToAdmin": "New client message at { siteName }",
+		"clientNameMsg": "Client name:",
+		"theMessageMsg": "Message:",
+		"clientEmailMsg": "Client email:"
+	},
+	"ContactEmail_Client": {
+		"subjectToClient": "{ admin } from { siteName }",
+		"messageTitle": "Hello, { name }!",
+		"yourMessage": "The following message of yours was successfully submitted:",
+		"thankYou": "Thank you for reaching out to me. I will get back to you as soon as possible.",
+		"bestRegards": "Best regards,"
 	}
 }

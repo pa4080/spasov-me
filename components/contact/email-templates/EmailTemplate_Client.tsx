@@ -1,28 +1,34 @@
 import * as React from "react";
 
-import messages from "@/messages/en.json";
+import { msgs } from "@/messages";
 
 import { FormDataType } from "../ContactForm";
 
-const msg = messages.Contact.emailContentClint;
+type EmailTemplateProps = FormDataType & {
+	admin: string;
+};
 
-type EmailTemplateProps = FormDataType;
+const EmailTemplate_Client: React.FC<Readonly<EmailTemplateProps>> = ({ name, message, admin }) => {
+	const t = msgs("ContactEmail_Client");
 
-const EmailTemplate_Client: React.FC<Readonly<EmailTemplateProps>> = ({ name, message }) => (
-	<div>
-		<p>
-			<b> {msg.hello.replace(/{\s*client\s*}/, name)} </b>
-		</p>
-		<p> {msg.yourMessage} </p>
-		<p>
-			<em> {message} </em>
-		</p>
-		<br />
-		<p> {msg.thankYou} </p>
-		<p>
-			{msg.bestRegards} <br /> {process.env.NEXT_PUBLIC_ME_FULL_NAME}
-		</p>
-	</div>
-);
+	return (
+		<div>
+			<p>
+				<b>{t("messageTitle", { name })}</b>
+			</p>
+			<br />
+			<p>{t("yourMessage")}</p>
+			<p>
+				<em>{message}</em>
+			</p>
+			<br />
+			<p>{t("thankYou")}</p>
+			<br />
+			<p>
+				{t("bestRegards")} <br /> {admin}
+			</p>
+		</div>
+	);
+};
 
 export default EmailTemplate_Client;

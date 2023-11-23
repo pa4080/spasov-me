@@ -37,7 +37,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - Next-themes
 - MongoDB
 - Mongoose
-- Auth.js (Next-auth)
+- [Auth.js v.4](https://authjs.dev/reference/nextjs)\* [Auth.js v.5](https://authjs.dev/guides/upgrade-to-v5)
 - [Resend](https://resend.com/docs/send-with-nextjs)
 - [Google reCaptcha](https://www.google.com/recaptcha/admin) @[react-google-recaptcha-v3](https://www.npmjs.com/package/react-google-recaptcha-v3)
 
