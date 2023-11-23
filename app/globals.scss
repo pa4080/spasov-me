@@ -315,3 +315,17 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 		focus:outline-none focus:ring-1 focus:ring-ring focus:bg-ring/30
 		hover:bg-ring/30 focus:ring-offset-4 disabled:pointer-events-none data-[state=open]:bg-secondary data-[state=open]:text-muted-foreground;
 }
+
+/**
+ * Google reCaptcha
+ * @see https://github.com/pa4080/animated-portfolio/blob/b2f617bb8deaa4ad6a91937003cee6033ef033c2/components/contact/ContactForm.tsx#L175
+ */
+.grecaptcha-badge {
+	box-shadow: theme("colors.muted.DEFAULT") 0px 0px 5px !important;
+	translate: 0 -60px;
+}
+
+/* Typography */
+.section_title {
+	@apply font-unicephalon text-foreground-secondary text-3xl px-1 mb-6;
+}

@@ -4,7 +4,8 @@
 	@apply relative mx-auto my-12 sa:my-auto h-full select-none flex justify-center items-start sa:items-center w-full max-w-screen-1xl;
 
 	.wrapper {
-		@apply h-fit grid sa:grid-cols-2 gap-10 w-full;
+		@apply h-fit w-full; 
+		// grid sa:grid-cols-2 gap-10
 
 		.textContainer {
 			@apply flex flex-col sm:flex-row sa:flex-col z-10 relative w-full gap-6 sa:gap-10 justify-start
@@ -39,7 +40,7 @@
 				}
 
 				.button {
-					@apply border-2 border-foreground font-semibold text-lg text-background bg-foreground px-2 2xs:px-3 py-1 rounded-md hover:text-foreground hover:bg-background transition-colors duration-500 hover:duration-150 hover:drop-shadow-lg opacity-95 hover:opacity-100 cursor-pointer flex items-center w-fit gap-1 xs:gap-3;
+					@apply border-2 border-foreground font-semibold text-lg text-background bg-foreground px-2 2xs:px-3 py-1 rounded-md hover:text-foreground hover:bg-muted-secondary transition-colors duration-500 hover:duration-150 hover:drop-shadow-lg opacity-95 hover:opacity-100 cursor-pointer flex items-center w-fit gap-1 xs:gap-3;
 
 					.btnText {
 						@apply block w-full flex-grow;

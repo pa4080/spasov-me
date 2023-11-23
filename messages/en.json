@@ -126,7 +126,7 @@
 		"formSchema_file": "The file is absolutely required."
 	},
 	"Contact": {
-		"title": "Let's work together!",
+		"title": "Let's build together!",
 		"toast": {
 			"submitted": "You submitted the following values:",
 			"success": "Your message was successfully sent.",
