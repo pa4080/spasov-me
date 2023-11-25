@@ -24,7 +24,7 @@ import Files_Dialog_Upload from "./Files_Dialog_Upload";
 // import Pages_Dialog_Delete from "./Pages_Dialog_Delete";
 import ButtonIcon from "../fragments/ButtonIcon";
 import Files_Dialog_Delete from "./Files_Dialog_Delete";
-import { Files_FormSchema } from "./Files_Form";
+import { Files_FormSchema } from "./files-form";
 import Files_Dialog_Edit from "./Files_Dialog_Edit";
 
 interface Props {
@@ -37,9 +37,7 @@ const FilesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 	const [actionFileId, setActionFileId] = useState("");
-	const [actionFile, setActionFile] = useState<Files_FormSchema>();
-
-	const { data: session } = useSession();
+	const [actionFile, setActionFile] = useState<FileObject>();
 
 	const handleDelete = (e: React.SyntheticEvent, file: FileObject) => {
 		e.preventDefault();
@@ -66,50 +64,55 @@ const FilesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 							<h1>{file.filename}</h1>
 							<p>{file.metadata.description}</p>
 						</div>
-						<div className={styles.imageContainer}>
-							{session?.user && (
-								<div className={styles.cardEditActions}>
-									<ButtonIcon
-										className="pl-[4.5px] bg-transparent icon_accent_secondary"
-										height={18}
-										type="brush"
-										width={18}
-										onClick={(e) => handleEdit(e, file)}
-									/>
-									<ButtonIcon
-										className="pl-[2.8px] bg-transparent icon_accent_secondary"
-										height={18}
-										type="trash"
-										width={18}
-										onClick={(e) => handleDelete(e, file)}
-									/>
-								</div>
-							)}
-							<div className={styles.imageWrapper}>
+						<Link
+							className={styles.imageLink}
+							href={`${Route.api.FILES}/${file._id.toString()}/${file.filename}`}
+							target="_blank"
+						>
+							<div className={styles.imageContainer}>
 								{/* If it is another file type, it will be displayed as a link with icon... */}
-								<Link href={`${Route.api.FILES}/${file._id.toString()}`} target="_blank">
-									{file.filename.match(/\.(pdf|pptx|xlsx|docx)$/) ? (
-										<Image
-											priority
-											alt={file.filename + " " + file.metadata.description}
-											className="files_image"
-											height={200}
-											src={`${Route.assets.MIME_TYPE}/${file.filename.split(".").pop()}.png`}
-											width={200}
-										/>
-									) : (
-										<Image
-											priority
-											alt={file.filename + " " + file.metadata.description}
-											className="files_image"
-											height={200}
-											placeholder={`data:image/${base64placeholder}`}
-											src={`${Route.api.FILES}/${file._id.toString()}`}
-											width={356}
-										/>
-									)}
-								</Link>
+								{file.filename.match(/\.(pdf|pptx|xlsx|docx)$/) ? (
+									<Image
+										priority
+										alt={file.filename + " " + file.metadata.description}
+										className={styles.image}
+										height="0"
+										sizes="160px"
+										src={`${Route.assets.MIME_TYPE}/${file.filename.split(".").pop()}.png`}
+										// style={{ width: "100%", height: "auto" }}
+										width="0"
+									/>
+								) : (
+									<Image
+										priority
+										alt={file.filename + " " + file.metadata.description}
+										className={styles.image}
+										height="0"
+										placeholder={`data:image/${base64placeholder}`}
+										sizes="320px"
+										src={`${Route.api.FILES}/${file._id.toString()}/${file.filename}`}
+										// style={{ width: "100%", height: "auto" }}
+										width="0"
+									/>
+								)}
 							</div>
+						</Link>
+
+						<div className={styles.cardEditActions}>
+							<ButtonIcon
+								className="pl-[4.5px] bg-transparent icon_accent_secondary"
+								height={18}
+								type="brush"
+								width={18}
+								onClick={(e) => handleEdit(e, file)}
+							/>
+							<ButtonIcon
+								className="pl-[2.8px] bg-transparent icon_accent_secondary"
+								height={18}
+								type="trash"
+								width={18}
+								onClick={(e) => handleDelete(e, file)}
+							/>
 						</div>
 					</div>
 				))}

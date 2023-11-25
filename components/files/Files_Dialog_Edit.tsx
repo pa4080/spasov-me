@@ -18,7 +18,7 @@ import { preparePageObjectToFetch } from "@/interfaces/Page";
 
 import { msgs } from "@/messages";
 
-import Files_Form, { Files_FormSchema } from "./Files_Form";
+import Files_Form, { Files_FormSchema } from "./files-form";
 
 interface Props {
 	className?: string;
@@ -96,12 +96,14 @@ const Files_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileI
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogContent>
 					<DialogHeader>
-						<DialogTitle>{t("dialog_title_edit", { filename: fileData.filename })}</DialogTitle>
+						<DialogTitle className="pr-6">
+							{t("dialog_title_edit", { filename: fileData.filename })}
+						</DialogTitle>
 						<DialogDescription>{t("dialog_description")}</DialogDescription>
 					</DialogHeader>
 
 					<Files_Form
-						formData={fileData}
+						formData={{ ...fileData, fileId }}
 						isContainerDialogOpen={isOpen}
 						submitting={submitting}
 						onSubmit={handleEditPage}

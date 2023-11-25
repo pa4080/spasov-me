@@ -7,11 +7,15 @@ import { NextResponse, NextRequest } from "next/server";
 import { getServerSession } from "next-auth";
 import { ObjectId, GridFSFile } from "mongodb";
 
+import { preprocess } from "zod";
+
 import { authOptions } from "@/lib/auth-options";
 import { gridFSBucket } from "@/lib/mongodb-mongoose";
 import GridFS from "@/models/grid_fs";
 
 import { FileObject } from "@/interfaces/File";
+
+import { Route } from "@/routes";
 
 import { errorMessages } from "../../common";
 
@@ -21,16 +25,6 @@ interface Context {
 	params: { query: string[] };
 }
 
-/**
- * 1) If the query has 2 parameters,
- *    the first must be the string "id" and the second must be the {id} itself.
- * 2) If the query has 1 parameter, it must be the {filename}.
- *    > If the filename is not found in the database then return the file list
- *      or 404 in case the bucket is empty.
- *    > It is possible to have multiple files with the same name.
- *      In this case, also, an array of files will be returned.
- * 3) If the query has no parameters, return the file list.
- */
 export async function GET(request: NextRequest, { params }: Context) {
 	try {
 		// connect to the database and get the bucket
@@ -49,9 +43,34 @@ export async function GET(request: NextRequest, { params }: Context) {
 			}
 
 			case 1: {
+				// In this case we just check does the file exists,
+				// and redirect to the next case.
+
 				const [fileId] = params?.query;
 				const _id = new ObjectId(fileId);
+				const file = (await GridFS.find({ _id }))[0] as GridFSFile;
 
+				if (!file) {
+					return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
+				}
+
+				return NextResponse.redirect(
+					new URL(
+						`${Route.api.FILES}/${fileId}/${file?.filename}`,
+						process.env.NEXTAUTH_URL ?? request.url
+					),
+					301
+				);
+			}
+
+			case 2: {
+				// We ant to use this path: /api/files/[id]/[filename],
+				// because in this wej when we open the file in a new tab,
+				// the save as option shows the correct filename.
+
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				const [fileId, fileName] = params?.query;
+				const _id = new ObjectId(fileId);
 				const file = (await GridFS.find({ _id }))[0] as GridFSFile;
 
 				if (!file) {
@@ -61,9 +80,11 @@ export async function GET(request: NextRequest, { params }: Context) {
 				const stream = bucket.openDownloadStream(_id) as unknown as ReadableStream;
 
 				return new NextResponse(stream, {
-					headers: {
-						"Content-Type": file?.contentType || "image",
-					},
+					// Actually we do not need to set headers manually...
+					// headers: {
+					// 	// "Content-Type": `image/${file.filename.split(".").at(-1)}`,
+					// 	"Content-Type": file?.metadata?.contentType || "image",
+					// },
 					status: 200,
 				});
 			}
@@ -73,18 +94,6 @@ export async function GET(request: NextRequest, { params }: Context) {
 	}
 }
 
-/**
- * Post a file to the database.
- * An example of how to post a file using fetch:
- *
-const formData = new FormData();
-formData.append('file', file); // 'file' is the key name for the uploaded file
-
-fetch('/api/files/', { method: 'POST', body: formData })
- 	.then(response => response.json())
- 	.then(data => { console.log(data); })
- 	.catch(error => { console.error(error); });
- */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function POST(request: NextRequest, { params }: Context) {
 	const session = await getServerSession(authOptions);
@@ -122,10 +131,13 @@ export async function POST(request: NextRequest, { params }: Context) {
 
 			const uploadStream = bucket.openUploadStream(filename, {
 				// Make sure to add content type so that it will be easier to set later.
-				contentType: file.type,
 				metadata: {
 					description,
 					creator: new ObjectId(user_id),
+					size: file.size,
+					contentType: file.type,
+					lastModified: file.lastModified,
+					originalName: file.name,
 				},
 			});
 

@@ -22,7 +22,7 @@ import { FileObject } from "@/interfaces/File";
 
 import { msgs } from "@/messages";
 
-import Files_Form, { Files_FormSchema } from "./Files_Form";
+import Files_Form, { Files_FormSchema } from "./files-form";
 
 interface Props {
 	className?: string;

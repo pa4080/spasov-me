@@ -6,12 +6,9 @@ export type FileObject = Omit<GridFSFile, "metadata"> & {
 	metadata: {
 		description: string;
 		creator: UserObject;
+		size: string;
+		contentType: string;
+		lastModified: string;
+		originalName: string;
 	};
-};
-
-export type EditDataOfFileObject = Omit<
-	FileObject,
-	"_id" | "chunkSize" | "aliases" | "length" | "metadata"
-> & {
-	description: string;
 };

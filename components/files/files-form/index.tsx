@@ -23,10 +23,12 @@ import {
 } from "@/components/ui/form";
 
 import { roundTo } from "@/lib/round";
-
 import { msgs } from "@/messages";
+import { Route } from "@/routes";
 
-import IconEmbedSvg from "../fragments/IconEmbedSvg";
+import { FileObject } from "@/interfaces/File";
+
+import styles from "../_files.module.scss";
 
 // https://github.com/colinhacks/zod#nullable
 // Here is applied a tricky solution to translate the messages,
@@ -74,16 +76,10 @@ interface Props {
 	onSubmit: (data: Files_FormSchema) => void;
 	submitting?: boolean;
 	isContainerDialogOpen?: boolean;
-	formData?: Files_FormSchema;
+	formData?: FileObject & { fileId: string };
 }
 
-const Files_Form: React.FC<Props> = ({
-	className,
-	onSubmit,
-	submitting = false,
-	// isContainerDialogOpen = true,
-	formData,
-}) => {
+const Files_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
 	const t = msgs("FilesFeed");
 	const locale = "en";
 
@@ -99,6 +95,16 @@ const Files_Form: React.FC<Props> = ({
 
 	const form = useForm<Files_FormSchema>({
 		resolver: zodResolver(FormSchema),
+		defaultValues: {
+			file: null,
+			filename: "",
+			description: "",
+		},
+		values: {
+			file: null,
+			filename: formData?.filename ?? "",
+			description: formData?.metadata?.description ?? "",
+		},
 	});
 
 	const handleInputFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -130,7 +136,7 @@ const Files_Form: React.FC<Props> = ({
 			} else if (filename.match(/\.(pdf|pptx|xlsx|docx)$/)) {
 				displayImageRef.current?.setAttribute(
 					"src",
-					`/assets/images/mime-type-icons/${filename.split(".").pop()}.png`
+					`${Route.assets.MIME_TYPE}/${filename.split(".").pop()}.png`
 				);
 			}
 
@@ -159,45 +165,22 @@ const Files_Form: React.FC<Props> = ({
 
 	return (
 		<Form {...form}>
-			<form
-				className={cn("w-full space-y-6 relative", className)}
-				onSubmit={form.handleSubmit(handleSubmit)}
-			>
+			<form className={cn(styles.form, className)} onSubmit={form.handleSubmit(handleSubmit)}>
 				<FormItem>
-					<FormLabel htmlFor="file-input">{t("form_fileInput")}</FormLabel>
+					<FormLabel
+						className={form.formState.errors.file ? "text-destructive" : "text-foreground"}
+						htmlFor="file-input"
+					>
+						{t("form_fileInput")}
+					</FormLabel>
 
 					<FormControl>
-						<div
-							className={cn(
-								"input_file_wrapper w-full cursor-pointer relative rounded-md",
-								"border border-input bg-background text-md ring-offset-background text-mlt-dark-1 hover:outline-none hover:ring-2 hover:ring-mlt-blue-dark hover:ring-offset-2 disabled:cursor-not-allowed"
-							)}
-						>
-							<div className="absolute left-0 top-0 w-full h-full flex justify-center items-center gap-1 -z-1">
-								{fileToUpload ? (
-									<IconEmbedSvg height={32} type="cloud-check" width={60} />
-								) : (
-									<IconEmbedSvg height={32} type="cloud-arrow-up" width={60} />
-								)}
-								<p
-									className="max-w-[100%] text-mlt-gray-0 mr-3"
-									style={{
-										direction: "rtl",
-										textAlign: "left",
-										whiteSpace: "nowrap",
-										overflow: "hidden",
-										textOverflow: "ellipsis",
-									}}
-								>
-									{formData?.filename ??
-										(fileToUpload ? fileToUpload.name : t("form_fileInputChoiceFile"))}
-								</p>
-							</div>
-							<input
+						<div className={cn(styles.fileInputWrapper)}>
+							<Input
 								id="file-input"
 								{...form.register("file")}
-								accept="*"
-								className="z-10 h-12"
+								accept="image/*, .pdf, .pptx, .xlsx, .docx"
+								className={cn(styles.fileInput)}
 								type="file"
 								onChange={handleInputFileChange}
 							/>
@@ -253,7 +236,13 @@ const Files_Form: React.FC<Props> = ({
 						alt="Display image before upload"
 						className="object-cover w-full h-full rounded-md"
 						height={192}
-						src="/assets/images/image-placeholder.webp"
+						src={
+							formData
+								? formData.filename.match(/\.(pdf|pptx|xlsx|docx)$/)
+									? `${Route.assets.MIME_TYPE}/${formData.filename.split(".").pop()}.png`
+									: `${Route.api.FILES}/${formData?.fileId}/${formData?.filename}`
+								: Route.assets.IMAGE_PLACEHOLDER
+						}
 						width={208}
 					/>
 				</div>

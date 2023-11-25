@@ -20,7 +20,7 @@ import { buttonVariants } from "@/components//ui/button";
 
 import { msgs } from "@/messages";
 
-import { Files_FormSchema } from "./Files_Form";
+import { Files_FormSchema } from "./files-form";
 
 interface Props {
 	className?: string;
@@ -90,7 +90,7 @@ const Files_Dialog_Delete: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fil
 			<AlertDialog open={isOpen} onOpenChange={setIsOpen}>
 				<AlertDialogContent>
 					<AlertDialogHeader>
-						<AlertDialogTitle className="text-mlt-orange-dark">
+						<AlertDialogTitle className="text-accent-secondary">
 							{t("dialog_title_delete", { filename: fileData.filename })}
 						</AlertDialogTitle>
 						<AlertDialogDescription>
