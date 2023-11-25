@@ -25,8 +25,10 @@
 		--accent-tertiary: 32 100% 50%;
 		--accent-foreground: 0 0% 5%;
 
-		--ring: 216 100% 72%;
-		--ring-secondary: 264 100% 74%;
+		// --ring: 216 100% 72%;
+		// --ring-secondary: 264 100% 74%;
+		--ring: 216 100% 68%;
+		--ring-secondary: 265 100% 74%;
 
 		--card: var(--primary);
 		--card-foreground: var(--foreground);
@@ -62,6 +64,14 @@
 		--primary: 34 30% 89%;
 		--secondary: 34 30% 82%;
 
+		--accent: 26 100% 50%;
+		--accent-secondary: 13 76% 44%;
+		// --accent-tertiary: 32 100% 50%;
+		// --accent-foreground: 0 0% 5%;
+
+		--ring: 32 100% 50%;
+		--ring-secondary: 23 76% 44%;
+
 		--muted: 34 30% 65%;
 		--muted-secondary: 34 30% 60%;
 		--muted-foreground: 34 30% 30%;
@@ -80,13 +90,13 @@
 		--secondary: 0 0% 16%;
 		--secondary-foreground: 0 0% 48%;
 
-		--accent: 216 64% 59%;
-		--accent-secondary: 264 59% 63%;
-		--accent-tertiary: 32 100% 50%;
-		--accent-foreground: 0 0% 5%;
+		// --accent: 216 64% 59%;
+		// --accent-secondary: 264 59% 63%;
+		// --accent-tertiary: 32 100% 50%;
+		// --accent-foreground: 0 0% 5%;
 
-		--ring: 216 100% 72%;
-		--ring-secondary: 264 100% 74%;
+		// --ring: 216 100% 72%;
+		// --ring-secondary: 264 100% 74%;
 
 		--card: var(--primary);
 		--card-foreground: var(--foreground);
@@ -252,12 +262,16 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 
 .cls-4-color,
 .logoContainer:hover .cls-4 {
-	fill: #5d9fff;
+	// fill: #5d9fff;
+	// fill: hsl(216 100% 68%);
+	fill: theme("colors.ring.DEFAULT");
 }
 
 .cls-5-color,
 .logoContainer:hover .cls-5 {
-	fill: #b27bff;
+	// fill: #b27bff;
+	fill: hsl(265 100% 74%);
+	fill: theme("colors.ring.secondary");
 }
 
 /**

@@ -180,7 +180,7 @@ const Files_Form: React.FC<Props> = ({
 									<IconEmbedSvg height={32} type="cloud-arrow-up" width={60} />
 								)}
 								<p
-									className="max-w-[85%] text-mlt-gray-0 mr-3"
+									className="max-w-[100%] text-mlt-gray-0 mr-3"
 									style={{
 										direction: "rtl",
 										textAlign: "left",

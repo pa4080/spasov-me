@@ -1,10 +1,10 @@
 @import "@/app/globals.variables.module.scss";
 
-.contact {	
+.contact {
 	@apply relative mx-auto my-12 sa:my-auto h-full select-none flex justify-center items-start sa:items-center w-full max-w-screen-1xl bg-secondary px-5 py-3 rounded-2xl;
 
 	.wrapper {
-		@apply h-fit w-full; 
+		@apply h-fit w-full;
 		// grid sa:grid-cols-2 gap-10
 
 		.textContainer {
@@ -33,7 +33,7 @@
 			@apply relative w-full flex-grow h-fit flex flex-col gap-3 sm:gap-6 px-2 py-0 sa:px-0 sa:py-2;
 
 			.form {
-				@apply space-y-6 z-10;
+				@apply space-y-6;
 
 				.fieldLabel {
 					@apply text-lg;

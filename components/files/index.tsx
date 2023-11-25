@@ -18,6 +18,8 @@ import base64placeholder from "@/public/assets/images/image-placeholder";
 
 import { Route } from "@/routes";
 
+import styles from "./_files.module.scss";
+
 import Files_Dialog_Upload from "./Files_Dialog_Upload";
 // import Pages_Dialog_Delete from "./Pages_Dialog_Delete";
 import ButtonIcon from "../fragments/ButtonIcon";
@@ -54,27 +56,28 @@ const FilesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 	};
 
 	return (
-		<div className={cn("", className)}>
+		<div className={cn(styles.files, className)}>
 			<Files_Dialog_Upload />
-			<div className="files_feed">
+
+			<div className={cn(styles.feed, "mt-16")}>
 				{files?.map((file, index) => (
-					<div key={index} className="files_card">
-						<div>
-							<h1 className="files_card_title">{file.filename}</h1>
+					<div key={index} className={styles.card}>
+						<div className={styles.title}>
+							<h1>{file.filename}</h1>
 							<p>{file.metadata.description}</p>
 						</div>
-						<div className="files_image_container">
+						<div className={styles.imageContainer}>
 							{session?.user && (
-								<div className="files_card_actions">
+								<div className={styles.cardEditActions}>
 									<ButtonIcon
-										className="pl-[5px] bg-transparent"
+										className="pl-[4.5px] bg-transparent icon_accent_secondary"
 										height={18}
 										type="brush"
 										width={18}
 										onClick={(e) => handleEdit(e, file)}
 									/>
 									<ButtonIcon
-										className="pl-[2.6px] bg-transparent"
+										className="pl-[2.8px] bg-transparent icon_accent_secondary"
 										height={18}
 										type="trash"
 										width={18}
@@ -82,16 +85,16 @@ const FilesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 									/>
 								</div>
 							)}
-							<div className="files_image_wrapper">
+							<div className={styles.imageWrapper}>
 								{/* If it is another file type, it will be displayed as a link with icon... */}
-								<Link href={`/api/files/${file._id.toString()}`} target="_blank">
+								<Link href={`${Route.api.FILES}/${file._id.toString()}`} target="_blank">
 									{file.filename.match(/\.(pdf|pptx|xlsx|docx)$/) ? (
 										<Image
 											priority
 											alt={file.filename + " " + file.metadata.description}
 											className="files_image"
 											height={200}
-											src={`/assets/images/mime-type-icons/${file.filename.split(".").pop()}.png`}
+											src={`${Route.assets.MIME_TYPE}/${file.filename.split(".").pop()}.png`}
 											width={200}
 										/>
 									) : (
@@ -101,7 +104,7 @@ const FilesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 											className="files_image"
 											height={200}
 											placeholder={`data:image/${base64placeholder}`}
-											src={`/api/files/${file._id.toString()}`}
+											src={`${Route.api.FILES}/${file._id.toString()}`}
 											width={356}
 										/>
 									)}

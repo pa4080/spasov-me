@@ -1,0 +1,48 @@
+@import "@/app/globals.variables.module.scss";
+
+.files {
+	.feed {
+		@apply grid grid-cols-1 grid-flow-row gap-12 md:gap-10 lg:gap-14;
+	}
+
+	.card {
+		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[5%] rounded-2xl h-full p-6 md:p-8 relative min-h-fit flex items-start flex-col gap-3 sm:flex-row justify-between;
+
+		transition:
+			background-color 0.5s,
+			box-shadow 0.5s,
+			opacity 0.5s,
+			box-shadow 0.5s;
+
+		&:hover {
+			@apply bg-popover/[80%];
+
+			box-shadow: 0 8px 32px theme("colors.muted.secondary");
+			transition:
+				background-color 0.5s,
+				box-shadow 0.5s,
+				opacity 0.5s,
+				box-shadow 0.5s;
+		}
+
+		.title {
+			h1 {
+				@apply text-xl font-semibold text-foreground mb-2;
+			}
+		}
+
+		.cardEditActions {
+			@apply flex gap-2 sm:gap-1 absolute left-0 bottom-2 sm:bottom-0 p-2 sm:p-4 md:p-6 rounded-2xl max-sm:translate-x-1/4 max-sm:w-4/6 max-sm:bg-secondary/[90%] justify-center;
+		}
+
+		.imageContainer {
+			@apply flex items-center justify-center sm:justify-end sm:min-h-fit max-sm:relative min-w-full 4xs:min-w-fit mx-auto sm:mr-0;
+
+			.imageWrapper {
+				.image {
+					@apply object-contain h-auto max-h-32 4xs:w-auto min-w-full;
+				}
+			}
+		}
+	}
+}

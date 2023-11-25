@@ -179,6 +179,14 @@ export async function PUT(request: NextRequest, { params }: Context) {
 
 	const request_object = await request.json();
 
+	if (
+		request_object.image === "undefined" ||
+		request_object.image === "null" ||
+		request_object.image === ""
+	) {
+		delete request_object.image;
+	}
+
 	try {
 		await connectToMongoDb();
 
@@ -204,13 +212,23 @@ export async function PUT(request: NextRequest, { params }: Context) {
 
 		const updatedObject = await dbObjectOperator.findOneAndUpdate(_id(id), request_object, {
 			new: true,
+			strict: true,
 		});
+
+		if (!request_object.image) {
+			updatedObject.image = undefined;
+			updatedObject.save();
+		}
 
 		if (!updatedObject) {
 			return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
 		}
 
-		await updatedObject.populate(["creator", "image"]);
+		if (updatedObject.image) {
+			await updatedObject.populate(["creator", "image"]);
+		} else {
+			await updatedObject.populate(["creator"]);
+		}
 
 		return NextResponse.json(
 			{

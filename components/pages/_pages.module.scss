@@ -1,11 +1,11 @@
 @import "@/app/globals.variables.module.scss";
 
-.homePage {
-	.pagesFeed {
+.pages {
+	.feed {
 		@apply grid grid-cols-1 md:grid-cols-2 grid-flow-row gap-12 md:gap-10 lg:gap-14;
 	}
 
-	.pagesCard {
+	.card {
 		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[5%] rounded-2xl h-full p-6 md:p-8 relative min-h-fit flex items-start flex-col gap-3 justify-start cursor-pointer;
 
 		transition:
@@ -29,11 +29,11 @@
 			@apply font-unicephalon text-2xl tracking-wider text-foreground-secondary;
 		}
 
-		.pagesCardEditActions {
+		.cardEditActions {
 			@apply flex gap-1 absolute right-0 top-0 p-4 rounded-2xl;
 		}
 
-		.pagesCardImageEditMode {
+		.cardImageEditMode {
 			@apply mt-8 border w-full drop-shadow-2xl rounded-md overflow-hidden;
 
 			img {

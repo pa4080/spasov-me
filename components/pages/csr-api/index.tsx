@@ -93,15 +93,15 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 	};
 
 	return (
-		<div className={cn(styles.homePage, className)}>
+		<div className={cn(styles.pages, className)}>
 			<Pages_Dialog_Add session={session} setPages={setPages} />
 
-			<div className={cn(styles.pagesFeed, "select-none", className)}>
+			<div className={cn(styles.feed, "mt-16")}>
 				{pages?.map((page, index) => (
 					// <Link key={index} href={`/${page.uri}`}>
-					<div key={index} className={styles.pagesCard}>
+					<div key={index} className={styles.card}>
 						{session?.user && (
-							<div className={styles.pagesCardEditActions}>
+							<div className={styles.cardEditActions}>
 								<ButtonIcon
 									className="pl-[2.6px] bg-transparent icon_accent_secondary"
 									height={18}
@@ -110,7 +110,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 									onClick={(e) => handleDelete(e, page)}
 								/>
 								<ButtonIcon
-									className="pl-[2.6px] bg-transparent icon_accent_secondary"
+									className="pl-[2.8px] bg-transparent icon_accent_secondary"
 									height={18}
 									type="up-right-from-square"
 									width={18}
@@ -130,7 +130,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 									className="mt-1 mr-1"
 								/>
 								<ButtonIcon
-									className="pl-[5px] bg-transparent icon_accent_secondary"
+									className="pl-[4.5px] bg-transparent icon_accent_secondary"
 									height={18}
 									type="brush"
 									width={18}
@@ -139,7 +139,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 							</div>
 						)}
 						{page.image && (
-							<div className={styles.pagesCardImageEditMode}>
+							<div className={styles.cardImageEditMode}>
 								<Image
 									priority
 									alt={t("index_pageImage_alt", { title: page.title })}
