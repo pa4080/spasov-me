@@ -93,7 +93,7 @@ const Files_Dialog_Delete: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fil
 						<AlertDialogTitle className="text-accent-secondary">
 							{t("dialog_title_delete", { filename: fileData.filename })}
 						</AlertDialogTitle>
-						<AlertDialogDescription>
+						<AlertDialogDescription className="hyphens-auto break-words">
 							{t("dialog_description_delete", { filename: fileData.filename, id: fileId })}
 						</AlertDialogDescription>
 					</AlertDialogHeader>

@@ -100,7 +100,7 @@ const Pages_Dialog_Delete: React.FC<Props> = ({
 						<AlertDialogTitle className="text-ring-secondary">
 							{t("dialog_title_delete", { title: pageData.title })}
 						</AlertDialogTitle>
-						<AlertDialogDescription>
+						<AlertDialogDescription className="hyphens-auto break-words">
 							{t("dialog_description_delete", { title: pageData.title, id: pageId })}
 						</AlertDialogDescription>
 					</AlertDialogHeader>

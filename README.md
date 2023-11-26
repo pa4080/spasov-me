@@ -22,14 +22,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [x] The footer icons active SVG icons
 - [x] Apply the styles to the files page
 - [x] Edit the files: name, description, content...
-- [ ] **Tweak the files Form**
-- [ ] Vercel BLOB storage for files and images
+- [x] Tweak the files Form
 - [ ] Create the About page
   - [ ] DB Model
   - [ ] Form
   - [ ] Page
   - [ ] CSS
   - [ ] Render Markdown
+- [ ] Vercel BLOB storage for files and images
 - [ ] Portfolio/projects page
   - [ ] DB Model
   - [ ] Form
