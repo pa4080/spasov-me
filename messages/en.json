@@ -123,7 +123,7 @@
 		"form_btn_submitting": "Uploading...",
 		"formSchema_name": "The file name is required it can contain only latin alphanumeric characters, dots, dashes and underscores. Cannot start with a special character.",
 		"formSchema_description": "The description is optional, it should be a string.",
-		"formSchema_file": "The file is absolutely required."
+		"formSchema_file": "The file is absolutely required. It cannot start with a special character or number."
 	},
 	"Contact": {
 		"title": "Let's build together!",

@@ -14,9 +14,8 @@ import {
 } from "@/components/ui/dialog";
 
 import { Route } from "@/routes";
-import { preparePageObjectToFetch } from "@/interfaces/Page";
-
 import { msgs } from "@/messages";
+import { FileDocument } from "@/interfaces/File";
 
 import Files_Form, { Files_FormSchema } from "./files-form";
 
@@ -24,13 +23,13 @@ interface Props {
 	className?: string;
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
-	fileData?: Files_FormSchema;
+	fileData?: FileDocument;
 	fileId?: string;
 }
 
 const Files_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileId }) => {
 	const t = msgs("FilesFeed");
-	const { session, setPages } = useAppContext();
+	const { session, setFiles } = useAppContext();
 
 	const [submitting, setSubmitting] = useState(false);
 
@@ -38,29 +37,39 @@ const Files_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileI
 		setSubmitting(true);
 
 		try {
+			if (!session?.user.id) {
+				throw new Error("No user id");
+			}
+
+			const formData = new FormData();
+
+			formData.append("file", data.file as File);
+			formData.append("name", data.filename);
+			formData.append("description", data.description || "");
+			formData.append("user_id", session?.user.id);
+
 			const response = await fetch(`${Route.api.FILES}/${fileId}`, {
 				method: "PATCH",
-				body: preparePageObjectToFetch({
-					data,
-					user_id: session?.user.id,
-				}),
+				body: formData,
 			});
 
 			if (response.ok) {
-				const newPage = (await response.json()).data;
+				const newFile: FileDocument = (await response.json()).data;
 
-				setPages((prevPages) => {
-					const newPages = [...prevPages];
-					const index = newPages.findIndex((page) => page._id === newPage._id);
-
-					newPages[index] = newPage;
-
-					return newPages;
-				});
+				// TODO: Here we waiting a while for the backend upload stream to finish
+				// find a way to do this without waiting with timeout but with a promise
+				setTimeout(
+					() => {
+						setFiles((prevFiles) =>
+							prevFiles.map((file) => (file._id === newFile._id ? newFile : file))
+						);
+					},
+					newFile?.chunkSize / 100 || 500
+				);
 
 				toast({
 					title: t("dialog_toast_response_title", { status: response.status }),
-					description: <pre className="toast_pre_info">{JSON.stringify(newPage, null, 2)}</pre>,
+					description: <pre className="toast_pre_info">{JSON.stringify(newFile, null, 2)}</pre>,
 				});
 			} else {
 				const errors = (await response.json()).errors;
@@ -68,7 +77,6 @@ const Files_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileI
 				toast({
 					title: t("dialog_toast_response_title", { status: response.status }),
 					description: <pre className="toast_pre_info">{JSON.stringify(errors, null, 2)}</pre>,
-					variant: "destructive",
 				});
 			}
 		} catch (error) {
@@ -103,7 +111,7 @@ const Files_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileI
 					</DialogHeader>
 
 					<Files_Form
-						formData={{ ...fileData, fileId }}
+						formData={fileData}
 						isContainerDialogOpen={isOpen}
 						submitting={submitting}
 						onSubmit={handleEditPage}

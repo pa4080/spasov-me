@@ -20,8 +20,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [x] Link the local server to Vercel
 - [x] Manage the menu items via the pages feed...
 - [x] The footer icons active SVG icons
-- [ ] Apply the styles to the files page
+- [x] Apply the styles to the files page
+- [x] Edit the files: name, description, content...
+- [ ] Tweak the files Form
 - [ ] Vercel BLOB storage for files and images
+- [ ] Create the About page
+  - [ ] DB Model
+  - [ ] Form
+  - [ ] Page
+  - [ ] CSS
 
 ## Tech stack
 

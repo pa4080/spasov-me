@@ -41,18 +41,20 @@ const nextConfig = {
 	// 		: [];
 	// },
 	async headers() {
-		return [
-			{
-				source: "/:all*(svg|jpg|png|webp|webm|mkv|avi|mp4|eot|svg|ttf|woff|woff2)",
-				locale: false,
-				headers: [
+		return process.env.VERCEL_ENV === "development"
+			? []
+			: [
 					{
-						key: "Cache-Control",
-						value: "public, max-age=604800, s-maxage=604800, must-revalidate",
+						source: "/:all*(svg|jpg|png|webp|webm|mkv|avi|mp4|eot|svg|ttf|woff|woff2)",
+						locale: false,
+						headers: [
+							{
+								key: "Cache-Control",
+								value: "public, max-age=604800, s-maxage=604800, must-revalidate",
+							},
+						],
 					},
-				],
-			},
-		];
+			  ];
 	},
 };
 

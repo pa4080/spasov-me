@@ -2,11 +2,11 @@
 
 .files {
 	.feed {
-		@apply grid grid-cols-1 grid-flow-row gap-12 md:gap-10 lg:gap-14;
+		@apply grid grid-cols-1 grid-flow-row gap-12 sm:gap-10;
 	}
 
 	.card {
-		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[5%] rounded-2xl h-full p-6 md:p-8 relative flex items-start flex-col gap-6 sm:gap-3 sm:flex-row justify-between overflow-hidden min-h-[12rem];
+		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[5%] rounded-2xl h-full p-6 sm:pt-12 relative flex items-start flex-col gap-6 sm:gap-3 sm:flex-row justify-between overflow-hidden min-h-fit;
 
 		transition:
 			background-color 0.5s,
@@ -45,8 +45,8 @@
 		}
 
 		.cardEditActions {
-			@apply flex gap-2 sm:gap-1 p-2 sm:p-4 md:p-6 rounded-xl max-sm:bg-secondary/50 justify-center w-full
-			sm:absolute sm:left-0 sm:bottom-0 sm:justify-start sm:w-fit;
+			@apply flex gap-12 sm:gap-4 p-2 sm:p-4 rounded-xl max-sm:bg-secondary/50 justify-center w-full
+			sm:absolute sm:right-2 sm:-top-1.5 sm:justify-start sm:w-fit;
 		}
 	}
 }
@@ -60,11 +60,11 @@
 		transition-colors duration-150;
 
 		.fileInput {
-			@apply z-10 h-10 outline-none focus:outline-none focus-visible:outline-none border-none p-0;
+			@apply z-10 h-10 outline-none focus:outline-none focus-visible:outline-none border-none p-0 cursor-pointer;
 		}
 
 		input[type="file"]::file-selector-button {
-			@apply bg-primary h-full px-4 mr-4;
+			@apply bg-primary h-full px-4 mr-4 cursor-pointer;
 		}
 
 		&:hover {
