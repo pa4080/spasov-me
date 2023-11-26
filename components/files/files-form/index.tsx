@@ -30,12 +30,14 @@ import { Route } from "@/routes";
 
 import { FileDocument } from "@/interfaces/File";
 
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+
 import styles from "../_files.module.scss";
 
 // https://github.com/colinhacks/zod#nullable
 // Here is applied a tricky solution to translate the messages,
 // outside React  component on the client side...?
-export const FormSchemaGenerator = (messages?: string[], isFileOptional = true) =>
+export const FormSchemaGenerator = (messages?: string[], isFileOptional = false) =>
 	z.object({
 		file: isFileOptional
 			? z.any().optional()
@@ -90,12 +92,15 @@ const Files_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, 
 	const displayImageRef = useRef<HTMLImageElement>(null);
 	const [fileToUpload, setFileToUpload] = useState<File | null>(null);
 
-	const FormSchema = FormSchemaGenerator([
-		t("formSchema_file"),
-		t("formSchema_name"),
-		t("form_fileInputDescription"),
-		t("formSchema_description"),
-	]);
+	const FormSchema = FormSchemaGenerator(
+		[
+			t("formSchema_file"),
+			t("formSchema_name"),
+			t("form_fileInputDescription"),
+			t("formSchema_description"),
+		],
+		!!formData
+	);
 
 	const form = useForm<Files_FormSchema>({
 		resolver: zodResolver(FormSchema),
@@ -215,12 +220,12 @@ const Files_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, 
 						</div>
 					</FormControl>
 
-					<FormDescription>{t("form_fileInputDescription")}</FormDescription>
-
-					{form.formState.errors.file && (
+					{form.formState.errors.file ? (
 						<p className="text-sm font-medium text-destructive">
 							{String(form.formState.errors.file.message)}
 						</p>
+					) : (
+						<FormDescription>{t("form_fileInputDescription")}</FormDescription>
 					)}
 				</FormItem>
 
@@ -233,8 +238,12 @@ const Files_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, 
 							<FormControl>
 								<Input placeholder={t("form_fileNamePlaceholder")} {...field} />
 							</FormControl>
-							<FormDescription>{t("form_fileNameDescription")}</FormDescription>
-							<FormMessage />
+
+							{form.formState.errors.filename ? (
+								<FormMessage />
+							) : (
+								<FormDescription>{t("form_fileNameDescription")}</FormDescription>
+							)}
 						</FormItem>
 					)}
 				/>
@@ -243,29 +252,37 @@ const Files_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, 
 					control={form.control}
 					name="description"
 					render={({ field }) => (
-						<FormItem className="mr-56">
+						<FormItem className="">
 							<FormLabel>{t("form_fileDescription")}</FormLabel>
 							<FormControl>
 								<Input placeholder={t("form_fileDescriptionPlaceholder")} {...field} />
 							</FormControl>
-							<FormDescription>{t("form_fileDescriptionDescription")}</FormDescription>
-							<FormMessage />
+
+							{form.formState.errors.description ? (
+								<FormMessage />
+							) : (
+								<FormDescription>{t("form_fileDescriptionDescription")}</FormDescription>
+							)}
 						</FormItem>
 					)}
 				/>
+
 				<Button type="submit">
 					{submitting ? t("form_btn_submitting") : t("form_btn_submit")}
 				</Button>
-				<div className="absolute right-0 bottom-0 w-52 h-48 rounded-md overflow-hidden">
-					<Image
-						ref={displayImageRef}
-						alt="Display image before upload"
-						className="object-cover w-full h-full rounded-md"
-						height="0"
-						sizes="208px"
-						src={fileUri}
-						width="0"
-					/>
+
+				<div className="w-full rounded-md overflow-hidden">
+					<AspectRatio ratio={16 / 9}>
+						<Image
+							ref={displayImageRef}
+							alt="Display image before upload"
+							className="object-cover object-center w-full h-full rounded-md"
+							height="0"
+							sizes="208px"
+							src={fileUri}
+							width="0"
+						/>
+					</AspectRatio>
 				</div>
 			</form>
 		</Form>

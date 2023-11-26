@@ -2,7 +2,14 @@
 
 import React from "react";
 
-import { Control, FieldValues, Path, PathValue, UseFormSetValue } from "react-hook-form";
+import {
+	Control,
+	FieldError,
+	FieldValues,
+	Path,
+	PathValue,
+	UseFormSetValue,
+} from "react-hook-form";
 
 import { Check, ChevronsUpDown } from "lucide-react";
 
@@ -46,6 +53,7 @@ interface Props<T extends FieldValues> {
 		notFound: string;
 		selectNone: string;
 	};
+	error: FieldError | undefined;
 }
 
 export default function Combobox<T extends FieldValues>({
@@ -54,6 +62,7 @@ export default function Combobox<T extends FieldValues>({
 	name,
 	setValue,
 	messages,
+	error,
 }: Props<T>) {
 	return (
 		<FormField
@@ -130,8 +139,8 @@ export default function Combobox<T extends FieldValues>({
 							</Command>
 						</PopoverContent>
 					</Popover>
-					<FormDescription>{messages.description}</FormDescription>
-					<FormMessage />
+
+					{error ? <FormMessage /> : <FormDescription>{messages.description}</FormDescription>}
 				</FormItem>
 			)}
 		/>

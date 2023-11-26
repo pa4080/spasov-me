@@ -5,17 +5,11 @@ import Link from "next/link";
 
 import Image from "next/image";
 
-import { useSession } from "next-auth/react";
-
 import { useAppContext } from "@/contexts/AppContext";
-
 import { cn } from "@/lib/cn-utils";
 
 // import Pages_Dialog_Edit from "./Pages_Dialog_Edit";
 import { FileDocument } from "@/interfaces/File";
-
-import base64placeholder from "@/public/assets/images/image-placeholder";
-
 import { Route } from "@/routes";
 
 import styles from "./_files.module.scss";

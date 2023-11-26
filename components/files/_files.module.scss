@@ -52,7 +52,7 @@
 }
 
 .form {
-	@apply w-full space-y-6 relative;
+	@apply w-full space-y-6 relative hyphens-auto;
 
 	.fileInputWrapper {
 		@apply w-full cursor-pointer relative rounded-md border border-input bg-background ring-offset-background

@@ -96,8 +96,6 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 					(googleReCaptchaToken) => reCaptchaSubmit(googleReCaptchaToken)
 				);
 
-				// console.log(reCaptchaRes);
-
 				if (reCaptchaRes.error || !reCaptchaRes.success) {
 					errorMsg = t("toast_reCaptcha_selfError");
 				}
