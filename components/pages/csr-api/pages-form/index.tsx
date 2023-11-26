@@ -148,8 +148,12 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 							<FormControl>
 								<Input placeholder={t("form_pageTitlePlaceholder")} {...field} />
 							</FormControl>
-							<FormDescription>{t("form_pageTitleDescription")}</FormDescription>
-							<FormMessage />
+
+							{form.formState.errors.title ? (
+								<FormMessage />
+							) : (
+								<FormDescription>{t("form_pageTitleDescription")}</FormDescription>
+							)}
 						</FormItem>
 					)}
 				/>
@@ -164,8 +168,12 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 							<FormControl>
 								<Input placeholder={t("form_pageDescriptionPlaceholder")} {...field} />
 							</FormControl>
-							<FormDescription>{t("form_pageDescriptionDescription")}</FormDescription>
-							<FormMessage />
+
+							{form.formState.errors.description ? (
+								<FormMessage />
+							) : (
+								<FormDescription>{t("form_pageDescriptionDescription")}</FormDescription>
+							)}
 						</FormItem>
 					)}
 				/>
@@ -173,6 +181,7 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 				{/* URI (slug) */}
 				<Combobox
 					control={form.control}
+					error={form.formState.errors.uri}
 					list={routeList}
 					messages={{
 						label: t("form_pageUri_label"),
@@ -189,6 +198,7 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 				{/* Image */}
 				<Combobox
 					control={form.control}
+					error={form.formState.errors.image}
 					list={imageFiles}
 					messages={{
 						label: t("form_pageImage_label"),

@@ -29,6 +29,10 @@
  *
  * 		selector { height: calc(var(--vh, 1vh) * 100); }
  *
+ * @see_also	The "vh" alternatives: "dvh", "svh", "lvh".
+ * 	@see https://youtu.be/ru3U8MHbFFI?si=e4rJ9Sid97MpgGN0
+ * 	@see https://viewport-unit-test.netlify.app/fixed
+ *
  */
 import { useEffect, useState } from "react";
 
