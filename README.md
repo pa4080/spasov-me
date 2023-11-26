@@ -29,6 +29,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] Form
   - [ ] Page
   - [ ] CSS
+  - [ ] Render Markdown
+- [ ] Portfolio/projects page
+  - [ ] DB Model
+  - [ ] Form
+  - [ ] Page
+  - [ ] CSS
+  - [ ] Create a gallery
 
 ## Tech stack
 

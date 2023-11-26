@@ -8,14 +8,10 @@ import { getServerSession } from "next-auth";
 import { ObjectId, GridFSFile } from "mongodb";
 
 import { authOptions } from "@/lib/auth-options";
-import { connectToMongoDb, defaultChunkSizeBytes, gridFSBucket } from "@/lib/mongodb-mongoose";
+import { defaultChunkSizeBytes, gridFSBucket } from "@/lib/mongodb-mongoose";
 import GridFS from "@/models/grid_fs";
-
 import { FileDocument } from "@/interfaces/File";
-
 import { Route } from "@/routes";
-
-import { metadata } from "./../../../layout";
 
 import { errorMessages } from "../../common";
 
