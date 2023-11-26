@@ -62,7 +62,7 @@ export const sendEmail: SendEmail = async (formData: FormDataType) => {
 			from: `${manifest.short_name} <${adminEmail}>`,
 			text: formData.message,
 			to: adminEmail,
-			subject: tContactAdmin("subjectToAdmin", { admin }),
+			subject: tContactAdmin("subjectToAdmin", { siteName }),
 			react: EmailTemplate_Admin({ ...formData, siteName }),
 		});
 
