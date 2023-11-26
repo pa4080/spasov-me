@@ -48,11 +48,9 @@ export const Route = {
 		POSTS: "/api/data/posts",
 		FILES: "/api/files",
 	},
-	deprecated: {
-		PROFILE: "/user-profile",
-		POSTS: "/user-posts",
-		POST_CREATE: "/post-create",
-		POST_UPDATE: "/post-update",
-		POST_DELETE: "/post-delete",
+	assets: {
+		MIME_TYPE: "/assets/images/mime-type-icons",
+		IMAGES: "/assets/images",
+		IMAGE_PLACEHOLDER: "/assets/images/image-placeholder.webp",
 	},
 };

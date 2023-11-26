@@ -93,58 +93,56 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 	};
 
 	return (
-		<div className={cn(styles.homePage, className)}>
+		<div className={cn(styles.pages, className)}>
 			<Pages_Dialog_Add session={session} setPages={setPages} />
 
-			<div className={cn(styles.pagesFeed, "select-none", className)}>
+			<div className={cn(styles.feed, "mt-16")}>
 				{pages?.map((page, index) => (
 					// <Link key={index} href={`/${page.uri}`}>
-					<div key={index} className={styles.pagesCard}>
-						{session?.user && (
-							<div className={styles.pagesCardEditActions}>
-								<ButtonIcon
-									className="pl-[2.6px] bg-transparent icon_accent_secondary"
-									height={18}
-									type="trash"
-									width={18}
-									onClick={(e) => handleDelete(e, page)}
-								/>
-								<ButtonIcon
-									className="pl-[2.6px] bg-transparent icon_accent_secondary"
-									height={18}
-									type="up-right-from-square"
-									width={18}
-									onClick={() => {
-										router.push(`/${page.uri}`);
-									}}
-								/>
-								<Switch
-									disabled
-									checked={
-										typeof page.visibility === "string"
-											? page.visibility === "true"
-												? true
-												: false
-											: page.visibility
-									}
-									className="mt-1 mr-1"
-								/>
-								<ButtonIcon
-									className="pl-[5px] bg-transparent icon_accent_secondary"
-									height={18}
-									type="brush"
-									width={18}
-									onClick={(e) => handleEdit(e, page)}
-								/>
-							</div>
-						)}
+					<div key={index} className={styles.card}>
+						<div className={styles.cardEditActions}>
+							<ButtonIcon
+								className="pl-[2.6px] bg-transparent icon_accent_secondary"
+								height={18}
+								type="trash"
+								width={18}
+								onClick={(e) => handleDelete(e, page)}
+							/>
+							<ButtonIcon
+								className="pl-[2.8px] bg-transparent icon_accent_secondary"
+								height={18}
+								type="up-right-from-square"
+								width={18}
+								onClick={() => {
+									router.push(`/${page.uri}`);
+								}}
+							/>
+							<Switch
+								disabled
+								checked={
+									typeof page.visibility === "string"
+										? page.visibility === "true"
+											? true
+											: false
+										: page.visibility
+								}
+								className="mt-1 mr-1"
+							/>
+							<ButtonIcon
+								className="pl-[4.5px] bg-transparent icon_accent_secondary"
+								height={18}
+								type="brush"
+								width={18}
+								onClick={(e) => handleEdit(e, page)}
+							/>
+						</div>
 						{page.image && (
-							<div className={styles.pagesCardImageEditMode}>
+							<div className={styles.cardImageEditMode}>
 								<Image
 									priority
 									alt={t("index_pageImage_alt", { title: page.title })}
 									height={260}
-									src={`${Route.api.FILES}/${page.image?._id.toString()}`}
+									src={`${Route.api.FILES}/${page.image._id.toString()}/${page.image.filename}`}
 									width={462}
 								/>
 							</div>

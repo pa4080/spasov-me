@@ -18,11 +18,11 @@ import {
 } from "@/components/ui/dialog";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 
-import { FileObject } from "@/interfaces/File";
+import { FileDocument } from "@/interfaces/File";
 
 import { msgs } from "@/messages";
 
-import Files_Form, { Files_FormSchema } from "./Files_Form";
+import Files_Form, { Files_FormSchema } from "./files-form";
 
 interface Props {
 	className?: string;
@@ -56,13 +56,16 @@ const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
 			});
 
 			if (response.ok) {
-				const newFile: FileObject = (await response.json()).data;
+				const newFile: FileDocument = (await response.json()).data;
 
 				// TODO: Here we waiting a while for the backend upload stream to finish
 				// find a way to do this without waiting with timeout but with a promise
-				setTimeout(() => {
-					setFiles((prevFiles) => [newFile, ...prevFiles]);
-				}, 1000);
+				setTimeout(
+					() => {
+						setFiles((prevFiles) => [newFile, ...prevFiles]);
+					},
+					newFile?.chunkSize / 100 || 500
+				);
 
 				toast({
 					title: t("dialog_toast_response_title", { status: response.status }),

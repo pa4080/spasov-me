@@ -2,16 +2,14 @@ import { GridFSFile } from "mongodb";
 
 import { UserObject } from "@/interfaces/User";
 
-export type FileObject = Omit<GridFSFile, "metadata"> & {
+export type FileDocument = Omit<GridFSFile, "metadata"> & {
 	metadata: {
 		description: string;
 		creator: UserObject;
+		size: string;
+		contentType: string;
+		lastModified: Date;
+		originalName: string;
+		uri?: string;
 	};
-};
-
-export type EditDataOfFileObject = Omit<
-	FileObject,
-	"_id" | "chunkSize" | "aliases" | "length" | "metadata"
-> & {
-	description: string;
 };

@@ -54,13 +54,13 @@ function _id(id: string) {
 }
 
 export async function GET(request: NextRequest, { params }: Context) {
-	if (!params.query) {
-		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
-	}
-
-	const [type, id] = params.query;
-
 	try {
+		if (!params.query) {
+			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
+		}
+
+		const [type, id] = params.query;
+
 		await connectToMongoDb();
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -96,33 +96,33 @@ export async function GET(request: NextRequest, { params }: Context) {
 }
 
 export async function POST(request: NextRequest, { params }: Context) {
-	const session = await getServerSession(authOptions);
-
-	if (!session) {
-		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
-	}
-
-	if (!params.query) {
-		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
-	}
-
-	const [type] = params.query;
-
-	if (!type) {
-		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
-	}
-
-	const request_object = await request.json();
-
-	if (
-		request_object.image === "undefined" ||
-		request_object.image === "null" ||
-		request_object.image === ""
-	) {
-		delete request_object.image;
-	}
-
 	try {
+		const session = await getServerSession(authOptions);
+
+		if (!session) {
+			return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+		}
+
+		if (!params.query) {
+			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
+		}
+
+		const [type] = params.query;
+
+		if (!type) {
+			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
+		}
+
+		const request_object = await request.json();
+
+		if (
+			request_object.image === "undefined" ||
+			request_object.image === "null" ||
+			request_object.image === ""
+		) {
+			delete request_object.image;
+		}
+
 		await connectToMongoDb();
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -161,56 +161,74 @@ export async function POST(request: NextRequest, { params }: Context) {
 }
 
 export async function PUT(request: NextRequest, { params }: Context) {
-	const session = await getServerSession(authOptions);
-
-	if (!session) {
-		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
-	}
-
-	if (!params.query) {
-		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
-	}
-
-	const [type, id] = params.query;
-
-	if (!type || !id) {
-		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
-	}
-
-	const request_object = await request.json();
-
 	try {
+		const session = await getServerSession(authOptions);
+
+		if (!session) {
+			return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+		}
+
+		if (!params.query) {
+			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
+		}
+
+		const [type, id] = params.query;
+
+		if (!type || !id) {
+			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
+		}
+
+		const request_object = await request.json();
+
+		if (
+			request_object.image === "undefined" ||
+			request_object.image === "null" ||
+			request_object.image === ""
+		) {
+			delete request_object.image;
+		}
+
 		await connectToMongoDb();
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let dbObjectOperator: any;
+		let dbDocModel: any;
 
 		switch (type) {
 			case "pages": {
-				dbObjectOperator = Page;
+				dbDocModel = Page;
 				break;
 			}
 
 			case "posts": {
-				dbObjectOperator = Post;
+				dbDocModel = Post;
 				break;
 			}
 
 			case "users": {
-				dbObjectOperator = User;
+				dbDocModel = User;
 				break;
 			}
 		}
 
-		const updatedObject = await dbObjectOperator.findOneAndUpdate(_id(id), request_object, {
+		const updatedObject = await dbDocModel.findOneAndUpdate(_id(id), request_object, {
 			new: true,
+			strict: true,
 		});
+
+		if (!request_object.image) {
+			updatedObject.image = undefined;
+			updatedObject.save();
+		}
 
 		if (!updatedObject) {
 			return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
 		}
 
-		await updatedObject.populate(["creator", "image"]);
+		if (updatedObject.image) {
+			await updatedObject.populate(["creator", "image"]);
+		} else {
+			await updatedObject.populate(["creator"]);
+		}
 
 		return NextResponse.json(
 			{
@@ -256,26 +274,26 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 		await connectToMongoDb();
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let dbObjectOperator: any;
+		let dbDocModel: any;
 
 		switch (type) {
 			case "pages": {
-				dbObjectOperator = Page;
+				dbDocModel = Page;
 				break;
 			}
 
 			case "posts": {
-				dbObjectOperator = Post;
+				dbDocModel = Post;
 				break;
 			}
 
 			case "users": {
-				dbObjectOperator = User;
+				dbDocModel = User;
 				break;
 			}
 		}
 
-		const updatedObject = await dbObjectOperator.findOneAndUpdate(_id(id), request_object, {
+		const updatedObject = await dbDocModel.findOneAndUpdate(_id(id), request_object, {
 			new: true,
 			strict: true,
 		});
@@ -328,26 +346,26 @@ export async function DELETE(request: NextRequest, { params }: Context) {
 		await connectToMongoDb();
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let dbObjectOperator: any;
+		let dbDocModel: any;
 
 		switch (type) {
 			case "pages": {
-				dbObjectOperator = Page;
+				dbDocModel = Page;
 				break;
 			}
 
 			case "posts": {
-				dbObjectOperator = Post;
+				dbDocModel = Post;
 				break;
 			}
 
 			case "users": {
-				dbObjectOperator = User;
+				dbDocModel = User;
 				break;
 			}
 		}
 
-		const deletedObject = await dbObjectOperator.findOneAndDelete(_id(id));
+		const deletedObject = await dbDocModel.findOneAndDelete(_id(id));
 
 		if (!deletedObject) {
 			return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });

@@ -8,20 +8,34 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 - [x] Copy the Home page editable version prom the old repo
 - [x] Copy the files page from the old repo
-- [ ] Apply the styles to the files page
 - [x] Add page form
   - [x] Change the image input to dropdown from files
   - [x] Change the schema of the PageObject?
   - [x] Add a switch to choose is the page public or not...
-- [ ] Copy the **contact page** from Animated-portfolio
+- [x] Copy the **contact page** from Animated-portfolio
   - [x] Copy and adapt the code
-  - [ ] CSS style of the contact page
-  - [ ] Texts in the emails
+  - [x] CSS style of the contact page
+  - [x] Texts in the emails
 - [x] Add the project as GitHub repo and deploy to Vercel
-- [ ] Link the local server to Vercel
+- [x] Link the local server to Vercel
 - [x] Manage the menu items via the pages feed...
 - [x] The footer icons active SVG icons
+- [x] Apply the styles to the files page
+- [x] Edit the files: name, description, content...
+- [ ] Tweak the files Form
 - [ ] Vercel BLOB storage for files and images
+- [ ] Create the About page
+  - [ ] DB Model
+  - [ ] Form
+  - [ ] Page
+  - [ ] CSS
+  - [ ] Render Markdown
+- [ ] Portfolio/projects page
+  - [ ] DB Model
+  - [ ] Form
+  - [ ] Page
+  - [ ] CSS
+  - [ ] Create a gallery
 
 ## Tech stack
 

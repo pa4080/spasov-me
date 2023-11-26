@@ -16,7 +16,7 @@ interface Props {
 
 const Pages_Feed: React.FC<Props> = ({ className }) => {
 	return (
-		<div className={cn(styles.homePage, className)}>
+		<div className={cn(styles.pages, className)}>
 			<Pages_Dialog_Add />
 			<PagesFeed className={className} />
 		</div>

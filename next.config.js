@@ -29,37 +29,32 @@ const nextConfig = {
 		REACT_APP_GATAG: process.env.REACT_APP_GATAG,
 	},
 	*/
-	/**
-	async rewrites() {
-		return [
-			{
-				source: "/api_local/:path*",
-				destination: "http://localhost:3001/api/:path*",
-			},
-			{
-				source: "/api_tmp/:path*",
-				destination: "https://appstimate_api.metalevel.tech/api/:path*",
-			},
-			{
-				source: "/api_production/:path*",
-				destination: "https://api.appstimate.io/api/:path*",
-			},
-		];
-	},
-	 */
+
+	// async rewrites() {
+	// 	return process.env.VERCEL_ENV === "development"
+	// 		? [
+	// 				{
+	// 					source: "/api/:path*",
+	// 					destination: "https://openvscode-3001.metalevel.tech/api/:path*",
+	// 				},
+	// 		  ]
+	// 		: [];
+	// },
 	async headers() {
-		return [
-			{
-				source: "/:all*(svg|jpg|png|webp|webm|mkv|avi|mp4|eot|svg|ttf|woff|woff2)",
-				locale: false,
-				headers: [
+		return process.env.VERCEL_ENV === "development"
+			? []
+			: [
 					{
-						key: "Cache-Control",
-						value: "public, max-age=604800, s-maxage=604800, must-revalidate",
+						source: "/:all*(svg|jpg|png|webp|webm|mkv|avi|mp4|eot|svg|ttf|woff|woff2)",
+						locale: false,
+						headers: [
+							{
+								key: "Cache-Control",
+								value: "public, max-age=604800, s-maxage=604800, must-revalidate",
+							},
+						],
 					},
-				],
-			},
-		];
+			  ];
 	},
 };
 
