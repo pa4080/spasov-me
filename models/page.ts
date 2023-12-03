@@ -9,10 +9,6 @@ import GridFS from "./grid_fs";
 import User from "./user";
 
 const PageSchema = new Schema({
-	creator: {
-		type: Schema.Types.ObjectId,
-		ref: User,
-	},
 	title: {
 		type: String,
 		required: [true, "Title is required!"],
@@ -28,6 +24,10 @@ const PageSchema = new Schema({
 	uri: {
 		type: String,
 		match: [/^[a-z][a-z0-9-]+$/, "The URI must start wit lowercase latin alphabet!"],
+	},
+	creator: {
+		type: Schema.Types.ObjectId,
+		ref: User,
 	},
 	image: {
 		type: Schema.Types.ObjectId,

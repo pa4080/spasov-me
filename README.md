@@ -24,7 +24,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [x] Edit the files: name, description, content...
 - [x] Tweak the files Form
 - [ ] Create the About page
-  - [ ] DB Model
+  - [ ] AboutEntry
+    - [x] DB Model
+    - [ ] API `@app/api/data/[[...query]]/route.ts`
+    - [ ] API `@/routes.ts`
+    - [x] Public menu entry
+    - [ ] Admin menu entry
+    - [x] Home page card entry
   - [ ] Form
   - [ ] Page
   - [ ] CSS

@@ -15,7 +15,6 @@
 		"themeSelector": "Theme selector"
 	},
 	"Navigation": {
-		"ABOUT": "About",
 		"BLOG": "Blog",
 		"PORTFOLIO": "Portfolio",
 		"CONTACT": "Contact",
@@ -26,10 +25,12 @@
 		"FILES_DESC": "Upload, browse and manage files",
 		"THEME": "Theme",
 		"THEME_DESC": "Preview the theme colors and typography",
-		"PAGES": "Pages (SR attempt)",
-		"PAGES_DESC": "Edit the Home page cards vi server ations",
-		"PAGES_API": "Pages",
-		"PAGES_API_DESC": "Edit the Home page cards via API",
+		"PAGES_SR": "Pages (SR attempt)",
+		"PAGES_SR_DESC": "Edit the Home page cards vi server ations",
+		"PAGES": "Pages",
+		"PAGES_DESC": "Edit the Home page cards",
+		"ABOUT": "About",
+		"ABOUT_DESC": "Edit the about (CV) page",
 
 		"signUp": "Sign Up",
 		"signIn": "Sign In",
@@ -169,5 +170,46 @@
 		"yourMessage": "The following message of yours was successfully submitted:",
 		"thankYou": "Thank you for reaching out to me. I will get back to you as soon as possible.",
 		"bestRegards": "Best regards,"
+	},
+	"AboutCV": {},
+	"AboutCV_Form": {
+		"schema_title": "The entry title must be at least 6 characters.",
+		"schema_description": "The description must be at least 20 characters.",
+		"schema_country": "The country is required.",
+		"schema_city": "The city is required.",
+		"schema_date": "Select a date.",
+		"schema_type": "Select a type.",
+		"schema_visibility": "The default visibility value is \"true\".",
+
+		"title_label": "Title",
+		"title_placeholder": "Title of the entry",
+		"title_description": "Enter the display title/name of the entry.",
+
+		"description_label": "Description",
+		"description_placeholder": "Description of the entry",
+		"description_description": "Enter the display description of the entry.",
+
+		"country_label": "Country",
+		"country_placeholder": "Select Country",
+		"country_description": "Enter the country of the entry.",
+		"country_list": ["Bulgaria"],
+
+		"city_label": "City",
+		"city_placeholder": "Select City",
+		"city_description": "Enter the city of the entry.",
+		"city_list": ["Sofia", "Pazardjik", "Yambol"],
+
+		"type_label": "Entry type",
+		"type_placeholder": "Select Type",
+		"type_description": "Select the type of the entry.",
+
+		"dateFrom_label": "Date from",
+		"dateTo_label": "Date to",
+
+		"visibility_title": "Is this entry public",
+		"visibility_description": "Probably some items could be a draft...",
+
+		"btn_submit": "Submit",
+		"btn_submitting": "Submitting..."
 	}
 }

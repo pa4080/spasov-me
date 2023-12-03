@@ -85,15 +85,6 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 		values: formData,
 	});
 
-	/**
-	 * @see https://react-hook-form.com/docs/useform#values
-			useEffect(() => {
-				if (formData) {
-					form.reset({ ...formData });
-				}
-			}, [form, formData]);
-	 */
-
 	// Generate "image files" list
 	const [imageFiles, setImageFiles] = useState<ComboBoxList<Pages_FormSchema>[]>([]);
 
