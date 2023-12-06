@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-import { AboutEntryTuple } from "@/interfaces/AboutEntry";
+import { entryTuple } from "@/interfaces/_dataTypes";
 
 export const Entry_FormSchemaGenerator = (messages?: string[]) =>
 	z.object({
@@ -34,7 +34,7 @@ export const Entry_FormSchemaGenerator = (messages?: string[]) =>
 				}
 			},
 		}),
-		type: z.enum(AboutEntryTuple, {
+		type: z.enum(entryTuple, {
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			errorMap: (issue, _ctx) => {
 				switch (issue.code) {

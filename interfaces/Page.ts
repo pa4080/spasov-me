@@ -2,7 +2,7 @@ import { GridFSFile } from "mongodb";
 
 import { UserObject } from "@/interfaces/User";
 
-export type PageObject = {
+export type PageDoc = {
 	_id: string;
 	creator: UserObject;
 	title: string;
@@ -12,13 +12,13 @@ export type PageObject = {
 	visibility: boolean | string;
 };
 
-export type NewPageObject = Omit<PageObject, "_id" | "image" | "creator"> & {
+export type NewPageDoc = Omit<PageDoc, "_id" | "image" | "creator"> & {
 	creator: string;
 	image?: string;
 };
 
-export type ErrorPageObject = {
-	[key in keyof PageObject]: {
+export type ErrorPageDoc = {
+	[key in keyof PageDoc]: {
 		kind?: string; // "regexp", "required", etc.
 		message?: string; // the actual error message
 		name?: string; // ValidatorError
@@ -28,13 +28,13 @@ export type ErrorPageObject = {
 	};
 };
 
-type PageObjectToFetch = {
-	data: PageObject | NewPageObject | Record<string, unknown>;
+type PageDocToFetch = {
+	data: PageDoc | NewPageDoc | Record<string, unknown>;
 	// image_id?: string | null;
 	user_id?: string | undefined;
 };
 
-export const preparePageObjectToFetch = ({ data, user_id }: PageObjectToFetch) => {
+export const preparePageDocToFetch = ({ data, user_id }: PageDocToFetch) => {
 	return JSON.stringify({
 		...data,
 		creator: user_id,

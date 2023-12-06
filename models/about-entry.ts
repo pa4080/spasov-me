@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-import { AboutEntryTuple } from "@/interfaces/AboutEntry";
+import { entryTuple, countryTuple, cityTuple } from "@/interfaces/_dataTypes";
 
 import GridFS from "./grid_fs";
 import User from "./user";
@@ -16,11 +16,19 @@ const AboutEntrySchema = new Schema({
 	},
 	country: {
 		type: String,
+		enum: countryTuple,
 		required: [true, "The county is required!"],
 	},
 	city: {
 		type: String,
+		enum: cityTuple,
 		required: [true, "The city is required!"],
+	},
+	entryType: {
+		type: String,
+		enum: entryTuple,
+		default: entryTuple[0],
+		required: [true, "Type is required!"],
 	},
 	dateFrom: {
 		type: Date,
@@ -29,12 +37,6 @@ const AboutEntrySchema = new Schema({
 	dateTo: {
 		type: Date,
 		required: [true, "Date 'to' is required!"],
-	},
-	type: {
-		type: String,
-		enum: AboutEntryTuple, // ["employment", "education"],
-		default: AboutEntryTuple[0], // "employment",
-		required: [true, "Type is required!"],
 	},
 	visibility: {
 		type: Boolean,

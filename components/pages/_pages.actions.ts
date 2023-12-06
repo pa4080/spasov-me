@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth";
 // import { revalidatePath } from "next/cache";
 
 import { authOptions } from "@/lib/auth-options";
-import { NewPageObject, PageObject } from "@/interfaces/Page";
+import { NewPageDoc, PageDoc } from "@/interfaces/Page";
 import { UserObject } from "@/interfaces/User";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import Page from "@/models/page";
@@ -23,12 +23,12 @@ export const getSession = async () => {
 	return session;
 };
 
-export const getPages = async (): Promise<PageObject[]> => {
+export const getPages = async (): Promise<PageDoc[]> => {
 	"use server";
 
 	try {
 		await connectToMongoDb();
-		const pages: PageObject[] = await Page.find(_id()).populate(["creator", "image"]);
+		const pages: PageDoc[] = await Page.find(_id()).populate(["creator", "image"]);
 
 		return pages;
 	} catch (error) {
@@ -38,12 +38,12 @@ export const getPages = async (): Promise<PageObject[]> => {
 	}
 };
 
-export const getPublicPages = async (): Promise<PageObject[]> => {
+export const getPublicPages = async (): Promise<PageDoc[]> => {
 	"use server";
 
 	try {
 		await connectToMongoDb();
-		const pages: PageObject[] = await Page.find(_id()).populate(["creator", "image"]);
+		const pages: PageDoc[] = await Page.find(_id()).populate(["creator", "image"]);
 
 		return pages.filter((page) => page.visibility);
 	} catch (error) {
@@ -53,12 +53,12 @@ export const getPublicPages = async (): Promise<PageObject[]> => {
 	}
 };
 
-export const getPagesConditionally = async (): Promise<PageObject[]> => {
+export const getPagesConditionally = async (): Promise<PageDoc[]> => {
 	"use server";
 
 	try {
 		await connectToMongoDb();
-		const pages: PageObject[] = await Page.find(_id()).populate(["creator", "image"]);
+		const pages: PageDoc[] = await Page.find(_id()).populate(["creator", "image"]);
 
 		const session = await getSession();
 
@@ -76,11 +76,11 @@ export const getPagesConditionally = async (): Promise<PageObject[]> => {
 
 export interface AddPageReturnType {
 	created: boolean;
-	data?: PageObject;
+	data?: PageDoc;
 	error?: string;
 }
 
-export const addPage = async (data: FormData): Promise<PageObject> => {
+export const addPage = async (data: FormData): Promise<PageDoc> => {
 	"use server";
 
 	const session = await getSession();
@@ -88,12 +88,12 @@ export const addPage = async (data: FormData): Promise<PageObject> => {
 	if (!session?.user) {
 		console.error(msgs("Errors")("invalidUser"));
 
-		return {} as PageObject;
+		return {} as PageDoc;
 	}
 
 	await connectToMongoDb();
 
-	const newPageData: NewPageObject = {
+	const newPageData: NewPageDoc = {
 		title: data.get("title") as string,
 		description: data.get("description") as string,
 		uri: data.get("uri") as string,
@@ -102,23 +102,23 @@ export const addPage = async (data: FormData): Promise<PageObject> => {
 		creator: session?.user.id,
 	};
 
-	const newPage_document = new Page(newPageData);
+	const newPageDocument = new Page(newPageData);
 
-	await newPage_document.save();
-	await newPage_document.populate(["creator", "image"]);
+	await newPageDocument.save();
+	await newPageDocument.populate(["creator", "image"]);
 
 	// revalidatePath(Route.admin.PAGES);
 
 	return {
-		title: newPage_document.title,
-		description: newPage_document.description,
-		uri: newPage_document.uri,
-		_id: newPage_document._id.toString(),
-		image: newPage_document.image?._id.toString(),
-		visibility: newPage_document.visibility,
+		title: newPageDocument.title,
+		description: newPageDocument.description,
+		uri: newPageDocument.uri,
+		_id: newPageDocument._id.toString(),
+		image: newPageDocument.image?._id.toString(),
+		visibility: newPageDocument.visibility,
 		creator: {
-			name: newPage_document.creator.name,
-			email: newPage_document.creator.email,
+			name: newPageDocument.creator.name,
+			email: newPageDocument.creator.email,
 		} as UserObject,
 	};
 };

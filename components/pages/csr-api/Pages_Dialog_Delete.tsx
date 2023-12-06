@@ -21,9 +21,9 @@ import { msgs } from "@/messages";
 
 import { Pages_FormSchema } from "./pages-form";
 
-import { PagesActions } from ".";
+import { ActionsPropsGeneric } from ".";
 
-interface Props extends PagesActions {
+interface Props extends ActionsPropsGeneric {
 	isOpen: boolean;
 	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	pageData?: Pages_FormSchema;

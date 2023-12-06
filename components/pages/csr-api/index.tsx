@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 
 import { useAppContext } from "@/contexts/AppContext";
 
-import { PageObject } from "@/interfaces/Page";
+import { PageDoc } from "@/interfaces/Page";
 import { cn } from "@/lib/cn-utils";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 
@@ -28,10 +28,10 @@ import { Pages_FormSchema } from "./pages-form";
 
 import styles from "../_pages.module.scss";
 
-export interface PagesActions {
+export interface ActionsPropsGeneric {
 	className?: string;
 	session: Session | null;
-	setPages: React.Dispatch<React.SetStateAction<PageObject[]>>;
+	setPages: React.Dispatch<React.SetStateAction<PageDoc[]>>;
 }
 
 interface Props {
@@ -50,7 +50,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 
 	const { data: session } = useSession();
 
-	const handleDelete = (e: React.SyntheticEvent, page: PageObject) => {
+	const handleDelete = (e: React.SyntheticEvent, page: PageDoc) => {
 		e.preventDefault();
 
 		setActionPage({
@@ -71,7 +71,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 		setIsDeleteDialogOpen(true);
 	};
 
-	const handleEdit = (e: React.SyntheticEvent, page: PageObject) => {
+	const handleEdit = (e: React.SyntheticEvent, page: PageDoc) => {
 		e.preventDefault();
 
 		setActionPage({

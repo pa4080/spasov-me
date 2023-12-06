@@ -41,6 +41,7 @@ interface Props<T extends FieldValues> {
 		placeholder?: string;
 	};
 	error?: FieldError | undefined;
+	className?: string;
 }
 
 export default function DatePicker<T extends FieldValues>({
@@ -48,29 +49,30 @@ export default function DatePicker<T extends FieldValues>({
 	name,
 	messages,
 	error,
+	className,
 }: Props<T>) {
 	return (
 		<FormField
 			control={control}
 			name={name}
 			render={({ field }) => (
-				<FormItem className="flex flex-col">
+				<FormItem className={cn("flex flex-col space-y-0", className)}>
 					<FormLabel>{messages.label}</FormLabel>
 					<Popover>
 						<PopoverTrigger asChild>
 							<FormControl>
 								<Button
 									className={cn(
-										"w-full justify-between bg-primary text-sm",
+										"w-full justify-center bg-primary text-sm px-1 gap-0",
 										!field.value && "text-muted-foreground"
 									)}
 									variant="outline"
 								>
 									<CalendarIcon className="mr-2 h-4 w-4" />
 									{field.value ? (
-										format(field.value, "P", { locale: bg })
+										format(field.value, "MM/yy", { locale: bg })
 									) : (
-										<span>{messages.label}</span>
+										<span>{messages.placeholder}</span>
 									)}
 								</Button>
 							</FormControl>

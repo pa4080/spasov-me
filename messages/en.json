@@ -190,23 +190,35 @@
 		"description_description": "Enter the display description of the entry.",
 
 		"country_label": "Country",
-		"country_placeholder": "Select Country",
+		"country_placeholder": "Country",
 		"country_description": "Enter the country of the entry.",
-		"country_list": ["Bulgaria"],
+		"country_list": {
+			"bulgaria": "Bulgaria"
+		},
 
 		"city_label": "City",
-		"city_placeholder": "Select City",
+		"city_placeholder": "City",
 		"city_description": "Enter the city of the entry.",
-		"city_list": ["Sofia", "Pazardjik", "Yambol"],
+		"city_list": {
+			"sofia": "Sofia",
+			"pazardjik": "Pazardjik",
+			"yambol": "Yambol"
+		},
 
 		"type_label": "Entry type",
 		"type_placeholder": "Select Type",
 		"type_description": "Select the type of the entry.",
+		"entry_type_list": {
+			"employment": "Employment",
+			"resume": "Resume",
+			"education": "Education",
+			"portfolio": "Portfolio"
+		},
 
-		"dateFrom_label": "Date from",
-		"dateTo_label": "Date to",
+		"dateFrom_label": "From",
+		"dateTo_label": "To",
 
-		"visibility_title": "Is this entry public",
+		"visibility_title": "Is public?",
 		"visibility_description": "Probably some items could be a draft...",
 
 		"btn_submit": "Submit",

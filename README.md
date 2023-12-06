@@ -10,7 +10,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [x] Copy the files page from the old repo
 - [x] Add page form
   - [x] Change the image input to dropdown from files
-  - [x] Change the schema of the PageObject?
+  - [x] Change the schema of the PageDoc?
   - [x] Add a switch to choose is the page public or not...
 - [x] Copy the **contact page** from Animated-portfolio
   - [x] Copy and adapt the code

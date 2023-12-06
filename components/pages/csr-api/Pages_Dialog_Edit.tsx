@@ -14,13 +14,13 @@ import {
 } from "@/components/ui/dialog";
 
 import { Route } from "@/routes";
-import { preparePageObjectToFetch } from "@/interfaces/Page";
+import { preparePageDocToFetch } from "@/interfaces/Page";
 
 import PagesForm, { Pages_FormSchema } from "./pages-form";
 
-import { PagesActions } from ".";
+import { ActionsPropsGeneric } from ".";
 
-interface Props extends PagesActions {
+interface Props extends ActionsPropsGeneric {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
 	pageData?: Pages_FormSchema;
@@ -45,7 +45,7 @@ const Pages_Dialog_Edit: React.FC<Props> = ({
 		try {
 			const response = await fetch(`${Route.api.PAGES}/${pageId}`, {
 				method: "PATCH",
-				body: preparePageObjectToFetch({
+				body: preparePageDocToFetch({
 					data,
 					user_id: session?.user.id,
 				}),

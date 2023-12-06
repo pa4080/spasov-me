@@ -1,15 +1,22 @@
 "use client";
 
 import React from "react";
+import { Session } from "next-auth";
 
 import { cn } from "@/lib/cn-utils";
-
 import { msgs } from "@/messages";
 
-import EntryForm from "./entry-form";
+import { AboutEntryDoc } from "@/interfaces/AboutEntry";
 
+import EntryForm from "./entry-form";
 import styles from "../_about.module.scss";
 import { Entry_FormSchema } from "./entry-form/schema";
+
+export interface ActionsPropsGeneric {
+	className?: string;
+	session: Session | null;
+	setEntryList: () => void;
+}
 
 interface Props {
 	className?: string;

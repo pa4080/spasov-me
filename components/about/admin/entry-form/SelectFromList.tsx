@@ -20,6 +20,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/cn-utils";
 
 export interface ItemsList<T> {
 	value: PathValue<T, Path<T>>;
@@ -29,13 +30,14 @@ export interface ItemsList<T> {
 interface Props<T extends FieldValues> {
 	control: Control<T>;
 	name: Path<T>;
-	itemsList: string[] | readonly string[];
+	itemsList: { value: PathValue<T, Path<T>>; label: string }[];
 	messages: {
 		label?: string;
 		description?: string;
 		placeholder?: string;
 	};
 	error?: FieldError | undefined;
+	className?: string;
 }
 
 export default function SelectFromList<T extends FieldValues>({
@@ -44,13 +46,14 @@ export default function SelectFromList<T extends FieldValues>({
 	messages,
 	error,
 	itemsList,
+	className,
 }: Props<T>) {
 	return (
 		<FormField
 			control={control}
 			name={name}
 			render={({ field }) => (
-				<FormItem>
+				<FormItem className={cn("space-y-0", className)}>
 					{messages.label && <FormLabel>{messages.label}</FormLabel>}
 					<Select defaultValue={field.value} onValueChange={field.onChange}>
 						<FormControl>
@@ -60,8 +63,8 @@ export default function SelectFromList<T extends FieldValues>({
 						</FormControl>
 						<SelectContent>
 							{itemsList.map((item, index) => (
-								<SelectItem key={index} value={item}>
-									{`${item.slice(0, 1).toUpperCase()}${item.slice(1)}`}
+								<SelectItem key={index} value={item.value}>
+									{item.label}
 								</SelectItem>
 							))}
 						</SelectContent>
