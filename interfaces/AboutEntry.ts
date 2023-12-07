@@ -2,7 +2,7 @@ import { GridFSFile } from "mongodb";
 
 import { UserObject } from "@/interfaces/User";
 
-import { CityItem, CountryItem, EntryItem } from "./_dataTypes";
+import { CityItem, CountryItem, AboutEntryItem } from "./_dataTypes";
 
 export type AboutEntryDoc = {
 	_id: string;
@@ -13,27 +13,16 @@ export type AboutEntryDoc = {
 	description: string;
 	country: CountryItem;
 	city: CityItem;
-	entryType: EntryItem;
-	dateFrom: Date;
-	dateTo: Date;
+	entryType: AboutEntryItem;
+	dateFrom: Date | string;
+	dateTo: Date | string;
 	visibility: boolean | string;
 };
 
-// export type NewPageDoc = Omit<PageDoc, "_id" | "image" | "creator"> & {
-// 	creator: string;
-// 	image?: string;
-// };
-
-// export type ErrorPageDoc = {
-// 	[key in keyof PageDoc]: {
-// 		kind?: string; // "regexp", "required", etc.
-// 		message?: string; // the actual error message
-// 		name?: string; // ValidatorError
-// 		path?: string; // image, link, etc.
-// 		properties?: {}; // contains the same information as the other fields
-// 		value?: string; // the actual value that caused the error
-// 	};
-// };
+export type NewAboutEntryDoc = Omit<AboutEntryDoc, "_id" | "image" | "creator"> & {
+	creator: string;
+	image?: string;
+};
 
 // type PageDocToFetch = {
 // 	data: PageDoc | NewPageDoc | Record<string, unknown>;

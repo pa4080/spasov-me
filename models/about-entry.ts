@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-import { entryTuple, countryTuple, cityTuple } from "@/interfaces/_dataTypes";
+import { aboutEntryTuple, countryTuple, cityTuple } from "@/interfaces/_dataTypes";
 
 import GridFS from "./grid_fs";
 import User from "./user";
@@ -26,8 +26,8 @@ const AboutEntrySchema = new Schema({
 	},
 	entryType: {
 		type: String,
-		enum: entryTuple,
-		default: entryTuple[0],
+		enum: aboutEntryTuple,
+		default: aboutEntryTuple[0],
 		required: [true, "Type is required!"],
 	},
 	dateFrom: {

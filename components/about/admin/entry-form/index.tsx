@@ -1,9 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+
+import { usePathname } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 
@@ -21,29 +23,28 @@ import { Button } from "@/components/ui/button";
 import { msgs } from "@/messages";
 import { cn } from "@/lib/cn-utils";
 import { Switch } from "@/components/ui/switch";
-
-import { entryTuple, EntryItem, countryTuple, cityTuple } from "@/interfaces/_dataTypes";
-
+import { aboutEntryTuple, AboutEntryItem, countryTuple, cityTuple } from "@/interfaces/_dataTypes";
 import { Textarea } from "@/components/ui/textarea";
+import { generateFormDataFromObject } from "@/lib/generateFormDataFromObject";
 
 import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
-
 import DatePicker from "./DatePicker";
 import SelectFromList from "./SelectFromList";
+import { addEntry } from "../../_about.actions";
 
 interface Props {
 	className?: string;
 	onSubmit: (data: Entry_FormSchema) => void;
-	submitting?: boolean;
+	// submitting?: boolean;
 	formData?: Entry_FormSchema;
-	entryType?: EntryItem;
+	entryType?: AboutEntryItem;
 }
 
 const PagesForm: React.FC<Props> = ({
 	className,
 	onSubmit,
-	submitting = false,
-	entryType = entryTuple[0],
+	// submitting = false,
+	entryType = aboutEntryTuple[0],
 	formData,
 }) => {
 	const t = msgs("AboutCV_Form");
@@ -68,52 +69,29 @@ const PagesForm: React.FC<Props> = ({
 			city: "",
 			dateFrom: undefined,
 			dateTo: undefined,
-			type: entryType,
+			entryType: entryType,
 			visibility: true,
 		},
 		values: formData,
 	});
 
-	//
-	/**
-	 * Generate "image files" list - this probably will be used later,
-	 * If we decide to attach a file to each item.
-	 * i.e.: Diploma or Certificate or something like that
-	 *
-	const { files } = useAppContext();
+	const [submitting, setSubmitting] = useState(false);
 
-	const [imageFiles, setImageFiles] = useState<ComboBoxList<Entry_FormSchema>[]>([]);
-
-	useEffect(() => {
-		if (files.length > 0) {
-			const filterImageFiles = files
-				.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp)$/))
-				.map((file) => ({
-					value: file._id.toString(),
-					label: file.filename,
-				}));
-
-			setImageFiles(filterImageFiles);
+	const handleAddEntry = async (data: Entry_FormSchema) => {
+		setSubmitting(true);
+		try {
+			/**
+			 * In case we were used <form action={addPage}> this conversion will not be needed,
+			 * Unfortunately, at the current moment nor "react-hook-form" nor "shadcn/ui" support
+			 * form.action()... @see https://stackoverflow.com/a/40552372/6543935
+			 */
+			const response = await addEntry(generateFormDataFromObject(data));
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setSubmitting(false);
 		}
-	}, [files]);
-	*/
-
-	/**
-	useEffect(() => {
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const subscription = form.watch((value, { name, type }) => {
-			// eslint-disable-next-line no-console
-			console.log("value", value);
-			// eslint-disable-next-line no-console
-			console.log("name", name);
-			// eslint-disable-next-line no-console
-			console.log("type", type);
-		});
-
-		return () => subscription.unsubscribe();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [form.watch]);
- */
+	};
 
 	return (
 		<Form {...form}>
@@ -123,7 +101,7 @@ const PagesForm: React.FC<Props> = ({
 					"bg-card/[50%] md:bg-card/[25%] dark:bg-card/[50%] rounded-2xl p-6 md:p-8",
 					className
 				)}
-				onSubmit={form.handleSubmit(onSubmit)}
+				onSubmit={form.handleSubmit(handleAddEntry)}
 			>
 				<div className="flex flex-col sm:grid sm:grid-cols-7 gap-3">
 					<div className="sm:col-span-2 flex flex-col gap-3">
@@ -212,17 +190,17 @@ const PagesForm: React.FC<Props> = ({
 							<SelectFromList
 								className="flex-1"
 								control={form.control}
-								error={form.formState.errors.type}
-								itemsList={entryTuple.map((item) => ({
+								error={form.formState.errors.entryType}
+								itemsList={aboutEntryTuple.map((item) => ({
 									value: item,
-									label: (t("entry_type_list") as unknown as Record<string, string>)[item],
+									label: (t("aboutEntry_type_list") as unknown as Record<string, string>)[item],
 								}))}
 								messages={{
 									// label: t("type_label"),
 									// description: t("type_description"),
 									placeholder: t("type_placeholder"),
 								}}
-								name="type"
+								name="entryType"
 							/>
 						</div>
 					</div>
@@ -272,7 +250,9 @@ const PagesForm: React.FC<Props> = ({
 					</div>
 				</div>
 
-				<Button type="submit">{submitting ? t("btn_submitting") : t("btn_submit")}</Button>
+				<Button disabled={submitting} type="submit">
+					{submitting ? t("btn_submitting") : t("btn_submit")}
+				</Button>
 			</form>
 		</Form>
 	);

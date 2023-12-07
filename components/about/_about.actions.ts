@@ -5,12 +5,15 @@ import { getServerSession } from "next-auth";
 // import { revalidatePath } from "next/cache";
 
 import { authOptions } from "@/lib/auth-options";
-import { NewPageDoc, PageDoc } from "@/interfaces/Page";
+import { PageDoc } from "@/interfaces/Page";
 import { UserObject } from "@/interfaces/User";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import Page from "@/models/page";
 // import { Route } from "@/routes";
 import { msgs } from "@/messages";
+import { AboutEntryDoc, NewAboutEntryDoc } from "@/interfaces/AboutEntry";
+import { AboutEntryItem, CityItem, CountryItem } from "@/interfaces/_dataTypes";
+import AboutEntry from "@/models/about-entry";
 
 function _id(id?: string) {
 	return id ? { _id: id } : {};
@@ -74,13 +77,7 @@ export const getPagesConditionally = async (): Promise<PageDoc[]> => {
 	}
 };
 
-export interface AddPageReturnType {
-	created: boolean;
-	data?: PageDoc;
-	error?: string;
-}
-
-export const addPage = async (data: FormData): Promise<PageDoc> => {
+export const addEntry = async (data: FormData): Promise<AboutEntryDoc | null> => {
 	"use server";
 
 	const session = await getSession();
@@ -88,37 +85,47 @@ export const addPage = async (data: FormData): Promise<PageDoc> => {
 	if (!session?.user) {
 		console.error(msgs("Errors")("invalidUser"));
 
-		return {} as PageDoc;
+		return null;
 	}
 
 	await connectToMongoDb();
 
-	const newPageData: NewPageDoc = {
+	const newAboutEntryDoc: NewAboutEntryDoc = {
 		title: data.get("title") as string,
 		description: data.get("description") as string,
-		uri: data.get("uri") as string,
-		image: data.get("image") as string,
+		country: data.get("country") as CountryItem,
+		city: data.get("city") as CityItem,
+		entryType: data.get("entryType") as AboutEntryItem,
+		dateFrom: data.get("dateFrom") as string,
+		dateTo: data.get("dateTo") as string,
 		visibility: data.get("visibility") as string,
-		creator: session?.user.id,
+
+		image: data.get("image") as string,
+		creator: session?.user.id as string,
 	};
 
-	const newPageDocument = new Page(newPageData);
+	const newAboutEntryDocument = new AboutEntry(newAboutEntryDoc);
 
-	await newPageDocument.save();
-	await newPageDocument.populate(["creator", "image"]);
+	await newAboutEntryDocument.save();
+	await newAboutEntryDocument.populate(["creator", "image"]);
 
 	// revalidatePath(Route.admin.PAGES);
 
 	return {
-		title: newPageDocument.title,
-		description: newPageDocument.description,
-		uri: newPageDocument.uri,
-		_id: newPageDocument._id.toString(),
-		image: newPageDocument.image?._id.toString(),
-		visibility: newPageDocument.visibility,
+		title: newAboutEntryDocument.title,
+		description: newAboutEntryDocument.description,
+		country: newAboutEntryDocument.country,
+		city: newAboutEntryDocument.city,
+		entryType: newAboutEntryDocument.entryType,
+		dateFrom: newAboutEntryDocument.dateFrom,
+		dateTo: newAboutEntryDocument.dateTo,
+		visibility: newAboutEntryDocument.visibility,
+
+		_id: newAboutEntryDocument._id.toString(),
+		image: newAboutEntryDocument.image?._id.toString(),
 		creator: {
-			name: newPageDocument.creator.name,
-			email: newPageDocument.creator.email,
+			name: newAboutEntryDocument.creator.name,
+			email: newAboutEntryDocument.creator.email,
 		} as UserObject,
 	};
 };

@@ -37,7 +37,10 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 
 	return (
 		<div className={cn(styles.about, className)}>
-			<EntryForm submitting={false} onSubmit={handleAddPage} />
+			<EntryForm
+				// submitting={false}
+				onSubmit={handleAddPage}
+			/>
 			{/* <Pages_Dialog_Add session={session} setPages={setPages} /> */}
 
 			{/* <div className={cn(styles.feed, "mt-16")}>

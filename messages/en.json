@@ -208,7 +208,7 @@
 		"type_label": "Entry type",
 		"type_placeholder": "Select Type",
 		"type_description": "Select the type of the entry.",
-		"entry_type_list": {
+		"aboutEntry_type_list": {
 			"employment": "Employment",
 			"resume": "Resume",
 			"education": "Education",
