@@ -2,14 +2,13 @@
 
 import { getServerSession } from "next-auth";
 
-// import { revalidatePath } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 import { authOptions } from "@/lib/auth-options";
 import { PageDoc } from "@/interfaces/Page";
 import { UserObject } from "@/interfaces/User";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import Page from "@/models/page";
-// import { Route } from "@/routes";
 import { msgs } from "@/messages";
 import { AboutEntryDoc, NewAboutEntryDoc } from "@/interfaces/AboutEntry";
 import { AboutEntryItem, CityItem, CountryItem } from "@/interfaces/_dataTypes";
@@ -41,43 +40,22 @@ export const getPages = async (): Promise<PageDoc[]> => {
 	}
 };
 
-export const getPublicPages = async (): Promise<PageDoc[]> => {
+export const getEntries = async (entyType?: string): Promise<AboutEntryDoc[] | null> => {
 	"use server";
 
 	try {
 		await connectToMongoDb();
-		const pages: PageDoc[] = await Page.find(_id()).populate(["creator", "image"]);
+		const entries: AboutEntryDoc[] = await AboutEntry.find(_id()).populate(["creator", "image"]);
 
-		return pages.filter((page) => page.visibility);
+		return entries;
 	} catch (error) {
 		console.error(error);
 
-		return [];
+		return null;
 	}
 };
 
-export const getPagesConditionally = async (): Promise<PageDoc[]> => {
-	"use server";
-
-	try {
-		await connectToMongoDb();
-		const pages: PageDoc[] = await Page.find(_id()).populate(["creator", "image"]);
-
-		const session = await getSession();
-
-		if (session?.user) {
-			return pages;
-		} else {
-			return pages.filter((page) => page.visibility);
-		}
-	} catch (error) {
-		console.error(error);
-
-		return [];
-	}
-};
-
-export const addEntry = async (data: FormData): Promise<AboutEntryDoc | null> => {
+export const addEntry = async (data: FormData, path: string): Promise<AboutEntryDoc | null> => {
 	"use server";
 
 	const session = await getSession();
@@ -109,7 +87,7 @@ export const addEntry = async (data: FormData): Promise<AboutEntryDoc | null> =>
 	await newAboutEntryDocument.save();
 	await newAboutEntryDocument.populate(["creator", "image"]);
 
-	// revalidatePath(Route.admin.PAGES);
+	revalidatePath(path);
 
 	return {
 		title: newAboutEntryDocument.title,

@@ -101,5 +101,19 @@
 	],
 	"reactTsScss.references": true,
 	"reactTsScss.codelens": true,
-	"cssModules.camelCase": true
+	"cssModules.camelCase": true,
+	"files.autoSave": "off",
+	"editor.formatOnSave": true,
+	"[typescript]": {
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": true,
+			"source.fixAll": "always"
+		}
+	},
+	"[typescriptreact]": {
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": true,
+			"source.fixAll": "always"
+		}
+	}
 }

@@ -1,11 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
-import { usePathname } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 
@@ -20,32 +18,30 @@ import {
 } from "@/components/ui/form";
 
 import { Button } from "@/components/ui/button";
-import { msgs } from "@/messages";
-import { cn } from "@/lib/cn-utils";
 import { Switch } from "@/components/ui/switch";
-import { aboutEntryTuple, AboutEntryItem, countryTuple, cityTuple } from "@/interfaces/_dataTypes";
 import { Textarea } from "@/components/ui/textarea";
-import { generateFormDataFromObject } from "@/lib/generateFormDataFromObject";
+import { AboutEntryItem, aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataTypes";
+import { cn } from "@/lib/cn-utils";
+import { msgs } from "@/messages";
 
-import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
 import DatePicker from "./DatePicker";
 import SelectFromList from "./SelectFromList";
-import { addEntry } from "../../_about.actions";
+import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
 
 interface Props {
 	className?: string;
-	onSubmit: (data: Entry_FormSchema) => void;
-	// submitting?: boolean;
 	formData?: Entry_FormSchema;
-	entryType?: AboutEntryItem;
+	entryType: AboutEntryItem; // entryType?: AboutEntryItem;
+	onSubmit: (data: Entry_FormSchema) => void;
+	submitting?: boolean;
 }
 
-const PagesForm: React.FC<Props> = ({
+const EntryForm: React.FC<Props> = ({
 	className,
-	onSubmit,
-	// submitting = false,
 	entryType = aboutEntryTuple[0],
 	formData,
+	onSubmit,
+	submitting,
 }) => {
 	const t = msgs("AboutCV_Form");
 
@@ -75,33 +71,15 @@ const PagesForm: React.FC<Props> = ({
 		values: formData,
 	});
 
-	const [submitting, setSubmitting] = useState(false);
-
-	const handleAddEntry = async (data: Entry_FormSchema) => {
-		setSubmitting(true);
-		try {
-			/**
-			 * In case we were used <form action={addPage}> this conversion will not be needed,
-			 * Unfortunately, at the current moment nor "react-hook-form" nor "shadcn/ui" support
-			 * form.action()... @see https://stackoverflow.com/a/40552372/6543935
-			 */
-			const response = await addEntry(generateFormDataFromObject(data));
-		} catch (error) {
-			console.error(error);
-		} finally {
-			setSubmitting(false);
-		}
-	};
-
 	return (
 		<Form {...form}>
 			<form
 				className={cn(
-					"w-full space-y-6",
-					"bg-card/[50%] md:bg-card/[25%] dark:bg-card/[50%] rounded-2xl p-6 md:p-8",
+					"w-full space-y-6 mt-6",
+					// "bg-card/[50%] md:bg-card/[25%] dark:bg-card/[50%] rounded-2xl p-6 md:p-8",
 					className
 				)}
-				onSubmit={form.handleSubmit(handleAddEntry)}
+				onSubmit={form.handleSubmit(onSubmit)}
 			>
 				<div className="flex flex-col sm:grid sm:grid-cols-7 gap-3">
 					<div className="sm:col-span-2 flex flex-col gap-3">
@@ -258,4 +236,4 @@ const PagesForm: React.FC<Props> = ({
 	);
 };
 
-export default PagesForm;
+export default EntryForm;

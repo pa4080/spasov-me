@@ -23,9 +23,9 @@ import ButtonIcon from "@/components/fragments/ButtonIcon";
 
 import PagesForm, { Pages_FormSchema } from "./pages-form";
 
-import { ActionsPropsGeneric } from ".";
+import { GenericActionProps } from ".";
 
-const Pages_Dialog_Add: React.FC<ActionsPropsGeneric> = ({ className, session, setPages }) => {
+const Pages_Dialog_Add: React.FC<GenericActionProps> = ({ className, session, setPages }) => {
 	const t = msgs("PagesFeed");
 
 	const [submitting, setSubmitting] = useState(false);

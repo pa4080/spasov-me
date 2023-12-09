@@ -171,7 +171,16 @@
 		"thankYou": "Thank you for reaching out to me. I will get back to you as soon as possible.",
 		"bestRegards": "Best regards,"
 	},
-	"AboutCV": {},
+	"AboutCV": {
+		"title_employment": "Employment history"
+	},
+	"AboutCV_AddEntry": {
+		"dialog_title": "Add a new { entryType } entry",
+		"dialog_description": "You are about to add a new entry of type { entryType }.",
+		"dialog_btn_add": "Add a new entry",
+		"dialog_btn_add_submitting": "Submitting...",
+		"toast_submitted": "The entry was successfully submitted."
+	},
 	"AboutCV_Form": {
 		"schema_title": "The entry title must be at least 6 characters.",
 		"schema_description": "The description must be at least 20 characters.",

@@ -28,7 +28,7 @@ import { Pages_FormSchema } from "./pages-form";
 
 import styles from "../_pages.module.scss";
 
-export interface ActionsPropsGeneric {
+export interface GenericActionProps {
 	className?: string;
 	session: Session | null;
 	setPages: React.Dispatch<React.SetStateAction<PageDoc[]>>;
