@@ -1,6 +1,15 @@
 @import "@/app/globals.variables.module.scss";
 
 .about {
+	.section {
+		@apply space-y-6;
+
+	}
+	
+	.section + .section {
+		@apply mt-12;
+	}
+	
 	.feed {
 		@apply space-y-6;
 	}

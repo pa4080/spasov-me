@@ -122,9 +122,6 @@ export const updateEntry = async (
 		creator: session?.user.id as string,
 	};
 
-	// eslint-disable-next-line no-console
-	console.log(newAboutEntryData);
-
 	const updatedAboutEntryDocument = await AboutEntry.findOneAndUpdate(
 		_id(entry_id),
 		newAboutEntryData,
@@ -138,12 +135,6 @@ export const updateEntry = async (
 	if (!newAboutEntryData.image) {
 		updatedAboutEntryDocument.image = undefined;
 	}
-
-	// if (updatedAboutEntryDocument.image) {
-	// 	await updatedAboutEntryDocument.populate(["creator", "image"]);
-	// } else {
-	// 	await updatedAboutEntryDocument.populate(["creator"]);
-	// }
 
 	await updatedAboutEntryDocument.save();
 	await updatedAboutEntryDocument.populate(["creator", "image"]);

@@ -119,7 +119,7 @@ const EntryCreate: React.FC<GenericActionProps> = ({ className, entryType }) => 
 
 					<EntryForm
 						className="mt-0"
-						entryType="employment"
+						entryType={entryType}
 						submitting={submitting}
 						onSubmit={handleCreateEntry}
 					/>

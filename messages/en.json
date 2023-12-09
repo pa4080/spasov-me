@@ -172,7 +172,8 @@
 		"bestRegards": "Best regards,"
 	},
 	"AboutCV": {
-		"title_employment": "Employment history"
+		"title_employment": "Employment history",
+		"title_education": "Education"
 	},
 	"AboutCV_CreateEntry": {
 		"dialog_title": "Create a new { entryType } entry",

@@ -42,18 +42,26 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 		visibility: entry.visibility as boolean,
 	}));
 
-	return (
-		<div className={cn(styles.about, className)}>
+	const Section = ({ type, title }: { type: AboutEntryItem; title: string }) => (
+		<div className={cn(styles.section)}>
 			<div className="flex items-center justify-between gap-4 mb-4 w-full">
-				<h1 className={cn(styles.title, "flex-grow")}>{t("title_employment")}</h1>
-				<EntryCreate entryType="employment" />
+				<h1 className={cn(styles.title, "flex-grow")}>{title}</h1>
+				<EntryCreate entryType={type} />
 			</div>
 
 			<div className={cn(styles.feed)}>
 				{entries
-					?.filter(({ entryType }) => entryType === "employment")
+					?.filter(({ entryType }) => entryType === type)
+					.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime())
 					.map((entry, index) => <EntryDisplay key={index} entry={entry} />)}
 			</div>
+		</div>
+	);
+
+	return (
+		<div className={cn(styles.about, className)}>
+			<Section title={t("title_employment")} type="employment" />
+			<Section title={t("title_education")} type="education" />
 		</div>
 	);
 };
