@@ -4,14 +4,12 @@ import { getServerSession } from "next-auth";
 
 import { revalidatePath } from "next/cache";
 
-import { authOptions } from "@/lib/auth-options";
-import { PageDoc } from "@/interfaces/Page";
-import { UserObject } from "@/interfaces/User";
-import { connectToMongoDb } from "@/lib/mongodb-mongoose";
-import Page from "@/models/page";
-import { msgs } from "@/messages";
 import { AboutEntryDoc, NewAboutEntryDoc } from "@/interfaces/AboutEntry";
+import { UserObject } from "@/interfaces/User";
 import { AboutEntryItem, CityItem, CountryItem } from "@/interfaces/_dataTypes";
+import { authOptions } from "@/lib/auth-options";
+import { connectToMongoDb } from "@/lib/mongodb-mongoose";
+import { msgs } from "@/messages";
 import AboutEntry from "@/models/about-entry";
 
 function _id(id?: string) {
@@ -23,21 +21,6 @@ export const getSession = async () => {
 	const session = await getServerSession(authOptions);
 
 	return session;
-};
-
-export const getPages = async (): Promise<PageDoc[]> => {
-	"use server";
-
-	try {
-		await connectToMongoDb();
-		const pages: PageDoc[] = await Page.find(_id()).populate(["creator", "image"]);
-
-		return pages;
-	} catch (error) {
-		console.error(error);
-
-		return [];
-	}
 };
 
 export const getEntries = async (entyType?: string): Promise<AboutEntryDoc[] | null> => {
@@ -55,7 +38,7 @@ export const getEntries = async (entyType?: string): Promise<AboutEntryDoc[] | n
 	}
 };
 
-export const addEntry = async (data: FormData, path: string): Promise<AboutEntryDoc | null> => {
+export const createEntry = async (data: FormData, path: string): Promise<AboutEntryDoc | null> => {
 	"use server";
 
 	const session = await getSession();
@@ -68,7 +51,7 @@ export const addEntry = async (data: FormData, path: string): Promise<AboutEntry
 
 	await connectToMongoDb();
 
-	const newAboutEntryDoc: NewAboutEntryDoc = {
+	const newAboutEntryData: NewAboutEntryDoc = {
 		title: data.get("title") as string,
 		description: data.get("description") as string,
 		country: data.get("country") as CountryItem,
@@ -82,7 +65,7 @@ export const addEntry = async (data: FormData, path: string): Promise<AboutEntry
 		creator: session?.user.id as string,
 	};
 
-	const newAboutEntryDocument = new AboutEntry(newAboutEntryDoc);
+	const newAboutEntryDocument = new AboutEntry(newAboutEntryData);
 
 	await newAboutEntryDocument.save();
 	await newAboutEntryDocument.populate(["creator", "image"]);
@@ -104,6 +87,84 @@ export const addEntry = async (data: FormData, path: string): Promise<AboutEntry
 		creator: {
 			name: newAboutEntryDocument.creator.name,
 			email: newAboutEntryDocument.creator.email,
+		} as UserObject,
+	};
+};
+
+export const updateEntry = async (
+	data: FormData,
+	entry_id: string,
+	path: string
+): Promise<AboutEntryDoc | null> => {
+	"use server";
+
+	const session = await getSession();
+
+	if (!session?.user) {
+		console.error(msgs("Errors")("invalidUser"));
+
+		return null;
+	}
+
+	await connectToMongoDb();
+
+	const newAboutEntryData: NewAboutEntryDoc = {
+		title: data.get("title") as string,
+		description: data.get("description") as string,
+		country: data.get("country") as CountryItem,
+		city: data.get("city") as CityItem,
+		entryType: data.get("entryType") as AboutEntryItem,
+		dateFrom: data.get("dateFrom") as string,
+		dateTo: data.get("dateTo") as string,
+		visibility: data.get("visibility") as string,
+
+		image: data.get("image") as string,
+		creator: session?.user.id as string,
+	};
+
+	// eslint-disable-next-line no-console
+	console.log(newAboutEntryData);
+
+	const updatedAboutEntryDocument = await AboutEntry.findOneAndUpdate(
+		_id(entry_id),
+		newAboutEntryData,
+		{
+			new: true,
+			strict: true,
+		}
+	);
+
+	// If the image previously existed but was removed
+	if (!newAboutEntryData.image) {
+		updatedAboutEntryDocument.image = undefined;
+	}
+
+	// if (updatedAboutEntryDocument.image) {
+	// 	await updatedAboutEntryDocument.populate(["creator", "image"]);
+	// } else {
+	// 	await updatedAboutEntryDocument.populate(["creator"]);
+	// }
+
+	await updatedAboutEntryDocument.save();
+	await updatedAboutEntryDocument.populate(["creator", "image"]);
+
+	revalidatePath(path);
+
+	return {
+		title: updatedAboutEntryDocument.title,
+		description: updatedAboutEntryDocument.description,
+		country: updatedAboutEntryDocument.country,
+		city: updatedAboutEntryDocument.city,
+		entryType: updatedAboutEntryDocument.entryType,
+		dateFrom: updatedAboutEntryDocument.dateFrom,
+		dateTo: updatedAboutEntryDocument.dateTo,
+		visibility: updatedAboutEntryDocument.visibility,
+
+		_id: updatedAboutEntryDocument._id.toString(),
+		image: updatedAboutEntryDocument.image?._id.toString(),
+		creator: {
+			name: updatedAboutEntryDocument.creator.name,
+			email: updatedAboutEntryDocument.creator.email,
 		} as UserObject,
 	};
 };

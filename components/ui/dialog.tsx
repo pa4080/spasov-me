@@ -1,8 +1,8 @@
 "use client";
 
-import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
+import * as React from "react";
 
 import { cn } from "@/lib/cn-utils";
 
@@ -44,7 +44,7 @@ const DialogContent = React.forwardRef<
 			)}
 			{...props}
 		>
-			<div className="sticky left-0 top-0 z-10 w-full">
+			<div className="sticky left-0 top-0 z-10 w-full h-0">
 				<DialogPrimitive.Close className="absolute -right-2 -top-2 rounded-sm opacity-70 ring-offset-background focus-visible:ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
 					<X className="btn_close_x" strokeWidth={3} />
 					<span className="sr-only">Close</span>
@@ -100,13 +100,13 @@ DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
 export {
 	Dialog,
-	DialogPortal,
-	DialogOverlay,
 	DialogClose,
-	DialogTrigger,
 	DialogContent,
-	DialogHeader,
-	DialogFooter,
-	DialogTitle,
 	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogOverlay,
+	DialogPortal,
+	DialogTitle,
+	DialogTrigger,
 };

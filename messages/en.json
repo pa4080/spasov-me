@@ -174,12 +174,19 @@
 	"AboutCV": {
 		"title_employment": "Employment history"
 	},
-	"AboutCV_AddEntry": {
-		"dialog_title": "Add a new { entryType } entry",
-		"dialog_description": "You are about to add a new entry of type { entryType }.",
+	"AboutCV_CreateEntry": {
+		"dialog_title": "Create a new { entryType } entry",
+		"dialog_description": "null",
 		"dialog_btn_add": "Add a new entry",
 		"dialog_btn_add_submitting": "Submitting...",
 		"toast_submitted": "The entry was successfully submitted."
+	},
+	"AboutCV_UpdateEntry": {
+		"dialog_title": "Update an existing { entryType } entry",
+		"dialog_description": "Id: <b><code style='letter-spacing: 2px;'>{ id }</code></b>",
+		"dialog_btn_add": "Update the entry",
+		"dialog_btn_add_submitting": "Submitting...",
+		"toast_submitted": "The entry was successfully updated."
 	},
 	"AboutCV_Form": {
 		"schema_title": "The entry title must be at least 6 characters.",

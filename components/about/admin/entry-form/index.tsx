@@ -75,7 +75,7 @@ const EntryForm: React.FC<Props> = ({
 		<Form {...form}>
 			<form
 				className={cn(
-					"w-full space-y-6 mt-6",
+					"w-full space-y-6",
 					// "bg-card/[50%] md:bg-card/[25%] dark:bg-card/[50%] rounded-2xl p-6 md:p-8",
 					className
 				)}

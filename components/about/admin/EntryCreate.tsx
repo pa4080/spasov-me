@@ -27,12 +27,12 @@ import { Entry_FormSchema } from "./entry-form/schema";
 
 import EntryForm from "./entry-form";
 
-import { addEntry } from "../_about.actions";
+import { createEntry } from "../_about.actions";
 
 import { GenericActionProps } from ".";
 
-const AddEntry: React.FC<GenericActionProps> = ({ className, entryType }) => {
-	const t = msgs("AboutCV_AddEntry");
+const EntryCreate: React.FC<GenericActionProps> = ({ className, entryType }) => {
+	const t = msgs("AboutCV_CreateEntry");
 	const entryTypeLabel = (
 		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
 	)[entryType];
@@ -41,7 +41,7 @@ const AddEntry: React.FC<GenericActionProps> = ({ className, entryType }) => {
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
 	const pathname = usePathname();
 
-	const createEntry = async (data: Entry_FormSchema) => {
+	const handleCreateEntry = async (data: Entry_FormSchema) => {
 		setSubmitting(true);
 		try {
 			/**
@@ -49,7 +49,22 @@ const AddEntry: React.FC<GenericActionProps> = ({ className, entryType }) => {
 			 * Unfortunately, at the current moment nor "react-hook-form" nor "shadcn/ui" support
 			 * form.action()... @see https://stackoverflow.com/a/40552372/6543935
 			 */
-			const response = await addEntry(generateFormDataFromObject(data), pathname);
+			if (
+				data.dateTo.toLocaleDateString("en-US", {
+					year: "numeric",
+					month: "2-digit",
+					day: "2-digit",
+				}) ===
+				new Date().toLocaleDateString("en-US", {
+					year: "numeric",
+					month: "2-digit",
+					day: "2-digit",
+				})
+			) {
+				data.dateTo = "now" as unknown as Date;
+			}
+
+			const response = await createEntry(generateFormDataFromObject(data), pathname);
 
 			if (response) {
 				toast({
@@ -73,6 +88,8 @@ const AddEntry: React.FC<GenericActionProps> = ({ className, entryType }) => {
 		}
 	};
 
+	const showDescription = t("dialog_description") && t("dialog_description") !== "null";
+
 	return (
 		<div className={cn(className)}>
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -89,20 +106,27 @@ const AddEntry: React.FC<GenericActionProps> = ({ className, entryType }) => {
 					/>
 				</DialogTrigger>
 				<DialogContent className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl">
-					<DialogHeader>
-						<DialogTitle>
-							{t("dialog_title", {
-								entryType: entryTypeLabel,
-							})}
-						</DialogTitle>
-						<DialogDescription>{t("dialog_description")}</DialogDescription>
+					<DialogHeader className="-mt-2">
+						<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
+						{showDescription && (
+							<DialogDescription
+								dangerouslySetInnerHTML={{
+									__html: t("dialog_description", { id: "new id" }),
+								}}
+							/>
+						)}
 					</DialogHeader>
 
-					<EntryForm entryType="employment" submitting={submitting} onSubmit={createEntry} />
+					<EntryForm
+						className="mt-0"
+						entryType="employment"
+						submitting={submitting}
+						onSubmit={handleCreateEntry}
+					/>
 				</DialogContent>
 			</Dialog>
 		</div>
 	);
 };
 
-export default AddEntry;
+export default EntryCreate;

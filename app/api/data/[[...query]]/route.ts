@@ -33,17 +33,17 @@
  *
  */
 
-import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
 
 import AboutEntry from "@/models/about-entry";
 
 import { authOptions } from "@/lib/auth-options";
 
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
+import Page from "@/models/page";
 import Post from "@/models/post";
 import User from "@/models/user";
-import Page from "@/models/page";
 
 import { errorMessages } from "../../common";
 
@@ -235,30 +235,30 @@ export async function PUT(request: NextRequest, { params }: Context) {
 			}
 		}
 
-		const updatedObject = await dbDocModel.findOneAndUpdate(_id(id), request_object, {
+		const updatedDocument = await dbDocModel.findOneAndUpdate(_id(id), request_object, {
 			new: true,
 			strict: true,
 		});
 
-		if (!request_object.image) {
-			updatedObject.image = undefined;
-			updatedObject.save();
-		}
-
-		if (!updatedObject) {
+		if (!updatedDocument) {
 			return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
 		}
 
-		if (updatedObject.image) {
-			await updatedObject.populate(["creator", "image"]);
+		if (!request_object.image) {
+			updatedDocument.image = undefined;
+			updatedDocument.save();
+		}
+
+		if (updatedDocument.image) {
+			await updatedDocument.populate(["creator", "image"]);
 		} else {
-			await updatedObject.populate(["creator"]);
+			await updatedDocument.populate(["creator"]);
 		}
 
 		return NextResponse.json(
 			{
 				message: { type, updated: true, method: request.method },
-				data: updatedObject,
+				data: updatedDocument,
 			},
 			{ status: 200 }
 		);

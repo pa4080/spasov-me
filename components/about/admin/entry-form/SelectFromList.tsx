@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 import { Control, FieldError, FieldValues, Path, PathValue } from "react-hook-form";
 
 import {
@@ -58,10 +56,15 @@ export default function SelectFromList<T extends FieldValues>({
 					<Select defaultValue={field.value} onValueChange={field.onChange}>
 						<FormControl>
 							<SelectTrigger>
-								<SelectValue placeholder={messages.placeholder} />
+								<SelectValue
+									placeholder={
+										itemsList?.find((item) => item?.value === field?.value)?.label ??
+										messages.placeholder
+									}
+								/>
 							</SelectTrigger>
 						</FormControl>
-						<SelectContent>
+						<SelectContent defaultChecked={field.value} defaultValue={field.value}>
 							{itemsList.map((item, index) => (
 								<SelectItem key={index} value={item.value}>
 									{item.label}
