@@ -4,7 +4,6 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 
 import { msgs } from "@/messages";
 
-import { toast } from "@/components/ui/use-toast";
 import {
 	Dialog,
 	DialogContent,
@@ -12,11 +11,12 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import { toast } from "@/components/ui/use-toast";
 
-import { Route } from "@/routes";
 import { preparePageDocToFetch } from "@/interfaces/Page";
+import { Route } from "@/routes";
 
-import PagesForm, { Pages_FormSchema } from "./pages-form";
+import PagesForm, { Pages_FormSchema } from "./page-form";
 
 import { GenericActionProps } from ".";
 
@@ -27,7 +27,7 @@ interface Props extends GenericActionProps {
 	pageId?: string;
 }
 
-const Pages_Dialog_Edit: React.FC<Props> = ({
+const PageUpdate: React.FC<Props> = ({
 	isOpen,
 	setIsOpen,
 	pageData,
@@ -116,4 +116,4 @@ const Pages_Dialog_Edit: React.FC<Props> = ({
 	);
 };
 
-export default Pages_Dialog_Edit;
+export default PageUpdate;

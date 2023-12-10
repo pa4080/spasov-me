@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 
-import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
+import { useSession } from "next-auth/react";
 
 import Image from "next/image";
 
@@ -11,9 +11,9 @@ import { useRouter } from "next/navigation";
 
 import { useAppContext } from "@/contexts/AppContext";
 
+import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { PageDoc } from "@/interfaces/Page";
 import { cn } from "@/lib/cn-utils";
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 
 import { Route } from "@/routes";
 
@@ -21,10 +21,10 @@ import { msgs } from "@/messages";
 
 import { Switch } from "@/components/ui/switch";
 
-import Pages_Dialog_Edit from "./Pages_Dialog_Edit";
-import Pages_Dialog_Add from "./Pages_Dialog_Add";
-import Pages_Dialog_Delete from "./Pages_Dialog_Delete";
-import { Pages_FormSchema } from "./pages-form";
+import PageCreate from "./PageCreate";
+import PageDelete from "./PageDelete";
+import PageUpdate from "./PageUpdate";
+import { Pages_FormSchema } from "./page-form";
 
 import styles from "../_pages.module.scss";
 
@@ -94,7 +94,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 
 	return (
 		<div className={cn(styles.pages, className)}>
-			<Pages_Dialog_Add session={session} setPages={setPages} />
+			<PageCreate session={session} setPages={setPages} />
 
 			<div className={cn(styles.feed, "mt-16")}>
 				{pages?.map((page, index) => (
@@ -154,7 +154,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 				))}
 			</div>
 
-			<Pages_Dialog_Edit
+			<PageUpdate
 				isOpen={isEditDialogOpen}
 				pageData={actionPage}
 				pageId={actionPageId}
@@ -163,7 +163,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 				setPages={setPages}
 			/>
 
-			<Pages_Dialog_Delete
+			<PageDelete
 				isOpen={isDeleteDialogOpen}
 				pageData={actionPage}
 				pageId={actionPageId}

@@ -17,15 +17,15 @@ import { msgs } from "@/messages";
 
 import { toast } from "@/components/ui/use-toast";
 
-import { Route } from "@/routes";
-import { PageDoc, preparePageDocToFetch } from "@/interfaces/Page";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
+import { PageDoc, preparePageDocToFetch } from "@/interfaces/Page";
+import { Route } from "@/routes";
 
-import PagesForm, { Pages_FormSchema } from "./pages-form";
+import PagesForm, { Pages_FormSchema } from "./page-form";
 
 import { GenericActionProps } from ".";
 
-const Pages_Dialog_Add: React.FC<GenericActionProps> = ({ className, session, setPages }) => {
+const PageCreate: React.FC<GenericActionProps> = ({ className, session, setPages }) => {
 	const t = msgs("PagesFeed");
 
 	const [submitting, setSubmitting] = useState(false);
@@ -107,4 +107,4 @@ const Pages_Dialog_Add: React.FC<GenericActionProps> = ({ className, session, se
 	);
 };
 
-export default Pages_Dialog_Add;
+export default PageCreate;

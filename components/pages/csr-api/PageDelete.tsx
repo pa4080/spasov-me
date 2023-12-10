@@ -13,13 +13,13 @@ import {
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-import { Route } from "@/routes";
-import { toast } from "@/components/ui/use-toast";
 import { buttonVariants } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
+import { Route } from "@/routes";
 
 import { msgs } from "@/messages";
 
-import { Pages_FormSchema } from "./pages-form";
+import { Pages_FormSchema } from "./page-form";
 
 import { GenericActionProps } from ".";
 
@@ -30,7 +30,7 @@ interface Props extends GenericActionProps {
 	pageId?: string;
 }
 
-const Pages_Dialog_Delete: React.FC<Props> = ({
+const PageDelete: React.FC<Props> = ({
 	isOpen,
 	setIsOpen,
 	pageData,
@@ -121,4 +121,4 @@ const Pages_Dialog_Delete: React.FC<Props> = ({
 	);
 };
 
-export default Pages_Dialog_Delete;
+export default PageDelete;

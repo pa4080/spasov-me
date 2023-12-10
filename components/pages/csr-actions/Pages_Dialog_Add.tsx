@@ -11,12 +11,12 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 
+import ButtonIcon from "@/components/fragments/ButtonIcon";
+import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
-import { toast } from "@/components/ui/use-toast";
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 
-import PagesForm, { Pages_FormSchema } from "../csr-api/pages-form";
+import PagesForm, { Pages_FormSchema } from "../csr-api/page-form";
 
 import { addPage } from "../_pages.actions";
 
