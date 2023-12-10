@@ -16,7 +16,8 @@ import { toast } from "@/components/ui/use-toast";
 import { preparePageDocToFetch } from "@/interfaces/Page";
 import { Route } from "@/routes";
 
-import PagesForm, { Pages_FormSchema } from "./page-form";
+import PagesForm from "./page-form";
+import { Pages_FormSchema } from "./page-form/schema";
 
 import { GenericActionProps } from ".";
 

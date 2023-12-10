@@ -24,9 +24,13 @@ import { AboutEntryItem, aboutEntryTuple, cityTuple, countryTuple } from "@/inte
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
-import DatePicker from "./DatePicker";
-import SelectFromList from "./SelectFromList";
-import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
+import Combobox from "@/components/fragments/Combobox";
+
+import DatePicker from "../../../fragments/DatePicker";
+import SelectFromList from "../../../fragments/SelectFromList";
+import { Entry_FormSchema, FormSchema } from "./schema";
+
+export type FileListItem = { value: string; label: string };
 
 interface Props {
 	className?: string;
@@ -34,6 +38,7 @@ interface Props {
 	entryType: AboutEntryItem; // entryType?: AboutEntryItem;
 	onSubmit: (data: Entry_FormSchema) => void;
 	submitting?: boolean;
+	files?: FileListItem[];
 }
 
 const EntryForm: React.FC<Props> = ({
@@ -42,31 +47,33 @@ const EntryForm: React.FC<Props> = ({
 	formData,
 	onSubmit,
 	submitting,
+	files,
 }) => {
 	const t = msgs("AboutCV_Form");
 
-	const FormSchema = Entry_FormSchemaGenerator([
-		t("schema_title"),
-		t("schema_description"),
-		t("schema_country"),
-		t("schema_city"),
-		t("schema_date"),
-		t("schema_date"),
-		t("schema_type"),
-		t("schema_visibility"),
-	]);
+	// const FormSchema = Entry_FormSchemaGenerator([
+	// 	t("schema_title"),
+	// 	t("schema_description"),
+	// 	t("schema_country"),
+	// 	t("schema_city"),
+	// 	t("schema_date"),
+	// 	t("schema_date"),
+	// 	t("schema_type"),
+	// 	t("schema_visibility"),
+	// ]);
 
 	const form = useForm<Entry_FormSchema>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
 			title: "",
 			description: "",
-			country: "",
-			city: "",
+			country: undefined,
+			city: undefined,
 			dateFrom: undefined,
 			dateTo: undefined,
 			entryType: entryType,
 			visibility: true,
+			attachment: undefined,
 		},
 		values: formData,
 	});
@@ -181,7 +188,27 @@ const EntryForm: React.FC<Props> = ({
 								name="entryType"
 							/>
 						</div>
+
+						{/* Attachment (image, pdf) */}
+						{files && (
+							<Combobox
+								control={form.control}
+								error={form.formState.errors.attachment}
+								list={files}
+								messages={{
+									label: t("attachment_label"),
+									description: t("attachment_description"),
+									placeholder: t("attachment_search"),
+									pleaseSelect: t("attachment_select"),
+									notFound: t("attachment_searchNotFound"),
+									selectNone: t("attachment_selectNone"),
+								}}
+								name="attachment"
+								setValue={form.setValue}
+							/>
+						)}
 					</div>
+
 					<div className="sm:col-span-5 flex flex-col gap-3 h-full">
 						{/* Title */}
 						<FormField

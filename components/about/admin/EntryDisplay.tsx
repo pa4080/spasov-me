@@ -11,14 +11,16 @@ import { msgs } from "@/messages";
 
 import styles from "../_about.module.scss";
 import EntryUpdate from "./EntryUpdate";
+import { FileListItem } from "./entry-form";
 import { Entry_FormSchema } from "./entry-form/schema";
 
 interface Props {
 	entry: Entry_FormSchema & { html: { title: string; description: string }; _id: string };
 	className?: string;
+	files?: FileListItem[];
 }
 
-const EntryDisplay: React.FC<Props> = ({ entry, className }) => {
+const EntryDisplay: React.FC<Props> = ({ entry, className, files }) => {
 	const {
 		dateFrom,
 		dateTo,
@@ -30,7 +32,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className }) => {
 	return (
 		<div className={cn(styles.card, className)}>
 			<div className={styles.cardEditActions}>
-				<EntryUpdate entry={entry} entryType={entry.entryType} />
+				<EntryUpdate entry={entry} entryType={entry.entryType} files={files} />
 			</div>
 			<div className="col-1">
 				<div className="date">

@@ -36,7 +36,7 @@ interface Props extends GenericActionProps {
 	entry: Entry_FormSchema & { _id: string };
 }
 
-const EntryUpdate: React.FC<Props> = ({ className, entryType, entry }) => {
+const EntryUpdate: React.FC<Props> = ({ className, entryType, entry, files }) => {
 	const t = msgs("AboutCV_UpdateEntry");
 	const entryTypeLabel = (
 		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
@@ -123,6 +123,7 @@ const EntryUpdate: React.FC<Props> = ({ className, entryType, entry }) => {
 					<EntryForm
 						className={showDescription ? "mt-4" : "mt-0"}
 						entryType="employment"
+						files={files}
 						formData={entry}
 						submitting={submitting}
 						onSubmit={handleUpdateEntry}

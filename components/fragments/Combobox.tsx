@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 import {
 	Control,
 	FieldError,
@@ -70,7 +68,7 @@ export default function Combobox<T extends FieldValues>({
 			name={name}
 			render={({ field }) => (
 				<FormItem className="flex flex-col">
-					<FormLabel>{messages.label}</FormLabel>
+					{messages.label && <FormLabel>{messages.label}</FormLabel>}
 					<Popover>
 						<PopoverTrigger asChild>
 							<FormControl>
@@ -140,7 +138,11 @@ export default function Combobox<T extends FieldValues>({
 						</PopoverContent>
 					</Popover>
 
-					{error ? <FormMessage /> : <FormDescription>{messages.description}</FormDescription>}
+					{error ? (
+						<FormMessage />
+					) : (
+						messages.description && <FormDescription>{messages.description}</FormDescription>
+					)}
 				</FormItem>
 			)}
 		/>

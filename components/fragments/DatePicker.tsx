@@ -1,14 +1,12 @@
 "use client";
 
-import React from "react";
-
 // eslint-disable-next-line import/no-duplicates
 import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { bg } from "date-fns/locale";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Control, FieldError, FieldValues, Path, PathValue } from "react-hook-form";
+import { Control, FieldError, FieldValues, Path } from "react-hook-form";
 
 import { CalendarIcon } from "lucide-react";
 
@@ -29,8 +27,8 @@ import {
 } from "@/components/ui/popover";
 
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/cn-utils";
 import { Calendar } from "@/components/ui/calendar";
+import { cn } from "@/lib/cn-utils";
 
 interface Props<T extends FieldValues> {
 	control: Control<T>;
@@ -57,7 +55,7 @@ export default function DatePicker<T extends FieldValues>({
 			name={name}
 			render={({ field }) => (
 				<FormItem className={cn("flex flex-col space-y-0", className)}>
-					<FormLabel>{messages.label}</FormLabel>
+					{messages.label && <FormLabel>{messages.label}</FormLabel>}
 					<Popover>
 						<PopoverTrigger asChild>
 							<FormControl>
@@ -87,7 +85,11 @@ export default function DatePicker<T extends FieldValues>({
 						</PopoverContent>
 					</Popover>
 
-					{error ? <FormMessage /> : <FormDescription>{messages.description}</FormDescription>}
+					{error ? (
+						<FormMessage />
+					) : (
+						messages.description && <FormDescription>{messages.description}</FormDescription>
+					)}
 				</FormItem>
 			)}
 		/>

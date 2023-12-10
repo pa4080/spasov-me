@@ -4,11 +4,12 @@ import { getServerSession } from "next-auth";
 
 import { revalidatePath } from "next/cache";
 
-import { AboutEntryDoc, NewAboutEntryDoc } from "@/interfaces/AboutEntry";
+import { AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
+import { FileDocument } from "@/interfaces/File";
 import { UserObject } from "@/interfaces/User";
 import { AboutEntryItem, CityItem, CountryItem } from "@/interfaces/_dataTypes";
 import { authOptions } from "@/lib/auth-options";
-import { connectToMongoDb } from "@/lib/mongodb-mongoose";
+import { connectToMongoDb, gridFSBucket } from "@/lib/mongodb-mongoose";
 import { msgs } from "@/messages";
 import AboutEntry from "@/models/about-entry";
 
@@ -23,12 +24,15 @@ export const getSession = async () => {
 	return session;
 };
 
-export const getEntries = async (entyType?: string): Promise<AboutEntryDoc[] | null> => {
+export const getEntries = async (): Promise<AboutEntryDoc[] | null> => {
 	"use server";
 
 	try {
 		await connectToMongoDb();
-		const entries: AboutEntryDoc[] = await AboutEntry.find(_id()).populate(["creator", "image"]);
+		const entries: AboutEntryDoc[] = await AboutEntry.find(_id()).populate([
+			"creator",
+			"attachment",
+		]);
 
 		return entries;
 	} catch (error) {
@@ -51,7 +55,7 @@ export const createEntry = async (data: FormData, path: string): Promise<AboutEn
 
 	await connectToMongoDb();
 
-	const newAboutEntryData: NewAboutEntryDoc = {
+	const newAboutEntryData: NewAboutEntryData = {
 		title: data.get("title") as string,
 		description: data.get("description") as string,
 		country: data.get("country") as CountryItem,
@@ -61,14 +65,14 @@ export const createEntry = async (data: FormData, path: string): Promise<AboutEn
 		dateTo: data.get("dateTo") as string,
 		visibility: data.get("visibility") as string,
 
-		image: data.get("image") as string,
+		attachment: data.get("attachment") as string,
 		creator: session?.user.id as string,
 	};
 
 	const newAboutEntryDocument = new AboutEntry(newAboutEntryData);
 
 	await newAboutEntryDocument.save();
-	await newAboutEntryDocument.populate(["creator", "image"]);
+	await newAboutEntryDocument.populate(["creator", "attachment"]);
 
 	revalidatePath(path);
 
@@ -83,12 +87,12 @@ export const createEntry = async (data: FormData, path: string): Promise<AboutEn
 		visibility: newAboutEntryDocument.visibility,
 
 		_id: newAboutEntryDocument._id.toString(),
-		image: newAboutEntryDocument.image?._id.toString(),
+		attachment: newAboutEntryDocument.image?._id.toString(),
 		creator: {
 			name: newAboutEntryDocument.creator.name,
 			email: newAboutEntryDocument.creator.email,
 		} as UserObject,
-	};
+	} as AboutEntryDoc;
 };
 
 export const updateEntry = async (
@@ -108,7 +112,7 @@ export const updateEntry = async (
 
 	await connectToMongoDb();
 
-	const newAboutEntryData: NewAboutEntryDoc = {
+	const newAboutEntryData: NewAboutEntryData = {
 		title: data.get("title") as string,
 		description: data.get("description") as string,
 		country: data.get("country") as CountryItem,
@@ -118,7 +122,7 @@ export const updateEntry = async (
 		dateTo: data.get("dateTo") as string,
 		visibility: data.get("visibility") as string,
 
-		image: data.get("image") as string,
+		attachment: data.get("attachment") as string,
 		creator: session?.user.id as string,
 	};
 
@@ -132,12 +136,12 @@ export const updateEntry = async (
 	);
 
 	// If the image previously existed but was removed
-	if (!newAboutEntryData.image) {
+	if (!newAboutEntryData.attachment) {
 		updatedAboutEntryDocument.image = undefined;
 	}
 
 	await updatedAboutEntryDocument.save();
-	await updatedAboutEntryDocument.populate(["creator", "image"]);
+	await updatedAboutEntryDocument.populate(["creator", "attachment"]);
 
 	revalidatePath(path);
 
@@ -152,10 +156,29 @@ export const updateEntry = async (
 		visibility: updatedAboutEntryDocument.visibility,
 
 		_id: updatedAboutEntryDocument._id.toString(),
-		image: updatedAboutEntryDocument.image?._id.toString(),
+		attachment: updatedAboutEntryDocument.image?._id.toString(),
 		creator: {
 			name: updatedAboutEntryDocument.creator.name,
 			email: updatedAboutEntryDocument.creator.email,
 		} as UserObject,
-	};
+	} as AboutEntryDoc;
+};
+
+export const deleteEntry = async (entry_id: string, path: string): Promise<void> => {
+	"use server";
+};
+
+export const getFileList = async (): Promise<FileDocument[] | null> => {
+	("use server");
+
+	// connect to the database and get the bucket
+	const bucket = await gridFSBucket();
+
+	const files = (await bucket.find().toArray()) as FileDocument[];
+
+	if (files?.length === 0) {
+		return null;
+	}
+
+	return files;
 };

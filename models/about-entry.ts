@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-import { aboutEntryTuple, countryTuple, cityTuple } from "@/interfaces/_dataTypes";
+import { aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataTypes";
 
 import GridFS from "./grid_fs";
 import User from "./user";
@@ -47,7 +47,7 @@ const AboutEntrySchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: User,
 	},
-	image: {
+	attachment: {
 		type: Schema.Types.ObjectId,
 		ref: GridFS,
 	},

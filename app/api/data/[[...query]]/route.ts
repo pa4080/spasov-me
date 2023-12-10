@@ -162,7 +162,7 @@ export async function POST(request: NextRequest, { params }: Context) {
 		}
 
 		await dbDocModel.save();
-		await dbDocModel.populate(["creator", "image"]);
+		await dbDocModel.populate(["creator", "image"]); // TODO: AboutEntry: populate "attachment" instead of "image"
 
 		return NextResponse.json(
 			{

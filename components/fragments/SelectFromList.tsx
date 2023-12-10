@@ -73,7 +73,11 @@ export default function SelectFromList<T extends FieldValues>({
 						</SelectContent>
 					</Select>
 
-					{error ? <FormMessage /> : <FormDescription>{messages.description}</FormDescription>}
+					{error ? (
+						<FormMessage />
+					) : (
+						messages.description && <FormDescription>{messages.description}</FormDescription>
+					)}
 				</FormItem>
 			)}
 		/>

@@ -19,7 +19,7 @@ import { Route } from "@/routes";
 
 import { msgs } from "@/messages";
 
-import { Pages_FormSchema } from "./page-form";
+import { Pages_FormSchema } from "./page-form/schema";
 
 import { GenericActionProps } from ".";
 

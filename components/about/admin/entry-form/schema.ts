@@ -1,6 +1,9 @@
 import * as z from "zod";
 
-import { aboutEntryTuple } from "@/interfaces/_dataTypes";
+import { aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataTypes";
+import { msgs } from "@/messages";
+
+const t = msgs("AboutCV_Form");
 
 export const Entry_FormSchemaGenerator = (messages?: string[]) =>
 	z.object({
@@ -10,11 +13,23 @@ export const Entry_FormSchemaGenerator = (messages?: string[]) =>
 		description: z.string().min(20, {
 			message: messages?.shift(),
 		}),
-		country: z.string().min(2, {
-			message: messages?.shift(),
+		country: z.enum(countryTuple, {
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			errorMap: (issue, _ctx) => {
+				switch (issue.code) {
+					default:
+						return { message: String(messages?.shift()) };
+				}
+			},
 		}),
-		city: z.string().min(2, {
-			message: messages?.shift(),
+		city: z.enum(cityTuple, {
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			errorMap: (issue, _ctx) => {
+				switch (issue.code) {
+					default:
+						return { message: String(messages?.shift()) };
+				}
+			},
 		}),
 		dateFrom: z.coerce.date({
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -52,7 +67,20 @@ export const Entry_FormSchemaGenerator = (messages?: string[]) =>
 				}
 			},
 		}),
+		// This will be an Image (GridFS document) Id as a string
+		attachment: z.string().optional(),
 	});
 
 export const Entry_FormSchema = Entry_FormSchemaGenerator();
 export type Entry_FormSchema = z.infer<typeof Entry_FormSchema>;
+
+export const FormSchema = Entry_FormSchemaGenerator([
+	t("schema_title"),
+	t("schema_description"),
+	t("schema_country"),
+	t("schema_city"),
+	t("schema_date"),
+	t("schema_date"),
+	t("schema_type"),
+	t("schema_visibility"),
+]);

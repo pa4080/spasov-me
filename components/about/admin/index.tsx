@@ -7,14 +7,16 @@ import { AboutEntryItem } from "@/interfaces/_dataTypes";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
-import { getEntries } from "../_about.actions";
+import { getEntries, getFileList } from "../_about.actions";
 import styles from "../_about.module.scss";
 import EntryCreate from "./EntryCreate";
 import EntryDisplay from "./EntryDisplay";
+import { FileListItem } from "./entry-form";
 
 export interface GenericActionProps {
 	className?: string;
 	entryType: AboutEntryItem;
+	files?: FileListItem[];
 }
 
 interface Props {
@@ -25,6 +27,8 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 	const t = msgs("AboutCV");
 
 	const entryList = await getEntries();
+	const fileList = await getFileList();
+
 	const entries = entryList?.map((entry) => ({
 		_id: entry._id.toString(),
 		html: {
@@ -40,20 +44,28 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 		dateTo: entry.dateTo as Date,
 		entryType: entry.entryType,
 		visibility: entry.visibility as boolean,
+		attachment: entry.attachment?._id.toString(),
 	}));
+
+	const files: FileListItem[] | undefined = fileList
+		?.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx)$/))
+		.map((file) => ({
+			value: file._id.toString(),
+			label: file.filename,
+		}));
 
 	const Section = ({ type, title }: { type: AboutEntryItem; title: string }) => (
 		<div className={cn(styles.section)}>
 			<div className="flex items-center justify-between gap-4 mb-4 w-full">
 				<h1 className={cn(styles.title, "flex-grow")}>{title}</h1>
-				<EntryCreate entryType={type} />
+				<EntryCreate entryType={type} files={files} />
 			</div>
 
 			<div className={cn(styles.feed)}>
 				{entries
 					?.filter(({ entryType }) => entryType === type)
 					.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime())
-					.map((entry, index) => <EntryDisplay key={index} entry={entry} />)}
+					.map((entry, index) => <EntryDisplay key={index} entry={entry} files={files} />)}
 			</div>
 		</div>
 	);
