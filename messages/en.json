@@ -255,6 +255,8 @@
 		"attachment_selectNone": "None",
 
 		"btn_submit": "Submit",
-		"btn_submitting": "Submitting..."
+		"btn_submitting": "Submitting...",
+
+		"dateTo_now_current": "Now"
 	}
 }

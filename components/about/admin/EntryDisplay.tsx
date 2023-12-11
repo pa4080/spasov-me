@@ -45,7 +45,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files }) => {
 				<div className="date">
 					{format(new Date(dateFrom), "MM/yy", { locale: bg })}
 					{" - "}
-					{format(new Date(dateTo), "MM/yy", { locale: bg })}
+					{dateTo ? format(new Date(dateTo), "MM/yy", { locale: bg }) : t("dateTo_now_current")}
 				</div>
 				<div className="location">
 					{(t("country_list") as unknown as Record<string, string>)[entry.country]},{" "}

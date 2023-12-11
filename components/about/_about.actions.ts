@@ -69,6 +69,23 @@ export const createEntry = async (data: FormData, path: string): Promise<AboutEn
 		creator: session?.user.id as string,
 	};
 
+	// TODO: create a function to handle this by passing an array of props to be deleted and an object
+	if (
+		newAboutEntryData.attachment === "undefined" ||
+		newAboutEntryData.attachment === "null" ||
+		newAboutEntryData.attachment === ""
+	) {
+		delete newAboutEntryData.attachment;
+	}
+
+	if (
+		newAboutEntryData.dateTo === "undefined" ||
+		newAboutEntryData.dateTo === "null" ||
+		newAboutEntryData.dateTo === ""
+	) {
+		delete newAboutEntryData.dateTo;
+	}
+
 	const newAboutEntryDocument = new AboutEntry(newAboutEntryData);
 
 	await newAboutEntryDocument.save();
@@ -83,7 +100,7 @@ export const createEntry = async (data: FormData, path: string): Promise<AboutEn
 		city: newAboutEntryDocument.city,
 		entryType: newAboutEntryDocument.entryType,
 		dateFrom: newAboutEntryDocument.dateFrom,
-		dateTo: newAboutEntryDocument.dateTo,
+		dateTo: newAboutEntryDocument.dateTo && newAboutEntryDocument.dateTo,
 		visibility: newAboutEntryDocument.visibility,
 
 		_id: newAboutEntryDocument._id.toString(),
@@ -135,6 +152,14 @@ export const updateEntry = async (
 		delete newAboutEntryData.attachment;
 	}
 
+	if (
+		newAboutEntryData.dateTo === "undefined" ||
+		newAboutEntryData.dateTo === "null" ||
+		newAboutEntryData.dateTo === ""
+	) {
+		delete newAboutEntryData.dateTo;
+	}
+
 	const updatedAboutEntryDocument = await AboutEntry.findOneAndUpdate(
 		_id(entry_id),
 		newAboutEntryData,
@@ -149,6 +174,10 @@ export const updateEntry = async (
 		updatedAboutEntryDocument.attachment = undefined;
 	}
 
+	if (!newAboutEntryData.dateTo) {
+		updatedAboutEntryDocument.dateTo = undefined;
+	}
+
 	await updatedAboutEntryDocument.save();
 	await updatedAboutEntryDocument.populate(["creator", "attachment"]);
 
@@ -161,7 +190,7 @@ export const updateEntry = async (
 		city: updatedAboutEntryDocument.city,
 		entryType: updatedAboutEntryDocument.entryType,
 		dateFrom: updatedAboutEntryDocument.dateFrom,
-		dateTo: updatedAboutEntryDocument.dateTo,
+		dateTo: updatedAboutEntryDocument.dateTo || undefined,
 		visibility: updatedAboutEntryDocument.visibility,
 
 		_id: updatedAboutEntryDocument._id.toString(),

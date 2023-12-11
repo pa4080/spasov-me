@@ -43,7 +43,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 		country: entry.country,
 		city: entry.city,
 		dateFrom: entry.dateFrom as Date,
-		dateTo: entry.dateTo as Date,
+		dateTo: entry.dateTo as Date | undefined,
 		entryType: entry.entryType,
 		visibility: entry.visibility as boolean,
 		attachment: entry.attachment?._id.toString(),

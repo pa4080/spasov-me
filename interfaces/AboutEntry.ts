@@ -15,7 +15,7 @@ export type AboutEntryDoc = {
 	city: CityItem;
 	entryType: AboutEntryItem;
 	dateFrom: Date | string;
-	dateTo: Date | string;
+	dateTo: Date | string | undefined;
 	visibility: boolean | string;
 };
 

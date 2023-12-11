@@ -36,7 +36,7 @@ const AboutEntrySchema = new Schema({
 	},
 	dateTo: {
 		type: Date,
-		required: [true, "Date 'to' is required!"],
+		// required: [true, "Date 'to' is required!"],
 	},
 	visibility: {
 		type: Boolean,
