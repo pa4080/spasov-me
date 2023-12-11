@@ -18,7 +18,7 @@
  */
 import { useMediaQuery } from "react-responsive";
 import resolveConfig from "tailwindcss/resolveConfig";
-import { Config, ScreensConfig } from "tailwindcss/types/config";
+import { Config } from "tailwindcss/types/config";
 
 import tailwindConfig from "@/tailwind.config"; // Your tailwind config
 
@@ -33,7 +33,8 @@ const breakpoints = fullConfig?.theme?.screens || {
 };
 
 export function useBreakpoint<K extends string>(breakpointKey: K) {
-	const breakpointValue = breakpoints[breakpointKey as keyof ScreensConfig];
+	const breakpointValue = breakpoints[breakpointKey as keyof typeof breakpoints];
+
 	const bool = useMediaQuery({
 		query: `(max-width: ${breakpointValue})`,
 	});
