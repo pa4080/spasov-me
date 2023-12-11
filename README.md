@@ -24,17 +24,17 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [x] Edit the files: name, description, content...
 - [x] Tweak the files Form
 - [ ] Create the About page
-  - [ ] AboutEntry
+  - [x] AboutEntry
     - [x] DB Model
-    - [ ] API `@app/api/data/[[...query]]/route.ts`
-    - [ ] API `@/routes.ts`
+    - [x] API `@app/api/data/[[...query]]/route.ts`
+    - [x] API `@/routes.ts`
     - [x] Public menu entry
-    - [ ] Admin menu entry
+    - [x] Admin menu entry
     - [x] Home page card entry
   - [ ] Form
   - [ ] Page
   - [ ] CSS
-  - [ ] Render Markdown
+  - [x] Render Markdown
 - [ ] Vercel BLOB storage for files and images
 - [ ] Portfolio/projects page
   - [ ] DB Model
@@ -42,6 +42,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] Page
   - [ ] CSS
   - [ ] Create a gallery
+- [ ] Implement gallery and integrate it with:
+  - [ ] Handle:
+    - [ ] Image files
+    - [ ] PDF files
+    - [ ] Video links (YouTube, Vimeo...)
+    - [ ] MSO365 files
+  - [ ] About entry attachments
+  - [ ] Portfolio entry attachments (here will be number of images)
+- [ ] Refactor `pages/admin` like as `about/admin` -> use Server actions instead of API fetch
 
 ## Tech stack
 

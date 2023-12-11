@@ -5,21 +5,10 @@ import React, { useState } from "react";
 import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 
-import Image from "next/image";
-
-import { useRouter } from "next/navigation";
-
 import { useAppContext } from "@/contexts/AppContext";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { PageDoc } from "@/interfaces/Page";
 import { cn } from "@/lib/cn-utils";
-
-import { Route } from "@/routes";
-
-import { msgs } from "@/messages";
-
-import { Switch } from "@/components/ui/switch";
 
 import PageCreate from "./PageCreate";
 import PageDelete from "./PageDelete";
@@ -27,6 +16,7 @@ import PageUpdate from "./PageUpdate";
 import { Pages_FormSchema } from "./page-form/schema";
 
 import styles from "../_pages.module.scss";
+import PageDisplay from "./PageDisplay";
 
 export interface GenericActionProps {
 	className?: string;
@@ -39,9 +29,7 @@ interface Props {
 }
 
 const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
-	const t = msgs("PagesFeed");
 	const { pages, setPages } = useAppContext();
-	const router = useRouter(); // We can't use <Link><ButtonIcon /></Link>, because Tge inner component have onClick()
 
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -98,59 +86,12 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 
 			<div className={cn(styles.feed, "mt-16")}>
 				{pages?.map((page, index) => (
-					// <Link key={index} href={`/${page.uri}`}>
-					<div key={index} className={styles.card}>
-						<div className={styles.cardEditActions}>
-							<ButtonIcon
-								className="pl-[2.6px] bg-transparent icon_accent_secondary"
-								height={18}
-								type="trash"
-								width={18}
-								onClick={(e) => handleDelete(e, page)}
-							/>
-							<ButtonIcon
-								className="pl-[2.8px] bg-transparent icon_accent_secondary"
-								height={18}
-								type="up-right-from-square"
-								width={18}
-								onClick={() => {
-									router.push(`/${page.uri}`);
-								}}
-							/>
-							<Switch
-								disabled
-								checked={
-									typeof page.visibility === "string"
-										? page.visibility === "true"
-											? true
-											: false
-										: page.visibility
-								}
-								className="mt-1 mr-1"
-							/>
-							<ButtonIcon
-								className="pl-[4.5px] bg-transparent icon_accent_secondary"
-								height={18}
-								type="brush"
-								width={18}
-								onClick={(e) => handleEdit(e, page)}
-							/>
-						</div>
-						{page.image && (
-							<div className={styles.cardImageEditMode}>
-								<Image
-									priority
-									alt={t("index_pageImage_alt", { title: page.title })}
-									height={260}
-									src={`${Route.api.FILES}/${page.image._id.toString()}/${page.image.filename}`}
-									width={462}
-								/>
-							</div>
-						)}
-						<h1 className={cn(styles.title, "mt-4")}>{page.title}</h1>
-						<span>{page.description}</span>
-					</div>
-					// </Link>
+					<PageDisplay
+						key={index}
+						handleDelete={handleDelete}
+						handleEdit={handleEdit}
+						page={page}
+					/>
 				))}
 			</div>
 
