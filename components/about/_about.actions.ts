@@ -173,12 +173,32 @@ export const updateEntry = async (
 	} as AboutEntryDoc;
 };
 
-export const deleteEntry = async (entry_id: string, path: string): Promise<void> => {
+export const deleteEntry = async (entry_id: string, path: string): Promise<boolean | null> => {
 	"use server";
+
+	const session = await getSession();
+
+	if (!session?.user) {
+		console.error(msgs("Errors")("invalidUser"));
+
+		return null;
+	}
+
+	await connectToMongoDb();
+
+	const deletedObject = await AboutEntry.findOneAndDelete(_id(entry_id));
+
+	if (!deletedObject) {
+		return null;
+	}
+
+	revalidatePath(path);
+
+	return !!deletedObject.ok;
 };
 
 export const getFileList = async (): Promise<FileDocument[] | null> => {
-	("use server");
+	"use server";
 
 	// connect to the database and get the bucket
 	const bucket = await gridFSBucket();

@@ -10,6 +10,7 @@ import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
 import styles from "../_about.module.scss";
+import EntryDelete from "./EntryDelete";
 import EntryShowAttachment from "./EntryShowAttachment";
 import EntryUpdate from "./EntryUpdate";
 import { FileListItem } from "./entry-form";
@@ -36,6 +37,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files }) => {
 	return (
 		<div className={cn(styles.card, className)}>
 			<div className={styles.cardEditActions}>
+				<EntryDelete entryType={entry.entryType} entry_id={entry._id} />
 				<EntryShowAttachment uri={entry.html.attachmentUri} />
 				<EntryUpdate entry={entry} entryType={entry.entryType} files={files} />
 			</div>

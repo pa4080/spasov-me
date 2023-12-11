@@ -189,6 +189,14 @@
 		"dialog_btn_add_submitting": "Submitting...",
 		"toast_submitted": "The entry was successfully updated."
 	},
+	"AboutCV_DeleteEntry": {
+		"dialog_title": "Delete an entry of type { entryType } ",
+		"dialog_description": "Id: <b><code style='letter-spacing: 2px;'>{ id }</code></b>",
+		"dialog_btn_delete": "Update the entry",
+		"dialog_btn_delete_submitting": "Deleting...",
+		"dialog_btn_cancel": "Cancel",
+		"toast_deleted": "The entry was successfully deleted!"
+	},
 	"AboutCV_Form": {
 		"schema_title": "The entry title must be at least 6 characters.",
 		"schema_description": "The description must be at least 20 characters.",
