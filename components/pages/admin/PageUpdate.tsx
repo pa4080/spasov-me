@@ -4,7 +4,6 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 
 import { msgs } from "@/messages";
 
-import { toast } from "@/components/ui/use-toast";
 import {
 	Dialog,
 	DialogContent,
@@ -12,22 +11,24 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import { toast } from "@/components/ui/use-toast";
 
+import { preparePageDocToFetch } from "@/interfaces/Page";
 import { Route } from "@/routes";
-import { preparePageObjectToFetch } from "@/interfaces/Page";
 
-import PagesForm, { Pages_FormSchema } from "./pages-form";
+import PagesForm from "./page-form";
+import { Pages_FormSchema } from "./page-form/schema";
 
-import { PagesActions } from ".";
+import { GenericActionProps } from ".";
 
-interface Props extends PagesActions {
+interface Props extends GenericActionProps {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
 	pageData?: Pages_FormSchema;
 	pageId?: string;
 }
 
-const Pages_Dialog_Edit: React.FC<Props> = ({
+const PageUpdate: React.FC<Props> = ({
 	isOpen,
 	setIsOpen,
 	pageData,
@@ -45,7 +46,7 @@ const Pages_Dialog_Edit: React.FC<Props> = ({
 		try {
 			const response = await fetch(`${Route.api.PAGES}/${pageId}`, {
 				method: "PATCH",
-				body: preparePageObjectToFetch({
+				body: preparePageDocToFetch({
 					data,
 					user_id: session?.user.id,
 				}),
@@ -116,4 +117,4 @@ const Pages_Dialog_Edit: React.FC<Props> = ({
 	);
 };
 
-export default Pages_Dialog_Edit;
+export default PageUpdate;

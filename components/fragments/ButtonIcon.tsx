@@ -15,6 +15,7 @@ interface Props {
 	height?: number;
 	widthOffset?: number;
 	heightOffset?: number;
+	disabled?: boolean;
 }
 
 const ButtonIcon: React.FC<Props> = ({
@@ -28,12 +29,14 @@ const ButtonIcon: React.FC<Props> = ({
 	height = 20,
 	widthOffset = 12,
 	heightOffset = 12,
+	disabled = false,
 }) => {
 	return (
 		<div
 			className={cn(
 				"flex items-center justify-center cursor-pointer",
 				"rounded-sm hover:bg-accent-secondary/40 bg-accent-secondary/20 grayscale hover:grayscale-0 hover:brightness-110 active:brightness-75 transition-colors duration-300",
+				disabled && "cursor-not-allowed opacity-40 grayscale hover:grayscale",
 				className
 			)}
 			style={{
@@ -44,7 +47,7 @@ const ButtonIcon: React.FC<Props> = ({
 				e.preventDefault();
 				e.stopPropagation();
 
-				if (submitting) {
+				if (submitting || disabled) {
 					return;
 				}
 
@@ -55,6 +58,7 @@ const ButtonIcon: React.FC<Props> = ({
 		>
 			<IconEmbedSvg
 				alt={submitting ? labelSubmitting : label}
+				cursor={disabled ? "not-allowed" : "pointer"}
 				height={height}
 				type={type}
 				width={width}

@@ -1,7 +1,7 @@
 import React from "react";
 
-import HomePage_PagesFeed from "@/components/pages/sr";
 import SiteLogo from "@/components/layouts/logo/SiteLogo";
+import HomePage_PagesFeed from "@/components/pages/public";
 import { msgs } from "@/messages";
 
 const Home: React.FC = async () => {

@@ -18,7 +18,7 @@ const MainLayout: React.FC<Props> = ({ children, className }) => {
 			<Navbar />
 			<main className={styles.contentContainer}>
 				<div className={styles.contentWrapper}>
-					<div id="main-content" />
+					{/* <div id="main-content" /> */}
 					{children}
 				</div>
 			</main>

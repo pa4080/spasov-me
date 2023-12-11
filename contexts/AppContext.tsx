@@ -14,15 +14,15 @@ import { Session } from "next-auth";
 
 import { AuthProviders } from "@/types/next-auth-providers";
 
-import { PageObject } from "@/interfaces/Page";
+import { PageDoc } from "@/interfaces/Page";
 import { FileDocument } from "@/interfaces/File";
 
 import loadDataFromApiRoute from "@/lib/load-data-fom-api-route";
 
 interface AppContextProps {
 	session: Session | null;
-	pages: PageObject[];
-	setPages: Dispatch<SetStateAction<PageObject[]>>;
+	pages: PageDoc[];
+	setPages: Dispatch<SetStateAction<PageDoc[]>>;
 	files: FileDocument[];
 	setFiles: Dispatch<SetStateAction<FileDocument[]>>;
 	authProviders: AuthProviders;
@@ -35,7 +35,7 @@ interface AppContextProviderProps {
 }
 
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
-	const [pages, setPages] = useState<PageObject[]>([]);
+	const [pages, setPages] = useState<PageDoc[]>([]);
 	const [files, setFiles] = useState<FileDocument[]>([]);
 	const [authProviders, setAuthProviders] = useState<AuthProviders>(null);
 

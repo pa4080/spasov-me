@@ -17,15 +17,16 @@ import { msgs } from "@/messages";
 
 import { toast } from "@/components/ui/use-toast";
 
-import { Route } from "@/routes";
-import { PageObject, preparePageObjectToFetch } from "@/interfaces/Page";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
+import { PageDoc, preparePageDocToFetch } from "@/interfaces/Page";
+import { Route } from "@/routes";
 
-import PagesForm, { Pages_FormSchema } from "./pages-form";
+import PagesForm from "./page-form";
+import { Pages_FormSchema } from "./page-form/schema";
 
-import { PagesActions } from ".";
+import { GenericActionProps } from ".";
 
-const Pages_Dialog_Add: React.FC<PagesActions> = ({ className, session, setPages }) => {
+const PageCreate: React.FC<GenericActionProps> = ({ className, session, setPages }) => {
 	const t = msgs("PagesFeed");
 
 	const [submitting, setSubmitting] = useState(false);
@@ -37,14 +38,14 @@ const Pages_Dialog_Add: React.FC<PagesActions> = ({ className, session, setPages
 		try {
 			const response = await fetch(Route.api.PAGES, {
 				method: "POST",
-				body: preparePageObjectToFetch({
+				body: preparePageDocToFetch({
 					data,
 					user_id: session?.user.id,
 				}),
 			});
 
 			if (response.ok) {
-				const newPage: PageObject = (await response.json()).data;
+				const newPage: PageDoc = (await response.json()).data;
 
 				setPages((prevPages) => [...prevPages, newPage]);
 
@@ -107,4 +108,4 @@ const Pages_Dialog_Add: React.FC<PagesActions> = ({ className, session, setPages
 	);
 };
 
-export default Pages_Dialog_Add;
+export default PageCreate;

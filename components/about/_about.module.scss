@@ -1,0 +1,53 @@
+@import "@/app/globals.variables.module.scss";
+
+.about {
+	.section {
+		@apply space-y-6;
+
+	}
+	
+	.section + .section {
+		@apply mt-12;
+	}
+	
+	.feed {
+		@apply space-y-6;
+	}
+
+	.title {
+		@apply font-unicephalon text-2xl tracking-wider text-foreground-secondary;
+	}
+
+	.card {
+		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[25%] rounded-2xl h-full p-6 md:p-8 relative min-h-fit flex items-start flex-col gap-3 justify-start cursor-pointer;
+
+		transition:
+			background-color 0.5s,
+			box-shadow 0.5s,
+			opacity 0.5s,
+			box-shadow 0.5s;
+
+		&:hover {
+			@apply bg-popover/[80%];
+
+			box-shadow: 0 8px 32px theme("colors.muted.secondary");
+			transition:
+				background-color 0.5s,
+				box-shadow 0.5s,
+				opacity 0.5s,
+				box-shadow 0.5s;
+		}
+
+		.cardEditActions {
+			@apply flex gap-1 absolute right-0 top-0 p-4 rounded-2xl;
+		}
+
+		.cardImageEditMode {
+			@apply mt-8 border w-full drop-shadow-2xl rounded-md overflow-hidden;
+
+			img {
+				@apply w-full h-auto;
+			}
+		}
+	}
+}

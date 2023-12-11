@@ -38,14 +38,15 @@ export const Route = {
 		},
 	},
 	admin: {
+		PAGES: "/admin/pages",
+		ABOUT: "/admin/about",
 		THEME: "/admin/theme",
-		// PAGES: "/admin/pages-ssr-attempt",
-		PAGES_API: "/admin/pages",
 		FILES: "/admin/files",
 	},
 	api: {
 		PAGES: "/api/data/pages",
 		POSTS: "/api/data/posts",
+		ABOUT_ENTRY: "/api/data/about-entries",
 		FILES: "/api/files",
 	},
 	assets: {

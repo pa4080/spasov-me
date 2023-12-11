@@ -15,7 +15,6 @@
 		"themeSelector": "Theme selector"
 	},
 	"Navigation": {
-		"ABOUT": "About",
 		"BLOG": "Blog",
 		"PORTFOLIO": "Portfolio",
 		"CONTACT": "Contact",
@@ -26,10 +25,12 @@
 		"FILES_DESC": "Upload, browse and manage files",
 		"THEME": "Theme",
 		"THEME_DESC": "Preview the theme colors and typography",
-		"PAGES": "Pages (SR attempt)",
-		"PAGES_DESC": "Edit the Home page cards vi server ations",
-		"PAGES_API": "Pages",
-		"PAGES_API_DESC": "Edit the Home page cards via API",
+		"PAGES_SR": "Pages (SR attempt)",
+		"PAGES_SR_DESC": "Edit the Home page cards vi server ations",
+		"PAGES": "Pages",
+		"PAGES_DESC": "Edit the Home page cards",
+		"ABOUT": "About",
+		"ABOUT_DESC": "Edit the about (CV) page",
 
 		"signUp": "Sign Up",
 		"signIn": "Sign In",
@@ -169,5 +170,91 @@
 		"yourMessage": "The following message of yours was successfully submitted:",
 		"thankYou": "Thank you for reaching out to me. I will get back to you as soon as possible.",
 		"bestRegards": "Best regards,"
+	},
+	"AboutCV": {
+		"title_employment": "Employment history",
+		"title_education": "Education"
+	},
+	"AboutCV_CreateEntry": {
+		"dialog_title": "Create a new { entryType } entry",
+		"dialog_description": "null",
+		"dialog_btn_add": "Add a new entry",
+		"dialog_btn_add_submitting": "Submitting...",
+		"toast_submitted": "The entry was successfully submitted."
+	},
+	"AboutCV_UpdateEntry": {
+		"dialog_title": "Update an existing { entryType } entry",
+		"dialog_description": "Id: <b><code style='letter-spacing: 2px;'>{ id }</code></b>",
+		"dialog_btn_add": "Update the entry",
+		"dialog_btn_add_submitting": "Submitting...",
+		"toast_submitted": "The entry was successfully updated."
+	},
+	"AboutCV_DeleteEntry": {
+		"dialog_title": "Delete an entry of type { entryType } ",
+		"dialog_description": "Id: <b><code style='letter-spacing: 2px;'>{ id }</code></b>",
+		"dialog_btn_delete": "Update the entry",
+		"dialog_btn_delete_submitting": "Deleting...",
+		"dialog_btn_cancel": "Cancel",
+		"toast_deleted": "The entry was successfully deleted!"
+	},
+	"AboutCV_Form": {
+		"schema_title": "The entry title must be at least 6 characters.",
+		"schema_description": "The description must be at least 20 characters.",
+		"schema_country": "The country is required.",
+		"schema_city": "The city is required.",
+		"schema_date": "Select a date.",
+		"schema_type": "Select a type.",
+		"schema_visibility": "The default visibility value is \"true\".",
+		"schema_attachment": "Select an attachment to the entry - i.e scammed copy of a diploma as a image, PDF or other type of file.",
+
+		"title_label": "Title",
+		"title_placeholder": "Title of the entry",
+		"title_description": "Enter the display title/name of the entry.",
+
+		"description_label": "Description",
+		"description_placeholder": "Description of the entry",
+		"description_description": "Enter the display description of the entry.",
+
+		"country_label": "Country",
+		"country_placeholder": "Country",
+		"country_description": "Enter the country of the entry.",
+		"country_list": {
+			"bulgaria": "Bulgaria"
+		},
+
+		"city_label": "City",
+		"city_placeholder": "City",
+		"city_description": "Enter the city of the entry.",
+		"city_list": {
+			"sofia": "Sofia",
+			"pazardjik": "Pazardjik",
+			"yambol": "Yambol"
+		},
+
+		"type_label": "Entry type",
+		"type_placeholder": "Select Type",
+		"type_description": "Select the type of the entry.",
+		"aboutEntry_type_list": {
+			"employment": "Employment",
+			"resume": "Resume",
+			"education": "Education",
+			"portfolio": "Portfolio"
+		},
+
+		"dateFrom_label": "From",
+		"dateTo_label": "To",
+
+		"visibility_title": "Is public?",
+		"visibility_description": "Probably some items could be a draft...",
+
+		"attachment_label": "",
+		"attachment_description": "",
+		"attachment_search": "Search for an attachment...",
+		"attachment_select": "Attachment...",
+		"attachment_searchNotFound": "Not found.",
+		"attachment_selectNone": "None",
+
+		"btn_submit": "Submit",
+		"btn_submitting": "Submitting..."
 	}
 }

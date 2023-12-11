@@ -32,6 +32,7 @@
 		"nofollow",
 		"Onsen",
 		"Openweathermap",
+		"Pazardjik",
 		"Preprocessors",
 		"Promptopia",
 		"RAWG",
@@ -48,6 +49,7 @@
 		"uidotdev",
 		"unicephalon",
 		"usehooks",
+		"Yambol",
 		"zipcode"
 	],
 	"material-icon-theme.folders.associations": {
@@ -64,6 +66,8 @@
 		"data/[[...query]]": "database",
 		"session-info": "meta",
 		"components/pages": "base",
+		"components/about": "base",
+		"components/cintact": "base",
 		"components/files": "base",
 		"components/home": "base",
 		"components/ui": "core",
@@ -97,5 +101,19 @@
 	],
 	"reactTsScss.references": true,
 	"reactTsScss.codelens": true,
-	"cssModules.camelCase": true
+	"cssModules.camelCase": true,
+	"files.autoSave": "off",
+	"editor.formatOnSave": true,
+	"[typescript]": {
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": true,
+			"source.fixAll": "always"
+		}
+	},
+	"[typescriptreact]": {
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": true,
+			"source.fixAll": "always"
+		}
+	}
 }

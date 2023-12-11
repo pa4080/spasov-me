@@ -127,6 +127,11 @@
 		@apply bg-background text-foreground;
 
 		min-width: 320px;
+
+		overflow-x: hidden;
+		@screen sm {
+			overflow-y: hidden;
+		}
 	}
 }
 
@@ -210,11 +215,7 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 }
 
 .dark *::-webkit-scrollbar-thumb {
-	height: 52px;
-	border: calc(var(--scrollbar-width) / 4.2) solid transparent;
-	border-radius: var(--scrollbar-width);
 	background-color: theme("colors.gray.300");
-	background-clip: content-box;
 }
 
 *::-webkit-scrollbar-thumb:hover {

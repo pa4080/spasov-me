@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 
 import { Input } from "@/components/ui/input";
 
@@ -19,40 +18,15 @@ import {
 } from "@/components/ui/form";
 
 import { Button } from "@/components/ui/button";
-import { msgs } from "@/messages";
-import { cn } from "@/lib/cn-utils";
-import { useAppContext } from "@/contexts/AppContext";
 import { Switch } from "@/components/ui/switch";
+import { useAppContext } from "@/contexts/AppContext";
+import { cn } from "@/lib/cn-utils";
+import { msgs } from "@/messages";
 
 import { Route } from "@/routes";
 
-import Combobox, { ComboBoxList } from "./Combobox";
-
-// https://github.com/colinhacks/zod#nullable
-// Here is applied a tricky solution to translate the messages,
-// outside React  component on the client side...?
-export const Pages_FormSchemaGenerator = (messages?: string[]) =>
-	z.object({
-		title: z.string().min(2, {
-			message: messages?.shift(),
-		}),
-		description: z.string().min(2, {
-			message: messages?.shift(),
-		}),
-		uri: z
-			.string()
-			.min(2, {
-				message: messages?.shift(),
-			})
-			.toLowerCase()
-			.regex(/^[a-z][a-z0-9-]+$/)
-			.trim(),
-		image: z.string().optional(),
-		visibility: z.boolean(),
-	});
-
-export const Pages_FormSchema = Pages_FormSchemaGenerator();
-export type Pages_FormSchema = z.infer<typeof Pages_FormSchema>;
+import Combobox, { ComboBoxList } from "../../../fragments/Combobox";
+import { Pages_FormSchema, Pages_FormSchemaGenerator } from "./schema";
 
 interface Props {
 	className?: string;
@@ -84,15 +58,6 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 		},
 		values: formData,
 	});
-
-	/**
-	 * @see https://react-hook-form.com/docs/useform#values
-			useEffect(() => {
-				if (formData) {
-					form.reset({ ...formData });
-				}
-			}, [form, formData]);
-	 */
 
 	// Generate "image files" list
 	const [imageFiles, setImageFiles] = useState<ComboBoxList<Pages_FormSchema>[]>([]);
