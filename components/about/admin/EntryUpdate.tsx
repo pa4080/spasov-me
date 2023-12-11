@@ -100,7 +100,7 @@ const EntryUpdate: React.FC<Props> = ({ className, entryType, entry, files }) =>
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogTrigger disabled={submitting}>
 					<ButtonIcon
-						className="pl-[2.6px] bg-transparent icon_accent_secondary"
+						className="pl-[3px] bg-transparent icon_accent_secondary"
 						height={18}
 						// type="trash"
 						type="brush"

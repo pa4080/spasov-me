@@ -10,12 +10,16 @@ import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
 import styles from "../_about.module.scss";
+import EntryShowAttachment from "./EntryShowAttachment";
 import EntryUpdate from "./EntryUpdate";
 import { FileListItem } from "./entry-form";
 import { Entry_FormSchema } from "./entry-form/schema";
 
 interface Props {
-	entry: Entry_FormSchema & { html: { title: string; description: string }; _id: string };
+	entry: Entry_FormSchema & {
+		html: { title: string; description: string; attachmentUri?: string };
+		_id: string;
+	};
 	className?: string;
 	files?: FileListItem[];
 }
@@ -32,6 +36,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files }) => {
 	return (
 		<div className={cn(styles.card, className)}>
 			<div className={styles.cardEditActions}>
+				<EntryShowAttachment uri={entry.html.attachmentUri} />
 				<EntryUpdate entry={entry} entryType={entry.entryType} files={files} />
 			</div>
 			<div className="col-1">

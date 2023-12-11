@@ -34,6 +34,8 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 		html: {
 			title: remark().use(html).processSync(entry.title).toString(),
 			description: remark().use(html).processSync(entry.description).toString(),
+			attachmentUri:
+				entry.attachment && `${entry.attachment?._id.toString()}/${entry.attachment?.filename}`,
 		},
 
 		title: entry.title,

@@ -87,7 +87,8 @@ export const createEntry = async (data: FormData, path: string): Promise<AboutEn
 		visibility: newAboutEntryDocument.visibility,
 
 		_id: newAboutEntryDocument._id.toString(),
-		attachment: newAboutEntryDocument.image?._id.toString(),
+		attachment:
+			newAboutEntryDocument.attachment && newAboutEntryDocument.attachment?._id.toString(),
 		creator: {
 			name: newAboutEntryDocument.creator.name,
 			email: newAboutEntryDocument.creator.email,
@@ -126,6 +127,14 @@ export const updateEntry = async (
 		creator: session?.user.id as string,
 	};
 
+	if (
+		newAboutEntryData.attachment === "undefined" ||
+		newAboutEntryData.attachment === "null" ||
+		newAboutEntryData.attachment === ""
+	) {
+		delete newAboutEntryData.attachment;
+	}
+
 	const updatedAboutEntryDocument = await AboutEntry.findOneAndUpdate(
 		_id(entry_id),
 		newAboutEntryData,
@@ -137,7 +146,7 @@ export const updateEntry = async (
 
 	// If the image previously existed but was removed
 	if (!newAboutEntryData.attachment) {
-		updatedAboutEntryDocument.image = undefined;
+		updatedAboutEntryDocument.attachment = undefined;
 	}
 
 	await updatedAboutEntryDocument.save();
@@ -156,7 +165,7 @@ export const updateEntry = async (
 		visibility: updatedAboutEntryDocument.visibility,
 
 		_id: updatedAboutEntryDocument._id.toString(),
-		attachment: updatedAboutEntryDocument.image?._id.toString(),
+		attachment: updatedAboutEntryDocument.attachment?._id.toString(),
 		creator: {
 			name: updatedAboutEntryDocument.creator.name,
 			email: updatedAboutEntryDocument.creator.email,

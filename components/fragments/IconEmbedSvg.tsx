@@ -63,7 +63,7 @@ interface IconEmbedSvgType {
 	width?: number;
 	height?: number;
 	type?: IconEmbSvgPathType;
-	cursor?: "pointer" | "default" | "inherit";
+	cursor?: "pointer" | "default" | "inherit" | "not-allowed";
 	style?: CSSProperties;
 	alt?: string;
 	className?: string;
