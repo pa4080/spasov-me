@@ -65,7 +65,7 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 	useEffect(() => {
 		if (files.length > 0) {
 			const filterImageFiles = files
-				.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp)$/))
+				.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|gif)$/))
 				.map((file) => ({
 					value: file._id.toString(),
 					label: file.filename,

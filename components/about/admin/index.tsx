@@ -50,7 +50,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 	}));
 
 	const files: FileListItem[] | undefined = fileList
-		?.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx)$/))
+		?.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/))
 		.map((file) => ({
 			value: file._id.toString(),
 			label: file.filename,
