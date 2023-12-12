@@ -40,15 +40,17 @@ export const Entry_FormSchemaGenerator = (messages?: string[]) =>
 				}
 			},
 		}),
-		dateTo: z.coerce.date({
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			errorMap: (issue, _ctx) => {
-				switch (issue.code) {
-					default:
-						return { message: String(messages?.shift()) };
-				}
-			},
-		}),
+		dateTo: z.coerce
+			.date({
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				errorMap: (issue, _ctx) => {
+					switch (issue.code) {
+						default:
+							return { message: String(messages?.shift()) };
+					}
+				},
+			})
+			.optional(),
 		entryType: z.enum(aboutEntryTuple, {
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			errorMap: (issue, _ctx) => {

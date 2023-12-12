@@ -35,7 +35,7 @@ const PublicMenu_Row: React.FC<Props> = ({ className }) => {
 				// This is a workaround for a Next.js bug, where
 				// the home page is not rerendered after 404 error
 				// which is rendered on the the same URI.
-				href={"/" + t("HOME").toLocaleUpperCase()}
+				href={Route.public.HOME.uri}
 				style={{}}
 			>
 				<SiteLogo

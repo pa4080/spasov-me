@@ -31,9 +31,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     - [x] Public menu entry
     - [x] Admin menu entry
     - [x] Home page card entry
-  - [ ] Form
-  - [ ] Page
-  - [ ] CSS
+  - [ ] **Type a date in the DatePicker**.
+  - [x] Form
+  - [ ] Public page CSS
+  - [ ] Admin page CSS
   - [x] Render Markdown
 - [ ] Vercel BLOB storage for files and images
 - [ ] Portfolio/projects page
@@ -42,7 +43,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] Page
   - [ ] CSS
   - [ ] Create a gallery
-- [ ] Implement gallery and integrate it with:
+- [ ] **Implement gallery and integrate it with:**
   - [ ] Handle:
     - [ ] Image files
     - [ ] PDF files

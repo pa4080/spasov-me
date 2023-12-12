@@ -54,20 +54,6 @@ const EntryUpdate: React.FC<Props> = ({ className, entryType, entry, files }) =>
 			 * Unfortunately, at the current moment nor "react-hook-form" nor "shadcn/ui" support
 			 * form.action()... @see https://stackoverflow.com/a/40552372/6543935
 			 */
-			if (
-				data.dateTo.toLocaleDateString("en-US", {
-					year: "numeric",
-					month: "2-digit",
-					day: "2-digit",
-				}) ===
-				new Date().toLocaleDateString("en-US", {
-					year: "numeric",
-					month: "2-digit",
-					day: "2-digit",
-				})
-			) {
-				data.dateTo = "now" as unknown as Date;
-			}
 
 			const response = await updateEntry(generateFormDataFromObject(data), entry._id, pathname);
 
