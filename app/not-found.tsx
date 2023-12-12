@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 
 import SiteLogo from "@/components/layouts/logo/SiteLogo";
@@ -7,7 +6,7 @@ import { Route } from "@/routes";
 import { msgs } from "@/messages";
 
 export default async function NotFound() {
-	const tNav = msgs("Navigation");
+	// const tNav = msgs("Navigation");
 	const tErr = msgs("NotFound");
 
 	return (
@@ -19,7 +18,7 @@ export default async function NotFound() {
 				// This is a workaround for a Next.js bug, where
 				// the home page is not rerendered after 404 error
 				// which is rendered on the the same URI.
-				href={"/" + tNav("HOME").toLocaleUpperCase()}
+				href={Route.public.HOME.uri}
 				style={{}}
 			>
 				<SiteLogo
