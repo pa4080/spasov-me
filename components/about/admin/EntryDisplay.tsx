@@ -3,7 +3,7 @@ import React from "react";
 // eslint-disable-next-line import/no-duplicates
 import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
-import { bg } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 
 import { cn } from "@/lib/cn-utils";
 
@@ -32,6 +32,9 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files }) => {
 		html: { title, description },
 	} = entry;
 
+	const dFrom = new Date(dateFrom);
+	const dTo = dateTo ? new Date(dateTo) : undefined;
+
 	const t = msgs("AboutCV_Form");
 
 	return (
@@ -43,13 +46,23 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files }) => {
 			</div>
 			<div className="col-1">
 				<div className="date">
-					{format(new Date(dateFrom), "MM/yy", { locale: bg })}
-					{" - "}
-					{dateTo ? format(new Date(dateTo), "MM/yy", { locale: bg }) : t("dateTo_now_current")}
+					{/* {format(new Date(dateFrom), "MMMM yyyy", { locale: en })} */}
+					{/* {format(new Date(dateFrom), "yyyy/MM", { locale: en })} */}
+					<span className="opacity-50">{format(dFrom, "MM/", { locale: enUS })}</span>
+					<span className="opacity-80">{format(dFrom, "yyyy", { locale: enUS })}</span>
+					<span className="opacity-80">{" - "}</span>
+					{dTo ? (
+						<>
+							<span className="opacity-50">{format(dTo, "MM/", { locale: enUS })}</span>
+							<span className="opacity-80">{format(dTo, "yyyy", { locale: enUS })}</span>
+						</>
+					) : (
+						<span className="opacity-80">{t("dateTo_now_current")}</span>
+					)}
 				</div>
-				<div className="location">
-					{(t("country_list") as unknown as Record<string, string>)[entry.country]},{" "}
-					{(t("city_list") as unknown as Record<string, string>)[entry.city]}
+				<div className="location opacity-80">
+					{(t("city_list") as unknown as Record<string, string>)[entry.city]},{" "}
+					{(t("country_list") as unknown as Record<string, string>)[entry.country]}
 				</div>
 			</div>
 			<div className="col-2">
