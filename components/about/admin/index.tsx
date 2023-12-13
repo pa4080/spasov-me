@@ -81,7 +81,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 	const Section = ({ type, title }: { type: AboutEntryItem; title: string }) => (
 		<div className={cn(styles.section)}>
 			<div className="flex items-center justify-between gap-4 mb-4 w-full">
-				<h1 className={cn(styles.title, "flex-grow")}>{title}</h1>
+				<h1 className={cn(styles.sectionTitle, "flex-grow")}>{title}</h1>
 				<div className="flex gap-2">
 					<RevalidatePaths entryType={type} files={files} />
 					<EntryCreate entryType={type} files={files} />
