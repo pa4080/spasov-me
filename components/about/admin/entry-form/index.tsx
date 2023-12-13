@@ -1,9 +1,12 @@
 "use client";
 
+import MDEditor, { commands } from "@uiw/react-md-editor";
 import React from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+
+import { useTheme } from "next-themes";
 
 import { Input } from "@/components/ui/input";
 
@@ -19,7 +22,6 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Textarea } from "@/components/ui/textarea";
 import { AboutEntryItem, aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataTypes";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
@@ -61,6 +63,8 @@ const EntryForm: React.FC<Props> = ({
 	// 	t("schema_type"),
 	// 	t("schema_visibility"),
 	// ]);
+
+	const { theme } = useTheme();
 
 	const form = useForm<Entry_FormSchema>({
 		resolver: zodResolver(FormSchema),
@@ -230,13 +234,28 @@ const EntryForm: React.FC<Props> = ({
 							control={form.control}
 							name="description"
 							render={({ field }) => (
-								<FormItem className="flex-grow space-y-0">
+								<FormItem
+									className="flex-grow h-96 sm:h-1 p-0.5"
+									data-color-mode={theme === "dark" ? "dark" : "light" || "auto"}
+								>
 									{/* <FormLabel>{t("description_label")}</FormLabel> */}
 									<FormControl>
-										<Textarea
-											className="resize-none overflow-x-hidden h-full py-1"
-											placeholder={t("description_placeholder")}
-											{...field}
+										<MDEditor
+											autoFocus
+											enableScroll
+											commands={[...commands.getCommands()]}
+											height="100%"
+											overflow={false}
+											textareaProps={{
+												spellCheck: true,
+												placeholder: t("description_placeholder"),
+												style: {
+													overscrollBehavior: "none",
+													display: "block",
+												},
+											}}
+											value={field.value}
+											onChange={field.onChange}
 										/>
 									</FormControl>
 									{form.formState.errors.description ? (
