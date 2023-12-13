@@ -12,7 +12,6 @@ import Image from "next/image";
 
 import { cn } from "@/lib/cn-utils";
 
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -23,6 +22,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 import { roundTo } from "@/lib/round";
 import { msgs } from "@/messages";
@@ -55,7 +55,7 @@ export const FormSchemaGenerator = (messages?: string[], isFileOptional = false)
 			.regex(/^[a-zA-Z][.a-zA-Z0-9-_]+$/, {
 				message: messages?.shift(),
 			})
-			.regex(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx)$/, {
+			.regex(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/, {
 				message: messages?.shift(),
 			}),
 		description: z.string().optional(),
@@ -129,7 +129,7 @@ const Files_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, 
 				}
 			);
 
-			if (!filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx)$/)) {
+			if (!filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/)) {
 				form.setError("file", {
 					type: "manual",
 					message: t("form_fileInputDescription"),
@@ -145,7 +145,7 @@ const Files_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, 
 				displayImageRef.current?.setAttribute("srcset", "");
 
 				// Then set new "src" attribute
-				if (filename.match(/\.(png|jpg|jpeg|svg|webp)$/)) {
+				if (filename.match(/\.(png|jpg|jpeg|svg||gif)$/)) {
 					displayImageRef.current?.setAttribute("src", URL.createObjectURL(file));
 				} else if (filename.match(/\.(pdf|pptx|xlsx|docx)$/)) {
 					displayImageRef.current?.setAttribute(

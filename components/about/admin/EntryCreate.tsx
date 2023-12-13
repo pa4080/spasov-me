@@ -23,6 +23,8 @@ import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { toast } from "@/components/ui/use-toast";
 import { generateFormDataFromObject } from "@/lib/generateFormDataFromObject";
 
+import { Route } from "@/routes";
+
 import { Entry_FormSchema } from "./entry-form/schema";
 
 import EntryForm from "./entry-form";
@@ -43,6 +45,7 @@ const EntryCreate: React.FC<GenericActionProps> = ({ className, entryType, files
 
 	const handleCreateEntry = async (data: Entry_FormSchema) => {
 		setSubmitting(true);
+
 		try {
 			/**
 			 * In case we were used <form action={addPage}> this conversion will not be needed,
@@ -50,7 +53,10 @@ const EntryCreate: React.FC<GenericActionProps> = ({ className, entryType, files
 			 * form.action()... @see https://stackoverflow.com/a/40552372/6543935
 			 */
 
-			const response = await createEntry(generateFormDataFromObject(data), pathname);
+			const response = await createEntry(generateFormDataFromObject(data), [
+				pathname,
+				Route.public.ABOUT.uri,
+			]);
 
 			if (response) {
 				toast({

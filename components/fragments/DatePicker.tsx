@@ -19,24 +19,22 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 
-import {
-	Popover,
-	//  PopoverClose,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/cn-utils";
 
+import { Input } from "../ui/input";
+
 interface Props<T extends FieldValues> {
 	control: Control<T>;
 	name: Path<T>;
-	messages: {
+	messages?: {
 		label?: string;
 		description?: string;
 		placeholder?: string;
+		button?: string;
 	};
 	error?: FieldError | undefined;
 	className?: string;
@@ -45,7 +43,7 @@ interface Props<T extends FieldValues> {
 export default function DatePicker<T extends FieldValues>({
 	control,
 	name,
-	messages,
+	messages = { button: "OK" },
 	error,
 	className,
 }: Props<T>) {
@@ -54,7 +52,7 @@ export default function DatePicker<T extends FieldValues>({
 			control={control}
 			name={name}
 			render={({ field }) => (
-				<FormItem className={cn("flex flex-col space-y-0", className)}>
+				<FormItem className={cn("flex flex-col space-y-0 ", className)}>
 					{messages.label && <FormLabel>{messages.label}</FormLabel>}
 					<Popover>
 						<PopoverTrigger asChild>
@@ -75,9 +73,34 @@ export default function DatePicker<T extends FieldValues>({
 								</Button>
 							</FormControl>
 						</PopoverTrigger>
-						<PopoverContent className="w-full max-w-full p-0 ">
+						<PopoverContent className="w-full p-0 max-w-min">
+							<div className="px-3 pt-3 pb-0 flex items-center justify-end gap-3 w-full">
+								<Input
+									autoFocus
+									className="flex-shrink max-w-full"
+									type="date"
+									value={field.value ? format(field.value, "yyyy-MM-dd") : ""}
+									onChange={(e) => {
+										const value = e.target.valueAsNumber;
+
+										if (!value) {
+											return;
+										}
+
+										field.onChange(new Date(value));
+									}}
+								/>
+								{/* <Button className="text-sm" size="sm" type="submit" variant="outline"> */}
+								<PopoverClose className="text-sm rounded-md h-10 px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground">
+									{messages.button}
+								</PopoverClose>
+								{/* </Button> */}
+							</div>
 							<Calendar
+								ISOWeek
+								hideHead // This hides the days of the week
 								initialFocus
+								defaultMonth={field.value}
 								mode="single"
 								selected={field.value}
 								onSelect={field.onChange}

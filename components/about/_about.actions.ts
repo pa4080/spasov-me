@@ -42,7 +42,10 @@ export const getEntries = async (): Promise<AboutEntryDoc[] | null> => {
 	}
 };
 
-export const createEntry = async (data: FormData, path: string): Promise<AboutEntryDoc | null> => {
+export const createEntry = async (
+	data: FormData,
+	paths: string[]
+): Promise<AboutEntryDoc | null> => {
 	"use server";
 
 	const session = await getSession();
@@ -91,7 +94,9 @@ export const createEntry = async (data: FormData, path: string): Promise<AboutEn
 	await newAboutEntryDocument.save();
 	await newAboutEntryDocument.populate(["creator", "attachment"]);
 
-	revalidatePath(path);
+	paths.forEach((path) => {
+		revalidatePath(path);
+	});
 
 	return {
 		title: newAboutEntryDocument.title,
@@ -116,7 +121,7 @@ export const createEntry = async (data: FormData, path: string): Promise<AboutEn
 export const updateEntry = async (
 	data: FormData,
 	entry_id: string,
-	path: string
+	paths: string[]
 ): Promise<AboutEntryDoc | null> => {
 	"use server";
 
@@ -181,7 +186,9 @@ export const updateEntry = async (
 	await updatedAboutEntryDocument.save();
 	await updatedAboutEntryDocument.populate(["creator", "attachment"]);
 
-	revalidatePath(path);
+	paths.forEach((path) => {
+		revalidatePath(path);
+	});
 
 	return {
 		title: updatedAboutEntryDocument.title,
@@ -202,7 +209,7 @@ export const updateEntry = async (
 	} as AboutEntryDoc;
 };
 
-export const deleteEntry = async (entry_id: string, path: string): Promise<boolean | null> => {
+export const deleteEntry = async (entry_id: string, paths: string[]): Promise<boolean | null> => {
 	"use server";
 
 	const session = await getSession();
@@ -221,9 +228,27 @@ export const deleteEntry = async (entry_id: string, path: string): Promise<boole
 		return null;
 	}
 
-	revalidatePath(path);
+	paths.forEach((path) => {
+		revalidatePath(path);
+	});
 
 	return !!deletedObject.ok;
+};
+
+export const revalidatePaths = async <T extends string>(paths: T[]): Promise<T[] | null> => {
+	"use server";
+
+	try {
+		paths.forEach((path) => {
+			revalidatePath(path);
+		});
+
+		return paths;
+	} catch (error) {
+		console.error(error);
+
+		return null;
+	}
 };
 
 export const getFileList = async (): Promise<FileDocument[] | null> => {

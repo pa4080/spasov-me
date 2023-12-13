@@ -182,6 +182,11 @@
 		"dialog_btn_add_submitting": "Submitting...",
 		"toast_submitted": "The entry was successfully submitted."
 	},
+	"AboutCV_RevalidatePaths": {
+		"toast_submitted": "The paths {{ paths }} were successfully revalidated.",
+		"btn_revalidate": "Revalidate paths",
+		"btn_revalidate_submitting": "Revalidating..."
+	},
 	"AboutCV_UpdateEntry": {
 		"dialog_title": "Update an existing { entryType } entry",
 		"dialog_description": "Id: <b><code style='letter-spacing: 2px;'>{ id }</code></b>",
@@ -243,6 +248,7 @@
 
 		"dateFrom_label": "From",
 		"dateTo_label": "To",
+		"date_button": "OK",
 
 		"visibility_title": "Is public?",
 		"visibility_description": "Probably some items could be a draft...",

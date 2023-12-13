@@ -11,6 +11,7 @@ import { getEntries, getFileList } from "../_about.actions";
 import styles from "../_about.module.scss";
 import EntryCreate from "./EntryCreate";
 import EntryDisplay from "./EntryDisplay";
+import RevalidatePaths from "./RevalidatePaths";
 import { FileListItem } from "./entry-form";
 
 export interface GenericActionProps {
@@ -50,7 +51,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 	}));
 
 	const files: FileListItem[] | undefined = fileList
-		?.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx)$/))
+		?.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/))
 		.map((file) => ({
 			value: file._id.toString(),
 			label: file.filename,
@@ -60,7 +61,10 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 		<div className={cn(styles.section)}>
 			<div className="flex items-center justify-between gap-4 mb-4 w-full">
 				<h1 className={cn(styles.title, "flex-grow")}>{title}</h1>
-				<EntryCreate entryType={type} files={files} />
+				<div className="flex gap-2">
+					<RevalidatePaths entryType={type} files={files} />
+					<EntryCreate entryType={type} files={files} />
+				</div>
 			</div>
 
 			<div className={cn(styles.feed)}>

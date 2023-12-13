@@ -21,6 +21,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
 
+import { Route } from "@/routes";
+
 import { deleteEntry } from "../_about.actions";
 
 import { GenericActionProps } from ".";
@@ -43,7 +45,7 @@ const EntryDelete: React.FC<Props> = ({ className, entryType, entry_id }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await deleteEntry(entry_id, pathname);
+			const response = await deleteEntry(entry_id, [pathname, Route.public.ABOUT.uri]);
 
 			if (response) {
 				toast({

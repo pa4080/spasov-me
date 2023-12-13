@@ -80,14 +80,7 @@ const EntryForm: React.FC<Props> = ({
 
 	return (
 		<Form {...form}>
-			<form
-				className={cn(
-					"w-full space-y-6",
-					// "bg-card/[50%] md:bg-card/[25%] dark:bg-card/[50%] rounded-2xl p-6 md:p-8",
-					className
-				)}
-				onSubmit={form.handleSubmit(onSubmit)}
-			>
+			<form className={cn("w-full space-y-6", className)} onSubmit={form.handleSubmit(onSubmit)}>
 				<div className="flex flex-col sm:grid sm:grid-cols-7 gap-3">
 					<div className="sm:col-span-2 flex flex-col gap-3">
 						<div className="flex gap-3 sm:flex-col w-full">
@@ -134,6 +127,7 @@ const EntryForm: React.FC<Props> = ({
 								error={form.formState.errors.dateFrom}
 								messages={{
 									placeholder: t("dateFrom_label"),
+									button: t("date_button"),
 								}}
 								name="dateFrom"
 							/>
@@ -145,6 +139,7 @@ const EntryForm: React.FC<Props> = ({
 								error={form.formState.errors.dateFrom}
 								messages={{
 									placeholder: t("dateTo_label"),
+									button: t("date_button"),
 								}}
 								name="dateTo"
 							/>

@@ -41,7 +41,8 @@ export type IconEmbSvgPathType =
 	| "linkedin-square"
 	| "metalevel-wiki"
 	| "lock-keyhole"
-	| "unlock-keyhole";
+	| "unlock-keyhole"
+	| "arrow-rotate-right";
 
 /**
  * It is possible to override the default colors of the SVG element
@@ -515,6 +516,20 @@ const SvgPathLib: React.FC<SvgPathLibProps> = ({ type, className_Path1, classNam
 					<path
 						className={className_Path1}
 						d="M224 64c-44.2 0-80 35.8-80 80v48H80V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48H304V144c0-44.2-35.8-80-80-80z"
+					/>
+				</>
+			);
+		case "arrow-rotate-right":
+			return (
+				<>
+					<path
+						className={className_Path2}
+						d="M386.3 160l-17.1-17.1c-62.5-62.5-163.8-62.5-226.3 0s-62.5 163.8 0 226.3s163.8 62.5 226.3 0c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3c-87.5 87.5-229.3 87.5-316.8 0s-87.5-229.3 0-316.8s229.3-87.5 316.8 0L432 115.2V160H386.3z"
+						opacity=".4"
+					/>
+					<path
+						className={className_Path1}
+						d="M496 192c0 17.7-14.3 32-32 32H336c-17.7 0-32-14.3-32-32s14.3-32 32-32h96V64c0-17.7 14.3-32 32-32s32 14.3 32 32V192z"
 					/>
 				</>
 			);

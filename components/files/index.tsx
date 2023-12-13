@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
 
 import Image from "next/image";
 
@@ -62,7 +61,7 @@ const FilesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 								<h1>{file.filename}</h1>
 								<p>{file.metadata.description}</p>
 							</div>
-							<Link className={styles.imageLink} href={fileUri} target="_blank">
+							<a className={styles.imageLink} href={fileUri} target="_blank">
 								<div className={styles.imageContainer}>
 									{/* If it is another file type, it will be displayed as a link with icon... */}
 									{file.filename.match(/\.(pdf|pptx|xlsx|docx)$/) ? (
@@ -89,7 +88,7 @@ const FilesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 										/>
 									)}
 								</div>
-							</Link>
+							</a>
 
 							<div className={styles.cardEditActions}>
 								<ButtonIcon
