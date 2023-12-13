@@ -3,23 +3,22 @@
 .about {
 	.section {
 		@apply space-y-6;
-
 	}
-	
+
 	.section + .section {
 		@apply mt-12;
 	}
-	
+
 	.feed {
 		@apply space-y-6;
 	}
 
-	.title {
+	.sectionTitle {
 		@apply font-unicephalon text-2xl tracking-wider text-foreground-secondary;
 	}
 
-	.card {
-		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[25%] rounded-2xl h-full p-6 md:p-8 relative min-h-fit flex items-start flex-col gap-3 justify-start cursor-pointer;
+	.editModeCard {
+		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[25%] rounded-2xl h-full p-6 md:p-8 relative min-h-fit flex items-start flex-col gap-3 justify-start;
 
 		transition:
 			background-color 0.5s,
@@ -47,6 +46,65 @@
 
 			img {
 				@apply w-full h-auto;
+			}
+		}
+
+		.metaInfo {
+			@apply flex gap-2;
+
+			.date {
+				@apply flex gap-1;
+			}
+
+			.divider {
+				@apply text-foreground-quaternary;
+			}
+		}
+	}
+
+	.card {
+		// .metaInfo {
+		// 	@apply flex gap-2;
+
+		// 	.date {
+		// 		@apply flex gap-1;
+		// 	}
+
+		// 	.divider {
+		// 		@apply text-foreground-quaternary;
+		// 	}
+		// }
+
+		.lightPrimaryText {
+			@apply text-foreground-secondary;
+		}
+
+		.lightSecondaryText {
+			@apply text-foreground-quaternary;
+		}
+
+		.title {
+			@apply text-lg tracking-wide font-semibold mb-4;
+		}
+
+		.description {
+			@apply text-foreground-secondary hyphens-auto;
+
+			a,
+			a:visited {
+				@apply text-ring;
+			}
+
+			a:hover {
+				@apply underline text-ring-secondary;
+			}
+
+			p {
+				@apply mb-4;
+			}
+
+			p:last-of-type {
+				@apply mb-0;
 			}
 		}
 	}

@@ -38,36 +38,43 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files }) => {
 	const t = msgs("AboutCV_Form");
 
 	return (
-		<div className={cn(styles.card, className)}>
+		<div className={cn(styles.card, styles.editModeCard, className)}>
 			<div className={styles.cardEditActions}>
 				<EntryDelete entryType={entry.entryType} entry_id={entry._id} />
 				<EntryShowAttachment uri={entry.html.attachmentUri} />
 				<EntryUpdate entry={entry} entryType={entry.entryType} files={files} />
 			</div>
-			<div className="col-1">
-				<div className="date">
+			<div className={styles.metaInfo}>
+				<div className={styles.date}>
 					{/* {format(new Date(dateFrom), "MMMM yyyy", { locale: en })} */}
 					{/* {format(new Date(dateFrom), "yyyy/MM", { locale: en })} */}
-					<span className="opacity-50">{format(dFrom, "MM/", { locale: enUS })}</span>
-					<span className="opacity-80">{format(dFrom, "yyyy", { locale: enUS })}</span>
-					<span className="opacity-80">{" - "}</span>
+					<span className={styles.lightSecondaryText}>
+						{format(dFrom, "MM/", { locale: enUS })}
+					</span>
+					<span className={styles.lightPrimaryText}>{format(dFrom, "yyyy", { locale: enUS })}</span>
+					<span className={styles.lightPrimaryText}>{" - "}</span>
 					{dTo ? (
 						<>
-							<span className="opacity-50">{format(dTo, "MM/", { locale: enUS })}</span>
-							<span className="opacity-80">{format(dTo, "yyyy", { locale: enUS })}</span>
+							<span className={styles.lightSecondaryText}>
+								{format(dTo, "MM/", { locale: enUS })}
+							</span>
+							<span className={styles.lightPrimaryText}>
+								{format(dTo, "yyyy", { locale: enUS })}
+							</span>
 						</>
 					) : (
-						<span className="opacity-80">{t("dateTo_now_current")}</span>
+						<span className={styles.lightPrimaryText}>{t("dateTo_now_current")}</span>
 					)}
 				</div>
+				<div className={styles.divider}>:</div>
 				<div className="location opacity-80">
 					{(t("city_list") as unknown as Record<string, string>)[entry.city]},{" "}
 					{(t("country_list") as unknown as Record<string, string>)[entry.country]}
 				</div>
 			</div>
 			<div className="col-2">
-				<div dangerouslySetInnerHTML={{ __html: title }} />
-				<div dangerouslySetInnerHTML={{ __html: description }} />
+				<div dangerouslySetInnerHTML={{ __html: title }} className={styles.title} />
+				<div dangerouslySetInnerHTML={{ __html: description }} className={styles.description} />
 			</div>
 		</div>
 	);

@@ -38,6 +38,7 @@
 		"RAWG",
 		"Reakit",
 		"recaptcha",
+		"rehype",
 		"roboto",
 		"Safak",
 		"Shadcn",
@@ -113,6 +114,12 @@
 	"[typescriptreact]": {
 		"editor.codeActionsOnSave": {
 			"source.organizeImports": true,
+			"source.fixAll": "always"
+		}
+	},
+	"[typescript][typescriptreact]": {
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": "explicit",
 			"source.fixAll": "always"
 		}
 	}

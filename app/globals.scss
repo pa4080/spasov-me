@@ -6,10 +6,10 @@
 	/* https://www.w3schools.com/colors/colors_hsl.asp */
 	:root {
 		--background: 0 0% 96%;
-		--foreground: 0 0% 23%;
-		--foreground-secondary: 0 0% 30%;
-		--foreground-tertiary: 0 0% 40%;
-		--foreground-quaternary: 0 0% 50%;
+		--foreground: 0 0% 20%;
+		--foreground-secondary: 0 0% 40%;
+		--foreground-tertiary: 0 0% 50%;
+		--foreground-quaternary: 0 0% 60%;
 
 		--primary: 0 0% 86%;
 		--primary-foreground: 220.9 39.3% 11%;
@@ -47,7 +47,7 @@
 		--input: var(--secondary);
 
 		--radius: 0.5rem;
-		--scrollbar-width: 0.83rem;
+		--scrollbar-width: 0.86rem;
 
 		--navbar-height: 3.875rem;
 		--footer-height: 3.625rem;
@@ -80,9 +80,9 @@
 	.dark {
 		--background: 0 0% 20%;
 		--foreground: 0 0% 85%;
-		--foreground-secondary: 0 0% 71%;
-		--foreground-tertiary: 0 0% 63%;
-		--foreground-quaternary: 0 0% 47%;
+		--foreground-secondary: 0 0% 65%;
+		--foreground-tertiary: 0 0% 55%;
+		--foreground-quaternary: 0 0% 45%;
 
 		--primary: 0 0% 24%;
 		--primary-foreground: 0 0% 52%;
@@ -135,6 +135,7 @@
 	}
 }
 
+// textarea:focus,
 [type="text"]:focus,
 input:where(:not([type])):focus,
 [type="email"]:focus,
@@ -149,7 +150,6 @@ input:where(:not([type])):focus,
 [type="time"]:focus,
 [type="week"]:focus,
 [multiple]:focus,
-textarea:focus,
 select:focus {
 	--tw-ring-color: hsl(var(--ring));
 	border-color: hsl(var(--ring));
@@ -160,15 +160,15 @@ input:placeholder-shown {
 }
 
 /* Trick the hidden scroll of Radix Select */
-body [data-radix-select-viewport] {
-	-webkit-overflow-scrolling: scroll;
-	scrollbar-width: 2rem;
-	-ms-overflow-style: scroll;
-}
+// body [data-radix-select-viewport] {
+// 	-webkit-overflow-scrolling: scroll;
+// 	scrollbar-width: 2rem;
+// 	-ms-overflow-style: scroll;
+// }
 
-body [data-radix-select-viewport]::-webkit-scrollbar {
-	display: inherit;
-}
+// body [data-radix-select-viewport]::-webkit-scrollbar {
+// 	display: inherit;
+// }
 
 /* Outline */
 :focus-visible,
@@ -177,7 +177,7 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 }
 
 /* Text selection */
-*::selection {
+*::selection:not(.w-md-editor-text-input) {
 	background: hsl(var(--accent-tertiary));
 	color: hsl(var(--accent-foreground));
 }
@@ -344,4 +344,31 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 /* Typography */
 .section_title {
 	@apply font-unicephalon text-foreground-secondary text-3xl px-1 mb-6;
+}
+
+/* Markdown Editor */
+body .w-md-editor-text-pre > code,
+body .w-md-editor-text-input,
+body .w-md-editor-preview > * {
+	font-size: 1.15rem !important;
+	line-height: 1.5em !important;
+}
+
+body .w-md-editor-text-pre {
+	z-index: 0 !important;
+	color: theme("colors.foreground.DEFAULT") !important;
+}
+
+body .w-md-editor-text-input {
+	z-index: 1 !important;
+}
+
+body .w-md-editor-preview {
+	box-shadow: none !important;
+	padding: 10px !important;
+	z-index: 0 !important;
+}
+
+.wmde-markdown.wmde-markdown-color {
+	z-index: 1 !important;
 }
