@@ -1,7 +1,11 @@
 import React from "react";
 
-import { remark } from "remark";
-import html from "remark-html";
+import rehypeExternalLinks, { Target } from "rehype-external-links";
+import rehypeFormat from "rehype-format";
+import rehypeStringify from "rehype-stringify";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import { unified } from "unified";
 
 import { AboutEntryItem } from "@/interfaces/_dataTypes";
 import { cn } from "@/lib/cn-utils";
@@ -24,31 +28,48 @@ interface Props {
 	className?: string;
 }
 
+const processMarkdown = (markdown: string) => {
+	// https://github.com/unifiedjs/unified
+	// https://github.com/unifiedjs/unified#processorprocesssyncfile
+	const result = unified()
+		.use(remarkParse)
+		.use(remarkRehype)
+		.use(rehypeFormat)
+		.use(rehypeExternalLinks, { rel: ["nofollow"], target: "spasov-me-tab" as Target })
+		.use(rehypeStringify)
+		.processSync(markdown);
+
+	return result.value.toString();
+};
+
 const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 	const t = msgs("AboutCV");
 
 	const entryList = await getEntries();
 	const fileList = await getFileList();
 
-	const entries = entryList?.map((entry) => ({
-		_id: entry._id.toString(),
-		html: {
-			title: remark().use(html).processSync(entry.title).toString(),
-			description: remark().use(html).processSync(entry.description).toString(),
-			attachmentUri:
-				entry.attachment && `${entry.attachment?._id.toString()}/${entry.attachment?.filename}`,
-		},
+	const entries = entryList?.map((entry) => {
+		return {
+			_id: entry._id.toString(),
+			html: {
+				// This cannot be done in the client side
+				title: processMarkdown(entry.title),
+				description: processMarkdown(entry.description),
+				attachmentUri:
+					entry.attachment && `${entry.attachment?._id.toString()}/${entry.attachment?.filename}`,
+			},
 
-		title: entry.title,
-		description: entry.description,
-		country: entry.country,
-		city: entry.city,
-		dateFrom: entry.dateFrom as Date,
-		dateTo: entry.dateTo as Date | undefined,
-		entryType: entry.entryType,
-		visibility: entry.visibility as boolean,
-		attachment: entry.attachment?._id.toString(),
-	}));
+			title: entry.title,
+			description: entry.description,
+			country: entry.country,
+			city: entry.city,
+			dateFrom: entry.dateFrom as Date,
+			dateTo: entry.dateTo as Date | undefined,
+			entryType: entry.entryType,
+			visibility: entry.visibility as boolean,
+			attachment: entry.attachment?._id.toString(),
+		};
+	});
 
 	const files: FileListItem[] | undefined = fileList
 		?.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/))
