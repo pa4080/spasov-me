@@ -24,6 +24,8 @@ import { toast } from "@/components/ui/use-toast";
 
 import { generateFormDataFromObject } from "@/lib/generateFormDataFromObject";
 
+import { Route } from "@/routes";
+
 import { Entry_FormSchema } from "./entry-form/schema";
 
 import EntryForm from "./entry-form";
@@ -55,7 +57,10 @@ const EntryUpdate: React.FC<Props> = ({ className, entryType, entry, files }) =>
 			 * form.action()... @see https://stackoverflow.com/a/40552372/6543935
 			 */
 
-			const response = await updateEntry(generateFormDataFromObject(data), entry._id, pathname);
+			const response = await updateEntry(generateFormDataFromObject(data), entry._id, [
+				pathname,
+				Route.public.ABOUT.uri,
+			]);
 
 			if (response) {
 				toast({
