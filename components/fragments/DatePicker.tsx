@@ -19,12 +19,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 
-import {
-	Popover,
-	//  PopoverClose,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -37,6 +32,7 @@ interface Props<T extends FieldValues> {
 		label?: string;
 		description?: string;
 		placeholder?: string;
+		button?: string;
 	};
 	error?: FieldError | undefined;
 	className?: string;
@@ -82,6 +78,15 @@ export default function DatePicker<T extends FieldValues>({
 								selected={field.value}
 								onSelect={field.onChange}
 							/>
+							<div className="px-3 pt-0 pb-3 flex items-center justify-end">
+								{messages.button && (
+									<PopoverClose>
+										<Button className="text-sm" variant="outline">
+											{messages.button}
+										</Button>
+									</PopoverClose>
+								)}
+							</div>
 						</PopoverContent>
 					</Popover>
 

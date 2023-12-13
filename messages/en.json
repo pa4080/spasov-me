@@ -243,6 +243,7 @@
 
 		"dateFrom_label": "From",
 		"dateTo_label": "To",
+		"date_button": "OK",
 
 		"visibility_title": "Is public?",
 		"visibility_description": "Probably some items could be a draft...",
