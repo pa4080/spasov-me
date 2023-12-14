@@ -30,7 +30,7 @@ import Combobox from "@/components/fragments/Combobox";
 
 import DatePicker from "../../../fragments/DatePicker";
 import SelectFromList from "../../../fragments/SelectFromList";
-import { Entry_FormSchema, FormSchema } from "./schema";
+import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
 
 export type FileListItem = { value: string; label: string };
 
@@ -53,16 +53,20 @@ const EntryForm: React.FC<Props> = ({
 }) => {
 	const t = msgs("AboutCV_Form");
 
-	// const FormSchema = Entry_FormSchemaGenerator([
-	// 	t("schema_title"),
-	// 	t("schema_description"),
-	// 	t("schema_country"),
-	// 	t("schema_city"),
-	// 	t("schema_date"),
-	// 	t("schema_date"),
-	// 	t("schema_type"),
-	// 	t("schema_visibility"),
-	// ]);
+	const FormSchema = Entry_FormSchemaGenerator([
+		t("schema_title"),
+		t("schema_description"),
+		t("schema_country"),
+		t("schema_city"),
+		t("schema_date"),
+		t("schema_date"),
+		t("schema_type"),
+		t("schema_visibility"),
+		"empty placeholder",
+		// When the number of the messages is less than the number
+		// of the fields there is a buggy behavior when pressing
+		// the submit button number of times.
+	]);
 
 	const { theme } = useTheme();
 
