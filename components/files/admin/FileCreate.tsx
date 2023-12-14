@@ -6,8 +6,7 @@ import { useAppContext } from "@/contexts/AppContext";
 
 import { cn } from "@/lib/cn-utils";
 
-import { Route } from "@/routes";
-import { toast } from "@/components/ui/use-toast";
+import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
 	DialogContent,
@@ -16,19 +15,21 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import ButtonIcon from "@/components/fragments/ButtonIcon";
+import { toast } from "@/components/ui/use-toast";
+import { Route } from "@/routes";
 
 import { FileDocument } from "@/interfaces/File";
 
 import { msgs } from "@/messages";
 
-import Files_Form, { Files_FormSchema } from "./files-form";
+import Files_Form from "./files-form";
+import { Files_FormSchema } from "./files-form/schema";
 
 interface Props {
 	className?: string;
 }
 
-const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
+const FileCreate: React.FC<Props> = ({ className }) => {
 	const t = msgs("FilesFeed");
 	const { session, setFiles } = useAppContext();
 
@@ -141,4 +142,4 @@ const Files_Dialog_Upload: React.FC<Props> = ({ className }) => {
 	);
 };
 
-export default Files_Dialog_Upload;
+export default FileCreate;

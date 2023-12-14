@@ -11,13 +11,13 @@ import { cn } from "@/lib/cn-utils";
 import { FileDocument } from "@/interfaces/File";
 import { Route } from "@/routes";
 
-import styles from "./_files.module.scss";
+import styles from "../_files.module.scss";
 
-import Files_Dialog_Upload from "./Files_Dialog_Upload";
+import FileCreate from "./FileCreate";
 // import Pages_Dialog_Delete from "./Pages_Dialog_Delete";
-import ButtonIcon from "../fragments/ButtonIcon";
-import Files_Dialog_Delete from "./Files_Dialog_Delete";
-import Files_Dialog_Edit from "./Files_Dialog_Edit";
+import ButtonIcon from "../../fragments/ButtonIcon";
+import FileDelete from "./FileDelete";
+import FileEdit from "./FileEdit";
 
 interface Props {
 	className?: string;
@@ -47,7 +47,7 @@ const FilesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 
 	return (
 		<div className={cn(styles.files, className)}>
-			<Files_Dialog_Upload />
+			<FileCreate />
 
 			<div className={cn(styles.feed, "mt-16")}>
 				{files?.map((file, index) => {
@@ -111,14 +111,14 @@ const FilesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 				})}
 			</div>
 
-			<Files_Dialog_Delete
+			<FileDelete
 				fileData={actionFile}
 				fileId={actionFileId}
 				isOpen={isDeleteDialogOpen}
 				setIsOpen={setIsDeleteDialogOpen}
 			/>
 
-			<Files_Dialog_Edit
+			<FileEdit
 				fileData={actionFile}
 				fileId={actionFileId}
 				isOpen={isEditDialogOpen}
