@@ -246,12 +246,14 @@ const EntryForm: React.FC<Props> = ({
 											commands={[...commands.getCommands()]}
 											height="100%"
 											overflow={false}
+											preview="edit"
 											textareaProps={{
 												spellCheck: true,
 												placeholder: t("description_placeholder"),
 												style: {
 													overscrollBehavior: "none",
 													display: "block",
+													color: "inherit",
 												},
 											}}
 											value={field.value}

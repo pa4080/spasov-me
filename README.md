@@ -34,8 +34,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] **Type a date in the DatePicker**.
   - [x] Form
   - [ ] Public page CSS
-  - [ ] Admin page CSS
+  - [x] Admin page CSS
   - [x] Render Markdown
+- [ ] Create technologies `tags` page
+  - [ ] <https://github.com/dderevjanik/github-vscode-icons/tree/master>
+  - [ ] <https://github.com/dderevjanik/vscode-icons-js>
+- [ ] Add `TAGS` selector to the About page items
+- [ ] Add `TAGS` selector to the Portfolio page items
 - [ ] Vercel BLOB storage for files and images
 - [ ] Portfolio/projects page
   - [ ] DB Model

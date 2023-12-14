@@ -32,8 +32,8 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files }) => {
 		html: { title, description },
 	} = entry;
 
-	const dFrom = new Date(dateFrom);
-	const dTo = dateTo ? new Date(dateTo) : undefined;
+	const dtFrom = new Date(dateFrom);
+	const dtTo = dateTo ? new Date(dateTo) : undefined;
 
 	const t = msgs("AboutCV_Form");
 
@@ -48,26 +48,30 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files }) => {
 				<div className={styles.date}>
 					{/* {format(new Date(dateFrom), "MMMM yyyy", { locale: en })} */}
 					{/* {format(new Date(dateFrom), "yyyy/MM", { locale: en })} */}
-					<span className={styles.lightSecondaryText}>
-						{format(dFrom, "MM/", { locale: enUS })}
+					<span>
+						<span className={styles.lightSecondaryText}>
+							{format(dtFrom, "MM/", { locale: enUS })}
+						</span>
+						<span className={styles.lightPrimaryText}>
+							{format(dtFrom, "yyyy", { locale: enUS })}
+						</span>
 					</span>
-					<span className={styles.lightPrimaryText}>{format(dFrom, "yyyy", { locale: enUS })}</span>
 					<span className={styles.lightPrimaryText}>{" - "}</span>
-					{dTo ? (
-						<>
+					{dtTo ? (
+						<span>
 							<span className={styles.lightSecondaryText}>
-								{format(dTo, "MM/", { locale: enUS })}
+								{format(dtTo, "MM/", { locale: enUS })}
 							</span>
 							<span className={styles.lightPrimaryText}>
-								{format(dTo, "yyyy", { locale: enUS })}
+								{format(dtTo, "yyyy", { locale: enUS })}
 							</span>
-						</>
+						</span>
 					) : (
 						<span className={styles.lightPrimaryText}>{t("dateTo_now_current")}</span>
 					)}
 				</div>
 				<div className={styles.divider}>:</div>
-				<div className="location opacity-80">
+				<div className={styles.lightPrimaryText}>
 					{(t("city_list") as unknown as Record<string, string>)[entry.city]},{" "}
 					{(t("country_list") as unknown as Record<string, string>)[entry.country]}
 				</div>

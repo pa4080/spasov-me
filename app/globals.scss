@@ -350,25 +350,24 @@ input:placeholder-shown {
 body .w-md-editor-text-pre > code,
 body .w-md-editor-text-input,
 body .w-md-editor-preview > * {
-	font-size: 1.15rem !important;
+	font-size: 1.1rem !important;
 	line-height: 1.5em !important;
 }
 
-body .w-md-editor-text-pre {
-	z-index: 0 !important;
-	color: theme("colors.foreground.DEFAULT") !important;
-}
-
+body .w-md-editor-text-pre > code,
 body .w-md-editor-text-input {
-	z-index: 1 !important;
+	color: #fff !important;
+	letter-spacing: 0.5px !important;
 }
 
-body .w-md-editor-preview {
-	box-shadow: none !important;
-	padding: 10px !important;
-	z-index: 0 !important;
+body .w-md-editor-text-pre,
+body .w-md-editor-text-input,
+body .w-md-editor-text > .w-md-editor-text-pre {
+	font-family: $font-inter !important;
 }
 
-.wmde-markdown.wmde-markdown-color {
-	z-index: 1 !important;
+body textarea:focus {
+	outline: unset !important;
+	--tw-ring-color: transparent !important;
+	border-color: unset !important;
 }
