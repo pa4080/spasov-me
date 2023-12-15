@@ -26,19 +26,3 @@ export type NewAboutEntryData = Omit<AboutEntryDoc, "_id" | "attachment" | "crea
 	creator: string;
 	attachment?: string;
 };
-
-/**
- *
-type AboutEntryDocToFetch = {
-	data: PageDoc | NewPageDoc | Record<string, unknown>;
-	// image_id?: string | null;
-	user_id?: string | undefined;
-};
-
-export const prepareAboutEntryDocToFetch = ({ data, user_id }: PageDocToFetch) => {
-	return JSON.stringify({
-		...data,
-		creator: user_id,
-	});
-};
-*/
