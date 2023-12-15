@@ -42,7 +42,7 @@ import { authOptions } from "@/lib/auth-options";
 
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import Page from "@/models/page";
-import Post from "@/models/post";
+import Tag from "@/models/tag";
 import User from "@/models/user";
 
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
@@ -59,6 +59,8 @@ function _id(id: string) {
 
 export async function GET(request: NextRequest, { params }: Context) {
 	try {
+		const session = await getServerSession(authOptions);
+
 		if (!params.query) {
 			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
 		}
@@ -72,22 +74,42 @@ export async function GET(request: NextRequest, { params }: Context) {
 
 		switch (type) {
 			case "pages": {
-				response = await Page.find(_id(id)).populate(["creator", "image"]);
+				if (session) {
+					response = await Page.find(_id(id)).populate(["creator", "image"]);
+				} else {
+					response = await Page.find(_id(id)).populate(["image"]);
+				}
+
 				break;
 			}
 
 			case "about-entries": {
-				response = await AboutEntry.find(_id(id)).populate(["creator", "image"]);
+				if (session) {
+					response = await AboutEntry.find(_id(id)).populate(["creator", "attachment"]);
+				} else {
+					response = await AboutEntry.find(_id(id)).populate(["attachment"]);
+				}
+
 				break;
 			}
 
-			case "posts": {
-				response = await Post.find(_id(id)).populate(["creator", "image"]);
+			case "tags": {
+				if (session) {
+					response = await Tag.find(_id(id)).populate(["creator"]);
+				} else {
+					response = await Tag.find(_id(id));
+				}
+
 				break;
 			}
 
 			case "users": {
-				response = await User.find(_id(id));
+				if (session) {
+					response = await User.find(_id(id));
+				} else {
+					return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+				}
+
 				break;
 			}
 		}
@@ -138,7 +160,7 @@ export async function POST(request: NextRequest, { params }: Context) {
 			}
 
 			case "posts": {
-				dbDocModel = new Post(request_object);
+				dbDocModel = new Tag(request_object);
 				break;
 			}
 
@@ -161,8 +183,10 @@ export async function POST(request: NextRequest, { params }: Context) {
 
 		if (dbDocModel.this.props.attachment) {
 			await dbDocModel.populate(["creator", "attachment"]);
-		} else {
+		} else if (dbDocModel.this.props.image) {
 			await dbDocModel.populate(["creator", "image"]);
+		} else {
+			await dbDocModel.populate(["creator"]);
 		}
 
 		return NextResponse.json(
@@ -210,8 +234,8 @@ export async function PUT(request: NextRequest, { params }: Context) {
 				break;
 			}
 
-			case "posts": {
-				dbDocModel = Post;
+			case "tags": {
+				dbDocModel = Tag;
 				break;
 			}
 
@@ -235,6 +259,10 @@ export async function PUT(request: NextRequest, { params }: Context) {
 			strict: true,
 		});
 
+		if (!updatedDocument) {
+			return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
+		}
+
 		if (!request_object.image && updatedDocument.image) {
 			updatedDocument.image = undefined;
 		}
@@ -245,14 +273,12 @@ export async function PUT(request: NextRequest, { params }: Context) {
 
 		updatedDocument.save();
 
-		if (!updatedDocument) {
-			return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
-		}
-
 		if (updatedDocument.attachment) {
 			await updatedDocument.populate(["creator", "attachment"]);
-		} else {
+		} else if (updatedDocument.image) {
 			await updatedDocument.populate(["creator", "image"]);
+		} else {
+			await updatedDocument.populate(["creator"]);
 		}
 
 		return NextResponse.json(
@@ -267,95 +293,9 @@ export async function PUT(request: NextRequest, { params }: Context) {
 	}
 }
 
-// The same as PUT()...
+// The same as PUT() at the moment...
 export async function PATCH(request: NextRequest, { params }: Context) {
-	try {
-		const session = await getServerSession(authOptions);
-
-		if (!session) {
-			return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
-		}
-
-		if (!params.query) {
-			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
-		}
-
-		const [type, id] = params.query;
-
-		if (!type || !id) {
-			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
-		}
-
-		const request_object = await request.json();
-
-		deleteFalsyKeys(request_object);
-
-		await connectToMongoDb();
-
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let dbDocModel: any;
-
-		switch (type) {
-			case "pages": {
-				dbDocModel = Page;
-				break;
-			}
-
-			case "posts": {
-				dbDocModel = Post;
-				break;
-			}
-
-			case "users": {
-				dbDocModel = User;
-				break;
-			}
-
-			case "about-entries": {
-				dbDocModel = AboutEntry;
-				break;
-			}
-
-			default: {
-				return NextResponse.json({ error: errorMessages.e501 }, { status: 501 });
-			}
-		}
-
-		const updatedDocument = await dbDocModel.findOneAndUpdate(_id(id), request_object, {
-			new: true,
-			strict: true,
-		});
-
-		if (!request_object.image && updatedDocument.image) {
-			updatedDocument.image = undefined;
-		}
-
-		if (!request_object.attachment && updatedDocument.attachment) {
-			updatedDocument.attachment = undefined;
-		}
-
-		updatedDocument.save();
-
-		if (!updatedDocument) {
-			return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
-		}
-
-		if (updatedDocument.attachment) {
-			await updatedDocument.populate(["creator", "attachment"]);
-		} else {
-			await updatedDocument.populate(["creator", "image"]);
-		}
-
-		return NextResponse.json(
-			{
-				message: { type, updated: true, method: request.method },
-				data: updatedDocument,
-			},
-			{ status: 200 }
-		);
-	} catch (error) {
-		return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
-	}
+	PUT(request, { params });
 }
 
 export async function DELETE(request: NextRequest, { params }: Context) {
@@ -387,8 +327,8 @@ export async function DELETE(request: NextRequest, { params }: Context) {
 				break;
 			}
 
-			case "posts": {
-				dbDocModel = Post;
+			case "tags": {
+				dbDocModel = Tag;
 				break;
 			}
 
