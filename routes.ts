@@ -42,6 +42,7 @@ export const Route = {
 		ABOUT: "/admin/about",
 		THEME: "/admin/theme",
 		FILES: "/admin/files",
+		TAGS: "/admin/tags",
 	},
 	api: {
 		PAGES: "/api/data/pages",
