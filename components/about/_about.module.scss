@@ -2,19 +2,23 @@
 
 .about {
 	.section {
-		@apply space-y-6;
+		@apply space-y-8;
+
+		.sectionHeader {
+			@apply flex items-center justify-between gap-4 mb-4 w-full;
+
+			.sectionTitle {
+				@apply font-unicephalon text-2xl tracking-wider text-foreground-secondary flex-grow;
+			}
+		}
 	}
 
 	.section + .section {
-		@apply mt-12;
+		@apply mt-16;
 	}
 
 	.feed {
 		@apply space-y-6;
-	}
-
-	.sectionTitle {
-		@apply font-unicephalon text-2xl tracking-wider text-foreground-secondary;
 	}
 
 	.editModeCard {

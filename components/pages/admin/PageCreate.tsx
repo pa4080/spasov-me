@@ -79,32 +79,30 @@ const PageCreate: React.FC<GenericActionProps> = ({ className, session, setPages
 	};
 
 	return (
-		session?.user && (
-			<div className={cn("w-full h-0 relative", className)}>
-				<Dialog open={isOpen} onOpenChange={setIsOpen}>
-					<DialogTrigger disabled={submitting}>
-						<ButtonIcon
-							className="pl-[0.75rem] pr-[0.7rem] rounded-lg absolute -top-4 right-0 icon_accent_secondary"
-							height={26} // 36 // pl-[0.6rem] pr-[0.7rem]
-							label={t("dialog_btn_add_a_page")}
-							labelSubmitting={t("dialog_btn_add_a_page_submitting")}
-							submitting={submitting}
-							width={42} // 62
-							widthOffset={24}
-							onClick={() => setIsOpen(true)}
-						/>
-					</DialogTrigger>
-					<DialogContent>
-						<DialogHeader>
-							<DialogTitle>{t("dialog_title_add")}</DialogTitle>
-							<DialogDescription>{t("dialog_description")}</DialogDescription>
-						</DialogHeader>
+		<div className={cn(className)}>
+			<Dialog open={isOpen} onOpenChange={setIsOpen}>
+				<DialogTrigger disabled={submitting}>
+					<ButtonIcon
+						className="pl-[0.75rem] pr-[0.7rem] rounded-lg icon_accent_secondary"
+						height={26} // 36 // pl-[0.6rem] pr-[0.7rem]
+						label={t("dialog_btn_add_a_page")}
+						labelSubmitting={t("dialog_btn_add_a_page_submitting")}
+						submitting={submitting}
+						width={42} // 62
+						widthOffset={24}
+						onClick={() => setIsOpen(true)}
+					/>
+				</DialogTrigger>
+				<DialogContent>
+					<DialogHeader>
+						<DialogTitle>{t("dialog_title_add")}</DialogTitle>
+						<DialogDescription>{t("dialog_description")}</DialogDescription>
+					</DialogHeader>
 
-						<PagesForm submitting={submitting} onSubmit={handleAddPage} />
-					</DialogContent>
-				</Dialog>
-			</div>
-		)
+					<PagesForm submitting={submitting} onSubmit={handleAddPage} />
+				</DialogContent>
+			</Dialog>
+		</div>
 	);
 };
 

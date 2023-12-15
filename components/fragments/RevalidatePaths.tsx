@@ -8,38 +8,40 @@ import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
-import { Route } from "@/routes";
 
-import { revalidatePaths } from "../_about.actions";
+import { revalidatePaths } from "@/components/_common.actions";
 
-import { GenericActionProps } from ".";
+interface Props {
+	className?: string;
+	paths?: string[];
+}
 
-const RevalidatePaths: React.FC<GenericActionProps> = ({ className }) => {
-	const t = msgs("AboutCV_RevalidatePaths");
+const RevalidatePaths: React.FC<Props> = ({ className, paths }) => {
+	const t = msgs("RevalidatePaths");
 	const pathname = usePathname();
-	const paths = [pathname, Route.public.ABOUT.uri];
+	const pathsToRevalidate = paths ? [...paths, pathname] : [pathname];
+	const pathsToString = pathsToRevalidate
+		.map((p, i, a) => `"${p}"${i === a.length - 2 ? " and " : i < a.length - 1 ? ", " : ""}`)
+		.join("");
 
 	const handleRevalidatePaths = async () => {
 		try {
-			const response = await revalidatePaths(paths);
+			const response = await revalidatePaths(pathsToRevalidate);
 
 			if (response) {
 				toast({
 					description: (
 						<div className="flex flex-col items-center gap-2 justify-center w-full">
 							<div className="flex items-center gap-2 justify-between">
-								<span className="text-base">
-									{t("toast_submitted", {
-										paths: paths
-											.map(
-												(path, index, arr) =>
-													`"${path}"${
-														index === arr.length - 2 ? " and " : index < arr.length - 1 ? ", " : ""
-													}`
-											)
-											.join(""),
-									})}
-								</span>
+								<span
+									dangerouslySetInnerHTML={{
+										__html: t("toast_submitted", {
+											paths: pathsToString,
+										}),
+									}}
+									className="text-base"
+								/>
+
 								<span className="text-3xl">
 									<BsSendCheck />
 								</span>

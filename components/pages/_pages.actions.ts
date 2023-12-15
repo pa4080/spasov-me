@@ -1,34 +1,22 @@
 "use server";
 
-import { getServerSession } from "next-auth";
-
 // import { revalidatePath } from "next/cache";
 
-import { authOptions } from "@/lib/auth-options";
 import { NewPageDoc, PageDoc } from "@/interfaces/Page";
 import { UserObject } from "@/interfaces/User";
-import { connectToMongoDb } from "@/lib/mongodb-mongoose";
-import Page from "@/models/page";
-// import { Route } from "@/routes";
+
+import { getSession } from "@/components/_common.actions";
+import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
+import { connectToMongoDb, mongo_id_obj } from "@/lib/mongodb-mongoose";
 import { msgs } from "@/messages";
-
-function _id(id?: string) {
-	return id ? { _id: id } : {};
-}
-
-export const getSession = async () => {
-	"use server";
-	const session = await getServerSession(authOptions);
-
-	return session;
-};
+import Page from "@/models/page";
 
 export const getPages = async (): Promise<PageDoc[]> => {
 	"use server";
 
 	try {
 		await connectToMongoDb();
-		const pages: PageDoc[] = await Page.find(_id()).populate(["creator", "image"]);
+		const pages: PageDoc[] = await Page.find(mongo_id_obj()).populate(["creator", "image"]);
 
 		return pages;
 	} catch (error) {
@@ -43,7 +31,7 @@ export const getPublicPages = async (): Promise<PageDoc[]> => {
 
 	try {
 		await connectToMongoDb();
-		const pages: PageDoc[] = await Page.find(_id()).populate(["creator", "image"]);
+		const pages: PageDoc[] = await Page.find(mongo_id_obj()).populate(["creator", "image"]);
 
 		return pages.filter((page) => page.visibility);
 	} catch (error) {
@@ -58,7 +46,7 @@ export const getPagesConditionally = async (): Promise<PageDoc[]> => {
 
 	try {
 		await connectToMongoDb();
-		const pages: PageDoc[] = await Page.find(_id()).populate(["creator", "image"]);
+		const pages: PageDoc[] = await Page.find(mongo_id_obj()).populate(["creator", "image"]);
 
 		const session = await getSession();
 
@@ -74,13 +62,7 @@ export const getPagesConditionally = async (): Promise<PageDoc[]> => {
 	}
 };
 
-export interface AddPageReturnType {
-	created: boolean;
-	data?: PageDoc;
-	error?: string;
-}
-
-export const addPage = async (data: FormData): Promise<PageDoc> => {
+export const createPage = async (data: FormData): Promise<PageDoc> => {
 	"use server";
 
 	const session = await getSession();
@@ -101,6 +83,8 @@ export const addPage = async (data: FormData): Promise<PageDoc> => {
 		visibility: data.get("visibility") as string,
 		creator: session?.user.id,
 	};
+
+	deleteFalsyKeys(newPageData, ["image"]);
 
 	const newPageDocument = new Page(newPageData);
 

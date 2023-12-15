@@ -45,6 +45,8 @@ import Page from "@/models/page";
 import Post from "@/models/post";
 import User from "@/models/user";
 
+import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
+
 import { errorMessages } from "../../common";
 
 interface Context {
@@ -122,21 +124,7 @@ export async function POST(request: NextRequest, { params }: Context) {
 
 		const request_object = await request.json();
 
-		if (
-			request_object.image === "undefined" ||
-			request_object.image === "null" ||
-			request_object.image === ""
-		) {
-			delete request_object.image;
-		}
-
-		if (
-			request_object.attachment === "undefined" ||
-			request_object.attachment === "null" ||
-			request_object.attachment === ""
-		) {
-			delete request_object.attachment;
-		}
+		deleteFalsyKeys(request_object);
 
 		await connectToMongoDb();
 
@@ -209,21 +197,7 @@ export async function PUT(request: NextRequest, { params }: Context) {
 
 		const request_object = await request.json();
 
-		if (
-			request_object.image === "undefined" ||
-			request_object.image === "null" ||
-			request_object.image === ""
-		) {
-			delete request_object.image;
-		}
-
-		if (
-			request_object.attachment === "undefined" ||
-			request_object.attachment === "null" ||
-			request_object.attachment === ""
-		) {
-			delete request_object.attachment;
-		}
+		deleteFalsyKeys(request_object);
 
 		await connectToMongoDb();
 
@@ -314,21 +288,7 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 
 		const request_object = await request.json();
 
-		if (
-			request_object.image === "undefined" ||
-			request_object.image === "null" ||
-			request_object.image === ""
-		) {
-			delete request_object.image;
-		}
-
-		if (
-			request_object.attachment === "undefined" ||
-			request_object.attachment === "null" ||
-			request_object.attachment === ""
-		) {
-			delete request_object.attachment;
-		}
+		deleteFalsyKeys(request_object);
 
 		await connectToMongoDb();
 

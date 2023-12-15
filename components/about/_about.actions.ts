@@ -1,35 +1,20 @@
 "use server";
 
-import { getServerSession } from "next-auth";
-
-import { revalidatePath } from "next/cache";
-
+import { getSession, revalidatePaths } from "@/components/_common.actions";
 import { AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
-import { FileDocument } from "@/interfaces/File";
 import { UserObject } from "@/interfaces/User";
 import { AboutEntryItem, CityItem, CountryItem } from "@/interfaces/_dataTypes";
-import { authOptions } from "@/lib/auth-options";
-import { connectToMongoDb, gridFSBucket } from "@/lib/mongodb-mongoose";
+import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
+import { connectToMongoDb, mongo_id_obj } from "@/lib/mongodb-mongoose";
 import { msgs } from "@/messages";
 import AboutEntry from "@/models/about-entry";
-
-function _id(id?: string) {
-	return id ? { _id: id } : {};
-}
-
-export const getSession = async () => {
-	"use server";
-	const session = await getServerSession(authOptions);
-
-	return session;
-};
 
 export const getEntries = async (): Promise<AboutEntryDoc[] | null> => {
 	"use server";
 
 	try {
 		await connectToMongoDb();
-		const entries: AboutEntryDoc[] = await AboutEntry.find(_id()).populate([
+		const entries: AboutEntryDoc[] = await AboutEntry.find(mongo_id_obj()).populate([
 			"creator",
 			"attachment",
 		]);
@@ -72,31 +57,14 @@ export const createEntry = async (
 		creator: session?.user.id as string,
 	};
 
-	// TODO: create a function to handle this by passing an array of props to be deleted and an object
-	if (
-		newAboutEntryData.attachment === "undefined" ||
-		newAboutEntryData.attachment === "null" ||
-		newAboutEntryData.attachment === ""
-	) {
-		delete newAboutEntryData.attachment;
-	}
-
-	if (
-		newAboutEntryData.dateTo === "undefined" ||
-		newAboutEntryData.dateTo === "null" ||
-		newAboutEntryData.dateTo === ""
-	) {
-		delete newAboutEntryData.dateTo;
-	}
+	deleteFalsyKeys(newAboutEntryData, ["attachment", "dateTo"]);
 
 	const newAboutEntryDocument = new AboutEntry(newAboutEntryData);
 
 	await newAboutEntryDocument.save();
 	await newAboutEntryDocument.populate(["creator", "attachment"]);
 
-	paths.forEach((path) => {
-		revalidatePath(path);
-	});
+	revalidatePaths(paths);
 
 	return {
 		title: newAboutEntryDocument.title,
@@ -149,24 +117,10 @@ export const updateEntry = async (
 		creator: session?.user.id as string,
 	};
 
-	if (
-		newAboutEntryData.attachment === "undefined" ||
-		newAboutEntryData.attachment === "null" ||
-		newAboutEntryData.attachment === ""
-	) {
-		delete newAboutEntryData.attachment;
-	}
-
-	if (
-		newAboutEntryData.dateTo === "undefined" ||
-		newAboutEntryData.dateTo === "null" ||
-		newAboutEntryData.dateTo === ""
-	) {
-		delete newAboutEntryData.dateTo;
-	}
+	deleteFalsyKeys(newAboutEntryData, ["attachment", "dateTo"]);
 
 	const updatedAboutEntryDocument = await AboutEntry.findOneAndUpdate(
-		_id(entry_id),
+		mongo_id_obj(entry_id),
 		newAboutEntryData,
 		{
 			new: true,
@@ -186,9 +140,7 @@ export const updateEntry = async (
 	await updatedAboutEntryDocument.save();
 	await updatedAboutEntryDocument.populate(["creator", "attachment"]);
 
-	paths.forEach((path) => {
-		revalidatePath(path);
-	});
+	revalidatePaths(paths);
 
 	return {
 		title: updatedAboutEntryDocument.title,
@@ -222,46 +174,13 @@ export const deleteEntry = async (entry_id: string, paths: string[]): Promise<bo
 
 	await connectToMongoDb();
 
-	const deletedObject = await AboutEntry.findOneAndDelete(_id(entry_id));
+	const deletedObject = await AboutEntry.findOneAndDelete(mongo_id_obj(entry_id));
 
 	if (!deletedObject) {
 		return null;
 	}
 
-	paths.forEach((path) => {
-		revalidatePath(path);
-	});
+	revalidatePaths(paths);
 
 	return !!deletedObject.ok;
-};
-
-export const revalidatePaths = async <T extends string>(paths: T[]): Promise<T[] | null> => {
-	"use server";
-
-	try {
-		paths.forEach((path) => {
-			revalidatePath(path);
-		});
-
-		return paths;
-	} catch (error) {
-		console.error(error);
-
-		return null;
-	}
-};
-
-export const getFileList = async (): Promise<FileDocument[] | null> => {
-	"use server";
-
-	// connect to the database and get the bucket
-	const bucket = await gridFSBucket();
-
-	const files = (await bucket.find().toArray()) as FileDocument[];
-
-	if (files?.length === 0) {
-		return null;
-	}
-
-	return files;
 };

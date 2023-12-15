@@ -23,8 +23,10 @@
 
 		"FILES": "Files",
 		"FILES_DESC": "Upload, browse and manage files",
+		"TAGS": "Tags",
+		"TAGS_DESC": "Browse and manage tags",
 		"THEME": "Theme",
-		"THEME_DESC": "Preview the theme colors and typography",
+		"THEME_DESC": "Preview the color theme",
 		"PAGES_SR": "Pages (SR attempt)",
 		"PAGES_SR_DESC": "Edit the Home page cards vi server ations",
 		"PAGES": "Pages",
@@ -40,7 +42,9 @@
 		"loggedInUserMenu": "Logged in as user menu",
 
 		"altUserProfile": "User Profile",
-		"altMenuButton": "Menu Button"
+		"altMenuButton": "Menu Button",
+
+		"user": "User"
 	},
 	"Footer": {},
 	"SiteLogo": {
@@ -51,6 +55,7 @@
 		"greeting_ln2": "&nbsp;my site"
 	},
 	"PagesFeed": {
+		"index_title": "Public available pages",
 		"index_pageImage_alt": "Image for the page '{ title }'",
 
 		"dialog_title_add": "Add a new page",
@@ -111,6 +116,7 @@
 		"dialog_btn_delete_submitting": "Deleting...",
 		"dialog_toast_submit_title": "You submitted the following values:",
 		"dialog_toast_response_title": "The server response with status { status } and data:",
+
 		"form_fileName": "Override the file name",
 		"form_fileNamePlaceholder": "File-name-example.webp",
 		"form_fileNameDescription": "Enter the name of the file. Use numbers, latin alphabet, dashes and underscores.",
@@ -122,6 +128,7 @@
 		"form_fileInputDescription": "The allowed formats are: png, jpg, jpeg, svg, webp, pdf, pptx, xlsx, docx.",
 		"form_btn_submit": "Upload",
 		"form_btn_submitting": "Uploading...",
+
 		"formSchema_name": "The file name is required it can contain only latin alphanumeric characters, dots, dashes and underscores. Cannot start with a special character.",
 		"formSchema_description": "The description is optional, it should be a string.",
 		"formSchema_file": "The file is absolutely required. It cannot start with a special character or a number."
@@ -171,6 +178,11 @@
 		"thankYou": "Thank you for reaching out to me. I will get back to you as soon as possible.",
 		"bestRegards": "Best regards,"
 	},
+	"RevalidatePaths": {
+		"toast_submitted": "The paths [{ paths }] were successfully revalidated.",
+		"btn_revalidate": "Revalidate paths",
+		"btn_revalidate_submitting": "Revalidating..."
+	},
 	"AboutCV": {
 		"title_employment": "Employment history",
 		"title_education": "Education"
@@ -182,11 +194,7 @@
 		"dialog_btn_add_submitting": "Submitting...",
 		"toast_submitted": "The entry was successfully submitted."
 	},
-	"AboutCV_RevalidatePaths": {
-		"toast_submitted": "The paths {{ paths }} were successfully revalidated.",
-		"btn_revalidate": "Revalidate paths",
-		"btn_revalidate_submitting": "Revalidating..."
-	},
+
 	"AboutCV_UpdateEntry": {
 		"dialog_title": "Update an existing { entryType } entry",
 		"dialog_description": "Id: <b><code style='letter-spacing: 2px;'>{ id }</code></b>",

@@ -31,12 +31,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     - [x] Public menu entry
     - [x] Admin menu entry
     - [x] Home page card entry
-  - [ ] **Type a date in the DatePicker**.
+  - [x] **Type a date in the DatePicker**.
   - [x] Form
   - [ ] Public page CSS
   - [x] Admin page CSS
   - [x] Render Markdown
-- [ ] Create technologies `tags` page
+- [ ] Create `technologies` - `tags` page
   - [ ] <https://github.com/dderevjanik/github-vscode-icons/tree/master>
   - [ ] <https://github.com/dderevjanik/vscode-icons-js>
 - [ ] Add `TAGS` selector to the About page items
@@ -56,7 +56,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     - [ ] MSO365 files
   - [ ] About entry attachments
   - [ ] Portfolio entry attachments (here will be number of images)
-- [ ] Refactor `pages/admin` like as `about/admin` -> use Server actions instead of API fetch
+- [ ] Refactor `@/comp./pages/admin` and `@/comp./files/admin` like as `@/comp./about/admin`:
+  - [ ] use Server actions instead of API fetch
+  - [ ] extract "client side" dynamics in separate files/components
 
 ## Tech stack
 

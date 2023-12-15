@@ -3,7 +3,7 @@ import React from "react";
 // eslint-disable-next-line import/no-duplicates
 import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
-import { enUS } from "date-fns/locale";
+import { enUS as en } from "date-fns/locale";
 
 import { cn } from "@/lib/cn-utils";
 
@@ -50,20 +50,20 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files }) => {
 					{/* {format(new Date(dateFrom), "yyyy/MM", { locale: en })} */}
 					<span>
 						<span className={styles.lightSecondaryText}>
-							{format(dtFrom, "MM/", { locale: enUS })}
+							{format(dtFrom, "MM/", { locale: en })}
 						</span>
 						<span className={styles.lightPrimaryText}>
-							{format(dtFrom, "yyyy", { locale: enUS })}
+							{format(dtFrom, "yyyy", { locale: en })}
 						</span>
 					</span>
 					<span className={styles.lightPrimaryText}>{" - "}</span>
 					{dtTo ? (
 						<span>
 							<span className={styles.lightSecondaryText}>
-								{format(dtTo, "MM/", { locale: enUS })}
+								{format(dtTo, "MM/", { locale: en })}
 							</span>
 							<span className={styles.lightPrimaryText}>
-								{format(dtTo, "yyyy", { locale: enUS })}
+								{format(dtTo, "yyyy", { locale: en })}
 							</span>
 						</span>
 					) : (
