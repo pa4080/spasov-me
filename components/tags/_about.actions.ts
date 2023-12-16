@@ -2,24 +2,24 @@
 
 import { getSession, revalidatePaths } from "@/components/_common.actions";
 import { AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
+import { NewTagData, TagDoc } from "@/interfaces/Tag";
 import { UserObject } from "@/interfaces/User";
-import { AboutEntryItem, CityItem, CountryItem } from "@/interfaces/_dataTypes";
+import { AboutEntryItem, CityItem, CountryItem, TagItem } from "@/interfaces/_dataTypes";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb, mongo_id_obj } from "@/lib/mongodb-mongoose";
 import { msgs } from "@/messages";
 import AboutEntry from "@/models/about-entry";
+import Tag from "@/models/tag";
 
-export const getEntries = async (): Promise<AboutEntryDoc[] | null> => {
+export const getTags = async (): Promise<TagDoc[] | null> => {
 	"use server";
 
 	try {
 		await connectToMongoDb();
-		const entries: AboutEntryDoc[] = await AboutEntry.find(mongo_id_obj()).populate([
-			"creator",
-			"attachment",
-		]);
+		// const tags: TagDoc[] = await Tag.find(mongo_id_obj()).populate(["creator"]);
+		const tags: TagDoc[] = await Tag.find(mongo_id_obj());
 
-		return entries;
+		return tags;
 	} catch (error) {
 		console.error(error);
 
@@ -27,10 +27,7 @@ export const getEntries = async (): Promise<AboutEntryDoc[] | null> => {
 	}
 };
 
-export const createEntry = async (
-	data: FormData,
-	paths: string[]
-): Promise<AboutEntryDoc | null> => {
+export const createTag = async (data: FormData, paths: string[]): Promise<TagDoc | null> => {
 	"use server";
 
 	const session = await getSession();
@@ -43,47 +40,34 @@ export const createEntry = async (
 
 	await connectToMongoDb();
 
-	const newAboutEntryData: NewAboutEntryData = {
+	const newTagData: NewTagData = {
 		title: data.get("title") as string,
 		description: data.get("description") as string,
-		country: data.get("country") as CountryItem,
-		city: data.get("city") as CityItem,
-		entryType: data.get("entryType") as AboutEntryItem,
-		dateFrom: data.get("dateFrom") as string,
-		dateTo: data.get("dateTo") as string,
-		visibility: data.get("visibility") as string,
+		icon: data.get("icon") as string,
+		tagType: data.get("tagType") as TagItem,
 
-		attachment: data.get("attachment") as string,
 		creator: session?.user.id as string,
 	};
 
-	deleteFalsyKeys(newAboutEntryData, ["attachment", "dateTo"]);
+	deleteFalsyKeys(newTagData);
 
-	const newAboutEntryDocument = new AboutEntry(newAboutEntryData);
+	const newTagDocument = new Tag(newTagData);
 
-	await newAboutEntryDocument.save();
-	await newAboutEntryDocument.populate(["creator", "attachment"]);
+	await newTagDocument.save();
+	await newTagDocument.populate(["creator"]);
 
 	revalidatePaths(paths);
 
 	return {
-		title: newAboutEntryDocument.title,
-		description: newAboutEntryDocument.description,
-		country: newAboutEntryDocument.country,
-		city: newAboutEntryDocument.city,
-		entryType: newAboutEntryDocument.entryType,
-		dateFrom: newAboutEntryDocument.dateFrom,
-		dateTo: newAboutEntryDocument.dateTo && newAboutEntryDocument.dateTo,
-		visibility: newAboutEntryDocument.visibility,
+		title: newTagDocument.title,
+		description: newTagDocument.description,
+		icon: newTagDocument.icon,
+		tagType: newTagDocument.tagType,
 
-		_id: newAboutEntryDocument._id.toString(),
-		attachment:
-			newAboutEntryDocument.attachment && newAboutEntryDocument.attachment?._id.toString(),
-		creator: {
-			name: newAboutEntryDocument.creator.name,
-			email: newAboutEntryDocument.creator.email,
-		} as UserObject,
-	} as AboutEntryDoc;
+		_id: newTagDocument._id.toString(),
+
+		creator: newTagDocument.creator,
+	} as TagDoc;
 };
 
 export const updateEntry = async (

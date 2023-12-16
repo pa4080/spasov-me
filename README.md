@@ -59,6 +59,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [ ] Refactor `@/comp./pages/admin` and `@/comp./files/admin` like as `@/comp./about/admin`:
   - [ ] use Server actions instead of API fetch
   - [ ] extract "client side" dynamics in separate files/components
+- [ ] **Remove the unnecessary .populate(["creator"])** fro$$ the Server actions and API?
 
 ## Tech stack
 

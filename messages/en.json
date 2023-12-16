@@ -306,7 +306,20 @@
 			"skill": "Skill"
 		},
 
+		"icon_label": "",
+		"icon_description": "",
+		"icon_search": "Search for an icon...",
+		"icon_select": "Select an icon...",
+		"icon_searchNotFound": "Not found.",
+		"icon_selectNone": "Must be chosen!",
+
 		"btn_submit": "Submit",
 		"btn_submitting": "Submitting..."
+	},
+	"TagsAdmin_Display": {
+		"title": "Title (slug)",
+		"description": "Description",
+		"type": "Type",
+		"icon": "Icon"
 	}
 }

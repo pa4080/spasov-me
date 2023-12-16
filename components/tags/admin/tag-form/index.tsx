@@ -5,8 +5,6 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { useTheme } from "next-themes";
-
 import { Input } from "@/components/ui/input";
 
 import {
@@ -25,6 +23,10 @@ import { TagItem, tagTuple } from "@/interfaces/_dataTypes";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
+import { IconMap } from "@/interfaces/IconMap";
+
+import Combobox from "@/components/fragments/Combobox";
+
 import SelectFromList from "../../../fragments/SelectFromList";
 import { Tag_FormSchema, Tag_FormSchemaGenerator } from "./schema";
 
@@ -36,7 +38,7 @@ interface Props {
 	tagType: TagItem;
 	onSubmit: (data: Tag_FormSchema) => void;
 	submitting?: boolean;
-	// files?: FileListItem[];
+	icons: IconMap;
 }
 
 const TagForm: React.FC<Props> = ({
@@ -45,7 +47,7 @@ const TagForm: React.FC<Props> = ({
 	formData,
 	onSubmit,
 	submitting,
-	// files,
+	icons,
 }) => {
 	const t = msgs("TagsAdmin_Form");
 
@@ -56,8 +58,6 @@ const TagForm: React.FC<Props> = ({
 		t("schema_icon"),
 		t("schema_type"),
 	]);
-
-	const { theme } = useTheme();
 
 	const form = useForm<Tag_FormSchema>({
 		resolver: zodResolver(FormSchema),
@@ -118,6 +118,26 @@ const TagForm: React.FC<Props> = ({
 						)}
 					/>
 
+					{/* Icon */}
+					<Combobox
+						control={form.control}
+						error={form.formState.errors.icon}
+						list={Object.keys(icons).map((icon) => ({
+							value: icon,
+							label: icon,
+						}))}
+						messages={{
+							label: t("icon_label"),
+							description: t("icon_description"),
+							placeholder: t("icon_search"),
+							pleaseSelect: t("icon_select"),
+							notFound: t("icon_searchNotFound"),
+							selectNone: t("icon_selectNone"),
+						}}
+						name="icon"
+						setValue={form.setValue}
+					/>
+
 					{/* Tag type ["technology", "skill"] */}
 					<SelectFromList
 						className="flex-1"
@@ -134,25 +154,6 @@ const TagForm: React.FC<Props> = ({
 						}}
 						name="tagType"
 					/>
-
-					{/* Icon */}
-					{/* {files && (
-						<Combobox
-							control={form.control}
-							error={form.formState.errors.icon}
-							list={files}
-							messages={{
-								label: t("attachment_label"),
-								description: t("attachment_description"),
-								placeholder: t("attachment_search"),
-								pleaseSelect: t("attachment_select"),
-								notFound: t("attachment_searchNotFound"),
-								selectNone: t("attachment_selectNone"),
-							}}
-							name="icon"
-							setValue={form.setValue}
-						/>
-					)} */}
 				</div>
 
 				<Button disabled={submitting} type="submit">

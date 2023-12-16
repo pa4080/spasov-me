@@ -23,17 +23,15 @@ import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { toast } from "@/components/ui/use-toast";
 import { generateFormDataFromObject } from "@/lib/generateFormDataFromObject";
 
-import { Route } from "@/routes";
-
 import TagForm from "./tag-form";
 
-import { createEntry } from "../_about.actions";
+import { createTag } from "../_about.actions";
 
 import { Tag_FormSchema } from "./tag-form/schema";
 
 import { GenericActionProps } from ".";
 
-const TagCreate: React.FC<GenericActionProps> = ({ className, tagType: tagType, files }) => {
+const TagCreate: React.FC<GenericActionProps> = ({ className, tagType: tagType, icons }) => {
 	const t = msgs("TagsAdmin_CreateTag");
 	const entryTypeLabel = (
 		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
@@ -43,7 +41,7 @@ const TagCreate: React.FC<GenericActionProps> = ({ className, tagType: tagType, 
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
 	const pathname = usePathname();
 
-	const handleCreateEntry = async (data: Tag_FormSchema) => {
+	const handleCreateTag = async (data: Tag_FormSchema) => {
 		setSubmitting(true);
 
 		try {
@@ -53,10 +51,7 @@ const TagCreate: React.FC<GenericActionProps> = ({ className, tagType: tagType, 
 			 * form.action()... @see https://stackoverflow.com/a/40552372/6543935
 			 */
 
-			const response = await createEntry(generateFormDataFromObject(data), [
-				pathname,
-				Route.public.ABOUT.uri,
-			]);
+			const response = await createTag(generateFormDataFromObject(data), [pathname]);
 
 			if (response) {
 				toast({
@@ -111,10 +106,10 @@ const TagCreate: React.FC<GenericActionProps> = ({ className, tagType: tagType, 
 
 					<TagForm
 						className="mt-0"
-						onSubmit={handleCreateEntry}
-						tagType={tagType}
-						// files={files}
+						icons={icons}
 						submitting={submitting}
+						tagType={tagType}
+						onSubmit={handleCreateTag}
 					/>
 				</DialogContent>
 			</Dialog>

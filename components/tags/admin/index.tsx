@@ -4,18 +4,19 @@ import { TagItem } from "@/interfaces/_dataTypes";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
-import { getFileList } from "@/components/_common.actions";
+import { IconMap } from "@/interfaces/IconMap";
+import icons from "@/public/assets/icons";
 
 import RevalidatePaths from "../../fragments/RevalidatePaths";
-import { getEntries } from "../_about.actions";
+import { getTags } from "../_about.actions";
 import styles from "../_about.module.scss";
 import TagCreate from "./TagCreate";
-import { FileListItem } from "./tag-form";
+import TagDisplay from "./TagDisplay";
 
 export interface GenericActionProps {
 	className?: string;
 	tagType: TagItem;
-	files?: FileListItem[];
+	icons: IconMap;
 }
 
 interface Props {
@@ -25,38 +26,14 @@ interface Props {
 const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 	const t = msgs("TagsAdmin");
 
-	const entryList = await getEntries();
-	const fileList = await getFileList();
-
-	// const entries = entryList?.map((entry) => {
-	// 	return {
-	// 		_id: entry._id.toString(),
-	// 		html: {
-	// 			// This cannot be done in the client side
-	// 			title: processMarkdown(entry.title),
-	// 			description: processMarkdown(entry.description),
-	// 			attachmentUri:
-	// 				entry.attachment && `${entry.attachment?._id.toString()}/${entry.attachment?.filename}`,
-	// 		},
-
-	// 		title: entry.title,
-	// 		description: entry.description,
-	// 		country: entry.country,
-	// 		city: entry.city,
-	// 		dateFrom: entry.dateFrom as Date,
-	// 		dateTo: entry.dateTo as Date | undefined,
-	// 		entryType: entry.entryType,
-	// 		visibility: entry.visibility as boolean,
-	// 		attachment: entry.attachment?._id.toString(),
-	// 	};
-	// });
-
-	const icons: FileListItem[] | undefined = fileList
-		?.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/))
-		.map((file) => ({
-			value: file._id.toString(),
-			label: file.filename,
-		}));
+	const tagList = await getTags();
+	const tags = tagList?.map((tag) => ({
+		_id: tag._id.toString(),
+		title: tag.title,
+		description: tag.description,
+		icon: tag.icon,
+		tagType: tag.tagType,
+	}));
 
 	const Section = ({ type, title }: { type: TagItem; title: string }) => (
 		<div className={styles.section}>
@@ -64,16 +41,16 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 				<h1 className={styles.sectionTitle}>{title}</h1>
 				<div className="flex gap-2">
 					<RevalidatePaths />
-					<TagCreate files={icons} tagType={type} />
+					<TagCreate icons={icons} tagType={type} />
 				</div>
 			</div>
 
-			{/* <div className={cn(styles.feed)}>
-				{entries
-					?.filter(({ entryType }) => entryType === type)
-					.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime())
-					.map((entry, index) => <EntryDisplay key={index} entry={entry} files={files} />)}
-			</div> */}
+			<div className={cn(styles.feed)}>
+				{tags
+					?.filter(({ tagType }) => tagType === type)
+					.sort((a, b) => a.title.localeCompare(b.title))
+					.map((tag, index) => <TagDisplay key={index} icons={icons} tag={tag} />)}
+			</div>
 		</div>
 	);
 
