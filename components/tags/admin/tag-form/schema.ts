@@ -1,0 +1,39 @@
+import * as z from "zod";
+
+import { tagTuple } from "@/interfaces/_dataTypes";
+
+export const Tag_FormSchemaGenerator = (messages?: string[]) =>
+	z.object({
+		title: z
+			.string()
+			.min(2, {
+				message: messages?.[0],
+			})
+			.regex(/^[a-z]+$/, {
+				message: messages?.[1],
+			}),
+		description: z.string().min(6, {
+			message: messages?.[2],
+		}),
+		icon: z.string({
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			errorMap: (issue, _ctx) => {
+				switch (issue.code) {
+					default:
+						return { message: String(messages?.[3]) };
+				}
+			},
+		}),
+		tagType: z.enum(tagTuple, {
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			errorMap: (issue, _ctx) => {
+				switch (issue.code) {
+					default:
+						return { message: String(messages?.[4]) };
+				}
+			},
+		}),
+	});
+
+export const Tag_FormSchema = Tag_FormSchemaGenerator();
+export type Tag_FormSchema = z.infer<typeof Tag_FormSchema>;

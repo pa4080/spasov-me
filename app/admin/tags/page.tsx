@@ -1,9 +1,9 @@
 import React from "react";
 
-import AboutPageAddAndEditOptions from "@/components/about/admin";
+import TagsAddAndEdit from "@/components/tags/admin";
 
 const Pages: React.FC = () => {
-	return <AboutPageAddAndEditOptions className="margin_vh_top margin_vh_bottom" />;
+	return <TagsAddAndEdit className="margin_vh_top margin_vh_bottom" />;
 };
 
 export default Pages;

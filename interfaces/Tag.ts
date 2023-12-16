@@ -8,8 +8,8 @@ export type AboutEntryDoc = {
 
 	title: string;
 	description: string;
-	tagType: TagItem;
 	icon: string;
+	tagType: TagItem;
 };
 
 // These interfaces became pretty similar to

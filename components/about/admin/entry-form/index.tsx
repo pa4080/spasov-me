@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import {
 	Form,
 	FormControl,
+	FormDescription,
 	// FormDescription,
 	FormField,
 	FormItem,
@@ -102,8 +103,8 @@ const EntryForm: React.FC<Props> = ({
 									label: (t("country_list") as unknown as Record<string, string>)[item],
 								}))}
 								messages={{
-									// label: t("country_label"),
-									// description: t("country_description"),
+									label: t("country_label"),
+									description: t("country_description"),
 									placeholder: t("country_placeholder"),
 								}}
 								name="country"
@@ -119,8 +120,8 @@ const EntryForm: React.FC<Props> = ({
 									label: (t("city_list") as unknown as Record<string, string>)[item],
 								}))}
 								messages={{
-									// label: t("city_label"),
-									// description: t("city_description"),
+									label: t("city_label"),
+									description: t("city_description"),
 									placeholder: t("city_placeholder"),
 								}}
 								name="city"
@@ -164,7 +165,9 @@ const EntryForm: React.FC<Props> = ({
 										<div className="flex items-center justify-between py-2 pl-4 pr-3">
 											<div className="">
 												<FormLabel>{t("visibility_title")}</FormLabel>
-												{/* <FormDescription>{t("visibility_description")}</FormDescription> */}
+												{t("visibility_description") && (
+													<FormDescription>{t("visibility_description")}</FormDescription>
+												)}
 											</div>
 											<FormControl>
 												<Switch checked={field.value} onCheckedChange={field.onChange} />
@@ -184,8 +187,8 @@ const EntryForm: React.FC<Props> = ({
 									label: (t("aboutEntry_type_list") as unknown as Record<string, string>)[item],
 								}))}
 								messages={{
-									// label: t("type_label"),
-									// description: t("type_description"),
+									label: t("type_label"),
+									description: t("type_description"),
 									placeholder: t("type_placeholder"),
 								}}
 								name="entryType"
@@ -219,7 +222,7 @@ const EntryForm: React.FC<Props> = ({
 							name="title"
 							render={({ field }) => (
 								<FormItem className="space-y-0">
-									{/* <FormLabel>{t("title_label")}</FormLabel> */}
+									{t("title_label") && <FormLabel>{t("title_label")}</FormLabel>}
 									<FormControl>
 										<Input placeholder={t("title_placeholder")} {...field} />
 									</FormControl>
@@ -227,7 +230,9 @@ const EntryForm: React.FC<Props> = ({
 									{form.formState.errors.title ? (
 										<FormMessage />
 									) : (
-										<>{/* <FormDescription>{t("title_description")}</FormDescription> */}</>
+										t("title_description") && (
+											<FormDescription>{t("title_description")}</FormDescription>
+										)
 									)}
 								</FormItem>
 							)}
@@ -242,7 +247,7 @@ const EntryForm: React.FC<Props> = ({
 									className="flex-grow h-96 sm:h-1 p-0.5"
 									data-color-mode={theme === "dark" ? "dark" : "light" || "auto"}
 								>
-									{/* <FormLabel>{t("description_label")}</FormLabel> */}
+									{t("description_label") && <FormLabel>{t("description_label")}</FormLabel>}
 									<FormControl>
 										<MDEditor
 											autoFocus
@@ -267,7 +272,9 @@ const EntryForm: React.FC<Props> = ({
 									{form.formState.errors.description ? (
 										<FormMessage />
 									) : (
-										<>{/* <FormDescription>{t("description_description")}</FormDescription> */}</>
+										t("description_description") && (
+											<FormDescription>{t("description_description")}</FormDescription>
+										)
 									)}
 								</FormItem>
 							)}
