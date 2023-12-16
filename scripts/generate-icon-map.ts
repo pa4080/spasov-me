@@ -17,8 +17,7 @@ const generateIconsMap = (dir: string): IconMap => {
 	const icons = svgFiles.reduce((acc: IconMap, fileName): IconMap => {
 		const baseName = path
 			.parse(fileName)
-			.name.toLocaleLowerCase()
-			.replace(/-light|-dark$/, "")
+			.name.replace(/-light|-dark$/, "")
 			.replace(/(\s*|_|-)/, "");
 		const filePath = path.join(dir, fileName).replace(/^public/, "");
 

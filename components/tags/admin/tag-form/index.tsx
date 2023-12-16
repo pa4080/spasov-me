@@ -52,8 +52,8 @@ const TagForm: React.FC<Props> = ({
 	const t = msgs("TagsAdmin_Form");
 
 	const FormSchema = Tag_FormSchemaGenerator([
-		t("schema_title_length"),
-		t("schema_title_monolite"),
+		t("schema_name_length"),
+		t("schema_name_monolite"),
 		t("schema_description"),
 		t("schema_icon"),
 		t("schema_type"),
@@ -62,7 +62,7 @@ const TagForm: React.FC<Props> = ({
 	const form = useForm<Tag_FormSchema>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			title: "",
+			name: "",
 			description: "",
 			icon: undefined,
 			tagType: tagType,
@@ -74,22 +74,22 @@ const TagForm: React.FC<Props> = ({
 		<Form {...form}>
 			<form className={cn("w-full space-y-6", className)} onSubmit={form.handleSubmit(onSubmit)}>
 				<div className="flex flex-col gap-3">
-					{/* Title */}
+					{/* Name */}
 					<FormField
 						control={form.control}
-						name="title"
+						name="name"
 						render={({ field }) => (
 							<FormItem className="space-y-0">
-								{t("title_label") && <FormLabel>{t("title_label")}</FormLabel>}
+								{t("name_label") && <FormLabel>{t("name_label")}</FormLabel>}
 								<FormControl>
-									<Input placeholder={t("title_placeholder")} {...field} />
+									<Input placeholder={t("name_placeholder")} {...field} />
 								</FormControl>
 
-								{form.formState.errors.title ? (
+								{form.formState.errors.name ? (
 									<FormMessage />
 								) : (
-									t("title_description") && (
-										<FormDescription>{t("title_description")}</FormDescription>
+									t("name_description") && (
+										<FormDescription>{t("name_description")}</FormDescription>
 									)
 								)}
 							</FormItem>

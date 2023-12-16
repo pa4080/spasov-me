@@ -8,8 +8,8 @@ import { IconMap } from "@/interfaces/IconMap";
 import icons from "@/public/assets/icons";
 
 import RevalidatePaths from "../../fragments/RevalidatePaths";
-import { getTags } from "../_about.actions";
-import styles from "../_about.module.scss";
+import { getTags } from "../_tags.actions";
+import styles from "../_tags.module.scss";
 import TagCreate from "./TagCreate";
 import TagDisplay from "./TagDisplay";
 
@@ -29,7 +29,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 	const tagList = await getTags();
 	const tags = tagList?.map((tag) => ({
 		_id: tag._id.toString(),
-		title: tag.title,
+		name: tag.name,
 		description: tag.description,
 		icon: tag.icon,
 		tagType: tag.tagType,
@@ -48,7 +48,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 			<div className={cn(styles.feed)}>
 				{tags
 					?.filter(({ tagType }) => tagType === type)
-					.sort((a, b) => a.title.localeCompare(b.title))
+					.sort((a, b) => a.name.localeCompare(b.name))
 					.map((tag, index) => <TagDisplay key={index} icons={icons} tag={tag} />)}
 			</div>
 		</div>
@@ -56,7 +56,8 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 
 	return (
 		<div className={cn(styles.about, className)}>
-			<Section title={t("title_it_tags")} type="technology" />
+			<Section title={t("title_it_tags")} type="informationTechnologies" />
+			<Section title={t("title_me_tags")} type="mechanicalEngineering" />
 		</div>
 	);
 };

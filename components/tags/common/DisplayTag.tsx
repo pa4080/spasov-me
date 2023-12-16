@@ -5,11 +5,7 @@ import Image from "next/image";
 
 import { useTheme } from "next-themes";
 
-import { cn } from "@/lib/cn-utils";
-
 import { IconMap } from "@/interfaces/IconMap";
-
-import styles from "../_about.module.scss";
 
 interface Props {
 	className?: string;
@@ -21,10 +17,15 @@ const DisplayTag: React.FC<Props> = ({ className, icon }) => {
 
 	return (
 		<Image
-			alt="Babel2"
-			className={cn(styles.displayTag, className)}
+			priority
+			alt={icon?.name || "Icon"}
+			className={className}
 			height={22}
-			src={theme === "dark" ? icon.dark : icon.light}
+			src={
+				theme === "dark"
+					? icon?.dark || "/assets/icons/placeholder.svg"
+					: icon?.light || "/assets/icons/placeholder.svg"
+			}
 			width={22}
 		/>
 	);

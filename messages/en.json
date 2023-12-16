@@ -274,7 +274,8 @@
 		"dateTo_now_current": "Now"
 	},
 	"TagsAdmin": {
-		"title_it_tags": "Information technologies"
+		"title_it_tags": "Information Technologies",
+		"title_me_tags": "Mechanical Engineering"
 	},
 	"TagsAdmin_CreateTag": {
 		"dialog_title": "Create a new Tag",
@@ -284,15 +285,15 @@
 		"toast_submitted": "The Tag was successfully submitted."
 	},
 	"TagsAdmin_Form": {
-		"schema_title_length": "The Tag title must be at least 2 characters.",
-		"schema_title_monolite": " It will be used in the search and as a slug, so must be monolite word.",
+		"schema_name_length": "The Tag name must be at least 2 characters (lowercase).",
+		"schema_name_monolite": "It will be used in the search and as a slug, so must be monolite word and dashes optionally.",
 		"schema_description": "The description must be at least 6 characters.",
 		"schema_icon": "Select an icon.",
 		"schema_type": "Select Tag type.",
 
-		"title_label": "",
-		"title_description": "",
-		"title_placeholder": "Tag title (monolite word)...",
+		"name_label": "",
+		"name_description": "",
+		"name_placeholder": "Tag name (slug) e.g. [a-z-]+",
 
 		"description_label": "",
 		"description_description": "",
@@ -302,7 +303,8 @@
 		"type_placeholder": "Select Tag type",
 		"type_description": "",
 		"tag_type_list": {
-			"technology": "Information technologies",
+			"informationTechnologies": "Information Technologies",
+			"mechanicalEngineering": "Mechanical Engineering",
 			"skill": "Skill"
 		},
 
@@ -317,7 +319,7 @@
 		"btn_submitting": "Submitting..."
 	},
 	"TagsAdmin_Display": {
-		"title": "Title (slug)",
+		"name": "Name (slug)",
 		"description": "Description",
 		"type": "Type",
 		"icon": "Icon"

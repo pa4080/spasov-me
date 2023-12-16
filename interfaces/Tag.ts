@@ -6,7 +6,7 @@ export type TagDoc = {
 	_id: string;
 	creator: UserObject;
 
-	title: string;
+	name: string;
 	description: string;
 	icon: string;
 	tagType: TagItem;

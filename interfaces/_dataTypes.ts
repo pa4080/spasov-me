@@ -3,7 +3,7 @@ export const data = {
 	city_list: ["sofia", "pazardjik", "yambol"],
 	aboutEntry_type_list: ["employment", "resume", "education", "portfolio"],
 	// mainly "technology" will be used, at the moment programming-languages will be marked as a technology type too
-	tag_type_list: ["technology", "skill"],
+	tag_type_list: ["informationTechnologies", "skill", "mechanicalEngineering"],
 } as const;
 
 export const countryTuple = data.country_list;

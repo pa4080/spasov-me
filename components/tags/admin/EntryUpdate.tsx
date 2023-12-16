@@ -28,7 +28,7 @@ import { Route } from "@/routes";
 
 import TagForm from "./tag-form";
 
-import { updateEntry } from "../_about.actions";
+import { updateEntry } from "../_tags.actions";
 
 import { GenericActionProps } from ".";
 

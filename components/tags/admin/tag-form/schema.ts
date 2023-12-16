@@ -4,12 +4,12 @@ import { tagTuple } from "@/interfaces/_dataTypes";
 
 export const Tag_FormSchemaGenerator = (messages?: string[]) =>
 	z.object({
-		title: z
+		name: z
 			.string()
 			.min(2, {
 				message: messages?.[0],
 			})
-			.regex(/^[a-z]+$/, {
+			.regex(/^[a-z-]+$/, {
 				message: messages?.[1],
 			}),
 		description: z.string().min(6, {

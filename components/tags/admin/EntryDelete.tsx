@@ -23,7 +23,7 @@ import { buttonVariants } from "@/components/ui/button";
 
 import { Route } from "@/routes";
 
-import { deleteEntry } from "../_about.actions";
+import { deleteEntry } from "../_tags.actions";
 
 import { GenericActionProps } from ".";
 

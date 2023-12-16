@@ -9,7 +9,7 @@ import { msgs } from "@/messages";
 
 import { IconMap } from "@/interfaces/IconMap";
 
-import styles from "../_about.module.scss";
+import styles from "../_tags.module.scss";
 import DisplayTag from "../common/DisplayTag";
 import { Tag_FormSchema } from "./tag-form/schema";
 
@@ -22,9 +22,10 @@ interface Props {
 }
 
 const TagDisplay: React.FC<Props> = ({ tag: tag, className, icons }) => {
-	const { title, description, icon, tagType } = tag;
+	const { name, description, icon, tagType } = tag;
 
 	const t = msgs("TagsAdmin_Display");
+	const tForm = msgs("TagsAdmin_Form");
 
 	return (
 		<div className={cn(styles.card, styles.editModeCard, className)}>
@@ -35,8 +36,8 @@ const TagDisplay: React.FC<Props> = ({ tag: tag, className, icons }) => {
 			</div>
 
 			<div className="flex justify-start items-center">
-				<span className="text-foreground-secondary w-28">{t("title")}:</span>
-				<span className="font-semibold">{title}</span>
+				<span className="text-foreground-secondary w-28">{t("name")}:</span>
+				<span className="font-semibold">{name}</span>
 			</div>
 			<div className="flex justify-start items-center">
 				<span className="text-foreground-secondary w-28">{t("description")}:</span>
@@ -44,7 +45,9 @@ const TagDisplay: React.FC<Props> = ({ tag: tag, className, icons }) => {
 			</div>
 			<div className="flex justify-start items-center">
 				<span className="text-foreground-secondary w-28">{t("type")}:</span>
-				<span className="font-semibold">{tagType}</span>
+				<span className="font-semibold">
+					{(tForm("tag_type_list") as unknown as Record<string, string>)[tagType]}
+				</span>
 			</div>
 			<div className="flex justify-start items-center">
 				<span className="text-foreground-secondary w-28">{t("icon")}:</span>

@@ -5,10 +5,10 @@ import { tagTuple } from "@/interfaces/_dataTypes";
 import User from "./user";
 
 const TagSchema = new Schema({
-	title: {
+	name: {
 		type: String,
 		required: [true, "Title is required!"],
-		match: [/^\w+$/, "The title must be a single word!"],
+		match: [/^[a-z-]+$/, "The title must be alphabetic, optionally with dash!"],
 	},
 	description: {
 		type: String,

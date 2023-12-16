@@ -11,6 +11,36 @@ const iconsMap = {
 		light: "/assets/icons/javascript.svg",
 		dark: "/assets/icons/javascript.svg",
 	},
+	meEspritByDpTechnology: {
+		name: "meEspritByDpTechnology",
+		light: "/assets/icons/meEspritByDpTechnology.png",
+		dark: "/assets/icons/meEspritByDpTechnology.png",
+	},
+	meMachining: {
+		name: "meMachining",
+		light: "/assets/icons/meMachining-light.png",
+		dark: "/assets/icons/meMachining.png",
+	},
+	meMechanicalEngineering: {
+		name: "meMechanicalEngineering",
+		light: "/assets/icons/meMechanicalEngineering.png",
+		dark: "/assets/icons/meMechanicalEngineering.png",
+	},
+	meProEngineerPtcCreo: {
+		name: "meProEngineerPtcCreo",
+		light: "/assets/icons/meProEngineerPtcCreo.png",
+		dark: "/assets/icons/meProEngineerPtcCreo.png",
+	},
+	meSolidWorks: {
+		name: "meSolidWorks",
+		light: "/assets/icons/meSolidWorks.png",
+		dark: "/assets/icons/meSolidWorks.png",
+	},
+	placeholder: {
+		name: "placeholder",
+		light: "/assets/icons/placeholder.svg",
+		dark: "/assets/icons/placeholder.svg",
+	},
 	prettier: {
 		name: "prettier",
 		light: "/assets/icons/prettier-light.svg",
@@ -20,11 +50,6 @@ const iconsMap = {
 		name: "prisma",
 		light: "/assets/icons/prisma-light.svg",
 		dark: "/assets/icons/prisma.svg",
-	},
-	solidworks: {
-		name: "solidworks",
-		light: "/assets/icons/solidworks.png",
-		dark: "/assets/icons/solidworks.png",
 	},
 	typescript: {
 		name: "typescript",

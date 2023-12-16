@@ -25,7 +25,7 @@ import { generateFormDataFromObject } from "@/lib/generateFormDataFromObject";
 
 import TagForm from "./tag-form";
 
-import { createTag } from "../_about.actions";
+import { createTag } from "../_tags.actions";
 
 import { Tag_FormSchema } from "./tag-form/schema";
 
