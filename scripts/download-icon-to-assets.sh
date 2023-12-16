@@ -6,7 +6,7 @@
 # @see https://github.com/vscode-icons/vscode-icons/blob/master/icons
 # @see https://github.com/dderevjanik/vscode-icons-js-example/tree/master/docs/icons
 
-: "${ICONS_PATH:=public/assets/icons/it}"
+: "${ICONS_PATH:=public/assets/icons}"
 
 WGET=$(which wget)
 

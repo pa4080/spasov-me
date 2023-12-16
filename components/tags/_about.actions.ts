@@ -27,7 +27,7 @@ export const getTags = async (): Promise<TagDoc[] | null> => {
 	}
 };
 
-export const createTag = async (data: FormData, paths: string[]): Promise<TagDoc | null> => {
+export const createTag = async (data: FormData, paths: string[]): Promise<true | null> => {
 	"use server";
 
 	const session = await getSession();
@@ -45,7 +45,6 @@ export const createTag = async (data: FormData, paths: string[]): Promise<TagDoc
 		description: data.get("description") as string,
 		icon: data.get("icon") as string,
 		tagType: data.get("tagType") as TagItem,
-
 		creator: session?.user.id as string,
 	};
 
@@ -54,20 +53,11 @@ export const createTag = async (data: FormData, paths: string[]): Promise<TagDoc
 	const newTagDocument = new Tag(newTagData);
 
 	await newTagDocument.save();
-	await newTagDocument.populate(["creator"]);
+	// await newTagDocument.populate(["creator"]);
 
 	revalidatePaths(paths);
 
-	return {
-		title: newTagDocument.title,
-		description: newTagDocument.description,
-		icon: newTagDocument.icon,
-		tagType: newTagDocument.tagType,
-
-		_id: newTagDocument._id.toString(),
-
-		creator: newTagDocument.creator,
-	} as TagDoc;
+	return true;
 };
 
 export const updateEntry = async (

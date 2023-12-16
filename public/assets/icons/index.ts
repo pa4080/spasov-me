@@ -21,6 +21,11 @@ const iconsMap = {
 		light: "/assets/icons/prisma-light.svg",
 		dark: "/assets/icons/prisma.svg",
 	},
+	solidworks: {
+		name: "solidworks",
+		light: "/assets/icons/solidworks.png",
+		dark: "/assets/icons/solidworks.png",
+	},
 	typescript: {
 		name: "typescript",
 		light: "/assets/icons/typescript.svg",

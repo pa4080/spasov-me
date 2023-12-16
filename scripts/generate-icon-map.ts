@@ -10,7 +10,9 @@ const iconsDir = "./public/assets/icons";
 
 const generateIconsMap = (dir: string): IconMap => {
 	const directoryPath = path.join(process.cwd(), dir);
-	const svgFiles = fs.readdirSync(directoryPath).filter((file) => file.endsWith(".svg"));
+	const svgFiles = fs
+		.readdirSync(directoryPath)
+		.filter((file) => file.endsWith(".svg") || file.endsWith(".png") || file.endsWith(".webp"));
 
 	const icons = svgFiles.reduce((acc: IconMap, fileName): IconMap => {
 		const baseName = path
