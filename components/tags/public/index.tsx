@@ -1,10 +1,8 @@
 import React from "react";
 
-import Link from "next/link";
-
 import { cn } from "@/lib/cn-utils";
 
-import styles from "../_about.module.scss";
+import styles from "../_tags.module.scss";
 // import { getPublicPages } from "../_about.actions";
 
 interface Props {
