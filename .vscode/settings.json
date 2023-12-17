@@ -64,7 +64,6 @@
 		"geo-data/languages": "",
 		"[[...query]]": "api",
 		"exercises": "vscode",
-
 		"files/[[...query]]": "upload",
 		"data": "database",
 		"data/[[...query]]": "database",
@@ -74,10 +73,10 @@
 		"components/cintact": "base",
 		"components/files": "base",
 		"components/home": "base",
-		"components/tags": "base",
 		"components/ui": "core",
 		"components/fragments": "core",
-		"app/[locale]": "home"
+		"app/[locale]": "home",
+		"components/tags": "base"
 	},
 	// https://youtu.be/3_-Je5XpbqY?t=688
 	// https://stackoverflow.com/a/76125894/6543935

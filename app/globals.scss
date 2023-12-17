@@ -366,8 +366,15 @@ body .w-md-editor-text > .w-md-editor-text-pre {
 	font-family: $font-inter !important;
 }
 
-body textarea:focus {
+body textarea.w-md-editor-text-input,
+body textarea.w-md-editor-text-input:active,
+body textarea.w-md-editor-text-input:focus {
+	color: #fff !important;
 	outline: unset !important;
 	--tw-ring-color: transparent !important;
 	border-color: unset !important;
+	font-feature-settings: unset !important;
+	font-variation-settings: unset !important;
+	text-shadow: none !important;
+	box-shadow: none !important;
 }
