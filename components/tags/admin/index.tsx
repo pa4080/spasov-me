@@ -23,7 +23,7 @@ interface Props {
 	className?: string;
 }
 
-const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
+const TagsFeed: React.FC<Props> = async ({ className }) => {
 	const t = msgs("TagsAdmin");
 
 	const tagList = await getTags();
@@ -62,4 +62,4 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 	);
 };
 
-export default PagesFeedAndEditOptions;
+export default TagsFeed;

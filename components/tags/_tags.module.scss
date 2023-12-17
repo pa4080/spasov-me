@@ -18,11 +18,12 @@
 	}
 
 	.feed {
-		@apply space-y-6;
+		// @apply space-y-6;
+		@apply grid grid-cols-1 md:grid-cols-2 grid-flow-row gap-12 md:gap-10 lg:gap-14;
 	}
 
 	.editModeCard {
-		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[25%] rounded-2xl h-full p-6 md:p-8 relative min-h-fit flex items-start flex-col gap-3 justify-start;
+		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[25%] rounded-2xl h-full p-6 md:p-8 relative min-h-fit flex items-start flex-col gap-1 justify-start;
 
 		transition:
 			background-color 0.5s,
@@ -45,70 +46,15 @@
 			@apply flex gap-1 absolute right-0 top-0 p-4 rounded-2xl;
 		}
 
-		.cardImageEditMode {
-			@apply mt-8 border w-full drop-shadow-2xl rounded-md overflow-hidden;
+		.row {
+			@apply flex justify-start items-start;
 
-			img {
-				@apply w-full h-auto;
-			}
-		}
-
-		.metaInfo {
-			@apply flex gap-2;
-
-			.date {
-				@apply flex gap-1;
+			.leftCol {
+				@apply text-foreground-secondary w-28 flex-shrink-0;
 			}
 
-			.divider {
-				@apply text-foreground-quaternary;
-			}
-		}
-	}
-
-	.card {
-		// .metaInfo {
-		// 	@apply flex gap-2;
-
-		// 	.date {
-		// 		@apply flex gap-1;
-		// 	}
-
-		// 	.divider {
-		// 		@apply text-foreground-quaternary;
-		// 	}
-		// }
-
-		.lightPrimaryText {
-			@apply text-foreground-secondary;
-		}
-
-		.lightSecondaryText {
-			@apply text-foreground-quaternary;
-		}
-
-		.title {
-			@apply text-lg tracking-wide font-semibold mb-4;
-		}
-
-		.description {
-			@apply text-foreground-secondary hyphens-auto;
-
-			a,
-			a:visited {
-				@apply text-ring;
-			}
-
-			a:hover {
-				@apply underline text-ring-secondary;
-			}
-
-			p {
-				@apply mb-4;
-			}
-
-			p:last-of-type {
-				@apply mb-0;
+			.rightCol {
+				@apply text-foreground;
 			}
 		}
 	}

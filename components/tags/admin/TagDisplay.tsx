@@ -30,31 +30,31 @@ const TagDisplay: React.FC<Props> = ({ tag: tag, className, icons }) => {
 	const tForm = msgs("TagsAdmin_Form");
 
 	return (
-		<div className={cn(styles.card, styles.editModeCard, className)}>
+		<div className={cn(styles.editModeCard, className)}>
 			<div className={styles.cardEditActions}>
 				<TagDelete tagType={tag.tagType} tag_id={tag._id} />
 				<TagUpdate icons={icons} tag={tag} tagType={tag.tagType} />
 			</div>
 
-			<div className="flex justify-start items-center">
-				<span className="text-foreground-secondary w-28">{t("name")}:</span>
-				<span className="font-semibold">{name}</span>
+			<div className={styles.row}>
+				<div className={styles.leftCol}>{t("name")}:</div>
+				<div className={styles.rightCol}>{name}</div>
 			</div>
-			<div className="flex justify-start items-center">
-				<span className="text-foreground-secondary w-28">{t("description")}:</span>
-				<span className="font-semibold">{description}</span>
+			<div className={styles.row}>
+				<div className={styles.leftCol}>{t("description")}:</div>
+				<div className={styles.rightCol}>{description}</div>
 			</div>
-			<div className="flex justify-start items-center">
-				<span className="text-foreground-secondary w-28">{t("type")}:</span>
-				<span className="font-semibold">
+			<div className={styles.row}>
+				<div className={styles.leftCol}>{t("type")}:</div>
+				<div className={styles.rightCol}>
 					{(tForm("tag_type_list") as unknown as Record<string, string>)[tagType]}
-				</span>
+				</div>
 			</div>
-			<div className="flex justify-start items-center">
-				<span className="text-foreground-secondary w-28">{t("icon")}:</span>
-				<span className="font-semibold">
+			<div className={styles.row}>
+				<div className={styles.leftCol}>{t("icon")}:</div>
+				<div className={styles.rightCol}>
 					<DisplayTag icon={icons[icon]} />
-				</span>
+				</div>
 			</div>
 		</div>
 	);
