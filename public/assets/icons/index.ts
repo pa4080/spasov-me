@@ -27,6 +27,58 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	it_mongo: {
+		name: "it_mongo",
+		uri: {
+			light: "/assets/icons/it/mongo.svg",
+			dark: "/assets/icons/it/mongo.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"it_mongoosejs-favicon": {
+		name: "it_mongoosejs-favicon",
+		uri: {
+			light: "/assets/icons/it/mongoosejs-favicon.png",
+			dark: "/assets/icons/it/mongoosejs-favicon.png",
+		},
+		info: {
+			height: 144,
+			width: 144,
+			type: "png",
+			ratio: 1,
+		},
+	},
+	it_mongoosejs: {
+		name: "it_mongoosejs",
+		uri: {
+			light: "/assets/icons/it/mongoosejs.png",
+			dark: "/assets/icons/it/mongoosejs.png",
+		},
+		info: {
+			height: 200,
+			width: 200,
+			type: "png",
+			ratio: 1,
+		},
+	},
+	"it_nextjs-icon": {
+		name: "it_nextjs-icon",
+		uri: {
+			light: "/assets/icons/it/nextjs-icon-light.svg",
+			dark: "/assets/icons/it/nextjs-icon-dark.svg",
+		},
+		info: {
+			height: 180,
+			width: 180,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	it_prettier: {
 		name: "it_prettier",
 		uri: {
@@ -64,6 +116,19 @@ const iconsMap = {
 			width: 32,
 			type: "svg",
 			ratio: 1,
+		},
+	},
+	"it_vercel-icon": {
+		name: "it_vercel-icon",
+		uri: {
+			light: "/assets/icons/it/vercel-icon-light.svg",
+			dark: "/assets/icons/it/vercel-icon-dark.svg",
+		},
+		info: {
+			height: 1000,
+			width: 1155,
+			type: "svg",
+			ratio: 1.16,
 		},
 	},
 	"me_esprit-by-dp-technology": {

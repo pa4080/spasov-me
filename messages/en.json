@@ -33,6 +33,8 @@
 		"PAGES_DESC": "Edit the Home page cards",
 		"ABOUT": "About",
 		"ABOUT_DESC": "Edit the about (CV) page",
+		"BLOB": "Blob Storage",
+		"BLOB_DESC": "Upload files to Vercel Blob",
 
 		"signUp": "Sign Up",
 		"signIn": "Sign In",

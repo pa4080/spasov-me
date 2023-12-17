@@ -47,6 +47,9 @@ dependencies:
   '@vercel/analytics':
     specifier: ^1.1.1
     version: 1.1.1
+  '@vercel/blob':
+    specifier: ^0.16.1
+    version: 0.16.1
   '@vercel/edge-config':
     specifier: ^0.4.1
     version: 0.4.1
@@ -559,7 +562,6 @@ packages:
   /@fastify/busboy@2.1.0:
     resolution: {integrity: sha512-+KpH+QxZU7O4675t3mnkQKcZZg56u+K/Ct2K+N2AZYNVK8kyeo/bI18tI8aPm3tvNNRyTWfj6s5tnGNlcbQRsA==}
     engines: {node: '>=14'}
-    dev: true
 
   /@floating-ui/core@1.5.1:
     resolution: {integrity: sha512-QgcKYwzcc8vvZ4n/5uklchy8KVdjJwcOeI+HnnTNclJjs2nYsy23DOCf+sSV1kBwD9yDAoVKCkv/gEPzgQU3Pw==}
@@ -2151,6 +2153,13 @@ packages:
     resolution: {integrity: sha512-+NqgNmSabg3IFfxYhrWCfB/H+RCUOCR5ExRudNG2+pcRehq628DJB5e1u1xqwpLtn4pAYii4D98w7kofORAGQA==}
     dependencies:
       server-only: 0.0.1
+    dev: false
+
+  /@vercel/blob@0.16.1:
+    resolution: {integrity: sha512-GKslL5l/Jx8OBHRunBYsiWmbMxjvy7LRtOcN7czw7vV4c1Z4vGy8NYTd6RdJt08OKC2wHC28LDssdfVNLrzp+w==}
+    engines: {node: '>=16.14'}
+    dependencies:
+      undici: 5.28.2
     dev: false
 
   /@vercel/build-utils@7.2.5:
@@ -8843,6 +8852,13 @@ packages:
     dependencies:
       '@fastify/busboy': 2.1.0
     dev: true
+
+  /undici@5.28.2:
+    resolution: {integrity: sha512-wh1pHJHnUeQV5Xa8/kyQhO7WFa8M34l026L5P/+2TYiakvGy5Rdc8jWZVyG7ieht/0WgJLEd3kcU5gKx+6GC8w==}
+    engines: {node: '>=14.0'}
+    dependencies:
+      '@fastify/busboy': 2.1.0
+    dev: false
 
   /unified@10.1.2:
     resolution: {integrity: sha512-pUSWAi/RAnVy1Pif2kAoeWNBa3JVrx0MId2LASj8G+7AiHWoKZNTomq6LG326T68U7/e263X6fTdcXIy7XnF7Q==}

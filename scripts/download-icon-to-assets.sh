@@ -15,15 +15,33 @@ if [[ ! -f $WGET ]]; then
 	exit 1
 fi
 
-CMD="${WGET} -q --show-progress --no-check-certificate"
+if [[ $1 == "list" ]]; then
+
+	JQ=$(which jq)
+
+	if [[ ! -f $JQ ]]; then
+		echo 'Please install "jq"'
+		exit 1
+	fi
+
+	${WGET} -q --no-check-certificate -O - https://github.com/vscode-icons/vscode-icons/blob/master/icons |
+		${JQ} '.payload.tree.items[].name' |
+		grep -v "folder_type" |
+		sed -e 's/"//g' -e "s/file_type_//g" -e "s/\.svg//g"
+
+	exit 0
+fi
 
 ICON="$1"
 
 if [[ -z "$ICON" ]]; then
 	echo "Usage: $0 <icon-url>"
 	echo "Usage: $0 <icon-name>|<lught_icon-name>"
+	echo "Usage: $0 list"
 	exit 1
 fi
+
+CMD="${WGET} -q --show-progress --no-check-certificate"
 
 if [[ $ICON != http* ]]; then
 	ICON_URL="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_${ICON}.svg"
@@ -52,5 +70,9 @@ ICON_FILENAME=${ICON_FILENAME/official_/}
 ICON_FILENAME=${ICON_FILENAME//_/-}
 
 ICON_FILE="${ICON_FILENAME}.${ICON_EXTENSION}"
+
+if [[ ! -z $2 ]]; then
+	ICON_FILE="${2}.${ICON_EXTENSION}"
+fi
 
 $CMD "$ICON_URL" -O "${ICONS_PATH}/${ICON_FILE}"
