@@ -1,7 +1,10 @@
 export interface IconMap {
 	[key: string]: {
 		name: string;
-		light: string;
-		dark: string;
+		uri: {
+			light: string;
+			dark: string;
+		};
+		info: { height: number; width: number; ratio: number; type: string };
 	};
 }

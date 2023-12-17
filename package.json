@@ -39,6 +39,7 @@
 		"cmdk": "^0.2.0",
 		"date-fns": "^2.30.0",
 		"geist": "^1.2.0",
+		"image-size": "^1.0.2",
 		"lucide-react": "^0.292.0",
 		"mongodb": "^6.3.0",
 		"mongoose": "^8.0.2",

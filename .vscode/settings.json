@@ -27,6 +27,7 @@
 		"lucide",
 		"Mantine",
 		"maxage",
+		"mazak",
 		"metacritic",
 		"nextauth",
 		"nextjs",
@@ -109,20 +110,20 @@
 	"editor.formatOnSave": true,
 	"[typescript]": {
 		"editor.codeActionsOnSave": {
-			"source.organizeImports": true,
-			"source.fixAll": "always"
+			"source.organizeImports": true
+			// "source.fixAll": "always"
 		}
 	},
 	"[typescriptreact]": {
 		"editor.codeActionsOnSave": {
-			"source.organizeImports": true,
-			"source.fixAll": "always"
+			"source.organizeImports": true
+			// "source.fixAll": "always"
 		}
 	},
 	"[typescript][typescriptreact]": {
 		"editor.codeActionsOnSave": {
-			"source.organizeImports": "explicit",
-			"source.fixAll": "always"
+			"source.organizeImports": "explicit"
+			// "source.fixAll": "always"
 		}
 	}
 }

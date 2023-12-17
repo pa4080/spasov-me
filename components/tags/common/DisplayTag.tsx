@@ -10,9 +10,10 @@ import { IconMap } from "@/interfaces/IconMap";
 interface Props {
 	className?: string;
 	icon: IconMap[string];
+	size?: number;
 }
 
-const DisplayTag: React.FC<Props> = ({ className, icon }) => {
+const DisplayTag: React.FC<Props> = ({ className, icon, size = 22 }) => {
 	const { theme } = useTheme();
 
 	return (
@@ -20,13 +21,13 @@ const DisplayTag: React.FC<Props> = ({ className, icon }) => {
 			priority
 			alt={icon?.name || "Icon"}
 			className={className}
-			height={22}
+			height={size}
 			src={
 				theme === "dark"
-					? icon?.dark || "/assets/icons/placeholder.svg"
-					: icon?.light || "/assets/icons/placeholder.svg"
+					? icon?.uri?.dark || "/assets/icons/placeholder.svg"
+					: icon?.uri?.light || "/assets/icons/placeholder.svg"
 			}
-			width={22}
+			width={size * icon?.info?.ratio || size}
 		/>
 	);
 };
