@@ -57,3 +57,8 @@ export const gridFSBucket = async () => {
 
 	return bucket;
 };
+
+// This function is used in several places
+export function mongo_id_obj(id?: string) {
+	return id ? { _id: id } : {};
+}

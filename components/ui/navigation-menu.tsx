@@ -1,7 +1,7 @@
-import * as React from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";
 import { ChevronDown } from "lucide-react";
+import * as React from "react";
 
 import Link from "next/link";
 
@@ -122,7 +122,7 @@ const NavigationMenu_NextLink_Styled = React.forwardRef<
 			<p className="font-semibold" style={{ letterSpacing: "1px" }}>
 				{title}
 			</p>
-			<p className="line-clamp-2s leading-snug text-foreground-tertiary">{desc}</p>
+			<p className="line-clamp-2 leading-snug text-foreground-tertiary">{desc}</p>
 		</NavigationMenuPrimitive.Link>
 	</Link>
 ));
@@ -172,14 +172,14 @@ const NavigationMenuIndicator = React.forwardRef<
 NavigationMenuIndicator.displayName = NavigationMenuPrimitive.Indicator.displayName;
 
 export {
-	navigationMenuTriggerStyle,
 	NavigationMenu,
-	NavigationMenuList,
-	NavigationMenuItem,
 	NavigationMenuContent,
-	NavigationMenuTrigger,
-	NavigationMenuLink,
-	NavigationMenu_NextLink_Styled,
 	NavigationMenuIndicator,
+	NavigationMenuItem,
+	NavigationMenuLink,
+	NavigationMenuList,
+	NavigationMenuTrigger,
 	NavigationMenuViewport,
+	NavigationMenu_NextLink_Styled,
+	navigationMenuTriggerStyle,
 };

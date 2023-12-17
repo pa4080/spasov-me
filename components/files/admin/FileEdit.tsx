@@ -4,7 +4,6 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 
 import { useAppContext } from "@/contexts/AppContext";
 
-import { toast } from "@/components/ui/use-toast";
 import {
 	Dialog,
 	DialogContent,
@@ -12,12 +11,14 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import { toast } from "@/components/ui/use-toast";
 
-import { Route } from "@/routes";
-import { msgs } from "@/messages";
 import { FileDocument } from "@/interfaces/File";
+import { msgs } from "@/messages";
+import { Route } from "@/routes";
 
-import Files_Form, { Files_FormSchema } from "./files-form";
+import Files_Form from "./files-form";
+import { Files_FormSchema } from "./files-form/schema";
 
 interface Props {
 	className?: string;
@@ -27,7 +28,7 @@ interface Props {
 	fileId?: string;
 }
 
-const Files_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileId }) => {
+const FileEdit: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileId }) => {
 	const t = msgs("FilesFeed");
 	const { session, setFiles } = useAppContext();
 
@@ -122,4 +123,4 @@ const Files_Dialog_Edit: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileI
 	);
 };
 
-export default Files_Dialog_Edit;
+export default FileEdit;

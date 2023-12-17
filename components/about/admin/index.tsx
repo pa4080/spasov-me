@@ -11,11 +11,15 @@ import { AboutEntryItem } from "@/interfaces/_dataTypes";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
-import { getEntries, getFileList } from "../_about.actions";
+import { getFileList } from "@/components/_common.actions";
+
+import { Route } from "@/routes";
+
+import RevalidatePaths from "../../fragments/RevalidatePaths";
+import { getEntries } from "../_about.actions";
 import styles from "../_about.module.scss";
 import EntryCreate from "./EntryCreate";
 import EntryDisplay from "./EntryDisplay";
-import RevalidatePaths from "./RevalidatePaths";
 import { FileListItem } from "./entry-form";
 
 export interface GenericActionProps {
@@ -79,11 +83,11 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 		}));
 
 	const Section = ({ type, title }: { type: AboutEntryItem; title: string }) => (
-		<div className={cn(styles.section)}>
-			<div className="flex items-center justify-between gap-4 mb-4 w-full">
-				<h1 className={cn(styles.sectionTitle, "flex-grow")}>{title}</h1>
+		<div className={styles.section}>
+			<div className={styles.sectionHeader}>
+				<h1 className={styles.sectionTitle}>{title}</h1>
 				<div className="flex gap-2">
-					<RevalidatePaths entryType={type} files={files} />
+					<RevalidatePaths paths={[Route.public.ABOUT.uri]} />
 					<EntryCreate entryType={type} files={files} />
 				</div>
 			</div>

@@ -8,6 +8,7 @@
 		"Chakra",
 		"clsx",
 		"Codacy",
+		"Creo",
 		"datetime",
 		"ecma",
 		"esrb",
@@ -26,7 +27,9 @@
 		"lucide",
 		"Mantine",
 		"maxage",
+		"mazak",
 		"metacritic",
+		"mongoosejs",
 		"nextauth",
 		"nextjs",
 		"nofollow",
@@ -61,7 +64,6 @@
 		"geo-data/languages": "",
 		"[[...query]]": "api",
 		"exercises": "vscode",
-
 		"files/[[...query]]": "upload",
 		"data": "database",
 		"data/[[...query]]": "database",
@@ -73,7 +75,8 @@
 		"components/home": "base",
 		"components/ui": "core",
 		"components/fragments": "core",
-		"app/[locale]": "home"
+		"app/[locale]": "home",
+		"components/tags": "base"
 	},
 	// https://youtu.be/3_-Je5XpbqY?t=688
 	// https://stackoverflow.com/a/76125894/6543935
@@ -107,20 +110,20 @@
 	"editor.formatOnSave": true,
 	"[typescript]": {
 		"editor.codeActionsOnSave": {
-			"source.organizeImports": true,
-			"source.fixAll": "always"
+			"source.fixAll": "always",
+			"source.organizeImports": true
 		}
 	},
 	"[typescriptreact]": {
 		"editor.codeActionsOnSave": {
-			"source.organizeImports": true,
-			"source.fixAll": "always"
+			"source.fixAll": "always",
+			"source.organizeImports": true
 		}
 	},
 	"[typescript][typescriptreact]": {
 		"editor.codeActionsOnSave": {
-			"source.organizeImports": "explicit",
-			"source.fixAll": "always"
+			"source.fixAll": "always",
+			"source.organizeImports": "explicit"
 		}
 	}
 }

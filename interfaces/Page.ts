@@ -17,17 +17,6 @@ export type NewPageDoc = Omit<PageDoc, "_id" | "image" | "creator"> & {
 	image?: string;
 };
 
-// export type ErrorPageDoc = {
-// 	[key in keyof PageDoc]: {
-// 		kind?: string; // "regexp", "required", etc.
-// 		message?: string; // the actual error message
-// 		name?: string; // ValidatorError
-// 		path?: string; // image, link, etc.
-// 		properties?: {}; // contains the same information as the other fields
-// 		value?: string; // the actual value that caused the error
-// 	};
-// };
-
 type PageDocToFetch = {
 	data: PageDoc | NewPageDoc | Record<string, unknown>;
 	// image_id?: string | null;

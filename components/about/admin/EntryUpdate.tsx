@@ -93,7 +93,6 @@ const EntryUpdate: React.FC<Props> = ({ className, entryType, entry, files }) =>
 					<ButtonIcon
 						className="pl-[3px] bg-transparent icon_accent_secondary"
 						height={18}
-						// type="trash"
 						type="brush"
 						width={18}
 						onClick={() => setIsOpen(true)}
@@ -113,7 +112,7 @@ const EntryUpdate: React.FC<Props> = ({ className, entryType, entry, files }) =>
 
 					<EntryForm
 						className={showDescription ? "mt-4" : "mt-0"}
-						entryType="employment"
+						entryType={entryType}
 						files={files}
 						formData={entry}
 						submitting={submitting}

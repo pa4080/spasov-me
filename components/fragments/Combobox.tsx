@@ -89,11 +89,12 @@ export default function Combobox<T extends FieldValues>({
 								</Button>
 							</FormControl>
 						</PopoverTrigger>
-						<PopoverContent className="w-full max-w-full p-0 ">
+						<PopoverContent className="w-full max-w-full p-0 pb-2">
 							<Command>
 								<CommandInput placeholder={messages.placeholder} />
 								<CommandEmpty>{messages.notFound}</CommandEmpty>
-								<CommandGroup>
+
+								<CommandGroup className="h-[200px] overflow-y-scroll mt-1">
 									{list.map((item) => (
 										<CommandItem
 											key={item.value}
@@ -114,7 +115,6 @@ export default function Combobox<T extends FieldValues>({
 											</PopoverClose>
 										</CommandItem>
 									))}
-
 									<CommandItem
 										value={undefined}
 										onSelect={() => {

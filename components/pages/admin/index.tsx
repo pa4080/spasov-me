@@ -10,6 +10,12 @@ import { useAppContext } from "@/contexts/AppContext";
 import { PageDoc } from "@/interfaces/Page";
 import { cn } from "@/lib/cn-utils";
 
+import RevalidatePaths from "@/components/fragments/RevalidatePaths";
+
+import { Route } from "@/routes";
+
+import { msgs } from "@/messages";
+
 import PageCreate from "./PageCreate";
 import PageDelete from "./PageDelete";
 import PageUpdate from "./PageUpdate";
@@ -37,6 +43,8 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 	const [actionPage, setActionPage] = useState<Pages_FormSchema>();
 
 	const { data: session } = useSession();
+
+	const t = msgs("PagesFeed");
 
 	const handleDelete = (e: React.SyntheticEvent, page: PageDoc) => {
 		e.preventDefault();
@@ -80,9 +88,15 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 		setIsEditDialogOpen(true);
 	};
 
-	return (
-		<div className={cn(styles.pages, className)}>
-			<PageCreate session={session} setPages={setPages} />
+	const Section = ({ pages, title }: { pages: PageDoc[]; title: string }) => (
+		<div className={styles.section}>
+			<div className={styles.sectionHeader}>
+				<h1 className={styles.sectionTitle}>{title}</h1>
+				<div className="flex gap-2">
+					<RevalidatePaths paths={[Route.public.HOME.uri]} />
+					<PageCreate session={session} setPages={setPages} />
+				</div>
+			</div>
 
 			<div className={cn(styles.feed, "mt-16")}>
 				{pages?.map((page, index) => (
@@ -94,6 +108,12 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 					/>
 				))}
 			</div>
+		</div>
+	);
+
+	return (
+		<div className={cn(styles.pages, className)}>
+			<Section pages={pages} title={t("index_title")} />
 
 			<PageUpdate
 				isOpen={isEditDialogOpen}

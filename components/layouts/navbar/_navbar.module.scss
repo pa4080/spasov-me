@@ -30,7 +30,7 @@
 		}
 
 		.userMenuItem {
-			@apply p-3 block rounded;
+			@apply p-3 block rounded break-inside-avoid-column;
 
 			&:hover {
 				@apply bg-primary/50;

@@ -4,8 +4,7 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 
 import { useAppContext } from "@/contexts/AppContext";
 
-import { Route } from "@/routes";
-import { toast } from "@/components/ui/use-toast";
+import { buttonVariants } from "@/components//ui/button";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -16,11 +15,12 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { buttonVariants } from "@/components//ui/button";
+import { toast } from "@/components/ui/use-toast";
+import { Route } from "@/routes";
 
 import { msgs } from "@/messages";
 
-import { Files_FormSchema } from "./files-form";
+import { Files_FormSchema } from "./files-form/schema";
 
 interface Props {
 	className?: string;
@@ -30,7 +30,7 @@ interface Props {
 	fileId?: string;
 }
 
-const Files_Dialog_Delete: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileId }) => {
+const FileDelete: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileId }) => {
 	const t = msgs("FilesFeed");
 	const { session, setFiles } = useAppContext();
 	const [submitting, setSubmitting] = useState(false);
@@ -114,4 +114,4 @@ const Files_Dialog_Delete: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fil
 	);
 };
 
-export default Files_Dialog_Delete;
+export default FileDelete;

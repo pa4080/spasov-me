@@ -1,7 +1,7 @@
 "use client";
 
-import * as React from "react";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
+import * as React from "react";
 
 import { cn } from "@/lib/cn-utils";
 
@@ -23,6 +23,23 @@ const PopoverContent = React.forwardRef<
 				className
 			)}
 			sideOffset={sideOffset}
+			/**
+			 * Fix for issue with scrolling:
+			 * @see https://github.com/shadcn-ui/ui/issues/607
+			 */
+			onWheel={(e) => {
+				e.stopPropagation();
+
+				const isScrollingDown = e.deltaY > 0;
+
+				if (isScrollingDown) {
+					// Simulate arrow down key press
+					e.currentTarget.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown" }));
+				} else {
+					// Simulate arrow up key press
+					e.currentTarget.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowUp" }));
+				}
+			}}
 			{...props}
 		/>
 	</PopoverPrimitive.Portal>
@@ -30,4 +47,4 @@ const PopoverContent = React.forwardRef<
 
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
-export { Popover, PopoverTrigger, PopoverContent, PopoverClose };
+export { Popover, PopoverClose, PopoverContent, PopoverTrigger };
