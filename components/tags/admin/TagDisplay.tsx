@@ -12,6 +12,8 @@ import { IconMap } from "@/interfaces/IconMap";
 import styles from "../_tags.module.scss";
 import DisplayTag from "../common/DisplayTag";
 import { Tag_FormSchema } from "./tag-form/schema";
+import TagDelete from "./TagDelete";
+import TagUpdate from "./TagUpdate";
 
 interface Props {
 	tag: Tag_FormSchema & {
@@ -30,9 +32,8 @@ const TagDisplay: React.FC<Props> = ({ tag: tag, className, icons }) => {
 	return (
 		<div className={cn(styles.card, styles.editModeCard, className)}>
 			<div className={styles.cardEditActions}>
-				{/* <EntryDelete entry_id={tag._id} tagType={tag.entryType} /> */}
-				{/* <EntryShowAttachment uri={tag.html.attachmentUri} /> */}
-				{/* <EntryUpdate entry={tag} files={files} tagType={tag.entryType} /> */}
+				<TagDelete tagType={tag.tagType} tag_id={tag._id} />
+				<TagUpdate icons={icons} tag={tag} tagType={tag.tagType} />
 			</div>
 
 			<div className="flex justify-start items-center">

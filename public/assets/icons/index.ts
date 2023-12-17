@@ -456,6 +456,32 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	node: {
+		name: "node",
+		uri: {
+			light: "/assets/icons/node.svg",
+			dark: "/assets/icons/node.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	node2: {
+		name: "node2",
+		uri: {
+			light: "/assets/icons/node2.svg",
+			dark: "/assets/icons/node2.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	placeholder: {
 		name: "placeholder",
 		uri: {

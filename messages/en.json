@@ -207,7 +207,7 @@
 	"AboutCV_DeleteEntry": {
 		"dialog_title": "Delete an entry of type { entryType } ",
 		"dialog_description": "Id: <b><code style='letter-spacing: 2px;'>{ id }</code></b>",
-		"dialog_btn_delete": "Update the entry",
+		"dialog_btn_delete": "Delete the entry",
 		"dialog_btn_delete_submitting": "Deleting...",
 		"dialog_btn_cancel": "Cancel",
 		"toast_deleted": "The entry was successfully deleted!"
@@ -325,5 +325,13 @@
 		"description": "Description",
 		"type": "Type",
 		"icon": "Icon"
+	},
+	"TagsAdmin_DeleteTag": {
+		"dialog_title": "Delete a Tag of type { tagType } ",
+		"dialog_description": "Id: <b><code style='letter-spacing: 2px;'>{ id }</code></b>",
+		"dialog_btn_delete": "Delete the Tag",
+		"dialog_btn_delete_submitting": "Deleting...",
+		"dialog_btn_cancel": "Cancel",
+		"toast_deleted": "The Tag was successfully deleted!"
 	}
 }
