@@ -11,7 +11,6 @@ import {
 	NavigationMenuTrigger,
 	NavigationMenu_NextLink_Styled,
 } from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
 
 import { msgs } from "@/messages";
@@ -29,7 +28,7 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
 	type tType = Parameters<typeof t>[0];
 
 	return (
-		<NavigationMenu className={cn(styles.loggedInMenu, className)} viewportPosition="-right-4">
+		<NavigationMenu className={`${styles.loggedInMenu} ${className}`} viewportPosition="-right-4">
 			<NavigationMenuList>
 				<NavigationMenuItem>
 					<NavigationMenuTrigger

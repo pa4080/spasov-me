@@ -1,15 +1,13 @@
 "use client";
 import React from "react";
 
-import { cn } from "@/lib/cn-utils";
-
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 
 import styles from "./_footer.module.scss";
 
 const Footer: React.FC = () => {
 	return (
-		<footer className={cn(styles.footer)}>
+		<footer className={styles.footer}>
 			<a
 				className={styles.icon}
 				href="https://github.com/pa4080"
@@ -39,7 +37,7 @@ const Footer: React.FC = () => {
 				/>
 			</a>
 			<a
-				className={cn(styles.icon, styles.iconSpecial)}
+				className={`${styles.icon} ${styles.iconSpecial}`}
 				href="https://wiki.metalevel.tech"
 				rel="noopener noreferrer"
 				target="_blank"

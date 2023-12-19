@@ -8,7 +8,6 @@ import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
 import { AboutEntryItem } from "@/interfaces/_dataTypes";
-import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
 import { getFileList } from "@/components/_common.actions";
@@ -46,7 +45,7 @@ const processMarkdown = (markdown: string) => {
 	return result.value.toString();
 };
 
-const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
+const AboutAdmin: React.FC<Props> = async ({ className }) => {
 	const t = msgs("AboutCV");
 
 	const entryList = await getEntries();
@@ -72,6 +71,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 			entryType: entry.entryType,
 			visibility: entry.visibility as boolean,
 			attachment: entry.attachment?._id.toString(),
+			tags: entry.tags?.map((tag) => tag._id.toString()) || [],
 		};
 	});
 
@@ -92,7 +92,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 				</div>
 			</div>
 
-			<div className={cn(styles.feed)}>
+			<div className={styles.feed}>
 				{entries
 					?.filter(({ entryType }) => entryType === type)
 					.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime())
@@ -102,11 +102,11 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 	);
 
 	return (
-		<div className={cn(styles.about, className)}>
+		<div className={`${styles.about} ${className}`}>
 			<Section title={t("title_employment")} type="employment" />
 			<Section title={t("title_education")} type="education" />
 		</div>
 	);
 };
 
-export default PagesFeedAndEditOptions;
+export default AboutAdmin;

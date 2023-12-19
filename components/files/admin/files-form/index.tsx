@@ -9,8 +9,6 @@ import slugify from "slugify";
 
 import Image from "next/image";
 
-import { cn } from "@/lib/cn-utils";
-
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -155,7 +153,7 @@ const Files_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, 
 
 	return (
 		<Form {...form}>
-			<form className={cn(styles.form, className)} onSubmit={form.handleSubmit(handleSubmit)}>
+			<form className={`${styles.form} ${className}`} onSubmit={form.handleSubmit(handleSubmit)}>
 				<FormItem>
 					<FormLabel
 						className={form.formState.errors.file ? "text-destructive" : "text-foreground"}
@@ -165,12 +163,12 @@ const Files_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, 
 					</FormLabel>
 
 					<FormControl>
-						<div className={cn(styles.fileInputWrapper)}>
+						<div className={styles.fileInputWrapper}>
 							<Input
 								id="file-input"
 								{...form.register("file")}
 								accept="image/*, .pdf, .pptx, .xlsx, .docx"
-								className={cn(styles.fileInput)}
+								className={styles.fileInput}
 								type="file"
 								onChange={handleInputFileChange}
 							/>

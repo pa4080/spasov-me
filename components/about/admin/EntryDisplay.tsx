@@ -5,8 +5,6 @@ import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { enUS as en } from "date-fns/locale";
 
-import { cn } from "@/lib/cn-utils";
-
 import { msgs } from "@/messages";
 
 import styles from "../_about.module.scss";
@@ -38,7 +36,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files }) => {
 	const t = msgs("AboutCV_Form");
 
 	return (
-		<div className={cn(styles.card, styles.editModeCard, className)}>
+		<div className={`${styles.card} ${styles.editModeCard} ${className}`}>
 			<div className={styles.cardEditActions}>
 				<EntryDelete entryType={entry.entryType} entry_id={entry._id} />
 				<EntryShowAttachment uri={entry.html.attachmentUri} />

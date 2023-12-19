@@ -94,7 +94,7 @@ export default function Combobox<T extends FieldValues>({
 								<CommandInput placeholder={messages.placeholder} />
 								<CommandEmpty>{messages.notFound}</CommandEmpty>
 
-								<CommandGroup className="h-[200px] overflow-y-scroll mt-1">
+								<CommandGroup className="max-h-52 overflow-y-scroll mt-1">
 									{list.map((item) => (
 										<CommandItem
 											key={item.value}

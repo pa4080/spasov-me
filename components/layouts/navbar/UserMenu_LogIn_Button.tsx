@@ -1,9 +1,8 @@
-import React from "react";
 import { signIn } from "next-auth/react";
+import React from "react";
 
-import { cn } from "@/lib/cn-utils";
-import { AuthProviders } from "@/types/next-auth-providers";
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import { AuthProviders } from "@/types/next-auth-providers";
 
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -20,7 +19,7 @@ const LogIn_Button: React.FC<Props> = ({ className, authProviders }) => {
 	const t = msgs("Navigation");
 
 	return (
-		<div className={cn(styles.logInButton, className)}>
+		<div className={`${styles.logInButton} ${className}`}>
 			{authProviders ? (
 				Object.values(authProviders).map((provider) => {
 					if (provider.id === "github") {

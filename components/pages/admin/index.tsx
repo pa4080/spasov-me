@@ -8,7 +8,6 @@ import { useSession } from "next-auth/react";
 import { useAppContext } from "@/contexts/AppContext";
 
 import { PageDoc } from "@/interfaces/Page";
-import { cn } from "@/lib/cn-utils";
 
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 
@@ -34,7 +33,7 @@ interface Props {
 	className?: string;
 }
 
-const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
+const PagesAdmin: React.FC<Props> = ({ className }) => {
 	const { pages, setPages } = useAppContext();
 
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -98,7 +97,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 				</div>
 			</div>
 
-			<div className={cn(styles.feed, "mt-16")}>
+			<div className={`${styles.feed} mt-16`}>
 				{pages?.map((page, index) => (
 					<PageDisplay
 						key={index}
@@ -112,7 +111,7 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 	);
 
 	return (
-		<div className={cn(styles.pages, className)}>
+		<div className={`${styles.pages} ${className}`}>
 			<Section pages={pages} title={t("index_title")} />
 
 			<PageUpdate
@@ -136,4 +135,4 @@ const PagesFeedAndEditOptions: React.FC<Props> = ({ className }) => {
 	);
 };
 
-export default PagesFeedAndEditOptions;
+export default PagesAdmin;

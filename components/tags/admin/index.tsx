@@ -1,7 +1,6 @@
 import React from "react";
 
 import { TagItem } from "@/interfaces/_dataTypes";
-import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
 import { IconMap } from "@/interfaces/IconMap";
@@ -23,7 +22,7 @@ interface Props {
 	className?: string;
 }
 
-const TagsFeed: React.FC<Props> = async ({ className }) => {
+const TagsAdmin: React.FC<Props> = async ({ className }) => {
 	const t = msgs("TagsAdmin");
 
 	const tagList = await getTags();
@@ -45,7 +44,7 @@ const TagsFeed: React.FC<Props> = async ({ className }) => {
 				</div>
 			</div>
 
-			<div className={cn(styles.feed)}>
+			<div className={styles.feed}>
 				{tags
 					?.filter(({ tagType }) => tagType === type)
 					.sort((a, b) => a.name.localeCompare(b.name))
@@ -55,11 +54,11 @@ const TagsFeed: React.FC<Props> = async ({ className }) => {
 	);
 
 	return (
-		<div className={cn(styles.about, className)}>
+		<div className={`${styles.about} ${className}`}>
 			<Section title={t("title_it_tags")} type="informationTechnologies" />
 			<Section title={t("title_me_tags")} type="mechanicalEngineering" />
 		</div>
 	);
 };
 
-export default TagsFeed;
+export default TagsAdmin;

@@ -3,8 +3,6 @@ import React from "react";
 // eslint-disable-next-line import/no-duplicates
 // eslint-disable-next-line import/no-duplicates
 
-import { cn } from "@/lib/cn-utils";
-
 import { msgs } from "@/messages";
 
 import { IconMap } from "@/interfaces/IconMap";
@@ -30,7 +28,7 @@ const TagDisplay: React.FC<Props> = ({ tag: tag, className, icons }) => {
 	const tForm = msgs("TagsAdmin_Form");
 
 	return (
-		<div className={cn(styles.editModeCard, className)}>
+		<div className={`${styles.editModeCard} ${className}`}>
 			<div className={styles.cardEditActions}>
 				<TagDelete tagType={tag.tagType} tag_id={tag._id} />
 				<TagUpdate icons={icons} tag={tag} tagType={tag.tagType} />

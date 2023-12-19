@@ -5,15 +5,13 @@ import React, { useCallback, useEffect, useRef } from "react";
 // Note: GoogleReCaptchaProvider require "use client", so we cannot include it in layout.tsx
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
-import { BsSendPlus, BsSendCheck, BsSendX } from "react-icons/bs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { BsSendCheck, BsSendPlus, BsSendX } from "react-icons/bs";
 import * as z from "zod";
 
 import { useToast } from "@/components/ui/use-toast";
 
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -24,13 +22,13 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-
-import { cn } from "@/lib/cn-utils";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 import { msgs } from "@/messages";
 
-import styles from "./_contact.module.scss";
 import { ReCaptchaRes, reCaptchaSubmit, sendEmail } from "./_contact.actions";
+import styles from "./_contact.module.scss";
 
 const t = msgs("Contact");
 
@@ -176,7 +174,7 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 	);
 
 	return (
-		<div ref={ref} className={cn(styles.formContainer, className)}>
+		<div ref={ref} className={`${styles.formContainer} ${className}`}>
 			<Form {...form}>
 				<form
 					className={styles.form}

@@ -28,10 +28,10 @@ const PublicMenu_Row: React.FC<Props> = ({ className }) => {
 	const menuItems: string[] = Object.keys(Route.public);
 
 	return (
-		<div className={cn(styles.publicMenu, className)}>
+		<div className={`${styles.publicMenu} ${className}`}>
 			<Link
 				as={Route.public.HOME.uri}
-				className={cn(styles.navItemCommon, "emphasize_drop_shadow")}
+				className={`${styles.navItemCommon} emphasize_drop_shadow`}
 				// This is a workaround for a Next.js bug, where
 				// the home page is not rerendered after 404 error
 				// which is rendered on the the same URI.
