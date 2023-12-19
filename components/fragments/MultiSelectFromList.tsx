@@ -10,7 +10,7 @@
 
 "use client";
 
-import { KeyboardEvent, useCallback, useEffect, useRef, useState } from "react";
+import { KeyboardEvent, useCallback, useRef, useState } from "react";
 
 import { Control, FieldError, FieldValues, Merge, Path, PathValue } from "react-hook-form";
 
@@ -66,23 +66,18 @@ export default function MultiSelectFromList<T extends FieldValues>({
 }: Props<T>) {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [inputValue, setInputValue] = useState("");
-	const [selectedItems, setSelectedItems] = useState<ItemList<T>>(
-		itemsList.filter((item) => selected?.includes(item.value)) || []
-	);
+	// const [selectedItems, setSelectedItems] = useState<ItemList<T>>(
+	// 	itemsList.filter((item) => selected?.includes(item.value)) || []
+	// );
 
 	const handleUnselect = useCallback(
 		(itemUnselected: Item<T>) => {
-			const newSelectedItemsList = selected?.filter(
-				(itemSelected) => itemSelected !== itemUnselected.value
-			);
+			const newSelectedItemsList =
+				selected?.filter((itemSelected) => itemSelected !== itemUnselected.value) || [];
 
-			if (newSelectedItemsList?.length === 0) {
-				onSelect([]);
-			} else {
-				setSelectedItems(itemsList.filter((item) => newSelectedItemsList?.includes(item.value)));
-			}
+			onSelect(newSelectedItemsList);
 		},
-		[itemsList, onSelect, selected]
+		[onSelect, selected]
 	);
 
 	const handleKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
@@ -91,42 +86,21 @@ export default function MultiSelectFromList<T extends FieldValues>({
 		if (input) {
 			if (e.key === "Delete" || e.key === "Backspace") {
 				if (input.value === "") {
-					setSelectedItems((prev) => {
-						const newSelected = [...prev];
+					if (selected) {
+						const newSelectedItemsList = [...selected];
 
-						newSelected.pop();
-
-						return newSelected;
-					});
+						newSelectedItemsList.pop();
+						onSelect(newSelectedItemsList);
+					}
 				}
 			}
 
 			// This is not a default behaviour of the <input /> field
-			if (e.key === "Escape") {
-				input.blur();
-			}
+			// if (e.key === "Escape") {
+			// 	input.blur();
+			// }
 		}
 	}, []);
-
-	useEffect(() => {
-		// onSelect(selectedItems.map((item) => item.value));
-
-		if (selectedItems.length > 0) {
-			onSelect(selectedItems.map((item) => item.value));
-		} else {
-			onSelect(undefined);
-		}
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [selectedItems]);
-
-	useEffect(() => {
-		if (selected && selected?.length > 0 && selectedItems.length === 0) {
-			setSelectedItems(itemsList.filter((item) => selected?.includes(item.value)));
-		}
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [selected]);
 
 	return (
 		<FormField
@@ -216,7 +190,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
 												onSelect={() => {
 													setInputValue("");
 
-													setSelectedItems((prev) => [...prev, item]);
+													onSelect(selected ? [...selected, item.value] : [item.value]);
 												}}
 											>
 												{item.label}
