@@ -4,7 +4,6 @@ import React from "react";
 import { useRouter } from "next/navigation";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
-import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
 
 interface Props {
@@ -17,7 +16,7 @@ const EntryShowAttachment: React.FC<Props> = ({ className, uri }) => {
 
 	return (
 		<ButtonIcon
-			className={cn("pl-[2.8px] bg-transparent icon_accent_secondary", className)}
+			className={`pl-[2.8px] bg-transparent icon_accent_secondary ${className}`}
 			disabled={!uri}
 			height={18}
 			type="up-right-from-square"

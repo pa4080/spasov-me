@@ -18,17 +18,18 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { cn } from "@/lib/cn-utils";
 
-export interface ItemsList<T> {
+export interface Item<T> {
 	value: PathValue<T, Path<T>>;
 	label: string;
 }
 
+export type ItemList<T> = Item<T>[];
+
 interface Props<T extends FieldValues> {
 	control: Control<T>;
 	name: Path<T>;
-	itemsList: { value: PathValue<T, Path<T>>; label: string }[];
+	itemsList: ItemList<T>;
 	messages: {
 		label?: string;
 		description?: string;
@@ -51,7 +52,7 @@ export default function SelectFromList<T extends FieldValues>({
 			control={control}
 			name={name}
 			render={({ field }) => (
-				<FormItem className={cn("space-y-0", className)}>
+				<FormItem className={`space-y-0 ${className}`}>
 					{messages.label && <FormLabel>{messages.label}</FormLabel>}
 					<Select defaultValue={field.value} onValueChange={field.onChange}>
 						<FormControl>

@@ -31,7 +31,6 @@ import {
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/cn-utils";
 
 export interface ComboBoxList<T> {
 	value: PathValue<T, Path<T>>;
@@ -73,10 +72,9 @@ export default function Combobox<T extends FieldValues>({
 						<PopoverTrigger asChild>
 							<FormControl>
 								<Button
-									className={cn(
-										"w-full justify-between bg-primary text-sm",
+									className={`w-full justify-between bg-primary text-sm ${
 										!field.value && "text-muted-foreground"
-									)}
+									}`}
 									role="combobox"
 									variant="outline"
 								>
@@ -105,10 +103,9 @@ export default function Combobox<T extends FieldValues>({
 										>
 											<PopoverClose className="w-full flex items-center justify-start">
 												<Check
-													className={cn(
-														"mr-2 h-4 w-4",
+													className={`mr-2 h-4 w-4 ${
 														item.value === field.value ? "opacity-100" : "opacity-0"
-													)}
+													}`}
 													strokeWidth={3}
 												/>
 												<div className="line-clamp-1 text-left">{item.label}</div>
@@ -123,10 +120,9 @@ export default function Combobox<T extends FieldValues>({
 									>
 										<PopoverClose className="w-full flex items-center justify-start">
 											<Check
-												className={cn(
-													"mr-2 h-4 w-4",
+												className={`mr-2 h-4 w-4 ${
 													undefined === field.value ? "opacity-100" : "opacity-0"
-												)}
+												}`}
 												strokeWidth={3}
 											/>
 

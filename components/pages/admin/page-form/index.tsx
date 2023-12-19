@@ -20,7 +20,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useAppContext } from "@/contexts/AppContext";
-import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
 import { Route } from "@/routes";
@@ -102,7 +101,7 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 
 	return (
 		<Form {...form}>
-			<form className={cn("w-full space-y-6", className)} onSubmit={form.handleSubmit(onSubmit)}>
+			<form className={`w-full space-y-6 ${className}`} onSubmit={form.handleSubmit(onSubmit)}>
 				{/* Title */}
 				<FormField
 					control={form.control}

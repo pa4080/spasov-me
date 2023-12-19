@@ -6,7 +6,6 @@ import Link from "next/link";
 
 import { usePathname } from "next/navigation";
 
-import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
 
 import SiteLogo from "@/components/layouts/logo/SiteLogo";
@@ -56,16 +55,11 @@ const PublicMenu_Row: React.FC<Props> = ({ className }) => {
 					return (
 						<Link
 							key={index}
-							className={cn(
-								styles.navItemRow,
-								styles.navItemCommon,
-								"emphasize_drop_shadow",
-								`${
-									currentPathName !== Route.public[pathAsKey].uri
-										? "text-foreground-primary"
-										: "text-accent"
-								}`
-							)}
+							className={`${styles.navItemRow} ${styles.navItemCommon} emphasize_drop_shadow ${
+								currentPathName !== Route.public[pathAsKey].uri
+									? "text-foreground-primary"
+									: "text-accent"
+							}`}
 							href={Route.public[pathAsKey].uri}
 						>
 							{t(path as tType)}

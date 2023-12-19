@@ -176,11 +176,7 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 	return (
 		<div ref={ref} className={`${styles.formContainer} ${className}`}>
 			<Form {...form}>
-				<form
-					className={styles.form}
-					onSubmit={form.handleSubmit(onSubmit)}
-					// whileInView={{ opacity: 1 }}
-				>
+				<form className={styles.form} onSubmit={form.handleSubmit(onSubmit)}>
 					<FormField
 						control={form.control}
 						name="name"
