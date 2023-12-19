@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * There is not official Shadcn UI component for this.
  *
@@ -10,7 +9,7 @@
 
 "use client";
 
-import { KeyboardEvent, useCallback, useRef, useState } from "react";
+import { useCallback } from "react";
 
 import { Control, FieldError, FieldValues, Merge, Path, PathValue } from "react-hook-form";
 
@@ -47,6 +46,9 @@ interface Props<T extends FieldValues> {
 		label?: string;
 		description?: string;
 		placeholder?: string;
+		select?: string;
+		add?: string;
+		notFound?: string;
 	};
 	error?: Merge<FieldError, (FieldError | undefined)[]>;
 	className?: string;
@@ -64,12 +66,6 @@ export default function MultiSelectFromList<T extends FieldValues>({
 	onSelect,
 	selected,
 }: Props<T>) {
-	const inputRef = useRef<HTMLInputElement>(null);
-	const [inputValue, setInputValue] = useState("");
-	// const [selectedItems, setSelectedItems] = useState<ItemList<T>>(
-	// 	itemsList.filter((item) => selected?.includes(item.value)) || []
-	// );
-
 	const handleUnselect = useCallback(
 		(itemUnselected: Item<T>) => {
 			const newSelectedItemsList =
@@ -79,28 +75,6 @@ export default function MultiSelectFromList<T extends FieldValues>({
 		},
 		[onSelect, selected]
 	);
-
-	const handleKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
-		const input = inputRef.current;
-
-		if (input) {
-			if (e.key === "Delete" || e.key === "Backspace") {
-				if (input.value === "") {
-					if (selected) {
-						const newSelectedItemsList = [...selected];
-
-						newSelectedItemsList.pop();
-						onSelect(newSelectedItemsList);
-					}
-				}
-			}
-
-			// This is not a default behaviour of the <input /> field
-			// if (e.key === "Escape") {
-			// 	input.blur();
-			// }
-		}
-	}, []);
 
 	return (
 		<FormField
@@ -119,7 +93,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
 									role="combobox"
 									variant="outline"
 								>
-									<div className="line-clamp-1 text-left">Add tags</div>
+									<div className="line-clamp-1 text-left">{messages.add}</div>
 									<Tag className="ml-2 h-4 w-4 shrink-0 opacity-60" />
 								</Button>
 							</PopoverTrigger>
@@ -161,22 +135,18 @@ export default function MultiSelectFromList<T extends FieldValues>({
 										className="h-fit text-sm font-normal tracking-wider py-1"
 										variant="secondary"
 									>
-										Select at least one tag from the list
+										{messages.select}
 										<Tag className="ml-2 h-3 w-3 opacity-60" />
 									</Badge>
 								)}
 							</div>
 						</div>
 						<PopoverContent className="w-full max-w-full p-0 pb-2">
-							<Command className="w-full" onKeyDown={handleKeyDown}>
-								<CommandInput
-									placeholder={messages.placeholder}
-									value={inputValue}
-									onValueChange={setInputValue}
-								/>
-								<CommandEmpty>{"messages.notFound"}</CommandEmpty>
+							<Command className="w-full">
+								<CommandInput className="mb-1" placeholder={messages.placeholder} />
+								<CommandEmpty className="py-0 px-2 text-center">{messages.notFound}</CommandEmpty>
 
-								<CommandGroup className="max-h-52 overflow-y-scroll mt-1">
+								<CommandGroup className="max-h-52 overflow-y-scroll">
 									{itemsList
 										.filter((itemAvailable) => !selected?.includes(itemAvailable.value))
 										.map((item) => (
@@ -188,8 +158,6 @@ export default function MultiSelectFromList<T extends FieldValues>({
 													e.stopPropagation();
 												}}
 												onSelect={() => {
-													setInputValue("");
-
 													onSelect(selected ? [...selected, item.value] : [item.value]);
 												}}
 											>

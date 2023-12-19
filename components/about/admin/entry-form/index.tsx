@@ -299,9 +299,12 @@ const EntryForm: React.FC<Props> = ({
 							label: `${tag.name} [${tag.description}]`,
 						}))}
 						messages={{
-							label: t("city_label"),
-							description: t("city_description"),
-							placeholder: t("city_placeholder"),
+							label: t("tags_label"),
+							description: t("tags_description"),
+							placeholder: t("tags_search"),
+							select: t("schema_tags"),
+							add: t("tags_add"),
+							notFound: t("tags_searchNotFound"),
 						}}
 						name="tags"
 						selected={form.watch("tags") || []}

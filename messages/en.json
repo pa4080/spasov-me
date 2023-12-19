@@ -271,6 +271,13 @@
 		"attachment_searchNotFound": "Not found.",
 		"attachment_selectNone": "None",
 
+		"tags_label": "",
+		"tags_description": "",
+		"tags_search": "Search for a tag...",
+		"tags_add": "Add tags",
+		"tags_searchNotFound": "Not found...",
+		"tags_selectNone": "None",
+
 		"btn_submit": "Submit",
 		"btn_submitting": "Submitting...",
 
