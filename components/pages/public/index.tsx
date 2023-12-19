@@ -2,10 +2,8 @@ import React from "react";
 
 import Link from "next/link";
 
-import { cn } from "@/lib/cn-utils";
-
-import styles from "../_pages.module.scss";
 import { getPublicPages } from "../_pages.actions";
+import styles from "../_pages.module.scss";
 
 interface Props {
 	className?: string;
@@ -15,8 +13,8 @@ const FeedPages: React.FC<Props> = async ({ className }) => {
 	const pages = await getPublicPages();
 
 	return (
-		<div className={cn(styles.pages, className)}>
-			<div className={cn(styles.feed, className)}>
+		<div className={`${styles.pages} ${className}`}>
+			<div className={styles.feed}>
 				{pages?.map((page, index) => (
 					<Link key={index} href={`/${page.uri}`}>
 						<div key={index} className={styles.card}>

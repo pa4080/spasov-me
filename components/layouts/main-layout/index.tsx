@@ -1,9 +1,7 @@
 import React from "react";
 
-import Navbar from "@/components/layouts/navbar";
 import Footer from "@/components/layouts/footer/Footer";
-
-import { cn } from "@/lib/cn-utils";
+import Navbar from "@/components/layouts/navbar";
 
 import styles from "./_main-layout.module.scss";
 
@@ -14,7 +12,7 @@ interface Props {
 
 const MainLayout: React.FC<Props> = ({ children, className }) => {
 	return (
-		<div className={cn(styles.mainLayout, className)}>
+		<div className={`${styles.mainLayout} ${className}`}>
 			<Navbar />
 			<main className={styles.contentContainer}>
 				<div className={styles.contentWrapper}>

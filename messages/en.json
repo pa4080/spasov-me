@@ -220,7 +220,8 @@
 		"schema_date": "Select a date.",
 		"schema_type": "Select a type.",
 		"schema_visibility": "The default visibility value is \"true\".",
-		"schema_attachment": "Select an attachment to the entry - i.e scammed copy of a diploma as a image, PDF or other type of file.",
+		"schema_attachment": "Attach a file to the entry - i.e scammed copy of a diploma as a image, PDF or other type of file.",
+		"schema_tags": "Select at least one Tag.",
 
 		"title_label": "",
 		"title_placeholder": "Title of the entry",
@@ -269,6 +270,13 @@
 		"attachment_select": "Attachment...",
 		"attachment_searchNotFound": "Not found.",
 		"attachment_selectNone": "None",
+
+		"tags_label": "",
+		"tags_description": "",
+		"tags_search": "Search for a tag...",
+		"tags_add": "Add tags",
+		"tags_searchNotFound": "Not found...",
+		"tags_selectNone": "None",
 
 		"btn_submit": "Submit",
 		"btn_submitting": "Submitting...",

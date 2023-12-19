@@ -54,7 +54,7 @@
 			}
 
 			.rightCol {
-				@apply text-foreground;
+				@apply text-foreground line-clamp-1;
 			}
 		}
 	}

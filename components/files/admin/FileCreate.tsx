@@ -4,8 +4,6 @@ import React, { useState } from "react";
 
 import { useAppContext } from "@/contexts/AppContext";
 
-import { cn } from "@/lib/cn-utils";
-
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
@@ -110,7 +108,7 @@ const FileCreate: React.FC<Props> = ({ className }) => {
 
 	return (
 		session?.user && (
-			<div className={cn("w-full h-0 relative", className)}>
+			<div className={`w-full h-0 relative ${className}`}>
 				<Dialog open={isOpen} onOpenChange={setIsOpen}>
 					<DialogTrigger disabled={submitting}>
 						<ButtonIcon

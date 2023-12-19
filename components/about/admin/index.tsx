@@ -8,12 +8,15 @@ import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
 import { AboutEntryItem } from "@/interfaces/_dataTypes";
-import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
 import { getFileList } from "@/components/_common.actions";
 
 import { Route } from "@/routes";
+
+import { getTags } from "@/components/tags/_tags.actions";
+
+import { TagList } from "@/interfaces/Tag";
 
 import RevalidatePaths from "../../fragments/RevalidatePaths";
 import { getEntries } from "../_about.actions";
@@ -26,11 +29,14 @@ export interface GenericActionProps {
 	className?: string;
 	entryType: AboutEntryItem;
 	files?: FileListItem[];
+	tags: TagList;
 }
 
 interface Props {
 	className?: string;
 }
+
+export const new_tab_target = "spasov-me-tab" as Target;
 
 const processMarkdown = (markdown: string) => {
 	// https://github.com/unifiedjs/unified
@@ -39,18 +45,19 @@ const processMarkdown = (markdown: string) => {
 		.use(remarkParse)
 		.use(remarkRehype)
 		.use(rehypeFormat)
-		.use(rehypeExternalLinks, { rel: ["nofollow"], target: "spasov-me-tab" as Target })
+		.use(rehypeExternalLinks, { rel: ["nofollow"], target: new_tab_target })
 		.use(rehypeStringify)
 		.processSync(markdown);
 
 	return result.value.toString();
 };
 
-const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
+const AboutAdmin: React.FC<Props> = async ({ className }) => {
 	const t = msgs("AboutCV");
 
 	const entryList = await getEntries();
 	const fileList = await getFileList();
+	const tagList = await getTags();
 
 	const entries = entryList?.map((entry) => {
 		return {
@@ -72,6 +79,14 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 			entryType: entry.entryType,
 			visibility: entry.visibility as boolean,
 			attachment: entry.attachment?._id.toString(),
+			tags:
+				entry.tags?.map((tag) => ({
+					name: tag.name,
+					description: tag.description,
+					_id: tag._id.toString(),
+					icon: tag.icon,
+					tagType: tag.tagType,
+				})) || [],
 		};
 	});
 
@@ -82,31 +97,42 @@ const PagesFeedAndEditOptions: React.FC<Props> = async ({ className }) => {
 			label: file.filename,
 		}));
 
+	const tags: TagList =
+		tagList?.map((tag) => ({
+			name: tag.name,
+			description: tag.description,
+			_id: tag._id.toString(),
+			icon: tag.icon,
+			tagType: tag.tagType,
+		})) || [];
+
 	const Section = ({ type, title }: { type: AboutEntryItem; title: string }) => (
 		<div className={styles.section}>
 			<div className={styles.sectionHeader}>
 				<h1 className={styles.sectionTitle}>{title}</h1>
 				<div className="flex gap-2">
 					<RevalidatePaths paths={[Route.public.ABOUT.uri]} />
-					<EntryCreate entryType={type} files={files} />
+					<EntryCreate entryType={type} files={files} tags={tags} />
 				</div>
 			</div>
 
-			<div className={cn(styles.feed)}>
+			<div className={styles.feed}>
 				{entries
 					?.filter(({ entryType }) => entryType === type)
 					.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime())
-					.map((entry, index) => <EntryDisplay key={index} entry={entry} files={files} />)}
+					.map((entry, index) => (
+						<EntryDisplay key={index} entry={entry} files={files} tags={tags} />
+					))}
 			</div>
 		</div>
 	);
 
 	return (
-		<div className={cn(styles.about, className)}>
+		<div className={`${styles.about} ${className}`}>
 			<Section title={t("title_employment")} type="employment" />
 			<Section title={t("title_education")} type="education" />
 		</div>
 	);
 };
 
-export default PagesFeedAndEditOptions;
+export default AboutAdmin;

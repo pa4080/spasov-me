@@ -15,8 +15,6 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { cn } from "@/lib/cn-utils";
-
 import { msgs } from "@/messages";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
@@ -33,7 +31,7 @@ import { createEntry } from "../_about.actions";
 
 import { GenericActionProps } from ".";
 
-const EntryCreate: React.FC<GenericActionProps> = ({ className, entryType, files }) => {
+const EntryCreate: React.FC<GenericActionProps> = ({ className, entryType, files, tags }) => {
 	const t = msgs("AboutCV_CreateEntry");
 	const entryTypeLabel = (
 		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
@@ -83,7 +81,7 @@ const EntryCreate: React.FC<GenericActionProps> = ({ className, entryType, files
 	const showDescription = t("dialog_description") && t("dialog_description") !== "null";
 
 	return (
-		<div className={cn(className)}>
+		<div className={className}>
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogTrigger disabled={submitting}>
 					<ButtonIcon
@@ -114,6 +112,7 @@ const EntryCreate: React.FC<GenericActionProps> = ({ className, entryType, files
 						entryType={entryType}
 						files={files}
 						submitting={submitting}
+						tags={tags}
 						onSubmit={handleCreateEntry}
 					/>
 				</DialogContent>

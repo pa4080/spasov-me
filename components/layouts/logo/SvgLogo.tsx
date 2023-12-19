@@ -1,7 +1,5 @@
 import React from "react";
 
-import { cn } from "@/lib/cn-utils";
-
 // import styles from "./_logo.module.scss";
 
 interface Props {
@@ -12,7 +10,7 @@ interface Props {
 
 const SvgLogo: React.FC<Props> = ({ className, hover = false, gray = false }) => {
 	return (
-		<div className={cn("logoContainer", "w-full", className)}>
+		<div className={`logoContainer w-full ${className}`}>
 			<svg
 				className="w-full h-auto"
 				viewBox="0 0 3210.42 591.94"

@@ -23,7 +23,6 @@ import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/compone
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import { cn } from "@/lib/cn-utils";
 
 import { Input } from "../ui/input";
 
@@ -52,16 +51,15 @@ export default function DatePicker<T extends FieldValues>({
 			control={control}
 			name={name}
 			render={({ field }) => (
-				<FormItem className={cn("flex flex-col space-y-0 ", className)}>
+				<FormItem className={`flex flex-col space-y-0  ${className}`}>
 					{messages.label && <FormLabel>{messages.label}</FormLabel>}
 					<Popover>
 						<PopoverTrigger asChild>
 							<FormControl>
 								<Button
-									className={cn(
-										"w-full justify-center bg-primary text-sm px-1 gap-0",
+									className={`w-full justify-center bg-primary text-sm px-1 gap-0 ${
 										!field.value && "text-muted-foreground"
-									)}
+									}`}
 									variant="outline"
 								>
 									<CalendarIcon className="mr-2 h-4 w-4" />

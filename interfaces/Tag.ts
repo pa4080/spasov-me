@@ -12,8 +12,12 @@ export type TagDoc = {
 	tagType: TagItem;
 };
 
-// These interfaces became pretty similar to
-// "Tag_FormSchema" and "Tag_FormSchema & { _id: string }"
 export type NewTagData = Omit<TagDoc, "_id" | "creator"> & {
 	creator: string;
 };
+
+export type TagListItem = Omit<TagDoc, "_id" | "creator"> & {
+	_id: string;
+};
+
+export type TagList = TagListItem[];

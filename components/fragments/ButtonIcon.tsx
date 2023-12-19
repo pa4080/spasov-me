@@ -1,7 +1,5 @@
 import React from "react";
 
-import { cn } from "@/lib/cn-utils";
-
 import IconEmbedSvg, { IconEmbSvgPathType } from "./IconEmbedSvg";
 
 interface Props {
@@ -33,12 +31,9 @@ const ButtonIcon: React.FC<Props> = ({
 }) => {
 	return (
 		<div
-			className={cn(
-				"flex items-center justify-center cursor-pointer",
-				"rounded-sm hover:bg-accent-secondary/40 bg-accent-secondary/20 grayscale hover:grayscale-0 hover:brightness-110 active:brightness-75 transition-colors duration-300",
-				disabled && "cursor-not-allowed opacity-40 grayscale hover:grayscale",
-				className
-			)}
+			className={`flex items-center justify-center cursor-pointer rounded-sm hover:bg-accent-secondary/40 bg-accent-secondary/20 grayscale hover:grayscale-0 hover:brightness-110 active:brightness-75 transition-colors duration-300 ${
+				disabled && "cursor-not-allowed opacity-40 grayscale hover:grayscale"
+			} ${className}`}
 			style={{
 				width: `${width + widthOffset}px`,
 				height: `${height + heightOffset}px`,

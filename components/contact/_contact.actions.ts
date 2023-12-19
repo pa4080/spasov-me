@@ -6,16 +6,14 @@ import manifest from "@/public/manifest.json";
 
 import { msgs } from "@/messages";
 
-import EmailTemplate_Client from "./email-templates/EmailTemplate_Client";
-import EmailTemplate_Admin from "./email-templates/EmailTemplate_Admin";
 import { FormDataType } from "./ContactForm";
+import EmailTemplate_Admin from "./email-templates/EmailTemplate_Admin";
+import EmailTemplate_Client from "./email-templates/EmailTemplate_Client";
 
 const reCaptcha = {
 	url: String(process.env.GOOGLE_reCAPTCHA_URL),
 	secretKey: String(process.env.GOOGLE_reCAPTCHA_V3e_SECRET_KEY),
 	siteKey: String(process.env.NEXT_PUBLIC_GOOGLE_reCAPTCHA_V3e_SITE_KEY),
-	// We do not need NEXT_PUBLIC_GOOGLE_reCAPTCHA_V3_SITE_KEY
-	// because we are passing it here to the "client" component
 	scoreLimit: Number(process.env.GOOGLE_reCAPTCHA_SCORE_LIMIT),
 };
 

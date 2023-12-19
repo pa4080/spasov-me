@@ -79,6 +79,32 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	it_node: {
+		name: "it_node",
+		uri: {
+			light: "/assets/icons/it/node.svg",
+			dark: "/assets/icons/it/node.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	it_node2: {
+		name: "it_node2",
+		uri: {
+			light: "/assets/icons/it/node2.svg",
+			dark: "/assets/icons/it/node2.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	it_prettier: {
 		name: "it_prettier",
 		uri: {
@@ -452,32 +478,6 @@ const iconsMap = {
 		info: {
 			height: 897,
 			width: 900,
-			type: "svg",
-			ratio: 1,
-		},
-	},
-	node: {
-		name: "node",
-		uri: {
-			light: "/assets/icons/node.svg",
-			dark: "/assets/icons/node.svg",
-		},
-		info: {
-			height: 32,
-			width: 32,
-			type: "svg",
-			ratio: 1,
-		},
-	},
-	node2: {
-		name: "node2",
-		uri: {
-			light: "/assets/icons/node2.svg",
-			dark: "/assets/icons/node2.svg",
-		},
-		info: {
-			height: 32,
-			width: 32,
 			type: "svg",
 			ratio: 1,
 		},

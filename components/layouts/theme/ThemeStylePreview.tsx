@@ -1,7 +1,5 @@
 import React from "react";
 
-import { cn } from "@/lib/cn-utils";
-
 interface Props {
 	className?: string;
 }
@@ -12,10 +10,7 @@ interface Props {
 const ThemeStylePreview: React.FC<Props> = ({ className }) => {
 	return (
 		<div
-			className={cn(
-				"pt-4 grid grid-cols-2 gap-4 rounded w-full max-w-3xl min-w-[320px]",
-				className
-			)}
+			className={`pt-4 grid grid-cols-2 gap-4 rounded w-full max-w-3xl min-w-[320px] ${className}`}
 		>
 			{/* background; foreground */}
 			<div className="h-12 w-full rounded select-all line-clamp-1 whitespace-nowrap overflow-hidden border-2 flex justify-center items-center bg-background text-foreground col-span-2">

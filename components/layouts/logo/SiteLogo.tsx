@@ -1,7 +1,5 @@
 import React from "react";
 
-import { cn } from "@/lib/cn-utils";
-
 import SvgLogo from "./SvgLogo";
 import SvgLogoBreak from "./SvgLogoBreak";
 
@@ -30,18 +28,12 @@ const SiteLogo: React.FC<Props> = ({
 
 	return (
 		<div
-			className={cn("flex justify-center items-center relative", "w-36", className)}
+			className={`flex justify-center items-center relative w-36 ${className}`}
 			style={displayText ? { containerType: "inline-size", ...style } : { ...style }}
 		>
 			<div className="w-full relative">
 				{displayText && (
-					<div
-						className={cn(
-							"absolute z-1 font-unicephalon text-foreground-quaternary tracking-menu-items",
-							"top-0 -right-1 xa:-right-[0.125rem]",
-							"text-[6cqw] 3xs:text-[6cqw] xa:text-[3.5cqw] tracking-widest"
-						)}
-					>
+					<div className="absolute z-1 font-unicephalon text-foreground-quaternary tracking-menu-items top-0 -right-1 xa:-right-[0.125rem] text-[6cqw] 3xs:text-[6cqw] xa:text-[3.5cqw] tracking-widest">
 						{greeting_ln1 && <span dangerouslySetInnerHTML={{ __html: greeting_ln1 }} />}
 						{greeting_ln2 && (
 							<span

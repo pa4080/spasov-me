@@ -1,10 +1,8 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-import { useTheme } from "next-themes";
 import { Moon, Sun, SunMoon } from "lucide-react";
-
-import { cn } from "@/lib/cn-utils";
+import { useTheme } from "next-themes";
 
 import { msgs } from "@/messages";
 
@@ -40,40 +38,33 @@ const ThemeSwitch: React.FC<Props> = ({ classNameBtn, strokeWidth }) => {
 			<DropdownMenuTrigger asChild>
 				<Button
 					aria-label={t("themeSelector")}
-					className={cn(
-						"hover:text-backgrounds relative group transition-colors duration-200",
-						classNameBtn
-					)}
+					className={`hover:text-backgrounds relative group transition-colors duration-200 ${classNameBtn}`}
 					name={t("themeSelector")}
 					size="icon"
 					variant="outline"
 				>
 					<Sun
-						className={cn(
-							"h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200",
+						className={`h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200 ${
 							theme && theme === "light" ? "block" : "hidden"
-						)}
+						}`}
 						strokeWidth={strokeWidth}
 					/>
 					<Sun
-						className={cn(
-							"h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200",
+						className={`h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200 ${
 							theme && theme === "light-brown" ? "block" : "hidden"
-						)}
+						}`}
 						strokeWidth={strokeWidth}
 					/>
 					<Moon
-						className={cn(
-							"h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200",
+						className={`h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200 ${
 							theme && theme === "dark" ? "block" : "hidden"
-						)}
+						}`}
 						strokeWidth={strokeWidth}
 					/>
 					<SunMoon
-						className={cn(
-							"h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200",
+						className={`h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200 ${
 							theme && theme === "system" ? "block" : "hidden"
-						)}
+						}`}
 						strokeWidth={strokeWidth}
 					/>
 				</Button>

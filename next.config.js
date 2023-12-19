@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require("path");
+
 const nextConfig = {
 	reactStrictMode: true,
 	// trailingSlash: true,
@@ -40,6 +43,9 @@ const nextConfig = {
 	// 		  ]
 	// 		: [];
 	// },
+	sassOptions: {
+		includePaths: [path.join(__dirname, "styles")],
+	},
 	async headers() {
 		return process.env.VERCEL_ENV === "development"
 			? []

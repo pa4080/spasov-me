@@ -1,7 +1,5 @@
 import React from "react";
 
-import { cn } from "@/lib/cn-utils";
-
 interface Props {
 	className?: string;
 	hover?: boolean;
@@ -10,7 +8,7 @@ interface Props {
 
 const SvgLogoBreak: React.FC<Props> = ({ className, hover = false, gray = false }) => {
 	return (
-		<div className={cn("logoContainer", "w-full", className)}>
+		<div className={`logoContainer w-full ${className}`}>
 			<svg
 				className="w-full h-auto"
 				viewBox="0 0 2207.43 782.14"

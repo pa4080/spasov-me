@@ -20,7 +20,6 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { TagItem, tagTuple } from "@/interfaces/_dataTypes";
-import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
 import { IconMap } from "@/interfaces/IconMap";
@@ -72,7 +71,7 @@ const TagForm: React.FC<Props> = ({
 
 	return (
 		<Form {...form}>
-			<form className={cn("w-full space-y-6", className)} onSubmit={form.handleSubmit(onSubmit)}>
+			<form className={`w-full space-y-6 ${className}`} onSubmit={form.handleSubmit(onSubmit)}>
 				<div className="flex flex-col gap-3">
 					{/* Name */}
 					<FormField

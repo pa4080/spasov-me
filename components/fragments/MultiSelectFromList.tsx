@@ -9,151 +9,173 @@
 
 "use client";
 
-import { X } from "lucide-react";
-import * as React from "react";
+import { useCallback } from "react";
 
-import { Command as CommandPrimitive } from "cmdk";
+import { Control, FieldError, FieldValues, Merge, Path, PathValue } from "react-hook-form";
 
-import { Badge } from "@/components/ui/badge";
+import { Tag, X } from "lucide-react";
 
-import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
+import { FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
-type Framework = Record<"value" | "label", string>;
+// import { Command as CommandPrimitive } from "cmdk";
 
-const FRAMEWORKS = [
-	{
-		value: "next.js",
-		label: "Next.js",
-	},
-	{
-		value: "sveltekit",
-		label: "SvelteKit",
-	},
-	{
-		value: "nuxt.js",
-		label: "Nuxt.js",
-	},
-	{
-		value: "remix",
-		label: "Remix",
-	},
-	{
-		value: "astro",
-		label: "Astro",
-	},
-	{
-		value: "wordpress",
-		label: "WordPress",
-	},
-	{
-		value: "express.js",
-		label: "Express.js",
-	},
-	{
-		value: "nest.js",
-		label: "Nest.js",
-	},
-] satisfies Framework[];
+import {
+	Command,
+	CommandEmpty,
+	CommandGroup,
+	CommandInput,
+	CommandItem,
+} from "@/components/ui/command";
 
-export default function MultiSelectFromList() {
-	const inputRef = React.useRef<HTMLInputElement>(null);
-	const [open, setOpen] = React.useState(false);
-	const [selected, setSelected] = React.useState<Framework[]>([FRAMEWORKS[4]]);
-	const [inputValue, setInputValue] = React.useState("");
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
-	const handleUnselect = React.useCallback((framework: Framework) => {
-		setSelected((prev) => prev.filter((s) => s.value !== framework.value));
-	}, []);
+export interface Item<T> {
+	value: PathValue<T, Path<T>>;
+	label: string;
+}
 
-	const handleKeyDown = React.useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
-		const input = inputRef.current;
+export type ItemList<T> = Item<T>[];
 
-		if (input) {
-			if (e.key === "Delete" || e.key === "Backspace") {
-				if (input.value === "") {
-					setSelected((prev) => {
-						const newSelected = [...prev];
+interface Props<T extends FieldValues> {
+	control: Control<T>;
+	name: Path<T>;
+	itemsList: ItemList<T>;
+	messages: {
+		label?: string;
+		description?: string;
+		placeholder?: string;
+		select?: string;
+		add?: string;
+		notFound?: string;
+	};
+	error?: Merge<FieldError, (FieldError | undefined)[]>;
+	className?: string;
+	onSelect: (items: string[] | undefined) => void;
+	selected: string[] | undefined;
+}
 
-						newSelected.pop();
+export default function MultiSelectFromList<T extends FieldValues>({
+	control,
+	name,
+	messages,
+	error,
+	itemsList,
+	className,
+	onSelect,
+	selected,
+}: Props<T>) {
+	const handleUnselect = useCallback(
+		(itemUnselected: Item<T>) => {
+			const newSelectedItemsList =
+				selected?.filter((itemSelected) => itemSelected !== itemUnselected.value) || [];
 
-						return newSelected;
-					});
-				}
-			}
-
-			// This is not a default behaviour of the <input /> field
-			if (e.key === "Escape") {
-				input.blur();
-			}
-		}
-	}, []);
-
-	const itemsAvailable = FRAMEWORKS.filter((framework) => !selected.includes(framework));
+			onSelect(newSelectedItemsList);
+		},
+		[onSelect, selected]
+	);
 
 	return (
-		<Command className="overflow-visible bg-transparent" onKeyDown={handleKeyDown}>
-			<div className="group border border-input px-3 py-2 text-sm ring-offset-background rounded-md focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
-				<div className="flex gap-1 flex-wrap">
-					{selected.map((framework) => {
-						return (
-							<Badge key={framework.value} variant="secondary">
-								{framework.label}
-								<button
-									className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-									onClick={() => handleUnselect(framework)}
-									onKeyDown={(e) => {
-										if (e.key === "Enter") {
-											handleUnselect(framework);
-										}
-									}}
-									onMouseDown={(e) => {
-										e.preventDefault();
-										e.stopPropagation();
-									}}
+		<FormField
+			control={control}
+			name={name}
+			render={({ field }) => (
+				<FormItem className={`w-full ${className}`}>
+					{messages.label && <FormLabel>{messages.label}</FormLabel>}
+					<Popover>
+						<div className="flex flex-col sm:grid sm:grid-cols-7 gap-3 w-full">
+							<PopoverTrigger asChild>
+								<Button
+									className={`w-full justify-between bg-primary text-sm sm:col-span-2 ${
+										!field.value && "text-muted-foreground"
+									}`}
+									role="combobox"
+									variant="outline"
 								>
-									<X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
-								</button>
-							</Badge>
-						);
-					})}
-					{/* Avoid having the "Search" Icon */}
-					<CommandPrimitive.Input
-						ref={inputRef}
-						className="ml-2 bg-transparent outline-none placeholder:text-muted-foreground flex-1"
-						placeholder="Select frameworks..."
-						value={inputValue}
-						onBlur={() => setOpen(false)}
-						onFocus={() => setOpen(true)}
-						onValueChange={setInputValue}
-					/>
-				</div>
-			</div>
-			<div className="relative mt-2">
-				{open && itemsAvailable.length > 0 ? (
-					<div className="absolute w-full z-10 top-0 rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in">
-						<CommandGroup className="h-full overflow-auto">
-							{itemsAvailable.map((framework) => {
-								return (
-									<CommandItem
-										key={framework.value}
-										className={"cursor-pointer"}
-										onMouseDown={(e) => {
-											e.preventDefault();
-											e.stopPropagation();
-										}}
-										onSelect={() => {
-											setInputValue("");
-											setSelected((prev) => [...prev, framework]);
-										}}
+									<div className="line-clamp-1 text-left">{messages.add}</div>
+									<Tag className="ml-2 h-4 w-4 shrink-0 opacity-60" />
+								</Button>
+							</PopoverTrigger>
+
+							<div className="flex gap-1 flex-wrap sm:col-span-5 items-center px-1">
+								{selected && selected?.length > 0 ? (
+									itemsList
+										.filter((item) => selected?.includes(item.value))
+										.map((item) => {
+											return (
+												<Badge
+													key={item.value}
+													className="h-fit text-sm font-normal tracking-wider py-1 text-foreground"
+													variant="secondary"
+												>
+													<Tag className="ml-1 mr-2 h-3 w-3 opacity-60" />
+													{item.label}
+													<div
+														className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+														role="button"
+														onClick={() => handleUnselect(item)}
+														onKeyDown={(e) => {
+															if (e.key === "Enter") {
+																handleUnselect(item);
+															}
+														}}
+														onMouseDown={(e) => {
+															e.preventDefault();
+															e.stopPropagation();
+														}}
+													>
+														<X className="h-3 w-3 text-muted-foreground hover:text-foreground ml-1" />
+													</div>
+												</Badge>
+											);
+										})
+								) : (
+									<Badge
+										className="h-fit text-sm font-normal tracking-wider py-1"
+										variant="secondary"
 									>
-										{framework.label}
-									</CommandItem>
-								);
-							})}
-						</CommandGroup>
-					</div>
-				) : null}
-			</div>
-		</Command>
+										{messages.select}
+										<Tag className="ml-2 h-3 w-3 opacity-60" />
+									</Badge>
+								)}
+							</div>
+						</div>
+						<PopoverContent className="w-full max-w-full p-0 pb-2">
+							<Command className="w-full">
+								<CommandInput className="mb-1" placeholder={messages.placeholder} />
+								<CommandEmpty className="py-0 px-2 text-center">{messages.notFound}</CommandEmpty>
+
+								<CommandGroup className="max-h-52 overflow-y-scroll">
+									{itemsList
+										.filter((itemAvailable) => !selected?.includes(itemAvailable.value))
+										.map((item) => (
+											<CommandItem
+												key={item.value}
+												className={"cursor-pointer"}
+												onMouseDown={(e) => {
+													e.preventDefault();
+													e.stopPropagation();
+												}}
+												onSelect={() => {
+													onSelect(selected ? [...selected, item.value] : [item.value]);
+												}}
+											>
+												{item.label}
+											</CommandItem>
+										))}
+								</CommandGroup>
+							</Command>
+						</PopoverContent>
+					</Popover>
+
+					{error ? (
+						<FormMessage />
+					) : (
+						messages.description && <FormDescription>{messages.description}</FormDescription>
+					)}
+				</FormItem>
+			)}
+		/>
 	);
 }

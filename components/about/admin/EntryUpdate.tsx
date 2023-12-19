@@ -15,8 +15,6 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { cn } from "@/lib/cn-utils";
-
 import { msgs } from "@/messages";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
@@ -25,6 +23,8 @@ import { toast } from "@/components/ui/use-toast";
 import { generateFormDataFromObject } from "@/lib/generateFormDataFromObject";
 
 import { Route } from "@/routes";
+
+import { TagList } from "@/interfaces/Tag";
 
 import { Entry_FormSchema } from "./entry-form/schema";
 
@@ -35,10 +35,10 @@ import { updateEntry } from "../_about.actions";
 import { GenericActionProps } from ".";
 
 interface Props extends GenericActionProps {
-	entry: Entry_FormSchema & { _id: string };
+	entry: Omit<Entry_FormSchema, "tags"> & { _id: string; tags: TagList };
 }
 
-const EntryUpdate: React.FC<Props> = ({ className, entryType, entry, files }) => {
+const EntryUpdate: React.FC<Props> = ({ className, entryType, entry, files, tags }) => {
 	const t = msgs("AboutCV_UpdateEntry");
 	const entryTypeLabel = (
 		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
@@ -87,7 +87,7 @@ const EntryUpdate: React.FC<Props> = ({ className, entryType, entry, files }) =>
 	const showDescription = t("dialog_description") && t("dialog_description") !== "null";
 
 	return (
-		<div className={cn(className)}>
+		<div className={className}>
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogTrigger disabled={submitting}>
 					<ButtonIcon
@@ -116,6 +116,7 @@ const EntryUpdate: React.FC<Props> = ({ className, entryType, entry, files }) =>
 						files={files}
 						formData={entry}
 						submitting={submitting}
+						tags={tags}
 						onSubmit={handleUpdateEntry}
 					/>
 				</DialogContent>

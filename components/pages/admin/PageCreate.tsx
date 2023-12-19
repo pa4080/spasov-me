@@ -11,8 +11,6 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { cn } from "@/lib/cn-utils";
-
 import { msgs } from "@/messages";
 
 import { toast } from "@/components/ui/use-toast";
@@ -79,7 +77,7 @@ const PageCreate: React.FC<GenericActionProps> = ({ className, session, setPages
 	};
 
 	return (
-		<div className={cn(className)}>
+		<div className={className}>
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogTrigger disabled={submitting}>
 					<ButtonIcon

@@ -15,8 +15,8 @@ export const getEntries = async (): Promise<AboutEntryDoc[] | null> => {
 	try {
 		await connectToMongoDb();
 		const entries: AboutEntryDoc[] = await AboutEntry.find(mongo_id_obj()).populate([
-			"creator",
 			"attachment",
+			"tags",
 		]);
 
 		return entries;
@@ -27,63 +27,56 @@ export const getEntries = async (): Promise<AboutEntryDoc[] | null> => {
 	}
 };
 
-export const createEntry = async (
-	data: FormData,
-	paths: string[]
-): Promise<AboutEntryDoc | null> => {
+export const createEntry = async (data: FormData, paths: string[]): Promise<true | null> => {
 	"use server";
 
-	const session = await getSession();
+	try {
+		const session = await getSession();
 
-	if (!session?.user) {
-		console.error(msgs("Errors")("invalidUser"));
+		if (!session?.user) {
+			console.error(msgs("Errors")("invalidUser"));
+
+			return null;
+		}
+
+		// eslint-disable-next-line no-console
+		console.log(data);
+
+		await connectToMongoDb();
+
+		const newAboutEntryData: NewAboutEntryData = {
+			title: data.get("title") as string,
+			description: data.get("description") as string,
+			country: data.get("country") as CountryItem,
+			city: data.get("city") as CityItem,
+			entryType: data.get("entryType") as AboutEntryItem,
+			dateFrom: data.get("dateFrom") as string,
+			dateTo: data.get("dateTo") as string,
+			visibility: data.get("visibility") as string,
+			tags: (data.get("tags") as string).split(",") as string[],
+
+			attachment: data.get("attachment") as string,
+			creator: session?.user.id as string,
+		};
+
+		// eslint-disable-next-line no-console
+		console.log(newAboutEntryData);
+
+		deleteFalsyKeys(newAboutEntryData, ["attachment", "dateTo"]);
+
+		const newAboutEntryDocument = new AboutEntry(newAboutEntryData);
+
+		await newAboutEntryDocument.save();
+		await newAboutEntryDocument.populate(["attachment", "tags"]);
+
+		revalidatePaths(paths);
+
+		return true;
+	} catch (error) {
+		console.error(error);
 
 		return null;
 	}
-
-	await connectToMongoDb();
-
-	const newAboutEntryData: NewAboutEntryData = {
-		title: data.get("title") as string,
-		description: data.get("description") as string,
-		country: data.get("country") as CountryItem,
-		city: data.get("city") as CityItem,
-		entryType: data.get("entryType") as AboutEntryItem,
-		dateFrom: data.get("dateFrom") as string,
-		dateTo: data.get("dateTo") as string,
-		visibility: data.get("visibility") as string,
-
-		attachment: data.get("attachment") as string,
-		creator: session?.user.id as string,
-	};
-
-	deleteFalsyKeys(newAboutEntryData, ["attachment", "dateTo"]);
-
-	const newAboutEntryDocument = new AboutEntry(newAboutEntryData);
-
-	await newAboutEntryDocument.save();
-	await newAboutEntryDocument.populate(["creator", "attachment"]);
-
-	revalidatePaths(paths);
-
-	return {
-		title: newAboutEntryDocument.title,
-		description: newAboutEntryDocument.description,
-		country: newAboutEntryDocument.country,
-		city: newAboutEntryDocument.city,
-		entryType: newAboutEntryDocument.entryType,
-		dateFrom: newAboutEntryDocument.dateFrom,
-		dateTo: newAboutEntryDocument.dateTo && newAboutEntryDocument.dateTo,
-		visibility: newAboutEntryDocument.visibility,
-
-		_id: newAboutEntryDocument._id.toString(),
-		attachment:
-			newAboutEntryDocument.attachment && newAboutEntryDocument.attachment?._id.toString(),
-		creator: {
-			name: newAboutEntryDocument.creator.name,
-			email: newAboutEntryDocument.creator.email,
-		} as UserObject,
-	} as AboutEntryDoc;
 };
 
 export const updateEntry = async (
@@ -112,6 +105,7 @@ export const updateEntry = async (
 		dateFrom: data.get("dateFrom") as string,
 		dateTo: data.get("dateTo") as string,
 		visibility: data.get("visibility") as string,
+		tags: (data.get("tags") as string).split(",") as string[],
 
 		attachment: data.get("attachment") as string,
 		creator: session?.user.id as string,

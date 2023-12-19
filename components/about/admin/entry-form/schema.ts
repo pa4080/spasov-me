@@ -78,6 +78,9 @@ export const Entry_FormSchemaGenerator = (messages?: string[]) =>
 				},
 			})
 			.optional(),
+		tags: z.array(z.string()).refine((tags) => tags.length > 0, {
+			message: String(messages?.[9]),
+		}),
 	});
 
 export const Entry_FormSchema = Entry_FormSchemaGenerator();

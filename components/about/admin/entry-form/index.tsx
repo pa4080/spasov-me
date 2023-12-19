@@ -24,10 +24,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { AboutEntryItem, aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataTypes";
-import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
 import Combobox from "@/components/fragments/Combobox";
+
+import MultiSelectFromList from "@/components/fragments/MultiSelectFromList";
+
+import { TagList } from "@/interfaces/Tag";
 
 import DatePicker from "../../../fragments/DatePicker";
 import SelectFromList from "../../../fragments/SelectFromList";
@@ -37,11 +40,14 @@ export type FileListItem = { value: string; label: string };
 
 interface Props {
 	className?: string;
-	formData?: Entry_FormSchema;
+	formData?: Omit<Entry_FormSchema, "tags"> & {
+		tags: TagList;
+	};
 	entryType: AboutEntryItem; // entryType?: AboutEntryItem;
 	onSubmit: (data: Entry_FormSchema) => void;
 	submitting?: boolean;
 	files?: FileListItem[];
+	tags: TagList;
 }
 
 const EntryForm: React.FC<Props> = ({
@@ -51,6 +57,7 @@ const EntryForm: React.FC<Props> = ({
 	onSubmit,
 	submitting,
 	files,
+	tags,
 }) => {
 	const t = msgs("AboutCV_Form");
 
@@ -63,10 +70,8 @@ const EntryForm: React.FC<Props> = ({
 		t("schema_date"),
 		t("schema_type"),
 		t("schema_visibility"),
-		"empty placeholder",
-		// When the number of the messages is less than the number
-		// of the fields there is a buggy behavior when pressing
-		// the submit button number of times.
+		t("schema_attachment"),
+		t("schema_tags"),
 	]);
 
 	const { theme } = useTheme();
@@ -76,20 +81,23 @@ const EntryForm: React.FC<Props> = ({
 		defaultValues: {
 			title: "",
 			description: "",
-			country: undefined,
-			city: undefined,
+			country: countryTuple[0],
+			city: cityTuple[0],
 			dateFrom: undefined,
 			dateTo: undefined,
 			entryType: entryType,
 			visibility: true,
 			attachment: undefined,
+			tags: [],
 		},
-		values: formData,
+		values: formData
+			? { ...formData, tags: formData?.tags.map((item) => item._id) || [] }
+			: undefined,
 	});
 
 	return (
 		<Form {...form}>
-			<form className={cn("w-full space-y-6", className)} onSubmit={form.handleSubmit(onSubmit)}>
+			<form className={`w-full space-y-6 ${className}`} onSubmit={form.handleSubmit(onSubmit)}>
 				<div className="flex flex-col sm:grid sm:grid-cols-7 gap-3">
 					<div className="sm:col-span-2 flex flex-col gap-3">
 						<div className="flex gap-3 sm:flex-col w-full">
@@ -244,7 +252,7 @@ const EntryForm: React.FC<Props> = ({
 							name="description"
 							render={({ field }) => (
 								<FormItem
-									className="flex-grow h-96 sm:h-1 p-0.5"
+									className="flex-grow h-96 sm:h-1"
 									data-color-mode={theme === "dark" ? "dark" : "light" || "auto"}
 								>
 									{t("description_label") && <FormLabel>{t("description_label")}</FormLabel>}
@@ -253,7 +261,7 @@ const EntryForm: React.FC<Props> = ({
 											autoFocus
 											enableScroll
 											commands={[...commands.getCommands()]}
-											height="100%"
+											height={form.formState.errors.description ? "calc(100% - 1.8em)" : "100%"}
 											overflow={false}
 											preview="edit"
 											textareaProps={{
@@ -270,7 +278,7 @@ const EntryForm: React.FC<Props> = ({
 										/>
 									</FormControl>
 									{form.formState.errors.description ? (
-										<FormMessage />
+										<FormMessage className="z-10 relative" />
 									) : (
 										t("description_description") && (
 											<FormDescription>{t("description_description")}</FormDescription>
@@ -280,6 +288,32 @@ const EntryForm: React.FC<Props> = ({
 							)}
 						/>
 					</div>
+
+					{/* Tags */}
+					<MultiSelectFromList
+						className="w-full sm:col-span-7"
+						control={form.control}
+						error={form.formState.errors.tags}
+						itemsList={tags.map((tag) => ({
+							value: tag._id,
+							label: `${tag.name} [${tag.description}]`,
+						}))}
+						messages={{
+							label: t("tags_label"),
+							description: t("tags_description"),
+							placeholder: t("tags_search"),
+							select: t("schema_tags"),
+							add: t("tags_add"),
+							notFound: t("tags_searchNotFound"),
+						}}
+						name="tags"
+						selected={form.watch("tags") || []}
+						onSelect={(items: string[] | undefined) =>
+							items
+								? form.setValue("tags", items, { shouldValidate: items.length > 0 })
+								: form.resetField("tags")
+						}
+					/>
 				</div>
 
 				<Button disabled={submitting} type="submit">

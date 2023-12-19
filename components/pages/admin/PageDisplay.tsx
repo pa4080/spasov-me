@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { Switch } from "@/components/ui/switch";
 import { PageDoc } from "@/interfaces/Page";
-import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
@@ -28,7 +27,7 @@ const PageDisplay: React.FC<Props> = ({ className, page, handleDelete, handleEdi
 
 	return (
 		// <Link key={index} href={`/${page.uri}`}>
-		<div className={cn(styles.card, className)}>
+		<div className={`${styles.card} ${className}`}>
 			<div className={styles.cardEditActions}>
 				<ButtonIcon
 					className="pl-[2.6px] bg-transparent icon_accent_secondary"
@@ -76,7 +75,7 @@ const PageDisplay: React.FC<Props> = ({ className, page, handleDelete, handleEdi
 					/>
 				</div>
 			)}
-			<h1 className={cn(styles.title, "mt-4")}>{page.title}</h1>
+			<h1 className={`${styles.title} mt-4`}>{page.title}</h1>
 			<span>{page.description}</span>
 		</div>
 		// </Link>

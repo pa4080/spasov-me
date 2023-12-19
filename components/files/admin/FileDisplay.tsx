@@ -5,7 +5,6 @@ import React from "react";
 import Image from "next/image";
 
 import { FileDocument } from "@/interfaces/File";
-import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
 
 import styles from "../_files.module.scss";
@@ -48,7 +47,7 @@ const FileDisplay: React.FC<Props> = ({
 	).getTime()}`;
 
 	return (
-		<div className={cn(styles.card, className)}>
+		<div className={`${styles.card} ${className}`}>
 			<div className={styles.title}>
 				<h1>{file.filename}</h1>
 

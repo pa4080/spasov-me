@@ -15,19 +15,22 @@ interface Props {
 
 const DisplayTag: React.FC<Props> = ({ className, icon, size = 22 }) => {
 	const { theme } = useTheme();
+	const height = size;
+	const width = Math.ceil(height * icon?.info?.ratio) || height;
 
 	return (
 		<Image
 			priority
 			alt={icon?.name || "Icon"}
 			className={className}
-			height={size}
+			height={height}
 			src={
 				theme === "dark"
 					? icon?.uri?.dark || "/assets/icons/placeholder.svg"
 					: icon?.uri?.light || "/assets/icons/placeholder.svg"
 			}
-			width={size * icon?.info?.ratio || size}
+			style={{ width, height }}
+			width={width}
 		/>
 	);
 };

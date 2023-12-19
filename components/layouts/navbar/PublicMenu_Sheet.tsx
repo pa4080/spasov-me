@@ -6,7 +6,6 @@ import Link from "next/link";
 
 import { usePathname } from "next/navigation";
 
-import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
 
 import SiteLogo from "@/components/layouts/logo/SiteLogo";
@@ -30,14 +29,11 @@ const PublicMenu_Sheet: React.FC<Props> = ({ className }) => {
 	const menuItems: string[] = Object.keys(Route.public);
 
 	return (
-		<div className={cn(styles.publicMenu, className)}>
+		<div className={`${styles.publicMenu} ${className}`}>
 			<Sheet>
 				<SheetTrigger
 					aria-label={t("altMenuButton")}
-					className={cn(
-						styles.navItemCommon,
-						"outline-none focus-visible:outline-none focus:outline-none"
-					)}
+					className={`${styles.navItemCommon} outline-none focus-visible:outline-none focus:outline-none`}
 				>
 					<SiteLogo
 						autoBreak={false}
@@ -65,20 +61,17 @@ const PublicMenu_Sheet: React.FC<Props> = ({ className }) => {
 								return (
 									<Link
 										key={index}
-										className={cn(
-											"emphasize_drop_shadow",
+										className={`emphasize_drop_shadow ${
 											currentPathName === Route.public[pathAsKey].uri
 												? "text-accent"
 												: "text-foreground"
-										)}
+										}`}
 										href={Route.public[pathAsKey].uri}
 										tabIndex={-1}
 									>
 										<SheetClose
-											className={cn(
-												// The SheetClose overrides the CSS from the module so we can't use a specific class here
-												"font-unicephalon !tracking-widest text-[18px] hover:text-ring active:text-ring-secondary hover:transition-colors"
-											)}
+											// The SheetClose overrides the CSS from the module so we can't use a specific class here
+											className="font-unicephalon !tracking-widest text-[18px] hover:text-ring active:text-ring-secondary hover:transition-colors"
 										>
 											{t(path as tType)}
 										</SheetClose>

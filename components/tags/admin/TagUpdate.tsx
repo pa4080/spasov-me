@@ -15,8 +15,6 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { cn } from "@/lib/cn-utils";
-
 import { msgs } from "@/messages";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
@@ -87,7 +85,7 @@ const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 	const showDescription = t("dialog_description") && t("dialog_description") !== "null";
 
 	return (
-		<div className={cn(className)}>
+		<div className={className}>
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogTrigger disabled={submitting}>
 					<ButtonIcon

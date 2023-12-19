@@ -1,21 +1,16 @@
 "use client";
 import React from "react";
 
-import { cn } from "@/lib/cn-utils";
-
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+
+import { new_tab_target } from "@/components/about/admin";
 
 import styles from "./_footer.module.scss";
 
 const Footer: React.FC = () => {
 	return (
-		<footer className={cn(styles.footer)}>
-			<a
-				className={styles.icon}
-				href="https://github.com/pa4080"
-				rel="noopener noreferrer"
-				target="_blank"
-			>
+		<footer className={styles.footer}>
+			<a className={styles.icon} href="https://github.com/pa4080" target={new_tab_target}>
 				<IconEmbedSvg
 					height={32}
 					type="github-rounded"
@@ -27,8 +22,7 @@ const Footer: React.FC = () => {
 			<a
 				className={styles.icon}
 				href="https://askubuntu.com/users/566421/pa4080"
-				rel="noopener noreferrer"
-				target="_blank"
+				target={new_tab_target}
 			>
 				<IconEmbedSvg
 					height={32}
@@ -39,10 +33,9 @@ const Footer: React.FC = () => {
 				/>
 			</a>
 			<a
-				className={cn(styles.icon, styles.iconSpecial)}
+				className={`${styles.icon} ${styles.iconSpecial}`}
 				href="https://wiki.metalevel.tech"
-				rel="noopener noreferrer"
-				target="_blank"
+				target={new_tab_target}
 			>
 				<IconEmbedSvg
 					height={32}
@@ -55,8 +48,7 @@ const Footer: React.FC = () => {
 			<a
 				className={styles.icon}
 				href="https://www.linkedin.com/in/spas-z-spasov"
-				rel="noopener noreferrer"
-				target="_blank"
+				target={new_tab_target}
 			>
 				<IconEmbedSvg
 					height={32}
@@ -69,8 +61,7 @@ const Footer: React.FC = () => {
 			<a
 				className={styles.icon}
 				href="https://meta.wikimedia.org/wiki/User:Spas.Z.Spasov"
-				rel="noopener noreferrer"
-				target="_blank"
+				target={new_tab_target}
 			>
 				<IconEmbedSvg
 					height={32}

@@ -6,7 +6,6 @@ import { BsSendCheck } from "react-icons/bs";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { toast } from "@/components/ui/use-toast";
-import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
 import { revalidatePaths } from "@/components/_common.actions";
@@ -56,7 +55,7 @@ const RevalidatePaths: React.FC<Props> = ({ className, paths }) => {
 	};
 
 	return (
-		<div className={cn(className)}>
+		<div className={className}>
 			<ButtonIcon
 				className="rounded-lg icon_accent_secondary"
 				height={26} // 36 // pl-[0.6rem] pr-[0.7rem]
