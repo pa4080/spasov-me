@@ -36,7 +36,7 @@ const TagDisplay: React.FC<Props> = ({ tag: tag, className, icons }) => {
 
 			<div className={styles.row}>
 				<div className={styles.leftCol}>{t("name")}:</div>
-				<div className={styles.rightCol}>{name}</div>
+				<div className={`${styles.rightCol} font-semibold`}>{name}</div>
 			</div>
 			<div className={styles.row}>
 				<div className={styles.leftCol}>{t("description")}:</div>

@@ -5,7 +5,8 @@
 	"scripts": {
 		"check-branch-name": "chmod 755 githooks/check_branch_name.sh && bash githooks/check_branch_name.sh",
 		"generate-icon-map": "ts-node --skip-project scripts/generate-icon-map.ts",
-		"dev": "pnpm generate-icon-map && next dev",
+		"purge-cache": "rm -rf .next",
+		"dev": "pnpm purge-cache && pnpm generate-icon-map && next dev",
 		"build": "pnpm generate-icon-map && next build",
 		"start": "next start",
 		"start1": "next start -p 3001",

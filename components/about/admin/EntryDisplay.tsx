@@ -7,6 +7,8 @@ import { enUS as en } from "date-fns/locale";
 
 import { msgs } from "@/messages";
 
+import { TagList } from "@/interfaces/Tag";
+
 import styles from "../_about.module.scss";
 import EntryDelete from "./EntryDelete";
 import EntryShowAttachment from "./EntryShowAttachment";
@@ -15,15 +17,17 @@ import { FileListItem } from "./entry-form";
 import { Entry_FormSchema } from "./entry-form/schema";
 
 interface Props {
-	entry: Entry_FormSchema & {
+	entry: Omit<Entry_FormSchema, "tags"> & {
 		html: { title: string; description: string; attachmentUri?: string };
 		_id: string;
+		tags: TagList;
 	};
 	className?: string;
 	files?: FileListItem[];
+	tags: TagList;
 }
 
-const EntryDisplay: React.FC<Props> = ({ entry, className, files }) => {
+const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 	const {
 		dateFrom,
 		dateTo,
@@ -40,7 +44,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files }) => {
 			<div className={styles.cardEditActions}>
 				<EntryDelete entryType={entry.entryType} entry_id={entry._id} />
 				<EntryShowAttachment uri={entry.html.attachmentUri} />
-				<EntryUpdate entry={entry} entryType={entry.entryType} files={files} />
+				<EntryUpdate entry={entry} entryType={entry.entryType} files={files} tags={tags} />
 			</div>
 			<div className={styles.metaInfo}>
 				<div className={styles.date}>

@@ -26,7 +26,7 @@ import { deleteEntry } from "../_about.actions";
 
 import { GenericActionProps } from ".";
 
-interface Props extends GenericActionProps {
+interface Props extends Omit<GenericActionProps, "tags"> {
 	entry_id: string;
 }
 

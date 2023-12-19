@@ -3,6 +3,7 @@ import { Schema, model, models } from "mongoose";
 import { aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataTypes";
 
 import GridFS from "./grid_fs";
+import Tag from "./tag";
 import User from "./user";
 
 const AboutEntrySchema = new Schema({
@@ -36,13 +37,18 @@ const AboutEntrySchema = new Schema({
 	},
 	dateTo: {
 		type: Date,
-		// required: [true, "Date 'to' is required!"],
+		// it is not required, so when it is not defined the frontend will display "Now"
 	},
 	visibility: {
 		type: Boolean,
 		required: [true, "Visibility is required!"],
 	},
-
+	tags: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: Tag,
+		},
+	],
 	creator: {
 		type: Schema.Types.ObjectId,
 		ref: User,
