@@ -157,6 +157,19 @@ const iconsMap = {
 			ratio: 1.16,
 		},
 	},
+	"me_center-of-gravity": {
+		name: "me_center-of-gravity",
+		uri: {
+			light: "/assets/icons/me/center-of-gravity.png",
+			dark: "/assets/icons/me/center-of-gravity.png",
+		},
+		info: {
+			height: 128,
+			width: 128,
+			type: "png",
+			ratio: 1,
+		},
+	},
 	"me_esprit-by-dp-technology": {
 		name: "me_esprit-by-dp-technology",
 		uri: {
@@ -181,6 +194,19 @@ const iconsMap = {
 			width: 300,
 			type: "png",
 			ratio: 1.24,
+		},
+	},
+	"me_iso-g-code": {
+		name: "me_iso-g-code",
+		uri: {
+			light: "/assets/icons/me/iso-g-code.png",
+			dark: "/assets/icons/me/iso-g-code.png",
+		},
+		info: {
+			height: 128,
+			width: 128,
+			type: "png",
+			ratio: 1,
 		},
 	},
 	me_machining: {
@@ -242,10 +268,10 @@ const iconsMap = {
 			dark: "/assets/icons/me/solidWorks.png",
 		},
 		info: {
-			height: 128,
-			width: 128,
+			height: 108,
+			width: 104,
 			type: "png",
-			ratio: 1,
+			ratio: 0.96,
 		},
 	},
 	ui_fingerprint: {
@@ -498,3 +524,5 @@ const iconsMap = {
 };
 
 export default iconsMap;
+
+export type IconsMapItem = keyof typeof iconsMap;
