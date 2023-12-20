@@ -9,6 +9,10 @@ import { msgs } from "@/messages";
 
 import { TagList } from "@/interfaces/Tag";
 
+import DisplayTag from "@/components/tags/common/DisplayTag";
+
+import iconsMap, { IconsMapItem } from "@/public/assets/icons";
+
 import styles from "../_about.module.scss";
 import EntryDelete from "./EntryDelete";
 import EntryShowAttachment from "./EntryShowAttachment";
@@ -80,7 +84,18 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 			</div>
 			<div className="col-2">
 				<div dangerouslySetInnerHTML={{ __html: title }} className={styles.title} />
-				<div dangerouslySetInnerHTML={{ __html: description }} className={styles.description} />
+				<div className={styles.description}>
+					<div dangerouslySetInnerHTML={{ __html: description }} />
+					<div className="flex gap-1 mt-4 flex-wrap">
+						{entry.tags?.map((tag) => (
+							<DisplayTag
+								key={tag._id}
+								description={tag.description}
+								icon={iconsMap[tag.icon as IconsMapItem]}
+							/>
+						))}
+					</div>
+				</div>
 			</div>
 		</div>
 	);

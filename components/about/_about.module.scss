@@ -22,7 +22,7 @@
 	}
 
 	.editModeCard {
-		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[25%] rounded-2xl h-full p-6 md:p-8 relative min-h-fit flex items-start flex-col gap-3 justify-start;
+		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[25%] rounded-2xl h-full pt-12 2xs:pt-6 p-6 md:p-8 relative min-h-fit flex items-start flex-col gap-3 justify-start;
 
 		transition:
 			background-color 0.5s,

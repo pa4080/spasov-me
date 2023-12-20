@@ -1,4 +1,5 @@
 // pnpm exec ts-node --skip-project scripts/generate-icon-map.ts
+// convert hint: convert iso-g-code.png -resize x128 iso-g-code.png
 // https://stackoverflow.com/questions/11233498/json-stringify-without-quotes-on-properties
 
 import sizeOf from "image-size";
@@ -75,5 +76,6 @@ fs.writeFileSync(
 		`const iconsMap = ${JSON.stringify(iconMap, null, "\t")
 			.replace(/"([a-zA-Z_$][0-9a-zA-Z_$]*)":/g, "$1:")
 			.replace(/("|}|]|\d+)(?:\n)/g, "$1,\n")};` +
-		"\n\nexport default iconsMap;\n"
+		"\n\nexport default iconsMap;" +
+		"\n\nexport type IconsMapItem = keyof typeof iconsMap;\n"
 );
