@@ -31,8 +31,8 @@ import { GenericActionProps } from ".";
 
 const TagCreate: React.FC<GenericActionProps> = ({ className, tagType: tagType, icons }) => {
 	const t = msgs("TagsAdmin_CreateTag");
-	const entryTypeLabel = (
-		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
+	const tagTypeLabel = (
+		msgs("TagsAdmin_Form")("tag_type_list") as unknown as Record<string, string>
 	)[tagType];
 
 	const [submitting, setSubmitting] = useState(false);
@@ -92,7 +92,7 @@ const TagCreate: React.FC<GenericActionProps> = ({ className, tagType: tagType, 
 				</DialogTrigger>
 				<DialogContent className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl">
 					<DialogHeader className="-mt-2">
-						<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
+						<DialogTitle>{t("dialog_title", { tagType: tagTypeLabel })}</DialogTitle>
 						{showDescription && (
 							<DialogDescription
 								dangerouslySetInnerHTML={{
