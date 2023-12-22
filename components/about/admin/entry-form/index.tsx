@@ -81,8 +81,8 @@ const EntryForm: React.FC<Props> = ({
 		defaultValues: {
 			title: "",
 			description: "",
-			country: countryTuple[0],
-			city: cityTuple[0],
+			country: formData?.country ?? countryTuple[0],
+			city: formData?.city ?? cityTuple[0],
 			dateFrom: undefined,
 			dateTo: undefined,
 			entryType: entryType,
@@ -296,7 +296,8 @@ const EntryForm: React.FC<Props> = ({
 						error={form.formState.errors.tags}
 						itemsList={tags.map((tag) => ({
 							value: tag._id,
-							label: `${tag.name} [${tag.description}]`,
+							label: tag.name,
+							// label: `${tag.name} [${tag.description}]`,
 						}))}
 						messages={{
 							label: t("tags_label"),

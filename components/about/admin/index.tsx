@@ -43,10 +43,10 @@ const processMarkdown = (markdown: string) => {
 	// https://github.com/unifiedjs/unified#processorprocesssyncfile
 	const result = unified()
 		.use(remarkParse)
-		.use(remarkRehype)
+		.use(remarkRehype, { allowDangerousHtml: true })
 		.use(rehypeFormat)
 		.use(rehypeExternalLinks, { rel: ["nofollow"], target: new_tab_target })
-		.use(rehypeStringify)
+		.use(rehypeStringify, { allowDangerousHtml: true })
 		.processSync(markdown);
 
 	return result.value.toString();
