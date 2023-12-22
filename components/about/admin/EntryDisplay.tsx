@@ -20,6 +20,8 @@ import EntryUpdate from "./EntryUpdate";
 import { FileListItem } from "./entry-form";
 import { Entry_FormSchema } from "./entry-form/schema";
 
+const splitDescriptionKeyword = /<!--\s*more\s*-->/;
+
 interface Props {
 	entry: Omit<Entry_FormSchema, "tags"> & {
 		html: { title: string; description: string; attachmentUri?: string };
@@ -40,6 +42,8 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 
 	const dtFrom = new Date(dateFrom);
 	const dtTo = dateTo ? new Date(dateTo) : undefined;
+
+	const descriptionArr = description.split(splitDescriptionKeyword);
 
 	const t = msgs("AboutCV_Form");
 
@@ -84,16 +88,26 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 			</div>
 			<div className="col-2">
 				<div dangerouslySetInnerHTML={{ __html: title }} className={styles.title} />
-				<div className={styles.description}>
-					<div dangerouslySetInnerHTML={{ __html: description }} />
-					<div className="flex gap-1 mt-4 flex-wrap">
-						{entry.tags?.map((tag) => (
-							<DisplayTag
-								key={tag._id}
-								description={tag.description}
-								icon={iconsMap[tag.icon as IconsMapItem]}
+				<div className={`about-entry-description ${styles.description}`}>
+					<div dangerouslySetInnerHTML={{ __html: descriptionArr[0] ?? description }} />
+					<div className="about-entry-collapsible">
+						{descriptionArr[1] && (
+							<div
+								dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
+								className="about-entry-collapsible-text"
 							/>
-						))}
+						)}
+						<div className="about-entry-tags">
+							{entry.tags
+								?.sort((a, b) => a.name.localeCompare(b.name))
+								.map((tag) => (
+									<DisplayTag
+										key={tag._id}
+										description={tag.description}
+										icon={iconsMap[tag.icon as IconsMapItem]}
+									/>
+								))}
+						</div>
 					</div>
 				</div>
 			</div>

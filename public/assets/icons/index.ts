@@ -157,6 +157,32 @@ const iconsMap = {
 			ratio: 1.16,
 		},
 	},
+	"me_auto-lisp-scripting-language": {
+		name: "me_auto-lisp-scripting-language",
+		uri: {
+			light: "/assets/icons/me/auto-lisp-scripting-language.png",
+			dark: "/assets/icons/me/auto-lisp-scripting-language.png",
+		},
+		info: {
+			height: 128,
+			width: 128,
+			type: "png",
+			ratio: 1,
+		},
+	},
+	me_autocad: {
+		name: "me_autocad",
+		uri: {
+			light: "/assets/icons/me/autocad.png",
+			dark: "/assets/icons/me/autocad.png",
+		},
+		info: {
+			height: 128,
+			width: 128,
+			type: "png",
+			ratio: 1,
+		},
+	},
 	"me_center-of-gravity": {
 		name: "me_center-of-gravity",
 		uri: {
@@ -170,6 +196,32 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	me_cog: {
+		name: "me_cog",
+		uri: {
+			light: "/assets/icons/me/cog-light.png",
+			dark: "/assets/icons/me/cog-dark.png",
+		},
+		info: {
+			height: 128,
+			width: 128,
+			type: "png",
+			ratio: 1,
+		},
+	},
+	me_cogs: {
+		name: "me_cogs",
+		uri: {
+			light: "/assets/icons/me/cogs.png",
+			dark: "/assets/icons/me/cogs.png",
+		},
+		info: {
+			height: 128,
+			width: 217,
+			type: "png",
+			ratio: 1.7,
+		},
+	},
 	"me_esprit-by-dp-technology": {
 		name: "me_esprit-by-dp-technology",
 		uri: {
@@ -181,6 +233,19 @@ const iconsMap = {
 			width: 403,
 			type: "png",
 			ratio: 3.15,
+		},
+	},
+	"me_esprit-square": {
+		name: "me_esprit-square",
+		uri: {
+			light: "/assets/icons/me/esprit-square.png",
+			dark: "/assets/icons/me/esprit-square.png",
+		},
+		info: {
+			height: 128,
+			width: 128,
+			type: "png",
+			ratio: 1,
 		},
 	},
 	me_haas: {
@@ -222,6 +287,32 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	"me_mathcad-icon": {
+		name: "me_mathcad-icon",
+		uri: {
+			light: "/assets/icons/me/mathcad-icon.png",
+			dark: "/assets/icons/me/mathcad-icon.png",
+		},
+		info: {
+			height: 128,
+			width: 128,
+			type: "png",
+			ratio: 1,
+		},
+	},
+	me_matlab: {
+		name: "me_matlab",
+		uri: {
+			light: "/assets/icons/me/matlab.svg",
+			dark: "/assets/icons/me/matlab.svg",
+		},
+		info: {
+			height: 800,
+			width: 800,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	me_mazak: {
 		name: "me_mazak",
 		uri: {
@@ -235,6 +326,19 @@ const iconsMap = {
 			ratio: 2.02,
 		},
 	},
+	"me_mechanical-engineering-orantge": {
+		name: "me_mechanical-engineering-orantge",
+		uri: {
+			light: "/assets/icons/me/mechanical-engineering-orantge.png",
+			dark: "/assets/icons/me/mechanical-engineering-orantge.png",
+		},
+		info: {
+			height: 128,
+			width: 178,
+			type: "png",
+			ratio: 1.39,
+		},
+	},
 	"me_mechanical-engineering": {
 		name: "me_mechanical-engineering",
 		uri: {
@@ -244,6 +348,19 @@ const iconsMap = {
 		info: {
 			height: 512,
 			width: 512,
+			type: "png",
+			ratio: 1,
+		},
+	},
+	"me_proEngineer-ptc-creo-square": {
+		name: "me_proEngineer-ptc-creo-square",
+		uri: {
+			light: "/assets/icons/me/proEngineer-ptc-creo-square.png",
+			dark: "/assets/icons/me/proEngineer-ptc-creo-square.png",
+		},
+		info: {
+			height: 128,
+			width: 128,
 			type: "png",
 			ratio: 1,
 		},
@@ -261,6 +378,19 @@ const iconsMap = {
 			ratio: 0.89,
 		},
 	},
+	"me_sketch-up": {
+		name: "me_sketch-up",
+		uri: {
+			light: "/assets/icons/me/sketch-up.png",
+			dark: "/assets/icons/me/sketch-up.png",
+		},
+		info: {
+			height: 128,
+			width: 128,
+			type: "png",
+			ratio: 1,
+		},
+	},
 	me_solidWorks: {
 		name: "me_solidWorks",
 		uri: {
@@ -269,9 +399,295 @@ const iconsMap = {
 		},
 		info: {
 			height: 108,
-			width: 104,
+			width: 108,
 			type: "png",
-			ratio: 0.96,
+			ratio: 1,
+		},
+	},
+	"me_topsolid-alt": {
+		name: "me_topsolid-alt",
+		uri: {
+			light: "/assets/icons/me/topsolid-alt-light.svg",
+			dark: "/assets/icons/me/topsolid-alt-dark.svg",
+		},
+		info: {
+			height: 237,
+			width: 600,
+			type: "svg",
+			ratio: 2.53,
+		},
+	},
+	me_topsolid: {
+		name: "me_topsolid",
+		uri: {
+			light: "/assets/icons/me/topsolid-light.svg",
+			dark: "/assets/icons/me/topsolid-dark.svg",
+		},
+		info: {
+			height: 148,
+			width: 600,
+			type: "svg",
+			ratio: 4.05,
+		},
+	},
+	"me_topsolid-favicon": {
+		name: "me_topsolid-favicon",
+		uri: {
+			light: "/assets/icons/me/topsolid-favicon.png",
+			dark: "/assets/icons/me/topsolid-favicon.png",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "png",
+			ratio: 1,
+		},
+	},
+	"me_topsolid-single": {
+		name: "me_topsolid-single",
+		uri: {
+			light: "/assets/icons/me/topsolid-single.png",
+			dark: "/assets/icons/me/topsolid-single.png",
+		},
+		info: {
+			height: 128,
+			width: 424,
+			type: "png",
+			ratio: 3.31,
+		},
+	},
+	"me_vb-script": {
+		name: "me_vb-script",
+		uri: {
+			light: "/assets/icons/me/vb-script.png",
+			dark: "/assets/icons/me/vb-script.png",
+		},
+		info: {
+			height: 593,
+			width: 500,
+			type: "png",
+			ratio: 0.84,
+		},
+	},
+	"me_vector-erp-logo-square": {
+		name: "me_vector-erp-logo-square",
+		uri: {
+			light: "/assets/icons/me/vector-erp-logo-square.png",
+			dark: "/assets/icons/me/vector-erp-logo-square.png",
+		},
+		info: {
+			height: 142,
+			width: 142,
+			type: "png",
+			ratio: 1,
+		},
+	},
+	"me_vector-erp-logo": {
+		name: "me_vector-erp-logo",
+		uri: {
+			light: "/assets/icons/me/vector-erp-logo.svg",
+			dark: "/assets/icons/me/vector-erp-logo.svg",
+		},
+		info: {
+			height: 230,
+			width: 270,
+			type: "svg",
+			ratio: 1.17,
+		},
+	},
+	"of_adobe-illustrator": {
+		name: "of_adobe-illustrator",
+		uri: {
+			light: "/assets/icons/of/adobe-illustrator.svg",
+			dark: "/assets/icons/of/adobe-illustrator.svg",
+		},
+		info: {
+			height: 234,
+			width: 240,
+			type: "svg",
+			ratio: 1.03,
+		},
+	},
+	"of_adobe-photoshop": {
+		name: "of_adobe-photoshop",
+		uri: {
+			light: "/assets/icons/of/adobe-photoshop.svg",
+			dark: "/assets/icons/of/adobe-photoshop.svg",
+		},
+		info: {
+			height: 234,
+			width: 240,
+			type: "svg",
+			ratio: 1.03,
+		},
+	},
+	of_gimp: {
+		name: "of_gimp",
+		uri: {
+			light: "/assets/icons/of/gimp.svg",
+			dark: "/assets/icons/of/gimp.svg",
+		},
+		info: {
+			height: 316,
+			width: 316,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"of_ms-access": {
+		name: "of_ms-access",
+		uri: {
+			light: "/assets/icons/of/ms-access.svg",
+			dark: "/assets/icons/of/ms-access.svg",
+		},
+		info: {
+			height: 667,
+			width: 667,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"of_ms-excel": {
+		name: "of_ms-excel",
+		uri: {
+			light: "/assets/icons/of/ms-excel.svg",
+			dark: "/assets/icons/of/ms-excel.svg",
+		},
+		info: {
+			height: 667,
+			width: 667,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"of_ms-info": {
+		name: "of_ms-info",
+		uri: {
+			light: "/assets/icons/of/ms-info.svg",
+			dark: "/assets/icons/of/ms-info.svg",
+		},
+		info: {
+			height: 667,
+			width: 667,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"of_ms-lync": {
+		name: "of_ms-lync",
+		uri: {
+			light: "/assets/icons/of/ms-lync.svg",
+			dark: "/assets/icons/of/ms-lync.svg",
+		},
+		info: {
+			height: 667,
+			width: 667,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"of_ms-microsoft": {
+		name: "of_ms-microsoft",
+		uri: {
+			light: "/assets/icons/of/ms-microsoft.svg",
+			dark: "/assets/icons/of/ms-microsoft.svg",
+		},
+		info: {
+			height: 667,
+			width: 667,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"of_ms-ms": {
+		name: "of_ms-ms",
+		uri: {
+			light: "/assets/icons/of/ms-ms.svg",
+			dark: "/assets/icons/of/ms-ms.svg",
+		},
+		info: {
+			height: 667,
+			width: 667,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"of_ms-one-note": {
+		name: "of_ms-one-note",
+		uri: {
+			light: "/assets/icons/of/ms-one-note.svg",
+			dark: "/assets/icons/of/ms-one-note.svg",
+		},
+		info: {
+			height: 667,
+			width: 667,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"of_ms-outlook": {
+		name: "of_ms-outlook",
+		uri: {
+			light: "/assets/icons/of/ms-outlook.svg",
+			dark: "/assets/icons/of/ms-outlook.svg",
+		},
+		info: {
+			height: 667,
+			width: 667,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"of_ms-powerpoint": {
+		name: "of_ms-powerpoint",
+		uri: {
+			light: "/assets/icons/of/ms-powerpoint.svg",
+			dark: "/assets/icons/of/ms-powerpoint.svg",
+		},
+		info: {
+			height: 667,
+			width: 667,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"of_ms-professional": {
+		name: "of_ms-professional",
+		uri: {
+			light: "/assets/icons/of/ms-professional.svg",
+			dark: "/assets/icons/of/ms-professional.svg",
+		},
+		info: {
+			height: 667,
+			width: 667,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"of_ms-publisher": {
+		name: "of_ms-publisher",
+		uri: {
+			light: "/assets/icons/of/ms-publisher.svg",
+			dark: "/assets/icons/of/ms-publisher.svg",
+		},
+		info: {
+			height: 667,
+			width: 667,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"of_ms-word": {
+		name: "of_ms-word",
+		uri: {
+			light: "/assets/icons/of/ms-word.svg",
+			dark: "/assets/icons/of/ms-word.svg",
+		},
+		info: {
+			height: 667,
+			width: 667,
+			type: "svg",
+			ratio: 1,
 		},
 	},
 	ui_fingerprint: {

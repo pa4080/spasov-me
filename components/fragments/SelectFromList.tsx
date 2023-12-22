@@ -65,9 +65,13 @@ export default function SelectFromList<T extends FieldValues>({
 								/>
 							</SelectTrigger>
 						</FormControl>
-						<SelectContent defaultChecked={field.value} defaultValue={field.value}>
+						<SelectContent>
 							{itemsList.map((item, index) => (
-								<SelectItem key={index} value={item.value}>
+								<SelectItem
+									key={index}
+									defaultChecked={field.value === item.value}
+									value={item.value}
+								>
 									{item.label}
 								</SelectItem>
 							))}

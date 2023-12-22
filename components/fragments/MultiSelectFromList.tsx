@@ -9,7 +9,7 @@
 
 "use client";
 
-import { useCallback } from "react";
+import { KeyboardEvent, useCallback, useRef, useState } from "react";
 
 import { Control, FieldError, FieldValues, Merge, Path, PathValue } from "react-hook-form";
 
@@ -66,6 +66,37 @@ export default function MultiSelectFromList<T extends FieldValues>({
 	onSelect,
 	selected,
 }: Props<T>) {
+	const inputRef = useRef<HTMLInputElement>(null);
+	const [inputValue, setInputValue] = useState("");
+	// const [selectedItems, setSelectedItems] = useState<ItemList<T>>(
+	// 	itemsList.filter((item) => selected?.includes(item.value)) || []
+	// );
+
+	const handleKeyDown = useCallback(
+		(e: KeyboardEvent<HTMLDivElement>) => {
+			const input = inputRef.current;
+
+			if (input) {
+				if (e.key === "Delete" || e.key === "Backspace") {
+					if (input.value === "") {
+						if (selected) {
+							const newSelectedItemsList = [...selected];
+
+							newSelectedItemsList.pop();
+							onSelect(newSelectedItemsList);
+						}
+					}
+				}
+
+				// This is not a default behaviour of the <input /> field
+				if (e.key === "Escape") {
+					input.blur();
+				}
+			}
+		},
+		[onSelect, selected]
+	);
+
 	const handleUnselect = useCallback(
 		(itemUnselected: Item<T>) => {
 			const newSelectedItemsList =
@@ -142,8 +173,14 @@ export default function MultiSelectFromList<T extends FieldValues>({
 							</div>
 						</div>
 						<PopoverContent className="w-full max-w-full p-0 pb-2">
-							<Command className="w-full">
-								<CommandInput className="mb-1" placeholder={messages.placeholder} />
+							<Command className="w-full" onKeyDown={handleKeyDown}>
+								<CommandInput
+									ref={inputRef}
+									className="mb-1"
+									placeholder={messages.placeholder}
+									value={inputValue}
+									onValueChange={setInputValue}
+								/>
 								<CommandEmpty className="py-0 px-2 text-center">{messages.notFound}</CommandEmpty>
 
 								<CommandGroup className="max-h-52 overflow-y-scroll">
@@ -158,6 +195,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
 													e.stopPropagation();
 												}}
 												onSelect={() => {
+													setInputValue("");
 													onSelect(selected ? [...selected, item.value] : [item.value]);
 												}}
 											>

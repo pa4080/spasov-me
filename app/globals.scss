@@ -352,11 +352,12 @@ body .w-md-editor-text-input,
 body .w-md-editor-preview > * {
 	font-size: 1.1rem !important;
 	line-height: 1.5em !important;
+	// color: $foreground;
 }
 
 body .w-md-editor-text-pre > code,
 body .w-md-editor-text-input {
-	color: #fff !important;
+	color: $foreground;
 	letter-spacing: 0.5px !important;
 }
 
@@ -364,12 +365,13 @@ body .w-md-editor-text-pre,
 body .w-md-editor-text-input,
 body .w-md-editor-text > .w-md-editor-text-pre {
 	font-family: $font-inter !important;
+	// color: $foreground !important;
 }
 
 body textarea.w-md-editor-text-input,
 body textarea.w-md-editor-text-input:active,
 body textarea.w-md-editor-text-input:focus {
-	color: #fff !important;
+	color: $foreground;
 	outline: unset !important;
 	--tw-ring-color: transparent !important;
 	border-color: unset !important;
