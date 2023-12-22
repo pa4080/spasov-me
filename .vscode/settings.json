@@ -73,6 +73,7 @@
 		"components/cintact": "base",
 		"components/files": "base",
 		"components/home": "base",
+		"components/theme": "base",
 		"components/ui": "core",
 		"components/fragments": "core",
 		"app/[locale]": "home",

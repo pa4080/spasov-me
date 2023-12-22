@@ -1,5 +1,7 @@
 import React from "react";
 
+// import colorVars from "@/app/globals.variables.module.scss";
+
 interface Props {
 	className?: string;
 }
@@ -13,8 +15,20 @@ const ThemeStylePreview: React.FC<Props> = ({ className }) => {
 			className={`pt-4 grid grid-cols-2 gap-4 rounded w-full max-w-3xl min-w-[320px] ${className}`}
 		>
 			{/* background; foreground */}
-			<div className="h-12 w-full rounded select-all line-clamp-1 whitespace-nowrap overflow-hidden border-2 flex justify-center items-center bg-background text-foreground col-span-2">
-				background
+			<div className="h-fit p-2 w-full rounded select-all line-clamp-1 whitespace-nowrap overflow-hidden border-2 flex justify-center items-center bg-background col-span-2 flex-wrap gap-2 flex-col">
+				<div className="text-foreground">foreground</div>
+				<div className="text-foreground-secondary">foreground-secondary</div>
+				<div className="text-foreground-tertiary">foreground-tertiary</div>
+				<div className="text-foreground-quaternary">foreground-quaternary</div>
+				<div className="text-primary-foreground">primary-foreground</div>
+				<div className="text-secondary-foreground">secondary-foreground</div>
+				<div className="text-muted-foreground">muted-foreground</div>
+				<div className="text-accent">accent</div>
+				<div className="text-accent-secondary">accent-secondary</div>
+				<div className="text-ring">ring</div>
+				<div className="text-ring-secondary">ring-secondary</div>
+				<div className="text-accent-foreground">accent-foreground</div>
+				<div className="text-destructive-foreground">destructive-foreground</div>
 			</div>
 
 			{/* primary; primary-foreground */}
