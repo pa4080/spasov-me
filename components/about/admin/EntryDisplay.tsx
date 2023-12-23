@@ -21,6 +21,10 @@ import { FileListItem } from "./entry-form";
 import { Entry_FormSchema } from "./entry-form/schema";
 
 const splitDescriptionKeyword = /<!--\s*more\s*-->/;
+const commentsMatcher = /<!--.*?-->/gs;
+// We want to remove all comments. It is not done
+// by unified().use(remarkRehype), because we are
+// using some of them as special tags.
 
 interface Props {
 	entry: Omit<Entry_FormSchema, "tags"> & {
@@ -43,7 +47,9 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 	const dtFrom = new Date(dateFrom);
 	const dtTo = dateTo ? new Date(dateTo) : undefined;
 
-	const descriptionArr = description.split(splitDescriptionKeyword);
+	const descriptionArr = description.split(splitDescriptionKeyword).map((str) => {
+		return str.replace(commentsMatcher, "");
+	});
 
 	const t = msgs("AboutCV_Form");
 
@@ -60,7 +66,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 					{/* {format(new Date(dateFrom), "yyyy/MM", { locale: en })} */}
 					<span>
 						<span className={styles.lightSecondaryText}>
-							{format(dtFrom, "MM/", { locale: en })}
+							{format(dtFrom, "MMM.dd/", { locale: en })}
 						</span>
 						<span className={styles.lightPrimaryText}>
 							{format(dtFrom, "yyyy", { locale: en })}
@@ -70,7 +76,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 					{dtTo ? (
 						<span>
 							<span className={styles.lightSecondaryText}>
-								{format(dtTo, "MM/", { locale: en })}
+								{format(dtTo, "MMM.dd/", { locale: en })}
 							</span>
 							<span className={styles.lightPrimaryText}>
 								{format(dtTo, "yyyy", { locale: en })}

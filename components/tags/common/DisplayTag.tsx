@@ -21,6 +21,8 @@ const DisplayTag: React.FC<Props> = ({ className, icon, size = 30, description }
 	const height = size;
 	const width = Math.ceil(height * icon?.info?.ratio) || height;
 
+	const classNameGenerated = `hover:bg-muted-secondary dark:hover:bg-primary-foreground/20 py-1 px-1 transition-colors hover:transition-colors duration-200 rounded-sm hover:saturate-150 ${className}`;
+
 	if (description) {
 		return (
 			<TooltipProvider>
@@ -29,7 +31,7 @@ const DisplayTag: React.FC<Props> = ({ className, icon, size = 30, description }
 						<Image
 							priority
 							alt={icon?.name || "Icon"}
-							className={`hover:bg-muted-secondary dark:hover:bg-primary-foreground/20 p-1 transition-colors hover:transition-colors duration-200 rounded-sm hover:saturate-150 ${className}`}
+							className={classNameGenerated}
 							// border border-transparent hover:bg-secondary hover:border-muted-secondary
 							height={height}
 							src={
@@ -53,7 +55,7 @@ const DisplayTag: React.FC<Props> = ({ className, icon, size = 30, description }
 		<Image
 			priority
 			alt={icon?.name || "Icon"}
-			className={`hover:bg-muted-secondary dark:hover:bg-primary-foreground/20 p-1 transition-colors hover:transition-colors duration-200 rounded-sm hover:saturate-150 ${className}`}
+			className={classNameGenerated}
 			height={height}
 			src={
 				theme === "dark"
