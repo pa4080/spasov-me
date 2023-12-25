@@ -126,5 +126,6 @@
 			"source.fixAll": "always",
 			"source.organizeImports": "explicit"
 		}
-	}
+	},
+	"svg.preview.background": "transparent"
 }
