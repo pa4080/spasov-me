@@ -105,7 +105,9 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 						)}
 						<div className="about-entry-tags">
 							{entry.tags
-								?.sort((a, b) => a.name.localeCompare(b.name))
+								?.sort((a, b) =>
+									a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
+								)
 								.map((tag) => (
 									<DisplayTag
 										key={tag._id}

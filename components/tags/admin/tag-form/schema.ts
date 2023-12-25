@@ -24,6 +24,15 @@ export const Tag_FormSchemaGenerator = (messages?: string[]) =>
 				}
 			},
 		}),
+		orderKey: z.string({
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			errorMap: (issue, _ctx) => {
+				switch (issue.code) {
+					default:
+						return { message: String(messages?.[3]) };
+				}
+			},
+		}),
 		tagType: z.enum(tagTuple, {
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			errorMap: (issue, _ctx) => {

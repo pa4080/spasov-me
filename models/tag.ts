@@ -24,6 +24,11 @@ const TagSchema = new Schema({
 		type: String,
 		required: [true, "Icon is required!"],
 	},
+	orderKey: {
+		type: String,
+		default: "1",
+		required: [true, "Order key is required!"],
+	},
 
 	creator: {
 		type: Schema.Types.ObjectId,

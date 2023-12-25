@@ -55,6 +55,7 @@ const TagForm: React.FC<Props> = ({
 		t("schema_name_monolite"),
 		t("schema_description"),
 		t("schema_icon"),
+		t("schema_orderKey"),
 		t("schema_type"),
 	]);
 
@@ -117,25 +118,50 @@ const TagForm: React.FC<Props> = ({
 						)}
 					/>
 
-					{/* Icon */}
-					<Combobox
-						control={form.control}
-						error={form.formState.errors.icon}
-						list={Object.keys(icons).map((icon) => ({
-							value: icon,
-							label: icon,
-						}))}
-						messages={{
-							label: t("icon_label"),
-							description: t("icon_description"),
-							placeholder: t("icon_search"),
-							pleaseSelect: t("icon_select"),
-							notFound: t("icon_searchNotFound"),
-							selectNone: t("icon_selectNone"),
-						}}
-						name="icon"
-						setValue={form.setValue}
-					/>
+					<div className="flex flex-col sm:flex-row gap-3 w-full">
+						{/* Icon */}
+						<Combobox
+							className="sm:flex-[2]"
+							control={form.control}
+							error={form.formState.errors.icon}
+							list={Object.keys(icons).map((icon) => ({
+								value: icon,
+								label: icon,
+							}))}
+							messages={{
+								label: t("icon_label"),
+								description: t("icon_description"),
+								placeholder: t("icon_search"),
+								pleaseSelect: t("icon_select"),
+								notFound: t("icon_searchNotFound"),
+								selectNone: t("icon_selectNone"),
+							}}
+							name="icon"
+							setValue={form.setValue}
+						/>
+
+						{/* Order key */}
+						<FormField
+							control={form.control}
+							name="orderKey"
+							render={({ field }) => (
+								<FormItem className="space-y-0 sm:flex-1">
+									{t("orderKey_label") && <FormLabel>{t("orderKey_label")}</FormLabel>}
+									<FormControl>
+										<Input placeholder={t("orderKey_placeholder")} {...field} />
+									</FormControl>
+
+									{form.formState.errors.orderKey ? (
+										<FormMessage />
+									) : (
+										t("orderKey_description") && (
+											<FormDescription>{t("orderKey_description")}</FormDescription>
+										)
+									)}
+								</FormItem>
+							)}
+						/>
+					</div>
 
 					{/* Tag type ["technology", "skill"] */}
 					<SelectFromList

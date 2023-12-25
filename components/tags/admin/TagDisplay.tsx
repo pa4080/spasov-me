@@ -22,7 +22,7 @@ interface Props {
 }
 
 const TagDisplay: React.FC<Props> = ({ tag: tag, className, icons }) => {
-	const { name, description, icon, tagType } = tag;
+	const { name, description, icon, tagType, orderKey } = tag;
 
 	const t = msgs("TagsAdmin_Display");
 	const tForm = msgs("TagsAdmin_Form");
@@ -47,6 +47,10 @@ const TagDisplay: React.FC<Props> = ({ tag: tag, className, icons }) => {
 				<div className={styles.rightCol}>
 					{(tForm("tag_type_list") as unknown as Record<string, string>)[tagType]}
 				</div>
+			</div>
+			<div className={styles.row}>
+				<div className={styles.leftCol}>{t("orderKey")}:</div>
+				<div className={styles.rightCol}>{orderKey}</div>
 			</div>
 			<div className={styles.row}>
 				<div className={styles.leftCol}>{t("icon")}:</div>

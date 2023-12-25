@@ -86,6 +86,7 @@ const AboutAdmin: React.FC<Props> = async ({ className }) => {
 					_id: tag._id.toString(),
 					icon: tag.icon,
 					tagType: tag.tagType,
+					orderKey: tag.orderKey,
 				})) || [],
 		};
 	});
