@@ -40,6 +40,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	"it_autohotkey-ahk-icon": {
+		name: "it_autohotkey-ahk-icon",
+		uri: {
+			light: "/assets/icons/it/autohotkey-ahk-icon.svg",
+			dark: "/assets/icons/it/autohotkey-ahk-icon.svg",
+		},
+		info: {
+			height: 48,
+			width: 48,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	it_babel2: {
 		name: "it_babel2",
 		uri: {
@@ -66,6 +79,32 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	it_cloudflare: {
+		name: "it_cloudflare",
+		uri: {
+			light: "/assets/icons/it/cloudflare.svg",
+			dark: "/assets/icons/it/cloudflare.svg",
+		},
+		info: {
+			height: 704,
+			width: 1556,
+			type: "svg",
+			ratio: 2.21,
+		},
+	},
+	"it_digitalocean-icon": {
+		name: "it_digitalocean-icon",
+		uri: {
+			light: "/assets/icons/it/digitalocean-icon.svg",
+			dark: "/assets/icons/it/digitalocean-icon.svg",
+		},
+		info: {
+			height: 2500,
+			width: 2500,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	it_javascript: {
 		name: "it_javascript",
 		uri: {
@@ -77,6 +116,45 @@ const iconsMap = {
 			width: 32,
 			type: "svg",
 			ratio: 1,
+		},
+	},
+	it_jquery: {
+		name: "it_jquery",
+		uri: {
+			light: "/assets/icons/it/jquery-light.svg",
+			dark: "/assets/icons/it/jquery-dark.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"it_laravel-alt": {
+		name: "it_laravel-alt",
+		uri: {
+			light: "/assets/icons/it/laravel-alt.svg",
+			dark: "/assets/icons/it/laravel-alt.svg",
+		},
+		info: {
+			height: 1713,
+			width: 2500,
+			type: "svg",
+			ratio: 1.46,
+		},
+	},
+	it_laravel: {
+		name: "it_laravel",
+		uri: {
+			light: "/assets/icons/it/laravel.svg",
+			dark: "/assets/icons/it/laravel.svg",
+		},
+		info: {
+			height: 2500,
+			width: 2418,
+			type: "svg",
+			ratio: 0.97,
 		},
 	},
 	"it_linux-0": {
@@ -167,6 +245,71 @@ const iconsMap = {
 			height: 32,
 			width: 32,
 			type: "svg",
+			ratio: 1,
+		},
+	},
+	"it_material-ui": {
+		name: "it_material-ui",
+		uri: {
+			light: "/assets/icons/it/material-ui.svg",
+			dark: "/assets/icons/it/material-ui.svg",
+		},
+		info: {
+			height: 2185,
+			width: 2500,
+			type: "svg",
+			ratio: 1.14,
+		},
+	},
+	"it_mediawiki-v0": {
+		name: "it_mediawiki-v0",
+		uri: {
+			light: "/assets/icons/it/mediawiki-v0.svg",
+			dark: "/assets/icons/it/mediawiki-v0.svg",
+		},
+		info: {
+			height: 125,
+			width: 125,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"it_mediawiki-v1": {
+		name: "it_mediawiki-v1",
+		uri: {
+			light: "/assets/icons/it/mediawiki-v1.svg",
+			dark: "/assets/icons/it/mediawiki-v1.svg",
+		},
+		info: {
+			height: 122,
+			width: 125,
+			type: "svg",
+			ratio: 1.02,
+		},
+	},
+	"it_mediawiki-v2": {
+		name: "it_mediawiki-v2",
+		uri: {
+			light: "/assets/icons/it/mediawiki-v2.svg",
+			dark: "/assets/icons/it/mediawiki-v2.svg",
+		},
+		info: {
+			height: 100,
+			width: 100,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"it_mod-security": {
+		name: "it_mod-security",
+		uri: {
+			light: "/assets/icons/it/mod-security.png",
+			dark: "/assets/icons/it/mod-security.png",
+		},
+		info: {
+			height: 48,
+			width: 48,
+			type: "png",
 			ratio: 1,
 		},
 	},
@@ -482,6 +625,32 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	it_react: {
+		name: "it_react",
+		uri: {
+			light: "/assets/icons/it/react-light.svg",
+			dark: "/assets/icons/it/react-dark.svg",
+		},
+		info: {
+			height: 3619,
+			width: 3619,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	it_sql: {
+		name: "it_sql",
+		uri: {
+			light: "/assets/icons/it/sql.svg",
+			dark: "/assets/icons/it/sql.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	it_typescript: {
 		name: "it_typescript",
 		uri: {
@@ -502,10 +671,10 @@ const iconsMap = {
 			dark: "/assets/icons/it/vercel-icon-dark.svg",
 		},
 		info: {
-			height: 1000,
+			height: 1200,
 			width: 1155,
 			type: "svg",
-			ratio: 1.16,
+			ratio: 0.96,
 		},
 	},
 	"it_wordPress-blue-logo": {
@@ -599,6 +768,19 @@ const iconsMap = {
 			ratio: 1.7,
 		},
 	},
+	me_css: {
+		name: "me_css",
+		uri: {
+			light: "/assets/icons/me/css.svg",
+			dark: "/assets/icons/me/css.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	"me_esprit-by-dp-technology": {
 		name: "me_esprit-by-dp-technology",
 		uri: {
@@ -638,6 +820,19 @@ const iconsMap = {
 			ratio: 1.24,
 		},
 	},
+	me_html: {
+		name: "me_html",
+		uri: {
+			light: "/assets/icons/me/html.svg",
+			dark: "/assets/icons/me/html.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	"me_iso-g-code": {
 		name: "me_iso-g-code",
 		uri: {
@@ -648,6 +843,19 @@ const iconsMap = {
 			height: 128,
 			width: 128,
 			type: "png",
+			ratio: 1,
+		},
+	},
+	me_less: {
+		name: "me_less",
+		uri: {
+			light: "/assets/icons/me/less.svg",
+			dark: "/assets/icons/me/less.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
 			ratio: 1,
 		},
 	},
@@ -729,6 +937,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	"me_nakamura-tome": {
+		name: "me_nakamura-tome",
+		uri: {
+			light: "/assets/icons/me/nakamura-tome.png",
+			dark: "/assets/icons/me/nakamura-tome.png",
+		},
+		info: {
+			height: 128,
+			width: 128,
+			type: "png",
+			ratio: 1,
+		},
+	},
 	"me_proEngineer-ptc-creo-square": {
 		name: "me_proEngineer-ptc-creo-square",
 		uri: {
@@ -753,6 +974,45 @@ const iconsMap = {
 			width: 152,
 			type: "png",
 			ratio: 0.89,
+		},
+	},
+	me_sass: {
+		name: "me_sass",
+		uri: {
+			light: "/assets/icons/me/sass.svg",
+			dark: "/assets/icons/me/sass.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	me_scss: {
+		name: "me_scss",
+		uri: {
+			light: "/assets/icons/me/scss.svg",
+			dark: "/assets/icons/me/scss.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	me_serverless: {
+		name: "me_serverless",
+		uri: {
+			light: "/assets/icons/me/serverless.svg",
+			dark: "/assets/icons/me/serverless.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
 		},
 	},
 	"me_sketch-up": {

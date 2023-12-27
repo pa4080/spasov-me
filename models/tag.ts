@@ -8,7 +8,7 @@ const TagSchema = new Schema({
 	name: {
 		type: String,
 		required: [true, "Title is required!"],
-		match: [/^[a-z-]+$/, "The title must be alphabetic, optionally with dash!"],
+		match: [/^[a-z0-9-]+$/, "The title must be alphabetic, optionally with dash!"],
 	},
 	description: {
 		type: String,

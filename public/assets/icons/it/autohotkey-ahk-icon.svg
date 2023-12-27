@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   style="enable-background:new"
+   id="svg833"
+   version="1.1"
+   viewBox="0 0 12.7 12.7"
+   height="0.5in"
+   width="0.5in">
+  <title
+     id="title1780">AutoHotKey Vectorized Logo</title>
+  <defs
+     id="defs827">
+    <linearGradient
+       gradientTransform="matrix(0.90000012,0,0,0.90000012,-103.18754,-77.253571)"
+       gradientUnits="userSpaceOnUse"
+       y2="87.285156"
+       x2="116.10068"
+       y1="98.500526"
+       x1="127.31606"
+       id="linearGradient1408"
+       xlink:href="#linearGradient1406" />
+    <linearGradient
+       id="linearGradient1406">
+      <stop
+         id="stop1402"
+         offset="0"
+         style="stop-color:#195519;stop-opacity:1" />
+      <stop
+         style="stop-color:#5ea65e;stop-opacity:1"
+         offset="0.5"
+         id="stop1717" />
+      <stop
+         id="stop1404"
+         offset="1"
+         style="stop-color:#b6e2b6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <metadata
+     id="metadata830">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>AutoHotKey Vectorized Logo</dc:title>
+        <dc:date>2020-08-07</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Rabbitflyer</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <rect
+     rx="2.2860003"
+     ry="2.2860003"
+     y="0.6350019"
+     x="0.63499725"
+     height="11.43"
+     width="11.43"
+     id="rect1389"
+     style="display:inline;opacity:1;vector-effect:none;fill:url(#linearGradient1408);fill-opacity:1;fill-rule:nonzero;stroke:#0c5e0c;stroke-width:1.2700001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;enable-background:new" />
+  <g
+     style="display:inline;opacity:1;fill:none;enable-background:new"
+     id="g1715"
+     transform="translate(-115.35835,-86.542849)">
+    <g
+       style="display:inline;opacity:1;fill:none;stroke:#0c5e0c;stroke-width:1.26999998;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;enable-background:new"
+       id="g1481-4"
+       transform="translate(0.44901281,0.44901281)">
+      <path
+         id="path1444-2"
+         d="m 119.16835,89.717847 v 6.35"
+         style="fill:none;stroke:#0c5e0c;stroke-width:1.26999998;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path1444-5-9"
+         d="m 124.24835,92.444976 -5.08,0.895742"
+         style="display:inline;opacity:1;fill:none;stroke:#0c5e0c;stroke-width:1.26999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;enable-background:new" />
+      <use
+         height="100%"
+         width="100%"
+         transform="translate(5.08)"
+         id="use1476-6"
+         xlink:href="#path1444-2"
+         y="0"
+         x="0"
+         style="fill:none;stroke:#0c5e0c;stroke-width:1.26999998;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g1481"
+       style="fill:none;stroke:#ffffff;stroke-width:1.26999998;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+      <path
+         id="path1444"
+         d="m 119.16835,89.717847 v 6.35"
+         style="fill:none;stroke:#ffffff;stroke-width:1.26999998;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path1444-5"
+         d="m 124.24835,92.444976 -5.08,0.895742"
+         style="display:inline;opacity:1;fill:none;stroke:#ffffff;stroke-width:1.26999998;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;enable-background:new" />
+      <use
+         height="100%"
+         width="100%"
+         transform="translate(5.08)"
+         id="use1476"
+         xlink:href="#path1444"
+         y="0"
+         x="0"
+         style="fill:none;stroke:#ffffff;stroke-width:1.26999998;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+  </g>
+</svg>

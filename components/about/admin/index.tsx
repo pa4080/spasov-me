@@ -56,9 +56,6 @@ const AboutAdmin: React.FC<Props> = async ({ className }) => {
 	const t = msgs("AboutCV");
 
 	const entryList = await getEntries();
-	const fileList = await getFileList();
-	const tagList = await getTags();
-
 	const entries = entryList?.map((entry) => {
 		return {
 			_id: entry._id.toString(),
@@ -91,6 +88,7 @@ const AboutAdmin: React.FC<Props> = async ({ className }) => {
 		};
 	});
 
+	const fileList = await getFileList();
 	const files: FileListItem[] | undefined = fileList
 		?.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/))
 		.map((file) => ({
@@ -98,6 +96,7 @@ const AboutAdmin: React.FC<Props> = async ({ className }) => {
 			label: file.filename,
 		}));
 
+	const tagList = await getTags();
 	const tags: TagList =
 		tagList?.map((tag) => ({
 			name: tag.name,
@@ -105,6 +104,7 @@ const AboutAdmin: React.FC<Props> = async ({ className }) => {
 			_id: tag._id.toString(),
 			icon: tag.icon,
 			tagType: tag.tagType,
+			orderKey: tag.orderKey,
 		})) || [];
 
 	const Section = ({ type, title }: { type: AboutEntryItem; title: string }) => (
