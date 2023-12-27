@@ -9,7 +9,7 @@ import { msgs } from "@/messages";
 
 import { TagList } from "@/interfaces/Tag";
 
-import DisplayTag from "@/components/tags/common/DisplayTag";
+import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
 
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
@@ -109,7 +109,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 									a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
 								)
 								.map((tag) => (
-									<DisplayTag
+									<DisplayTagIcon
 										key={tag._id}
 										description={tag.description}
 										icon={iconsMap[tag.icon as IconsMapItem]}

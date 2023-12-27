@@ -8,6 +8,7 @@ import { useTheme } from "next-themes";
 import { IconMap } from "@/interfaces/IconMap";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { cn } from "@/lib/cn-utils";
 
 interface Props {
 	className?: string;
@@ -16,12 +17,15 @@ interface Props {
 	description?: string;
 }
 
-const DisplayTag: React.FC<Props> = ({ className, icon, size = 30, description }) => {
+const DisplayTagIcon: React.FC<Props> = ({ className, icon, size = 30, description }) => {
 	const { theme } = useTheme();
 	const height = size;
 	const width = Math.ceil(height * icon?.info?.ratio) || height;
 
-	const classNameGenerated = `hover:bg-muted-secondary dark:hover:bg-primary-foreground/20 py-1 px-1 transition-colors hover:transition-colors duration-200 rounded-sm hover:saturate-150 ${className}`;
+	const classNameGenerated = cn(
+		"hover:bg-muted-secondary dark:hover:bg-primary-foreground/20 py-1 px-1 transition-colors hover:transition-colors duration-200 rounded-sm hover:saturate-150",
+		className
+	);
 
 	if (description) {
 		return (
@@ -68,4 +72,4 @@ const DisplayTag: React.FC<Props> = ({ className, icon, size = 30, description }
 	);
 };
 
-export default DisplayTag;
+export default DisplayTagIcon;

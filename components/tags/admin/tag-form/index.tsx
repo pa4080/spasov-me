@@ -27,6 +27,7 @@ import { IconMap } from "@/interfaces/IconMap";
 import Combobox from "@/components/fragments/Combobox";
 
 import SelectFromList from "../../../fragments/SelectFromList";
+import DisplayTagIcon from "../../common/DisplayTagIcon";
 import { Tag_FormSchema, Tag_FormSchemaGenerator } from "./schema";
 
 export type FileListItem = { value: string; label: string };
@@ -118,27 +119,36 @@ const TagForm: React.FC<Props> = ({
 						)}
 					/>
 
-					<div className="flex flex-col sm:flex-row gap-3 w-full">
-						{/* Icon */}
-						<Combobox
-							className="sm:flex-[2]"
-							control={form.control}
-							error={form.formState.errors.icon}
-							list={Object.keys(icons).map((icon) => ({
-								value: icon,
-								label: icon,
-							}))}
-							messages={{
-								label: t("icon_label"),
-								description: t("icon_description"),
-								placeholder: t("icon_search"),
-								pleaseSelect: t("icon_select"),
-								notFound: t("icon_searchNotFound"),
-								selectNone: t("icon_selectNone"),
-							}}
-							name="icon"
-							setValue={form.setValue}
-						/>
+					<div className="flex flex-col sm:flex-row gap-3 sm:gap-2 w-full">
+						<div className="sm:flex-[2] flex flex-row gap-1">
+							{/* Icon */}
+							<Combobox
+								className="w-full"
+								control={form.control}
+								error={form.formState.errors.icon}
+								list={Object.keys(icons).map((icon) => ({
+									value: icon,
+									label: icon,
+								}))}
+								messages={{
+									label: t("icon_label"),
+									description: t("icon_description"),
+									placeholder: t("icon_search"),
+									pleaseSelect: t("icon_select"),
+									notFound: t("icon_searchNotFound"),
+									selectNone: t("icon_selectNone"),
+								}}
+								name="icon"
+								setValue={form.setValue}
+							/>
+
+							<div className="max-h-full h-full min-w-fit border rounded-md bg-primary flex items-center justify-center p-1">
+								<DisplayTagIcon
+									className="hover:bg-transparent dark:hover:bg-transparent"
+									icon={icons[form.watch("icon") ?? "placeholder"]}
+								/>
+							</div>
+						</div>
 
 						{/* Order key */}
 						<FormField

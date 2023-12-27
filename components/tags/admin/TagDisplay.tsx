@@ -8,7 +8,7 @@ import { msgs } from "@/messages";
 import { IconMap } from "@/interfaces/IconMap";
 
 import styles from "../_tags.module.scss";
-import DisplayTag from "../common/DisplayTag";
+import DisplayTagIcon from "../common/DisplayTagIcon";
 import { Tag_FormSchema } from "./tag-form/schema";
 import TagDelete from "./TagDelete";
 import TagUpdate from "./TagUpdate";
@@ -55,7 +55,7 @@ const TagDisplay: React.FC<Props> = ({ tag: tag, className, icons }) => {
 			<div className={styles.row}>
 				<div className={styles.leftCol}>{t("icon")}:</div>
 				<div className={styles.rightCol}>
-					<DisplayTag icon={icons[icon]} />
+					<DisplayTagIcon icon={icons[icon]} />
 				</div>
 			</div>
 		</div>
