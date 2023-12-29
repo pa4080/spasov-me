@@ -79,6 +79,32 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	"it_bootstrap-5-icon": {
+		name: "it_bootstrap-5-icon",
+		uri: {
+			light: "/assets/icons/it/bootstrap-5-icon.svg",
+			dark: "/assets/icons/it/bootstrap-5-icon.svg",
+		},
+		info: {
+			height: 1992,
+			width: 2500,
+			type: "svg",
+			ratio: 1.26,
+		},
+	},
+	"it_bootstrap-icon": {
+		name: "it_bootstrap-icon",
+		uri: {
+			light: "/assets/icons/it/bootstrap-icon.svg",
+			dark: "/assets/icons/it/bootstrap-icon.svg",
+		},
+		info: {
+			height: 2500,
+			width: 2500,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	it_cloudflare: {
 		name: "it_cloudflare",
 		uri: {
@@ -86,10 +112,49 @@ const iconsMap = {
 			dark: "/assets/icons/it/cloudflare.svg",
 		},
 		info: {
-			height: 704,
+			height: 1504,
 			width: 1556,
 			type: "svg",
-			ratio: 2.21,
+			ratio: 1.03,
+		},
+	},
+	it_composer: {
+		name: "it_composer",
+		uri: {
+			light: "/assets/icons/it/composer.svg",
+			dark: "/assets/icons/it/composer.svg",
+		},
+		info: {
+			height: 2500,
+			width: 1888,
+			type: "svg",
+			ratio: 0.76,
+		},
+	},
+	it_containers: {
+		name: "it_containers",
+		uri: {
+			light: "/assets/icons/it/containers.svg",
+			dark: "/assets/icons/it/containers.svg",
+		},
+		info: {
+			height: 153,
+			width: 166,
+			type: "svg",
+			ratio: 1.08,
+		},
+	},
+	it_css: {
+		name: "it_css",
+		uri: {
+			light: "/assets/icons/it/css.svg",
+			dark: "/assets/icons/it/css.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
 		},
 	},
 	"it_digitalocean-icon": {
@@ -97,6 +162,84 @@ const iconsMap = {
 		uri: {
 			light: "/assets/icons/it/digitalocean-icon.svg",
 			dark: "/assets/icons/it/digitalocean-icon.svg",
+		},
+		info: {
+			height: 2500,
+			width: 2500,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	it_docker: {
+		name: "it_docker",
+		uri: {
+			light: "/assets/icons/it/docker.svg",
+			dark: "/assets/icons/it/docker.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	it_docker1: {
+		name: "it_docker1",
+		uri: {
+			light: "/assets/icons/it/docker1.svg",
+			dark: "/assets/icons/it/docker1.svg",
+		},
+		info: {
+			height: 2500,
+			width: 2269,
+			type: "svg",
+			ratio: 0.91,
+		},
+	},
+	it_docker2: {
+		name: "it_docker2",
+		uri: {
+			light: "/assets/icons/it/docker2.svg",
+			dark: "/assets/icons/it/docker2.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	it_dockertest: {
+		name: "it_dockertest",
+		uri: {
+			light: "/assets/icons/it/dockertest.svg",
+			dark: "/assets/icons/it/dockertest.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	it_dockertest2: {
+		name: "it_dockertest2",
+		uri: {
+			light: "/assets/icons/it/dockertest2.svg",
+			dark: "/assets/icons/it/dockertest2.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"it_git-icon": {
+		name: "it_git-icon",
+		uri: {
+			light: "/assets/icons/it/git-icon.svg",
+			dark: "/assets/icons/it/git-icon.svg",
 		},
 		info: {
 			height: 2500,
@@ -155,6 +298,45 @@ const iconsMap = {
 			width: 2418,
 			type: "svg",
 			ratio: 0.97,
+		},
+	},
+	"it_less-logo": {
+		name: "it_less-logo",
+		uri: {
+			light: "/assets/icons/it/less-logo.svg",
+			dark: "/assets/icons/it/less-logo.svg",
+		},
+		info: {
+			height: 480,
+			width: 480,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"it_less-sq": {
+		name: "it_less-sq",
+		uri: {
+			light: "/assets/icons/it/less-sq.svg",
+			dark: "/assets/icons/it/less-sq.svg",
+		},
+		info: {
+			height: 16,
+			width: 13,
+			type: "svg",
+			ratio: 0.81,
+		},
+	},
+	it_less: {
+		name: "it_less",
+		uri: {
+			light: "/assets/icons/it/less.svg",
+			dark: "/assets/icons/it/less.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
 		},
 	},
 	"it_linux-0": {
@@ -324,6 +506,45 @@ const iconsMap = {
 			width: 32,
 			type: "svg",
 			ratio: 1,
+		},
+	},
+	"it_mongoose-green-border": {
+		name: "it_mongoose-green-border",
+		uri: {
+			light: "/assets/icons/it/mongoose-green-border.svg",
+			dark: "/assets/icons/it/mongoose-green-border.svg",
+		},
+		info: {
+			height: 120,
+			width: 114,
+			type: "svg",
+			ratio: 0.95,
+		},
+	},
+	"it_mongoose-green-text": {
+		name: "it_mongoose-green-text",
+		uri: {
+			light: "/assets/icons/it/mongoose-green-text.svg",
+			dark: "/assets/icons/it/mongoose-green-text.svg",
+		},
+		info: {
+			height: 103,
+			width: 488,
+			type: "svg",
+			ratio: 4.74,
+		},
+	},
+	"it_mongoose-green": {
+		name: "it_mongoose-green",
+		uri: {
+			light: "/assets/icons/it/mongoose-green.svg",
+			dark: "/assets/icons/it/mongoose-green.svg",
+		},
+		info: {
+			height: 99,
+			width: 87,
+			type: "svg",
+			ratio: 0.88,
 		},
 	},
 	"it_mongoosejs-favicon": {
@@ -599,6 +820,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	it_portainer: {
+		name: "it_portainer",
+		uri: {
+			light: "/assets/icons/it/portainer.svg",
+			dark: "/assets/icons/it/portainer.svg",
+		},
+		info: {
+			height: 2500,
+			width: 1788,
+			type: "svg",
+			ratio: 0.72,
+		},
+	},
 	it_prettier: {
 		name: "it_prettier",
 		uri: {
@@ -625,6 +859,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	"it_proxmox-ve": {
+		name: "it_proxmox-ve",
+		uri: {
+			light: "/assets/icons/it/proxmox-ve.png",
+			dark: "/assets/icons/it/proxmox-ve.png",
+		},
+		info: {
+			height: 128,
+			width: 128,
+			type: "png",
+			ratio: 1,
+		},
+	},
 	it_react: {
 		name: "it_react",
 		uri: {
@@ -638,6 +885,32 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	it_sass: {
+		name: "it_sass",
+		uri: {
+			light: "/assets/icons/it/sass.svg",
+			dark: "/assets/icons/it/sass.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	it_scss: {
+		name: "it_scss",
+		uri: {
+			light: "/assets/icons/it/scss.svg",
+			dark: "/assets/icons/it/scss.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	it_sql: {
 		name: "it_sql",
 		uri: {
@@ -647,6 +920,32 @@ const iconsMap = {
 		info: {
 			height: 32,
 			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"it_tailwind-css-blue": {
+		name: "it_tailwind-css-blue",
+		uri: {
+			light: "/assets/icons/it/tailwind-css-blue.svg",
+			dark: "/assets/icons/it/tailwind-css-blue.svg",
+		},
+		info: {
+			height: 2500,
+			width: 2500,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"it_tailwind-css-green": {
+		name: "it_tailwind-css-green",
+		uri: {
+			light: "/assets/icons/it/tailwind-css-green.svg",
+			dark: "/assets/icons/it/tailwind-css-green.svg",
+		},
+		info: {
+			height: 2500,
+			width: 2500,
 			type: "svg",
 			ratio: 1,
 		},
@@ -677,11 +976,24 @@ const iconsMap = {
 			ratio: 0.96,
 		},
 	},
-	"it_wordPress-blue-logo": {
-		name: "it_wordPress-blue-logo",
+	"it_visual-studio-code": {
+		name: "it_visual-studio-code",
 		uri: {
-			light: "/assets/icons/it/wordPress-blue-logo.svg",
-			dark: "/assets/icons/it/wordPress-blue-logo.svg",
+			light: "/assets/icons/it/visual-studio-code.svg",
+			dark: "/assets/icons/it/visual-studio-code.svg",
+		},
+		info: {
+			height: 2455,
+			width: 2500,
+			type: "svg",
+			ratio: 1.02,
+		},
+	},
+	"it_wordpress-blue-logo": {
+		name: "it_wordpress-blue-logo",
+		uri: {
+			light: "/assets/icons/it/wordpress-blue-logo.svg",
+			dark: "/assets/icons/it/wordpress-blue-logo.svg",
 		},
 		info: {
 			height: 123,
@@ -768,19 +1080,6 @@ const iconsMap = {
 			ratio: 1.7,
 		},
 	},
-	me_css: {
-		name: "me_css",
-		uri: {
-			light: "/assets/icons/me/css.svg",
-			dark: "/assets/icons/me/css.svg",
-		},
-		info: {
-			height: 32,
-			width: 32,
-			type: "svg",
-			ratio: 1,
-		},
-	},
 	"me_esprit-by-dp-technology": {
 		name: "me_esprit-by-dp-technology",
 		uri: {
@@ -843,19 +1142,6 @@ const iconsMap = {
 			height: 128,
 			width: 128,
 			type: "png",
-			ratio: 1,
-		},
-	},
-	me_less: {
-		name: "me_less",
-		uri: {
-			light: "/assets/icons/me/less.svg",
-			dark: "/assets/icons/me/less.svg",
-		},
-		info: {
-			height: 32,
-			width: 32,
-			type: "svg",
 			ratio: 1,
 		},
 	},
@@ -974,32 +1260,6 @@ const iconsMap = {
 			width: 152,
 			type: "png",
 			ratio: 0.89,
-		},
-	},
-	me_sass: {
-		name: "me_sass",
-		uri: {
-			light: "/assets/icons/me/sass.svg",
-			dark: "/assets/icons/me/sass.svg",
-		},
-		info: {
-			height: 32,
-			width: 32,
-			type: "svg",
-			ratio: 1,
-		},
-	},
-	me_scss: {
-		name: "me_scss",
-		uri: {
-			light: "/assets/icons/me/scss.svg",
-			dark: "/assets/icons/me/scss.svg",
-		},
-		info: {
-			height: 32,
-			width: 32,
-			type: "svg",
-			ratio: 1,
 		},
 	},
 	me_serverless: {
@@ -1156,6 +1416,32 @@ const iconsMap = {
 			width: 240,
 			type: "svg",
 			ratio: 1.03,
+		},
+	},
+	"of_camtasia-circle": {
+		name: "of_camtasia-circle",
+		uri: {
+			light: "/assets/icons/of/camtasia-circle.png",
+			dark: "/assets/icons/of/camtasia-circle.png",
+		},
+		info: {
+			height: 128,
+			width: 128,
+			type: "png",
+			ratio: 1,
+		},
+	},
+	"of_camtasia-square": {
+		name: "of_camtasia-square",
+		uri: {
+			light: "/assets/icons/of/camtasia-square.png",
+			dark: "/assets/icons/of/camtasia-square.png",
+		},
+		info: {
+			height: 87,
+			width: 87,
+			type: "png",
+			ratio: 1,
 		},
 	},
 	of_gimp: {
@@ -1324,6 +1610,45 @@ const iconsMap = {
 			height: 667,
 			width: 667,
 			type: "svg",
+			ratio: 1,
+		},
+	},
+	"of_obs-studio": {
+		name: "of_obs-studio",
+		uri: {
+			light: "/assets/icons/of/obs-studio.webp",
+			dark: "/assets/icons/of/obs-studio.webp",
+		},
+		info: {
+			height: 256,
+			width: 256,
+			type: "webp",
+			ratio: 1,
+		},
+	},
+	"of_obs-studio_x128-png": {
+		name: "of_obs-studio_x128-png",
+		uri: {
+			light: "/assets/icons/of/obs-studio_x128-png.png",
+			dark: "/assets/icons/of/obs-studio_x128-png.png",
+		},
+		info: {
+			height: 128,
+			width: 128,
+			type: "png",
+			ratio: 1,
+		},
+	},
+	"of_obs-studio_x128": {
+		name: "of_obs-studio_x128",
+		uri: {
+			light: "/assets/icons/of/obs-studio_x128.webp",
+			dark: "/assets/icons/of/obs-studio_x128.webp",
+		},
+		info: {
+			height: 128,
+			width: 128,
+			type: "webp",
 			ratio: 1,
 		},
 	},
