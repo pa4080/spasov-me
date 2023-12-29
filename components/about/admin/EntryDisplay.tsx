@@ -87,7 +87,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 					)}
 				</div>
 				<div className={styles.divider}>:</div>
-				<div className={styles.lightPrimaryText}>
+				<div className={styles.lightPrimaryText + " line-clamp-1"}>
 					{(t("city_list") as unknown as Record<string, string>)[entry.city]},{" "}
 					{(t("country_list") as unknown as Record<string, string>)[entry.country]}
 				</div>
