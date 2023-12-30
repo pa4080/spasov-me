@@ -1,13 +1,20 @@
 export const data = {
 	country_list: ["bulgaria"],
 	city_list: ["sofia", "pazardjik", "yambol"],
-	aboutEntry_type_list: ["employment", "resume", "education", "portfolio"],
-	// mainly "technology" will be used, at the moment programming-languages will be marked as a technology type too
+	aboutEntry_type_list: [
+		"businessCard",
+		"resume",
+		"employment",
+		"education",
+		"portfolio",
+		"spokenLanguages",
+	],
 	tag_type_list: [
 		"informationTechnologies",
 		"skills",
 		"mechanicalEngineering",
 		"officeApplications",
+		"system",
 	],
 } as const;
 

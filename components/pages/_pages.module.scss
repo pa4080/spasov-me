@@ -31,15 +31,27 @@
 			box-shadow 0.5s;
 
 		&:hover {
-			@apply bg-popover/[80%];
+			@apply bg-popover/[40%] dark:bg-popover/[80%];
 
-			box-shadow: 0 8px 32px theme("colors.muted.secondary");
 			transition:
-				background-color 0.5s,
-				box-shadow 0.5s,
-				opacity 0.5s,
-				box-shadow 0.5s;
+			background-color 0.5s,
+			box-shadow 0.5s,
+			opacity 0.5s,
+			box-shadow 0.5s;
+
+			:global(.light) & {
+				box-shadow: 0 6px 24px theme("colors.primary.DEFAULT");
+			}
+	
+			:global(.light-brown) & {
+				box-shadow: 0 8px 32px theme("colors.primary.DEFAULT");	
+			}
+	
+			:global(.dark) & {
+				box-shadow: 0 8px 32px theme("colors.muted.DEFAULT");
+			}
 		}
+
 
 		.title {
 			@apply font-unicephalon text-2xl tracking-wider text-foreground-secondary;

@@ -10,6 +10,7 @@ export type TagDoc = {
 	description: string;
 	icon: string;
 	tagType: TagItem;
+	orderKey: string;
 };
 
 export type NewTagData = Omit<TagDoc, "_id" | "creator"> & {

@@ -43,6 +43,7 @@ export const createTag = async (data: FormData, paths: string[]): Promise<true |
 			icon: data.get("icon") as string,
 			tagType: data.get("tagType") as TagItem,
 			creator: session?.user.id as string,
+			orderKey: data.get("orderKey") as string,
 		};
 
 		deleteFalsyKeys(newTagData);
@@ -84,6 +85,7 @@ export const updateTag = async (
 			description: data.get("description") as string,
 			icon: data.get("icon") as string,
 			tagType: data.get("tagType") as TagItem,
+			orderKey: data.get("orderKey") as string,
 			creator: session?.user.id as string,
 		};
 

@@ -22,7 +22,7 @@
 	}
 
 	.editModeCard {
-		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[25%] rounded-2xl h-full pt-12 2xs:pt-6 p-6 md:p-8 relative min-h-fit flex items-start flex-col gap-3 justify-start;
+		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[25%] rounded-2xl h-full pt-12 xs:pt-6 p-6 md:p-8 relative min-h-fit flex items-start flex-col gap-3 justify-start;
 
 		transition:
 			background-color 0.5s,
@@ -31,14 +31,25 @@
 			box-shadow 0.5s;
 
 		&:hover {
-			@apply bg-popover/[80%];
+			@apply bg-popover/[40%] dark:bg-popover/[80%];
 
-			box-shadow: 0 8px 32px theme("colors.muted.secondary");
 			transition:
-				background-color 0.5s,
-				box-shadow 0.5s,
-				opacity 0.5s,
-				box-shadow 0.5s;
+			background-color 0.5s,
+			box-shadow 0.5s,
+			opacity 0.5s,
+			box-shadow 0.5s;
+
+			:global(.light) & {
+				box-shadow: 0 6px 24px theme("colors.primary.DEFAULT");
+			}
+	
+			:global(.light-brown) & {
+				box-shadow: 0 8px 32px theme("colors.primary.DEFAULT");	
+			}
+	
+			:global(.dark) & {
+				box-shadow: 0 8px 32px theme("colors.muted.DEFAULT");
+			}
 		}
 
 		.cardEditActions {
@@ -65,6 +76,10 @@
 			}
 		}
 
+		.content {
+			@apply w-full;
+		}
+		
 		.description {
 			:global(.about-entry-collapsible) {
 				@apply pt-4 border-t border-foreground-quaternary;

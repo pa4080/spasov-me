@@ -27,6 +27,7 @@ import { IconMap } from "@/interfaces/IconMap";
 import Combobox from "@/components/fragments/Combobox";
 
 import SelectFromList from "../../../fragments/SelectFromList";
+import DisplayTagIcon from "../../common/DisplayTagIcon";
 import { Tag_FormSchema, Tag_FormSchemaGenerator } from "./schema";
 
 export type FileListItem = { value: string; label: string };
@@ -55,6 +56,7 @@ const TagForm: React.FC<Props> = ({
 		t("schema_name_monolite"),
 		t("schema_description"),
 		t("schema_icon"),
+		t("schema_orderKey"),
 		t("schema_type"),
 	]);
 
@@ -117,25 +119,59 @@ const TagForm: React.FC<Props> = ({
 						)}
 					/>
 
-					{/* Icon */}
-					<Combobox
-						control={form.control}
-						error={form.formState.errors.icon}
-						list={Object.keys(icons).map((icon) => ({
-							value: icon,
-							label: icon,
-						}))}
-						messages={{
-							label: t("icon_label"),
-							description: t("icon_description"),
-							placeholder: t("icon_search"),
-							pleaseSelect: t("icon_select"),
-							notFound: t("icon_searchNotFound"),
-							selectNone: t("icon_selectNone"),
-						}}
-						name="icon"
-						setValue={form.setValue}
-					/>
+					<div className="flex flex-col sm:flex-row gap-3 sm:gap-2 w-full">
+						<div className="sm:flex-[2] flex flex-row gap-1">
+							{/* Icon */}
+							<Combobox
+								className="w-full"
+								control={form.control}
+								error={form.formState.errors.icon}
+								list={Object.keys(icons).map((icon) => ({
+									value: icon,
+									label: icon,
+								}))}
+								messages={{
+									label: t("icon_label"),
+									description: t("icon_description"),
+									placeholder: t("icon_search"),
+									pleaseSelect: t("icon_select"),
+									notFound: t("icon_searchNotFound"),
+									selectNone: t("icon_selectNone"),
+								}}
+								name="icon"
+								setValue={form.setValue}
+							/>
+
+							<div className="max-h-full h-full min-w-fit border rounded-md bg-primary flex items-center justify-center p-1">
+								<DisplayTagIcon
+									className="hover:bg-transparent dark:hover:bg-transparent"
+									icon={icons[form.watch("icon") ?? "placeholder"]}
+								/>
+							</div>
+						</div>
+
+						{/* Order key */}
+						<FormField
+							control={form.control}
+							name="orderKey"
+							render={({ field }) => (
+								<FormItem className="space-y-0 sm:flex-1">
+									{t("orderKey_label") && <FormLabel>{t("orderKey_label")}</FormLabel>}
+									<FormControl>
+										<Input placeholder={t("orderKey_placeholder")} {...field} />
+									</FormControl>
+
+									{form.formState.errors.orderKey ? (
+										<FormMessage />
+									) : (
+										t("orderKey_description") && (
+											<FormDescription>{t("orderKey_description")}</FormDescription>
+										)
+									)}
+								</FormItem>
+							)}
+						/>
+					</div>
 
 					{/* Tag type ["technology", "skill"] */}
 					<SelectFromList

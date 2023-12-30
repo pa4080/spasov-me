@@ -31,6 +31,7 @@ import {
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/cn-utils";
 
 export interface ComboBoxList<T> {
 	value: PathValue<T, Path<T>>;
@@ -38,6 +39,7 @@ export interface ComboBoxList<T> {
 }
 
 interface Props<T extends FieldValues> {
+	className?: string;
 	control: Control<T>;
 	list: ComboBoxList<T>[];
 	name: Path<T>;
@@ -60,13 +62,14 @@ export default function Combobox<T extends FieldValues>({
 	setValue,
 	messages,
 	error,
+	className,
 }: Props<T>) {
 	return (
 		<FormField
 			control={control}
 			name={name}
 			render={({ field }) => (
-				<FormItem className="flex flex-col">
+				<FormItem className={cn("flex flex-col", className)}>
 					{messages.label && <FormLabel>{messages.label}</FormLabel>}
 					<Popover>
 						<PopoverTrigger asChild>

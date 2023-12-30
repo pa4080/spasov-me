@@ -32,6 +32,7 @@ const TagsAdmin: React.FC<Props> = async ({ className }) => {
 		description: tag.description,
 		icon: tag.icon,
 		tagType: tag.tagType,
+		orderKey: tag.orderKey,
 	}));
 
 	const Section = ({ type, title }: { type: TagItem; title: string }) => (
@@ -47,7 +48,7 @@ const TagsAdmin: React.FC<Props> = async ({ className }) => {
 			<div className={styles.feed}>
 				{tags
 					?.filter(({ tagType }) => tagType === type)
-					.sort((a, b) => a.name.localeCompare(b.name))
+					.sort((a, b) => a.orderKey.localeCompare(b.orderKey))
 					.map((tag, index) => <TagDisplay key={index} icons={icons} tag={tag} />)}
 			</div>
 		</div>
@@ -55,6 +56,7 @@ const TagsAdmin: React.FC<Props> = async ({ className }) => {
 
 	return (
 		<div className={`${styles.about} ${className}`}>
+			<Section title={t("title_system_tags")} type="system" />
 			<Section title={t("title_it_tags")} type="informationTechnologies" />
 			<Section title={t("title_me_tags")} type="mechanicalEngineering" />
 			<Section title={t("title_of_tags")} type="officeApplications" />

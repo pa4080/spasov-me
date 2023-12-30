@@ -186,6 +186,9 @@
 		"btn_revalidate_submitting": "Revalidating..."
 	},
 	"AboutCV": {
+		"title_spoken_languages": "Spoken languages",
+		"title_business_card": "Business card",
+		"title_resume": "Resume",
 		"title_employment": "Employment history",
 		"title_education": "Education"
 	},
@@ -212,8 +215,8 @@
 		"toast_deleted": "The entry was successfully deleted!"
 	},
 	"AboutCV_Form": {
-		"schema_title": "The entry title must be at least 6 characters.",
-		"schema_description": "The description must be at least 20 characters.",
+		"schema_title": "The entry title must be at least 4 characters.",
+		"schema_description": "The description must be at least 10 characters.",
 		"schema_country": "The country is required.",
 		"schema_city": "The city is required.",
 		"schema_date": "Select a date.",
@@ -250,6 +253,8 @@
 		"type_placeholder": "Select Type",
 		"type_description": "",
 		"aboutEntry_type_list": {
+			"spokenLanguages": "Spoken Languages",
+			"businessCard": "Business card",
 			"employment": "Employment",
 			"resume": "Resume",
 			"education": "Education",
@@ -283,6 +288,7 @@
 		"dateTo_now_current": "Now"
 	},
 	"TagsAdmin": {
+		"title_system_tags": "System (not listed) Tags",
 		"title_it_tags": "Information Technologies",
 		"title_me_tags": "Mechanical Engineering",
 		"title_of_tags": "Office Applications",
@@ -307,7 +313,8 @@
 		"name": "Name (slug)",
 		"description": "Description",
 		"type": "Type",
-		"icon": "Icon"
+		"icon": "Icon",
+		"orderKey": "Order key"
 	},
 	"TagsAdmin_DeleteTag": {
 		"dialog_title": "Delete a tag of type { tagType } ",
@@ -322,6 +329,7 @@
 		"schema_name_monolite": "It will be used in the search and as a slug, so must be monolite word and dashes optionally.",
 		"schema_description": "The description must be at least 6 characters.",
 		"schema_icon": "Select an icon.",
+		"schema_orderKey": "Type a word as an order key.",
 		"schema_type": "Select tag type.",
 
 		"name_label": "",
@@ -332,6 +340,10 @@
 		"description_description": "",
 		"description_placeholder": "Tag description...",
 
+		"orderKey_label": "",
+		"orderKey_description": "",
+		"orderKey_placeholder": "Enter a word as an order key...",
+
 		"type_label": "",
 		"type_placeholder": "Select tag type",
 		"type_description": "",
@@ -339,7 +351,8 @@
 			"informationTechnologies": "Information Technologies",
 			"mechanicalEngineering": "Mechanical Engineering",
 			"skills": "Skills",
-			"officeApplications": "Office  Applications"
+			"officeApplications": "Office  Applications",
+			"system": "System (not listed) Tags"
 		},
 
 		"icon_label": "",

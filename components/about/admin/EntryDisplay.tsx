@@ -9,7 +9,7 @@ import { msgs } from "@/messages";
 
 import { TagList } from "@/interfaces/Tag";
 
-import DisplayTag from "@/components/tags/common/DisplayTag";
+import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
 
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
@@ -21,6 +21,10 @@ import { FileListItem } from "./entry-form";
 import { Entry_FormSchema } from "./entry-form/schema";
 
 const splitDescriptionKeyword = /<!--\s*more\s*-->/;
+const commentsMatcher = /<!--.*?-->/gs;
+// We want to remove all comments. It is not done
+// by unified().use(remarkRehype), because we are
+// using some of them as special tags.
 
 interface Props {
 	entry: Omit<Entry_FormSchema, "tags"> & {
@@ -43,7 +47,9 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 	const dtFrom = new Date(dateFrom);
 	const dtTo = dateTo ? new Date(dateTo) : undefined;
 
-	const descriptionArr = description.split(splitDescriptionKeyword);
+	const descriptionArr = description.split(splitDescriptionKeyword).map((str) => {
+		return str.replace(commentsMatcher, "");
+	});
 
 	const t = msgs("AboutCV_Form");
 
@@ -60,7 +66,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 					{/* {format(new Date(dateFrom), "yyyy/MM", { locale: en })} */}
 					<span>
 						<span className={styles.lightSecondaryText}>
-							{format(dtFrom, "MM/", { locale: en })}
+							{format(dtFrom, "MMM.dd/", { locale: en })}
 						</span>
 						<span className={styles.lightPrimaryText}>
 							{format(dtFrom, "yyyy", { locale: en })}
@@ -70,7 +76,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 					{dtTo ? (
 						<span>
 							<span className={styles.lightSecondaryText}>
-								{format(dtTo, "MM/", { locale: en })}
+								{format(dtTo, "MMM.dd/", { locale: en })}
 							</span>
 							<span className={styles.lightPrimaryText}>
 								{format(dtTo, "yyyy", { locale: en })}
@@ -81,12 +87,12 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 					)}
 				</div>
 				<div className={styles.divider}>:</div>
-				<div className={styles.lightPrimaryText}>
+				<div className={styles.lightPrimaryText + " line-clamp-1"}>
 					{(t("city_list") as unknown as Record<string, string>)[entry.city]},{" "}
 					{(t("country_list") as unknown as Record<string, string>)[entry.country]}
 				</div>
 			</div>
-			<div className="col-2">
+			<div className={styles.content}>
 				<div dangerouslySetInnerHTML={{ __html: title }} className={styles.title} />
 				<div className={`about-entry-description ${styles.description}`}>
 					<div dangerouslySetInnerHTML={{ __html: descriptionArr[0] ?? description }} />
@@ -99,9 +105,11 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 						)}
 						<div className="about-entry-tags">
 							{entry.tags
-								?.sort((a, b) => a.name.localeCompare(b.name))
+								?.sort((a, b) =>
+									a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
+								)
 								.map((tag) => (
-									<DisplayTag
+									<DisplayTagIcon
 										key={tag._id}
 										description={tag.description}
 										icon={iconsMap[tag.icon as IconsMapItem]}
