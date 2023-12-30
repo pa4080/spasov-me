@@ -186,6 +186,9 @@
 		"btn_revalidate_submitting": "Revalidating..."
 	},
 	"AboutCV": {
+		"title_spoken_languages": "Spoken languages",
+		"title_business_card": "Business card",
+		"title_resume": "Resume",
 		"title_employment": "Employment history",
 		"title_education": "Education"
 	},
@@ -212,8 +215,8 @@
 		"toast_deleted": "The entry was successfully deleted!"
 	},
 	"AboutCV_Form": {
-		"schema_title": "The entry title must be at least 6 characters.",
-		"schema_description": "The description must be at least 20 characters.",
+		"schema_title": "The entry title must be at least 4 characters.",
+		"schema_description": "The description must be at least 10 characters.",
 		"schema_country": "The country is required.",
 		"schema_city": "The city is required.",
 		"schema_date": "Select a date.",
@@ -250,6 +253,8 @@
 		"type_placeholder": "Select Type",
 		"type_description": "",
 		"aboutEntry_type_list": {
+			"spokenLanguages": "Spoken Languages",
+			"businessCard": "Business card",
 			"employment": "Employment",
 			"resume": "Resume",
 			"education": "Education",
@@ -283,6 +288,7 @@
 		"dateTo_now_current": "Now"
 	},
 	"TagsAdmin": {
+		"title_system_tags": "System (not listed) Tags",
 		"title_it_tags": "Information Technologies",
 		"title_me_tags": "Mechanical Engineering",
 		"title_of_tags": "Office Applications",
@@ -345,7 +351,8 @@
 			"informationTechnologies": "Information Technologies",
 			"mechanicalEngineering": "Mechanical Engineering",
 			"skills": "Skills",
-			"officeApplications": "Office  Applications"
+			"officeApplications": "Office  Applications",
+			"system": "System (not listed) Tags"
 		},
 
 		"icon_label": "",

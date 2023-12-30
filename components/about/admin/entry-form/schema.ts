@@ -4,10 +4,10 @@ import { aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataType
 
 export const Entry_FormSchemaGenerator = (messages?: string[]) =>
 	z.object({
-		title: z.string().min(6, {
+		title: z.string().min(4, {
 			message: messages?.[0],
 		}),
-		description: z.string().min(20, {
+		description: z.string().min(10, {
 			message: messages?.[1],
 		}),
 		country: z.enum(countryTuple, {

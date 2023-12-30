@@ -1912,6 +1912,32 @@ const iconsMap = {
 			ratio: 0.97,
 		},
 	},
+	"ui_user-graduate-fa-dt": {
+		name: "ui_user-graduate-fa-dt",
+		uri: {
+			light: "/assets/icons/ui/user-graduate-fa-dt.svg",
+			dark: "/assets/icons/ui/user-graduate-fa-dt.svg",
+		},
+		info: {
+			height: 16,
+			width: 14,
+			type: "svg",
+			ratio: 0.88,
+		},
+	},
+	"ui_user-secret-fa-dt": {
+		name: "ui_user-secret-fa-dt",
+		uri: {
+			light: "/assets/icons/ui/user-secret-fa-dt.svg",
+			dark: "/assets/icons/ui/user-secret-fa-dt.svg",
+		},
+		info: {
+			height: 16,
+			width: 14,
+			type: "svg",
+			ratio: 0.88,
+		},
+	},
 	"ui_wikimedia-gray": {
 		name: "ui_wikimedia-gray",
 		uri: {

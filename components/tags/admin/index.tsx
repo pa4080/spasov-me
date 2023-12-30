@@ -56,6 +56,7 @@ const TagsAdmin: React.FC<Props> = async ({ className }) => {
 
 	return (
 		<div className={`${styles.about} ${className}`}>
+			<Section title={t("title_system_tags")} type="system" />
 			<Section title={t("title_it_tags")} type="informationTechnologies" />
 			<Section title={t("title_me_tags")} type="mechanicalEngineering" />
 			<Section title={t("title_of_tags")} type="officeApplications" />

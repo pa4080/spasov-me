@@ -92,7 +92,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 					{(t("country_list") as unknown as Record<string, string>)[entry.country]}
 				</div>
 			</div>
-			<div className="col-2">
+			<div className={styles.content}>
 				<div dangerouslySetInnerHTML={{ __html: title }} className={styles.title} />
 				<div className={`about-entry-description ${styles.description}`}>
 					<div dangerouslySetInnerHTML={{ __html: descriptionArr[0] ?? description }} />

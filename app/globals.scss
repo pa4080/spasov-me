@@ -160,15 +160,15 @@ input:placeholder-shown {
 }
 
 /* Trick the hidden scroll of Radix Select */
-// body [data-radix-select-viewport] {
-// 	-webkit-overflow-scrolling: scroll;
-// 	scrollbar-width: 2rem;
-// 	-ms-overflow-style: scroll;
-// }
+body [data-radix-select-viewport] {
+	-webkit-overflow-scrolling: scroll;
+	scrollbar-width: 2rem;
+	-ms-overflow-style: scroll;
+}
 
-// body [data-radix-select-viewport]::-webkit-scrollbar {
-// 	display: inherit;
-// }
+body [data-radix-select-viewport]::-webkit-scrollbar {
+	display: inherit;
+}
 
 /* Outline */
 :focus-visible,
@@ -380,3 +380,4 @@ body textarea.w-md-editor-text-input:focus {
 	text-shadow: none !important;
 	box-shadow: none !important;
 }
+

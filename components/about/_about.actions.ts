@@ -39,9 +39,6 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<true
 			return null;
 		}
 
-		// eslint-disable-next-line no-console
-		console.log(data);
-
 		await connectToMongoDb();
 
 		const newAboutEntryData: NewAboutEntryData = {
@@ -58,9 +55,6 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<true
 			attachment: data.get("attachment") as string,
 			creator: session?.user.id as string,
 		};
-
-		// eslint-disable-next-line no-console
-		console.log(newAboutEntryData);
 
 		deleteFalsyKeys(newAboutEntryData, ["attachment", "dateTo"]);
 

@@ -76,6 +76,10 @@
 			}
 		}
 
+		.content {
+			@apply w-full;
+		}
+		
 		.description {
 			:global(.about-entry-collapsible) {
 				@apply pt-4 border-t border-foreground-quaternary;
