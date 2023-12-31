@@ -1,12 +1,5 @@
 import React from "react";
 
-import rehypeExternalLinks, { Target } from "rehype-external-links";
-import rehypeFormat from "rehype-format";
-import rehypeStringify from "rehype-stringify";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import { unified } from "unified";
-
 import { AboutEntryItem } from "@/interfaces/_dataTypes";
 import { msgs } from "@/messages";
 
@@ -17,6 +10,8 @@ import { Route } from "@/routes";
 import { getTags } from "@/components/tags/_tags.actions";
 
 import { TagList } from "@/interfaces/Tag";
+
+import { processMarkdown } from "@/lib/process-markdown";
 
 import RevalidatePaths from "../../fragments/RevalidatePaths";
 import { getEntries } from "../_about.actions";
@@ -35,22 +30,6 @@ export interface GenericActionProps {
 interface Props {
 	className?: string;
 }
-
-export const new_tab_target = "spasov-me-tab" as Target;
-
-const processMarkdown = (markdown: string) => {
-	// https://github.com/unifiedjs/unified
-	// https://github.com/unifiedjs/unified#processorprocesssyncfile
-	const result = unified()
-		.use(remarkParse)
-		.use(remarkRehype, { allowDangerousHtml: true })
-		.use(rehypeFormat)
-		.use(rehypeExternalLinks, { rel: ["nofollow"], target: new_tab_target })
-		.use(rehypeStringify, { allowDangerousHtml: true })
-		.processSync(markdown);
-
-	return result.value.toString();
-};
 
 const AboutAdmin: React.FC<Props> = async ({ className }) => {
 	const t = msgs("AboutCV");

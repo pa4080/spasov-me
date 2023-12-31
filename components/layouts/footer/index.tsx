@@ -3,7 +3,7 @@ import React from "react";
 
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 
-import { new_tab_target } from "@/components/about/admin";
+import { new_tab_target } from "@/lib/process-markdown";
 
 import styles from "./_footer.module.scss";
 
