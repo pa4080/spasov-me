@@ -1,9 +1,9 @@
 import React from "react";
 
-import { TagItem } from "@/interfaces/_dataTypes";
-import { msgs } from "@/messages";
-
 import { IconMap } from "@/interfaces/IconMap";
+import { TagListItem } from "@/interfaces/Tag";
+import { TagType } from "@/interfaces/_dataTypes";
+import { msgs } from "@/messages";
 import icons from "@/public/assets/icons";
 
 import RevalidatePaths from "../../fragments/RevalidatePaths";
@@ -14,7 +14,9 @@ import TagDisplay from "./TagDisplay";
 
 export interface GenericActionProps {
 	className?: string;
-	tagType: TagItem;
+	tag: TagListItem;
+	tagType: TagType;
+	tag_id: string;
 	icons: IconMap;
 }
 
@@ -25,17 +27,9 @@ interface Props {
 const TagsAdmin: React.FC<Props> = async ({ className }) => {
 	const t = msgs("TagsAdmin");
 
-	const tagList = await getTags();
-	const tags = tagList?.map((tag) => ({
-		_id: tag._id.toString(),
-		name: tag.name,
-		description: tag.description,
-		icon: tag.icon,
-		tagType: tag.tagType,
-		orderKey: tag.orderKey,
-	}));
+	const tags = await getTags();
 
-	const Section = ({ type, title }: { type: TagItem; title: string }) => (
+	const Section = ({ type, title }: { type: TagType; title: string }) => (
 		<div className={styles.section}>
 			<div className={styles.sectionHeader}>
 				<h1 className={styles.sectionTitle}>{title}</h1>
@@ -56,10 +50,10 @@ const TagsAdmin: React.FC<Props> = async ({ className }) => {
 
 	return (
 		<div className={`${styles.about} ${className}`}>
-			<Section title={t("title_system_tags")} type="system" />
 			<Section title={t("title_it_tags")} type="informationTechnologies" />
 			<Section title={t("title_me_tags")} type="mechanicalEngineering" />
 			<Section title={t("title_of_tags")} type="officeApplications" />
+			<Section title={t("title_system_tags")} type="system" />
 		</div>
 	);
 };

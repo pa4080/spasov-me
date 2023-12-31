@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/form";
 
 import { Button } from "@/components/ui/button";
-import { TagItem, tagTuple } from "@/interfaces/_dataTypes";
+import { TagType, tagTuple } from "@/interfaces/_dataTypes";
 import { msgs } from "@/messages";
 
 import { IconMap } from "@/interfaces/IconMap";
@@ -30,12 +30,10 @@ import SelectFromList from "../../../fragments/SelectFromList";
 import DisplayTagIcon from "../../common/DisplayTagIcon";
 import { Tag_FormSchema, Tag_FormSchemaGenerator } from "./schema";
 
-export type FileListItem = { value: string; label: string };
-
 interface Props {
 	className?: string;
 	formData?: Tag_FormSchema;
-	tagType: TagItem;
+	tagType: TagType;
 	onSubmit: (data: Tag_FormSchema) => void;
 	submitting?: boolean;
 	icons: IconMap;

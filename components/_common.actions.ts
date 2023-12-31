@@ -2,7 +2,7 @@
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 
-import { FileDocument } from "@/interfaces/File";
+import { FileDocument, FileListItem } from "@/interfaces/File";
 import { authOptions } from "@/lib/auth-options";
 import { gridFSBucket } from "@/lib/mongodb-mongoose";
 
@@ -22,7 +22,7 @@ export const revalidatePaths = async <T extends string>(paths: T[]): Promise<T[]
 	}
 };
 
-export const getFileList = async (): Promise<FileDocument[] | null> => {
+export const getFiles = async (): Promise<FileDocument[] | null> => {
 	"use server";
 
 	// connect to the database and get the bucket
@@ -35,6 +35,21 @@ export const getFileList = async (): Promise<FileDocument[] | null> => {
 	}
 
 	return files;
+};
+
+export const getFileList = async (): Promise<FileListItem[] | null> => {
+	const files = await getFiles();
+
+	if (!files || files?.length === 0) {
+		return null;
+	}
+
+	return files
+		.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/))
+		.map((file) => ({
+			value: file._id.toString(),
+			label: file.filename,
+		}));
 };
 
 export const getSession = async () => {

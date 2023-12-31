@@ -5,49 +5,25 @@ import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { enUS as en } from "date-fns/locale";
 
-import { msgs } from "@/messages";
-
-import { TagList } from "@/interfaces/Tag";
-
 import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
-
+import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
 import styles from "../_about.module.scss";
 import EntryDelete from "./EntryDelete";
 import EntryShowAttachment from "./EntryShowAttachment";
 import EntryUpdate from "./EntryUpdate";
-import { FileListItem } from "./entry-form";
-import { Entry_FormSchema } from "./entry-form/schema";
 
-const splitDescriptionKeyword = /<!--\s*more\s*-->/;
-const commentsMatcher = /<!--.*?-->/gs;
-// We want to remove all comments. It is not done
-// by unified().use(remarkRehype), because we are
-// using some of them as special tags.
+import { GenericActionProps } from ".";
 
-interface Props {
-	entry: Omit<Entry_FormSchema, "tags"> & {
-		html: { title: string; description: string; attachmentUri?: string };
-		_id: string;
-		tags: TagList;
-	};
-	className?: string;
-	files?: FileListItem[];
-	tags: TagList;
-}
+interface Props extends Omit<GenericActionProps, "entryType" | "entry_id"> {}
 
 const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
-	const {
-		dateFrom,
-		dateTo,
-		html: { title, description },
-	} = entry;
-
+	const { dateFrom, dateTo } = entry;
 	const dtFrom = new Date(dateFrom);
 	const dtTo = dateTo ? new Date(dateTo) : undefined;
-
-	const descriptionArr = description.split(splitDescriptionKeyword).map((str) => {
+	const descriptionArr = entry.html.description.split(splitDescriptionKeyword).map((str) => {
 		return str.replace(commentsMatcher, "");
 	});
 
@@ -93,9 +69,9 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 				</div>
 			</div>
 			<div className={styles.content}>
-				<div dangerouslySetInnerHTML={{ __html: title }} className={styles.title} />
+				<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />
 				<div className={`about-entry-description ${styles.description}`}>
-					<div dangerouslySetInnerHTML={{ __html: descriptionArr[0] ?? description }} />
+					<div dangerouslySetInnerHTML={{ __html: descriptionArr[0] ?? entry.description }} />
 					<div className="about-entry-collapsible">
 						{descriptionArr[1] && (
 							<div

@@ -1,11 +1,10 @@
 "use client";
-
 import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
-
 import { BsSendCheck } from "react-icons/bs";
 
+import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
 	DialogContent,
@@ -14,27 +13,18 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-
-import { msgs } from "@/messages";
-
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { toast } from "@/components/ui/use-toast";
-
 import { generateFormDataFromObject } from "@/lib/generateFormDataFromObject";
-
+import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import TagForm from "./tag-form";
-
 import { updateTag } from "../_tags.actions";
-
+import TagForm from "./tag-form";
 import { Tag_FormSchema } from "./tag-form/schema";
 
 import { GenericActionProps } from ".";
 
-interface Props extends GenericActionProps {
-	tag: Tag_FormSchema & { _id: string };
-}
+interface Props extends Omit<GenericActionProps, "tag_id"> {}
 
 const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 	const t = msgs("TagsAdmin_UpdateEntry");

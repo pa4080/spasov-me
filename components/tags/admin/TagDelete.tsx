@@ -1,12 +1,10 @@
 "use client";
-import { usePathname } from "next/navigation";
 import React, { useState } from "react";
+
+import { usePathname } from "next/navigation";
 import { BsSendCheck } from "react-icons/bs";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
-import { toast } from "@/components/ui/use-toast";
-import { msgs } from "@/messages";
-
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -19,16 +17,15 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
-
+import { toast } from "@/components/ui/use-toast";
+import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
 import { deleteTag } from "../_tags.actions";
 
 import { GenericActionProps } from ".";
 
-type Props = Omit<GenericActionProps, "icons"> & {
-	tag_id: string;
-};
+interface Props extends Omit<GenericActionProps, "icons" | "tag"> {}
 
 const TagDelete: React.FC<Props> = ({ className, tagType, tag_id }) => {
 	const t = msgs("TagsAdmin_DeleteTag");

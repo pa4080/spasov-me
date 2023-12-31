@@ -2,7 +2,7 @@ import { GridFSFile } from "mongodb";
 
 import { UserObject } from "@/interfaces/User";
 
-export type FileDocument = Omit<GridFSFile, "metadata"> & {
+export interface FileDocument extends Omit<GridFSFile, "metadata"> {
 	metadata: {
 		description: string;
 		creator: UserObject;
@@ -12,4 +12,9 @@ export type FileDocument = Omit<GridFSFile, "metadata"> & {
 		originalName: string;
 		uri?: string;
 	};
-};
+}
+
+export interface FileListItem {
+	value: string;
+	label: string;
+}

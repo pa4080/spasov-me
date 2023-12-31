@@ -1,12 +1,10 @@
 "use client";
-import { usePathname } from "next/navigation";
 import React, { useState } from "react";
+
+import { usePathname } from "next/navigation";
 import { BsSendCheck } from "react-icons/bs";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
-import { toast } from "@/components/ui/use-toast";
-import { msgs } from "@/messages";
-
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -19,16 +17,15 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
-
+import { toast } from "@/components/ui/use-toast";
+import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
 import { deleteEntry } from "../_about.actions";
 
 import { GenericActionProps } from ".";
 
-interface Props extends Omit<GenericActionProps, "tags"> {
-	entry_id: string;
-}
+interface Props extends Omit<GenericActionProps, "tags" | "files" | "entry"> {}
 
 const EntryDelete: React.FC<Props> = ({ className, entryType, entry_id }) => {
 	const t = msgs("AboutCV_DeleteEntry");

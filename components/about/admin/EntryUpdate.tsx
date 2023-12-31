@@ -1,11 +1,9 @@
 "use client";
-
-import React, { useState } from "react";
-
 import { usePathname } from "next/navigation";
-
+import React, { useState } from "react";
 import { BsSendCheck } from "react-icons/bs";
 
+import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
 	DialogContent,
@@ -14,29 +12,18 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-
-import { msgs } from "@/messages";
-
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { toast } from "@/components/ui/use-toast";
-
 import { generateFormDataFromObject } from "@/lib/generateFormDataFromObject";
-
+import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { TagList } from "@/interfaces/Tag";
-
-import { Entry_FormSchema } from "./entry-form/schema";
-
-import EntryForm from "./entry-form";
-
 import { updateEntry } from "../_about.actions";
+import EntryForm from "./entry-form";
+import { Entry_FormSchema } from "./entry-form/schema";
 
 import { GenericActionProps } from ".";
 
-interface Props extends GenericActionProps {
-	entry: Omit<Entry_FormSchema, "tags"> & { _id: string; tags: TagList };
-}
+interface Props extends Omit<GenericActionProps, "entry_id"> {}
 
 const EntryUpdate: React.FC<Props> = ({ className, entryType, entry, files, tags }) => {
 	const t = msgs("AboutCV_UpdateEntry");

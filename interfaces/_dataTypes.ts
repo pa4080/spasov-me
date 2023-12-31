@@ -25,7 +25,7 @@ export const tagTuple = data.tag_type_list;
 
 export type DataTuples = (typeof data)[keyof typeof data];
 
-export type CountryItem = (typeof data.country_list)[number];
-export type CityItem = (typeof data.city_list)[number];
-export type AboutEntryItem = (typeof data.aboutEntry_type_list)[number];
-export type TagItem = (typeof data.tag_type_list)[number];
+export type CountryType = (typeof data.country_list)[number];
+export type CityType = (typeof data.city_list)[number];
+export type AboutEntryType = (typeof data.aboutEntry_type_list)[number];
+export type TagType = (typeof data.tag_type_list)[number];

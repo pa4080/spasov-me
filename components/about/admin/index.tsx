@@ -1,30 +1,27 @@
 import React from "react";
 
-import { AboutEntryItem } from "@/interfaces/_dataTypes";
-import { msgs } from "@/messages";
-
 import { getFileList } from "@/components/_common.actions";
-
-import { Route } from "@/routes";
-
 import { getTags } from "@/components/tags/_tags.actions";
-
-import { TagList } from "@/interfaces/Tag";
-
-import { processMarkdown } from "@/lib/process-markdown";
+import { AboutEntryData } from "@/interfaces/AboutEntry";
+import { FileListItem } from "@/interfaces/File";
+import { TagListItem } from "@/interfaces/Tag";
+import { AboutEntryType } from "@/interfaces/_dataTypes";
+import { msgs } from "@/messages";
+import { Route } from "@/routes";
 
 import RevalidatePaths from "../../fragments/RevalidatePaths";
 import { getEntries } from "../_about.actions";
 import styles from "../_about.module.scss";
 import EntryCreate from "./EntryCreate";
 import EntryDisplay from "./EntryDisplay";
-import { FileListItem } from "./entry-form";
 
 export interface GenericActionProps {
 	className?: string;
-	entryType: AboutEntryItem;
-	files?: FileListItem[];
-	tags: TagList;
+	entry: AboutEntryData;
+	entryType: AboutEntryType;
+	entry_id: string;
+	files?: FileListItem[] | null;
+	tags: TagListItem[] | null;
 }
 
 interface Props {
@@ -34,65 +31,17 @@ interface Props {
 const AboutAdmin: React.FC<Props> = async ({ className }) => {
 	const t = msgs("AboutCV");
 
-	const entryList = await getEntries();
-	const entries = entryList?.map((entry) => {
-		return {
-			_id: entry._id.toString(),
-			html: {
-				// This cannot be done in the client side
-				title: processMarkdown(entry.title),
-				description: processMarkdown(entry.description),
-				attachmentUri:
-					entry.attachment && `${entry.attachment?._id.toString()}/${entry.attachment?.filename}`,
-			},
-
-			title: entry.title,
-			description: entry.description,
-			country: entry.country,
-			city: entry.city,
-			dateFrom: entry.dateFrom as Date,
-			dateTo: entry.dateTo as Date | undefined,
-			entryType: entry.entryType,
-			visibility: entry.visibility as boolean,
-			attachment: entry.attachment?._id.toString(),
-			tags:
-				entry.tags?.map((tag) => ({
-					name: tag.name,
-					description: tag.description,
-					_id: tag._id.toString(),
-					icon: tag.icon,
-					tagType: tag.tagType,
-					orderKey: tag.orderKey,
-				})) || [],
-		};
-	});
-
+	const entries = await getEntries();
+	const tags = await getTags();
 	const fileList = await getFileList();
-	const files: FileListItem[] | undefined = fileList
-		?.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/))
-		.map((file) => ({
-			value: file._id.toString(),
-			label: file.filename,
-		}));
 
-	const tagList = await getTags();
-	const tags: TagList =
-		tagList?.map((tag) => ({
-			name: tag.name,
-			description: tag.description,
-			_id: tag._id.toString(),
-			icon: tag.icon,
-			tagType: tag.tagType,
-			orderKey: tag.orderKey,
-		})) || [];
-
-	const Section = ({ type, title }: { type: AboutEntryItem; title: string }) => (
+	const Section = ({ type, title }: { type: AboutEntryType; title: string }) => (
 		<div className={styles.section}>
 			<div className={styles.sectionHeader}>
 				<h1 className={styles.sectionTitle}>{title}</h1>
 				<div className="flex gap-2">
 					<RevalidatePaths paths={[Route.public.ABOUT.uri]} />
-					<EntryCreate entryType={type} files={files} tags={tags} />
+					<EntryCreate entryType={type} files={fileList} tags={tags} />
 				</div>
 			</div>
 
@@ -101,7 +50,7 @@ const AboutAdmin: React.FC<Props> = async ({ className }) => {
 					?.filter(({ entryType }) => entryType === type)
 					.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime())
 					.map((entry, index) => (
-						<EntryDisplay key={index} entry={entry} files={files} tags={tags} />
+						<EntryDisplay key={index} entry={entry} files={fileList} tags={tags} />
 					))}
 			</div>
 		</div>

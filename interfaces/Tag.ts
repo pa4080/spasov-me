@@ -1,24 +1,22 @@
 import { UserObject } from "@/interfaces/User";
 
-import { TagItem } from "./_dataTypes";
+import { TagType } from "./_dataTypes";
 
-export type TagDoc = {
+export interface TagDoc {
 	_id: string;
 	creator: UserObject;
 
 	name: string;
 	description: string;
 	icon: string;
-	tagType: TagItem;
+	tagType: TagType;
 	orderKey: string;
-};
+}
 
-export type NewTagData = Omit<TagDoc, "_id" | "creator"> & {
+export interface NewTagData extends Omit<TagDoc, "_id" | "creator"> {
 	creator: string;
-};
+}
 
-export type TagListItem = Omit<TagDoc, "_id" | "creator"> & {
+export interface TagListItem extends Omit<TagDoc, "_id" | "creator"> {
 	_id: string;
-};
-
-export type TagList = TagListItem[];
+}
