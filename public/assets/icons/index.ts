@@ -248,6 +248,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	it_html: {
+		name: "it_html",
+		uri: {
+			light: "/assets/icons/it/html.svg",
+			dark: "/assets/icons/it/html.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	it_javascript: {
 		name: "it_javascript",
 		uri: {
@@ -885,6 +898,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	it_redis: {
+		name: "it_redis",
+		uri: {
+			light: "/assets/icons/it/redis.svg",
+			dark: "/assets/icons/it/redis.svg",
+		},
+		info: {
+			height: 2500,
+			width: 2500,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	it_sass: {
 		name: "it_sass",
 		uri: {
@@ -1117,19 +1143,6 @@ const iconsMap = {
 			width: 300,
 			type: "png",
 			ratio: 1.24,
-		},
-	},
-	me_html: {
-		name: "me_html",
-		uri: {
-			light: "/assets/icons/me/html.svg",
-			dark: "/assets/icons/me/html.svg",
-		},
-		info: {
-			height: 32,
-			width: 32,
-			type: "svg",
-			ratio: 1,
 		},
 	},
 	"me_iso-g-code": {

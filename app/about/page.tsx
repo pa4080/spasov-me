@@ -1,16 +1,11 @@
-import ThemeSwitch from "@/components/layouts/theme/ThemeSwitch";
-import { msgs } from "@/messages";
+import AboutPublic from "@/components/about/public";
 
-const Home: React.FC = () => {
-	const t = msgs("Navigation")("signInWith", { provider: "Google" });
-
+const About: React.FC = () => {
 	return (
-		<div className="h-full w-full flex justify-center items-center flex-col gap-4 p-4">
-			<p>About</p>
-			<ThemeSwitch />
-			{t}
+		<div className="margin_vh_top margin_vh_bottom">
+			<AboutPublic />
 		</div>
 	);
 };
 
-export default Home;
+export default About;

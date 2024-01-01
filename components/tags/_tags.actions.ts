@@ -1,21 +1,28 @@
 "use server";
 
 import { getSession, revalidatePaths } from "@/components/_common.actions";
-import { NewTagData, TagDoc } from "@/interfaces/Tag";
-import { TagItem } from "@/interfaces/_dataTypes";
+import { NewTagData, TagDoc, TagListItem } from "@/interfaces/Tag";
+import { TagType } from "@/interfaces/_dataTypes";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb, mongo_id_obj } from "@/lib/mongodb-mongoose";
 import { msgs } from "@/messages";
 import Tag from "@/models/tag";
 
-export const getTags = async (): Promise<TagDoc[] | null> => {
+export const getTags = async (): Promise<TagListItem[] | null> => {
 	"use server";
 
 	try {
 		await connectToMongoDb();
 		const tags: TagDoc[] = await Tag.find(mongo_id_obj());
 
-		return tags;
+		return tags.map((tag) => ({
+			_id: tag._id.toString(),
+			name: tag.name,
+			description: tag.description,
+			icon: tag.icon,
+			tagType: tag.tagType,
+			orderKey: tag.orderKey,
+		}));
 	} catch (error) {
 		console.error(error);
 
@@ -41,7 +48,7 @@ export const createTag = async (data: FormData, paths: string[]): Promise<true |
 			name: data.get("name") as string,
 			description: data.get("description") as string,
 			icon: data.get("icon") as string,
-			tagType: data.get("tagType") as TagItem,
+			tagType: data.get("tagType") as TagType,
 			creator: session?.user.id as string,
 			orderKey: data.get("orderKey") as string,
 		};
@@ -84,7 +91,7 @@ export const updateTag = async (
 			name: data.get("name") as string,
 			description: data.get("description") as string,
 			icon: data.get("icon") as string,
-			tagType: data.get("tagType") as TagItem,
+			tagType: data.get("tagType") as TagType,
 			orderKey: data.get("orderKey") as string,
 			creator: session?.user.id as string,
 		};

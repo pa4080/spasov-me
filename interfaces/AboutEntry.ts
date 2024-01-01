@@ -2,30 +2,47 @@ import { GridFSFile } from "mongodb";
 
 import { UserObject } from "@/interfaces/User";
 
-import { AboutEntryItem, CityItem, CountryItem } from "./_dataTypes";
-import { TagDoc } from "./Tag";
+import { AboutEntryType, CityType, CountryType } from "./_dataTypes";
+import { TagDoc, TagListItem } from "./Tag";
 
-export type AboutEntryDoc = {
+export interface AboutEntryDoc {
 	_id: string;
 	creator: UserObject;
 	attachment?: GridFSFile;
 
 	title: string;
 	description: string;
-	country: CountryItem;
-	city: CityItem;
-	entryType: AboutEntryItem;
+	country: CountryType;
+	city: CityType;
+	entryType: AboutEntryType;
 	dateFrom: Date | string;
 	dateTo: Date | string | undefined;
 	visibility: boolean | string;
 	tags: TagDoc[];
-};
+}
 
-// These interfaces became pretty similar to
-// "Entry_FormSchema" and "Entry_FormSchema & { _id: string }"
-// The main difference is "date...: Date | string;" vs "date...: z.ZodDate;"
-export type NewAboutEntryData = Omit<AboutEntryDoc, "_id" | "attachment" | "creator" | "tags"> & {
+export interface NewAboutEntryData
+	extends Omit<AboutEntryDoc, "_id" | "attachment" | "creator" | "tags"> {
 	creator: string;
 	attachment?: string;
 	tags: string[];
-};
+}
+
+export interface AboutEntryHtmlProps {
+	title: string;
+	description: string;
+	attachmentUri?: string;
+}
+
+export interface AboutEntryData
+	extends Omit<
+		AboutEntryDoc,
+		"_id" | "attachment" | "creator" | "tags" | "dateTo" | "dateFrom" | "visibility"
+	> {
+	_id: string;
+	html: AboutEntryHtmlProps;
+	tags: TagListItem[];
+	dateFrom: Date;
+	dateTo: Date | undefined;
+	visibility: boolean;
+}

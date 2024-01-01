@@ -1,15 +1,16 @@
 "use server";
 
 import { getSession, revalidatePaths } from "@/components/_common.actions";
-import { AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
+import { AboutEntryData, AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
 import { UserObject } from "@/interfaces/User";
-import { AboutEntryItem, CityItem, CountryItem } from "@/interfaces/_dataTypes";
+import { AboutEntryType, CityType, CountryType } from "@/interfaces/_dataTypes";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb, mongo_id_obj } from "@/lib/mongodb-mongoose";
+import { processMarkdown } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 import AboutEntry from "@/models/about-entry";
 
-export const getEntries = async (): Promise<AboutEntryDoc[] | null> => {
+export const getEntries = async (): Promise<AboutEntryData[] | null> => {
 	"use server";
 
 	try {
@@ -19,7 +20,37 @@ export const getEntries = async (): Promise<AboutEntryDoc[] | null> => {
 			"tags",
 		]);
 
-		return entries;
+		return entries.map((entry) => {
+			return {
+				_id: entry._id.toString(),
+				html: {
+					// This cannot be done in the client side
+					title: processMarkdown(entry.title),
+					description: processMarkdown(entry.description),
+					attachmentUri:
+						entry.attachment && `${entry.attachment?._id.toString()}/${entry.attachment?.filename}`,
+				},
+
+				title: entry.title,
+				description: entry.description,
+				country: entry.country,
+				city: entry.city,
+				dateFrom: entry.dateFrom as Date,
+				dateTo: entry.dateTo as Date | undefined,
+				entryType: entry.entryType,
+				visibility: entry.visibility as boolean,
+				attachment: entry.attachment?._id.toString(),
+				tags:
+					entry.tags?.map((tag) => ({
+						name: tag.name,
+						description: tag.description,
+						_id: tag._id.toString(),
+						icon: tag.icon,
+						tagType: tag.tagType,
+						orderKey: tag.orderKey,
+					})) || [],
+			};
+		});
 	} catch (error) {
 		console.error(error);
 
@@ -44,9 +75,9 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<true
 		const newAboutEntryData: NewAboutEntryData = {
 			title: data.get("title") as string,
 			description: data.get("description") as string,
-			country: data.get("country") as CountryItem,
-			city: data.get("city") as CityItem,
-			entryType: data.get("entryType") as AboutEntryItem,
+			country: data.get("country") as CountryType,
+			city: data.get("city") as CityType,
+			entryType: data.get("entryType") as AboutEntryType,
 			dateFrom: data.get("dateFrom") as string,
 			dateTo: data.get("dateTo") as string,
 			visibility: data.get("visibility") as string,
@@ -93,9 +124,9 @@ export const updateEntry = async (
 	const newAboutEntryData: NewAboutEntryData = {
 		title: data.get("title") as string,
 		description: data.get("description") as string,
-		country: data.get("country") as CountryItem,
-		city: data.get("city") as CityItem,
-		entryType: data.get("entryType") as AboutEntryItem,
+		country: data.get("country") as CountryType,
+		city: data.get("city") as CityType,
+		entryType: data.get("entryType") as AboutEntryType,
 		dateFrom: data.get("dateFrom") as string,
 		dateTo: data.get("dateTo") as string,
 		visibility: data.get("visibility") as string,

@@ -29,7 +29,9 @@ import { Tag_FormSchema } from "./tag-form/schema";
 
 import { GenericActionProps } from ".";
 
-const TagCreate: React.FC<GenericActionProps> = ({ className, tagType: tagType, icons }) => {
+interface Props extends Omit<GenericActionProps, "tag" | "tag_id"> {}
+
+const TagCreate: React.FC<Props> = ({ className, tagType, icons }) => {
 	const t = msgs("TagsAdmin_CreateTag");
 	const tagTypeLabel = (
 		msgs("TagsAdmin_Form")("tag_type_list") as unknown as Record<string, string>

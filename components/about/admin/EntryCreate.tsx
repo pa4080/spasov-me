@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
-
 import { BsSendCheck } from "react-icons/bs";
 
+import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
 	DialogContent,
@@ -14,24 +14,20 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-
-import { msgs } from "@/messages";
-
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { toast } from "@/components/ui/use-toast";
 import { generateFormDataFromObject } from "@/lib/generateFormDataFromObject";
-
+import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { Entry_FormSchema } from "./entry-form/schema";
-
-import EntryForm from "./entry-form";
-
 import { createEntry } from "../_about.actions";
+import EntryForm from "./entry-form";
+import { Entry_FormSchema } from "./entry-form/schema";
 
 import { GenericActionProps } from ".";
 
-const EntryCreate: React.FC<GenericActionProps> = ({ className, entryType, files, tags }) => {
+interface Props extends Omit<GenericActionProps, "entry" | "entry_id"> {}
+
+const EntryCreate: React.FC<Props> = ({ className, entryType, files, tags }) => {
 	const t = msgs("AboutCV_CreateEntry");
 	const entryTypeLabel = (
 		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>

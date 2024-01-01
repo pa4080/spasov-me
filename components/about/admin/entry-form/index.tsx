@@ -1,15 +1,14 @@
 "use client";
-
-import MDEditor, { commands } from "@uiw/react-md-editor";
 import React from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import MDEditor, { commands } from "@uiw/react-md-editor";
+import { useTheme } from "next-themes";
 import { useForm } from "react-hook-form";
 
-import { useTheme } from "next-themes";
-
-import { Input } from "@/components/ui/input";
-
+import Combobox from "@/components/fragments/Combobox";
+import MultiSelectFromList from "@/components/fragments/MultiSelectFromList";
+import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
@@ -20,34 +19,26 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-
-import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
-import { AboutEntryItem, aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataTypes";
+import { AboutEntryData } from "@/interfaces/AboutEntry";
+import { FileListItem } from "@/interfaces/File";
+import { TagListItem } from "@/interfaces/Tag";
+import { AboutEntryType, aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataTypes";
 import { msgs } from "@/messages";
-
-import Combobox from "@/components/fragments/Combobox";
-
-import MultiSelectFromList from "@/components/fragments/MultiSelectFromList";
-
-import { TagList } from "@/interfaces/Tag";
 
 import DatePicker from "../../../fragments/DatePicker";
 import SelectFromList from "../../../fragments/SelectFromList";
 import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
 
-export type FileListItem = { value: string; label: string };
-
 interface Props {
 	className?: string;
-	formData?: Omit<Entry_FormSchema, "tags"> & {
-		tags: TagList;
-	};
-	entryType: AboutEntryItem; // entryType?: AboutEntryItem;
+	formData?: AboutEntryData;
+	entryType: AboutEntryType; // entryType?: AboutEntryItem;
 	onSubmit: (data: Entry_FormSchema) => void;
 	submitting?: boolean;
-	files?: FileListItem[];
-	tags: TagList;
+	files?: FileListItem[] | null;
+	tags: TagListItem[] | null;
 }
 
 const EntryForm: React.FC<Props> = ({
@@ -294,11 +285,13 @@ const EntryForm: React.FC<Props> = ({
 						className="w-full sm:col-span-7"
 						control={form.control}
 						error={form.formState.errors.tags}
-						itemsList={tags.map((tag) => ({
-							value: tag._id,
-							label: tag.name,
-							// label: `${tag.name} [${tag.description}]`,
-						}))}
+						itemsList={
+							tags?.map((tag) => ({
+								value: tag._id,
+								label: tag.name,
+								// label: `${tag.name} [${tag.description}]`,
+							})) ?? []
+						}
 						messages={{
 							label: t("tags_label"),
 							description: t("tags_description"),

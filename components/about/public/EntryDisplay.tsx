@@ -10,16 +10,16 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
+import { AboutEntryData } from "@/interfaces/AboutEntry";
+
 import styles from "../_about.module.scss";
-import EntryDelete from "./EntryDelete";
-import EntryShowAttachment from "./EntryShowAttachment";
-import EntryUpdate from "./EntryUpdate";
 
-import { GenericActionProps } from ".";
+export interface Props {
+	className?: string;
+	entry: AboutEntryData;
+}
 
-interface Props extends Omit<GenericActionProps, "entryType" | "entry_id"> {}
-
-const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
+const EntryDisplay: React.FC<Props> = ({ entry, className }) => {
 	const { dateFrom, dateTo } = entry;
 	const dtFrom = new Date(dateFrom);
 	const dtTo = dateTo ? new Date(dateTo) : undefined;
@@ -31,11 +31,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 
 	return (
 		<div className={`${styles.card} ${styles.cardAdmin} ${className}`}>
-			<div className={styles.cardEditActions}>
-				<EntryDelete entryType={entry.entryType} entry_id={entry._id} />
-				<EntryShowAttachment uri={entry.html.attachmentUri} />
-				<EntryUpdate entry={entry} entryType={entry.entryType} files={files} tags={tags} />
-			</div>
+			<div className={styles.cardEditActions}>BTN</div>
 			<div className={styles.metaInfo}>
 				<div className={styles.date}>
 					{/* {format(new Date(dateFrom), "MMMM yyyy", { locale: en })} */}
