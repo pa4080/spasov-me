@@ -30,7 +30,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 	const t = msgs("AboutCV_Form");
 
 	return (
-		<div className={`${styles.card} ${styles.editModeCard} ${className}`}>
+		<div className={`${styles.card} ${styles.cardAdmin} ${className}`}>
 			<div className={styles.cardEditActions}>
 				<EntryDelete entryType={entry.entryType} entry_id={entry._id} />
 				<EntryShowAttachment uri={entry.html.attachmentUri} />

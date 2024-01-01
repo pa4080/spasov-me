@@ -21,7 +21,7 @@ const TagDisplay: React.FC<Props> = ({ tag, className, icons }) => {
 	const tForm = msgs("TagsAdmin_Form");
 
 	return (
-		<div className={`${styles.editModeCard} ${className}`}>
+		<div className={`${styles.cardAdmin} ${className}`}>
 			<div className={styles.cardEditActions}>
 				<TagDelete tagType={tag.tagType} tag_id={tag._id} />
 				<TagUpdate icons={icons} tag={tag} tagType={tag.tagType} />

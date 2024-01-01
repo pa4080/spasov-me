@@ -29,7 +29,9 @@ const appTwConfig: import("tailwindcss").Config = {
 				sm: "640px",
 				sa: "720px", // small average
 				md: "768px",
+				mp: "780px",
 				ma: "820px",
+				mm: "905px",
 				ml: "920px",
 				lg: "1024px",
 				xl: "1280px",

@@ -128,7 +128,12 @@
 
 		min-width: 320px;
 
-		overflow-x: hidden;
+		overflow-x: auto;
+
+		@screen 6xs {
+			overflow-x: hidden;
+		}
+
 		@screen sm {
 			overflow-y: hidden;
 		}
@@ -380,4 +385,3 @@ body textarea.w-md-editor-text-input:focus {
 	text-shadow: none !important;
 	box-shadow: none !important;
 }
-

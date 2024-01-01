@@ -30,7 +30,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className }) => {
 	const t = msgs("AboutCV_Form");
 
 	return (
-		<div className={`${styles.card} ${styles.editModeCard} ${className}`}>
+		<div className={`${styles.card} ${styles.cardAdmin} ${className}`}>
 			<div className={styles.cardEditActions}>BTN</div>
 			<div className={styles.metaInfo}>
 				<div className={styles.date}>

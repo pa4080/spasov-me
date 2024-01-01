@@ -5,6 +5,7 @@ import { msgs } from "@/messages";
 
 import { getEntries } from "../_about.actions";
 import styles from "../_about.module.scss";
+import BusinessCard from "./BusinessCard";
 import EntryDisplay from "./EntryDisplay";
 
 interface Props {
@@ -34,7 +35,14 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 
 	return (
 		<div className={`${styles.about} ${className}`}>
-			<Section title={t("title_business_card")} type="businessCard" />
+			<BusinessCard
+				data={
+					entries
+						?.filter(({ entryType }) => entryType === "businessCard")
+						.find(({ dateTo, visibility }) => dateTo === undefined && visibility) ?? null
+				}
+			/>
+			{/* <Section title={t("title_business_card")} type="businessCard" /> */}
 			<Section title={t("title_resume")} type="resume" />
 			<Section title={t("title_employment")} type="employment" />
 			<Section title={t("title_education")} type="education" />
