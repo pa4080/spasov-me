@@ -24,6 +24,7 @@ const BusinessCard: React.FC<Props> = ({ entry, className }) => {
 
 				<div className={styles.businessCardImageWrapper}>
 					<Image
+						priority
 						alt={entry.title}
 						className={styles.businessCardImage}
 						height={200}
