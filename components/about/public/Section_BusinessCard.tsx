@@ -24,8 +24,10 @@ const BusinessCard: React.FC<Props> = ({ entry, className }) => {
 
 				<div className={styles.businessCardImageWrapper}>
 					<Image
+						priority
 						alt={entry.title}
 						className={styles.businessCardImage}
+						fetchPriority="high"
 						height={200}
 						src={`${Route.api.FILES}/${entry.html.attachmentUri}`}
 						width={200}
