@@ -2,7 +2,7 @@
 
 .about {
 	.section {
-		@apply scroll-m-6;
+		@apply scroll-m-8;
 
 		.sectionHeader {
 			// @apply flex flex-col 2xs:flex-row items-start justify-between gap-6 2xs:gap-4 mb-6 w-full scroll-m-6;
@@ -13,17 +13,23 @@
 			}
 
 			.sectionButtons {
-				@apply flex gap-2 float-right ml-2 mb-2 select-none scale-75 2xs:scale-100 origin-top-right;
+				@apply flex gap-2 float-right mb-2 select-none scale-75 2xs:scale-100 origin-top-right;
 
-				.classToggleButton {
+				.classToggleText {
 					@apply cursor-pointer uppercase font-unicephalon tracking-wider py-2 px-5 rounded-full -mt-0.5
-					text-foreground-secondary  bg-primary hover:bg-foreground-secondary hover:text-background transition-colors duration-300;
+					text-foreground-secondary  bg-primary hover:bg-foreground-secondary hover:text-background transition-colors duration-300
+					-ml-10 2xs:ml-2;
+				}
+
+				.classToggleIcon {
+					@apply cursor-pointer uppercase font-unicephalon w-10 h-10 rounded-full flex items-center justify-center
+					text-foreground-secondary bg-primary hover:bg-background transition-colors duration-300 border-primary border-4;
 				}
 			}
 		}
 
 		.feed {
-			@apply space-y-6;
+			@apply space-y-8;
 		}
 	}
 
@@ -41,11 +47,15 @@
 		}
 
 		.title {
-			@apply text-lg tracking-wide font-semibold mb-4;
+			@apply text-lg tracking-wide font-semibold hyphens-auto;
+
+			& > p:last-of-type {
+				@apply mb-0;
+			}
 		}
 
 		.description {
-			@apply text-foreground-secondary hyphens-auto xa:text-justify sa:text-[1.1rem] sa:leading-[1.5em];
+			@apply text-foreground-secondary hyphens-auto xa:text-justify sa:text-[1.06rem] sa:leading-[1.5em];
 
 			a,
 			a:visited {
@@ -58,22 +68,14 @@
 
 			p {
 				@apply mb-4;
+
+				strong {
+					@apply text-foreground font-semibold;
+				}
 			}
 
 			p:last-of-type {
 				@apply mb-0;
-			}
-
-			:global(.about-entry-description-collapsible) {
-				@apply mt-4;
-			}
-
-			:global(.about-entry-tags) {
-				@apply flex gap-1 flex-wrap p-0;
-			}
-
-			:global(.about-entry-description-collapsible-text) + :global(.about-entry-tags) {
-				@apply mt-4;
 			}
 		}
 	}
@@ -137,25 +139,93 @@
 			@apply w-full;
 		}
 
+		.title {
+			@apply mb-4;
+		}
+
 		.description {
-			:global(.about-entry-description-collapsible) {
+			:global(.item-collapsible) {
 				@apply pt-4 border-t border-foreground-quaternary;
 			}
 		}
+
+		:global(.item-collapsible) {
+			@apply mt-4;
+		}
+
+		:global(.about-entry-tags) {
+			@apply flex gap-1 flex-wrap p-0;
+		}
+
+		:global(.item-collapsible) + :global(.about-entry-tags) {
+			@apply mt-4;
+		}
+	}
+
+	// Without this wrapper "display:grid" of .cardPublic
+	// takes precedence over "display:none" of the dynamically added .hidden
+	.cardPublicWrapper {
+		@apply scroll-m-6;
 	}
 
 	.cardPublic {
-		// .metaInfo {
-		// 	@apply flex gap-2;
+		@apply scroll-m-6 grid;
 
-		// 	.date {
-		// 		@apply flex gap-1;
-		// 	}
+		grid-template:
+			"meta-info content"
+			/ max-content 1fr;
 
-		// 	.divider {
-		// 		@apply text-foreground-quaternary;
-		// 	}
-		// }
+		.metaInfo {
+			@apply flex flex-col gap-1 mt-0.5 w-[8rem];
+
+			grid-area: meta-info;
+
+			.date {
+				@apply flex gap-1;
+			}
+
+			.divider {
+				@apply hidden;
+			}
+
+			.location {
+				@apply line-clamp-1 text-sm;
+			}
+		}
+
+		.content {
+			@apply flex flex-col gap-2;
+
+			grid-area: content;
+		}
+
+		.cardButtons {
+			@apply float-right ml-2 mb-2 select-none scale-85 2xs:scale-90 origin-top-right relative min-w-[2.1rem] min-h-[1.2em];
+
+			& .classToggleText {
+				@apply cursor-pointer uppercase font-unicephalon tracking-wider py-2 px-5 rounded-full
+					text-foreground-secondary bg-primary hover:bg-foreground-secondary hover:text-background transition-colors duration-300
+					absolute right-0 -top-0.5;
+			}
+
+			& .classToggleIcon {
+				@apply cursor-pointer uppercase font-unicephalon w-10 h-10 rounded-full flex items-center justify-center
+					text-foreground-secondary bg-primary hover:bg-background transition-colors duration-300 border-primary border-4
+					absolute right-0 -top-[0.375rem];
+			}
+		}
+
+		:global(.item-collapsible) {
+			@apply mt-2;
+		}
+
+		:global(.about-entry-tags) {
+			@apply flex gap-1 flex-wrap p-0;
+		}
+
+		:global(.item-collapsible) + :global(.about-entry-tags) {
+			@apply mt-2;
+		}
 	}
 
 	.businessCard {

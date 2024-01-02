@@ -1,13 +1,12 @@
 import React from "react";
 
-import { AboutEntryType } from "@/interfaces/_dataTypes";
 import { msgs } from "@/messages";
 
 import { getEntries } from "../_about.actions";
 import styles from "../_about.module.scss";
-import EntryDisplay from "./EntryDisplay";
 import BusinessCard from "./Section_BusinessCard";
 import Resume from "./Section_Resume";
+import TimeLine from "./Section_TimeLine";
 
 interface Props {
 	className?: string;
@@ -18,6 +17,7 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 
 	const entries = await getEntries();
 
+	/*
 	const Section = ({
 		type,
 		title,
@@ -47,7 +47,7 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 			</div>
 		</div>
 	);
-
+*/
 	return (
 		<div className={`${styles.about} ${className}`}>
 			<BusinessCard
@@ -66,9 +66,9 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 				}
 				title={t("title_resume")}
 			/>
-			<Section title={t("title_employment")} type="employment" />
-			<Section title={t("title_education")} type="education" />
-			<Section title={t("title_spoken_languages")} type="spokenLanguages" />
+			<TimeLine entries={entries} title={t("title_employment")} type="employment" />
+			{/* <Section title={t("title_education")} type="education" /> */}
+			{/* <Section title={t("title_spoken_languages")} type="spokenLanguages" /> */}
 		</div>
 	);
 };

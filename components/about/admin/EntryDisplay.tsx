@@ -70,16 +70,16 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 			</div>
 			<div className={styles.content}>
 				<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />
-				<div className={`about-entry-description ${styles.description}`}>
+				<div className={styles.description}>
 					<div dangerouslySetInnerHTML={{ __html: descriptionArr[0] ?? entry.description }} />
-					<div className="about-entry-description-collapsible">
-						{descriptionArr[1] && (
-							<div
-								dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
-								className="about-entry-description-collapsible-text"
-							/>
-						)}
-						<div className="about-entry-tags">
+					{descriptionArr[1] && (
+						<div
+							dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
+							className="item-collapsible"
+						/>
+					)}
+					{entry.tags && (
+						<div className="item-collapsible about-entry-tags">
 							{entry.tags
 								?.sort((a, b) =>
 									a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
@@ -92,7 +92,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 									/>
 								))}
 						</div>
-					</div>
+					)}
 				</div>
 			</div>
 		</div>

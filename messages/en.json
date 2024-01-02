@@ -192,7 +192,8 @@
 		"title_employment": "Employment history",
 		"title_education": "Education",
 		"btnMore": "Read more",
-		"btnLess": "Show less"
+		"btnLess": "Show less",
+		"btnAll": "Show all"
 	},
 	"AboutCV_CreateEntry": {
 		"dialog_title": "Create a new { entryType } entry",

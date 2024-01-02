@@ -29,7 +29,7 @@ const Resume: React.FC<Props> = ({ entry, className, title }) => {
 				<div className={styles.sectionHeader}>
 					<div className={styles.sectionButtons}>
 						<ToggleHidden_Single
-							target_class="about-entry-description-collapsible"
+							target_class="item-collapsible"
 							target_id={toggle_target_id}
 							text={[t("btnMore"), t("btnLess")]}
 						/>
@@ -39,16 +39,14 @@ const Resume: React.FC<Props> = ({ entry, className, title }) => {
 
 				<div className={`${styles.card} ${styles.cardPublic}`}>
 					<div className={styles.content}>
-						<div className={`about-entry-description ${styles.description}`}>
+						<div className={styles.description}>
 							<div dangerouslySetInnerHTML={{ __html: descriptionArr[0] }} />
-							<div className="about-entry-description-collapsible hidden">
-								{descriptionArr[1] && (
-									<div
-										dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
-										className="about-entry-description-collapsible-text"
-									/>
-								)}
-							</div>
+							{descriptionArr[1] && (
+								<div
+									dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
+									className="item-collapsible hidden"
+								/>
+							)}
 						</div>
 					</div>
 				</div>
