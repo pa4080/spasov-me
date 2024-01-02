@@ -9,31 +9,31 @@ import { Route } from "@/routes";
 import styles from "../_about.module.scss";
 
 interface Props {
-	data: AboutEntryData | null;
+	entry: AboutEntryData | null;
 	className?: string;
 }
 
-const BusinessCard: React.FC<Props> = ({ data, className }) => {
+const BusinessCard: React.FC<Props> = ({ entry, className }) => {
 	return (
-		data && (
+		entry && (
 			<div className={`${styles.businessCard} ${className}`}>
 				<div
-					dangerouslySetInnerHTML={{ __html: data.html.title }}
+					dangerouslySetInnerHTML={{ __html: entry.html.title }}
 					className={styles.businessCardTitle}
 				/>
 
 				<div className={styles.businessCardImageWrapper}>
 					<Image
-						alt={data.title}
+						alt={entry.title}
 						className={styles.businessCardImage}
 						height={200}
-						src={`${Route.api.FILES}/${data.html.attachmentUri}`}
+						src={`${Route.api.FILES}/${entry.html.attachmentUri}`}
 						width={200}
 					/>
 				</div>
 
 				<div
-					dangerouslySetInnerHTML={{ __html: data.html.description }}
+					dangerouslySetInnerHTML={{ __html: entry.html.description }}
 					className={styles.businessCardDescription}
 				/>
 			</div>

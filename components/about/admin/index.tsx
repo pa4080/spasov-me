@@ -38,11 +38,11 @@ const AboutAdmin: React.FC<Props> = async ({ className }) => {
 	const Section = ({ type, title }: { type: AboutEntryType; title: string }) => (
 		<div className={styles.section}>
 			<div className={styles.sectionHeader}>
-				<h1 className={styles.sectionTitle}>{title}</h1>
-				<div className="flex gap-2">
+				<div className={styles.sectionButtons}>
 					<RevalidatePaths paths={[Route.public.ABOUT.uri]} />
 					<EntryCreate entryType={type} files={fileList} tags={tags} />
 				</div>
+				<h1 className={styles.sectionTitle}>{title}</h1>
 			</div>
 
 			<div className={styles.feed}>

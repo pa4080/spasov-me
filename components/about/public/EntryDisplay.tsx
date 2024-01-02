@@ -30,7 +30,7 @@ const EntryDisplay: React.FC<Props> = ({ entry, className }) => {
 	const t = msgs("AboutCV_Form");
 
 	return (
-		<div className={`${styles.card} ${styles.cardAdmin} ${className}`}>
+		<div className={`${styles.card} ${styles.cardPublic} ${className}`}>
 			<div className={styles.cardEditActions}>BTN</div>
 			<div className={styles.metaInfo}>
 				<div className={styles.date}>
@@ -68,11 +68,11 @@ const EntryDisplay: React.FC<Props> = ({ entry, className }) => {
 				<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />
 				<div className={`about-entry-description ${styles.description}`}>
 					<div dangerouslySetInnerHTML={{ __html: descriptionArr[0] ?? entry.description }} />
-					<div className="about-entry-collapsible">
+					<div className="about-entry-description-collapsible">
 						{descriptionArr[1] && (
 							<div
 								dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
-								className="about-entry-collapsible-text"
+								className="about-entry-description-collapsible-text"
 							/>
 						)}
 						<div className="about-entry-tags">

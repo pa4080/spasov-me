@@ -2,23 +2,80 @@
 
 .about {
 	.section {
-		@apply space-y-8;
+		@apply scroll-m-6;
 
 		.sectionHeader {
-			@apply flex items-center justify-between gap-4 mb-4 w-full;
+			// @apply flex flex-col 2xs:flex-row items-start justify-between gap-6 2xs:gap-4 mb-6 w-full scroll-m-6;
+			@apply 2xs:flex 2xs:flex-row-reverse items-start justify-between gap-6 2xs:gap-4 mb-6 w-full scroll-m-6;
 
 			.sectionTitle {
-				@apply font-unicephalon text-2xl tracking-wider text-foreground-secondary flex-grow;
+				@apply font-unicephalon text-3xl tracking-wider text-foreground-secondary flex-grow;
 			}
+
+			.sectionButtons {
+				@apply flex gap-2 float-right ml-2 mb-2 select-none scale-75 2xs:scale-100 origin-top-right;
+
+				.classToggleButton {
+					@apply cursor-pointer uppercase font-unicephalon tracking-wider py-2 px-5 rounded-full -mt-0.5
+					text-foreground-secondary  bg-primary hover:bg-foreground-secondary hover:text-background transition-colors duration-300;
+				}
+			}
+		}
+
+		.feed {
+			@apply space-y-6;
 		}
 	}
 
 	.section + .section {
-		@apply mt-16;
+		@apply mt-20;
 	}
 
-	.feed {
-		@apply space-y-6;
+	.card {
+		.lightPrimaryText {
+			@apply text-foreground-secondary;
+		}
+
+		.lightSecondaryText {
+			@apply text-foreground-quaternary;
+		}
+
+		.title {
+			@apply text-lg tracking-wide font-semibold mb-4;
+		}
+
+		.description {
+			@apply text-foreground-secondary hyphens-auto xa:text-justify sa:text-[1.1rem] sa:leading-[1.5em];
+
+			a,
+			a:visited {
+				@apply text-ring;
+			}
+
+			a:hover {
+				@apply underline text-ring-secondary;
+			}
+
+			p {
+				@apply mb-4;
+			}
+
+			p:last-of-type {
+				@apply mb-0;
+			}
+
+			:global(.about-entry-description-collapsible) {
+				@apply mt-4;
+			}
+
+			:global(.about-entry-tags) {
+				@apply flex gap-1 flex-wrap p-0;
+			}
+
+			:global(.about-entry-description-collapsible-text) + :global(.about-entry-tags) {
+				@apply mt-4;
+			}
+		}
 	}
 
 	.cardAdmin {
@@ -81,13 +138,13 @@
 		}
 
 		.description {
-			:global(.about-entry-collapsible) {
+			:global(.about-entry-description-collapsible) {
 				@apply pt-4 border-t border-foreground-quaternary;
 			}
 		}
 	}
 
-	.card {
+	.cardPublic {
 		// .metaInfo {
 		// 	@apply flex gap-2;
 
@@ -99,55 +156,10 @@
 		// 		@apply text-foreground-quaternary;
 		// 	}
 		// }
-
-		.lightPrimaryText {
-			@apply text-foreground-secondary;
-		}
-
-		.lightSecondaryText {
-			@apply text-foreground-quaternary;
-		}
-
-		.title {
-			@apply text-lg tracking-wide font-semibold mb-4;
-		}
-
-		.description {
-			@apply text-foreground-secondary hyphens-auto;
-
-			a,
-			a:visited {
-				@apply text-ring;
-			}
-
-			a:hover {
-				@apply underline text-ring-secondary;
-			}
-
-			p {
-				@apply mb-4;
-			}
-
-			p:last-of-type {
-				@apply mb-0;
-			}
-
-			:global(.about-entry-collapsible) {
-				@apply mt-4;
-			}
-
-			:global(.about-entry-tags) {
-				@apply flex gap-1 flex-wrap p-0;
-			}
-
-			:global(.about-entry-collapsible-text) + :global(.about-entry-tags) {
-				@apply mt-4;
-			}
-		}
 	}
 
 	.businessCard {
-		@apply flex flex-col sa:grid gap-4 xa:gap-8 sa:gap-6 mb-12 mm:px-12;
+		@apply flex flex-col sa:grid gap-4 xa:gap-8 sa:gap-6 mb-16;
 
 		@screen sa {
 			grid-template:
