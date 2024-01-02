@@ -190,7 +190,10 @@
 		"title_business_card": "Business card",
 		"title_resume": "Resume",
 		"title_employment": "Employment history",
-		"title_education": "Education"
+		"title_education": "Education",
+		"btnMore": "Read more",
+		"btnLess": "Show less",
+		"btnAll": "Show all"
 	},
 	"AboutCV_CreateEntry": {
 		"dialog_title": "Create a new { entryType } entry",
