@@ -13,14 +13,14 @@ import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 
 import styles from "../_about.module.scss";
-import ToggleHidden_Single from "./ToggleHidden_Single";
+import ToggleCollapsible from "./ToggleHidden";
 
 export interface Props {
 	className?: string;
 	entry: AboutEntryData;
 }
 
-const DisplayEntry: React.FC<Props> = ({ entry, className }) => {
+const DisplayEntryCard: React.FC<Props> = ({ entry, className }) => {
 	const tTime = msgs("AboutCV_Form");
 	const tCommon = msgs("AboutCV");
 
@@ -68,26 +68,29 @@ const DisplayEntry: React.FC<Props> = ({ entry, className }) => {
 				<div className={styles.content}>
 					<div>
 						<div className={styles.cardButtons}>
-							<ToggleHidden_Single
+							<ToggleCollapsible
 								tooltip
 								className="icon_accent_primary"
-								target_class="item-collapsible"
 								target_id={toggle_target_id}
 								text={[tCommon("btnMore"), tCommon("btnLess")]}
+								type="card"
 							/>
 						</div>
 						<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />
 					</div>
 					<div className={styles.description}>
-						<div dangerouslySetInnerHTML={{ __html: descriptionArr[0] ?? entry.description }} />
+						<div
+							dangerouslySetInnerHTML={{ __html: descriptionArr[0] ?? entry.description }}
+							className="card-item-static"
+						/>
 						{descriptionArr[1] && (
 							<div
 								dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
-								className="item-collapsible hidden"
+								className="card-item-collapsible"
 							/>
 						)}
 						{entry.tags && (
-							<div className="item-collapsible hidden">
+							<div className="card-item-collapsible">
 								<div className="about-entry-tags">
 									{entry.tags
 										?.sort((a, b) =>
@@ -112,4 +115,4 @@ const DisplayEntry: React.FC<Props> = ({ entry, className }) => {
 	);
 };
 
-export default DisplayEntry;
+export default DisplayEntryCard;

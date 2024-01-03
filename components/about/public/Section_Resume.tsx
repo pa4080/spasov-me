@@ -7,7 +7,7 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { msgs } from "@/messages";
 
 import styles from "../_about.module.scss";
-import ToggleHidden_Single from "./ToggleHidden_Single";
+import ToggleCollapsible from "./ToggleHidden";
 
 interface Props {
 	entry: AboutEntryData | null;
@@ -25,13 +25,13 @@ const Resume: React.FC<Props> = ({ entry, className, title }) => {
 	return (
 		entry &&
 		descriptionArr && (
-			<div className={`${styles.section} ${className}`} id={toggle_target_id}>
+			<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
 				<div className={styles.sectionHeader}>
 					<div className={styles.sectionButtons}>
-						<ToggleHidden_Single
-							target_class="item-collapsible"
+						<ToggleCollapsible
 							target_id={toggle_target_id}
 							text={[t("btnMore"), t("btnLess")]}
+							type="section"
 						/>
 					</div>
 					<h1 className={styles.sectionTitle}>{title}</h1>
@@ -44,7 +44,7 @@ const Resume: React.FC<Props> = ({ entry, className, title }) => {
 							{descriptionArr[1] && (
 								<div
 									dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
-									className="item-collapsible hidden"
+									className="section-card-collapsible"
 								/>
 							)}
 						</div>

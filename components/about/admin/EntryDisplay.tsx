@@ -75,11 +75,11 @@ const EntryDisplay: React.FC<Props> = ({ entry, className, files, tags }) => {
 					{descriptionArr[1] && (
 						<div
 							dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
-							className="item-collapsible"
+							className="card-item-collapsible"
 						/>
 					)}
 					{entry.tags && (
-						<div className="item-collapsible about-entry-tags">
+						<div className="card-item-collapsible about-entry-tags">
 							{entry.tags
 								?.sort((a, b) =>
 									a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
