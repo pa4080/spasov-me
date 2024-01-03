@@ -207,6 +207,10 @@
 		&:global(.expand-collapsed) :global(.card-item-static) {
 			@apply line-clamp-none;
 		}
+
+		:global(.card-item-static) + :global(.card-item-collapsible) {
+			@apply mt-4;
+		}
 	}
 
 	.cardPublic {

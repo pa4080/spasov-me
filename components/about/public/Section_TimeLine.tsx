@@ -18,7 +18,7 @@ interface Props {
 	entries: AboutEntryData[] | null;
 }
 
-const TimeLine: React.FC<Props> = ({ className, type, title, visibleItems = 2, entries }) => {
+const TimeLine: React.FC<Props> = ({ className, type, title, visibleItems = 3, entries }) => {
 	const tCommon = msgs("AboutCV");
 	const toggle_target_id = `section_${type}`;
 
