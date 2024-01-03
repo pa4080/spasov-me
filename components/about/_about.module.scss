@@ -6,7 +6,7 @@
 
 		.sectionHeader {
 			// @apply flex flex-col 2xs:flex-row items-start justify-between gap-6 2xs:gap-4 mb-6 w-full scroll-m-6;
-			@apply 2xs:flex 2xs:flex-row-reverse items-start justify-between gap-6 2xs:gap-4 mb-6 w-full scroll-m-6;
+			@apply 2xs:flex 2xs:flex-row-reverse items-start justify-between gap-6 2xs:gap-4 mb-8 w-full scroll-m-6;
 
 			.sectionTitle {
 				@apply font-unicephalon text-3xl tracking-wider text-foreground-secondary flex-grow;
@@ -29,7 +29,15 @@
 		}
 
 		.feed {
-			@apply space-y-8;
+			@apply space-y-10;
+		}
+
+		:global(.section-card-collapsible) {
+			display: none;
+		}
+
+		&:global(.expand-collapsed.list-section) :global(.section-card-collapsible) {
+			display: inherit;
 		}
 	}
 
@@ -144,12 +152,12 @@
 		}
 
 		.description {
-			:global(.item-collapsible) {
+			:global(.card-item-collapsible) {
 				@apply pt-4 border-t border-foreground-quaternary;
 			}
 		}
 
-		:global(.item-collapsible) {
+		:global(.card-item-collapsible) {
 			@apply mt-4;
 		}
 
@@ -157,7 +165,7 @@
 			@apply flex gap-1 flex-wrap p-0;
 		}
 
-		:global(.item-collapsible) + :global(.about-entry-tags) {
+		:global(.card-item-collapsible) + :global(.about-entry-tags) {
 			@apply mt-4;
 		}
 	}
@@ -166,10 +174,43 @@
 	// takes precedence over "display:none" of the dynamically added .hidden
 	.cardPublicWrapper {
 		@apply scroll-m-6;
+
+		:global(.card-item-collapsible) {
+			display: none;
+		}
+
+		&:global(.expand-collapsed) :global(.card-item-collapsible) {
+			display: inherit;
+		}
+
+		&:global(.expand-collapsed-current) {
+			position: relative;
+
+			&:after {
+				position: absolute;
+				top: -0.4rem;
+				bottom: -0.4rem;
+				left: -0.15rem;
+				right: -0.15rem;
+				display: block;
+				content: "";
+				border-radius: 0.4rem;
+				outline: 4px solid theme("colors.primary.DEFAULT");
+				outline-offset: 0.5rem;
+			}
+		}
+
+		:global(.card-item-static) {
+			@apply line-clamp-3;
+		}
+
+		&:global(.expand-collapsed) :global(.card-item-static) {
+			@apply line-clamp-none;
+		}
 	}
 
 	.cardPublic {
-		@apply scroll-m-6 grid;
+		@apply scroll-m-6 grid relative z-10;
 
 		grid-template:
 			"meta-info content"
@@ -215,7 +256,7 @@
 			}
 		}
 
-		:global(.item-collapsible) {
+		:global(.card-item-collapsible) {
 			@apply mt-2;
 		}
 
@@ -223,8 +264,8 @@
 			@apply flex gap-1 flex-wrap p-0;
 		}
 
-		:global(.item-collapsible) + :global(.about-entry-tags) {
-			@apply mt-2;
+		:global(.card-item-collapsible) > :global(.about-entry-tags) {
+			@apply mt-4;
 		}
 	}
 
