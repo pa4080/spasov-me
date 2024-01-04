@@ -32,7 +32,7 @@ const TimeLine: React.FC<Props> = ({ className, type, title, visibleItems = 3, e
 						type="section"
 					/>
 				</div>
-				<h1 className={styles.sectionTitle}>{title}</h1>
+				<h1 dangerouslySetInnerHTML={{ __html: title }} className={styles.sectionTitle} />
 			</div>
 
 			<div className={styles.feed}>

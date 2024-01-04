@@ -17,37 +17,6 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 
 	const entries = await getEntries();
 
-	/*
-	const Section = ({
-		type,
-		title,
-		visibleItems = 2,
-	}: {
-		type: AboutEntryType;
-		title: string;
-		visibleItems?: number;
-	}) => (
-		<div className={styles.section}>
-			<div className={styles.sectionHeader}>
-				<h1 className={styles.sectionTitle}>{title}</h1>
-				<div className={styles.sectionButtons}>BTN</div>
-			</div>
-
-			<div className={styles.feed}>
-				{entries
-					?.filter(({ entryType }) => entryType === type)
-					.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime())
-					.map((entry, index) => (
-						<EntryDisplay
-							key={index}
-							className={visibleItems > index ? "visible" : "hidden"}
-							entry={entry}
-						/>
-					))}
-			</div>
-		</div>
-	);
-*/
 	return (
 		<div className={`${styles.about} ${className}`}>
 			<BusinessCard

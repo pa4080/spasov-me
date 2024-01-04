@@ -14,7 +14,7 @@
 	}
 
 	.contentContainer {
-		@apply flex-1 flex-grow overflow-x-hidden overflow-y-auto w-full px-4 xa:px-8;
+		@apply flex-1 flex-grow overflow-x-hidden overflow-y-auto w-full px-6 xa:px-8;
 
 		min-height: $content-height;
 	}
