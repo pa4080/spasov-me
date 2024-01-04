@@ -59,57 +59,55 @@ const DisplayEntryCard: React.FC<Props> = ({ entry, className }) => {
 							<span className={styles.lightPrimaryText}>{tTime("dateTo_now_current")}</span>
 						)}
 					</div>
-					<div className={styles.divider}>:</div>
+					<div className={styles.divider}>❘</div>
 					<div className={`${styles.lightPrimaryText} ${styles.location}`}>
 						{(tTime("city_list") as unknown as Record<string, string>)[entry.city]},{" "}
 						{(tTime("country_list") as unknown as Record<string, string>)[entry.country]}
 					</div>
 				</div>
-				<div className={styles.content}>
-					<div>
-						<div className={styles.cardButtons}>
-							<ToggleCollapsible
-								tooltip
-								className="icon_accent_primary"
-								target_id={toggle_target_id}
-								text={[tCommon("btnMore"), tCommon("btnLess")]}
-								type="card"
-							/>
-						</div>
-						<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />
-					</div>
-					<div className={styles.description}>
-						<div
-							dangerouslySetInnerHTML={{ __html: descriptionArr[0] ?? entry.description }}
-							className="card-item-static"
+				{/* <div className={styles.content}> */}
+				<div className={styles.header}>
+					<div className={styles.cardButtons}>
+						<ToggleCollapsible
+							tooltip
+							className="icon_accent_primary"
+							target_id={toggle_target_id}
+							text={[tCommon("btnMore"), tCommon("btnLess")]}
+							type="card"
 						/>
-						{descriptionArr[1] && (
-							<div
-								dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
-								className="card-item-collapsible"
-							/>
-						)}
-						{entry.tags && (
-							<div className="card-item-collapsible">
-								<div className="about-entry-tags">
-									{entry.tags
-										?.sort((a, b) =>
-											a.orderKey
-												? a.orderKey.localeCompare(b.orderKey)
-												: a.name.localeCompare(b.name)
-										)
-										.map((tag) => (
-											<DisplayTagIcon
-												key={tag._id}
-												description={tag.description}
-												icon={iconsMap[tag.icon as IconsMapItem]}
-											/>
-										))}
-								</div>
-							</div>
-						)}
 					</div>
+					<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />
 				</div>
+				<div className={styles.description}>
+					<div
+						dangerouslySetInnerHTML={{ __html: descriptionArr[0] ?? entry.description }}
+						className="card-item-static"
+					/>
+					{descriptionArr[1] && (
+						<div
+							dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
+							className="card-item-collapsible"
+						/>
+					)}
+					{entry.tags && (
+						<div className="card-item-collapsible">
+							<div className="about-entry-tags">
+								{entry.tags
+									?.sort((a, b) =>
+										a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
+									)
+									.map((tag) => (
+										<DisplayTagIcon
+											key={tag._id}
+											description={tag.description}
+											icon={iconsMap[tag.icon as IconsMapItem]}
+										/>
+									))}
+							</div>
+						</div>
+					)}
+				</div>
+				{/* </div> */}
 			</div>
 		</div>
 	);

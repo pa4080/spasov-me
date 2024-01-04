@@ -16,7 +16,6 @@ const appTwConfig: import("tailwindcss").Config = {
 				"2xl": "1400px",
 			},
 		},
-
 		extend: {
 			screens: {
 				"6xs": "320px",
