@@ -38,16 +38,17 @@ const Resume: React.FC<Props> = ({ entry, className, title }) => {
 				</div>
 
 				<div className={`${styles.card} ${styles.cardPublic}`}>
-					<div className={styles.content}>
-						<div className={styles.description}>
-							<div dangerouslySetInnerHTML={{ __html: descriptionArr[0] }} />
-							{descriptionArr[1] && (
-								<div
-									dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
-									className="section-card-collapsible"
-								/>
-							)}
-						</div>
+					<div className={styles.description}>
+						<div
+							dangerouslySetInnerHTML={{ __html: descriptionArr[0] }}
+							className="section-card-static"
+						/>
+						{descriptionArr[1] && (
+							<div
+								dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
+								className="section-card-collapsible"
+							/>
+						)}
 					</div>
 				</div>
 			</div>

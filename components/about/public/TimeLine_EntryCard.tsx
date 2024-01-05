@@ -65,7 +65,6 @@ const DisplayEntryCard: React.FC<Props> = ({ entry, className }) => {
 						{(tTime("country_list") as unknown as Record<string, string>)[entry.country]}
 					</div>
 				</div>
-				{/* <div className={styles.content}> */}
 				<div className={styles.header}>
 					<div className={styles.cardButtons}>
 						<ToggleCollapsible
@@ -107,7 +106,6 @@ const DisplayEntryCard: React.FC<Props> = ({ entry, className }) => {
 						</div>
 					)}
 				</div>
-				{/* </div> */}
 			</div>
 		</div>
 	);

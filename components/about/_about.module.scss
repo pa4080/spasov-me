@@ -5,7 +5,6 @@
 		@apply scroll-m-8;
 
 		.sectionHeader {
-			// @apply flex flex-col 2xs:flex-row items-start justify-between gap-6 2xs:gap-4 mb-6 w-full scroll-m-6;
 			@apply 2xs:flex 2xs:flex-row-reverse items-start justify-between gap-6 2xs:gap-4 mb-8 w-full scroll-m-6;
 
 			.sectionTitle {
@@ -37,6 +36,7 @@
 		}
 
 		&:global(.expand-collapsed.list-section) :global(.section-card-collapsible) {
+			@apply mt-4;
 			display: inherit;
 		}
 	}
@@ -216,6 +216,7 @@
 			@apply line-clamp-none;
 		}
 
+		// :global(.section-card-static) + :global(.section-card-collapsible),
 		:global(.card-item-static) + :global(.card-item-collapsible) {
 			@apply mt-4;
 		}
