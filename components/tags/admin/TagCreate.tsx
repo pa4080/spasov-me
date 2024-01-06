@@ -19,7 +19,7 @@ import { msgs } from "@/messages";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { toast } from "@/components/ui/use-toast";
-import { generateFormDataFromObject } from "@/lib/generateFormDataFromObject";
+import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 
 import TagForm from "./tag-form";
 
