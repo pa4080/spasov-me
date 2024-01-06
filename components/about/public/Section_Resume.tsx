@@ -46,7 +46,7 @@ const Resume: React.FC<Props> = ({ entry, className, title }) => {
 						{descriptionArr[1] && (
 							<div
 								dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
-								className="section-card-collapsible"
+								className="mt-4 section-card-collapsible"
 							/>
 						)}
 					</div>

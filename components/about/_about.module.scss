@@ -36,8 +36,8 @@
 		}
 
 		&:global(.expand-collapsed.list-section) :global(.section-card-collapsible) {
-			@apply mt-4;
 			display: inherit;
+			// Note for <Resume /> "mt-4" is applied within the component
 		}
 	}
 
@@ -186,7 +186,7 @@
 		&:global(.expand-collapsed-current) {
 			position: relative;
 
-			&:after {
+			&:before {
 				position: absolute;
 				top: -0.3rem;
 				bottom: -0.3rem;
@@ -209,21 +209,28 @@
 		}
 
 		:global(.card-item-static) {
-			@apply line-clamp-3;
+			@apply line-clamp-3 mt-1;
+
+			transition: margin-top 0.2s ease-out 0.05s;
+		}
+
+		&:global(.expand-collapsed) :global(.card-item-static) {
+			@apply mt-4;
+
+			transition: margin-top 0.05s ease-in;
 		}
 
 		&:global(.expand-collapsed) :global(.card-item-static) {
 			@apply line-clamp-none;
 		}
 
-		// :global(.section-card-static) + :global(.section-card-collapsible),
 		:global(.card-item-static) + :global(.card-item-collapsible) {
 			@apply mt-4;
 		}
 	}
 
 	.cardPublic {
-		@apply scroll-m-6 grid relative z-10;
+		@apply grid relative;
 
 		grid-template:
 			"content-title"
@@ -255,11 +262,6 @@
 			}
 		}
 
-		// .content {
-		// 	@apply flex flex-col gap-2;
-
-		// 	grid-area: content;
-
 		.header {
 			@apply w-full;
 
@@ -267,11 +269,10 @@
 		}
 
 		.description {
-			@apply w-full mt-4;
+			@apply w-full;
 
 			grid-area: content-description;
 		}
-		// }
 
 		.cardButtons {
 			@apply float-right ml-2 mb-2 select-none scale-85 2xs:scale-90 origin-top-right relative min-w-[2.1rem] min-h-[1.2em];
