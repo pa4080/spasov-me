@@ -15,15 +15,16 @@ interface Props {
 const AboutPublic: React.FC<Props> = async ({ className }) => {
 	const t = msgs("AboutCV");
 
-	const entries = await getEntries();
+	const entries = await getEntries({ hyphen: true });
+	const entriesBusinessCard = await getEntries({ hyphen: false, typeList: ["businessCard"] });
 
 	return (
 		<div className={`${styles.about} ${className}`}>
 			<BusinessCard
 				entry={
-					entries
-						?.filter(({ entryType }) => entryType === "businessCard")
-						.find(({ dateTo, visibility }) => dateTo === undefined && visibility) ?? null
+					entriesBusinessCard?.find(
+						({ dateTo, visibility }) => dateTo === undefined && visibility
+					) ?? null
 				}
 			/>
 			{/* <Section title={t("title_business_card")} type="businessCard" /> */}
@@ -31,7 +32,7 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 				entry={
 					entries
 						?.filter(({ entryType }) => entryType === "resume")
-						.find(({ dateTo, visibility }) => dateTo === undefined && visibility) ?? null
+						?.find(({ dateTo, visibility }) => dateTo === undefined && visibility) ?? null
 				}
 				title={t("title_resume")}
 			/>

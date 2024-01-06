@@ -74,6 +74,9 @@ dependencies:
   geist:
     specifier: ^1.2.0
     version: 1.2.0(next@14.0.4)
+  hyphen:
+    specifier: ^1.10.4
+    version: 1.10.4
   image-size:
     specifier: ^1.0.2
     version: 1.0.2
@@ -169,6 +172,9 @@ devDependencies:
   '@tailwindcss/forms':
     specifier: ^0.5.7
     version: 0.5.7(tailwindcss@3.3.7)
+  '@types/hyphen':
+    specifier: ^1.6.7
+    version: 1.6.7
   '@types/node':
     specifier: ^20.10.2
     version: 20.10.2
@@ -1943,6 +1949,10 @@ packages:
     dependencies:
       '@types/unist': 3.0.2
     dev: false
+
+  /@types/hyphen@1.6.7:
+    resolution: {integrity: sha512-LsWduhqP4CG6myv2V5fXMvdQjESNbYQKCA74VoKlwvlqAWvJV6sREqUgTRpqYOe98vcNRSfvyi/zMzD7OGQ5KA==}
+    dev: true
 
   /@types/json-schema@7.0.15:
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -5066,6 +5076,10 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
     dev: true
+
+  /hyphen@1.10.4:
+    resolution: {integrity: sha512-SejXzIpv9gOVdDWXd4suM1fdF1k2dxZGvuTdkOVLoazYfK7O4DykIQbdrvuyG+EaTNlXAGhMndtKrhykgbt0gg==}
+    dev: false
 
   /hyphenate-style-name@1.0.4:
     resolution: {integrity: sha512-ygGZLjmXfPHj+ZWh6LwbC37l43MhfztxetbFCoYTM2VjkIUpeHgSNn7QIyVFj7YQ1Wl9Cbw5sholVJPzWvC2MQ==}

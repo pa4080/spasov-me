@@ -1,3 +1,4 @@
+import { hyphenateSync as hyphenate } from "hyphen/en";
 import rehypeExternalLinks, { Target } from "rehype-external-links";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
@@ -7,7 +8,7 @@ import { unified } from "unified";
 
 export const new_tab_target = "spasov-me-tab" as Target;
 
-export const processMarkdown = (markdown: string) => {
+export const processMarkdown = ({ markdown, hyphen }: { markdown: string; hyphen?: boolean }) => {
 	// https://github.com/unifiedjs/unified
 	// https://github.com/unifiedjs/unified#processorprocesssyncfile
 	const result = unified()
@@ -18,7 +19,14 @@ export const processMarkdown = (markdown: string) => {
 		.use(rehypeStringify, { allowDangerousHtml: true })
 		.processSync(markdown);
 
-	return result.value.toString();
+	const resultStr = result.value.toString();
+
+	if (hyphen) {
+		// https://www.npmjs.com/package/hyphen
+		return hyphenate(resultStr);
+	}
+
+	return resultStr;
 };
 
 export const splitDescriptionKeyword = /<!--\s*more\s*-->/;

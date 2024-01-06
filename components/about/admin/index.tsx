@@ -31,7 +31,7 @@ interface Props {
 const AboutAdmin: React.FC<Props> = async ({ className }) => {
 	const t = msgs("AboutCV");
 
-	const entries = await getEntries();
+	const entries = await getEntries({ hyphen: true });
 	const tags = await getTags();
 	const fileList = await getFileList();
 
