@@ -12,7 +12,7 @@ interface Props {
 	target_id: string; // the Id of the container
 	text: [string, string];
 	tooltip?: boolean;
-	type: "section" | "card";
+	type: "section" | "card" | "card-single-item";
 }
 
 /**
@@ -43,7 +43,7 @@ const ToggleCollapsible: React.FC<Props> = ({
 	const [targetContainer, setTargetContainer] = useState<Element | null>(null);
 
 	const otherCardsActions = () => {
-		if (type === "card") {
+		if (type === "card" || type === "card-single-item") {
 			const parentSection = targetContainer?.closest(".list-section");
 
 			if (parentSection) {
@@ -51,6 +51,7 @@ const ToggleCollapsible: React.FC<Props> = ({
 					?.filter((element) => element.id !== target_id)
 					?.forEach((element) => {
 						element.classList.remove("expand-collapsed-current");
+						element.classList.remove("icon_accent_secondary");
 						// We can change the state ot the other cards toggle buttons in this way...
 						// element.querySelectorAll("svg").forEach((svg) => svg.classList.toggle("hidden"));
 					});
@@ -94,39 +95,54 @@ const ToggleCollapsible: React.FC<Props> = ({
 		// Always highlight the last manipulated card
 		if (type === "card") {
 			targetContainer?.classList.add("expand-collapsed-current");
+		} else if (type === "card-single-item") {
+			targetContainer?.classList.add("expand-collapsed-current");
+			targetContainer?.classList.add("icon_accent_secondary");
 		}
 	};
 
-	return (
-		<div className={className}>
-			{tooltip ? (
-				<TooltipProvider>
-					<Tooltip>
-						<TooltipTrigger className={styles.classToggleIcon} onClick={handleClick}>
-							<IconEmbedSvg
-								className={isContentShown ? "hidden" : ""}
-								type="angles-up-down"
-								viewBoxHeight={16}
-								viewBoxWidth={14}
-							/>
-
-							<IconEmbedSvg
-								className={isContentShown ? "" : "hidden"}
-								type="angles-up-up"
-								viewBoxHeight={16}
-								viewBoxWidth={14}
-							/>
-						</TooltipTrigger>
-						<TooltipContent>{isContentShown ? text[0] : text[1]}</TooltipContent>
-					</Tooltip>
-				</TooltipProvider>
-			) : (
-				<div className={styles.classToggleText} onClick={handleClick}>
-					{isContentShown ? text[1] : text[0]}
+	switch (type) {
+		case "card-single-item":
+			return (
+				<div className={className}>
+					<button className={styles.classToggleIcon} onClick={handleClick}>
+						<IconEmbedSvg type="angles-up-down" viewBoxHeight={16} viewBoxWidth={14} />
+					</button>
 				</div>
-			)}
-		</div>
-	);
+			);
+
+		default:
+			return (
+				<div className={className}>
+					{tooltip ? (
+						<TooltipProvider>
+							<Tooltip>
+								<TooltipTrigger className={styles.classToggleIcon} onClick={handleClick}>
+									<IconEmbedSvg
+										className={isContentShown ? "hidden" : ""}
+										type="angles-up-down"
+										viewBoxHeight={16}
+										viewBoxWidth={14}
+									/>
+
+									<IconEmbedSvg
+										className={isContentShown ? "" : "hidden"}
+										type="angles-up-up"
+										viewBoxHeight={16}
+										viewBoxWidth={14}
+									/>
+								</TooltipTrigger>
+								<TooltipContent>{isContentShown ? text[0] : text[1]}</TooltipContent>
+							</Tooltip>
+						</TooltipProvider>
+					) : (
+						<div className={styles.classToggleText} onClick={handleClick}>
+							{isContentShown ? text[1] : text[0]}
+						</div>
+					)}
+				</div>
+			);
+	}
 };
 
 export default ToggleCollapsible;

@@ -32,6 +32,9 @@ const DisplayEntryCard: React.FC<Props> = ({ entry, className }) => {
 		return str.replace(commentsMatcher, "");
 	});
 
+	const shouldDisplayTags_ByEntryType =
+		entry.tags && !["spokenLanguages", "education"].includes(entry.entryType);
+
 	return (
 		<div className={`${styles.cardPublicWrapper} ${className}`} id={toggle_target_id}>
 			<div className={`${styles.card} ${styles.cardPublic}`}>
@@ -72,7 +75,9 @@ const DisplayEntryCard: React.FC<Props> = ({ entry, className }) => {
 							className="icon_accent_primary"
 							target_id={toggle_target_id}
 							text={[tCommon("btnMore"), tCommon("btnLess")]}
-							type="card"
+							type={
+								descriptionArr[1] && shouldDisplayTags_ByEntryType ? "card" : "card-single-item"
+							}
 						/>
 					</div>
 					<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />
@@ -80,7 +85,7 @@ const DisplayEntryCard: React.FC<Props> = ({ entry, className }) => {
 				<div className={styles.description}>
 					<div
 						dangerouslySetInnerHTML={{ __html: descriptionArr[0] ?? entry.description }}
-						className="card-item-static"
+						className={descriptionArr[1] ? "card-item-static" : "card-single-item"}
 					/>
 					{descriptionArr[1] && (
 						<div
@@ -88,7 +93,7 @@ const DisplayEntryCard: React.FC<Props> = ({ entry, className }) => {
 							className="card-item-collapsible"
 						/>
 					)}
-					{entry.tags && (
+					{shouldDisplayTags_ByEntryType && (
 						<div className="card-item-collapsible">
 							<div className="about-entry-tags">
 								{entry.tags

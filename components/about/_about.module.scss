@@ -208,6 +208,10 @@
 			}
 		}
 
+		:global(.card-single-item) {
+			@apply mt-1;
+		}
+
 		:global(.card-item-static) {
 			@apply line-clamp-3 mt-1;
 
