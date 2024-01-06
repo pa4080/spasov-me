@@ -13,13 +13,20 @@ import ToggleCollapsible from "./ToggleHidden";
 interface Props {
 	className?: string;
 	type: AboutEntryType;
-	title: string;
 	visibleItems?: number;
 	entries: AboutEntryData[] | null;
 }
 
-const TimeLine: React.FC<Props> = ({ className, type, title, visibleItems = 3, entries }) => {
-	const tCommon = msgs("AboutCV");
+/**
+ * The title of the section must exist in the messages.json file
+ * In the format of: `title_${type}`, i.e. "title_employment"
+ */
+const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries }) => {
+	const t = msgs("AboutCV");
+
+	type tType = Parameters<typeof t>[0];
+
+	const section_title = t(`title_${type}` as tType);
 	const toggle_target_id = `section_${type}`;
 
 	return (
@@ -28,11 +35,11 @@ const TimeLine: React.FC<Props> = ({ className, type, title, visibleItems = 3, e
 				<div className={styles.sectionButtons}>
 					<ToggleCollapsible
 						target_id={toggle_target_id}
-						text={[tCommon("btnAll"), tCommon("btnLess")]}
+						text={[t("btnAll"), t("btnLess")]}
 						type="section"
 					/>
 				</div>
-				<h1 dangerouslySetInnerHTML={{ __html: title }} className={styles.sectionTitle} />
+				<h1 dangerouslySetInnerHTML={{ __html: section_title }} className={styles.sectionTitle} />
 			</div>
 
 			<div className={styles.feed}>

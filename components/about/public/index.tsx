@@ -35,8 +35,8 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 				}
 				title={t("title_resume")}
 			/>
-			<TimeLine entries={entries} title={t("title_employment")} type="employment" />
-			{/* <Section title={t("title_education")} type="education" /> */}
+			<TimeLine entries={entries} type="employment" />
+			<TimeLine entries={entries} type="education" />
 			{/* <Section title={t("title_spoken_languages")} type="spokenLanguages" /> */}
 		</div>
 	);
