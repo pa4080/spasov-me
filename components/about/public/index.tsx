@@ -3,6 +3,7 @@ import React from "react";
 import { getEntries } from "../_about.actions";
 import styles from "../_about.module.scss";
 import BusinessCard from "./Section_BusinessCard";
+import SpokenLanguages from "./Section_Languages";
 import Resume from "./Section_Resume";
 import TimeLine from "./Section_TimeLine";
 
@@ -26,7 +27,7 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 			<Resume entries={entriesHyphenated} type="resume" />
 			<TimeLine entries={entriesHyphenated} type="employment" />
 			<TimeLine entries={entriesHyphenated} type="education" />
-			{/* <SpokenLanguages entries={entriesClear} type="spokenLanguages" /> */}
+			<SpokenLanguages entries={entriesClear} type="spokenLanguages" />
 		</div>
 	);
 };

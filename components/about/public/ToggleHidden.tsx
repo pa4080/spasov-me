@@ -105,9 +105,15 @@ const ToggleCollapsible: React.FC<Props> = ({
 		case "card-single-item":
 			return (
 				<div className={className}>
-					<button className={styles.classToggleIcon} onClick={handleClick}>
-						<IconEmbedSvg type="angles-up-down" viewBoxHeight={16} viewBoxWidth={14} />
-					</button>
+					{tooltip ? (
+						<button className={styles.classToggleIcon} onClick={handleClick}>
+							<IconEmbedSvg type="angles-up-down" viewBoxHeight={16} viewBoxWidth={14} />
+						</button>
+					) : (
+						<div className={styles.classToggleText} onClick={handleClick}>
+							{isContentShown ? text[1] : text[0]}
+						</div>
+					)}
 				</div>
 			);
 
