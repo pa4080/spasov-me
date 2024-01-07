@@ -58,11 +58,11 @@ const AboutAdmin: React.FC<Props> = async ({ className }) => {
 
 	return (
 		<div className={`${styles.about} ${className}`}>
-			<Section title={t("title_business_card")} type="businessCard" />
+			<Section title={t("title_businessCard")} type="businessCard" />
 			<Section title={t("title_resume")} type="resume" />
 			<Section title={t("title_employment")} type="employment" />
 			<Section title={t("title_education")} type="education" />
-			<Section title={t("title_spoken_languages")} type="spokenLanguages" />
+			<Section title={t("title_spokenLanguages")} type="spokenLanguages" />
 		</div>
 	);
 };

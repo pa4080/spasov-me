@@ -12,12 +12,19 @@ import { cn } from "@/lib/cn-utils";
 
 interface Props {
 	className?: string;
+	classNameBtn?: string;
 	icon: IconMap[string];
 	size?: number;
 	description?: string;
 }
 
-const DisplayTagIcon: React.FC<Props> = ({ className, icon, size = 30, description }) => {
+const DisplayTagIcon: React.FC<Props> = ({
+	className,
+	classNameBtn,
+	icon,
+	size = 30,
+	description,
+}) => {
 	const { theme } = useTheme();
 	const height = size;
 	const width = Math.ceil(height * icon?.info?.ratio) || height;
@@ -31,7 +38,7 @@ const DisplayTagIcon: React.FC<Props> = ({ className, icon, size = 30, descripti
 		return (
 			<TooltipProvider>
 				<Tooltip>
-					<TooltipTrigger>
+					<TooltipTrigger className={classNameBtn}>
 						<Image
 							priority
 							alt={icon?.name || "Icon"}

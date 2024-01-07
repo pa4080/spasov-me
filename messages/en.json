@@ -191,6 +191,8 @@
 		"title_resume": "Resume",
 		"title_employment": "Employment history",
 		"title_education": "Education",
+		"title_skills": "Skills",
+		"title_techTags": "Technologies",
 		"btnMore": "Read more",
 		"btnLess": "Show less",
 		"btnAll": "Show all"
