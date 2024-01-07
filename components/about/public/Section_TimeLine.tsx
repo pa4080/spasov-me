@@ -29,6 +29,10 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries 
 	const section_title = t(`title_${type}` as tType);
 	const toggle_target_id = `section_${type}`;
 
+	const entriesByType = entries
+		?.filter(({ entryType }) => entryType === type)
+		.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
+
 	return (
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
 			<div className={styles.sectionHeader}>
@@ -43,16 +47,13 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries 
 			</div>
 
 			<div className={styles.feed}>
-				{entries
-					?.filter(({ entryType }) => entryType === type)
-					.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime())
-					.map((entry, index) => (
-						<DisplayEntryCard
-							key={index}
-							className={visibleItems > index ? "" : "section-card-collapsible"}
-							entry={entry}
-						/>
-					))}
+				{entriesByType?.map((entry, index) => (
+					<DisplayEntryCard
+						key={index}
+						className={visibleItems > index ? "" : "section-card-collapsible"}
+						entry={entry}
+					/>
+				))}
 			</div>
 		</div>
 	);

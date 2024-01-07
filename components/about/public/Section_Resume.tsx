@@ -6,18 +6,30 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 
 import { msgs } from "@/messages";
 
+import { AboutEntryType } from "@/interfaces/_dataTypes";
+
 import styles from "../_about.module.scss";
 import ToggleCollapsible from "./ToggleHidden";
 
 interface Props {
-	entry: AboutEntryData | null;
+	entries: AboutEntryData[] | null;
 	className?: string;
-	title: string;
+	type: AboutEntryType;
 }
 
-const Resume: React.FC<Props> = ({ entry, className, title }) => {
+const Resume: React.FC<Props> = ({ entries, className, type }) => {
 	const t = msgs("AboutCV");
-	const toggle_target_id = `resume_${entry?._id.toString()}`;
+
+	type tType = Parameters<typeof t>[0];
+
+	const section_title = t(`title_${type}` as tType);
+	const toggle_target_id = `section_${type}`;
+
+	const entry =
+		entries
+			?.filter(({ entryType }) => entryType === type)
+			?.find(({ dateTo, visibility }) => dateTo === undefined && visibility) ?? null;
+
 	const descriptionArr = entry?.html.description.split(splitDescriptionKeyword).map((str) => {
 		return str.replace(commentsMatcher, "");
 	});
@@ -34,7 +46,7 @@ const Resume: React.FC<Props> = ({ entry, className, title }) => {
 							type="section"
 						/>
 					</div>
-					<h1 className={styles.sectionTitle}>{title}</h1>
+					<h1 className={styles.sectionTitle}>{section_title}</h1>
 				</div>
 
 				<div className={`${styles.card} ${styles.cardPublic}`}>

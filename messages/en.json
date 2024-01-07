@@ -186,8 +186,8 @@
 		"btn_revalidate_submitting": "Revalidating..."
 	},
 	"AboutCV": {
-		"title_spoken_languages": "Spoken languages",
-		"title_business_card": "Business card",
+		"title_spokenLanguages": "Spoken languages",
+		"title_businessCard": "Business card",
 		"title_resume": "Resume",
 		"title_employment": "Employ&shy;ment history",
 		"title_education": "Education",
