@@ -91,7 +91,7 @@ const PageCreate: React.FC<GenericActionProps> = ({ className, session, setPages
 						onClick={() => setIsOpen(true)}
 					/>
 				</DialogTrigger>
-				<DialogContent>
+				<DialogContent closeOnOverlayClick={false}>
 					<DialogHeader>
 						<DialogTitle>{t("dialog_title_add")}</DialogTitle>
 						<DialogDescription>{t("dialog_description")}</DialogDescription>

@@ -97,7 +97,10 @@ const EntryUpdate: React.FC<Props> = ({ className, type: entryType, entry, files
 						onClick={() => setIsOpen(true)}
 					/>
 				</DialogTrigger>
-				<DialogContent className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl">
+				<DialogContent
+					className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
+					closeOnOverlayClick={false}
+				>
 					<DialogHeader className="-mt-2">
 						<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
 						{showDescription && (

@@ -122,7 +122,7 @@ const FileCreate: React.FC<Props> = ({ className }) => {
 							onClick={() => setIsOpen(true)}
 						/>
 					</DialogTrigger>
-					<DialogContent>
+					<DialogContent closeOnOverlayClick={false}>
 						<DialogHeader>
 							<DialogTitle>{t("dialog_title_upload")}</DialogTitle>
 							<DialogDescription>{t("dialog_description")}</DialogDescription>

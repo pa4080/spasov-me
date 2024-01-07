@@ -32,8 +32,10 @@ DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const DialogContent = React.forwardRef<
 	React.ElementRef<typeof DialogPrimitive.Content>,
-	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
+		closeOnOverlayClick?: boolean;
+	}
+>(({ className, children, closeOnOverlayClick = true, ...props }, ref) => (
 	<DialogPortal>
 		<DialogOverlay />
 		<DialogPrimitive.Content
@@ -43,6 +45,13 @@ const DialogContent = React.forwardRef<
 				className
 			)}
 			{...props}
+			onInteractOutside={(e) => {
+				/**
+				 * Prevent Dialog from Closing when clicking outside
+				 * @see https://github.com/shadcn-ui/ui/issues/1712
+				 */
+				!closeOnOverlayClick && e.preventDefault();
+			}}
 		>
 			<div className="sticky left-0 top-0 z-10 w-full h-0">
 				<DialogPrimitive.Close className="absolute -right-2 -top-2 rounded-sm opacity-70 ring-offset-background focus-visible:ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">

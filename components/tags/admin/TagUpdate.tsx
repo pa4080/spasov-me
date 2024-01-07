@@ -87,7 +87,10 @@ const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 						onClick={() => setIsOpen(true)}
 					/>
 				</DialogTrigger>
-				<DialogContent className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl">
+				<DialogContent
+					className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
+					closeOnOverlayClick={false}
+				>
 					<DialogHeader className="-mt-2">
 						<DialogTitle>{t("dialog_title", { tagType: tagTypeLabel })}</DialogTitle>
 						{showDescription && (

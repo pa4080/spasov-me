@@ -104,7 +104,7 @@ const PageUpdate: React.FC<Props> = ({
 	return (
 		session?.user && (
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
-				<DialogContent>
+				<DialogContent closeOnOverlayClick={false}>
 					<DialogHeader>
 						<DialogTitle>{t("dialog_title_edit", { title: pageData.title })}</DialogTitle>
 						<DialogDescription>{t("dialog_description")}</DialogDescription>

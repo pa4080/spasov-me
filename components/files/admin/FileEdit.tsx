@@ -103,7 +103,7 @@ const FileEdit: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileId }) => {
 	return (
 		session?.user && (
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
-				<DialogContent>
+				<DialogContent closeOnOverlayClick={false}>
 					<DialogHeader>
 						<DialogTitle className="pr-6">
 							{t("dialog_title_edit", { filename: fileData.filename })}
