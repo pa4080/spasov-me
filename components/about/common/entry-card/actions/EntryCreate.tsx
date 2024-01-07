@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { BsSendCheck } from "react-icons/bs";
 
+import { createEntry } from "@/components/about/_about.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
@@ -15,19 +16,24 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
+import { FileListItem } from "@/interfaces/File";
+import { TagListItem } from "@/interfaces/Tag";
+import { AboutEntryType } from "@/interfaces/_dataTypes";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { createEntry } from "../_about.actions";
 import EntryForm from "./entry-form";
 import { Entry_FormSchema } from "./entry-form/schema";
 
-import { GenericActionProps } from ".";
+interface Props {
+	className?: string;
+	type: AboutEntryType;
+	files?: FileListItem[] | null | undefined;
+	tags: TagListItem[] | null | undefined;
+}
 
-interface Props extends Omit<GenericActionProps, "entry" | "entry_id"> {}
-
-const EntryCreate: React.FC<Props> = ({ className, entryType, files, tags }) => {
+const EntryCreate: React.FC<Props> = ({ className, type: entryType, files, tags }) => {
 	const t = msgs("AboutCV_CreateEntry");
 	const entryTypeLabel = (
 		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
@@ -75,6 +81,10 @@ const EntryCreate: React.FC<Props> = ({ className, entryType, files, tags }) => 
 	};
 
 	const showDescription = t("dialog_description") && t("dialog_description") !== "null";
+
+	if (!tags) {
+		return null;
+	}
 
 	return (
 		<div className={className}>

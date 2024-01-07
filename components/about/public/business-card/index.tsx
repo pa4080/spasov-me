@@ -9,7 +9,7 @@ import { Route } from "@/routes";
 import { AboutEntryType } from "@/interfaces/_dataTypes";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 
-import styles from "../_about.module.scss";
+import styles from "./_business-card.module.scss";
 
 interface Props {
 	entries: AboutEntryData[] | null;

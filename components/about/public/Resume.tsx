@@ -1,15 +1,14 @@
 import React from "react";
 
+import SectionHeader from "@/components/fragments/section-header";
+import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-
+import { AboutEntryType } from "@/interfaces/_dataTypes";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
-
 import { msgs } from "@/messages";
 
-import { AboutEntryType } from "@/interfaces/_dataTypes";
-
 import styles from "../_about.module.scss";
-import ToggleCollapsible from "./ToggleHidden";
+import cardStyles from "../common/entry-card/_entry-card.module.scss";
 
 interface Props {
 	entries: AboutEntryData[] | null;
@@ -38,19 +37,16 @@ const Resume: React.FC<Props> = ({ entries, className, type }) => {
 		entry &&
 		descriptionArr && (
 			<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
-				<div className={styles.sectionHeader}>
-					<div className={styles.sectionButtons}>
-						<ToggleCollapsible
-							target_id={toggle_target_id}
-							text={[t("btnMore"), t("btnLess")]}
-							type="section"
-						/>
-					</div>
-					<h1 className={styles.sectionTitle}>{section_title}</h1>
-				</div>
+				<SectionHeader title={section_title}>
+					<ToggleCollapsible
+						target_id={toggle_target_id}
+						text={[t("btnAll"), t("btnLess")]}
+						type="section"
+					/>
+				</SectionHeader>
 
-				<div className={`${styles.card} ${styles.cardPublic}`}>
-					<div className={styles.description}>
+				<div className={`${cardStyles.card}`}>
+					<div className={cardStyles.description}>
 						<div
 							dangerouslySetInnerHTML={{ __html: descriptionArr[0] }}
 							className="section-card-static"

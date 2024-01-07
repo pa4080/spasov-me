@@ -415,3 +415,12 @@ body textarea.w-md-editor-text-input:focus {
 	-webkit-mask: url("/assets/icons/ui/star-stroke.svg") no-repeat 50% 50%;
 	mask: url("/assets/icons/ui/star-stroke.svg") no-repeat 50% 50%;
 }
+
+/* Collapsible items (see components/fragments/toggle-collapsible) */
+.section-card-collapsible {
+	display: none;
+}
+
+.expand-collapsed.list-section .section-card-collapsible {
+	display: inherit;
+}

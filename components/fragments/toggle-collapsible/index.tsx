@@ -5,7 +5,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 
-import styles from "../_about.module.scss";
+import styles from "./_toggle-collapsible.module.scss";
 
 interface Props {
 	className?: string;
@@ -104,7 +104,7 @@ const ToggleCollapsible: React.FC<Props> = ({
 	switch (type) {
 		case "card-single-item":
 			return (
-				<div className={className}>
+				<div className={`${styles.toggleButtons} ${className}`}>
 					{tooltip ? (
 						<button className={styles.classToggleIcon} onClick={handleClick}>
 							<IconEmbedSvg type="angles-up-down" viewBoxHeight={16} viewBoxWidth={14} />
@@ -119,7 +119,7 @@ const ToggleCollapsible: React.FC<Props> = ({
 
 		default:
 			return (
-				<div className={className}>
+				<div className={`${styles.toggleButtons} ${className}`}>
 					{tooltip ? (
 						<TooltipProvider>
 							<Tooltip>

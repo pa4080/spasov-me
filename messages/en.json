@@ -294,11 +294,14 @@
 		"dateTo_now_current": "Now"
 	},
 	"TagsAdmin": {
-		"title_system_tags": "System (not listed) Tags",
-		"title_it_tags": "Information Technologies",
-		"title_me_tags": "Mechanical Engineering",
-		"title_of_tags": "Office Applications",
-		"title_sk_tags": "Skills"
+		"title_system": "System (not listed) Tags",
+		"title_informationTechnologies": "Information Technologies",
+		"title_mechanicalEngineering": "Mechanical Engineering",
+		"title_officeApplications": "Office Applications",
+		"title_skills": "Skills",
+		"title_tagIndex": "Tag Index",
+		"btnAll": "Show all",
+		"btnLess": "Show less"
 	},
 	"TagsAdmin_CreateTag": {
 		"dialog_title": "Create a new tag of type { tagType }",

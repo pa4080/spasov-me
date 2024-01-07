@@ -6,6 +6,8 @@ import { AboutEntryData } from "@/interfaces/AboutEntry";
 
 import { msgs } from "@/messages";
 
+import SectionHeader from "@/components/fragments/section-header";
+
 import styles from "../_about.module.scss";
 
 interface Props {
@@ -60,10 +62,7 @@ const SpokenLanguages: React.FC<Props> = ({ className, type, entries }) => {
 
 	return (
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
-			<div className={styles.sectionHeader}>
-				<div className={styles.sectionButtons}>{/* <!-- empty --> */}</div>
-				<h1 dangerouslySetInnerHTML={{ __html: section_title }} className={styles.sectionTitle} />
-			</div>
+			<SectionHeader title={section_title} />
 
 			<div className="space-y-4">
 				{entries

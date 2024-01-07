@@ -6,22 +6,35 @@ import { AboutEntryData } from "@/interfaces/AboutEntry";
 
 import { msgs } from "@/messages";
 
+import SectionHeader from "@/components/fragments/section-header";
+
+import { FileListItem } from "@/interfaces/File";
+
+import { TagListItem } from "@/interfaces/Tag";
+
+import { Route } from "@/routes";
+
+import RevalidatePaths from "@/components/fragments/RevalidatePaths";
+
+import ToggleCollapsible from "../../fragments/toggle-collapsible";
 import styles from "../_about.module.scss";
-import DisplayEntryCard from "./TimeLine_EntryCard";
-import ToggleCollapsible from "./ToggleHidden";
+import EntryCard from "../common/entry-card";
+import EntryCreate from "../common/entry-card/actions/EntryCreate";
 
 interface Props {
 	className?: string;
 	type: AboutEntryType;
 	visibleItems?: number;
 	entries: AboutEntryData[] | null;
+	files?: FileListItem[] | null;
+	tags: TagListItem[] | null;
 }
 
 /**
  * The title of the section must exist in the messages.json file
  * In the format of: `title_${type}`, i.e. "title_employment"
  */
-const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries }) => {
+const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries, tags, files }) => {
 	const t = msgs("AboutCV");
 
 	type tType = Parameters<typeof t>[0];
@@ -35,23 +48,25 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries 
 
 	return (
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
-			<div className={styles.sectionHeader}>
-				<div className={styles.sectionButtons}>
-					<ToggleCollapsible
-						target_id={toggle_target_id}
-						text={[t("btnAll"), t("btnLess")]}
-						type="section"
-					/>
-				</div>
-				<h1 dangerouslySetInnerHTML={{ __html: section_title }} className={styles.sectionTitle} />
-			</div>
-
+			<SectionHeader title={section_title}>
+				<RevalidatePaths paths={[Route.public.ABOUT.uri]} />
+				<EntryCreate files={files} tags={tags} type={type} />
+				<ToggleCollapsible
+					tooltip
+					target_id={toggle_target_id}
+					text={[t("btnAll"), t("btnLess")]}
+					type="section"
+				/>
+			</SectionHeader>
 			<div className={styles.feed}>
 				{entriesByType?.map((entry, index) => (
-					<DisplayEntryCard
+					<EntryCard
 						key={index}
+						displayActions
 						className={visibleItems > index ? "" : "section-card-collapsible"}
 						entry={entry}
+						files={files}
+						tags={tags}
 					/>
 				))}
 			</div>

@@ -6,6 +6,8 @@ import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
 import { TagListItem } from "@/interfaces/Tag";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
+import SectionHeader from "@/components/fragments/section-header";
+
 import styles from "../_about.module.scss";
 
 interface Props {
@@ -17,14 +19,11 @@ const TechTags: React.FC<Props> = ({ className, tags }) => {
 	const t = msgs("AboutCV");
 
 	const section_title = t(`title_techTags`);
-	const toggle_target_id = `section_techTags}`;
+	const toggle_target_id = `section_techTags`;
 
 	return (
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
-			<div className={styles.sectionHeader}>
-				<div className={styles.sectionButtons}>{/* <!-- empty --> */}</div>
-				<h1 dangerouslySetInnerHTML={{ __html: section_title }} className={styles.sectionTitle} />
-			</div>
+			<SectionHeader title={section_title} />
 
 			<div className="flex flex-wrap gap-2 items-center justify-start">
 				{tags

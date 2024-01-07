@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { BsSendCheck } from "react-icons/bs";
 
+import { deleteEntry } from "@/components/about/_about.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	AlertDialog,
@@ -18,16 +19,17 @@ import {
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
+import { AboutEntryType } from "@/interfaces/_dataTypes";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { deleteEntry } from "../_about.actions";
+export interface Props {
+	className?: string;
+	type: AboutEntryType;
+	entry_id: string;
+}
 
-import { GenericActionProps } from ".";
-
-interface Props extends Omit<GenericActionProps, "tags" | "files" | "entry"> {}
-
-const EntryDelete: React.FC<Props> = ({ className, entryType, entry_id }) => {
+const EntryDelete: React.FC<Props> = ({ className, type: entryType, entry_id }) => {
 	const t = msgs("AboutCV_DeleteEntry");
 	const entryTypeLabel = (
 		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
@@ -74,9 +76,9 @@ const EntryDelete: React.FC<Props> = ({ className, entryType, entry_id }) => {
 				<AlertDialogTrigger>
 					<ButtonIcon
 						className="pl-[2.6px] bg-transparent icon_accent_secondary"
-						height={18}
+						height={22}
 						type="trash"
-						width={18}
+						width={22}
 						onClick={() => setIsOpen(true)}
 					/>
 				</AlertDialogTrigger>
