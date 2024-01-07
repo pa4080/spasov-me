@@ -10,7 +10,13 @@ import { processMarkdown } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 import AboutEntry from "@/models/about-entry";
 
-export const getEntries = async (): Promise<AboutEntryData[] | null> => {
+export const getEntries = async ({
+	hyphen,
+	typeList,
+}: {
+	hyphen?: boolean;
+	typeList?: AboutEntryType[];
+}): Promise<AboutEntryData[] | null> => {
 	"use server";
 
 	try {
@@ -20,37 +26,46 @@ export const getEntries = async (): Promise<AboutEntryData[] | null> => {
 			"tags",
 		]);
 
-		return entries.map((entry) => {
-			return {
-				_id: entry._id.toString(),
-				html: {
-					// This cannot be done in the client side
-					title: processMarkdown(entry.title),
-					description: processMarkdown(entry.description),
-					attachmentUri:
-						entry.attachment && `${entry.attachment?._id.toString()}/${entry.attachment?.filename}`,
-				},
+		return entries
+			.filter(({ entryType }) => (typeList && typeList.includes(entryType)) ?? true)
+			.map((entry) => {
+				return {
+					_id: entry._id.toString(),
+					html: {
+						// This cannot be done in the client side
+						title: processMarkdown({
+							markdown: entry.title,
+							hyphen,
+						}),
+						description: processMarkdown({
+							markdown: entry.description,
+							hyphen,
+						}),
+						attachmentUri:
+							entry.attachment &&
+							`${entry.attachment?._id.toString()}/${entry.attachment?.filename}`,
+					},
 
-				title: entry.title,
-				description: entry.description,
-				country: entry.country,
-				city: entry.city,
-				dateFrom: entry.dateFrom as Date,
-				dateTo: entry.dateTo as Date | undefined,
-				entryType: entry.entryType,
-				visibility: entry.visibility as boolean,
-				attachment: entry.attachment?._id.toString(),
-				tags:
-					entry.tags?.map((tag) => ({
-						name: tag.name,
-						description: tag.description,
-						_id: tag._id.toString(),
-						icon: tag.icon,
-						tagType: tag.tagType,
-						orderKey: tag.orderKey,
-					})) || [],
-			};
-		});
+					title: entry.title,
+					description: entry.description,
+					country: entry.country,
+					city: entry.city,
+					dateFrom: entry.dateFrom as Date,
+					dateTo: entry.dateTo as Date | undefined,
+					entryType: entry.entryType,
+					visibility: entry.visibility as boolean,
+					attachment: entry.attachment?._id.toString(),
+					tags:
+						entry.tags?.map((tag) => ({
+							name: tag.name,
+							description: tag.description,
+							_id: tag._id.toString(),
+							icon: tag.icon,
+							tagType: tag.tagType,
+							orderKey: tag.orderKey,
+						})) || [],
+				};
+			});
 	} catch (error) {
 		console.error(error);
 

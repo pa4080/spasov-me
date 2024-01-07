@@ -18,9 +18,9 @@ const EntryShowAttachment: React.FC<Props> = ({ className, uri }) => {
 		<ButtonIcon
 			className={`pl-[2.8px] bg-transparent icon_accent_secondary ${className}`}
 			disabled={!uri}
-			height={18}
+			height={22}
 			type="up-right-from-square"
-			width={18}
+			width={22}
 			onClick={() => {
 				router.push(`${Route.api.FILES}/${uri}`);
 			}}

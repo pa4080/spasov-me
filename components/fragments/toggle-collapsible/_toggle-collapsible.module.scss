@@ -1,0 +1,14 @@
+@import "@/app/globals.variables.module.scss";
+
+.toggleButtons {
+	.classToggleText {
+		@apply cursor-pointer uppercase font-unicephalon tracking-wider py-2 px-5 rounded-full
+					text-foreground-secondary bg-primary hover:bg-foreground-secondary hover:text-background transition-colors duration-300
+					-ml-8 2xs:ml-2 mt-1 2xs:-mt-0.5 -mb-4 2xs:mb-0 whitespace-nowrap;
+	}
+
+	.classToggleIcon {
+		@apply cursor-pointer uppercase font-unicephalon w-10 h-10 rounded-full flex items-center justify-center
+					text-foreground-secondary bg-primary hover:bg-background transition-colors duration-300 border-primary border-4;
+	}
+}

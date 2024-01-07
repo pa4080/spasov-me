@@ -1,6 +1,6 @@
 export const data = {
 	country_list: ["bulgaria"],
-	city_list: ["sofia", "pazardjik", "yambol"],
+	city_list: ["sofia", "pazardjik", "yambol", "plovdiv"],
 	aboutEntry_type_list: [
 		"businessCard",
 		"resume",

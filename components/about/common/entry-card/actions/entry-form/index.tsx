@@ -7,7 +7,9 @@ import { useTheme } from "next-themes";
 import { useForm } from "react-hook-form";
 
 import Combobox from "@/components/fragments/Combobox";
+import DatePicker from "@/components/fragments/DatePicker";
 import MultiSelectFromList from "@/components/fragments/MultiSelectFromList";
+import SelectFromList from "@/components/fragments/SelectFromList";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -27,8 +29,6 @@ import { TagListItem } from "@/interfaces/Tag";
 import { AboutEntryType, aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataTypes";
 import { msgs } from "@/messages";
 
-import DatePicker from "../../../fragments/DatePicker";
-import SelectFromList from "../../../fragments/SelectFromList";
 import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
 
 interface Props {

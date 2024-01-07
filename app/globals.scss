@@ -385,3 +385,42 @@ body textarea.w-md-editor-text-input:focus {
 	text-shadow: none !important;
 	box-shadow: none !important;
 }
+
+/* Icons */
+.icon {
+	width: 1em;
+	height: 1em;
+	display: inline-block;
+	margin: 0 0.1em;
+
+	-webkit-mask-size: cover;
+	mask-size: cover;
+}
+
+.i-default-bg {
+	background-color: theme("colors.foreground.DEFAULT");
+}
+
+.i-full-star {
+	-webkit-mask: url("/assets/icons/ui/star.svg") no-repeat 50% 50%;
+	mask: url("/assets/icons/ui/star.svg") no-repeat 50% 50%;
+}
+
+.i-half-star {
+	-webkit-mask: url("/assets/icons/ui/star-half-stroke.svg") no-repeat 50% 50%;
+	mask: url("/assets/icons/ui/star-half-stroke.svg") no-repeat 50% 50%;
+}
+
+.i-no-star {
+	-webkit-mask: url("/assets/icons/ui/star-stroke.svg") no-repeat 50% 50%;
+	mask: url("/assets/icons/ui/star-stroke.svg") no-repeat 50% 50%;
+}
+
+/* Collapsible items (see components/fragments/toggle-collapsible) */
+.section-card-collapsible {
+	display: none;
+}
+
+.expand-collapsed.list-section .section-card-collapsible {
+	display: inherit;
+}

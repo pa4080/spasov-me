@@ -44,7 +44,7 @@
 			@apply block mx-auto w-full h-full;
 		}
 
-		.cardEditActions {
+		.buttons {
 			@apply flex gap-12 sm:gap-4 p-2 sm:p-4 rounded-xl max-sm:bg-secondary/50 justify-center w-full
 			sm:absolute sm:right-2 sm:-top-1.5 sm:justify-start sm:w-fit;
 		}

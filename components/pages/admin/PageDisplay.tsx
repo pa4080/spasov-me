@@ -28,7 +28,7 @@ const PageDisplay: React.FC<Props> = ({ className, page, handleDelete, handleEdi
 	return (
 		// <Link key={index} href={`/${page.uri}`}>
 		<div className={`${styles.card} ${className}`}>
-			<div className={styles.cardEditActions}>
+			<div className={styles.buttons}>
 				<ButtonIcon
 					className="pl-[2.6px] bg-transparent icon_accent_secondary"
 					height={18}

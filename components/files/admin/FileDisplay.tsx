@@ -81,7 +81,7 @@ const FileDisplay: React.FC<Props> = ({
 				</div>
 			</a>
 
-			<div className={styles.cardEditActions}>
+			<div className={styles.buttons}>
 				<ButtonIcon
 					className="pl-[2.8px] bg-transparent icon_accent_secondary"
 					height={18}

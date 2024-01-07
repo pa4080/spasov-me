@@ -5,22 +5,37 @@ import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { enUS as en } from "date-fns/locale";
 
+import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
 import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
+import { AboutEntryData } from "@/interfaces/AboutEntry";
+import { FileListItem } from "@/interfaces/File";
+import { TagListItem } from "@/interfaces/Tag";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
-import { AboutEntryData } from "@/interfaces/AboutEntry";
+import styles from "./_entry-card.module.scss";
+import EntryDelete from "./actions/EntryDelete";
+import EntryShowAttachment from "./actions/EntryShowAttachment";
+import EntryUpdate from "./actions/EntryUpdate";
 
-import styles from "../_about.module.scss";
-import ToggleCollapsible from "./ToggleHidden";
-
-export interface Props {
+interface Props {
 	className?: string;
 	entry: AboutEntryData;
+	files?: FileListItem[] | null | undefined;
+	tags?: TagListItem[] | null | undefined;
+	displayTags?: boolean;
+	displayActions?: boolean;
 }
 
-const DisplayEntryCard: React.FC<Props> = ({ entry, className }) => {
+const EntryCard: React.FC<Props> = ({
+	entry,
+	className,
+	files,
+	tags,
+	displayTags = true,
+	displayActions = false,
+}) => {
 	const tTime = msgs("AboutCV_Form");
 	const tCommon = msgs("AboutCV");
 
@@ -33,9 +48,9 @@ const DisplayEntryCard: React.FC<Props> = ({ entry, className }) => {
 	});
 
 	return (
-		<div className={`${styles.cardPublicWrapper} ${className}`} id={toggle_target_id}>
-			<div className={`${styles.card} ${styles.cardPublic}`}>
-				<div className={styles.metaInfo}>
+		<div className={`${styles.cardWrapper} ${className}`} id={toggle_target_id}>
+			<div className={`${styles.card}`}>
+				<div className={styles.info}>
 					<div className={styles.date}>
 						<span>
 							{/* <span className={styles.lightSecondaryText}>
@@ -66,21 +81,30 @@ const DisplayEntryCard: React.FC<Props> = ({ entry, className }) => {
 					</div>
 				</div>
 				<div className={styles.header}>
-					<div className={styles.cardButtons}>
-						<ToggleCollapsible
-							tooltip
-							className="icon_accent_primary"
-							target_id={toggle_target_id}
-							text={[tCommon("btnMore"), tCommon("btnLess")]}
-							type="card"
-						/>
+					<div className={`${styles.buttons} ${displayActions ? "w-36" : "w-8"}`}>
+						<div className={styles.buttonsContainer}>
+							{displayActions && (
+								<>
+									<EntryDelete entry_id={entry._id} type={entry.entryType} />
+									<EntryShowAttachment uri={entry.html.attachmentUri} />
+									<EntryUpdate entry={entry} files={files} tags={tags} type={entry.entryType} />
+								</>
+							)}
+							<ToggleCollapsible
+								tooltip
+								className="icon_accent_primary"
+								target_id={toggle_target_id}
+								text={[tCommon("btnMore"), tCommon("btnLess")]}
+								type={descriptionArr[1] ? "card" : "card-single-item"}
+							/>
+						</div>
 					</div>
 					<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />
 				</div>
 				<div className={styles.description}>
 					<div
 						dangerouslySetInnerHTML={{ __html: descriptionArr[0] ?? entry.description }}
-						className="card-item-static"
+						className={descriptionArr[1] ? "card-item-static" : "card-single-item"}
 					/>
 					{descriptionArr[1] && (
 						<div
@@ -88,7 +112,7 @@ const DisplayEntryCard: React.FC<Props> = ({ entry, className }) => {
 							className="card-item-collapsible"
 						/>
 					)}
-					{entry.tags && (
+					{displayTags && (
 						<div className="card-item-collapsible">
 							<div className="about-entry-tags">
 								{entry.tags
@@ -111,4 +135,4 @@ const DisplayEntryCard: React.FC<Props> = ({ entry, className }) => {
 	);
 };
 
-export default DisplayEntryCard;
+export default EntryCard;

@@ -15,6 +15,8 @@ import { Route } from "@/routes";
 
 import { msgs } from "@/messages";
 
+import SectionHeader from "@/components/fragments/section-header";
+
 import PageCreate from "./PageCreate";
 import PageDelete from "./PageDelete";
 import PageUpdate from "./PageUpdate";
@@ -87,15 +89,12 @@ const PagesAdmin: React.FC<Props> = ({ className }) => {
 		setIsEditDialogOpen(true);
 	};
 
-	const Section = ({ pages, title }: { pages: PageDoc[]; title: string }) => (
+	const Section = ({ pages, title: section_title }: { pages: PageDoc[]; title: string }) => (
 		<div className={styles.section}>
-			<div className={styles.sectionHeader}>
-				<h1 className={styles.sectionTitle}>{title}</h1>
-				<div className="flex gap-2">
-					<RevalidatePaths paths={[Route.public.HOME.uri]} />
-					<PageCreate session={session} setPages={setPages} />
-				</div>
-			</div>
+			<SectionHeader title={section_title}>
+				<RevalidatePaths paths={[Route.public.HOME.uri]} />
+				<PageCreate session={session} setPages={setPages} />
+			</SectionHeader>
 
 			<div className={`${styles.feed} mt-16`}>
 				{pages?.map((page, index) => (
