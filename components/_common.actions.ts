@@ -21,8 +21,10 @@ export const revalidatePaths = async <T extends string>({
 			revalidatePath(path);
 		});
 
+		// redirect() cause a specific Next.js error,
+		// so it must be outside the try block!
+
 		return paths;
-		// Using redirect() here cause a Next.js error
 	} catch (error) {
 		console.error(error);
 

@@ -10,9 +10,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] Upload form + MarkDown dor the description
   - [ ] Get the files on the server side?
 - [ ] Gallery display
-- [ ] Projects Admin?
+- [ ] Projects Admin? > Form design
 - [ ] Projects public
-- [ ] Single project + gallery
+- [ ] Single project + gallery > design
+  - Desktop: Gallery on the left, Title and description on the right
+  - Mobile: Gallery on the top, Title and description on the bottom
+  - When click on the gallery display it on full screen
+  - Use the Shad-cn/ui slider for the gallery
 - [ ] Blog post admin
 - [ ] Blog feed public
 - [ ] Blog post public
