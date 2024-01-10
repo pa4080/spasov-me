@@ -1,14 +1,14 @@
 "use server";
 
 import { getSession, revalidatePaths } from "@/components/_common.actions";
-import { NewTagData, TagDoc, TagListItem } from "@/interfaces/Tag";
+import { NewTagData, TagData, TagDoc } from "@/interfaces/Tag";
 import { TagType } from "@/interfaces/_dataTypes";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb, mongo_id_obj } from "@/lib/mongodb-mongoose";
 import { msgs } from "@/messages";
 import Tag from "@/models/tag";
 
-export const getTags = async (): Promise<TagListItem[] | null> => {
+export const getTags = async (): Promise<TagData[] | null> => {
 	"use server";
 
 	try {

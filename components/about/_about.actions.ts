@@ -2,7 +2,6 @@
 
 import { getSession, revalidatePaths } from "@/components/_common.actions";
 import { AboutEntryData, AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
-import { UserObject } from "@/interfaces/User";
 import { AboutEntryType, CityType, CountryType } from "@/interfaces/_dataTypes";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb, mongo_id_obj } from "@/lib/mongodb-mongoose";
@@ -24,9 +23,10 @@ export const getEntries = async ({
 		const entries: AboutEntryDoc[] = await AboutEntry.find(mongo_id_obj()).populate([
 			"attachment",
 			"tags",
+			"gallery",
 		]);
 
-		return entries
+		const processed = entries
 			.filter(({ entryType }) => (typeList && typeList.includes(entryType)) ?? true)
 			.map((entry) => {
 				return {
@@ -64,8 +64,28 @@ export const getEntries = async ({
 							tagType: tag.tagType,
 							orderKey: tag.orderKey,
 						})) || [],
+					gallery: entry.gallery?.map((file) => ({
+						_id: file._id.toString(),
+						filename: file.filename,
+						length: file.length,
+						chunkSize: file.chunkSize,
+						uploadDate: file.uploadDate,
+						metadata: {
+							description: processMarkdown({
+								markdown: file.metadata?.description,
+								hyphen,
+							}),
+							size: file.metadata?.size,
+							contentType: file.metadata?.contentType,
+							lastModified: file.metadata?.lastModified,
+							originalName: file.metadata?.originalName,
+							uri: `${file._id.toString()}/${file.filename}`,
+						},
+					})),
 				};
 			});
+
+		return processed;
 	} catch (error) {
 		console.error(error);
 
@@ -97,19 +117,20 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<true
 			dateTo: data.get("dateTo") as string,
 			visibility: data.get("visibility") as string,
 			tags: (data.get("tags") as string).split(",") as string[],
+			gallery: (data.get("gallery") as string).split(",") as string[],
 
 			attachment: data.get("attachment") as string,
 			creator: session?.user.id as string,
 		};
 
-		deleteFalsyKeys(newAboutEntryData, ["attachment", "dateTo"]);
+		deleteFalsyKeys(newAboutEntryData, ["attachment", "dateTo", "gallery"]);
 
 		const newAboutEntryDocument = new AboutEntry(newAboutEntryData);
 
 		await newAboutEntryDocument.save();
-		await newAboutEntryDocument.populate(["attachment", "tags"]);
+		await newAboutEntryDocument.populate(["attachment", "tags", "gallery"]);
 
-		revalidatePaths(paths);
+		revalidatePaths({ paths, redirectTo: paths[0] });
 
 		return true;
 	} catch (error) {
@@ -123,98 +144,101 @@ export const updateEntry = async (
 	data: FormData,
 	entry_id: string,
 	paths: string[]
-): Promise<AboutEntryDoc | null> => {
+): Promise<true | null> => {
 	"use server";
 
-	const session = await getSession();
+	try {
+		const session = await getSession();
 
-	if (!session?.user) {
-		console.error(msgs("Errors")("invalidUser"));
+		if (!session?.user) {
+			console.error(msgs("Errors")("invalidUser"));
+
+			return null;
+		}
+
+		await connectToMongoDb();
+
+		const newAboutEntryData: NewAboutEntryData = {
+			title: data.get("title") as string,
+			description: data.get("description") as string,
+			country: data.get("country") as CountryType,
+			city: data.get("city") as CityType,
+			entryType: data.get("entryType") as AboutEntryType,
+			dateFrom: data.get("dateFrom") as string,
+			dateTo: data.get("dateTo") as string,
+			visibility: data.get("visibility") as string,
+			tags: (data.get("tags") as string).split(",") as string[],
+			gallery: (data.get("gallery") as string).split(",") as string[],
+
+			attachment: data.get("attachment") as string,
+			creator: session?.user.id as string,
+		};
+
+		deleteFalsyKeys(newAboutEntryData, ["attachment", "dateTo", "gallery"]);
+
+		const updatedAboutEntryDocument = await AboutEntry.findOneAndUpdate(
+			mongo_id_obj(entry_id),
+			newAboutEntryData,
+			{
+				new: true,
+				strict: true,
+			}
+		);
+
+		// If the "attachment" prop previously existed but was removed
+		if (!newAboutEntryData.attachment) {
+			updatedAboutEntryDocument.attachment = undefined;
+		}
+
+		// If the "gallery" prop previously existed but was removed
+		if (!newAboutEntryData.gallery) {
+			updatedAboutEntryDocument.gallery = undefined;
+		}
+
+		// If the "dateTo" prop previously existed but was removed
+		if (!newAboutEntryData.dateTo) {
+			updatedAboutEntryDocument.dateTo = undefined;
+		}
+
+		await updatedAboutEntryDocument.save();
+		await updatedAboutEntryDocument.populate(["attachment", "tags", "gallery"]);
+
+		revalidatePaths({ paths, redirectTo: paths[0] });
+
+		return true;
+	} catch (error) {
+		console.error(error);
 
 		return null;
 	}
-
-	await connectToMongoDb();
-
-	const newAboutEntryData: NewAboutEntryData = {
-		title: data.get("title") as string,
-		description: data.get("description") as string,
-		country: data.get("country") as CountryType,
-		city: data.get("city") as CityType,
-		entryType: data.get("entryType") as AboutEntryType,
-		dateFrom: data.get("dateFrom") as string,
-		dateTo: data.get("dateTo") as string,
-		visibility: data.get("visibility") as string,
-		tags: (data.get("tags") as string).split(",") as string[],
-
-		attachment: data.get("attachment") as string,
-		creator: session?.user.id as string,
-	};
-
-	deleteFalsyKeys(newAboutEntryData, ["attachment", "dateTo"]);
-
-	const updatedAboutEntryDocument = await AboutEntry.findOneAndUpdate(
-		mongo_id_obj(entry_id),
-		newAboutEntryData,
-		{
-			new: true,
-			strict: true,
-		}
-	);
-
-	// If the image previously existed but was removed
-	if (!newAboutEntryData.attachment) {
-		updatedAboutEntryDocument.attachment = undefined;
-	}
-
-	if (!newAboutEntryData.dateTo) {
-		updatedAboutEntryDocument.dateTo = undefined;
-	}
-
-	await updatedAboutEntryDocument.save();
-	await updatedAboutEntryDocument.populate(["creator", "attachment"]);
-
-	revalidatePaths(paths);
-
-	return {
-		title: updatedAboutEntryDocument.title,
-		description: updatedAboutEntryDocument.description,
-		country: updatedAboutEntryDocument.country,
-		city: updatedAboutEntryDocument.city,
-		entryType: updatedAboutEntryDocument.entryType,
-		dateFrom: updatedAboutEntryDocument.dateFrom,
-		dateTo: updatedAboutEntryDocument.dateTo || undefined,
-		visibility: updatedAboutEntryDocument.visibility,
-
-		_id: updatedAboutEntryDocument._id.toString(),
-		attachment: updatedAboutEntryDocument.attachment?._id.toString(),
-		creator: {
-			name: updatedAboutEntryDocument.creator.name,
-			email: updatedAboutEntryDocument.creator.email,
-		} as UserObject,
-	} as AboutEntryDoc;
 };
 
 export const deleteEntry = async (entry_id: string, paths: string[]): Promise<boolean | null> => {
 	"use server";
 
-	const session = await getSession();
+	try {
+		const session = await getSession();
 
-	if (!session?.user) {
-		console.error(msgs("Errors")("invalidUser"));
+		if (!session?.user) {
+			console.error(msgs("Errors")("invalidUser"));
+
+			return null;
+		}
+
+		await connectToMongoDb();
+
+		const deletedObject = await AboutEntry.findOneAndDelete(mongo_id_obj(entry_id));
+
+		if (!deletedObject) {
+			return null;
+		}
+
+		revalidatePaths({ paths, redirectTo: paths[0] });
+
+		return !!deletedObject.ok;
+	} catch (error) {
+		console.error(error);
 
 		return null;
 	}
-
-	await connectToMongoDb();
-
-	const deletedObject = await AboutEntry.findOneAndDelete(mongo_id_obj(entry_id));
-
-	if (!deletedObject) {
-		return null;
-	}
-
-	revalidatePaths(paths);
-
-	return !!deletedObject.ok;
 };

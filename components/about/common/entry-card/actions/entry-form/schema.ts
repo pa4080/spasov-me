@@ -81,6 +81,15 @@ export const Entry_FormSchemaGenerator = (messages?: string[]) =>
 		tags: z.array(z.string()).refine((tags) => tags.length > 0, {
 			message: String(messages?.[9]),
 		}),
+		gallery: z.array(z.string(), {
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			errorMap: (issue, _ctx) => {
+				switch (issue.code) {
+					default:
+						return { message: String(messages?.[10]) };
+				}
+			},
+		}),
 	});
 
 export const Entry_FormSchema = Entry_FormSchemaGenerator();

@@ -3,7 +3,7 @@ import React from "react";
 import { msgs } from "@/messages";
 
 import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
-import { TagListItem } from "@/interfaces/Tag";
+import { TagData } from "@/interfaces/Tag";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
 import SectionHeader from "@/components/fragments/section-header";
@@ -15,7 +15,7 @@ import TagCreate from "./TagCreate";
 
 interface Props {
 	className?: string;
-	tags: TagListItem[] | null;
+	tags: TagData[] | null;
 	type?: string;
 }
 

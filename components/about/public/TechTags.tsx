@@ -3,7 +3,7 @@ import React from "react";
 import { msgs } from "@/messages";
 
 import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
-import { TagListItem } from "@/interfaces/Tag";
+import { TagData } from "@/interfaces/Tag";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
 import SectionHeader from "@/components/fragments/section-header";
@@ -12,7 +12,7 @@ import styles from "../_about.module.scss";
 
 interface Props {
 	className?: string;
-	tags: TagListItem[] | null;
+	tags: TagData[] | null;
 }
 
 const TechTags: React.FC<Props> = ({ className, tags }) => {

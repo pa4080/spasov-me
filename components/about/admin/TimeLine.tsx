@@ -10,7 +10,7 @@ import SectionHeader from "@/components/fragments/section-header";
 
 import { FileListItem } from "@/interfaces/File";
 
-import { TagListItem } from "@/interfaces/Tag";
+import { TagData } from "@/interfaces/Tag";
 
 import { Route } from "@/routes";
 
@@ -27,7 +27,7 @@ interface Props {
 	visibleItems?: number;
 	entries: AboutEntryData[] | null;
 	files?: FileListItem[] | null;
-	tags: TagListItem[] | null;
+	tags: TagData[] | null;
 }
 
 /**

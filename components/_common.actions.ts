@@ -1,12 +1,19 @@
 "use server";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 import { FileDocument, FileListItem } from "@/interfaces/File";
 import { authOptions } from "@/lib/auth-options";
 import { gridFSBucket } from "@/lib/mongodb-mongoose";
 
-export const revalidatePaths = async <T extends string>(paths: T[]): Promise<T[] | null> => {
+export const revalidatePaths = async <T extends string>({
+	paths,
+	redirectTo,
+}: {
+	paths: T[];
+	redirectTo?: T;
+}): Promise<T[] | null | void> => {
 	"use server";
 
 	try {
@@ -15,10 +22,15 @@ export const revalidatePaths = async <T extends string>(paths: T[]): Promise<T[]
 		});
 
 		return paths;
+		// Using redirect() here cause a Next.js error
 	} catch (error) {
 		console.error(error);
 
 		return null;
+	} finally {
+		if (redirectTo) {
+			redirect(redirectTo);
+		}
 	}
 };
 

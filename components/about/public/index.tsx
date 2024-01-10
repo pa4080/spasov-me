@@ -25,6 +25,8 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 		typeList: ["businessCard", "spokenLanguages"],
 	});
 
+	// console.log(entriesClear);
+
 	const tags = await getTags();
 
 	return (

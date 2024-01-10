@@ -9,7 +9,7 @@ import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
 import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileListItem } from "@/interfaces/File";
-import { TagListItem } from "@/interfaces/Tag";
+import { TagData } from "@/interfaces/Tag";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
@@ -23,7 +23,7 @@ interface Props {
 	className?: string;
 	entry: AboutEntryData;
 	files?: FileListItem[] | null | undefined;
-	tags?: TagListItem[] | null | undefined;
+	tags?: TagData[] | null | undefined;
 	displayTags?: boolean;
 	displayActions?: boolean;
 }

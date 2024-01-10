@@ -2,13 +2,13 @@ import { GridFSFile } from "mongodb";
 
 import { UserObject } from "@/interfaces/User";
 
+import { FileData } from "./File";
+import { TagData, TagDoc } from "./Tag";
 import { AboutEntryType, CityType, CountryType } from "./_dataTypes";
-import { TagDoc, TagListItem } from "./Tag";
 
 export interface AboutEntryDoc {
 	_id: string;
 	creator: UserObject;
-	attachment?: GridFSFile;
 
 	title: string;
 	description: string;
@@ -19,30 +19,38 @@ export interface AboutEntryDoc {
 	dateTo: Date | string | undefined;
 	visibility: boolean | string;
 	tags: TagDoc[];
+	attachment?: GridFSFile;
+	gallery: GridFSFile[];
 }
 
 export interface NewAboutEntryData
-	extends Omit<AboutEntryDoc, "_id" | "attachment" | "creator" | "tags"> {
+	extends Omit<AboutEntryDoc, "_id" | "attachment" | "creator" | "tags" | "gallery"> {
 	creator: string;
 	attachment?: string;
 	tags: string[];
+	gallery?: string[];
 }
 
 export interface AboutEntryHtmlProps {
 	title: string;
 	description: string;
 	attachmentUri?: string;
+	// gallery?: { itemName: string; itemUri: string; itemDescription: string }[];
 }
 
 export interface AboutEntryData
 	extends Omit<
 		AboutEntryDoc,
-		"_id" | "attachment" | "creator" | "tags" | "dateTo" | "dateFrom" | "visibility"
+		"_id" | "attachment" | "creator" | "tags" | "dateTo" | "dateFrom" | "visibility" | "gallery"
 	> {
-	_id: string;
-	html: AboutEntryHtmlProps;
-	tags: TagListItem[];
-	dateFrom: Date;
-	dateTo: Date | undefined;
-	visibility: boolean;
+	// gallery: GridFSFile[];
+	gallery?: FileData[];
+
+	_id: string; //
+	html: AboutEntryHtmlProps; //
+	tags: TagData[]; //
+	attachment: string | undefined; //
+	dateFrom: Date; //
+	dateTo: Date | undefined; //
+	visibility: boolean; //
 }

@@ -3,6 +3,7 @@ import React from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import MDEditor, { commands } from "@uiw/react-md-editor";
+import { Paperclip, Tag } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useForm } from "react-hook-form";
 
@@ -25,7 +26,7 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileListItem } from "@/interfaces/File";
-import { TagListItem } from "@/interfaces/Tag";
+import { TagData } from "@/interfaces/Tag";
 import { AboutEntryType, aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataTypes";
 import { msgs } from "@/messages";
 
@@ -34,11 +35,11 @@ import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
 interface Props {
 	className?: string;
 	formData?: AboutEntryData;
-	entryType: AboutEntryType; // entryType?: AboutEntryItem;
+	entryType: AboutEntryType;
 	onSubmit: (data: Entry_FormSchema) => void;
 	submitting?: boolean;
 	files?: FileListItem[] | null;
-	tags: TagListItem[] | null;
+	tags: TagData[] | null;
 }
 
 const EntryForm: React.FC<Props> = ({
@@ -63,6 +64,7 @@ const EntryForm: React.FC<Props> = ({
 		t("schema_visibility"),
 		t("schema_attachment"),
 		t("schema_tags"),
+		t("schema_gallery"),
 	]);
 
 	const { theme } = useTheme();
@@ -80,9 +82,14 @@ const EntryForm: React.FC<Props> = ({
 			visibility: true,
 			attachment: undefined,
 			tags: [],
+			gallery: [],
 		},
 		values: formData
-			? { ...formData, tags: formData?.tags.map((item) => item._id) || [] }
+			? {
+					...formData,
+					tags: formData?.tags.map((tag) => tag._id) || [],
+					gallery: formData?.gallery.map((file) => file._id),
+			  }
 			: undefined,
 	});
 
@@ -282,6 +289,7 @@ const EntryForm: React.FC<Props> = ({
 
 					{/* Tags */}
 					<MultiSelectFromList
+						Icon={Tag}
 						className="w-full sm:col-span-7"
 						control={form.control}
 						error={form.formState.errors.tags}
@@ -306,6 +314,30 @@ const EntryForm: React.FC<Props> = ({
 							items
 								? form.setValue("tags", items, { shouldValidate: items.length > 0 })
 								: form.resetField("tags")
+						}
+					/>
+
+					{/* Gallery */}
+					<MultiSelectFromList
+						Icon={Paperclip}
+						className="w-full sm:col-span-7"
+						control={form.control}
+						error={form.formState.errors.gallery}
+						itemsList={files ?? []}
+						messages={{
+							label: t("gallery_label"),
+							description: t("gallery_description"),
+							placeholder: t("gallery_search"),
+							select: t("schema_gallery"),
+							add: t("gallery_add"),
+							notFound: t("gallery_searchNotFound"),
+						}}
+						name="gallery"
+						selected={form.watch("gallery") || []}
+						onSelect={(items: string[] | undefined) =>
+							items
+								? form.setValue("gallery", items, { shouldValidate: items.length > 0 })
+								: form.resetField("gallery")
 						}
 					/>
 				</div>

@@ -2,7 +2,7 @@ import React from "react";
 
 import { msgs } from "@/messages";
 
-import { TagListItem } from "@/interfaces/Tag";
+import { TagData } from "@/interfaces/Tag";
 import iconsMap from "@/public/assets/icons";
 
 import SectionHeader from "@/components/fragments/section-header";
@@ -20,7 +20,7 @@ import TagCreate from "./TagCreate";
 
 interface Props {
 	className?: string;
-	tags: TagListItem[] | null;
+	tags: TagData[] | null;
 	type: TagType;
 	visibleItems?: number;
 }

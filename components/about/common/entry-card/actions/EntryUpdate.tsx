@@ -16,7 +16,7 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileListItem } from "@/interfaces/File";
-import { TagListItem } from "@/interfaces/Tag";
+import { TagData } from "@/interfaces/Tag";
 import { AboutEntryType } from "@/interfaces/_dataTypes";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
@@ -30,7 +30,7 @@ interface Props {
 	entry: AboutEntryData;
 	type: AboutEntryType;
 	files?: FileListItem[] | null | undefined;
-	tags: TagListItem[] | null | undefined;
+	tags: TagData[] | null | undefined;
 }
 
 const EntryUpdate: React.FC<Props> = ({ className, type: entryType, entry, files, tags }) => {

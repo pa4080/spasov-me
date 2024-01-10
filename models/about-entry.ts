@@ -47,6 +47,7 @@ const AboutEntrySchema = new Schema({
 		{
 			type: Schema.Types.ObjectId,
 			ref: Tag,
+			required: [true, "At least one Tag is required!"],
 		},
 	],
 	creator: {
@@ -57,6 +58,12 @@ const AboutEntrySchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: GridFS,
 	},
+	gallery: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: GridFS,
+		},
+	],
 });
 
 const AboutEntry = models.AboutEntry || model("AboutEntry", AboutEntrySchema);

@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
 import { FileListItem } from "@/interfaces/File";
-import { TagListItem } from "@/interfaces/Tag";
+import { TagData } from "@/interfaces/Tag";
 import { AboutEntryType } from "@/interfaces/_dataTypes";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
@@ -30,7 +30,7 @@ interface Props {
 	className?: string;
 	type: AboutEntryType;
 	files?: FileListItem[] | null | undefined;
-	tags: TagListItem[] | null | undefined;
+	tags: TagData[] | null | undefined;
 }
 
 const EntryCreate: React.FC<Props> = ({ className, type: entryType, files, tags }) => {
@@ -44,7 +44,7 @@ const EntryCreate: React.FC<Props> = ({ className, type: entryType, files, tags 
 	const pathname = usePathname();
 
 	const handleCreateEntry = async (data: Entry_FormSchema) => {
-		setSubmitting(true);
+		// setSubmitting(true);
 
 		try {
 			/**

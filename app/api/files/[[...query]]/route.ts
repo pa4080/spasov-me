@@ -3,14 +3,14 @@
  * @see https://mongodb.github.io/node-mongodb-native/6.0/classes/GridFSBucket.html#openUploadStream
  * @see https://mongodb.github.io/node-mongodb-native/6.0/classes/GridFSBucket.html#openUploadStreamWithId
  */
-import { NextResponse, NextRequest } from "next/server";
+import { GridFSFile, ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
-import { ObjectId, GridFSFile } from "mongodb";
+import { NextRequest, NextResponse } from "next/server";
 
+import { FileDocument } from "@/interfaces/File";
 import { authOptions } from "@/lib/auth-options";
 import { defaultChunkSizeBytes, gridFSBucket } from "@/lib/mongodb-mongoose";
 import GridFS from "@/models/grid_fs";
-import { FileDocument } from "@/interfaces/File";
 import { Route } from "@/routes";
 
 import { errorMessages } from "../../common";

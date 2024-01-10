@@ -1,7 +1,7 @@
 import React from "react";
 
 import { IconMap } from "@/interfaces/IconMap";
-import { TagListItem } from "@/interfaces/Tag";
+import { TagData } from "@/interfaces/Tag";
 import { TagType } from "@/interfaces/_dataTypes";
 
 import { getTags } from "../_tags.actions";
@@ -11,7 +11,7 @@ import SectionIndex from "./SectionIndex";
 
 export interface GenericActionProps {
 	className?: string;
-	tag: TagListItem;
+	tag: TagData;
 	tagType: TagType;
 	tag_id: string;
 	icons: IconMap;

@@ -13,7 +13,7 @@ import { KeyboardEvent, useCallback, useRef, useState } from "react";
 
 import { Control, FieldError, FieldValues, Merge, Path, PathValue } from "react-hook-form";
 
-import { Tag, X } from "lucide-react";
+import { LucideIcon, X } from "lucide-react";
 
 import { FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
@@ -42,6 +42,7 @@ interface Props<T extends FieldValues> {
 	control: Control<T>;
 	name: Path<T>;
 	itemsList: ItemList<T>;
+	Icon: LucideIcon;
 	messages: {
 		label?: string;
 		description?: string;
@@ -65,6 +66,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
 	className,
 	onSelect,
 	selected,
+	Icon,
 }: Props<T>) {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [inputValue, setInputValue] = useState("");
@@ -125,7 +127,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
 									variant="outline"
 								>
 									<div className="line-clamp-1 text-left">{messages.add}</div>
-									<Tag className="ml-2 h-4 w-4 shrink-0 opacity-60" />
+									<Icon className="ml-2 h-4 w-4 shrink-0 opacity-60" />
 								</Button>
 							</PopoverTrigger>
 
@@ -140,7 +142,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
 													className="h-fit text-sm font-normal tracking-wider py-1 text-foreground"
 													variant="secondary"
 												>
-													<Tag className="ml-1 mr-2 h-3 w-3 opacity-60" />
+													<Icon className="ml-1 mr-2 h-3 w-3 opacity-60" />
 													{item.label}
 													<div
 														className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
@@ -167,7 +169,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
 										variant="secondary"
 									>
 										{messages.select}
-										<Tag className="ml-2 h-3 w-3 opacity-60" />
+										<Icon className="ml-2 h-3 w-3 opacity-60" />
 									</Badge>
 								)}
 							</div>
