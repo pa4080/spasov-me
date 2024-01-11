@@ -1,20 +1,13 @@
 import React from "react";
 
-import { AboutEntryType } from "@/interfaces/_dataTypes";
-
-import { AboutEntryData } from "@/interfaces/AboutEntry";
-
-import { msgs } from "@/messages";
-
-import SectionHeader from "@/components/fragments/section-header";
-
-import { FileListItem } from "@/interfaces/File";
-
-import { TagData } from "@/interfaces/Tag";
-
-import { Route } from "@/routes";
-
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
+import SectionHeader from "@/components/fragments/section-header";
+import { AboutEntryData } from "@/interfaces/AboutEntry";
+import { FileListItem } from "@/interfaces/File";
+import { TagData } from "@/interfaces/Tag";
+import { AboutEntryType } from "@/interfaces/_dataTypes";
+import { msgs } from "@/messages";
+import { Route } from "@/routes";
 
 import ToggleCollapsible from "../../fragments/toggle-collapsible";
 import styles from "../_about.module.scss";

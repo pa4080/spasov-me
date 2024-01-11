@@ -4,6 +4,7 @@ import { getSession, revalidatePaths } from "@/components/_common.actions";
 import { AboutEntryData, AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
 import { AboutEntryType, CityType, CountryType } from "@/interfaces/_dataTypes";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
+import fileDocumentToData from "@/lib/file-doc-to-file-data";
 import { connectToMongoDb, mongo_id_obj } from "@/lib/mongodb-mongoose";
 import { processMarkdown } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
@@ -26,7 +27,7 @@ export const getEntries = async ({
 			"gallery",
 		]);
 
-		const processed = entries
+		return entries
 			.filter(({ entryType }) => (typeList && typeList.includes(entryType)) ?? true)
 			.map((entry) => {
 				return {
@@ -64,28 +65,9 @@ export const getEntries = async ({
 							tagType: tag.tagType,
 							orderKey: tag.orderKey,
 						})) || [],
-					gallery: entry.gallery?.map((file) => ({
-						_id: file._id.toString(),
-						filename: file.filename,
-						length: file.length,
-						chunkSize: file.chunkSize,
-						uploadDate: file.uploadDate,
-						metadata: {
-							description: processMarkdown({
-								markdown: file.metadata?.description,
-								hyphen,
-							}),
-							size: file.metadata?.size,
-							contentType: file.metadata?.contentType,
-							lastModified: file.metadata?.lastModified,
-							originalName: file.metadata?.originalName,
-							uri: `${file._id.toString()}/${file.filename}`,
-						},
-					})),
+					gallery: fileDocumentToData(entry.gallery || []),
 				};
 			});
-
-		return processed;
 	} catch (error) {
 		console.error(error);
 

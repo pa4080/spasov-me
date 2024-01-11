@@ -1,31 +1,37 @@
-"use client";
+// "use client";
 
-import React, { useState } from "react";
-
-import { useAppContext } from "@/contexts/AppContext";
+import React from "react";
 
 // import Pages_Dialog_Edit from "./Pages_Dialog_Edit";
-import { FileDocument } from "@/interfaces/File";
+// import { FileDocument } from "@/interfaces/File";
+
+import { getFiles } from "@/components/_common.actions";
 
 import styles from "../_files.module.scss";
 
 import FileCreate from "./FileCreate";
 // import Pages_Dialog_Delete from "./Pages_Dialog_Delete";
-import FileDelete from "./FileDelete";
-import FileDisplay from "./FileDisplay";
-import FileEdit from "./FileEdit";
+import FileCard from "./FileCard";
 
 interface Props {
 	className?: string;
 }
 
-const FilesAdmin: React.FC<Props> = ({ className }) => {
-	const { files } = useAppContext();
+const FilesAdmin: React.FC<Props> = async ({ className }) => {
+	// const { files } = useAppContext();
 
-	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-	const [actionFileId, setActionFileId] = useState("");
-	const [actionFile, setActionFile] = useState<FileDocument>();
+	// console.log("files", files);
+
+	const files = await getFiles();
+
+	// console.log("files", fileList);
+
+	// const fileList = await getFileList();
+
+	// const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+	// const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+	// const [actionFileId, setActionFileId] = useState("");
+	// const [actionFile, setActionFile] = useState<FileDocument>();
 
 	return (
 		<div className={`${styles.files} ${className}`}>
@@ -33,18 +39,18 @@ const FilesAdmin: React.FC<Props> = ({ className }) => {
 
 			<div className={`${styles.feed} mt-16`}>
 				{files?.map((file, index) => (
-					<FileDisplay
+					<FileCard
 						key={index}
 						file={file}
-						setActionFile={setActionFile}
-						setActionFileId={setActionFileId}
-						setIsDeleteDialogOpen={setIsDeleteDialogOpen}
-						setIsEditDialogOpen={setIsEditDialogOpen}
+						// setActionFile={setActionFile}
+						// setActionFileId={setActionFileId}
+						// setIsDeleteDialogOpen={setIsDeleteDialogOpen}
+						// setIsEditDialogOpen={setIsEditDialogOpen}
 					/>
 				))}
 			</div>
 
-			<FileDelete
+			{/* <FileDelete
 				fileData={actionFile}
 				fileId={actionFileId}
 				isOpen={isDeleteDialogOpen}
@@ -56,7 +62,7 @@ const FilesAdmin: React.FC<Props> = ({ className }) => {
 				fileId={actionFileId}
 				isOpen={isEditDialogOpen}
 				setIsOpen={setIsEditDialogOpen}
-			/>
+			/> */}
 		</div>
 	);
 };

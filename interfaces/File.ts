@@ -20,8 +20,14 @@ export interface FileListItem {
 	label: string;
 }
 
+export interface FileHtmlProps {
+	description: string;
+	fileUri: string;
+}
+
 /**
  * example for FileDocument:
+ *
 {
 	metadata: [Object],
 	_id: new ObjectId('658feb2d27e60e8243b03c78'),
@@ -34,5 +40,5 @@ export interface FileListItem {
 
 export interface FileData extends Omit<FileDocument, "_id" | "creator" | "metadata"> {
 	_id: string;
-	metadata: Omit<FileMetadata, "creator"> & { uri: string };
+	metadata: Omit<FileMetadata, "creator"> & { html: FileHtmlProps };
 }

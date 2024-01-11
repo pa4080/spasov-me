@@ -1,8 +1,6 @@
-import { GridFSFile } from "mongodb";
-
 import { UserObject } from "@/interfaces/User";
 
-import { FileData } from "./File";
+import { FileData, FileDocument } from "./File";
 import { TagData, TagDoc } from "./Tag";
 import { AboutEntryType, CityType, CountryType } from "./_dataTypes";
 
@@ -19,8 +17,8 @@ export interface AboutEntryDoc {
 	dateTo: Date | string | undefined;
 	visibility: boolean | string;
 	tags: TagDoc[];
-	attachment?: GridFSFile;
-	gallery: GridFSFile[];
+	attachment?: FileDocument;
+	gallery: FileDocument[];
 }
 
 export interface NewAboutEntryData
@@ -35,7 +33,6 @@ export interface AboutEntryHtmlProps {
 	title: string;
 	description: string;
 	attachmentUri?: string;
-	// gallery?: { itemName: string; itemUri: string; itemDescription: string }[];
 }
 
 export interface AboutEntryData
@@ -43,7 +40,6 @@ export interface AboutEntryData
 		AboutEntryDoc,
 		"_id" | "attachment" | "creator" | "tags" | "dateTo" | "dateFrom" | "visibility" | "gallery"
 	> {
-	// gallery: GridFSFile[];
 	gallery?: FileData[];
 
 	_id: string; //

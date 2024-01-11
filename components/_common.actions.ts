@@ -3,8 +3,9 @@ import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { FileDocument, FileListItem } from "@/interfaces/File";
+import { FileData, FileDocument, FileListItem } from "@/interfaces/File";
 import { authOptions } from "@/lib/auth-options";
+import fileDocumentToData from "@/lib/file-doc-to-file-data";
 import { gridFSBucket } from "@/lib/mongodb-mongoose";
 
 export const revalidatePaths = async <T extends string>({
@@ -36,19 +37,25 @@ export const revalidatePaths = async <T extends string>({
 	}
 };
 
-export const getFiles = async (): Promise<FileDocument[] | null> => {
+export const getFiles = async (): Promise<FileData[] | null> => {
 	"use server";
 
-	// connect to the database and get the bucket
-	const bucket = await gridFSBucket();
+	try {
+		// connect to the database and get the bucket
+		const bucket = await gridFSBucket();
 
-	const files = (await bucket.find().toArray()) as FileDocument[];
+		const files = (await bucket.find().toArray()) as FileDocument[];
 
-	if (files?.length === 0) {
+		if (files?.length === 0) {
+			return null;
+		}
+
+		return fileDocumentToData(files);
+	} catch (error) {
+		console.error(error);
+
 		return null;
 	}
-
-	return files;
 };
 
 export const getFileList = async (): Promise<FileListItem[] | null> => {
