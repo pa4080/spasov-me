@@ -1,11 +1,10 @@
 "use client";
-
 import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
-
 import { BsSendCheck } from "react-icons/bs";
 
+import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
 	DialogContent,
@@ -14,36 +13,31 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-
-import { msgs } from "@/messages";
-
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { toast } from "@/components/ui/use-toast";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
+import { msgs } from "@/messages";
+import { Route } from "@/routes";
 
-import TagForm from "./tag-form";
+import { updateTag } from "../../_tags.actions";
+import TagForm from "../tag-form";
+import { Tag_FormSchema } from "../tag-form/schema";
 
-import { createTag } from "../_tags.actions";
+import { GenericActionProps } from "..";
 
-import { Tag_FormSchema } from "./tag-form/schema";
+interface Props extends Omit<GenericActionProps, "tag_id"> {}
 
-import { GenericActionProps } from ".";
-
-interface Props extends Omit<GenericActionProps, "tag" | "tag_id"> {}
-
-const TagCreate: React.FC<Props> = ({ className, tagType, icons }) => {
-	const t = msgs("TagsAdmin_CreateTag");
+const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
+	const t = msgs("TagsAdmin_UpdateEntry");
 	const tagTypeLabel = (
 		msgs("TagsAdmin_Form")("tag_type_list") as unknown as Record<string, string>
 	)[tagType];
 
 	const [submitting, setSubmitting] = useState(false);
-	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
+	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
 
-	const handleCreateTag = async (data: Tag_FormSchema) => {
+	const handleUpdateEntry = async (data: Tag_FormSchema) => {
 		setSubmitting(true);
-
 		try {
 			/**
 			 * In case we were used <form action={addPage}> this conversion will not be needed,
@@ -51,7 +45,10 @@ const TagCreate: React.FC<Props> = ({ className, tagType, icons }) => {
 			 * form.action()... @see https://stackoverflow.com/a/40552372/6543935
 			 */
 
-			const response = await createTag(generateFormDataFromObject(data), [pathname]);
+			const response = await updateTag(generateFormDataFromObject(data), tag._id, [
+				pathname,
+				Route.public.ABOUT.uri,
+			]);
 
 			if (response) {
 				toast({
@@ -82,34 +79,36 @@ const TagCreate: React.FC<Props> = ({ className, tagType, icons }) => {
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogTrigger disabled={submitting}>
 					<ButtonIcon
-						className="pl-[0.75rem] pr-[0.7rem] rounded-lg icon_accent_secondary"
-						height={26} // 36 // pl-[0.6rem] pr-[0.7rem]
-						label={t("dialog_btn_add")}
-						labelSubmitting={t("dialog_btn_add_submitting")}
-						submitting={submitting}
-						width={42} // 62
-						widthOffset={24}
+						className="pl-1 bg-transparent icon_accent_secondary"
+						height={18}
+						// type="trash"
+						type="brush"
+						width={18}
 						onClick={() => setIsOpen(true)}
 					/>
 				</DialogTrigger>
-				<DialogContent className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl">
+				<DialogContent
+					className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
+					closeOnOverlayClick={false}
+				>
 					<DialogHeader className="-mt-2">
 						<DialogTitle>{t("dialog_title", { tagType: tagTypeLabel })}</DialogTitle>
 						{showDescription && (
 							<DialogDescription
 								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: "new id" }),
+									__html: t("dialog_description", { id: tag._id }),
 								}}
 							/>
 						)}
 					</DialogHeader>
 
 					<TagForm
-						className="mt-0"
+						className={showDescription ? "mt-4" : "mt-0"}
+						formData={tag}
 						icons={icons}
 						submitting={submitting}
 						tagType={tagType}
-						onSubmit={handleCreateTag}
+						onSubmit={handleUpdateEntry}
 					/>
 				</DialogContent>
 			</Dialog>
@@ -117,4 +116,4 @@ const TagCreate: React.FC<Props> = ({ className, tagType, icons }) => {
 	);
 };
 
-export default TagCreate;
+export default TagUpdate;

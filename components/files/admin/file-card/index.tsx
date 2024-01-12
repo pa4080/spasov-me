@@ -7,7 +7,7 @@ import Image from "next/image";
 import { FileData } from "@/interfaces/File";
 import { Route } from "@/routes";
 
-import styles from "../_files.module.scss";
+import styles from "../../_files.module.scss";
 
 interface Props {
 	className?: string;

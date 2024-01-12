@@ -14,10 +14,10 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
+import DisplayAttachment from "../../../fragments/DisplayAttachment";
+import EntryDelete from "../../admin/entry-actions/EntryDelete";
+import EntryUpdate from "../../admin/entry-actions/EntryUpdate";
 import styles from "./_entry-card.module.scss";
-import EntryDelete from "./actions/EntryDelete";
-import EntryShowAttachment from "./actions/EntryShowAttachment";
-import EntryUpdate from "./actions/EntryUpdate";
 
 interface Props {
 	className?: string;
@@ -86,7 +86,7 @@ const EntryCard: React.FC<Props> = ({
 							{displayActions && (
 								<>
 									<EntryDelete entry_id={entry._id} type={entry.entryType} />
-									<EntryShowAttachment uri={entry.html.attachmentUri} />
+									<DisplayAttachment uri={entry.html.attachmentUri} />
 									<EntryUpdate entry={entry} files={files} tags={tags} type={entry.entryType} />
 								</>
 							)}

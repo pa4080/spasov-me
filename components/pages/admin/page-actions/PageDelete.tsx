@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 
+import { Session } from "next-auth";
+
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -12,18 +14,19 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-
 import { buttonVariants } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
+import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { msgs } from "@/messages";
+import { PageDoc } from "@/interfaces/Page";
 
-import { Pages_FormSchema } from "./page-form/schema";
+import { Pages_FormSchema } from "../page-form/schema";
 
-import { GenericActionProps } from ".";
-
-interface Props extends GenericActionProps {
+interface Props {
+	className?: string;
+	session: Session | null;
+	setPages: React.Dispatch<React.SetStateAction<PageDoc[]>>;
 	isOpen: boolean;
 	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	pageData?: Pages_FormSchema;

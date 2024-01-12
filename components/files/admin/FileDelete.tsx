@@ -20,7 +20,7 @@ import { Route } from "@/routes";
 
 import { msgs } from "@/messages";
 
-import { Files_FormSchema } from "./files-form/schema";
+import { Files_FormSchema } from "./file-form/schema";
 
 interface Props {
 	className?: string;

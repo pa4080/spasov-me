@@ -41,12 +41,11 @@ export interface AboutEntryData
 		"_id" | "attachment" | "creator" | "tags" | "dateTo" | "dateFrom" | "visibility" | "gallery"
 	> {
 	gallery?: FileData[];
-
-	_id: string; //
-	html: AboutEntryHtmlProps; //
-	tags: TagData[]; //
-	attachment: string | undefined; //
-	dateFrom: Date; //
-	dateTo: Date | undefined; //
-	visibility: boolean; //
+	_id: string;
+	html: AboutEntryHtmlProps;
+	tags: TagData[];
+	attachment: string | undefined;
+	dateFrom: Date;
+	dateTo: Date | undefined;
+	visibility: boolean;
 }

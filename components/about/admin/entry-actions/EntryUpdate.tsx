@@ -1,9 +1,9 @@
 "use client";
-import React, { useState } from "react";
-
 import { usePathname } from "next/navigation";
+import React, { useState } from "react";
 import { BsSendCheck } from "react-icons/bs";
 
+import { updateEntry } from "@/components/about/_about.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
@@ -14,29 +14,36 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
+import { AboutEntryData } from "@/interfaces/AboutEntry";
+import { FileListItem } from "@/interfaces/File";
+import { TagData } from "@/interfaces/Tag";
+import { AboutEntryType } from "@/interfaces/_dataTypes";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { updateTag } from "../_tags.actions";
-import TagForm from "./tag-form";
-import { Tag_FormSchema } from "./tag-form/schema";
+import EntryForm from "../entry-form";
+import { Entry_FormSchema } from "../entry-form/schema";
 
-import { GenericActionProps } from ".";
+interface Props {
+	className?: string;
+	entry: AboutEntryData;
+	type: AboutEntryType;
+	files?: FileListItem[] | null | undefined;
+	tags: TagData[] | null | undefined;
+}
 
-interface Props extends Omit<GenericActionProps, "tag_id"> {}
-
-const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
-	const t = msgs("TagsAdmin_UpdateEntry");
-	const tagTypeLabel = (
-		msgs("TagsAdmin_Form")("tag_type_list") as unknown as Record<string, string>
-	)[tagType];
+const EntryUpdate: React.FC<Props> = ({ className, type: entryType, entry, files, tags }) => {
+	const t = msgs("AboutCV_UpdateEntry");
+	const entryTypeLabel = (
+		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
+	)[entryType];
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
 
-	const handleUpdateEntry = async (data: Tag_FormSchema) => {
+	const handleUpdateEntry = async (data: Entry_FormSchema) => {
 		setSubmitting(true);
 		try {
 			/**
@@ -45,7 +52,7 @@ const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 			 * form.action()... @see https://stackoverflow.com/a/40552372/6543935
 			 */
 
-			const response = await updateTag(generateFormDataFromObject(data), tag._id, [
+			const response = await updateEntry(generateFormDataFromObject(data), entry._id, [
 				pathname,
 				Route.public.ABOUT.uri,
 			]);
@@ -74,16 +81,19 @@ const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 
 	const showDescription = t("dialog_description") && t("dialog_description") !== "null";
 
+	if (!tags) {
+		return null;
+	}
+
 	return (
 		<div className={className}>
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogTrigger disabled={submitting}>
 					<ButtonIcon
 						className="pl-1 bg-transparent icon_accent_secondary"
-						height={18}
-						// type="trash"
+						height={22}
 						type="brush"
-						width={18}
+						width={22}
 						onClick={() => setIsOpen(true)}
 					/>
 				</DialogTrigger>
@@ -92,22 +102,23 @@ const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 					closeOnOverlayClick={false}
 				>
 					<DialogHeader className="-mt-2">
-						<DialogTitle>{t("dialog_title", { tagType: tagTypeLabel })}</DialogTitle>
+						<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
 						{showDescription && (
 							<DialogDescription
 								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: tag._id }),
+									__html: t("dialog_description", { id: entry._id }),
 								}}
 							/>
 						)}
 					</DialogHeader>
 
-					<TagForm
+					<EntryForm
 						className={showDescription ? "mt-4" : "mt-0"}
-						formData={tag}
-						icons={icons}
+						entryType={entryType}
+						files={files}
+						formData={entry}
 						submitting={submitting}
-						tagType={tagType}
+						tags={tags}
 						onSubmit={handleUpdateEntry}
 					/>
 				</DialogContent>
@@ -116,4 +127,4 @@ const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 	);
 };
 
-export default TagUpdate;
+export default EntryUpdate;

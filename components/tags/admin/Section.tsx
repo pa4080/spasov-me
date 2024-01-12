@@ -15,8 +15,8 @@ import { TagType } from "@/interfaces/_dataTypes";
 import { hyphenateString } from "@/lib/process-text";
 
 import styles from "../_tags.module.scss";
-import TagCard from "./TagCard";
-import TagCreate from "./TagCreate";
+import TagCreate from "./tag-actions/TagCreate";
+import TagCard from "./tag-card";
 
 interface Props {
 	className?: string;

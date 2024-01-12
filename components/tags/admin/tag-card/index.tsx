@@ -5,12 +5,13 @@ import React from "react";
 
 import { msgs } from "@/messages";
 
-import styles from "../_tags.module.scss";
-import DisplayTagIcon from "../common/DisplayTagIcon";
-import TagDelete from "./TagDelete";
-import TagUpdate from "./TagUpdate";
+import styles from "@/components/tags/_tags.module.scss";
+import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
 
-import { GenericActionProps } from ".";
+import TagDelete from "../tag-actions/TagDelete";
+import TagUpdate from "../tag-actions/TagUpdate";
+
+import { GenericActionProps } from "..";
 
 interface Props extends Omit<GenericActionProps, "tagType" | "tag_id"> {}
 

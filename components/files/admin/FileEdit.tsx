@@ -17,8 +17,8 @@ import { FileDocument } from "@/interfaces/File";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import Files_Form from "./files-form";
-import { Files_FormSchema } from "./files-form/schema";
+import FileForm from "./file-form";
+import { Files_FormSchema } from "./file-form/schema";
 
 interface Props {
 	className?: string;
@@ -111,7 +111,7 @@ const FileEdit: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileId }) => {
 						<DialogDescription>{t("dialog_description")}</DialogDescription>
 					</DialogHeader>
 
-					<Files_Form
+					<FileForm
 						formData={fileData}
 						isContainerDialogOpen={isOpen}
 						submitting={submitting}

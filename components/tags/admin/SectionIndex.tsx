@@ -11,7 +11,7 @@ import SectionHeader from "@/components/fragments/section-header";
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 
 import styles from "../_tags.module.scss";
-import TagCreate from "./TagCreate";
+import TagCreate from "./tag-actions/TagCreate";
 
 interface Props {
 	className?: string;

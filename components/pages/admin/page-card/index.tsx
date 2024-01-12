@@ -3,16 +3,14 @@
 import React from "react";
 
 import Image from "next/image";
-
 import { useRouter } from "next/navigation";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
+import styles from "@/components/pages/_pages.module.scss";
 import { Switch } from "@/components/ui/switch";
 import { PageDoc } from "@/interfaces/Page";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
-
-import styles from "../_pages.module.scss";
 
 interface Props {
 	className?: string;
@@ -21,12 +19,11 @@ interface Props {
 	handleEdit: (e: React.SyntheticEvent, page: PageDoc) => void;
 }
 
-const PageDisplay: React.FC<Props> = ({ className, page, handleDelete, handleEdit }) => {
+const PageCard: React.FC<Props> = ({ className, page, handleDelete, handleEdit }) => {
 	const t = msgs("PagesFeed");
 	const router = useRouter(); // We can't use <Link><ButtonIcon /></Link>, because Tge inner component have onClick()
 
 	return (
-		// <Link key={index} href={`/${page.uri}`}>
 		<div className={`${styles.card} ${className}`}>
 			<div className={styles.buttons}>
 				<ButtonIcon
@@ -78,8 +75,7 @@ const PageDisplay: React.FC<Props> = ({ className, page, handleDelete, handleEdi
 			<h1 className={`${styles.title} mt-4`}>{page.title}</h1>
 			<span>{page.description}</span>
 		</div>
-		// </Link>
 	);
 };
 
-export default PageDisplay;
+export default PageCard;

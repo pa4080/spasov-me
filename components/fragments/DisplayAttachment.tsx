@@ -11,7 +11,7 @@ interface Props {
 	uri?: string;
 }
 
-const EntryShowAttachment: React.FC<Props> = ({ className, uri }) => {
+const DisplayAttachment: React.FC<Props> = ({ className, uri }) => {
 	const router = useRouter();
 
 	return (
@@ -28,4 +28,4 @@ const EntryShowAttachment: React.FC<Props> = ({ className, uri }) => {
 	);
 };
 
-export default EntryShowAttachment;
+export default DisplayAttachment;

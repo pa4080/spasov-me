@@ -12,7 +12,7 @@ import { Route } from "@/routes";
 import ToggleCollapsible from "../../fragments/toggle-collapsible";
 import styles from "../_about.module.scss";
 import EntryCard from "../common/entry-card";
-import EntryCreate from "../common/entry-card/actions/EntryCreate";
+import EntryCreate from "./entry-actions/EntryCreate";
 
 interface Props {
 	className?: string;

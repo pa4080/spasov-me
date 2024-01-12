@@ -40,7 +40,7 @@ interface Props {
 	formData?: FileDocument;
 }
 
-const Files_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
+const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
 	const t = msgs("FilesFeed");
 	const locale = "en";
 
@@ -244,4 +244,4 @@ const Files_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, 
 	);
 };
 
-export default Files_Form;
+export default FileForm;

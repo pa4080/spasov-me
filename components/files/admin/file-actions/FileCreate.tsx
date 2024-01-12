@@ -23,8 +23,8 @@ import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import EntryForm from "./entry-form";
-import { Entry_FormSchema } from "./entry-form/schema";
+import EntryForm from "@/components/about/admin/entry-form";
+import { Entry_FormSchema } from "@/components/about/admin/entry-form/schema";
 
 interface Props {
 	className?: string;
@@ -33,7 +33,7 @@ interface Props {
 	tags: TagData[] | null | undefined;
 }
 
-const EntryCreate: React.FC<Props> = ({ className, type: entryType, files, tags }) => {
+const FileCreate: React.FC<Props> = ({ className, type: entryType, files, tags }) => {
 	const t = msgs("AboutCV_CreateEntry");
 	const entryTypeLabel = (
 		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
@@ -130,4 +130,4 @@ const EntryCreate: React.FC<Props> = ({ className, type: entryType, files, tags 
 	);
 };
 
-export default EntryCreate;
+export default FileCreate;

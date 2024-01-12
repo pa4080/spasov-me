@@ -2,34 +2,22 @@
 
 import React, { useState } from "react";
 
-import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 
-import { useAppContext } from "@/contexts/AppContext";
-
-import { PageDoc } from "@/interfaces/Page";
-
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
-
+import SectionHeader from "@/components/fragments/section-header";
+import { useAppContext } from "@/contexts/AppContext";
+import { PageDoc } from "@/interfaces/Page";
+import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { msgs } from "@/messages";
-
-import SectionHeader from "@/components/fragments/section-header";
-
-import PageCreate from "./PageCreate";
-import PageDelete from "./PageDelete";
-import PageUpdate from "./PageUpdate";
+import PageCreate from "./page-actions/PageCreate";
+import PageDelete from "./page-actions/PageDelete";
+import PageUpdate from "./page-actions/PageUpdate";
 import { Pages_FormSchema } from "./page-form/schema";
 
 import styles from "../_pages.module.scss";
-import PageDisplay from "./PageDisplay";
-
-export interface GenericActionProps {
-	className?: string;
-	session: Session | null;
-	setPages: React.Dispatch<React.SetStateAction<PageDoc[]>>;
-}
+import PageCard from "./page-card";
 
 interface Props {
 	className?: string;
@@ -98,12 +86,7 @@ const PagesAdmin: React.FC<Props> = ({ className }) => {
 
 			<div className={`${styles.feed} mt-16`}>
 				{pages?.map((page, index) => (
-					<PageDisplay
-						key={index}
-						handleDelete={handleDelete}
-						handleEdit={handleEdit}
-						page={page}
-					/>
+					<PageCard key={index} handleDelete={handleDelete} handleEdit={handleEdit} page={page} />
 				))}
 			</div>
 		</div>

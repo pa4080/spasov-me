@@ -2,7 +2,7 @@
 
 import React, { Dispatch, SetStateAction, useState } from "react";
 
-import { msgs } from "@/messages";
+import { Session } from "next-auth";
 
 import {
 	Dialog,
@@ -12,16 +12,17 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
-
-import { preparePageDocToFetch } from "@/interfaces/Page";
+import { PageDoc, preparePageDocToFetch } from "@/interfaces/Page";
+import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import PagesForm from "./page-form";
-import { Pages_FormSchema } from "./page-form/schema";
+import PagesForm from "../page-form";
+import { Pages_FormSchema } from "../page-form/schema";
 
-import { GenericActionProps } from ".";
-
-interface Props extends GenericActionProps {
+interface Props {
+	className?: string;
+	session: Session | null;
+	setPages: React.Dispatch<React.SetStateAction<PageDoc[]>>;
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
 	pageData?: Pages_FormSchema;

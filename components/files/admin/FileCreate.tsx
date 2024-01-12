@@ -20,14 +20,14 @@ import { FileDocument } from "@/interfaces/File";
 
 import { msgs } from "@/messages";
 
-import Files_Form from "./files-form";
-import { Files_FormSchema } from "./files-form/schema";
+import FileForm from "./file-form";
+import { Files_FormSchema } from "./file-form/schema";
 
 interface Props {
 	className?: string;
 }
 
-const FileCreate: React.FC<Props> = ({ className }) => {
+const FileCreateOld: React.FC<Props> = ({ className }) => {
 	const t = msgs("FilesFeed");
 	const { session, setFiles } = useAppContext();
 
@@ -128,7 +128,7 @@ const FileCreate: React.FC<Props> = ({ className }) => {
 							<DialogDescription>{t("dialog_description")}</DialogDescription>
 						</DialogHeader>
 
-						<Files_Form
+						<FileForm
 							isContainerDialogOpen={isOpen}
 							submitting={submitting}
 							onSubmit={handleUploadFile}
@@ -140,4 +140,4 @@ const FileCreate: React.FC<Props> = ({ className }) => {
 	);
 };
 
-export default FileCreate;
+export default FileCreateOld;

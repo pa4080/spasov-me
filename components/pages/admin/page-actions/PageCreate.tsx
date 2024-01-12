@@ -2,6 +2,9 @@
 
 import React, { useState } from "react";
 
+import { Session } from "next-auth";
+
+import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
 	DialogContent,
@@ -10,21 +13,21 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-
-import { msgs } from "@/messages";
-
 import { toast } from "@/components/ui/use-toast";
-
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { PageDoc, preparePageDocToFetch } from "@/interfaces/Page";
+import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import PagesForm from "./page-form";
-import { Pages_FormSchema } from "./page-form/schema";
+import PagesForm from "../page-form";
+import { Pages_FormSchema } from "../page-form/schema";
 
-import { GenericActionProps } from ".";
+interface Props {
+	className?: string;
+	session: Session | null;
+	setPages: React.Dispatch<React.SetStateAction<PageDoc[]>>;
+}
 
-const PageCreate: React.FC<GenericActionProps> = ({ className, session, setPages }) => {
+const PageCreate: React.FC<Props> = ({ className, session, setPages }) => {
 	const t = msgs("PagesFeed");
 
 	const [submitting, setSubmitting] = useState(false);

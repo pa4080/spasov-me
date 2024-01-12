@@ -21,9 +21,9 @@ import { toast } from "@/components/ui/use-toast";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { deleteTag } from "../_tags.actions";
+import { deleteTag } from "../../_tags.actions";
 
-import { GenericActionProps } from ".";
+import { GenericActionProps } from "..";
 
 interface Props extends Omit<GenericActionProps, "icons" | "tag"> {}
 
