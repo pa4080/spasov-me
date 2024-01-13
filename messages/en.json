@@ -358,6 +358,12 @@
 		"btnLess": "Show less",
 		"btnMore": "Read more"
 	},
+	"FilesAdmin_Display": {
+		"size": "Size",
+		"contentType": "Content type",
+		"lastModified": "Last modified",
+		"kilobyte": "KB"
+	},
 	"FilesFeed": {
 		"dialog_title_upload": "Upload a file",
 		"dialog_title_edit": "Edit the file \"{ filename }\"",

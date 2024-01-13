@@ -1,15 +1,20 @@
 import React from "react";
 
+// eslint-disable-next-line import/no-duplicates
+import { format } from "date-fns";
+// eslint-disable-next-line import/no-duplicates
+import { enUS as en } from "date-fns/locale";
+
+import DisplayFileImage from "@/components/fragments/DisplayFileImage";
+
 import { FileData } from "@/interfaces/File";
 
+import DisplaySingleFile from "@/components/fragments/DisplayAttachment";
 import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
+import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+import { roundTo } from "@/lib/round";
 import { msgs } from "@/messages";
 
-import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
-
-import DisplaySingleFile from "@/components/fragments/DisplayAttachment";
-
-import DisplayFileImage from "../../../fragments/DisplayFileImage";
 import styles from "./_file-card.module.scss";
 
 interface Props {
@@ -19,6 +24,7 @@ interface Props {
 
 const FileCard: React.FC<Props> = ({ className, file }) => {
 	const tCommon = msgs("FilesAdmin");
+	const t = msgs("FilesAdmin_Display");
 
 	const displayActions = true;
 
@@ -61,6 +67,24 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 						dangerouslySetInnerHTML={{ __html: file.metadata.html.title }}
 						className={styles.title}
 					/>
+				</div>
+				<div className={styles.info}>
+					<div className={styles.size}>
+						<span className={styles.lightPrimaryText}>
+							{roundTo(Number(file.metadata.size) / 1024, 0).toLocaleString("en-US")}
+						</span>
+						<span className={styles.lightSecondaryText}>{t("kilobyte")}</span>
+					</div>
+
+					<div className={styles.dateModified}>
+						<span className={styles.lightPrimaryText}>
+							{format(file.metadata.lastModified, "MMM. d, yyyy", { locale: en })}
+						</span>
+					</div>
+
+					<div className={styles.contentType}>
+						<span className={styles.lightPrimaryText}>{file.metadata.contentType}</span>
+					</div>
 				</div>
 
 				<div className={`${styles.content} card-item-collapsible`}>
