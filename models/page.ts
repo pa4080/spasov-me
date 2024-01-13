@@ -5,7 +5,7 @@
  */
 import { Schema, model, models } from "mongoose";
 
-import GridFS from "./grid_fs";
+import File from "./file";
 import User from "./user";
 
 const PageSchema = new Schema({
@@ -31,7 +31,7 @@ const PageSchema = new Schema({
 	},
 	image: {
 		type: Schema.Types.ObjectId,
-		ref: GridFS,
+		ref: File,
 	},
 });
 

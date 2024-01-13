@@ -10,7 +10,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { FileDocument } from "@/interfaces/File";
 import { authOptions } from "@/lib/auth-options";
 import { defaultChunkSizeBytes, gridFSBucket } from "@/lib/mongodb-mongoose";
-import GridFS from "@/models/grid_fs";
+import File from "@/models/file";
 import { Route } from "@/routes";
 
 import { errorMessages } from "../../common";
@@ -44,7 +44,7 @@ export async function GET(request: NextRequest, { params }: Context) {
 
 				const [fileId] = params?.query;
 				const _id = new ObjectId(fileId);
-				const file = (await GridFS.find({ _id }))[0] as GridFSFile;
+				const file = (await File.find({ _id }))[0] as GridFSFile;
 
 				if (!file) {
 					return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
@@ -67,7 +67,7 @@ export async function GET(request: NextRequest, { params }: Context) {
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 				const [fileId, fileName] = params?.query;
 				const _id = new ObjectId(fileId);
-				const file = (await GridFS.find({ _id }))[0] as GridFSFile;
+				const file = (await File.find({ _id }))[0] as GridFSFile;
 
 				if (!file) {
 					return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
@@ -264,7 +264,7 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 					 * In this case we only need to update the "metadata", and/or the "filename".
 					 * So we do not need to create a new file and stream its content.
 					 */
-					const dbDocument = await GridFS.findOne(_id);
+					const dbDocument = await File.findOne(_id);
 
 					if (!dbDocument) {
 						return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });

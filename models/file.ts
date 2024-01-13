@@ -21,6 +21,6 @@ const FileSchema = new Schema(
 	{ strict: false }
 );
 
-const GridFS = models.GridFS || model("GridFS", FileSchema, `${MONGODB_FILES_BUCKET_NAME}.files`);
+const File = models.GridFS || model("GridFS", FileSchema, `${MONGODB_FILES_BUCKET_NAME}.files`);
 
-export default GridFS;
+export default File;
