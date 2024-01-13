@@ -1,101 +1,74 @@
-"use client";
-
 import React from "react";
 
-import Image from "next/image";
-
 import { FileData } from "@/interfaces/File";
-import { Route } from "@/routes";
 
-import styles from "../../_files.module.scss";
+import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
+import { msgs } from "@/messages";
+
+import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+
+import DisplaySingleFile from "@/components/fragments/DisplayAttachment";
+
+import styles from "./_file-card.module.scss";
+import DisplayFileImage from "./DisplayFileImage";
 
 interface Props {
 	className?: string;
 	file: FileData;
-	// setActionFile: React.Dispatch<React.SetStateAction<FileDocument | undefined>>;
-	// setActionFileId: React.Dispatch<React.SetStateAction<string>>;
-	// setIsDeleteDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
-	// setIsEditDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const FileCard: React.FC<Props> = ({
-	className,
-	file,
-	// setActionFile,
-	// setActionFileId,
-	// setIsDeleteDialogOpen,
-	// setIsEditDialogOpen,
-}) => {
-	// const handleDelete = (e: React.SyntheticEvent, file: FileDocument) => {
-	// 	e.preventDefault();
-	// 	setActionFile(file);
-	// 	setIsDeleteDialogOpen(true);
-	// 	setActionFileId(file._id.toString());
-	// };
+const FileCard: React.FC<Props> = ({ className, file }) => {
+	const tCommon = msgs("FilesAdmin");
 
-	// const handleEdit = (e: React.SyntheticEvent, file: FileDocument) => {
-	// 	e.preventDefault();
-	// 	setActionFile(file);
-	// 	setIsEditDialogOpen(true);
-	// 	setActionFileId(file._id.toString());
-	// };
+	const displayActions = true;
 
-	const fileUri = `${Route.api.FILES}/${file._id.toString()}/${file.filename}?v=${new Date(
-		file.uploadDate
-	).getTime()}`;
+	const toggle_target_id = `file_${file?._id.toString()}`;
+
+	const descriptionArr = file.metadata.html.description
+		.split(splitDescriptionKeyword)
+		.map((str) => {
+			return str.replace(commentsMatcher, "");
+		});
 
 	return (
-		<div className={`${styles.card} ${className}`}>
-			<div className={styles.title}>
-				<h1>{file.filename}</h1>
-
-				<p>{file.metadata.description}</p>
-			</div>
-
-			<a className={styles.imageLink} href={fileUri} target="_blank">
-				<div className={styles.imageContainer}>
-					{/* If it is another file type, it will be displayed as a link with icon... */}
-					{file.filename.match(/\.(pdf|pptx|xlsx|docx)$/) ? (
-						<Image
-							priority
-							alt={file.filename + " " + file.metadata.description}
-							className={styles.image}
-							height="0"
-							sizes="160px"
-							src={`${Route.assets.MIME_TYPE}/${file.filename.split(".").pop()}.png`}
-							width="0"
-						/>
-					) : (
-						<Image
-							priority
-							alt={file.filename + " " + file.metadata.description}
-							className={styles.image}
-							height="0"
-							sizes="320px"
-							src={fileUri}
-							width="0"
-						/>
-					)}
+		<div className={`${styles.cardWrapper} ${className}`} id={toggle_target_id}>
+			<div className={styles.card}>
+				<div className={styles.header}>
+					<div className={`${styles.buttons} ${displayActions ? "w-36" : "w-8"}`}>
+						<div className={styles.buttonsContainer}>
+							{displayActions && (
+								<>
+									<DisplaySingleFile uri={file.metadata.html.fileUri} />
+									{/* <EntryDelete entry_id={entry._id} type={entry.entryType} />
+									<DisplayAttachment uri={entry.html.attachmentUri} />
+									<EntryUpdate entry={entry} files={files} tags={tags} type={entry.entryType} /> */}
+								</>
+							)}
+							<ToggleCollapsible
+								tooltip
+								className="icon_accent_primary"
+								target_id={toggle_target_id}
+								text={[tCommon("btnAll"), tCommon("btnLess")]}
+								type={"card"}
+							/>
+						</div>
+					</div>
+					<div dangerouslySetInnerHTML={{ __html: file.filename }} className={styles.title} />
 				</div>
-			</a>
 
-			{/* <div className={styles.buttons}>
-				<ButtonIcon
-					className="pl-[2.8px] bg-transparent icon_accent_secondary"
-					height={18}
-					type="trash"
-					width={18}
-					// onClick={(e) => handleDelete(e, file)}
-				/>
+				<div className={`${styles.content} card-item-collapsible`}>
+					<div className={styles.description}>
+						{descriptionArr.map((description, index) => {
+							return <div dangerouslySetInnerHTML={{ __html: description }} key={index} />;
+						})}
+					</div>
 
-				<ButtonIcon
-					className="pl-[4.5px] bg-transparent icon_accent_secondary"
-					height={18}
-					type="brush"
-					width={18}
-					// onClick={(e) => handleEdit(e, file)}
-				/>
-			</div> */}
+					<div className={styles.imageContainer}>
+						{/* If it is another file type, it will be displayed as a link with icon... */}
+						<DisplayFileImage className={styles.image} file={file} />
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 };

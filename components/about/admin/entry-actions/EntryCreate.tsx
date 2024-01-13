@@ -44,7 +44,7 @@ const EntryCreate: React.FC<Props> = ({ className, type, files, tags }) => {
 	const pathname = usePathname();
 
 	const handleCreateEntry = async (data: Entry_FormSchema) => {
-		// setSubmitting(true);
+		setSubmitting(true);
 
 		try {
 			/**

@@ -4,10 +4,10 @@ import Image from "next/image";
 
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 
-import { Route } from "@/routes";
-
 import { AboutEntryType } from "@/interfaces/_dataTypes";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+
+import { Route } from "@/routes";
 
 import styles from "./_business-card.module.scss";
 
@@ -48,7 +48,7 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type }) => {
 						className={styles.businessCardImage}
 						fetchPriority="high"
 						height={200}
-						src={`${Route.api.FILES}/${entry.html.attachmentUri}`}
+						src={entry.html.attachmentUri || Route.assets.IMAGE_PLACEHOLDER}
 						width={200}
 					/>
 				</div>

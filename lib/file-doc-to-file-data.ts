@@ -1,5 +1,7 @@
 import { FileData, FileDocument } from "@/interfaces/File";
 
+import { Route } from "@/routes";
+
 import { processMarkdown } from "./process-markdown";
 
 export default function fileDocumentToData(files: FileDocument[]): FileData[] {
@@ -17,7 +19,9 @@ export default function fileDocumentToData(files: FileDocument[]): FileData[] {
 			originalName: file.metadata?.originalName,
 			html: {
 				description: processMarkdown({ markdown: file.metadata?.description, hyphen: true }),
-				fileUri: `${file._id.toString()}/${file.filename}`,
+				fileUri: `${Route.api.FILES}/${file._id.toString()}/${file.filename}?v=${new Date(
+					file.uploadDate
+				).getTime()}`,
 			},
 		},
 	}));

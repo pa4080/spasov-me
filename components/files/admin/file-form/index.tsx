@@ -97,7 +97,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 				displayImageRef.current?.setAttribute("srcset", "");
 
 				// Then set new "src" attribute
-				if (filename.match(/\.(png|jpg|jpeg|svg||gif)$/)) {
+				if (filename.match(/\.(png|jpg|jpeg|svg|webp|gif)$/)) {
 					displayImageRef.current?.setAttribute("src", URL.createObjectURL(file));
 				} else if (filename.match(/\.(pdf|pptx|xlsx|docx)$/)) {
 					displayImageRef.current?.setAttribute(

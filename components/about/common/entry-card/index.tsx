@@ -14,7 +14,7 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
-import DisplayAttachment from "../../../fragments/DisplayAttachment";
+import DisplaySingleFile from "../../../fragments/DisplayAttachment";
 import EntryDelete from "../../admin/entry-actions/EntryDelete";
 import EntryUpdate from "../../admin/entry-actions/EntryUpdate";
 import styles from "./_entry-card.module.scss";
@@ -49,7 +49,7 @@ const EntryCard: React.FC<Props> = ({
 
 	return (
 		<div className={`${styles.cardWrapper} ${className}`} id={toggle_target_id}>
-			<div className={`${styles.card}`}>
+			<div className={styles.card}>
 				<div className={styles.info}>
 					<div className={styles.date}>
 						<span>
@@ -86,7 +86,7 @@ const EntryCard: React.FC<Props> = ({
 							{displayActions && (
 								<>
 									<EntryDelete entry_id={entry._id} type={entry.entryType} />
-									<DisplayAttachment uri={entry.html.attachmentUri} />
+									<DisplaySingleFile uri={entry.html.attachmentUri} />
 									<EntryUpdate entry={entry} files={files} tags={tags} type={entry.entryType} />
 								</>
 							)}
@@ -102,16 +102,20 @@ const EntryCard: React.FC<Props> = ({
 					<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />
 				</div>
 				<div className={styles.description}>
-					<div
-						dangerouslySetInnerHTML={{ __html: descriptionArr[0] ?? entry.description }}
-						className={descriptionArr[1] ? "card-item-static" : "card-single-item"}
-					/>
-					{descriptionArr[1] && (
+					{descriptionArr.map((description, index, arr) => (
 						<div
-							dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
-							className="card-item-collapsible"
+							dangerouslySetInnerHTML={{ __html: description }}
+							key={index}
+							className={
+								index === 0
+									? arr.length > 1
+										? "card-item-static"
+										: "card-single-item"
+									: "card-item-collapsible"
+							}
 						/>
-					)}
+					))}
+
 					{displayTags && (
 						<div className="card-item-collapsible">
 							<div className="about-entry-tags">

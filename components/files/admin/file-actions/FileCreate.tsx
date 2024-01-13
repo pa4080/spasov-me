@@ -4,6 +4,8 @@ import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
 
+import { BsSendCheck } from "react-icons/bs";
+
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
@@ -15,6 +17,11 @@ import {
 } from "@/components/ui/dialog";
 import { msgs } from "@/messages";
 
+import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
+
+import { toast } from "@/components/ui/use-toast";
+
+import { createFile } from "../../_files.actions";
 import FileForm from "../file-form";
 import { File_FormSchema } from "../file-form/schema";
 
@@ -37,28 +44,25 @@ const FileCreate: React.FC<Props> = ({ className, fileType }) => {
 		// setSubmitting(true);
 
 		try {
-			// eslint-disable-next-line no-console
-			console.log(data);
+			const response = await createFile(
+				generateFormDataFromObject({ ...data, name: data.filename }),
+				[pathname]
+			);
 
-			// const response = await createEntry(generateFormDataFromObject(data), [
-			// 	pathname,
-			// 	Route.public.ABOUT.uri,
-			// ]);
-
-			// if (response) {
-			// 	toast({
-			// 		description: (
-			// 			<div className="flex flex-col items-center gap-2 justify-center w-full">
-			// 				<div className="flex items-center gap-2 justify-between">
-			// 					<span className="text-base">{t("toast_submitted")}</span>
-			// 					<span className="text-3xl">
-			// 						<BsSendCheck />
-			// 					</span>
-			// 				</div>
-			// 			</div>
-			// 		),
-			// 	});
-			// }
+			if (response) {
+				toast({
+					description: (
+						<div className="flex flex-col items-center gap-2 justify-center w-full">
+							<div className="flex items-center gap-2 justify-between">
+								<span className="text-base">{t("toast_submitted")}</span>
+								<span className="text-3xl">
+									<BsSendCheck />
+								</span>
+							</div>
+						</div>
+					),
+				});
+			}
 		} catch (error) {
 			console.error(error);
 		} finally {

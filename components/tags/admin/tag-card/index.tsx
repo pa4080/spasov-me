@@ -5,10 +5,11 @@ import React from "react";
 
 import { msgs } from "@/messages";
 
-import styles from "@/components/tags/_tags.module.scss";
 import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
 import { IconMap } from "@/interfaces/IconMap";
 import { TagData } from "@/interfaces/Tag";
+
+import styles from "./_tag-card.module.scss";
 
 import TagDelete from "../tag-actions/TagDelete";
 import TagUpdate from "../tag-actions/TagUpdate";
@@ -29,7 +30,7 @@ const TagCard: React.FC<Props> = ({ tag, className, icons }) => {
 
 	return (
 		<div className={`${styles.cardWrapper} ${className}`} id={`tag_${tag._id}`}>
-			<div className={`${styles.card}`}>
+			<div className={styles.card}>
 				<div className={styles.buttons}>
 					<TagDelete tagType={tag.tagType} tag_id={tag._id} />
 					<TagUpdate icons={icons} tag={tag} tagType={tag.tagType} />

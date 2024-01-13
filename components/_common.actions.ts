@@ -29,7 +29,7 @@ export const revalidatePaths = async <T extends string>({
 		return null;
 	} finally {
 		if (redirectTo) {
-			redirect(redirectTo);
+			setTimeout(() => redirect(redirectTo), 1000);
 		}
 	}
 };

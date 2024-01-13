@@ -5,7 +5,8 @@
 		"errorLong": "404 | Not Found"
 	},
 	"Errors": {
-		"invalidUser": "Invalid user"
+		"invalidUser": "Invalid user",
+		"invalidFile": "Invalid file object"
 	},
 	"Theme": {
 		"light": "Light",
@@ -354,7 +355,8 @@
 	"FilesAdmin": {
 		"title_common": "Not categorized",
 		"btnAll": "Show all",
-		"btnLess": "Show less"
+		"btnLess": "Show less",
+		"btnMore": "Read more"
 	},
 	"FilesFeed": {
 		"dialog_title_upload": "Upload a file",

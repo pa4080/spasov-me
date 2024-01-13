@@ -9,7 +9,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { FileDocument } from "@/interfaces/File";
 import { authOptions } from "@/lib/auth-options";
-import { defaultChunkSizeBytes, gridFSBucket } from "@/lib/mongodb-mongoose";
+import { defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
 import File from "@/models/file";
 import { Route } from "@/routes";
 
@@ -144,12 +144,16 @@ export async function POST(request: NextRequest, { params }: Context) {
 							lastModified: file.lastModified,
 							originalName: file.name,
 						},
-						chunkSizeBytes:
-							file.size < defaultChunkSizeBytes ? file.size + 16 : defaultChunkSizeBytes,
+						chunkSizeBytes: file.size < defaultChunkSize ? file.size + 16 : defaultChunkSize,
 					});
 
 					// Pipe the readable stream to a writeable stream to save it to the database
 					const dbObject = stream.pipe(uploadStream);
+
+					await new Promise((resolve, reject) => {
+						uploadStream.on("finish", resolve);
+						uploadStream.on("error", reject);
+					});
 
 					// Construct the response file object
 					if (dbObject.id) {
@@ -240,12 +244,16 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 							lastModified: new Date(file.lastModified),
 							originalName: file.name,
 						},
-						chunkSizeBytes:
-							file.size < defaultChunkSizeBytes ? file.size + 16 : defaultChunkSizeBytes,
+						chunkSizeBytes: file.size < defaultChunkSize ? file.size + 16 : defaultChunkSize,
 					});
 
 					// Pipe the readable stream to a writeable stream to save it to the database
 					const dbDocumentNewContent = stream.pipe(uploadStream);
+
+					await new Promise((resolve, reject) => {
+						uploadStream.on("finish", resolve);
+						uploadStream.on("error", reject);
+					});
 
 					// Construct the response file object
 					if (dbDocumentNewContent.id) {

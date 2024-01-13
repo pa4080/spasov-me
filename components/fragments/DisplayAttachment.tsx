@@ -4,14 +4,13 @@ import React from "react";
 import { useRouter } from "next/navigation";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
-import { Route } from "@/routes";
 
 interface Props {
 	className?: string;
 	uri?: string;
 }
 
-const DisplayAttachment: React.FC<Props> = ({ className, uri }) => {
+const DisplaySingleFile: React.FC<Props> = ({ className, uri }) => {
 	const router = useRouter();
 
 	return (
@@ -22,10 +21,10 @@ const DisplayAttachment: React.FC<Props> = ({ className, uri }) => {
 			type="up-right-from-square"
 			width={22}
 			onClick={() => {
-				router.push(`${Route.api.FILES}/${uri}`);
+				uri && router.push(uri);
 			}}
 		/>
 	);
 };
 
-export default DisplayAttachment;
+export default DisplaySingleFile;

@@ -44,6 +44,7 @@ export const createTag = async (data: FormData, paths: string[]): Promise<true |
 
 		await connectToMongoDb();
 
+		// TODO: use Array.from(data.entries()); like in _files.actions.ts ??
 		const newTagData: NewTagData = {
 			name: data.get("name") as string,
 			description: data.get("description") as string,
@@ -59,13 +60,13 @@ export const createTag = async (data: FormData, paths: string[]): Promise<true |
 
 		await newTagDocument.save();
 
-		revalidatePaths(paths);
-
 		return true;
 	} catch (error) {
 		console.error(error);
 
 		return null;
+	} finally {
+		revalidatePaths({ paths, redirectTo: paths[0] });
 	}
 };
 
@@ -87,6 +88,7 @@ export const updateTag = async (
 
 		await connectToMongoDb();
 
+		// TODO: use Array.from(data.entries()); like in _files.actions.ts ??
 		const newTagData: NewTagData = {
 			name: data.get("name") as string,
 			description: data.get("description") as string,
@@ -105,13 +107,13 @@ export const updateTag = async (
 
 		await updatedTagDocument.save();
 
-		revalidatePaths(paths);
-
 		return true;
 	} catch (error) {
 		console.error(error);
 
 		return null;
+	} finally {
+		revalidatePaths({ paths, redirectTo: paths[0] });
 	}
 };
 
@@ -135,12 +137,12 @@ export const deleteTag = async (tag_id: string, paths: string[]): Promise<boolea
 			return null;
 		}
 
-		revalidatePaths(paths);
-
 		return !!deletedObject.ok;
 	} catch (error) {
 		console.error(error);
 
 		return null;
+	} finally {
+		revalidatePaths({ paths, redirectTo: paths[0] });
 	}
 };

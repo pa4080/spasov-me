@@ -14,7 +14,7 @@
 
 import mongoose from "mongoose";
 
-export const defaultChunkSizeBytes = 1024 * 254; // ~ 0.25 MB;
+export const defaultChunkSize = 1024 * 256; // ~ 0.25 MB;
 
 if (!process.env.MONGODB_URI) {
 	throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
@@ -52,7 +52,7 @@ export const gridFSBucket = async () => {
 		bucket ||
 		new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
 			bucketName: MONGODB_FILES_BUCKET_NAME,
-			chunkSizeBytes: defaultChunkSizeBytes,
+			chunkSizeBytes: defaultChunkSize,
 		}); // mongoose.connection === mongoose.connections[0]
 
 	return bucket;

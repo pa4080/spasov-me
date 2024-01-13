@@ -9,6 +9,7 @@ import { connectToMongoDb, mongo_id_obj } from "@/lib/mongodb-mongoose";
 import { processMarkdown } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 import AboutEntry from "@/models/about-entry";
+import { Route } from "@/routes";
 
 export const getEntries = async ({
 	hyphen,
@@ -44,7 +45,8 @@ export const getEntries = async ({
 						}),
 						attachmentUri:
 							entry.attachment &&
-							`${entry.attachment?._id.toString()}/${entry.attachment?.filename}`,
+							`${Route.api.FILES}/${entry.attachment?._id.toString()}/${entry.attachment
+								?.filename}?v=${new Date(entry.attachment?.uploadDate).getTime()}`,
 					},
 
 					title: entry.title,
@@ -89,6 +91,7 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<true
 
 		await connectToMongoDb();
 
+		// TODO: use Array.from(data.entries()); like in _files.actions.ts ??
 		const newAboutEntryData: NewAboutEntryData = {
 			title: data.get("title") as string,
 			description: data.get("description") as string,
@@ -112,13 +115,13 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<true
 		await newAboutEntryDocument.save();
 		await newAboutEntryDocument.populate(["attachment", "tags", "gallery"]);
 
-		revalidatePaths({ paths, redirectTo: paths[0] });
-
 		return true;
 	} catch (error) {
 		console.error(error);
 
 		return null;
+	} finally {
+		revalidatePaths({ paths, redirectTo: paths[0] });
 	}
 };
 
@@ -140,6 +143,7 @@ export const updateEntry = async (
 
 		await connectToMongoDb();
 
+		// TODO: use Array.from(data.entries()); like in _files.actions.ts ??
 		const newAboutEntryData: NewAboutEntryData = {
 			title: data.get("title") as string,
 			description: data.get("description") as string,
@@ -185,13 +189,13 @@ export const updateEntry = async (
 		await updatedAboutEntryDocument.save();
 		await updatedAboutEntryDocument.populate(["attachment", "tags", "gallery"]);
 
-		revalidatePaths({ paths, redirectTo: paths[0] });
-
 		return true;
 	} catch (error) {
 		console.error(error);
 
 		return null;
+	} finally {
+		revalidatePaths({ paths, redirectTo: paths[0] });
 	}
 };
 
@@ -215,12 +219,12 @@ export const deleteEntry = async (entry_id: string, paths: string[]): Promise<bo
 			return null;
 		}
 
-		revalidatePaths({ paths, redirectTo: paths[0] });
-
 		return !!deletedObject.ok;
 	} catch (error) {
 		console.error(error);
 
 		return null;
+	} finally {
+		revalidatePaths({ paths, redirectTo: paths[0] });
 	}
 };

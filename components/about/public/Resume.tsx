@@ -47,16 +47,13 @@ const Resume: React.FC<Props> = ({ entries, className, type }) => {
 
 				<div className={`${cardStyles.card}`}>
 					<div className={cardStyles.description}>
-						<div
-							dangerouslySetInnerHTML={{ __html: descriptionArr[0] }}
-							className="section-card-static"
-						/>
-						{descriptionArr[1] && (
+						{descriptionArr.map((description, index) => (
 							<div
-								dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
-								className="mt-4 section-card-collapsible"
+								dangerouslySetInnerHTML={{ __html: description }}
+								key={index}
+								className={index === 0 ? "section-card-static" : "mt-4 section-card-collapsible"}
 							/>
-						)}
+						))}
 					</div>
 				</div>
 			</div>

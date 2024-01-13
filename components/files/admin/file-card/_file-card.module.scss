@@ -1,0 +1,165 @@
+@import "@/app/globals.variables.module.scss";
+
+// Without this wrapper "display:grid" of .cardPublic
+// takes precedence over "display:none" of the dynamically added .hidden
+.cardWrapper {
+	@apply scroll-m-8 relative;
+
+	:global(.card-item-collapsible) {
+		display: none;
+	}
+
+	&:global(.expand-collapsed) :global(.card-item-collapsible) {
+		display: inherit;
+	}
+
+	&:before {
+		@apply transition-all duration-300 ease-in-out;
+
+		position: absolute;
+		top: -0.3rem;
+		bottom: -0.3rem;
+		left: -0.1rem;
+		right: -0.1rem;
+		display: block;
+		content: "";
+		border-radius: 0.4rem;
+		outline: 4px dashed transparent;
+		outline-offset: 0.5rem;
+
+		// See the _main-layout.module.scss for explanation
+		@screen xa {
+			top: -0.4rem;
+			bottom: -0.4rem;
+			left: -0.15rem;
+			right: -0.15rem;
+		}
+	}
+
+	&:hover {
+		&:before {
+			@apply transition-all duration-200 ease-in-out;
+			outline: 4px dashed theme("colors.primary.DEFAULT/60%");
+		}
+	}
+
+	&:global(.expand-collapsed-current) {
+		position: relative;
+
+		&:before {
+			outline: 4px solid theme("colors.primary.DEFAULT");
+		}
+	}
+
+	:global(.card-single-item) {
+		@apply mt-1;
+	}
+
+	:global(.card-item-static) {
+		@apply line-clamp-3 mt-1;
+
+		transition: margin-top 0.2s ease-out 0.05s;
+
+		& > p {
+			@apply mb-2;
+
+			transition: margin-top 0.2s ease-out 0.05s;
+		}
+	}
+
+	&:global(.expand-collapsed) :global(.card-item-static) {
+		@apply mt-4 line-clamp-none;
+
+		transition: margin-top 0.05s ease-in;
+
+		& > p {
+			@apply mb-4;
+
+			transition: margin-top 0.05s ease-in;
+		}
+	}
+
+	:global(.card-item-static) + :global(.card-item-collapsible) {
+		@apply mt-4;
+	}
+
+	:global(.card-item-collapsible) {
+		@apply mt-2;
+	}
+
+	:global(.about-entry-tags) {
+		@apply flex gap-1 flex-wrap p-0;
+	}
+
+	:global(.card-item-collapsible) > :global(.about-entry-tags) {
+		@apply mt-4;
+	}
+}
+
+.card {
+	@apply relative;
+
+	.header {
+		@apply w-full;
+	}
+
+	// .lightPrimaryText {
+	// 	@apply text-foreground-secondary;
+	// }
+
+	// .lightSecondaryText {
+	// 	@apply text-foreground-quaternary;
+	// }
+
+	.title {
+		@apply text-lg tracking-wide font-semibold hyphens-auto;
+
+		& > p:last-of-type {
+			@apply mb-0;
+		}
+	}
+
+	.content {
+		.description {
+			@apply w-full text-foreground-secondary hyphens-auto xa:text-justify sa:text-[1.06rem] sa:leading-[1.5em];
+
+			a,
+			a:visited {
+				@apply text-ring;
+			}
+
+			a:hover {
+				@apply underline text-ring-secondary;
+			}
+
+			p {
+				@apply mb-4;
+
+				strong {
+					@apply text-foreground font-semibold;
+				}
+			}
+
+			p:last-of-type {
+				@apply mb-0;
+			}
+		}
+
+		.imageContainer {
+			@apply flex items-center justify-center sm:justify-end h-full overflow-hidden drop-shadow-2xl w-full;
+
+			.image {
+				@apply h-auto w-auto object-contain rounded-md;
+				// https://stackoverflow.com/questions/69230343/nextjs-image-component-with-fixed-witdth-and-auto-height
+			}
+		}
+	}
+
+	.buttons {
+		@apply float-right ml-2 mb-2 relative h-2;
+
+		.buttonsContainer {
+			@apply absolute flex items-center gap-3 2xs:gap-2 right-0 -top-[0.375rem] select-none scale-75 2xs:scale-90 origin-right;
+		}
+	}
+}

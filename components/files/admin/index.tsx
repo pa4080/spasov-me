@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getFiles } from "../_file.actions";
+import { getFiles } from "../_files.actions";
 import styles from "../_files.module.scss";
 import Section from "./Section";
 
@@ -13,7 +13,7 @@ const FilesAdmin: React.FC<Props> = async ({ className }) => {
 
 	return (
 		<div className={`${styles.files} ${className}`}>
-			<Section files={files} type="common" visibleItems={1} />
+			<Section files={files} type="common" visibleItems={12} />
 		</div>
 	);
 };
