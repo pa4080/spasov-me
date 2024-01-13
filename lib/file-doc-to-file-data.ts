@@ -18,6 +18,7 @@ export default function fileDocumentToData(files: FileDocument[]): FileData[] {
 			lastModified: file.metadata?.lastModified,
 			originalName: file.metadata?.originalName,
 			html: {
+				title: processMarkdown({ markdown: file.filename, hyphen: true }),
 				description: processMarkdown({ markdown: file.metadata?.description, hyphen: true }),
 				fileUri: `${Route.api.FILES}/${file._id.toString()}/${file.filename}?v=${new Date(
 					file.uploadDate

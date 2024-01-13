@@ -389,6 +389,33 @@ body textarea.w-md-editor-text-input:focus {
 body .w-md-editor {
 	box-shadow: none !important;
 }
+
+/* Markdown Processed to HTML */
+.md-processed-to-html {
+	@apply text-foreground-secondary hyphens-auto xa:text-justify sa:text-[1.06rem] sa:leading-[1.5em];
+
+	a,
+	a:visited {
+		@apply text-ring;
+	}
+
+	a:hover {
+		@apply underline text-ring-secondary;
+	}
+
+	p {
+		@apply mb-4;
+
+		strong {
+			@apply text-foreground font-semibold;
+		}
+	}
+
+	p:last-of-type {
+		@apply mb-0;
+	}
+}
+
 /* Icons */
 .icon {
 	width: 1em;

@@ -21,6 +21,7 @@ export interface FileListItem {
 }
 
 export interface FileHtmlProps {
+	title: string;
 	description: string;
 	fileUri: string;
 }

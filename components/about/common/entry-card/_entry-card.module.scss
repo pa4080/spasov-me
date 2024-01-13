@@ -139,30 +139,9 @@
 	}
 
 	.description {
-		@apply w-full text-foreground-secondary hyphens-auto xa:text-justify sa:text-[1.06rem] sa:leading-[1.5em];
+		@apply w-full;
 
 		grid-area: content-description;
-
-		a,
-		a:visited {
-			@apply text-ring;
-		}
-
-		a:hover {
-			@apply underline text-ring-secondary;
-		}
-
-		p {
-			@apply mb-4;
-
-			strong {
-				@apply text-foreground font-semibold;
-			}
-		}
-
-		p:last-of-type {
-			@apply mb-0;
-		}
 	}
 
 	.buttons {

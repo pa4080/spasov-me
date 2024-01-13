@@ -101,7 +101,7 @@ const EntryCard: React.FC<Props> = ({
 					</div>
 					<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />
 				</div>
-				<div className={styles.description}>
+				<div className={`${styles.description} md-processed-to-html`}>
 					{descriptionArr.map((description, index, arr) => (
 						<div
 							dangerouslySetInnerHTML={{ __html: description }}

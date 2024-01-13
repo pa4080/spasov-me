@@ -9,8 +9,8 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 
 import DisplaySingleFile from "@/components/fragments/DisplayAttachment";
 
+import DisplayFileImage from "../../../fragments/DisplayFileImage";
 import styles from "./_file-card.module.scss";
-import DisplayFileImage from "./DisplayFileImage";
 
 interface Props {
 	className?: string;
@@ -33,6 +33,10 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 	return (
 		<div className={`${styles.cardWrapper} ${className}`} id={toggle_target_id}>
 			<div className={styles.card}>
+				<div className={styles.imageContainer}>
+					<DisplayFileImage className={`${styles.imageThumb} card-item-collapsed`} file={file} />
+					<DisplayFileImage className={`${styles.imageLarge} card-item-collapsible`} file={file} />
+				</div>
 				<div className={styles.header}>
 					<div className={`${styles.buttons} ${displayActions ? "w-36" : "w-8"}`}>
 						<div className={styles.buttonsContainer}>
@@ -53,19 +57,17 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 							/>
 						</div>
 					</div>
-					<div dangerouslySetInnerHTML={{ __html: file.filename }} className={styles.title} />
+					<div
+						dangerouslySetInnerHTML={{ __html: file.metadata.html.title }}
+						className={styles.title}
+					/>
 				</div>
 
 				<div className={`${styles.content} card-item-collapsible`}>
-					<div className={styles.description}>
+					<div className={`${styles.description} md-processed-to-html`}>
 						{descriptionArr.map((description, index) => {
 							return <div dangerouslySetInnerHTML={{ __html: description }} key={index} />;
 						})}
-					</div>
-
-					<div className={styles.imageContainer}>
-						{/* If it is another file type, it will be displayed as a link with icon... */}
-						<DisplayFileImage className={styles.image} file={file} />
 					</div>
 				</div>
 			</div>
