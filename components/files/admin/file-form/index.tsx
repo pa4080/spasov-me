@@ -9,6 +9,7 @@ import slugify from "slugify";
 
 import Image from "next/image";
 
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -20,21 +21,17 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
+import { FileDocument } from "@/interfaces/File";
 import { roundTo } from "@/lib/round";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { FileDocument } from "@/interfaces/File";
-
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-
 import styles from "../../_files.module.scss";
-import { Files_FormSchema, FormSchemaGenerator } from "./schema";
+import { File_FormSchema, File_FormSchemaGenerator } from "./schema";
 
 interface Props {
 	className?: string;
-	onSubmit: (data: Files_FormSchema) => void;
+	onSubmit: (data: File_FormSchema) => void;
 	submitting?: boolean;
 	isContainerDialogOpen?: boolean;
 	formData?: FileDocument;
@@ -47,7 +44,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 	const displayImageRef = useRef<HTMLImageElement>(null);
 	const [fileToUpload, setFileToUpload] = useState<File | null>(null);
 
-	const FormSchema = FormSchemaGenerator(
+	const FormSchema = File_FormSchemaGenerator(
 		[
 			t("formSchema_file"),
 			t("formSchema_name"),
@@ -57,7 +54,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 		!!formData
 	);
 
-	const form = useForm<Files_FormSchema>({
+	const form = useForm<File_FormSchema>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
 			file: null,
@@ -128,7 +125,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 		}
 	};
 
-	const handleSubmit = async (data: Files_FormSchema) => {
+	const handleSubmit = async (data: File_FormSchema) => {
 		if (!fileToUpload && !formData) {
 			form.setError("file", {
 				type: "manual",

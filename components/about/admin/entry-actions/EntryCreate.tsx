@@ -33,11 +33,11 @@ interface Props {
 	tags: TagData[] | null | undefined;
 }
 
-const EntryCreate: React.FC<Props> = ({ className, type: entryType, files, tags }) => {
+const EntryCreate: React.FC<Props> = ({ className, type, files, tags }) => {
 	const t = msgs("AboutCV_CreateEntry");
 	const entryTypeLabel = (
 		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
-	)[entryType];
+	)[type];
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
@@ -118,7 +118,7 @@ const EntryCreate: React.FC<Props> = ({ className, type: entryType, files, tags 
 
 					<EntryForm
 						className="mt-0"
-						entryType={entryType}
+						entryType={type}
 						files={files}
 						submitting={submitting}
 						tags={tags}

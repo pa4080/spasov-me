@@ -14,6 +14,9 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
+import { IconMap } from "@/interfaces/IconMap";
+import { TagData } from "@/interfaces/Tag";
+import { TagType } from "@/interfaces/_dataTypes";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
@@ -22,9 +25,12 @@ import { updateTag } from "../../_tags.actions";
 import TagForm from "../tag-form";
 import { Tag_FormSchema } from "../tag-form/schema";
 
-import { GenericActionProps } from "..";
-
-interface Props extends Omit<GenericActionProps, "tag_id"> {}
+interface Props {
+	className?: string;
+	tag: TagData;
+	tagType: TagType;
+	icons: IconMap;
+}
 
 const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 	const t = msgs("TagsAdmin_UpdateEntry");

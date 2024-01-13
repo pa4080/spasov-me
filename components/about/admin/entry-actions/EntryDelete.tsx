@@ -29,11 +29,11 @@ export interface Props {
 	entry_id: string;
 }
 
-const EntryDelete: React.FC<Props> = ({ className, type: entryType, entry_id }) => {
+const EntryDelete: React.FC<Props> = ({ className, type, entry_id }) => {
 	const t = msgs("AboutCV_DeleteEntry");
 	const entryTypeLabel = (
 		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
-	)[entryType];
+	)[type];
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);

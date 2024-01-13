@@ -3,9 +3,7 @@
 import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
-import { BsSendCheck } from "react-icons/bs";
 
-import { createEntry } from "@/components/about/_about.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
@@ -15,63 +13,52 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { toast } from "@/components/ui/use-toast";
-import { FileListItem } from "@/interfaces/File";
-import { TagData } from "@/interfaces/Tag";
-import { AboutEntryType } from "@/interfaces/_dataTypes";
-import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
-import { Route } from "@/routes";
 
-import EntryForm from "@/components/about/admin/entry-form";
-import { Entry_FormSchema } from "@/components/about/admin/entry-form/schema";
+import FileForm from "../file-form";
+import { File_FormSchema } from "../file-form/schema";
 
 interface Props {
 	className?: string;
-	type: AboutEntryType;
-	files?: FileListItem[] | null | undefined;
-	tags: TagData[] | null | undefined;
+	fileType: "common";
 }
 
-const FileCreate: React.FC<Props> = ({ className, type: entryType, files, tags }) => {
+const FileCreate: React.FC<Props> = ({ className, fileType }) => {
 	const t = msgs("AboutCV_CreateEntry");
 	const entryTypeLabel = (
 		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
-	)[entryType];
+	)[fileType];
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
 	const pathname = usePathname();
 
-	const handleCreateEntry = async (data: Entry_FormSchema) => {
+	const handleCreateFile = async (data: File_FormSchema) => {
 		// setSubmitting(true);
 
 		try {
-			/**
-			 * In case we were used <form action={addPage}> this conversion will not be needed,
-			 * Unfortunately, at the current moment nor "react-hook-form" nor "shadcn/ui" support
-			 * form.action()... @see https://stackoverflow.com/a/40552372/6543935
-			 */
+			// eslint-disable-next-line no-console
+			console.log(data);
 
-			const response = await createEntry(generateFormDataFromObject(data), [
-				pathname,
-				Route.public.ABOUT.uri,
-			]);
+			// const response = await createEntry(generateFormDataFromObject(data), [
+			// 	pathname,
+			// 	Route.public.ABOUT.uri,
+			// ]);
 
-			if (response) {
-				toast({
-					description: (
-						<div className="flex flex-col items-center gap-2 justify-center w-full">
-							<div className="flex items-center gap-2 justify-between">
-								<span className="text-base">{t("toast_submitted")}</span>
-								<span className="text-3xl">
-									<BsSendCheck />
-								</span>
-							</div>
-						</div>
-					),
-				});
-			}
+			// if (response) {
+			// 	toast({
+			// 		description: (
+			// 			<div className="flex flex-col items-center gap-2 justify-center w-full">
+			// 				<div className="flex items-center gap-2 justify-between">
+			// 					<span className="text-base">{t("toast_submitted")}</span>
+			// 					<span className="text-3xl">
+			// 						<BsSendCheck />
+			// 					</span>
+			// 				</div>
+			// 			</div>
+			// 		),
+			// 	});
+			// }
 		} catch (error) {
 			console.error(error);
 		} finally {
@@ -81,10 +68,6 @@ const FileCreate: React.FC<Props> = ({ className, type: entryType, files, tags }
 	};
 
 	const showDescription = t("dialog_description") && t("dialog_description") !== "null";
-
-	if (!tags) {
-		return null;
-	}
 
 	return (
 		<div className={className}>
@@ -116,13 +99,10 @@ const FileCreate: React.FC<Props> = ({ className, type: entryType, files, tags }
 						)}
 					</DialogHeader>
 
-					<EntryForm
-						className="mt-0"
-						entryType={entryType}
-						files={files}
+					<FileForm
+						isContainerDialogOpen={isOpen}
 						submitting={submitting}
-						tags={tags}
-						onSubmit={handleCreateEntry}
+						onSubmit={handleCreateFile}
 					/>
 				</DialogContent>
 			</Dialog>

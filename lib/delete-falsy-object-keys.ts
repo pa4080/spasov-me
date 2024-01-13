@@ -22,6 +22,15 @@ export default function deleteFalsyKeys<T extends object, K extends keyof T>(obj
 			) {
 				delete obj[key];
 			}
+
+			// isArray, empty or have one falsy key
+			if (obj[key] && Array.isArray(obj[key])) {
+				const arr = obj[key] as string[];
+
+				if (arr.length === 0 || arr[0] === "") {
+					delete obj[key];
+				}
+			}
 		}
 
 		return obj;
@@ -36,6 +45,15 @@ export default function deleteFalsyKeys<T extends object, K extends keyof T>(obj
 			obj[key] === ""
 		) {
 			delete obj[key];
+		}
+
+		// isArray, empty or have one falsy key
+		if (obj[key] && Array.isArray(obj[key])) {
+			const arr = obj[key] as string[];
+
+			if (arr.length === 0 || arr[0] === "") {
+				delete obj[key];
+			}
 		}
 	}
 

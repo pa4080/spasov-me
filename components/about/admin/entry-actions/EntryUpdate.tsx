@@ -33,11 +33,11 @@ interface Props {
 	tags: TagData[] | null | undefined;
 }
 
-const EntryUpdate: React.FC<Props> = ({ className, type: entryType, entry, files, tags }) => {
+const EntryUpdate: React.FC<Props> = ({ className, type, entry, files, tags }) => {
 	const t = msgs("AboutCV_UpdateEntry");
 	const entryTypeLabel = (
 		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
-	)[entryType];
+	)[type];
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
@@ -114,7 +114,7 @@ const EntryUpdate: React.FC<Props> = ({ className, type: entryType, entry, files
 
 					<EntryForm
 						className={showDescription ? "mt-4" : "mt-0"}
-						entryType={entryType}
+						entryType={type}
 						files={files}
 						formData={entry}
 						submitting={submitting}

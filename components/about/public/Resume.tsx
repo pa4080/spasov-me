@@ -40,7 +40,7 @@ const Resume: React.FC<Props> = ({ entries, className, type }) => {
 				<SectionHeader title={section_title}>
 					<ToggleCollapsible
 						target_id={toggle_target_id}
-						text={[t("btnAll"), t("btnLess")]}
+						text={[t("btnMore"), t("btnLess")]}
 						type="section"
 					/>
 				</SectionHeader>

@@ -1,8 +1,16 @@
 @import "@/app/globals.variables.module.scss";
 
 .files {
-	.feed {
-		@apply grid grid-cols-1 grid-flow-row gap-12 sm:gap-10;
+	.section {
+		@apply scroll-m-8;
+
+		.feed {
+			@apply space-y-10;
+		}
+	}
+
+	.section + .section {
+		@apply mt-20;
 	}
 
 	.card {

@@ -21,15 +21,21 @@ import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { toast } from "@/components/ui/use-toast";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 
+import { TagType } from "@/interfaces/_dataTypes";
+
+import { IconMap } from "@/interfaces/IconMap";
+
 import TagForm from "../tag-form";
 
 import { createTag } from "../../_tags.actions";
 
 import { Tag_FormSchema } from "../tag-form/schema";
 
-import { GenericActionProps } from "..";
-
-interface Props extends Omit<GenericActionProps, "tag" | "tag_id"> {}
+interface Props {
+	className?: string;
+	tagType: TagType;
+	icons: IconMap;
+}
 
 const TagCreate: React.FC<Props> = ({ className, tagType, icons }) => {
 	const t = msgs("TagsAdmin_CreateTag");

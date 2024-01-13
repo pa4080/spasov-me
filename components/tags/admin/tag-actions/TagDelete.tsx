@@ -18,14 +18,17 @@ import {
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
+import { TagType } from "@/interfaces/_dataTypes";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
 import { deleteTag } from "../../_tags.actions";
 
-import { GenericActionProps } from "..";
-
-interface Props extends Omit<GenericActionProps, "icons" | "tag"> {}
+interface Props {
+	className?: string;
+	tagType: TagType;
+	tag_id: string;
+}
 
 const TagDelete: React.FC<Props> = ({ className, tagType, tag_id }) => {
 	const t = msgs("TagsAdmin_DeleteTag");

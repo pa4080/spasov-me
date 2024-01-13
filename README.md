@@ -8,8 +8,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 - [ ] Refactor Files
   - [ ] Upload form + MarkDown dor the description
-  - [ ] Get the files on the server side?
-- [ ] Refactor Pages/admin like the oder admin pages
+  - [ ] Get the files on the server side ?
+- [ ] Refactor Pages/admin like the oder admin pages ??
 - [ ] Gallery display
 - [ ] Projects Admin? > Form design
 - [ ] Projects public

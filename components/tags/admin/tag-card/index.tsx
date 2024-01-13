@@ -7,11 +7,17 @@ import { msgs } from "@/messages";
 
 import styles from "@/components/tags/_tags.module.scss";
 import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
+import { IconMap } from "@/interfaces/IconMap";
+import { TagData } from "@/interfaces/Tag";
 
 import TagDelete from "../tag-actions/TagDelete";
 import TagUpdate from "../tag-actions/TagUpdate";
 
-import { GenericActionProps } from "..";
+export interface GenericActionProps {
+	className?: string;
+	tag: TagData;
+	icons: IconMap;
+}
 
 interface Props extends Omit<GenericActionProps, "tagType" | "tag_id"> {}
 

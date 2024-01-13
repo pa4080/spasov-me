@@ -1,21 +1,9 @@
 import React from "react";
 
-import { IconMap } from "@/interfaces/IconMap";
-import { TagData } from "@/interfaces/Tag";
-import { TagType } from "@/interfaces/_dataTypes";
-
 import { getTags } from "../_tags.actions";
 import styles from "../_tags.module.scss";
 import Section from "./Section";
 import SectionIndex from "./SectionIndex";
-
-export interface GenericActionProps {
-	className?: string;
-	tag: TagData;
-	tagType: TagType;
-	tag_id: string;
-	icons: IconMap;
-}
 
 interface Props {
 	className?: string;

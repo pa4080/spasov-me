@@ -105,36 +105,6 @@
 		"formSchema_uri": "The Page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
 		"formSchema_image": "The allowed formats are: png, jpg, jpeg, svg, webp."
 	},
-	"FilesFeed": {
-		"dialog_title_upload": "Upload a file",
-		"dialog_title_edit": "Edit the file \"{ filename }\"",
-		"dialog_title_delete": "You are about to delete the file \"{ filename }\"",
-		"dialog_description": "The files uploaded here will be accessible site wide.",
-		"dialog_description_delete": "This action cannot be undone. This will permanently delete the file entry \"{ filename }\" (id \"{ id }\") and remove its data from our servers. Are you absolutely sure?",
-		"dialog_btn_label_upload": "Upload a file",
-		"dialog_btn_label_uploading": "Uploading...",
-		"dialog_btn_cancel": "Cancel",
-		"dialog_btn_delete": "Delete",
-		"dialog_btn_delete_submitting": "Deleting...",
-		"dialog_toast_submit_title": "You submitted the following values:",
-		"dialog_toast_response_title": "The server response with status { status } and data:",
-
-		"form_fileName": "Override the file name",
-		"form_fileNamePlaceholder": "File-name-example.webp",
-		"form_fileNameDescription": "Enter the name of the file. Use numbers, latin alphabet, dashes and underscores.",
-		"form_fileDescription": "File description",
-		"form_fileDescriptionPlaceholder": "File description...",
-		"form_fileDescriptionDescription": "Write a note where the file will be used. The field is optional.",
-		"form_fileInput": "Upload a file",
-		"form_fileInputChoiceFile": "Click to choice or drag and drop a file here",
-		"form_fileInputDescription": "The allowed formats are: png, jpg, jpeg, svg, webp, pdf, pptx, xlsx, docx.",
-		"form_btn_submit": "Upload",
-		"form_btn_submitting": "Uploading...",
-
-		"formSchema_name": "The file name is required it can contain only latin alphanumeric characters, dots, dashes and underscores. Cannot start with a special character.",
-		"formSchema_description": "The description is optional, it should be a string.",
-		"formSchema_file": "The file is absolutely required. It cannot start with a special character or a number."
-	},
 	"Contact": {
 		"title": "Let's build together!",
 
@@ -325,7 +295,6 @@
 		"dialog_btn_add_submitting": "Submitting...",
 		"toast_submitted": "The tag was successfully updated."
 	},
-
 	"TagsAdmin_Display": {
 		"name": "Name (slug)",
 		"description": "Description",
@@ -381,5 +350,40 @@
 
 		"btn_submit": "Submit",
 		"btn_submitting": "Submitting..."
+	},
+	"FilesAdmin": {
+		"title_common": "Not categorized",
+		"btnAll": "Show all",
+		"btnLess": "Show less"
+	},
+	"FilesFeed": {
+		"dialog_title_upload": "Upload a file",
+		"dialog_title_edit": "Edit the file \"{ filename }\"",
+		"dialog_title_delete": "You are about to delete the file \"{ filename }\"",
+		"dialog_description": "The files uploaded here will be accessible site wide.",
+		"dialog_description_delete": "This action cannot be undone. This will permanently delete the file entry \"{ filename }\" (id \"{ id }\") and remove its data from our servers. Are you absolutely sure?",
+		"dialog_btn_label_upload": "Upload a file",
+		"dialog_btn_label_uploading": "Uploading...",
+		"dialog_btn_cancel": "Cancel",
+		"dialog_btn_delete": "Delete",
+		"dialog_btn_delete_submitting": "Deleting...",
+		"dialog_toast_submit_title": "You submitted the following values:",
+		"dialog_toast_response_title": "The server response with status { status } and data:",
+
+		"form_fileName": "Override the file name",
+		"form_fileNamePlaceholder": "File-name-example.webp",
+		"form_fileNameDescription": "Enter the name of the file. Use numbers, latin alphabet, dashes and underscores.",
+		"form_fileDescription": "File description",
+		"form_fileDescriptionPlaceholder": "File description...",
+		"form_fileDescriptionDescription": "Write a note where the file will be used. The field is optional.",
+		"form_fileInput": "Upload a file",
+		"form_fileInputChoiceFile": "Click to choice or drag and drop a file here",
+		"form_fileInputDescription": "The allowed formats are: png, jpg, jpeg, svg, webp, pdf, pptx, xlsx, docx.",
+		"form_btn_submit": "Upload",
+		"form_btn_submitting": "Uploading...",
+
+		"formSchema_name": "The file name is required it can contain only latin alphanumeric characters, dots, dashes and underscores. Cannot start with a special character.",
+		"formSchema_description": "The description is optional, it should be a string.",
+		"formSchema_file": "The file is absolutely required. It cannot start with a special character or a number."
 	}
 }

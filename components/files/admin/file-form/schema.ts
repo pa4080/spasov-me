@@ -2,8 +2,8 @@ import * as z from "zod";
 
 // https://github.com/colinhacks/zod#nullable
 // Here is applied a tricky solution to translate the messages,
-// outside React  component on the client side...?
-export const FormSchemaGenerator = (messages?: string[], isFileOptional = false) =>
+// outside React component on the client side...?
+export const File_FormSchemaGenerator = (messages?: string[], isFileOptional = false) =>
 	z.object({
 		file: isFileOptional
 			? z.any().optional()
@@ -40,5 +40,5 @@ export const FormSchemaGenerator = (messages?: string[], isFileOptional = false)
 		 */
 	});
 
-export const Files_FormSchema = FormSchemaGenerator();
-export type Files_FormSchema = z.infer<typeof Files_FormSchema>;
+export const File_FormSchema = File_FormSchemaGenerator();
+export type File_FormSchema = z.infer<typeof File_FormSchema>;
