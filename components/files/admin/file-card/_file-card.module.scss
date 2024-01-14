@@ -13,8 +13,8 @@
 		display: inherit;
 	}
 
-	&:global(.expand-collapsed) :global(.card-item-collapsed) {
-		display: none;
+	&:global(.expand-collapsed) :global(.card-item-thumb) {
+		@apply absolute top-0 left-0 my-2 sm:my-0 opacity-0 transition-opacity duration-75 ease-out z-0;
 	}
 
 	&:before {
@@ -56,7 +56,7 @@
 }
 
 .card {
-	@apply grid relative gap-x-3 xs:gap-x-6 gap-y-2 xs:gap-y-2;
+	@apply grid relative gap-x-3 sm:gap-x-6 gap-y-2 sm:gap-y-2;
 
 	grid-template-columns: auto 1fr;
 	grid-template-rows: auto 1fr;
@@ -74,7 +74,7 @@
 			"content";
 	}
 
-	@screen xs {
+	@screen sm {
 		grid-template-columns: auto 1fr;
 		grid-template-rows: auto auto 1fr;
 		grid-template-areas:
@@ -99,12 +99,12 @@
 	}
 
 	.info {
-		@apply flex xs:gap-3 flex-col xs:flex-row;
+		@apply flex sm:gap-x-3 flex-col sm:flex-row flex-wrap text-sm;
 
 		grid-area: info;
 
 		:global(.expand-collapsed) & {
-			@apply flex-row gap-3;
+			@apply flex-row gap-x-3;
 		}
 
 		.dateModified,
@@ -123,22 +123,21 @@
 	}
 
 	.imageContainer {
-		@apply flex items-center justify-start sm:justify-end h-full overflow-hidden drop-shadow-2xl w-full select-none;
+		@apply flex items-center justify-start sm:justify-end h-full overflow-hidden drop-shadow-2xl w-full select-none relative max-w-[80px];
 
 		grid-area: image;
+
+		:global(.expand-collapsed) & {
+			@apply max-w-[100%] sm:max-w-[320px];
+			transition: max-width 300ms ease-out; // animate-zoomIn 250ms
+		}
 
 		:global(.expand-collapsed) & {
 			@apply justify-center;
 		}
 
 		.imageLarge {
-			@apply h-auto w-[100%] object-contain rounded-md;
-		}
-
-		@screen xs {
-			.imageLarge {
-				@apply w-[320px];
-			}
+			@apply h-auto w-[100%] sm:w-[320px] object-contain rounded-md my-2 sm:my-0 animate-zoomIn origin-top-left;
 		}
 
 		.imageThumb {
@@ -171,7 +170,7 @@
 	}
 
 	.buttons {
-		@apply float-right xs:ml-2 relative h-7;
+		@apply float-right sm:ml-2 relative h-7;
 
 		.buttonsContainer {
 			@apply absolute flex items-center gap-3 2xs:gap-2 right-0 -top-[0.375rem] select-none scale-75 2xs:scale-90 origin-right;

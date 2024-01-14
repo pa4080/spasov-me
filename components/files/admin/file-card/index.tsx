@@ -40,7 +40,7 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 		<div className={`${styles.cardWrapper} ${className}`} id={toggle_target_id}>
 			<div className={styles.card}>
 				<div className={styles.imageContainer}>
-					<DisplayFileImage className={`${styles.imageThumb} card-item-collapsed`} file={file} />
+					<DisplayFileImage className={`${styles.imageThumb} card-item-thumb`} file={file} />
 					<DisplayFileImage className={`${styles.imageLarge} card-item-collapsible`} file={file} />
 				</div>
 				<div className={styles.header}>

@@ -12,51 +12,6 @@
 	.section + .section {
 		@apply mt-20;
 	}
-
-	.card {
-		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[5%] rounded-2xl h-full p-6 sm:pt-12 relative flex items-start flex-col gap-6 sm:gap-3 sm:flex-row justify-between overflow-hidden min-h-fit;
-
-		transition:
-			background-color 0.5s,
-			box-shadow 0.5s,
-			opacity 0.5s,
-			box-shadow 0.5s;
-
-		&:hover {
-			@apply bg-popover/[80%];
-
-			box-shadow: 0 8px 32px theme("colors.muted.secondary");
-			transition:
-				background-color 0.5s,
-				box-shadow 0.5s,
-				opacity 0.5s,
-				box-shadow 0.5s;
-		}
-
-		.title {
-			h1 {
-				@apply text-xl font-semibold text-foreground mb-2;
-			}
-		}
-
-		.imageContainer {
-			@apply flex items-center justify-center sm:justify-end h-full overflow-hidden drop-shadow-2xl w-full;
-
-			.image {
-				@apply h-auto w-auto object-contain rounded-md;
-				// https://stackoverflow.com/questions/69230343/nextjs-image-component-with-fixed-witdth-and-auto-height
-			}
-		}
-
-		.imageLink {
-			@apply block mx-auto w-full h-full;
-		}
-
-		.buttons {
-			@apply flex gap-12 sm:gap-4 p-2 sm:p-4 rounded-xl max-sm:bg-secondary/50 justify-center w-full
-			sm:absolute sm:right-2 sm:-top-1.5 sm:justify-start sm:w-fit;
-		}
-	}
 }
 
 .form {
