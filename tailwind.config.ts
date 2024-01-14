@@ -153,9 +153,12 @@ const appTwConfig: import("tailwindcss").Config = {
 					"0%": { opacity: "0%" },
 					"100%": { opacity: "5%" },
 				},
-				zoomIn: {
-					"0%": { transform: "scale(0)" },
-					"100%": { transform: "scale(1)" },
+				zoomInFile: {
+					"0%": { transform: "scale(0)", opacity: "0" },
+					"0.1%": { transform: "scale(0.25)", opacity: "0" },
+					"3%": { transform: "scale(0.25)", opacity: "1" },
+					"5%": { transform: "scale(0.25)", opacity: "1" },
+					"100%": { transform: "scale(1)", opacity: "1" },
 				},
 			},
 			animation: {
@@ -164,8 +167,7 @@ const appTwConfig: import("tailwindcss").Config = {
 				fadeIn: "fadeIn 2.5s ease-in-out forwards",
 				fadeInSiderTextDark: "fadeInSiderTextDark 2.5s ease-in-out forwards",
 				fadeInSiderTextLight: "fadeInSiderTextLight 2.5s ease-in-out forwards",
-				zoomIn: "zoomIn 250ms ease-out forwards",
-				zoomOut: "zoomIn 150ms ease-in reverse forwards",
+				zoomInFile: "zoomInFile 250ms ease-out forwards",
 			},
 			// https://tailwindcss.com/docs/customizing-spacing#default-spacing-scale
 			spacing: {

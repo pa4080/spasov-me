@@ -7,7 +7,7 @@ import Image from "next/image";
 import { FileDocument } from "@/interfaces/File";
 import { Route } from "@/routes";
 
-import styles from "../_files.module.scss";
+import styles from "./_files-old.module.scss";
 
 import ButtonIcon from "../../fragments/ButtonIcon";
 

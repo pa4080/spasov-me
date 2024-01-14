@@ -11,7 +11,7 @@ import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
 
 import styles from "../_files.module.scss";
-import FileCreate from "./file-actions/FileCreate";
+import UploadFile from "./file-actions/UploadFile";
 import FileCard from "./file-card";
 
 interface Props {
@@ -33,7 +33,7 @@ const Section: React.FC<Props> = ({ className, files, type = "common", visibleIt
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths />
-				<FileCreate fileType={type} />
+				<UploadFile />
 				<ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}

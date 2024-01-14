@@ -1,14 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useAppContext } from "@/contexts/AppContext";
 
 // import Pages_Dialog_Edit from "./Pages_Dialog_Edit";
 import { FileDocument } from "@/interfaces/File";
 
-import styles from "../_files.module.scss";
+import loadDataFromApiRoute from "@/lib/load-data-fom-api-route";
 
+import styles from "./_files-old.module.scss";
 import FileCreate from "./FileCreate";
 // import Pages_Dialog_Delete from "./Pages_Dialog_Delete";
 import FileDelete from "./FileDelete";
@@ -21,12 +22,19 @@ interface Props {
 
 // const FilesAdmin: React.FC<Props> = async ({ className }) => {
 const FilesAdmin: React.FC<Props> = ({ className }) => {
-	const { files } = useAppContext();
+	const { files, setFiles } = useAppContext();
 
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 	const [actionFileId, setActionFileId] = useState("");
 	const [actionFile, setActionFile] = useState<FileDocument>();
+
+	useEffect(() => {
+		if (!files || files.length === 0) {
+			loadDataFromApiRoute("FILES", setFiles);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<div className={`${styles.files} ${className}`}>

@@ -31,8 +31,6 @@ export const getTags = async (): Promise<TagData[] | null> => {
 };
 
 export const createTag = async (data: FormData, paths: string[]): Promise<true | null> => {
-	"use server";
-
 	try {
 		const session = await getSession();
 
@@ -75,8 +73,6 @@ export const updateTag = async (
 	tag_id: string,
 	paths: string[]
 ): Promise<true | null> => {
-	"use server";
-
 	try {
 		const session = await getSession();
 
@@ -118,8 +114,6 @@ export const updateTag = async (
 };
 
 export const deleteTag = async (tag_id: string, paths: string[]): Promise<boolean | null> => {
-	"use server";
-
 	try {
 		const session = await getSession();
 

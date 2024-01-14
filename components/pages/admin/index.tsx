@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useSession } from "next-auth/react";
 
@@ -10,6 +10,8 @@ import { useAppContext } from "@/contexts/AppContext";
 import { PageDoc } from "@/interfaces/Page";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
+
+import loadDataFromApiRoute from "@/lib/load-data-fom-api-route";
 
 import PageCreate from "./page-actions/PageCreate";
 import PageDelete from "./page-actions/PageDelete";
@@ -34,6 +36,13 @@ const PagesAdmin: React.FC<Props> = ({ className }) => {
 	const { data: session } = useSession();
 
 	const t = msgs("PagesFeed");
+
+	useEffect(() => {
+		if (!pages || pages.length === 0) {
+			loadDataFromApiRoute("PAGES", setPages);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const handleDelete = (e: React.SyntheticEvent, page: PageDoc) => {
 		e.preventDefault();

@@ -58,7 +58,8 @@ const TagDelete: React.FC<Props> = ({ className, tagType, tag_id }) => {
 							</div>
 						</div>
 					),
-					variant: "destructive",
+					// variant: "destructive",
+					variant: "default",
 				});
 			}
 		} catch (error) {
@@ -68,8 +69,6 @@ const TagDelete: React.FC<Props> = ({ className, tagType, tag_id }) => {
 			setIsOpen(false);
 		}
 	};
-
-	const showDescription = t("dialog_description") && t("dialog_description") !== "null";
 
 	return (
 		<div className={className}>
@@ -88,7 +87,7 @@ const TagDelete: React.FC<Props> = ({ className, tagType, tag_id }) => {
 						<AlertDialogTitle className="text-ring-secondary">
 							{t("dialog_title", { tagType: tagTypeLabel })}
 						</AlertDialogTitle>
-						{showDescription && (
+						{t("dialog_description") && (
 							<AlertDialogDescription
 								className="hyphens-auto break-words"
 								dangerouslySetInnerHTML={{

@@ -66,7 +66,8 @@ const PageDelete: React.FC<Props> = ({
 				toast({
 					title: t("dialog_toast_response_title", { status: response.status }),
 					description: <pre className="toast_pre_info">{JSON.stringify(errors, null, 2)}</pre>,
-					variant: "destructive",
+					// variant: "destructive",
+					variant: "default",
 				});
 			}
 		} catch (error) {

@@ -79,8 +79,6 @@ const EntryUpdate: React.FC<Props> = ({ className, type, entry, files, tags }) =
 		}
 	};
 
-	const showDescription = t("dialog_description") && t("dialog_description") !== "null";
-
 	if (!tags) {
 		return null;
 	}
@@ -103,7 +101,7 @@ const EntryUpdate: React.FC<Props> = ({ className, type, entry, files, tags }) =
 				>
 					<DialogHeader className="-mt-2">
 						<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
-						{showDescription && (
+						{t("dialog_description") && (
 							<DialogDescription
 								dangerouslySetInnerHTML={{
 									__html: t("dialog_description", { id: entry._id }),
@@ -113,7 +111,7 @@ const EntryUpdate: React.FC<Props> = ({ className, type, entry, files, tags }) =
 					</DialogHeader>
 
 					<EntryForm
-						className={showDescription ? "mt-4" : "mt-0"}
+						className={t("dialog_description") ? "mt-4" : "mt-0"}
 						entryType={type}
 						files={files}
 						formData={entry}

@@ -78,8 +78,6 @@ const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 		}
 	};
 
-	const showDescription = t("dialog_description") && t("dialog_description") !== "null";
-
 	return (
 		<div className={className}>
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -99,7 +97,7 @@ const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 				>
 					<DialogHeader className="-mt-2">
 						<DialogTitle>{t("dialog_title", { tagType: tagTypeLabel })}</DialogTitle>
-						{showDescription && (
+						{t("dialog_description") && (
 							<DialogDescription
 								dangerouslySetInnerHTML={{
 									__html: t("dialog_description", { id: tag._id }),
@@ -109,7 +107,7 @@ const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 					</DialogHeader>
 
 					<TagForm
-						className={showDescription ? "mt-4" : "mt-0"}
+						className={t("dialog_description") ? "mt-4" : "mt-0"}
 						formData={tag}
 						icons={icons}
 						submitting={submitting}

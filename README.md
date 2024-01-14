@@ -10,6 +10,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] Upload form + MarkDown dor the description
   - [ ] Get the files on the server side ?
 - [ ] Refactor Pages/admin like the oder admin pages ??
+  - [ ] Use server actions to get and manipulate the data
+  - [ ] Simplify `_pages.actions.ts` by removing th un necessary return objects
+  - [ ] Add revalidation and redirect to the end of the actions
 - [ ] Gallery display
 - [ ] Projects Admin? > Form design
 - [ ] Projects public

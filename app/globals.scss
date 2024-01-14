@@ -454,3 +454,18 @@ body .w-md-editor {
 .expand-collapsed.list-section .section-card-collapsible {
 	display: inherit;
 }
+
+/* Format HTML tags defined in the locale.json files */
+.json-desc {
+	b {
+		@apply text-foreground;
+	}
+
+	code {
+		@apply tracking-wide;
+	}
+
+	& + & {
+		@apply mt-2;
+	}
+}

@@ -320,19 +320,19 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function DELETE(request: NextRequest, { params }: Context) {
-	const session = await getServerSession(authOptions);
-
-	if (!session) {
-		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
-	}
-
-	if (!params.query || params.query.length !== 1) {
-		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
-	}
-
-	const [fileId] = params.query;
-
 	try {
+		const session = await getServerSession(authOptions);
+
+		if (!session) {
+			return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+		}
+
+		if (!params.query || params.query.length !== 1) {
+			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
+		}
+
+		const [fileId] = params.query;
+
 		const bucket = await gridFSBucket();
 		const _id = new ObjectId(fileId);
 		const files = await bucket.find({ _id }).toArray();

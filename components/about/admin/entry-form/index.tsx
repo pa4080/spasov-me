@@ -169,7 +169,7 @@ const EntryForm: React.FC<Props> = ({
 								render={({ field }) => (
 									<FormItem className="flex-1 rounded-md border space-y-0">
 										<div className="flex items-center justify-between py-2 pl-4 pr-3">
-											<div className="">
+											<div>
 												<FormLabel>{t("visibility_title")}</FormLabel>
 												{t("visibility_description") && (
 													<FormDescription>{t("visibility_description")}</FormDescription>
@@ -230,7 +230,7 @@ const EntryForm: React.FC<Props> = ({
 								<FormItem className="space-y-0">
 									{t("title_label") && <FormLabel>{t("title_label")}</FormLabel>}
 									<FormControl>
-										<Input placeholder={t("title_placeholder")} {...field} />
+										<Input className="text-lg" placeholder={t("title_placeholder")} {...field} />
 									</FormControl>
 
 									{form.formState.errors.title ? (

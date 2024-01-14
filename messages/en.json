@@ -170,21 +170,21 @@
 	},
 	"AboutCV_CreateEntry": {
 		"dialog_title": "Create a new { entryType } entry",
-		"dialog_description": "null",
+		"dialog_description": "",
 		"dialog_btn_add": "Add a new entry",
 		"dialog_btn_add_submitting": "Submitting...",
 		"toast_submitted": "The entry was successfully created."
 	},
 	"AboutCV_UpdateEntry": {
 		"dialog_title": "Update an existing { entryType } entry",
-		"dialog_description": "Id: <b><code style='letter-spacing: 2px;'>{ id }</code></b>",
+		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
 		"dialog_btn_add": "Update the entry",
 		"dialog_btn_add_submitting": "Submitting...",
 		"toast_submitted": "The entry was successfully updated."
 	},
 	"AboutCV_DeleteEntry": {
 		"dialog_title": "Delete an entry of type { entryType } ",
-		"dialog_description": "Id: <b><code style='letter-spacing: 2px;'>{ id }</code></b>",
+		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
 		"dialog_btn_delete": "Delete the entry",
 		"dialog_btn_delete_submitting": "Deleting...",
 		"dialog_btn_cancel": "Cancel",
@@ -284,14 +284,14 @@
 	},
 	"TagsAdmin_CreateTag": {
 		"dialog_title": "Create a new tag of type { tagType }",
-		"dialog_description": "null",
+		"dialog_description": "",
 		"dialog_btn_add": "Add a new tag",
 		"dialog_btn_add_submitting": "Submitting...",
 		"toast_submitted": "The tag was successfully created."
 	},
 	"TagsAdmin_UpdateEntry": {
 		"dialog_title": "Update an existing { tagType } tag",
-		"dialog_description": "Id: <b><code style='letter-spacing: 2px;'>{ id }</code></b>",
+		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
 		"dialog_btn_add": "Update the tag",
 		"dialog_btn_add_submitting": "Submitting...",
 		"toast_submitted": "The tag was successfully updated."
@@ -305,7 +305,7 @@
 	},
 	"TagsAdmin_DeleteTag": {
 		"dialog_title": "Delete a tag of type { tagType } ",
-		"dialog_description": "Id: <b><code style='letter-spacing: 2px;'>{ id }</code></b>",
+		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
 		"dialog_btn_delete": "Delete the tag",
 		"dialog_btn_delete_submitting": "Deleting...",
 		"dialog_btn_cancel": "Cancel",
@@ -358,11 +358,26 @@
 		"btnLess": "Show less",
 		"btnMore": "Read more"
 	},
-	"FilesAdmin_Display": {
+	"FilesAdmin_DisplayFileCard": {
 		"size": "Size",
 		"contentType": "Content type",
 		"lastModified": "Last modified",
 		"kilobyte": "KB"
+	},
+	"FilesAdmin_UploadFile": {
+		"dialog_title": "Create (upload) a new file",
+		"dialog_description": "",
+		"dialog_btn_add": "Add a new file",
+		"dialog_btn_add_submitting": "Submitting...",
+		"toast_submitted": "The file was successfully created."
+	},
+	"FilesAdmin_RemoveFile": {
+		"dialog_title": "Delete a file",
+		"dialog_description": "<p class='json-desc'>Name: <b><code>{ filename }</code></b></p><p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+		"dialog_btn_delete": "Delete the file",
+		"dialog_btn_delete_submitting": "Deleting...",
+		"dialog_btn_cancel": "Cancel",
+		"toast_deleted": "The file was successfully deleted!"
 	},
 	"FilesFeed": {
 		"dialog_title_upload": "Upload a file",

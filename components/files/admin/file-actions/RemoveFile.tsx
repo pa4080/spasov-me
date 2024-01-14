@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { BsSendCheck } from "react-icons/bs";
 
-import { deleteEntry } from "@/components/about/_about.actions";
+import { removeFile } from "@/components/files/_files.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	AlertDialog,
@@ -19,21 +19,16 @@ import {
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
-import { AboutEntryType } from "@/interfaces/_dataTypes";
 import { msgs } from "@/messages";
-import { Route } from "@/routes";
 
 export interface Props {
 	className?: string;
-	type: AboutEntryType;
-	entry_id: string;
+	file_id: string;
+	filename: string;
 }
 
-const EntryDelete: React.FC<Props> = ({ className, type, entry_id }) => {
-	const t = msgs("AboutCV_DeleteEntry");
-	const entryTypeLabel = (
-		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
-	)[type];
+const RemoveFile: React.FC<Props> = ({ className, file_id, filename }) => {
+	const t = msgs("FilesAdmin_RemoveFile");
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
@@ -43,7 +38,7 @@ const EntryDelete: React.FC<Props> = ({ className, type, entry_id }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await deleteEntry(entry_id, [pathname, Route.public.ABOUT.uri]);
+			const response = await removeFile(file_id, [pathname]);
 
 			if (response) {
 				toast({
@@ -83,14 +78,12 @@ const EntryDelete: React.FC<Props> = ({ className, type, entry_id }) => {
 				</AlertDialogTrigger>
 				<AlertDialogContent>
 					<AlertDialogHeader>
-						<AlertDialogTitle className="text-ring-secondary">
-							{t("dialog_title", { entryType: entryTypeLabel })}
-						</AlertDialogTitle>
+						<AlertDialogTitle className="text-ring-secondary">{t("dialog_title")}</AlertDialogTitle>
 						{t("dialog_description") && (
 							<AlertDialogDescription
 								className="hyphens-auto break-words"
 								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: entry_id }),
+									__html: t("dialog_description", { filename, id: file_id }),
 								}}
 							/>
 						)}
@@ -112,4 +105,4 @@ const EntryDelete: React.FC<Props> = ({ className, type, entry_id }) => {
 	);
 };
 
-export default EntryDelete;
+export default RemoveFile;

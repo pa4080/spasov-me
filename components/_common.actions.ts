@@ -12,8 +12,6 @@ export const revalidatePaths = async <T extends string>({
 	paths: T[];
 	redirectTo?: T;
 }): Promise<T[] | null | void> => {
-	"use server";
-
 	try {
 		paths.forEach((path) => {
 			revalidatePath(path);
@@ -35,7 +33,6 @@ export const revalidatePaths = async <T extends string>({
 };
 
 export const getSession = async () => {
-	"use server";
 	const session = await getServerSession(authOptions);
 
 	return session;

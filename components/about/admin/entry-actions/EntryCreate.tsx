@@ -80,8 +80,6 @@ const EntryCreate: React.FC<Props> = ({ className, type, files, tags }) => {
 		}
 	};
 
-	const showDescription = t("dialog_description") && t("dialog_description") !== "null";
-
 	if (!tags) {
 		return null;
 	}
@@ -107,7 +105,7 @@ const EntryCreate: React.FC<Props> = ({ className, type, files, tags }) => {
 				>
 					<DialogHeader className="-mt-2">
 						<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
-						{showDescription && (
+						{t("dialog_description") && (
 							<DialogDescription
 								dangerouslySetInnerHTML={{
 									__html: t("dialog_description", { id: "new id" }),

@@ -15,6 +15,7 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { roundTo } from "@/lib/round";
 import { msgs } from "@/messages";
 
+import RemoveFile from "../file-actions/RemoveFile";
 import styles from "./_file-card.module.scss";
 
 interface Props {
@@ -24,7 +25,7 @@ interface Props {
 
 const FileCard: React.FC<Props> = ({ className, file }) => {
 	const tCommon = msgs("FilesAdmin");
-	const t = msgs("FilesAdmin_Display");
+	const t = msgs("FilesAdmin_DisplayFileCard");
 
 	const displayActions = true;
 
@@ -48,6 +49,7 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 						<div className={styles.buttonsContainer}>
 							{displayActions && (
 								<>
+									<RemoveFile file_id={file._id} filename={file.filename} />
 									<DisplaySingleFile uri={file.metadata.html.fileUri} />
 									{/* <EntryDelete entry_id={entry._id} type={entry.entryType} />
 									<DisplayAttachment uri={entry.html.attachmentUri} />

@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
-
 import { BsSendCheck } from "react-icons/bs";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
@@ -15,36 +14,30 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import { toast } from "@/components/ui/use-toast";
+import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 
-import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
-
-import { toast } from "@/components/ui/use-toast";
-
-import { createFile } from "../../_files.actions";
+import { uploadFile } from "../../_files.actions";
 import FileForm from "../file-form";
 import { File_FormSchema } from "../file-form/schema";
 
 interface Props {
 	className?: string;
-	fileType: "common";
 }
 
-const FileCreate: React.FC<Props> = ({ className, fileType }) => {
-	const t = msgs("AboutCV_CreateEntry");
-	const entryTypeLabel = (
-		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
-	)[fileType];
+const UploadFile: React.FC<Props> = ({ className }) => {
+	const t = msgs("FilesAdmin_UploadFile");
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
 	const pathname = usePathname();
 
-	const handleCreateFile = async (data: File_FormSchema) => {
+	const handleUploadFile = async (data: File_FormSchema) => {
 		// setSubmitting(true);
 
 		try {
-			const response = await createFile(
+			const response = await uploadFile(
 				generateFormDataFromObject({ ...data, name: data.filename }),
 				[pathname]
 			);
@@ -71,8 +64,6 @@ const FileCreate: React.FC<Props> = ({ className, fileType }) => {
 		}
 	};
 
-	const showDescription = t("dialog_description") && t("dialog_description") !== "null";
-
 	return (
 		<div className={className}>
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -93,8 +84,8 @@ const FileCreate: React.FC<Props> = ({ className, fileType }) => {
 					closeOnOverlayClick={false}
 				>
 					<DialogHeader className="-mt-2">
-						<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
-						{showDescription && (
+						<DialogTitle>{t("dialog_title")}</DialogTitle>
+						{t("dialog_description") && (
 							<DialogDescription
 								dangerouslySetInnerHTML={{
 									__html: t("dialog_description", { id: "new id" }),
@@ -106,7 +97,7 @@ const FileCreate: React.FC<Props> = ({ className, fileType }) => {
 					<FileForm
 						isContainerDialogOpen={isOpen}
 						submitting={submitting}
-						onSubmit={handleCreateFile}
+						onSubmit={handleUploadFile}
 					/>
 				</DialogContent>
 			</Dialog>
@@ -114,4 +105,4 @@ const FileCreate: React.FC<Props> = ({ className, fileType }) => {
 	);
 };
 
-export default FileCreate;
+export default UploadFile;

@@ -14,7 +14,7 @@
 	}
 
 	&:global(.expand-collapsed) :global(.card-item-thumb) {
-		@apply absolute top-0 left-0 my-2 sm:my-0 opacity-0 transition-opacity duration-75 ease-out z-0;
+		@apply absolute top-0 left-0 my-2 sm:my-0 opacity-0;
 	}
 
 	&:before {
@@ -137,11 +137,11 @@
 		}
 
 		.imageLarge {
-			@apply h-auto w-[100%] sm:w-[320px] object-contain rounded-md my-2 sm:my-0 animate-zoomIn origin-top-left;
+			@apply h-auto w-[100%] sm:w-[320px] object-contain rounded-md my-2 sm:my-0 animate-zoomInFile origin-top-left z-[1];
 		}
 
 		.imageThumb {
-			@apply h-[80px] w-[80px] object-cover rounded-md;
+			@apply h-[80px] w-[80px] object-cover rounded-md -z-[1];
 		}
 	}
 

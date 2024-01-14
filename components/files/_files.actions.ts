@@ -12,8 +12,6 @@ import { getSession, revalidatePaths } from "../_common.actions";
 import { Readable } from "stream";
 
 export const getFiles = async (): Promise<FileData[] | null> => {
-	"use server";
-
 	try {
 		// connect to the database and get the bucket
 		const bucket = await gridFSBucket();
@@ -47,9 +45,7 @@ export const getFileList = async (): Promise<FileListItem[] | null> => {
 		}));
 };
 
-export const createFile = async (data: FormData, paths: string[]): Promise<true | null> => {
-	"use server";
-
+export const uploadFile = async (data: FormData, paths: string[]): Promise<true | null> => {
 	try {
 		const session = await getSession();
 
@@ -112,6 +108,39 @@ export const createFile = async (data: FormData, paths: string[]): Promise<true 
 
 			return null;
 		}
+	} catch (error) {
+		console.error(error);
+
+		return null;
+	} finally {
+		revalidatePaths({ paths, redirectTo: paths[0] });
+	}
+};
+
+export const removeFile = async (file_id: string, paths: string[]): Promise<boolean | null> => {
+	try {
+		const session = await getSession();
+
+		if (!session?.user) {
+			console.error(msgs("Errors")("invalidUser"));
+
+			return null;
+		}
+
+		const bucket = await gridFSBucket();
+		const _id = new ObjectId(file_id);
+
+		// Just check if does the file exists
+		const files = await bucket.find({ _id }).toArray();
+
+		if (files.length === 0) {
+			return null;
+		}
+
+		// Do the actual remove
+		await bucket.delete(_id);
+
+		return true;
 	} catch (error) {
 		console.error(error);
 

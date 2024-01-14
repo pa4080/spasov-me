@@ -18,8 +18,6 @@ export const getEntries = async ({
 	hyphen?: boolean;
 	typeList?: AboutEntryType[];
 }): Promise<AboutEntryData[] | null> => {
-	"use server";
-
 	try {
 		await connectToMongoDb();
 		const entries: AboutEntryDoc[] = await AboutEntry.find(mongo_id_obj()).populate([
@@ -78,8 +76,6 @@ export const getEntries = async ({
 };
 
 export const createEntry = async (data: FormData, paths: string[]): Promise<true | null> => {
-	"use server";
-
 	try {
 		const session = await getSession();
 
@@ -130,8 +126,6 @@ export const updateEntry = async (
 	entry_id: string,
 	paths: string[]
 ): Promise<true | null> => {
-	"use server";
-
 	try {
 		const session = await getSession();
 
@@ -200,8 +194,6 @@ export const updateEntry = async (
 };
 
 export const deleteEntry = async (entry_id: string, paths: string[]): Promise<boolean | null> => {
-	"use server";
-
 	try {
 		const session = await getSession();
 

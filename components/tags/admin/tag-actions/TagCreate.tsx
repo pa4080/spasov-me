@@ -81,8 +81,6 @@ const TagCreate: React.FC<Props> = ({ className, tagType, icons }) => {
 		}
 	};
 
-	const showDescription = t("dialog_description") && t("dialog_description") !== "null";
-
 	return (
 		<div className={className}>
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -101,7 +99,7 @@ const TagCreate: React.FC<Props> = ({ className, tagType, icons }) => {
 				<DialogContent className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl">
 					<DialogHeader className="-mt-2">
 						<DialogTitle>{t("dialog_title", { tagType: tagTypeLabel })}</DialogTitle>
-						{showDescription && (
+						{t("dialog_description") && (
 							<DialogDescription
 								dangerouslySetInnerHTML={{
 									__html: t("dialog_description", { id: "new id" }),
