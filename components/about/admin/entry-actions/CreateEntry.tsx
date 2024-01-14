@@ -1,9 +1,11 @@
 "use client";
-import { usePathname } from "next/navigation";
+
 import React, { useState } from "react";
+
+import { usePathname } from "next/navigation";
 import { BsSendCheck } from "react-icons/bs";
 
-import { updateEntry } from "@/components/about/_about.actions";
+import { createEntry } from "@/components/about/_about.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
@@ -14,7 +16,6 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
-import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileListItem } from "@/interfaces/File";
 import { TagData } from "@/interfaces/Tag";
 import { AboutEntryType } from "@/interfaces/_dataTypes";
@@ -27,24 +28,24 @@ import { Entry_FormSchema } from "../entry-form/schema";
 
 interface Props {
 	className?: string;
-	entry: AboutEntryData;
 	type: AboutEntryType;
 	files?: FileListItem[] | null | undefined;
 	tags: TagData[] | null | undefined;
 }
 
-const EntryUpdate: React.FC<Props> = ({ className, type, entry, files, tags }) => {
-	const t = msgs("AboutCV_UpdateEntry");
+const CreateEntry: React.FC<Props> = ({ className, type, files, tags }) => {
+	const t = msgs("AboutCV_CreateEntry");
 	const entryTypeLabel = (
 		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
 	)[type];
 
 	const [submitting, setSubmitting] = useState(false);
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
 	const pathname = usePathname();
 
-	const handleUpdateEntry = async (data: Entry_FormSchema) => {
+	const handleCreateEntry = async (data: Entry_FormSchema) => {
 		setSubmitting(true);
+
 		try {
 			/**
 			 * In case we were used <form action={addPage}> this conversion will not be needed,
@@ -52,7 +53,7 @@ const EntryUpdate: React.FC<Props> = ({ className, type, entry, files, tags }) =
 			 * form.action()... @see https://stackoverflow.com/a/40552372/6543935
 			 */
 
-			const response = await updateEntry(generateFormDataFromObject(data), entry._id, [
+			const response = await createEntry(generateFormDataFromObject(data), [
 				pathname,
 				Route.public.ABOUT.uri,
 			]);
@@ -88,10 +89,13 @@ const EntryUpdate: React.FC<Props> = ({ className, type, entry, files, tags }) =
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogTrigger disabled={submitting}>
 					<ButtonIcon
-						className="pl-1 bg-transparent icon_accent_secondary"
-						height={22}
-						type="brush"
-						width={22}
+						className="pl-[0.75rem] pr-[0.7rem] rounded-lg icon_accent_secondary"
+						height={26} // 36 // pl-[0.6rem] pr-[0.7rem]
+						label={t("dialog_btn_add")}
+						labelSubmitting={t("dialog_btn_add_submitting")}
+						submitting={submitting}
+						width={42} // 62
+						widthOffset={24}
 						onClick={() => setIsOpen(true)}
 					/>
 				</DialogTrigger>
@@ -104,20 +108,19 @@ const EntryUpdate: React.FC<Props> = ({ className, type, entry, files, tags }) =
 						{t("dialog_description") && (
 							<DialogDescription
 								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: entry._id }),
+									__html: t("dialog_description", { id: "new id" }),
 								}}
 							/>
 						)}
 					</DialogHeader>
 
 					<EntryForm
-						className={t("dialog_description") ? "mt-4" : "mt-0"}
+						className="mt-0"
 						entryType={type}
 						files={files}
-						formData={entry}
 						submitting={submitting}
 						tags={tags}
-						onSubmit={handleUpdateEntry}
+						onSubmit={handleCreateEntry}
 					/>
 				</DialogContent>
 			</Dialog>
@@ -125,4 +128,4 @@ const EntryUpdate: React.FC<Props> = ({ className, type, entry, files, tags }) =
 	);
 };
 
-export default EntryUpdate;
+export default CreateEntry;

@@ -151,48 +151,74 @@ export async function POST(request: NextRequest, { params }: Context) {
 		await connectToMongoDb();
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let dbDocModel: any;
+		let response: Omit<any, never>[] = [];
+		let dbDocument;
 
 		switch (type) {
 			case "pages": {
-				dbDocModel = new Page(request_object);
-				break;
-			}
+				dbDocument = new Page(request_object);
 
-			case "posts": {
-				dbDocModel = new Tag(request_object);
-				break;
-			}
+				await dbDocument.save();
 
-			case "users": {
-				dbDocModel = new User(request_object);
+				if (session) {
+					response = await dbDocument.populate(["creator", "image"]);
+				} else {
+					response = await dbDocument.populate(["image"]);
+				}
+
 				break;
 			}
 
 			case "about-entries": {
-				dbDocModel = new AboutEntry(request_object);
+				dbDocument = new AboutEntry(request_object);
+
+				await dbDocument.save();
+
+				if (session) {
+					response = await dbDocument.populate(["creator", "attachment"]);
+				} else {
+					response = await dbDocument.populate(["attachment"]);
+				}
+
 				break;
 			}
 
-			default: {
-				return NextResponse.json({ error: errorMessages.e501 }, { status: 501 });
+			case "tags": {
+				dbDocument = new Tag(request_object);
+
+				await dbDocument.save();
+
+				if (session) {
+					response = await dbDocument.populate(["creator"]);
+				} else {
+					response = await dbDocument.populate();
+				}
+
+				break;
 			}
-		}
 
-		await dbDocModel.save();
+			case "users": {
+				dbDocument = new User(request_object);
 
-		if (dbDocModel.this.props.attachment) {
-			await dbDocModel.populate(["creator", "attachment"]);
-		} else if (dbDocModel.this.props.image) {
-			await dbDocModel.populate(["creator", "image"]);
-		} else {
-			await dbDocModel.populate(["creator"]);
+				await dbDocument.save();
+
+				if (session) {
+					response = await dbDocument.populate(["creator"]);
+				} else {
+					return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+				}
+
+				break;
+			}
+
+			default:
+				return NextResponse.json({ error: errorMessages.e501 }, { status: 501 });
 		}
 
 		return NextResponse.json(
 			{
 				message: { type, created: true, method: request.method },
-				data: dbDocModel,
+				data: response,
 			},
 			{ status: 201 }
 		);
@@ -226,35 +252,39 @@ export async function PUT(request: NextRequest, { params }: Context) {
 		await connectToMongoDb();
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let dbDocModel: any;
+		let response: Omit<any, never>[] = [];
+		let dbDocument;
 
 		switch (type) {
 			case "pages": {
-				dbDocModel = Page;
-				break;
-			}
+				dbDocument = Page;
 
-			case "tags": {
-				dbDocModel = Tag;
-				break;
-			}
-
-			case "users": {
-				dbDocModel = User;
 				break;
 			}
 
 			case "about-entries": {
-				dbDocModel = AboutEntry;
+				dbDocument = AboutEntry;
+
 				break;
 			}
 
-			default: {
-				return NextResponse.json({ error: errorMessages.e501 }, { status: 501 });
+			case "tags": {
+				dbDocument = Tag;
+
+				break;
 			}
+
+			case "users": {
+				dbDocument = User;
+
+				break;
+			}
+
+			default:
+				return NextResponse.json({ error: errorMessages.e501 }, { status: 501 });
 		}
 
-		const updatedDocument = await dbDocModel.findOneAndUpdate(_id(id), request_object, {
+		const updatedDocument = await dbDocument.findOneAndUpdate(_id(id), request_object, {
 			new: true,
 			strict: true,
 		});
@@ -273,18 +303,55 @@ export async function PUT(request: NextRequest, { params }: Context) {
 
 		updatedDocument.save();
 
-		if (updatedDocument.attachment) {
-			await updatedDocument.populate(["creator", "attachment"]);
-		} else if (updatedDocument.image) {
-			await updatedDocument.populate(["creator", "image"]);
-		} else {
-			await updatedDocument.populate(["creator"]);
+		switch (type) {
+			case "pages": {
+				if (session) {
+					response = await updatedDocument.populate(["creator", "image"]);
+				} else {
+					response = await updatedDocument.populate(["image"]);
+				}
+
+				break;
+			}
+
+			case "about-entries": {
+				if (session) {
+					response = await updatedDocument.populate(["creator", "attachment"]);
+				} else {
+					response = await updatedDocument.populate(["attachment"]);
+				}
+
+				break;
+			}
+
+			case "tags": {
+				if (session) {
+					response = await updatedDocument.populate(["creator"]);
+				} else {
+					response = await updatedDocument.populate();
+				}
+
+				break;
+			}
+
+			case "users": {
+				if (session) {
+					response = await updatedDocument.populate(["creator"]);
+				} else {
+					return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+				}
+
+				break;
+			}
+
+			default:
+				return NextResponse.json({ error: errorMessages.e501 }, { status: 501 });
 		}
 
 		return NextResponse.json(
 			{
 				message: { type, updated: true, method: request.method },
-				data: updatedDocument,
+				data: response,
 			},
 			{ status: 200 }
 		);
@@ -295,7 +362,7 @@ export async function PUT(request: NextRequest, { params }: Context) {
 
 // The same as PUT() at the moment...
 export async function PATCH(request: NextRequest, { params }: Context) {
-	PUT(request, { params });
+	return PUT(request, { params });
 }
 
 export async function DELETE(request: NextRequest, { params }: Context) {

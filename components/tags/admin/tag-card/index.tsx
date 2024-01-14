@@ -11,8 +11,8 @@ import { TagData } from "@/interfaces/Tag";
 
 import styles from "./_tag-card.module.scss";
 
-import TagDelete from "../tag-actions/TagDelete";
-import TagUpdate from "../tag-actions/TagUpdate";
+import DeleteTag from "../tag-actions/DeleteTag";
+import UpdateTag from "../tag-actions/UpdateTag";
 
 export interface GenericActionProps {
 	className?: string;
@@ -32,8 +32,8 @@ const TagCard: React.FC<Props> = ({ tag, className, icons }) => {
 		<div className={`${styles.cardWrapper} ${className}`} id={`tag_${tag._id}`}>
 			<div className={styles.card}>
 				<div className={styles.buttons}>
-					<TagDelete tagType={tag.tagType} tag_id={tag._id} />
-					<TagUpdate icons={icons} tag={tag} tagType={tag.tagType} />
+					<DeleteTag tagType={tag.tagType} tag_id={tag._id} />
+					<UpdateTag icons={icons} tag={tag} tagType={tag.tagType} />
 				</div>
 
 				<div className={styles.cardRow}>

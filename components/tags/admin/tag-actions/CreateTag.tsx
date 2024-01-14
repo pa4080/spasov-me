@@ -1,10 +1,11 @@
 "use client";
+
 import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
+
 import { BsSendCheck } from "react-icons/bs";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
 	DialogContent,
@@ -13,37 +14,42 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { toast } from "@/components/ui/use-toast";
-import { IconMap } from "@/interfaces/IconMap";
-import { TagData } from "@/interfaces/Tag";
-import { TagType } from "@/interfaces/_dataTypes";
-import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
-import { msgs } from "@/messages";
-import { Route } from "@/routes";
 
-import { updateTag } from "../../_tags.actions";
+import { msgs } from "@/messages";
+
+import ButtonIcon from "@/components/fragments/ButtonIcon";
+import { toast } from "@/components/ui/use-toast";
+import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
+
+import { TagType } from "@/interfaces/_dataTypes";
+
+import { IconMap } from "@/interfaces/IconMap";
+
 import TagForm from "../tag-form";
+
+import { createTag } from "../../_tags.actions";
+
 import { Tag_FormSchema } from "../tag-form/schema";
 
 interface Props {
 	className?: string;
-	tag: TagData;
 	tagType: TagType;
 	icons: IconMap;
 }
 
-const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
-	const t = msgs("TagsAdmin_UpdateEntry");
+const CreateTag: React.FC<Props> = ({ className, tagType, icons }) => {
+	const t = msgs("TagsAdmin_CreateTag");
 	const tagTypeLabel = (
 		msgs("TagsAdmin_Form")("tag_type_list") as unknown as Record<string, string>
 	)[tagType];
 
 	const [submitting, setSubmitting] = useState(false);
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
 	const pathname = usePathname();
 
-	const handleUpdateEntry = async (data: Tag_FormSchema) => {
+	const handleCreateTag = async (data: Tag_FormSchema) => {
 		setSubmitting(true);
+
 		try {
 			/**
 			 * In case we were used <form action={addPage}> this conversion will not be needed,
@@ -51,10 +57,7 @@ const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 			 * form.action()... @see https://stackoverflow.com/a/40552372/6543935
 			 */
 
-			const response = await updateTag(generateFormDataFromObject(data), tag._id, [
-				pathname,
-				Route.public.ABOUT.uri,
-			]);
+			const response = await createTag(generateFormDataFromObject(data), [pathname]);
 
 			if (response) {
 				toast({
@@ -83,36 +86,34 @@ const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogTrigger disabled={submitting}>
 					<ButtonIcon
-						className="pl-1 bg-transparent icon_accent_secondary"
-						height={18}
-						// type="trash"
-						type="brush"
-						width={18}
+						className="pl-[0.75rem] pr-[0.7rem] rounded-lg icon_accent_secondary"
+						height={26} // 36 // pl-[0.6rem] pr-[0.7rem]
+						label={t("dialog_btn_add")}
+						labelSubmitting={t("dialog_btn_add_submitting")}
+						submitting={submitting}
+						width={42} // 62
+						widthOffset={24}
 						onClick={() => setIsOpen(true)}
 					/>
 				</DialogTrigger>
-				<DialogContent
-					className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
-					closeOnOverlayClick={false}
-				>
+				<DialogContent className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl">
 					<DialogHeader className="-mt-2">
 						<DialogTitle>{t("dialog_title", { tagType: tagTypeLabel })}</DialogTitle>
 						{t("dialog_description") && (
 							<DialogDescription
 								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: tag._id }),
+									__html: t("dialog_description", { id: "new id" }),
 								}}
 							/>
 						)}
 					</DialogHeader>
 
 					<TagForm
-						className={t("dialog_description") ? "mt-4" : "mt-0"}
-						formData={tag}
+						className="mt-0"
 						icons={icons}
 						submitting={submitting}
 						tagType={tagType}
-						onSubmit={handleUpdateEntry}
+						onSubmit={handleCreateTag}
 					/>
 				</DialogContent>
 			</Dialog>
@@ -120,4 +121,4 @@ const TagUpdate: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 	);
 };
 
-export default TagUpdate;
+export default CreateTag;

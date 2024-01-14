@@ -149,7 +149,6 @@ export const updateEntry = async (
 			visibility: data.get("visibility") as string,
 			tags: (data.get("tags") as string).split(",") as string[],
 			gallery: (data.get("gallery") as string).split(",") as string[],
-
 			attachment: data.get("attachment") as string,
 			creator: session?.user.id as string,
 		};

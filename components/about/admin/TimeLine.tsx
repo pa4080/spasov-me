@@ -12,7 +12,7 @@ import { Route } from "@/routes";
 import ToggleCollapsible from "../../fragments/toggle-collapsible";
 import styles from "../_about.module.scss";
 import EntryCard from "../common/entry-card";
-import EntryCreate from "./entry-actions/EntryCreate";
+import CreateEntry from "./entry-actions/CreateEntry";
 
 interface Props {
 	className?: string;
@@ -43,7 +43,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths paths={[Route.public.ABOUT.uri]} />
-				<EntryCreate files={files} tags={tags} type={type} />
+				<CreateEntry files={files} tags={tags} type={type} />
 				<ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}

@@ -15,8 +15,8 @@ import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
 import DisplaySingleFile from "../../../fragments/DisplayAttachment";
-import EntryDelete from "../../admin/entry-actions/EntryDelete";
-import EntryUpdate from "../../admin/entry-actions/EntryUpdate";
+import DeleteEntry from "../../admin/entry-actions/DeleteEntry";
+import UpdateEntry from "../../admin/entry-actions/UpdateEntry";
 import styles from "./_entry-card.module.scss";
 
 interface Props {
@@ -85,9 +85,9 @@ const EntryCard: React.FC<Props> = ({
 						<div className={styles.buttonsContainer}>
 							{displayActions && (
 								<>
-									<EntryDelete entry_id={entry._id} type={entry.entryType} />
+									<DeleteEntry entry_id={entry._id} type={entry.entryType} />
 									<DisplaySingleFile uri={entry.html.attachmentUri} />
-									<EntryUpdate entry={entry} files={files} tags={tags} type={entry.entryType} />
+									<UpdateEntry entry={entry} files={files} tags={tags} type={entry.entryType} />
 								</>
 							)}
 							<ToggleCollapsible

@@ -11,7 +11,7 @@ import SectionHeader from "@/components/fragments/section-header";
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 
 import styles from "../_tags.module.scss";
-import TagCreate from "./tag-actions/TagCreate";
+import CreateTag from "./tag-actions/CreateTag";
 
 interface Props {
 	className?: string;
@@ -31,7 +31,7 @@ const SectionIndex: React.FC<Props> = ({ className, tags, type = "tagIndex" }) =
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths />
-				<TagCreate icons={iconsMap} tagType={"informationTechnologies"} />
+				<CreateTag icons={iconsMap} tagType={"informationTechnologies"} />
 			</SectionHeader>
 
 			<div className="flex flex-wrap gap-2 items-center justify-start">

@@ -13,9 +13,9 @@ import { Route } from "@/routes";
 
 import loadDataFromApiRoute from "@/lib/load-data-fom-api-route";
 
-import PageCreate from "./page-actions/PageCreate";
-import PageDelete from "./page-actions/PageDelete";
-import PageUpdate from "./page-actions/PageUpdate";
+import CreatePage from "./page-actions/CreatePage";
+import DeletePage from "./page-actions/DeletePage";
+import UpdatePage from "./page-actions/UpdatePage";
 import { Pages_FormSchema } from "./page-form/schema";
 
 import styles from "../_pages.module.scss";
@@ -26,7 +26,7 @@ interface Props {
 }
 
 const PagesAdmin: React.FC<Props> = ({ className }) => {
-	const { pages, setPages } = useAppContext();
+	const { pages, setPages, files, setFiles } = useAppContext();
 
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -41,6 +41,11 @@ const PagesAdmin: React.FC<Props> = ({ className }) => {
 		if (!pages || pages.length === 0) {
 			loadDataFromApiRoute("PAGES", setPages);
 		}
+
+		if (!files || files.length === 0) {
+			loadDataFromApiRoute("FILES", setFiles);
+		}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -90,7 +95,7 @@ const PagesAdmin: React.FC<Props> = ({ className }) => {
 		<div className={styles.section}>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths paths={[Route.public.HOME.uri]} />
-				<PageCreate session={session} setPages={setPages} />
+				<CreatePage session={session} setPages={setPages} />
 			</SectionHeader>
 
 			<div className={`${styles.feed} mt-16`}>
@@ -105,7 +110,7 @@ const PagesAdmin: React.FC<Props> = ({ className }) => {
 		<div className={`${styles.pages} ${className}`}>
 			<Section pages={pages} title={t("index_title")} />
 
-			<PageUpdate
+			<UpdatePage
 				isOpen={isEditDialogOpen}
 				pageData={actionPage}
 				pageId={actionPageId}
@@ -114,7 +119,7 @@ const PagesAdmin: React.FC<Props> = ({ className }) => {
 				setPages={setPages}
 			/>
 
-			<PageDelete
+			<DeletePage
 				isOpen={isDeleteDialogOpen}
 				pageData={actionPage}
 				pageId={actionPageId}

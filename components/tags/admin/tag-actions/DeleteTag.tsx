@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { BsSendCheck } from "react-icons/bs";
 
-import { deleteEntry } from "@/components/about/_about.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	AlertDialog,
@@ -19,21 +18,23 @@ import {
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
-import { AboutEntryType } from "@/interfaces/_dataTypes";
+import { TagType } from "@/interfaces/_dataTypes";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-export interface Props {
+import { deleteTag } from "../../_tags.actions";
+
+interface Props {
 	className?: string;
-	type: AboutEntryType;
-	entry_id: string;
+	tagType: TagType;
+	tag_id: string;
 }
 
-const EntryDelete: React.FC<Props> = ({ className, type, entry_id }) => {
-	const t = msgs("AboutCV_DeleteEntry");
-	const entryTypeLabel = (
-		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
-	)[type];
+const DeleteTag: React.FC<Props> = ({ className, tagType, tag_id }) => {
+	const t = msgs("TagsAdmin_DeleteTag");
+	const tagTypeLabel = (
+		msgs("TagsAdmin_Form")("tag_type_list") as unknown as Record<string, string>
+	)[tagType];
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
@@ -43,7 +44,7 @@ const EntryDelete: React.FC<Props> = ({ className, type, entry_id }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await deleteEntry(entry_id, [pathname, Route.public.ABOUT.uri]);
+			const response = await deleteTag(tag_id, [pathname, Route.public.ABOUT.uri]);
 
 			if (response) {
 				toast({
@@ -75,22 +76,22 @@ const EntryDelete: React.FC<Props> = ({ className, type, entry_id }) => {
 				<AlertDialogTrigger>
 					<ButtonIcon
 						className="pl-[2.6px] bg-transparent icon_accent_secondary"
-						height={22}
+						height={18}
 						type="trash"
-						width={22}
+						width={18}
 						onClick={() => setIsOpen(true)}
 					/>
 				</AlertDialogTrigger>
 				<AlertDialogContent>
 					<AlertDialogHeader>
 						<AlertDialogTitle className="text-ring-secondary">
-							{t("dialog_title", { entryType: entryTypeLabel })}
+							{t("dialog_title", { tagType: tagTypeLabel })}
 						</AlertDialogTitle>
 						{t("dialog_description") && (
 							<AlertDialogDescription
 								className="hyphens-auto break-words"
 								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: entry_id }),
+									__html: t("dialog_description", { id: tag_id }),
 								}}
 							/>
 						)}
@@ -112,4 +113,4 @@ const EntryDelete: React.FC<Props> = ({ className, type, entry_id }) => {
 	);
 };
 
-export default EntryDelete;
+export default DeleteTag;

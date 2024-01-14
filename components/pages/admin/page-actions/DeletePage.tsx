@@ -33,7 +33,7 @@ interface Props {
 	pageId?: string;
 }
 
-const PageDelete: React.FC<Props> = ({
+const DeletePage: React.FC<Props> = ({
 	isOpen,
 	setIsOpen,
 	pageData,
@@ -125,4 +125,4 @@ const PageDelete: React.FC<Props> = ({
 	);
 };
 
-export default PageDelete;
+export default DeletePage;

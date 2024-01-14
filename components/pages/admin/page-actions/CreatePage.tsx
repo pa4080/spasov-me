@@ -1,15 +1,17 @@
 "use client";
 
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 
 import { Session } from "next-auth";
 
+import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
 	DialogHeader,
 	DialogTitle,
+	DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
 import { PageDoc, preparePageDocToFetch } from "@/interfaces/Page";
@@ -23,30 +25,20 @@ interface Props {
 	className?: string;
 	session: Session | null;
 	setPages: React.Dispatch<React.SetStateAction<PageDoc[]>>;
-	isOpen: boolean;
-	setIsOpen: Dispatch<SetStateAction<boolean>>;
-	pageData?: Pages_FormSchema;
-	pageId?: string;
 }
 
-const PageUpdate: React.FC<Props> = ({
-	isOpen,
-	setIsOpen,
-	pageData,
-	pageId,
-	setPages,
-	session,
-}) => {
+const CreatePage: React.FC<Props> = ({ className, session, setPages }) => {
 	const t = msgs("PagesFeed");
 
 	const [submitting, setSubmitting] = useState(false);
+	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
 
-	const editPage = async (data: Pages_FormSchema) => {
+	const createPage = async (data: Pages_FormSchema) => {
 		setSubmitting(true);
 
 		try {
-			const response = await fetch(`${Route.api.PAGES}/${pageId}`, {
-				method: "PATCH",
+			const response = await fetch(Route.api.PAGES, {
+				method: "POST",
 				body: preparePageDocToFetch({
 					data,
 					user_id: session?.user.id,
@@ -54,16 +46,9 @@ const PageUpdate: React.FC<Props> = ({
 			});
 
 			if (response.ok) {
-				const newPage = (await response.json()).data;
+				const newPage: PageDoc = (await response.json()).data;
 
-				setPages((prevPages) => {
-					const newPages = [...prevPages];
-					const index = newPages.findIndex((page) => page._id === newPage._id);
-
-					newPages[index] = newPage;
-
-					return newPages;
-				});
+				setPages((prevPages) => [...prevPages, newPage]);
 
 				toast({
 					title: t("dialog_toast_response_title", { status: response.status }),
@@ -74,11 +59,7 @@ const PageUpdate: React.FC<Props> = ({
 
 				toast({
 					title: t("dialog_toast_response_title", { status: response.status }),
-					description: errors ? (
-						<pre className="toast_pre_info">{JSON.stringify(errors, null, 2)}</pre>
-					) : (
-						<div>None...</div>
-					),
+					description: <pre className="toast_pre_info">{JSON.stringify(errors, null, 2)}</pre>,
 					variant: "destructive",
 				});
 			}
@@ -89,33 +70,41 @@ const PageUpdate: React.FC<Props> = ({
 		}
 	};
 
-	const handleEditPage = (data: Pages_FormSchema) => {
+	const handleAddPage = (data: Pages_FormSchema) => {
 		toast({
 			title: t("dialog_toast_submit_title"),
 			description: <pre className="toast_pre_info">{JSON.stringify(data, null, 2)}</pre>,
 		}) && setIsOpen(false);
 
-		editPage(data);
+		createPage(data);
 	};
 
-	if (!pageData || !pageId) {
-		return;
-	}
-
 	return (
-		session?.user && (
+		<div className={className}>
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
+				<DialogTrigger disabled={submitting}>
+					<ButtonIcon
+						className="pl-[0.75rem] pr-[0.7rem] rounded-lg icon_accent_secondary"
+						height={26} // 36 // pl-[0.6rem] pr-[0.7rem]
+						label={t("dialog_btn_add_a_page")}
+						labelSubmitting={t("dialog_btn_add_a_page_submitting")}
+						submitting={submitting}
+						width={42} // 62
+						widthOffset={24}
+						onClick={() => setIsOpen(true)}
+					/>
+				</DialogTrigger>
 				<DialogContent closeOnOverlayClick={false}>
 					<DialogHeader>
-						<DialogTitle>{t("dialog_title_edit", { title: pageData.title })}</DialogTitle>
+						<DialogTitle>{t("dialog_title_add")}</DialogTitle>
 						<DialogDescription>{t("dialog_description")}</DialogDescription>
 					</DialogHeader>
 
-					<PagesForm formData={pageData} submitting={submitting} onSubmit={handleEditPage} />
+					<PagesForm submitting={submitting} onSubmit={handleAddPage} />
 				</DialogContent>
 			</Dialog>
-		)
+		</div>
 	);
 };
 
-export default PageUpdate;
+export default CreatePage;

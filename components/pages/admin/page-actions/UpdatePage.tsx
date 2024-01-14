@@ -1,17 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
 import { Session } from "next-auth";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
 	DialogHeader,
 	DialogTitle,
-	DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
 import { PageDoc, preparePageDocToFetch } from "@/interfaces/Page";
@@ -25,20 +23,30 @@ interface Props {
 	className?: string;
 	session: Session | null;
 	setPages: React.Dispatch<React.SetStateAction<PageDoc[]>>;
+	isOpen: boolean;
+	setIsOpen: Dispatch<SetStateAction<boolean>>;
+	pageData?: Pages_FormSchema;
+	pageId?: string;
 }
 
-const PageCreate: React.FC<Props> = ({ className, session, setPages }) => {
+const UpdatePage: React.FC<Props> = ({
+	isOpen,
+	setIsOpen,
+	pageData,
+	pageId,
+	setPages,
+	session,
+}) => {
 	const t = msgs("PagesFeed");
 
 	const [submitting, setSubmitting] = useState(false);
-	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
 
-	const createPage = async (data: Pages_FormSchema) => {
+	const editPage = async (data: Pages_FormSchema) => {
 		setSubmitting(true);
 
 		try {
-			const response = await fetch(Route.api.PAGES, {
-				method: "POST",
+			const response = await fetch(`${Route.api.PAGES}/${pageId}`, {
+				method: "PATCH",
 				body: preparePageDocToFetch({
 					data,
 					user_id: session?.user.id,
@@ -46,9 +54,16 @@ const PageCreate: React.FC<Props> = ({ className, session, setPages }) => {
 			});
 
 			if (response.ok) {
-				const newPage: PageDoc = (await response.json()).data;
+				const newPage = (await response.json()).data;
 
-				setPages((prevPages) => [...prevPages, newPage]);
+				setPages((prevPages) => {
+					const newPages = [...prevPages];
+					const index = newPages.findIndex((page) => page._id === newPage._id);
+
+					newPages[index] = newPage;
+
+					return newPages;
+				});
 
 				toast({
 					title: t("dialog_toast_response_title", { status: response.status }),
@@ -59,7 +74,11 @@ const PageCreate: React.FC<Props> = ({ className, session, setPages }) => {
 
 				toast({
 					title: t("dialog_toast_response_title", { status: response.status }),
-					description: <pre className="toast_pre_info">{JSON.stringify(errors, null, 2)}</pre>,
+					description: errors ? (
+						<pre className="toast_pre_info">{JSON.stringify(errors, null, 2)}</pre>
+					) : (
+						<div>None...</div>
+					),
 					variant: "destructive",
 				});
 			}
@@ -70,41 +89,33 @@ const PageCreate: React.FC<Props> = ({ className, session, setPages }) => {
 		}
 	};
 
-	const handleAddPage = (data: Pages_FormSchema) => {
+	const handleEditPage = (data: Pages_FormSchema) => {
 		toast({
 			title: t("dialog_toast_submit_title"),
 			description: <pre className="toast_pre_info">{JSON.stringify(data, null, 2)}</pre>,
 		}) && setIsOpen(false);
 
-		createPage(data);
+		editPage(data);
 	};
 
+	if (!pageData || !pageId) {
+		return;
+	}
+
 	return (
-		<div className={className}>
+		session?.user && (
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
-				<DialogTrigger disabled={submitting}>
-					<ButtonIcon
-						className="pl-[0.75rem] pr-[0.7rem] rounded-lg icon_accent_secondary"
-						height={26} // 36 // pl-[0.6rem] pr-[0.7rem]
-						label={t("dialog_btn_add_a_page")}
-						labelSubmitting={t("dialog_btn_add_a_page_submitting")}
-						submitting={submitting}
-						width={42} // 62
-						widthOffset={24}
-						onClick={() => setIsOpen(true)}
-					/>
-				</DialogTrigger>
 				<DialogContent closeOnOverlayClick={false}>
 					<DialogHeader>
-						<DialogTitle>{t("dialog_title_add")}</DialogTitle>
+						<DialogTitle>{t("dialog_title_edit", { title: pageData.title })}</DialogTitle>
 						<DialogDescription>{t("dialog_description")}</DialogDescription>
 					</DialogHeader>
 
-					<PagesForm submitting={submitting} onSubmit={handleAddPage} />
+					<PagesForm formData={pageData} submitting={submitting} onSubmit={handleEditPage} />
 				</DialogContent>
 			</Dialog>
-		</div>
+		)
 	);
 };
 
-export default PageCreate;
+export default UpdatePage;
