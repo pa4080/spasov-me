@@ -73,10 +73,10 @@ const iconsMap = {
 			dark: "/assets/icons/it/bash-logo-colored.svg",
 		},
 		info: {
-			height: 512,
-			width: 512,
+			height: 2500,
+			width: 2269,
 			type: "svg",
-			ratio: 1,
+			ratio: 0.91,
 		},
 	},
 	"it_bootstrap-5-icon": {
