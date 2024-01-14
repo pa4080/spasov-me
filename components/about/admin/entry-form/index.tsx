@@ -89,7 +89,7 @@ const EntryForm: React.FC<Props> = ({
 					...formData,
 					tags: formData?.tags.map((tag) => tag._id) || [],
 					gallery: formData?.gallery?.map((file) => file._id) || [],
-			  }
+				}
 			: undefined,
 	});
 

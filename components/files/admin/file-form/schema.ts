@@ -15,7 +15,7 @@ export const File_FormSchemaGenerator = (messages?: string[], isFileOptional = f
 					z.instanceof(File, {
 						message: messages?.shift(),
 					}),
-			  ]),
+				]),
 		filename: z
 			.string()
 			.regex(/^[a-zA-Z][.a-zA-Z0-9-_]+$/, {

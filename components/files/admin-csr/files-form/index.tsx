@@ -148,7 +148,7 @@ const Files_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, 
 			? `${Route.assets.MIME_TYPE}/${formData.filename.split(".").pop()}.png`
 			: `${Route.api.FILES}/${formData?._id.toString()}/${formData?.filename}?v=${new Date(
 					formData.uploadDate
-			  ).getTime()}`
+				).getTime()}`
 		: Route.assets.IMAGE_PLACEHOLDER;
 
 	return (
