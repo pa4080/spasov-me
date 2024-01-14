@@ -1,6 +1,6 @@
 {
 	"name": "spasov-me",
-	"version": "0.2.4",
+	"version": "0.2.5",
 	"private": true,
 	"scripts": {
 		"check-branch-name": "chmod 755 githooks/check_branch_name.sh && bash githooks/check_branch_name.sh",
@@ -95,7 +95,7 @@
 		"lint-staged": "^15.2.0",
 		"next-auth": "^4.24.5",
 		"postcss": "^8.4.33",
-		"postcss-import": "^15.1.0",
+		"postcss-import": "^16.0.0",
 		"prettier": "^3.2.2",
 		"prettier-plugin-tailwindcss": "^0.5.11",
 		"sass": "^1.69.7",
