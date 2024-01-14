@@ -25,7 +25,7 @@ const RevalidatePaths: React.FC<Props> = ({ className, paths }) => {
 
 	const handleRevalidatePaths = async () => {
 		try {
-			const response = await revalidatePaths(pathsToRevalidate);
+			const response = await revalidatePaths({ paths: pathsToRevalidate, redirectTo: pathname });
 
 			if (response) {
 				toast({

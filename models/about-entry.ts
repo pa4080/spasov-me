@@ -2,7 +2,7 @@ import { Schema, model, models } from "mongoose";
 
 import { aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataTypes";
 
-import GridFS from "./grid_fs";
+import FileGFS from "./file";
 import Tag from "./tag";
 import User from "./user";
 
@@ -47,6 +47,7 @@ const AboutEntrySchema = new Schema({
 		{
 			type: Schema.Types.ObjectId,
 			ref: Tag,
+			required: [true, "At least one Tag is required!"],
 		},
 	],
 	creator: {
@@ -55,8 +56,14 @@ const AboutEntrySchema = new Schema({
 	},
 	attachment: {
 		type: Schema.Types.ObjectId,
-		ref: GridFS,
+		ref: FileGFS,
 	},
+	gallery: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: FileGFS,
+		},
+	],
 });
 
 const AboutEntry = models.AboutEntry || model("AboutEntry", AboutEntrySchema);

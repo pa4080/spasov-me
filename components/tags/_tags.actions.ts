@@ -1,14 +1,14 @@
 "use server";
 
 import { getSession, revalidatePaths } from "@/components/_common.actions";
-import { NewTagData, TagDoc, TagListItem } from "@/interfaces/Tag";
+import { NewTagData, TagData, TagDoc } from "@/interfaces/Tag";
 import { TagType } from "@/interfaces/_dataTypes";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb, mongo_id_obj } from "@/lib/mongodb-mongoose";
 import { msgs } from "@/messages";
 import Tag from "@/models/tag";
 
-export const getTags = async (): Promise<TagListItem[] | null> => {
+export const getTags = async (): Promise<TagData[] | null> => {
 	"use server";
 
 	try {
@@ -31,8 +31,6 @@ export const getTags = async (): Promise<TagListItem[] | null> => {
 };
 
 export const createTag = async (data: FormData, paths: string[]): Promise<true | null> => {
-	"use server";
-
 	try {
 		const session = await getSession();
 
@@ -44,6 +42,7 @@ export const createTag = async (data: FormData, paths: string[]): Promise<true |
 
 		await connectToMongoDb();
 
+		// TODO: use Array.from(data.entries()); like in _files.actions.ts ??
 		const newTagData: NewTagData = {
 			name: data.get("name") as string,
 			description: data.get("description") as string,
@@ -59,13 +58,13 @@ export const createTag = async (data: FormData, paths: string[]): Promise<true |
 
 		await newTagDocument.save();
 
-		revalidatePaths(paths);
-
 		return true;
 	} catch (error) {
 		console.error(error);
 
 		return null;
+	} finally {
+		revalidatePaths({ paths, redirectTo: paths[0] });
 	}
 };
 
@@ -74,8 +73,6 @@ export const updateTag = async (
 	tag_id: string,
 	paths: string[]
 ): Promise<true | null> => {
-	"use server";
-
 	try {
 		const session = await getSession();
 
@@ -87,6 +84,7 @@ export const updateTag = async (
 
 		await connectToMongoDb();
 
+		// TODO: use Array.from(data.entries()); like in _files.actions.ts ??
 		const newTagData: NewTagData = {
 			name: data.get("name") as string,
 			description: data.get("description") as string,
@@ -105,19 +103,17 @@ export const updateTag = async (
 
 		await updatedTagDocument.save();
 
-		revalidatePaths(paths);
-
 		return true;
 	} catch (error) {
 		console.error(error);
 
 		return null;
+	} finally {
+		revalidatePaths({ paths, redirectTo: paths[0] });
 	}
 };
 
 export const deleteTag = async (tag_id: string, paths: string[]): Promise<boolean | null> => {
-	"use server";
-
 	try {
 		const session = await getSession();
 
@@ -135,12 +131,12 @@ export const deleteTag = async (tag_id: string, paths: string[]): Promise<boolea
 			return null;
 		}
 
-		revalidatePaths(paths);
-
 		return !!deletedObject.ok;
 	} catch (error) {
 		console.error(error);
 
 		return null;
+	} finally {
+		revalidatePaths({ paths, redirectTo: paths[0] });
 	}
 };

@@ -1,0 +1,179 @@
+@import "@/app/globals.variables.module.scss";
+
+// Without this wrapper "display:grid" of .cardPublic
+// takes precedence over "display:none" of the dynamically added .hidden
+.cardWrapper {
+	@apply scroll-m-8 relative;
+
+	:global(.card-item-collapsible) {
+		display: none;
+	}
+
+	&:global(.expand-collapsed) :global(.card-item-collapsible) {
+		display: inherit;
+	}
+
+	&:global(.expand-collapsed) :global(.card-item-thumb) {
+		@apply absolute top-0 left-0 my-2 sm:my-0 opacity-0;
+	}
+
+	&:before {
+		@apply transition-all duration-300 ease-in-out;
+
+		position: absolute;
+		top: -0.3rem;
+		bottom: -0.3rem;
+		left: -0.1rem;
+		right: -0.1rem;
+		display: block;
+		content: "";
+		border-radius: 0.4rem;
+		outline: 4px dashed transparent;
+		outline-offset: 0.5rem;
+
+		@screen xa {
+			top: -0.4rem;
+			bottom: -0.4rem;
+			left: -0.15rem;
+			right: -0.15rem;
+		}
+	}
+
+	&:hover {
+		&:before {
+			@apply transition-all duration-200 ease-in-out;
+			outline: 4px dashed theme("colors.primary.DEFAULT/60%");
+		}
+	}
+
+	&:global(.expand-collapsed-current) {
+		position: relative;
+
+		&:before {
+			outline: 4px solid theme("colors.primary.DEFAULT");
+		}
+	}
+}
+
+.card {
+	@apply grid relative gap-x-3 sm:gap-x-6 gap-y-2 sm:gap-y-2;
+
+	grid-template-columns: auto 1fr;
+	grid-template-rows: auto 1fr;
+	grid-template-areas:
+		"header header"
+		"image info";
+
+	:global(.expand-collapsed) & {
+		grid-template-columns: auto;
+		grid-template-rows: auto auto auto 1fr;
+		grid-template-areas:
+			"header"
+			"info"
+			"image"
+			"content";
+	}
+
+	@screen sm {
+		grid-template-columns: auto 1fr;
+		grid-template-rows: auto auto 1fr;
+		grid-template-areas:
+			"image header"
+			"image info"
+			"image content";
+
+		:global(.expand-collapsed) & {
+			grid-template-columns: auto 1fr;
+			grid-template-rows: auto auto 1fr;
+			grid-template-areas:
+				"image header"
+				"image info"
+				"image content";
+		}
+	}
+
+	.header {
+		@apply w-full;
+
+		grid-area: header;
+	}
+
+	.info {
+		@apply flex sm:gap-x-3 flex-col sm:flex-row flex-wrap text-sm;
+
+		grid-area: info;
+
+		:global(.expand-collapsed) & {
+			@apply flex-row gap-x-3;
+		}
+
+		.dateModified,
+		.contentType,
+		.size {
+			display: inline-block;
+
+			span {
+				display: inline-block;
+			}
+
+			span + span {
+				@apply ml-1;
+			}
+		}
+	}
+
+	.imageContainer {
+		@apply flex items-center justify-start sm:justify-end h-full overflow-hidden drop-shadow-2xl w-full select-none relative max-w-[80px];
+
+		grid-area: image;
+
+		:global(.expand-collapsed) & {
+			@apply max-w-[100%] sm:max-w-[320px];
+			transition: max-width 300ms ease-out; // animate-zoomIn 250ms
+		}
+
+		:global(.expand-collapsed) & {
+			@apply justify-center;
+		}
+
+		.imageLarge {
+			@apply h-auto w-[100%] sm:w-[320px] object-contain rounded-md my-2 sm:my-0 animate-zoomInFile origin-top-left z-[1];
+		}
+
+		.imageThumb {
+			@apply h-[80px] w-[80px] object-cover rounded-md -z-[1];
+		}
+	}
+
+	.lightPrimaryText {
+		@apply text-foreground-secondary;
+	}
+
+	.lightSecondaryText {
+		@apply text-foreground-quaternary;
+	}
+
+	.title {
+		@apply text-lg tracking-wide font-semibold hyphens-auto;
+
+		& > p:last-of-type {
+			@apply mb-0;
+		}
+	}
+
+	.content {
+		grid-area: content;
+
+		.description {
+			@apply w-full;
+		}
+	}
+
+	.buttons {
+		@apply float-right sm:ml-2 relative h-7;
+
+		.buttonsContainer {
+			@apply absolute flex items-center gap-3 2xs:gap-2 right-0 -top-[0.375rem] select-none scale-75 2xs:scale-90 origin-right;
+		}
+	}
+}

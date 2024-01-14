@@ -1,0 +1,46 @@
+@import "@/app/globals.variables.module.scss";
+
+.cardWrapper {
+	@apply scroll-m-8 relative;
+
+	&:target .card {
+		@apply border-2 border-foreground-quaternary;
+	}
+
+	.buttons {
+		@apply flex gap-2 absolute right-0 bottom-0 p-4 rounded-2xl;
+	}
+
+	.card {
+		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[25%] rounded-2xl h-full p-4 min-h-fit flex items-start flex-col gap-1 justify-start;
+
+		transition:
+			background-color 0.5s,
+			box-shadow 0.5s,
+			opacity 0.5s,
+			box-shadow 0.5s;
+
+		&:hover {
+			@apply bg-popover/[80%];
+
+			box-shadow: 0 8px 32px theme("colors.muted.secondary");
+			transition:
+				background-color 0.5s,
+				box-shadow 0.5s,
+				opacity 0.5s,
+				box-shadow 0.5s;
+		}
+
+		.cardRow {
+			@apply flex justify-start items-start;
+
+			.leftCol {
+				@apply text-foreground-secondary w-28 flex-shrink-0;
+			}
+
+			.rightCol {
+				@apply text-foreground line-clamp-1;
+			}
+		}
+	}
+}

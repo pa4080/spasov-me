@@ -3,7 +3,7 @@ import React from "react";
 import { msgs } from "@/messages";
 
 import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
-import { TagListItem } from "@/interfaces/Tag";
+import { TagData } from "@/interfaces/Tag";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
 import SectionHeader from "@/components/fragments/section-header";
@@ -11,11 +11,11 @@ import SectionHeader from "@/components/fragments/section-header";
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 
 import styles from "../_tags.module.scss";
-import TagCreate from "./TagCreate";
+import CreateTag from "./tag-actions/CreateTag";
 
 interface Props {
 	className?: string;
-	tags: TagListItem[] | null;
+	tags: TagData[] | null;
 	type?: string;
 }
 
@@ -31,7 +31,7 @@ const SectionIndex: React.FC<Props> = ({ className, tags, type = "tagIndex" }) =
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths />
-				<TagCreate icons={iconsMap} tagType={"informationTechnologies"} />
+				<CreateTag icons={iconsMap} tagType={"informationTechnologies"} />
 			</SectionHeader>
 
 			<div className="flex flex-wrap gap-2 items-center justify-start">

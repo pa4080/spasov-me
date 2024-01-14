@@ -9,15 +9,13 @@ import React, {
 	useState,
 } from "react";
 
-import { getProviders, useSession } from "next-auth/react";
 import { Session } from "next-auth";
+import { getProviders, useSession } from "next-auth/react";
 
 import { AuthProviders } from "@/types/next-auth-providers";
 
-import { PageDoc } from "@/interfaces/Page";
 import { FileDocument } from "@/interfaces/File";
-
-import loadDataFromApiRoute from "@/lib/load-data-fom-api-route";
+import { PageDoc } from "@/interfaces/Page";
 
 interface AppContextProps {
 	session: Session | null;
@@ -48,10 +46,11 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 			})();
 		}
 
-		loadDataFromApiRoute("PAGES", setPages);
+		// loadDataFromApiRoute("PAGES", setPages);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	/**
 	useEffect(() => {
 		if (!session) {
 			// setPages([]);
@@ -63,6 +62,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 		// loadDataFromApiRoute("PAGES", setPages);
 		loadDataFromApiRoute("FILES", setFiles);
 	}, [session]);
+	 */
 
 	return (
 		<AppContext.Provider

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getFileList } from "@/components/_common.actions";
+import { getFileList } from "@/components/files/_files.actions";
 import { getTags } from "@/components/tags/_tags.actions";
 
 import { getEntries } from "../_about.actions";

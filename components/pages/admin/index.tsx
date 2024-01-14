@@ -1,42 +1,32 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 
-import { useAppContext } from "@/contexts/AppContext";
-
-import { PageDoc } from "@/interfaces/Page";
-
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
-
+import SectionHeader from "@/components/fragments/section-header";
+import { useAppContext } from "@/contexts/AppContext";
+import { PageDoc } from "@/interfaces/Page";
+import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { msgs } from "@/messages";
+import loadDataFromApiRoute from "@/lib/load-data-fom-api-route";
 
-import SectionHeader from "@/components/fragments/section-header";
-
-import PageCreate from "./PageCreate";
-import PageDelete from "./PageDelete";
-import PageUpdate from "./PageUpdate";
+import CreatePage from "./page-actions/CreatePage";
+import DeletePage from "./page-actions/DeletePage";
+import UpdatePage from "./page-actions/UpdatePage";
 import { Pages_FormSchema } from "./page-form/schema";
 
 import styles from "../_pages.module.scss";
-import PageDisplay from "./PageDisplay";
-
-export interface GenericActionProps {
-	className?: string;
-	session: Session | null;
-	setPages: React.Dispatch<React.SetStateAction<PageDoc[]>>;
-}
+import PageCard from "./page-card";
 
 interface Props {
 	className?: string;
 }
 
 const PagesAdmin: React.FC<Props> = ({ className }) => {
-	const { pages, setPages } = useAppContext();
+	const { pages, setPages, files, setFiles } = useAppContext();
 
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -46,6 +36,18 @@ const PagesAdmin: React.FC<Props> = ({ className }) => {
 	const { data: session } = useSession();
 
 	const t = msgs("PagesFeed");
+
+	useEffect(() => {
+		if (!pages || pages.length === 0) {
+			loadDataFromApiRoute("PAGES", setPages);
+		}
+
+		if (!files || files.length === 0) {
+			loadDataFromApiRoute("FILES", setFiles);
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const handleDelete = (e: React.SyntheticEvent, page: PageDoc) => {
 		e.preventDefault();
@@ -93,17 +95,12 @@ const PagesAdmin: React.FC<Props> = ({ className }) => {
 		<div className={styles.section}>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths paths={[Route.public.HOME.uri]} />
-				<PageCreate session={session} setPages={setPages} />
+				<CreatePage session={session} setPages={setPages} />
 			</SectionHeader>
 
 			<div className={`${styles.feed} mt-16`}>
 				{pages?.map((page, index) => (
-					<PageDisplay
-						key={index}
-						handleDelete={handleDelete}
-						handleEdit={handleEdit}
-						page={page}
-					/>
+					<PageCard key={index} handleDelete={handleDelete} handleEdit={handleEdit} page={page} />
 				))}
 			</div>
 		</div>
@@ -113,7 +110,7 @@ const PagesAdmin: React.FC<Props> = ({ className }) => {
 		<div className={`${styles.pages} ${className}`}>
 			<Section pages={pages} title={t("index_title")} />
 
-			<PageUpdate
+			<UpdatePage
 				isOpen={isEditDialogOpen}
 				pageData={actionPage}
 				pageId={actionPageId}
@@ -122,7 +119,7 @@ const PagesAdmin: React.FC<Props> = ({ className }) => {
 				setPages={setPages}
 			/>
 
-			<PageDelete
+			<DeletePage
 				isOpen={isDeleteDialogOpen}
 				pageData={actionPage}
 				pageId={actionPageId}

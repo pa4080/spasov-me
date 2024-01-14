@@ -40,23 +40,20 @@ const Resume: React.FC<Props> = ({ entries, className, type }) => {
 				<SectionHeader title={section_title}>
 					<ToggleCollapsible
 						target_id={toggle_target_id}
-						text={[t("btnAll"), t("btnLess")]}
+						text={[t("btnMore"), t("btnLess")]}
 						type="section"
 					/>
 				</SectionHeader>
 
 				<div className={`${cardStyles.card}`}>
-					<div className={cardStyles.description}>
-						<div
-							dangerouslySetInnerHTML={{ __html: descriptionArr[0] }}
-							className="section-card-static"
-						/>
-						{descriptionArr[1] && (
+					<div className={`${cardStyles.description} md-processed-to-html`}>
+						{descriptionArr.map((description, index) => (
 							<div
-								dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
-								className="mt-4 section-card-collapsible"
+								dangerouslySetInnerHTML={{ __html: description }}
+								key={index}
+								className={index === 0 ? "section-card-static" : "mt-4 section-card-collapsible"}
 							/>
-						)}
+						))}
 					</div>
 				</div>
 			</div>

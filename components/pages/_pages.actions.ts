@@ -1,7 +1,5 @@
 "use server";
 
-// import { revalidatePath } from "next/cache";
-
 import { NewPageDoc, PageDoc } from "@/interfaces/Page";
 import { UserObject } from "@/interfaces/User";
 
@@ -12,8 +10,6 @@ import { msgs } from "@/messages";
 import Page from "@/models/page";
 
 export const getPages = async (): Promise<PageDoc[]> => {
-	"use server";
-
 	try {
 		await connectToMongoDb();
 		const pages: PageDoc[] = await Page.find(mongo_id_obj()).populate(["creator", "image"]);
@@ -27,8 +23,6 @@ export const getPages = async (): Promise<PageDoc[]> => {
 };
 
 export const getPublicPages = async (): Promise<PageDoc[]> => {
-	"use server";
-
 	try {
 		await connectToMongoDb();
 		const pages: PageDoc[] = await Page.find(mongo_id_obj()).populate(["creator", "image"]);
@@ -42,8 +36,6 @@ export const getPublicPages = async (): Promise<PageDoc[]> => {
 };
 
 export const getPagesConditionally = async (): Promise<PageDoc[]> => {
-	"use server";
-
 	try {
 		await connectToMongoDb();
 		const pages: PageDoc[] = await Page.find(mongo_id_obj()).populate(["creator", "image"]);
@@ -63,8 +55,6 @@ export const getPagesConditionally = async (): Promise<PageDoc[]> => {
 };
 
 export const createPage = async (data: FormData): Promise<PageDoc> => {
-	"use server";
-
 	const session = await getSession();
 
 	if (!session?.user) {
@@ -90,8 +80,6 @@ export const createPage = async (data: FormData): Promise<PageDoc> => {
 
 	await newPageDocument.save();
 	await newPageDocument.populate(["creator", "image"]);
-
-	// revalidatePath(Route.admin.PAGES);
 
 	return {
 		title: newPageDocument.title,

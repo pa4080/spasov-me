@@ -3,14 +3,14 @@
  * @see https://mongodb.github.io/node-mongodb-native/6.0/classes/GridFSBucket.html#openUploadStream
  * @see https://mongodb.github.io/node-mongodb-native/6.0/classes/GridFSBucket.html#openUploadStreamWithId
  */
-import { NextResponse, NextRequest } from "next/server";
+import { GridFSFile, ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
-import { ObjectId, GridFSFile } from "mongodb";
+import { NextRequest, NextResponse } from "next/server";
 
-import { authOptions } from "@/lib/auth-options";
-import { defaultChunkSizeBytes, gridFSBucket } from "@/lib/mongodb-mongoose";
-import GridFS from "@/models/grid_fs";
 import { FileDocument } from "@/interfaces/File";
+import { authOptions } from "@/lib/auth-options";
+import { defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
+import FileGFS from "@/models/file";
 import { Route } from "@/routes";
 
 import { errorMessages } from "../../common";
@@ -44,7 +44,7 @@ export async function GET(request: NextRequest, { params }: Context) {
 
 				const [fileId] = params?.query;
 				const _id = new ObjectId(fileId);
-				const file = (await GridFS.find({ _id }))[0] as GridFSFile;
+				const file = (await FileGFS.find({ _id }))[0] as GridFSFile;
 
 				if (!file) {
 					return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
@@ -67,7 +67,7 @@ export async function GET(request: NextRequest, { params }: Context) {
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 				const [fileId, fileName] = params?.query;
 				const _id = new ObjectId(fileId);
-				const file = (await GridFS.find({ _id }))[0] as GridFSFile;
+				const file = (await FileGFS.find({ _id }))[0] as GridFSFile;
 
 				if (!file) {
 					return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
@@ -144,12 +144,16 @@ export async function POST(request: NextRequest, { params }: Context) {
 							lastModified: file.lastModified,
 							originalName: file.name,
 						},
-						chunkSizeBytes:
-							file.size < defaultChunkSizeBytes ? file.size + 16 : defaultChunkSizeBytes,
+						chunkSizeBytes: file.size < defaultChunkSize ? file.size + 16 : defaultChunkSize,
 					});
 
 					// Pipe the readable stream to a writeable stream to save it to the database
 					const dbObject = stream.pipe(uploadStream);
+
+					await new Promise((resolve, reject) => {
+						uploadStream.on("finish", resolve);
+						uploadStream.on("error", reject);
+					});
 
 					// Construct the response file object
 					if (dbObject.id) {
@@ -240,12 +244,16 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 							lastModified: new Date(file.lastModified),
 							originalName: file.name,
 						},
-						chunkSizeBytes:
-							file.size < defaultChunkSizeBytes ? file.size + 16 : defaultChunkSizeBytes,
+						chunkSizeBytes: file.size < defaultChunkSize ? file.size + 16 : defaultChunkSize,
 					});
 
 					// Pipe the readable stream to a writeable stream to save it to the database
 					const dbDocumentNewContent = stream.pipe(uploadStream);
+
+					await new Promise((resolve, reject) => {
+						uploadStream.on("finish", resolve);
+						uploadStream.on("error", reject);
+					});
 
 					// Construct the response file object
 					if (dbDocumentNewContent.id) {
@@ -264,7 +272,7 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 					 * In this case we only need to update the "metadata", and/or the "filename".
 					 * So we do not need to create a new file and stream its content.
 					 */
-					const dbDocument = await GridFS.findOne(_id);
+					const dbDocument = await FileGFS.findOne(_id);
 
 					if (!dbDocument) {
 						return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
@@ -312,19 +320,19 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function DELETE(request: NextRequest, { params }: Context) {
-	const session = await getServerSession(authOptions);
-
-	if (!session) {
-		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
-	}
-
-	if (!params.query || params.query.length !== 1) {
-		return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
-	}
-
-	const [fileId] = params.query;
-
 	try {
+		const session = await getServerSession(authOptions);
+
+		if (!session) {
+			return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+		}
+
+		if (!params.query || params.query.length !== 1) {
+			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
+		}
+
+		const [fileId] = params.query;
+
 		const bucket = await gridFSBucket();
 		const _id = new ObjectId(fileId);
 		const files = await bucket.find({ _id }).toArray();

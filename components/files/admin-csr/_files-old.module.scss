@@ -1,0 +1,84 @@
+@import "@/app/globals.variables.module.scss";
+
+.files {
+	.section {
+		@apply scroll-m-8;
+
+		.feed {
+			@apply space-y-12;
+		}
+	}
+
+	.section + .section {
+		@apply mt-20;
+	}
+
+	.card {
+		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[5%] rounded-2xl h-full p-6 sm:pt-12 relative flex items-start flex-col gap-6 sm:gap-3 sm:flex-row justify-between overflow-hidden min-h-fit;
+
+		transition:
+			background-color 0.5s,
+			box-shadow 0.5s,
+			opacity 0.5s,
+			box-shadow 0.5s;
+
+		&:hover {
+			@apply bg-popover/[80%];
+
+			box-shadow: 0 8px 32px theme("colors.muted.secondary");
+			transition:
+				background-color 0.5s,
+				box-shadow 0.5s,
+				opacity 0.5s,
+				box-shadow 0.5s;
+		}
+
+		.title {
+			h1 {
+				@apply text-xl font-semibold text-foreground mb-2;
+			}
+		}
+
+		.imageContainer {
+			@apply flex items-center justify-center sm:justify-end h-full overflow-hidden drop-shadow-2xl w-full;
+
+			.image {
+				@apply h-auto w-auto object-contain rounded-md;
+				// https://stackoverflow.com/questions/69230343/nextjs-image-component-with-fixed-witdth-and-auto-height
+			}
+		}
+
+		.imageLink {
+			@apply block mx-auto w-full h-full;
+		}
+
+		.buttons {
+			@apply flex gap-12 sm:gap-4 p-2 sm:p-4 rounded-xl max-sm:bg-secondary/50 justify-center w-full
+			sm:absolute sm:right-2 sm:-top-1.5 sm:justify-start sm:w-fit;
+		}
+	}
+}
+
+.form {
+	@apply w-full space-y-6 relative hyphens-auto;
+
+	.fileInputWrapper {
+		@apply w-full cursor-pointer relative rounded-md border border-input bg-background ring-offset-background
+		hover:outline-none hover:ring-2 hover:ring-ring hover:ring-offset-2 disabled:cursor-not-allowed hover:border-ring
+		transition-colors duration-150;
+
+		.fileInput {
+			@apply z-10 h-10 outline-none focus:outline-none focus-visible:outline-none border-none p-0 cursor-pointer;
+		}
+
+		input[type="file"]::file-selector-button {
+			@apply bg-primary h-full px-4 mr-4 cursor-pointer;
+		}
+
+		&:hover {
+			input[type="file"]::file-selector-button {
+				@apply bg-accent text-muted-secondary transition-colors duration-100;
+			}
+		}
+	}
+}

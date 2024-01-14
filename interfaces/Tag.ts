@@ -17,6 +17,6 @@ export interface NewTagData extends Omit<TagDoc, "_id" | "creator"> {
 	creator: string;
 }
 
-export interface TagListItem extends Omit<TagDoc, "_id" | "creator"> {
+export interface TagData extends Omit<TagDoc, "_id" | "creator"> {
 	_id: string;
 }

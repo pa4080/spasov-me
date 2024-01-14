@@ -2,9 +2,8 @@
 
 import { Resend } from "resend";
 
-import manifest from "@/public/manifest.json";
-
 import { msgs } from "@/messages";
+import manifest from "@/public/manifest.json";
 
 import { FormDataType } from "./ContactForm";
 import EmailTemplate_Admin from "./email-templates/EmailTemplate_Admin";
@@ -39,10 +38,8 @@ const siteName = manifest.short_name;
 const tContactAdmin = msgs("ContactEmail_Admin");
 const tContactClient = msgs("ContactEmail_Client");
 
+// https://resend.com/docs/send-with-nextjs
 export const sendEmail: SendEmail = async (formData: FormDataType) => {
-	"use server";
-
-	// https://resend.com/docs/send-with-nextjs
 	try {
 		const sendEmail_Client = await resend.emails.send({
 			from: `${admin} <${adminEmail}>`,
@@ -77,8 +74,6 @@ export const sendEmail: SendEmail = async (formData: FormDataType) => {
 };
 
 export const reCaptchaSubmit: reCaptchaSubmit = async (googleReCaptchaToken: string) => {
-	"use server";
-
 	let response: ReCaptchaRes = {
 		success: false,
 		challenge_ts: "",

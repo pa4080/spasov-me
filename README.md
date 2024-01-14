@@ -6,60 +6,31 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- [x] Copy the Home page editable version prom the old repo
-- [x] Copy the files page from the old repo
-- [x] Add page form
-  - [x] Change the image input to dropdown from files
-  - [x] Change the schema of the PageDoc?
-  - [x] Add a switch to choose is the page public or not...
-- [x] Copy the **contact page** from Animated-portfolio
-  - [x] Copy and adapt the code
-  - [x] CSS style of the contact page
-  - [x] Texts in the emails
-- [x] Add the project as GitHub repo and deploy to Vercel
-- [x] Link the local server to Vercel
-- [x] Manage the menu items via the pages feed...
-- [x] The footer icons active SVG icons
-- [x] Apply the styles to the files page
-- [x] Edit the files: name, description, content...
-- [x] Tweak the files Form
-- [ ] Create the About page
-  - [x] AboutEntry
-    - [x] DB Model
-    - [x] API `@app/api/data/[[...query]]/route.ts`
-    - [x] API `@/routes.ts`
-    - [x] Public menu entry
-    - [x] Admin menu entry
-    - [x] Home page card entry
-  - [x] **Type a date in the DatePicker**.
-  - [x] Form
-  - [ ] Public page CSS
-  - [x] Admin page CSS
-  - [x] Render Markdown
-- [ ] Create `technologies` - `tags` page
-  - [ ] <https://github.com/dderevjanik/github-vscode-icons/tree/master>
-  - [ ] <https://github.com/dderevjanik/vscode-icons-js>
-- [ ] Add `TAGS` selector to the About page items
-- [ ] Add `TAGS` selector to the Portfolio page items
-- [ ] Vercel BLOB storage for files and images
-- [ ] Portfolio/projects page
-  - [ ] DB Model
-  - [ ] Form
-  - [ ] Page
-  - [ ] CSS
-  - [ ] Create a gallery
-- [ ] **Implement gallery and integrate it with:**
-  - [ ] Handle:
-    - [ ] Image files
-    - [ ] PDF files
-    - [ ] Video links (YouTube, Vimeo...)
-    - [ ] MSO365 files
-  - [ ] About entry attachments
-  - [ ] Portfolio entry attachments (here will be number of images)
-- [ ] Refactor `@/comp./pages/admin` and `@/comp./files/admin` like as `@/comp./about/admin`:
-  - [ ] use Server actions instead of API fetch
-  - [ ] extract "client side" dynamics in separate files/components
-- [ ] **Remove the unnecessary .populate(["creator"])** fro$$ the Server actions and API?
+- [ ] Refactor Files
+  - [ ] Upload form + MarkDown dor the description
+  - [ ] Get the files on the server side ?
+- [ ] Refactor Pages/admin like the oder admin pages ??
+  - [ ] Use server actions to get and manipulate the data
+  - [ ] Simplify `_pages.actions.ts` by removing th un necessary return objects
+  - [ ] Add revalidation and redirect to the end of the actions
+- [ ] Gallery display
+- [ ] Projects Admin? > Form design
+- [ ] Projects public
+- [ ] Single project + gallery > design
+  - Desktop: Gallery on the left, Title and description on the right
+  - Mobile: Gallery on the top, Title and description on the bottom
+  - When click on the gallery display it on full screen
+  - Use the Shad-cn/ui slider for the gallery
+- [ ] Blog post admin
+- [ ] Blog feed public
+- [ ] Blog post public
+- [ ] API for creating blog posts
+
+## Next.js features to learn
+
+- `{ unstable_noStore } from next/cache` - <https://youtu.be/RBM03RihZVs?si=TrzTyxvnXPqB0sLy&t=733>
+- `<Suspense />`
+- `{ params, searchParams }` - <https://youtu.be/RBM03RihZVs?si=Dlwq-O59a6qF3PKC&t=798>
 
 ## Tech stack
 
@@ -78,6 +49,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [Auth.js v.4](https://authjs.dev/reference/nextjs)\* [Auth.js v.5](https://authjs.dev/guides/upgrade-to-v5)
 - [Resend](https://resend.com/docs/send-with-nextjs)
 - [Google reCaptcha](https://www.google.com/recaptcha/admin) @[react-google-recaptcha-v3](https://www.npmjs.com/package/react-google-recaptcha-v3)
+- unified, remark, rehype, hyphen.
 
 ## Getting Started
 

@@ -1,25 +1,18 @@
 import React from "react";
 
-import { AboutEntryType } from "@/interfaces/_dataTypes";
-
-import { AboutEntryData } from "@/interfaces/AboutEntry";
-
-import { msgs } from "@/messages";
-
-import SectionHeader from "@/components/fragments/section-header";
-
-import { FileListItem } from "@/interfaces/File";
-
-import { TagListItem } from "@/interfaces/Tag";
-
-import { Route } from "@/routes";
-
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
+import SectionHeader from "@/components/fragments/section-header";
+import { AboutEntryData } from "@/interfaces/AboutEntry";
+import { FileListItem } from "@/interfaces/File";
+import { TagData } from "@/interfaces/Tag";
+import { AboutEntryType } from "@/interfaces/_dataTypes";
+import { msgs } from "@/messages";
+import { Route } from "@/routes";
 
 import ToggleCollapsible from "../../fragments/toggle-collapsible";
 import styles from "../_about.module.scss";
 import EntryCard from "../common/entry-card";
-import EntryCreate from "../common/entry-card/actions/EntryCreate";
+import CreateEntry from "./entry-actions/CreateEntry";
 
 interface Props {
 	className?: string;
@@ -27,7 +20,7 @@ interface Props {
 	visibleItems?: number;
 	entries: AboutEntryData[] | null;
 	files?: FileListItem[] | null;
-	tags: TagListItem[] | null;
+	tags: TagData[] | null;
 }
 
 /**
@@ -50,7 +43,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths paths={[Route.public.ABOUT.uri]} />
-				<EntryCreate files={files} tags={tags} type={type} />
+				<CreateEntry files={files} tags={tags} type={type} />
 				<ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}

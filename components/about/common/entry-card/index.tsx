@@ -9,21 +9,21 @@ import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
 import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileListItem } from "@/interfaces/File";
-import { TagListItem } from "@/interfaces/Tag";
+import { TagData } from "@/interfaces/Tag";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
+import DisplaySingleFile from "../../../fragments/DisplayAttachment";
+import DeleteEntry from "../../admin/entry-actions/DeleteEntry";
+import UpdateEntry from "../../admin/entry-actions/UpdateEntry";
 import styles from "./_entry-card.module.scss";
-import EntryDelete from "./actions/EntryDelete";
-import EntryShowAttachment from "./actions/EntryShowAttachment";
-import EntryUpdate from "./actions/EntryUpdate";
 
 interface Props {
 	className?: string;
 	entry: AboutEntryData;
 	files?: FileListItem[] | null | undefined;
-	tags?: TagListItem[] | null | undefined;
+	tags?: TagData[] | null | undefined;
 	displayTags?: boolean;
 	displayActions?: boolean;
 }
@@ -49,7 +49,7 @@ const EntryCard: React.FC<Props> = ({
 
 	return (
 		<div className={`${styles.cardWrapper} ${className}`} id={toggle_target_id}>
-			<div className={`${styles.card}`}>
+			<div className={styles.card}>
 				<div className={styles.info}>
 					<div className={styles.date}>
 						<span>
@@ -85,9 +85,9 @@ const EntryCard: React.FC<Props> = ({
 						<div className={styles.buttonsContainer}>
 							{displayActions && (
 								<>
-									<EntryDelete entry_id={entry._id} type={entry.entryType} />
-									<EntryShowAttachment uri={entry.html.attachmentUri} />
-									<EntryUpdate entry={entry} files={files} tags={tags} type={entry.entryType} />
+									<DeleteEntry entry_id={entry._id} type={entry.entryType} />
+									<DisplaySingleFile uri={entry.html.attachmentUri} />
+									<UpdateEntry entry={entry} files={files} tags={tags} type={entry.entryType} />
 								</>
 							)}
 							<ToggleCollapsible
@@ -101,17 +101,21 @@ const EntryCard: React.FC<Props> = ({
 					</div>
 					<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />
 				</div>
-				<div className={styles.description}>
-					<div
-						dangerouslySetInnerHTML={{ __html: descriptionArr[0] ?? entry.description }}
-						className={descriptionArr[1] ? "card-item-static" : "card-single-item"}
-					/>
-					{descriptionArr[1] && (
+				<div className={`${styles.description} md-processed-to-html`}>
+					{descriptionArr.map((description, index, arr) => (
 						<div
-							dangerouslySetInnerHTML={{ __html: descriptionArr[1] ?? "" }}
-							className="card-item-collapsible"
+							dangerouslySetInnerHTML={{ __html: description }}
+							key={index}
+							className={
+								index === 0
+									? arr.length > 1
+										? "card-item-static"
+										: "card-single-item"
+									: "card-item-collapsible"
+							}
 						/>
-					)}
+					))}
+
 					{displayTags && (
 						<div className="card-item-collapsible">
 							<div className="about-entry-tags">
