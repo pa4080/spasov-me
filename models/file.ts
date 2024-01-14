@@ -21,6 +21,7 @@ const FileGFS_Schema = new Schema(
 	{ strict: false }
 );
 
+// const FileGFS = models.FileGFS || model("FileGFS", FileGFS_Schema, `fs.files`); // "fs" is the default GridFS bucket name
 const FileGFS =
 	models.FileGFS || model("FileGFS", FileGFS_Schema, `${MONGODB_FILES_BUCKET_NAME}.files`);
 

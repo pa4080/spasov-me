@@ -3,21 +3,29 @@
 import { ObjectId } from "mongodb";
 
 import { FileData, FileDocument, FileListItem } from "@/interfaces/File";
-import fileDocumentToData from "@/lib/file-doc-to-file-data";
-import { defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
-import { msgs } from "@/messages";
-
-import FileGFS from "@/models/file";
-
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
+import fileDocumentToData from "@/lib/file-doc-to-file-data";
+import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
+import { msgs } from "@/messages";
+import FileGFS from "@/models/file";
 
 import { getSession, revalidatePaths } from "../_common.actions";
 
 import { Readable } from "stream";
 
-export const getFiles = async (): Promise<FileData[] | null> => {
+export const getFilesV1 = async (): Promise<FileData[] | null> => {
 	try {
-		// connect to the database and get the bucket
+		/**
+		 * This version of the function causes the following error at the build time:
+		 *
+		 * > TypeError: Cannot read properties of undefined (reading 'collection')
+		 * > at new GridFSBucket (/config/workspace/spasov-me/node_modules/.pnpm/mongodb@6.2.0/node_modules/mongodb/lib/gridfs/index.js:29:35)
+		 * > at f (/config/workspace/spasov-me/.next/server/chunks/843.js:1:16624)
+		 * > at async m (/config/workspace/spasov-me/.next/server/app/admin/files/page.js:1:32576)
+		 * > at async Z (/config/workspace/spasov-me/.next/server/app/admin/files/page.js:1:32099
+		 *
+		 * It is interesting on Vercel this error does not occur!
+		 */
 		const bucket = await gridFSBucket();
 
 		const files = (await bucket.find().toArray()) as FileDocument[];
@@ -27,6 +35,23 @@ export const getFiles = async (): Promise<FileData[] | null> => {
 		}
 
 		return fileDocumentToData(files);
+	} catch (error) {
+		console.error(error);
+
+		return null;
+	}
+};
+
+export const getFiles = async (): Promise<FileData[] | null> => {
+	try {
+		await connectToMongoDb();
+		const files = await FileGFS.find();
+
+		if (files?.length === 0) {
+			return null;
+		}
+
+		return fileDocumentToData(files.map((file) => file.toObject()));
 	} catch (error) {
 		console.error(error);
 
@@ -136,6 +161,7 @@ export const updateFile = async (
 		}
 
 		// Generate the ObjectId, connect to the db and get the bucket
+		await connectToMongoDb();
 		const _id = new ObjectId(file_id);
 		const dbDocument = await FileGFS.findOne(_id);
 		const bucket = await gridFSBucket();

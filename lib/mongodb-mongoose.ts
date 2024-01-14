@@ -48,6 +48,10 @@ export const connectToMongoDb = async () => {
 export const gridFSBucket = async () => {
 	await connectToMongoDb();
 
+	if (bucket) {
+		return bucket;
+	}
+
 	bucket =
 		bucket ||
 		new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
