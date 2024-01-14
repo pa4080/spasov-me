@@ -3,7 +3,7 @@
  */
 import { Schema, model, models } from "mongoose";
 
-import File from "./file";
+import FileGFS from "./file";
 import User from "./user";
 
 const PostSchema = new Schema({
@@ -32,7 +32,7 @@ const PostSchema = new Schema({
 	},
 	image: {
 		type: Schema.Types.ObjectId,
-		ref: File,
+		ref: FileGFS,
 	},
 });
 

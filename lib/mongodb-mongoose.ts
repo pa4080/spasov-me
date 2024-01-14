@@ -14,7 +14,7 @@
 
 import mongoose from "mongoose";
 
-export const defaultChunkSize = 1024 * 256; // ~ 0.25 MB;
+export const defaultChunkSize = 1024 * 32; // ~ 32 KB;
 
 if (!process.env.MONGODB_URI) {
 	throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');

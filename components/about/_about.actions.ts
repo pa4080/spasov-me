@@ -43,8 +43,9 @@ export const getEntries = async ({
 						}),
 						attachmentUri:
 							entry.attachment &&
-							`${Route.api.FILES}/${entry.attachment?._id.toString()}/${entry.attachment
-								?.filename}?v=${new Date(entry.attachment?.uploadDate).getTime()}`,
+							`${Route.api.FILES}/${entry.attachment?._id.toString()}/${
+								entry.attachment?.filename
+							}?v=${new Date(entry.attachment?.uploadDate).getTime()}`,
 					},
 
 					title: entry.title,

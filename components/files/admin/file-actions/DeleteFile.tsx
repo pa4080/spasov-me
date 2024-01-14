@@ -27,8 +27,8 @@ export interface Props {
 	filename: string;
 }
 
-const RemoveFile: React.FC<Props> = ({ className, file_id, filename }) => {
-	const t = msgs("FilesAdmin_RemoveFile");
+const DeleteFile: React.FC<Props> = ({ className, file_id, filename }) => {
+	const t = msgs("FilesAdmin_DeleteFile");
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
@@ -105,4 +105,4 @@ const RemoveFile: React.FC<Props> = ({ className, file_id, filename }) => {
 	);
 };
 
-export default RemoveFile;
+export default DeleteFile;

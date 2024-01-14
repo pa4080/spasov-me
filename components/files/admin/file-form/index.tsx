@@ -21,7 +21,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FileDocument } from "@/interfaces/File";
+import { FileData } from "@/interfaces/File";
 import { roundTo } from "@/lib/round";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
@@ -34,7 +34,7 @@ interface Props {
 	onSubmit: (data: File_FormSchema) => void;
 	submitting?: boolean;
 	isContainerDialogOpen?: boolean;
-	formData?: FileDocument;
+	formData?: FileData;
 }
 
 const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
@@ -145,7 +145,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 			? `${Route.assets.MIME_TYPE}/${formData.filename.split(".").pop()}.png`
 			: `${Route.api.FILES}/${formData?._id.toString()}/${formData?.filename}?v=${new Date(
 					formData.uploadDate
-			  ).getTime()}`
+				).getTime()}`
 		: Route.assets.IMAGE_PLACEHOLDER;
 
 	return (

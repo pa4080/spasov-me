@@ -6,7 +6,8 @@
 	},
 	"Errors": {
 		"invalidUser": "Invalid user",
-		"invalidFile": "Invalid file object"
+		"invalidFile": "Invalid file object, not a file.",
+		"notFoundFileInDB": "File with id { id } was not found in the database"
 	},
 	"Theme": {
 		"light": "Light",
@@ -364,20 +365,27 @@
 		"lastModified": "Last modified",
 		"kilobyte": "KB"
 	},
-	"FilesAdmin_UploadFile": {
+	"FilesAdmin_CreateFile": {
 		"dialog_title": "Create (upload) a new file",
 		"dialog_description": "",
 		"dialog_btn_add": "Add a new file",
 		"dialog_btn_add_submitting": "Submitting...",
 		"toast_submitted": "The file was successfully created."
 	},
-	"FilesAdmin_RemoveFile": {
+	"FilesAdmin_DeleteFile": {
 		"dialog_title": "Delete a file",
 		"dialog_description": "<p class='json-desc'>Name: <b><code>{ filename }</code></b></p><p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
 		"dialog_btn_delete": "Delete the file",
 		"dialog_btn_delete_submitting": "Deleting...",
 		"dialog_btn_cancel": "Cancel",
 		"toast_deleted": "The file was successfully deleted!"
+	},
+	"FilesAdmin_UpdateFile": {
+		"dialog_title": "Update a file",
+		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+		"dialog_btn_add": "Update the file",
+		"dialog_btn_add_submitting": "Submitting...",
+		"toast_submitted": "The file was successfully updated."
 	},
 	"FilesFeed": {
 		"dialog_title_upload": "Upload a file",

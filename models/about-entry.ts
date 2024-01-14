@@ -2,7 +2,7 @@ import { Schema, model, models } from "mongoose";
 
 import { aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataTypes";
 
-import File from "./file";
+import FileGFS from "./file";
 import Tag from "./tag";
 import User from "./user";
 
@@ -56,12 +56,12 @@ const AboutEntrySchema = new Schema({
 	},
 	attachment: {
 		type: Schema.Types.ObjectId,
-		ref: File,
+		ref: FileGFS,
 	},
 	gallery: [
 		{
 			type: Schema.Types.ObjectId,
-			ref: File,
+			ref: FileGFS,
 		},
 	],
 });

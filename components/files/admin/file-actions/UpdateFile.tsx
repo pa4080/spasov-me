@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
@@ -15,32 +14,32 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
+import { FileData } from "@/interfaces/File";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 
-import { uploadFile } from "../../_files.actions";
+import { updateFile } from "../../_files.actions";
 import FileForm from "../file-form";
 import { File_FormSchema } from "../file-form/schema";
 
 interface Props {
 	className?: string;
+	file: FileData;
 }
 
-const UploadFile: React.FC<Props> = ({ className }) => {
-	const t = msgs("FilesAdmin_UploadFile");
+const UpdateFile: React.FC<Props> = ({ className, file }) => {
+	const t = msgs("FilesAdmin_UpdateFile");
 
 	const [submitting, setSubmitting] = useState(false);
-	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
+	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
 
-	const handleUploadFile = async (data: File_FormSchema) => {
-		// setSubmitting(true);
+	const handleUpdateFile = async (data: File_FormSchema) => {
+		setSubmitting(true);
 
 		try {
-			const response = await uploadFile(
-				generateFormDataFromObject({ ...data, name: data.filename }),
-				[pathname]
-			);
+			// TODO: Revalidate "projects", "about", etc. when rhe relations are implemented
+			const response = await updateFile(generateFormDataFromObject(data), file._id, [pathname]);
 
 			if (response) {
 				toast({
@@ -69,13 +68,10 @@ const UploadFile: React.FC<Props> = ({ className }) => {
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogTrigger disabled={submitting}>
 					<ButtonIcon
-						className="pl-[0.75rem] pr-[0.7rem] rounded-lg icon_accent_secondary"
-						height={26} // 36 // pl-[0.6rem] pr-[0.7rem]
-						label={t("dialog_btn_add")}
-						labelSubmitting={t("dialog_btn_add_submitting")}
-						submitting={submitting}
-						width={42} // 62
-						widthOffset={24}
+						className="pl-1 bg-transparent icon_accent_secondary"
+						height={22}
+						type="brush"
+						width={22}
 						onClick={() => setIsOpen(true)}
 					/>
 				</DialogTrigger>
@@ -88,16 +84,18 @@ const UploadFile: React.FC<Props> = ({ className }) => {
 						{t("dialog_description") && (
 							<DialogDescription
 								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: "new id" }),
+									__html: t("dialog_description", { filename: file.filename, id: file._id }),
 								}}
 							/>
 						)}
 					</DialogHeader>
 
 					<FileForm
+						className={t("dialog_description") ? "mt-4" : "mt-0"}
+						formData={file}
 						isContainerDialogOpen={isOpen}
 						submitting={submitting}
-						onSubmit={handleUploadFile}
+						onSubmit={handleUpdateFile}
 					/>
 				</DialogContent>
 			</Dialog>
@@ -105,4 +103,4 @@ const UploadFile: React.FC<Props> = ({ className }) => {
 	);
 };
 
-export default UploadFile;
+export default UpdateFile;

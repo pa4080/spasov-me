@@ -154,6 +154,14 @@ export async function POST(request: NextRequest, { params }: Context) {
 		let response: Omit<any, never>[] = [];
 		let dbDocument;
 
+		/**
+		 * Here is how to test, does the schema include certain field
+		 * in ver 8+ of Mongoose/MongoDB
+		 *
+			console.log( dbDocument.schema.obj );
+			console.log( !!dbDocument.schema.obj.image );
+		 */
+
 		switch (type) {
 			case "pages": {
 				dbDocument = new Page(request_object);
