@@ -4,6 +4,10 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## WARNING
+
+**January 2024: The package `sharp 0.33.2` requires _Node-API v9, including Node.js (^18.17.0 or >= 20.3.0), Deno and Bun._ Unfortunately the versions of Node.js available on Vercel are not compatible with the lates version of this package. So we are still using `sharp 0.32.6` for now.**
+
 ## Todo
 
 - [ ] Refactor Files

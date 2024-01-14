@@ -9,7 +9,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { FileDocument } from "@/interfaces/File";
 import { authOptions } from "@/lib/auth-options";
-import { defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
+import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
 import FileGFS from "@/models/file";
 import { Route } from "@/routes";
 
@@ -44,6 +44,8 @@ export async function GET(request: NextRequest, { params }: Context) {
 
 				const [fileId] = params?.query;
 				const _id = new ObjectId(fileId);
+
+				await connectToMongoDb();
 				const file = (await FileGFS.find({ _id }))[0] as GridFSFile;
 
 				if (!file) {
@@ -67,6 +69,8 @@ export async function GET(request: NextRequest, { params }: Context) {
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 				const [fileId, fileName] = params?.query;
 				const _id = new ObjectId(fileId);
+
+				await connectToMongoDb();
 				const file = (await FileGFS.find({ _id }))[0] as GridFSFile;
 
 				if (!file) {
@@ -272,6 +276,7 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 					 * In this case we only need to update the "metadata", and/or the "filename".
 					 * So we do not need to create a new file and stream its content.
 					 */
+					await connectToMongoDb();
 					const dbDocument = await FileGFS.findOne(_id);
 
 					if (!dbDocument) {
