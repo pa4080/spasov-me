@@ -10,14 +10,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- [ ] Refactor Files
-  - [ ] Upload form + MarkDown for the description
+- [x] Refactor Files
+  - [x] Upload form + MarkDown for the description
   - [x] Get the files on the server side ?
 - [ ] Refactor Pages/admin like the other admin pages ??
   - [ ] Use server actions to get and manipulate the data
   - [ ] Simplify `_pages.actions.ts` by removing th un necessary return objects
   - [ ] Add revalidation and redirect to the end of the actions
 - [ ] Gallery display
+- [ ] Add relation field between the galleries and the files
 - [ ] Projects Admin? > Form design
 - [ ] Projects public
 - [ ] Single project + gallery > design
