@@ -156,7 +156,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 	return (
 		<Form {...form}>
 			<form
-				className={`w-full space-y-6 relative ${className}`}
+				className={`w-full space-y-4 relative ${className}`}
 				onSubmit={form.handleSubmit(handleSubmit)}
 			>
 				{/* Grid */}
@@ -224,7 +224,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 								<FormItem className="space-y-0">
 									{t("filename_label") && <FormLabel>{t("filename_label")}</FormLabel>}
 									<FormControl>
-										<Input placeholder={t("filename_placeholder")} {...field} />
+										<Input className="text-lg" placeholder={t("filename_placeholder")} {...field} />
 									</FormControl>
 
 									{form.formState.errors.filename ? (

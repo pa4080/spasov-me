@@ -103,7 +103,7 @@ const CreateEntry: React.FC<Props> = ({ className, type, files, tags }) => {
 					className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
 					closeOnOverlayClick={false}
 				>
-					<DialogHeader className="-mt-2">
+					<DialogHeader>
 						<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
 						{t("dialog_description") && (
 							<DialogDescription
@@ -115,7 +115,7 @@ const CreateEntry: React.FC<Props> = ({ className, type, files, tags }) => {
 					</DialogHeader>
 
 					<EntryForm
-						className="mt-0"
+						className="mt-1"
 						entryType={type}
 						files={files}
 						submitting={submitting}

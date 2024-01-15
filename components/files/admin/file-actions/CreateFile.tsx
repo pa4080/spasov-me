@@ -79,7 +79,7 @@ const CreateFile: React.FC<Props> = ({ className }) => {
 					className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
 					closeOnOverlayClick={false}
 				>
-					<DialogHeader className="-mt-2">
+					<DialogHeader>
 						<DialogTitle>{t("dialog_title")}</DialogTitle>
 						{t("dialog_description") && (
 							<DialogDescription
@@ -91,7 +91,7 @@ const CreateFile: React.FC<Props> = ({ className }) => {
 					</DialogHeader>
 
 					<FileForm
-						className={t("dialog_description") ? "mt-4" : "mt-0"}
+						className="mt-1"
 						isContainerDialogOpen={isOpen}
 						submitting={submitting}
 						onSubmit={handleCreateFile}

@@ -95,7 +95,7 @@ const EntryForm: React.FC<Props> = ({
 	return (
 		<Form {...form}>
 			<form
-				className={`w-full space-y-6 relative ${className}`}
+				className={`w-full space-y-4 relative ${className}`}
 				onSubmit={form.handleSubmit(onSubmit)}
 			>
 				{/* Grid */}

@@ -100,7 +100,7 @@ const UpdateEntry: React.FC<Props> = ({ className, type, entry, files, tags }) =
 					className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
 					closeOnOverlayClick={false}
 				>
-					<DialogHeader className="-mt-2">
+					<DialogHeader>
 						<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
 						{t("dialog_description") && (
 							<DialogDescription
@@ -112,7 +112,7 @@ const UpdateEntry: React.FC<Props> = ({ className, type, entry, files, tags }) =
 					</DialogHeader>
 
 					<EntryForm
-						className={t("dialog_description") ? "mt-4" : "mt-0"}
+						className={t("dialog_description") ? "mt-0" : "mt-1"}
 						entryType={type}
 						files={files}
 						formData={entry}

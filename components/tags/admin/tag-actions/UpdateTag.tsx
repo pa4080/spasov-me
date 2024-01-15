@@ -95,7 +95,7 @@ const UpdateTag: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 					className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
 					closeOnOverlayClick={false}
 				>
-					<DialogHeader className="-mt-2">
+					<DialogHeader>
 						<DialogTitle>{t("dialog_title", { tagType: tagTypeLabel })}</DialogTitle>
 						{t("dialog_description") && (
 							<DialogDescription
@@ -107,7 +107,7 @@ const UpdateTag: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 					</DialogHeader>
 
 					<TagForm
-						className={t("dialog_description") ? "mt-4" : "mt-0"}
+						className={t("dialog_description") ? "mt-0" : "mt-1"}
 						formData={tag}
 						icons={icons}
 						submitting={submitting}

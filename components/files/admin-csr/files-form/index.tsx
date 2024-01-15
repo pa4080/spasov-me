@@ -3,11 +3,9 @@
 import React, { useRef, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-
-import slugify from "slugify";
-
 import Image from "next/image";
+import { useForm } from "react-hook-form";
+import slugify from "slugify";
 
 import { Button } from "@/components/ui/button";
 import {

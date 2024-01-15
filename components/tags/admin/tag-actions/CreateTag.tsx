@@ -97,7 +97,7 @@ const CreateTag: React.FC<Props> = ({ className, tagType, icons }) => {
 					/>
 				</DialogTrigger>
 				<DialogContent className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl">
-					<DialogHeader className="-mt-2">
+					<DialogHeader>
 						<DialogTitle>{t("dialog_title", { tagType: tagTypeLabel })}</DialogTitle>
 						{t("dialog_description") && (
 							<DialogDescription
@@ -109,7 +109,7 @@ const CreateTag: React.FC<Props> = ({ className, tagType, icons }) => {
 					</DialogHeader>
 
 					<TagForm
-						className="mt-0"
+						className="mt-1"
 						icons={icons}
 						submitting={submitting}
 						tagType={tagType}

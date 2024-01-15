@@ -79,7 +79,7 @@ const UpdateFile: React.FC<Props> = ({ className, file }) => {
 					className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
 					closeOnOverlayClick={false}
 				>
-					<DialogHeader className="-mt-2">
+					<DialogHeader>
 						<DialogTitle>{t("dialog_title")}</DialogTitle>
 						{t("dialog_description") && (
 							<DialogDescription
@@ -91,7 +91,7 @@ const UpdateFile: React.FC<Props> = ({ className, file }) => {
 					</DialogHeader>
 
 					<FileForm
-						className={t("dialog_description") ? "mt-4" : "mt-0"}
+						className={t("dialog_description") ? "mt-0" : "mt-1"}
 						formData={file}
 						isContainerDialogOpen={isOpen}
 						submitting={submitting}
