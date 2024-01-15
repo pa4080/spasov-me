@@ -45,6 +45,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 	const displayImageRef = useRef<HTMLImageElement>(null);
 	const [fileToUpload, setFileToUpload] = useState<File | null>(null);
 	const { isAboveMb } = useBreakpoint("mb");
+	const { isAboveSm } = useBreakpoint("sm");
 
 	const FormSchema = File_FormSchemaGenerator(
 		[
@@ -164,7 +165,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 					<div className="mb:col-span-4 flex flex-col gap-3">
 						{/* Image Preview */}
 						<div className="w-full rounded-md overflow-clip border border-border/50">
-							<AspectRatio ratio={isAboveMb ? 1 / 1 : 16 / 9}>
+							<AspectRatio ratio={isAboveMb ? 1 / 1 : isAboveSm ? 16 / 9 : 15 / 12}>
 								<Image
 									ref={displayImageRef}
 									alt="Display image before upload"
