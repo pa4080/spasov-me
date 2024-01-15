@@ -65,6 +65,7 @@ const TagForm: React.FC<Props> = ({
 			description: "",
 			icon: undefined,
 			tagType: tagType,
+			orderKey: "",
 		},
 		values: formData,
 	});

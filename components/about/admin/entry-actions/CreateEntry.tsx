@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
-import { BsSendCheck } from "react-icons/bs";
 
 import { createEntry } from "@/components/about/_about.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
@@ -15,13 +14,14 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { toast } from "@/components/ui/use-toast";
 import { FileListItem } from "@/interfaces/File";
 import { TagData } from "@/interfaces/Tag";
 import { AboutEntryType } from "@/interfaces/_dataTypes";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
+
+import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 
 import EntryForm from "../entry-form";
 import { Entry_FormSchema } from "../entry-form/schema";
@@ -58,20 +58,12 @@ const CreateEntry: React.FC<Props> = ({ className, type, files, tags }) => {
 				Route.public.ABOUT.uri,
 			]);
 
-			if (response) {
-				toast({
-					description: (
-						<div className="flex flex-col items-center gap-2 justify-center w-full">
-							<div className="flex items-center gap-2 justify-between">
-								<span className="text-base">{t("toast_submitted")}</span>
-								<span className="text-3xl">
-									<BsSendCheck />
-								</span>
-							</div>
-						</div>
-					),
-				});
-			}
+			serverActionResponseToastAndLocationReload({
+				trigger: !!response,
+				msgSuccess: t("toast_success"),
+				msgError: t("toast_error"),
+				redirectTo: pathname,
+			});
 		} catch (error) {
 			console.error(error);
 		} finally {

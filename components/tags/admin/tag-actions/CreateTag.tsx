@@ -4,8 +4,6 @@ import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
 
-import { BsSendCheck } from "react-icons/bs";
-
 import {
 	Dialog,
 	DialogContent,
@@ -18,12 +16,13 @@ import {
 import { msgs } from "@/messages";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
-import { toast } from "@/components/ui/use-toast";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 
 import { TagType } from "@/interfaces/_dataTypes";
 
 import { IconMap } from "@/interfaces/IconMap";
+
+import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 
 import TagForm from "../tag-form";
 
@@ -59,20 +58,12 @@ const CreateTag: React.FC<Props> = ({ className, tagType, icons }) => {
 
 			const response = await createTag(generateFormDataFromObject(data), [pathname]);
 
-			if (response) {
-				toast({
-					description: (
-						<div className="flex flex-col items-center gap-2 justify-center w-full">
-							<div className="flex items-center gap-2 justify-between">
-								<span className="text-base">{t("toast_submitted")}</span>
-								<span className="text-3xl">
-									<BsSendCheck />
-								</span>
-							</div>
-						</div>
-					),
-				});
-			}
+			serverActionResponseToastAndLocationReload({
+				trigger: !!response,
+				msgSuccess: t("toast_success"),
+				msgError: t("toast_error"),
+				redirectTo: pathname,
+			});
 		} catch (error) {
 			console.error(error);
 		} finally {
