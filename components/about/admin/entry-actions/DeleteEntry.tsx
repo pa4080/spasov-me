@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
-import { BsSendCheck } from "react-icons/bs";
 
 import { deleteEntry } from "@/components/about/_about.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
+import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -18,7 +18,6 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
 import { AboutEntryType } from "@/interfaces/_dataTypes";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
@@ -45,22 +44,12 @@ const DeleteEntry: React.FC<Props> = ({ className, type, entry_id }) => {
 		try {
 			const response = await deleteEntry(entry_id, [pathname, Route.public.ABOUT.uri]);
 
-			if (response) {
-				toast({
-					description: (
-						<div className="flex flex-col items-center gap-2 justify-center w-full">
-							<div className="flex items-center gap-2 justify-between">
-								<span className="text-base">{t("toast_deleted")}</span>
-								<span className="text-3xl">
-									<BsSendCheck />
-								</span>
-							</div>
-						</div>
-					),
-					// variant: "destructive",
-					variant: "default",
-				});
-			}
+			serverActionResponseToastAndLocationReload({
+				trigger: !!response,
+				msgSuccess: t("toast_success"),
+				msgError: t("toast_error"),
+				redirectTo: pathname,
+			});
 		} catch (error) {
 			console.error(error);
 		} finally {

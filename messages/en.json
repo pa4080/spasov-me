@@ -174,14 +174,18 @@
 		"dialog_description": "",
 		"dialog_btn_add": "Add a new entry",
 		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The entry was successfully created."
+		"toast_submitted": "The entry was successfully created.",
+		"toast_success": "The entry was successfully created.",
+		"toast_error": "Something went wrong. Please try again."
 	},
 	"AboutCV_UpdateEntry": {
 		"dialog_title": "Update an existing { entryType } entry",
 		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
 		"dialog_btn_add": "Update the entry",
 		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The entry was successfully updated."
+		"toast_submitted": "The entry was successfully updated.",
+		"toast_success": "The entry was successfully updated.",
+		"toast_error": "Something went wrong. Please try again."
 	},
 	"AboutCV_DeleteEntry": {
 		"dialog_title": "Delete an entry of type { entryType } ",
@@ -189,7 +193,9 @@
 		"dialog_btn_delete": "Delete the entry",
 		"dialog_btn_delete_submitting": "Deleting...",
 		"dialog_btn_cancel": "Cancel",
-		"toast_deleted": "The entry was successfully deleted!"
+		"toast_deleted": "The entry was successfully deleted!",
+		"toast_success": "The entry was successfully deleted!",
+		"toast_error": "Something went wrong. Please try again."
 	},
 	"AboutCV_Form": {
 		"schema_title": "The entry title must be at least 4 characters.",
@@ -288,14 +294,18 @@
 		"dialog_description": "",
 		"dialog_btn_add": "Add a new tag",
 		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The tag was successfully created."
+		"toast_submitted": "The tag was successfully created.",
+		"toast_success": "The tag was successfully created.",
+		"toast_error": "Something went wrong. Please try again."
 	},
 	"TagsAdmin_UpdateEntry": {
 		"dialog_title": "Update an existing { tagType } tag",
 		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
 		"dialog_btn_add": "Update the tag",
 		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The tag was successfully updated."
+		"toast_submitted": "The tag was successfully updated.",
+		"toast_success": "The tag was successfully updated.",
+		"toast_error": "Something went wrong. Please try again."
 	},
 	"TagsAdmin_Display": {
 		"name": "Name (slug)",
@@ -310,7 +320,9 @@
 		"dialog_btn_delete": "Delete the tag",
 		"dialog_btn_delete_submitting": "Deleting...",
 		"dialog_btn_cancel": "Cancel",
-		"toast_deleted": "The tag was successfully deleted!"
+		"toast_deleted": "The tag was successfully deleted!",
+		"toast_success": "The tag was successfully deleted!",
+		"toast_error": "Something went wrong. Please try again."
 	},
 	"TagsAdmin_Form": {
 		"schema_name_length": "The tag name must be at least 2 characters (lowercase).",
@@ -370,7 +382,9 @@
 		"dialog_description": "",
 		"dialog_btn_add": "Add a new file",
 		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The file was successfully created."
+		"toast_submitted": "The file was successfully created.",
+		"toast_success": "The file was successfully created (uploaded).",
+		"toast_error": "Something went wrong. Please try again."
 	},
 	"FilesAdmin_DeleteFile": {
 		"dialog_title": "Delete a file",
@@ -378,16 +392,38 @@
 		"dialog_btn_delete": "Delete the file",
 		"dialog_btn_delete_submitting": "Deleting...",
 		"dialog_btn_cancel": "Cancel",
-		"toast_deleted": "The file was successfully deleted!"
+		"toast_deleted": "The file was successfully deleted!",
+		"toast_success": "The file was successfully deleted!",
+		"toast_error": "Something went wrong. Please try again."
 	},
 	"FilesAdmin_UpdateFile": {
 		"dialog_title": "Update a file",
 		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
 		"dialog_btn_add": "Update the file",
 		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The file was successfully updated."
+		"toast_submitted": "The file was successfully updated.",
+		"toast_success": "The file was successfully updated.",
+		"toast_error": "Something went wrong. Please try again."
 	},
-	"FilesFeed": {
+	"FilesAdmin_Form": {
+		"schema_file": "The file is absolutely required. It cannot start with a special character or a number.",
+
+		"fileInput_label": "",
+		"fileInput_placeholder": "The allowed formats are: png, jpg, jpeg, svg, webp, jfif, pdf, pptx, xlsx, docx.",
+		"fileInput_description": "",
+
+		"filename_label": "",
+		"filename_placeholder": "Override the name of the file. Use numbers, latin alphabet, dashes and underscores.",
+		"filename_description": "",
+
+		"description_label": "",
+		"description_placeholder": "Description of the file. It will be used as a description in the galleries.",
+		"description_description": "",
+
+		"btn_submit": "Submit",
+		"btn_submitting": "Submitting..."
+	},
+	"FilesAdmin_Form_OLD": {
 		"dialog_title_upload": "Upload a file",
 		"dialog_title_edit": "Edit the file \"{ filename }\"",
 		"dialog_title_delete": "You are about to delete the file \"{ filename }\"",

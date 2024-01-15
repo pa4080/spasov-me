@@ -65,13 +65,14 @@ const TagForm: React.FC<Props> = ({
 			description: "",
 			icon: undefined,
 			tagType: tagType,
+			orderKey: "",
 		},
 		values: formData,
 	});
 
 	return (
 		<Form {...form}>
-			<form className={`w-full space-y-6 ${className}`} onSubmit={form.handleSubmit(onSubmit)}>
+			<form className={`w-full space-y-4 ${className}`} onSubmit={form.handleSubmit(onSubmit)}>
 				<div className="flex flex-col gap-3">
 					{/* Name */}
 					<FormField
@@ -81,7 +82,7 @@ const TagForm: React.FC<Props> = ({
 							<FormItem className="space-y-0">
 								{t("name_label") && <FormLabel>{t("name_label")}</FormLabel>}
 								<FormControl>
-									<Input placeholder={t("name_placeholder")} {...field} />
+									<Input className="text-lg" placeholder={t("name_placeholder")} {...field} />
 								</FormControl>
 
 								{form.formState.errors.name ? (

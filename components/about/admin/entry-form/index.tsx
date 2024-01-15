@@ -16,7 +16,6 @@ import {
 	Form,
 	FormControl,
 	FormDescription,
-	// FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -95,8 +94,13 @@ const EntryForm: React.FC<Props> = ({
 
 	return (
 		<Form {...form}>
-			<form className={`w-full space-y-6 ${className}`} onSubmit={form.handleSubmit(onSubmit)}>
+			<form
+				className={`w-full space-y-4 relative ${className}`}
+				onSubmit={form.handleSubmit(onSubmit)}
+			>
+				{/* Grid */}
 				<div className="flex flex-col sm:grid sm:grid-cols-7 gap-3">
+					{/* Left grid */}
 					<div className="sm:col-span-2 flex flex-col gap-3">
 						<div className="flex gap-3 sm:flex-col w-full">
 							{/* Country */}
@@ -134,6 +138,7 @@ const EntryForm: React.FC<Props> = ({
 							/>
 						</div>
 
+						{/* Date From and Date To */}
 						<div className="flex gap-3 sm:gap-1 w-full">
 							{/* Date From */}
 							<DatePicker
@@ -221,6 +226,7 @@ const EntryForm: React.FC<Props> = ({
 						)}
 					</div>
 
+					{/* Right grid */}
 					<div className="sm:col-span-5 flex flex-col gap-3 h-full">
 						{/* Title */}
 						<FormField
@@ -287,7 +293,7 @@ const EntryForm: React.FC<Props> = ({
 						/>
 					</div>
 
-					{/* Tags */}
+					{/* Tags - full grid */}
 					<MultiSelectFromList
 						Icon={Tag}
 						className="w-full sm:col-span-7"
@@ -317,7 +323,7 @@ const EntryForm: React.FC<Props> = ({
 						}
 					/>
 
-					{/* Gallery */}
+					{/* Gallery - full grid */}
 					<MultiSelectFromList
 						Icon={Paperclip}
 						className="w-full sm:col-span-7"
@@ -342,6 +348,7 @@ const EntryForm: React.FC<Props> = ({
 					/>
 				</div>
 
+				{/* Submit button */}
 				<Button disabled={submitting} type="submit">
 					{submitting ? t("btn_submitting") : t("btn_submit")}
 				</Button>

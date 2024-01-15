@@ -3,11 +3,9 @@
 import React, { useRef, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-
-import slugify from "slugify";
-
 import Image from "next/image";
+import { useForm } from "react-hook-form";
+import slugify from "slugify";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -29,7 +27,7 @@ import { FileDocument } from "@/interfaces/File";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
-import styles from "../../_files.module.scss";
+import styles from "../_files-old.module.scss";
 import { Files_FormSchema, FormSchemaGenerator } from "./schema";
 
 interface Props {
@@ -41,7 +39,7 @@ interface Props {
 }
 
 const Files_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
-	const t = msgs("FilesFeed");
+	const t = msgs("FilesAdmin_Form_OLD");
 	const locale = "en";
 
 	const displayImageRef = useRef<HTMLImageElement>(null);

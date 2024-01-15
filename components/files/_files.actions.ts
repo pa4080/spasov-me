@@ -238,7 +238,7 @@ export const updateFile = async (
 				bucket.rename(_id, newDocData.file_name);
 			}
 
-			return null;
+			return true;
 		}
 	} catch (error) {
 		console.error(error);
@@ -249,7 +249,7 @@ export const updateFile = async (
 	}
 };
 
-export const removeFile = async (file_id: string, paths: string[]): Promise<boolean | null> => {
+export const deleteFile = async (file_id: string, paths: string[]): Promise<true | null> => {
 	try {
 		const session = await getSession();
 

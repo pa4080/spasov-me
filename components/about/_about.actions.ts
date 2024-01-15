@@ -193,7 +193,7 @@ export const updateEntry = async (
 	}
 };
 
-export const deleteEntry = async (entry_id: string, paths: string[]): Promise<boolean | null> => {
+export const deleteEntry = async (entry_id: string, paths: string[]): Promise<true | null> => {
 	try {
 		const session = await getSession();
 
@@ -207,11 +207,7 @@ export const deleteEntry = async (entry_id: string, paths: string[]): Promise<bo
 
 		const deletedObject = await AboutEntry.findOneAndDelete(mongo_id_obj(entry_id));
 
-		if (!deletedObject) {
-			return null;
-		}
-
-		return !!deletedObject.ok;
+		return !!deletedObject ? true : null;
 	} catch (error) {
 		console.error(error);
 

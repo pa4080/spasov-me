@@ -113,7 +113,7 @@ export const updateTag = async (
 	}
 };
 
-export const deleteTag = async (tag_id: string, paths: string[]): Promise<boolean | null> => {
+export const deleteTag = async (tag_id: string, paths: string[]): Promise<true | null> => {
 	try {
 		const session = await getSession();
 
@@ -127,11 +127,7 @@ export const deleteTag = async (tag_id: string, paths: string[]): Promise<boolea
 
 		const deletedObject = await Tag.findOneAndDelete(mongo_id_obj(tag_id));
 
-		if (!deletedObject) {
-			return null;
-		}
-
-		return !!deletedObject.ok;
+		return !!deletedObject ? true : null;
 	} catch (error) {
 		console.error(error);
 

@@ -1,12 +1,12 @@
 "use server";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 import { authOptions } from "@/lib/auth-options";
 
 export const revalidatePaths = async <T extends string>({
 	paths,
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	redirectTo,
 }: {
 	paths: T[];
@@ -17,19 +17,23 @@ export const revalidatePaths = async <T extends string>({
 			revalidatePath(path);
 		});
 
-		// redirect() cause a specific Next.js error,
-		// so it must be outside the try block!
-
 		return paths;
 	} catch (error) {
 		console.error(error);
 
 		return null;
-	} finally {
-		if (redirectTo) {
-			setTimeout(() => redirect(redirectTo), 1000);
-		}
 	}
+	/**
+	 * redirect() cause a specific Next.js error, so it must be outside the try block!
+	 * Actually the errors generates by redirect() causes internal server error in production.
+	 * We are refreshing the page via a client side component @see ServerActionResponseNotify.tsx
+	 *
+	 finally {
+	 	if (redirectTo) {
+	 		setTimeout(() => redirect(redirectTo), 1000);
+	 	}
+	 }
+	 */
 };
 
 export const getSession = async () => {

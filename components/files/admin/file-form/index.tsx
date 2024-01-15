@@ -1,13 +1,12 @@
 "use client";
-
 import React, { useRef, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-
-import slugify from "slugify";
-
+import MDEditor, { commands } from "@uiw/react-md-editor";
+import { useTheme } from "next-themes";
 import Image from "next/image";
+import { useForm } from "react-hook-form";
+import slugify from "slugify";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
@@ -26,7 +25,9 @@ import { roundTo } from "@/lib/round";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import styles from "../../_files.module.scss";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
+
+import styles from "./_files-form.module.scss";
 import { File_FormSchema, File_FormSchemaGenerator } from "./schema";
 
 interface Props {
@@ -38,21 +39,25 @@ interface Props {
 }
 
 const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
-	const t = msgs("FilesFeed");
+	const t = msgs("FilesAdmin_Form");
 	const locale = "en";
 
 	const displayImageRef = useRef<HTMLImageElement>(null);
 	const [fileToUpload, setFileToUpload] = useState<File | null>(null);
+	const { isAboveMb } = useBreakpoint("mb");
+	const { isAboveSm } = useBreakpoint("sm");
 
 	const FormSchema = File_FormSchemaGenerator(
 		[
-			t("formSchema_file"),
-			t("formSchema_name"),
-			t("form_fileInputDescription"),
-			t("formSchema_description"),
+			t("schema_file"),
+			t("fileInput_placeholder"),
+			t("fileInput_placeholder"),
+			t("fileInput_placeholder"),
 		],
 		!!formData
 	);
+
+	const { theme } = useTheme();
 
 	const form = useForm<File_FormSchema>({
 		resolver: zodResolver(FormSchema),
@@ -81,10 +86,10 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 				}
 			);
 
-			if (!filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/)) {
+			if (!filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif|jfif)$/)) {
 				form.setError("file", {
 					type: "manual",
-					message: t("form_fileInputDescription"),
+					message: t("fileInput_placeholder"),
 				});
 
 				return;
@@ -129,7 +134,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 		if (!fileToUpload && !formData) {
 			form.setError("file", {
 				type: "manual",
-				message: t("formSchema_file"),
+				message: t("schema_file"),
 			});
 
 			return;
@@ -150,92 +155,135 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 
 	return (
 		<Form {...form}>
-			<form className={`${styles.form} ${className}`} onSubmit={form.handleSubmit(handleSubmit)}>
-				<FormItem>
-					<FormLabel
-						className={form.formState.errors.file ? "text-destructive" : "text-foreground"}
-						htmlFor="file-input"
-					>
-						{t("form_fileInput")}
-					</FormLabel>
-
-					<FormControl>
-						<div className={styles.fileInputWrapper}>
-							<Input
-								id="file-input"
-								{...form.register("file")}
-								accept="image/*, .pdf, .pptx, .xlsx, .docx"
-								className={styles.fileInput}
-								type="file"
-								onChange={handleInputFileChange}
-							/>
+			<form
+				className={`w-full space-y-4 relative ${className}`}
+				onSubmit={form.handleSubmit(handleSubmit)}
+			>
+				{/* Grid */}
+				<div className="flex flex-col-reverse mb:grid mb:grid-cols-9 gap-3">
+					{/* Left grid */}
+					<div className="mb:col-span-4 flex flex-col gap-3">
+						{/* Image Preview */}
+						<div className="w-full rounded-md overflow-clip border border-border/50">
+							<AspectRatio ratio={isAboveMb ? 1 / 1 : isAboveSm ? 16 / 9 : 15 / 12}>
+								<Image
+									ref={displayImageRef}
+									alt="Display image before upload"
+									className="object-cover object-center w-full h-full rounded-md"
+									height="0"
+									sizes="208px"
+									src={fileUri}
+									width="0"
+								/>
+							</AspectRatio>
 						</div>
-					</FormControl>
-
-					{form.formState.errors.file ? (
-						<p className="text-sm font-medium text-destructive">
-							{String(form.formState.errors.file.message)}
-						</p>
-					) : (
-						<FormDescription>{t("form_fileInputDescription")}</FormDescription>
-					)}
-				</FormItem>
-
-				<FormField
-					control={form.control}
-					name="filename"
-					render={({ field }) => (
+					</div>
+					{/* Right grid */}
+					<div className="mb:col-span-5 flex flex-col gap-3 h-full">
+						{/* File input  */}
 						<FormItem>
-							<FormLabel>{t("form_fileName")}</FormLabel>
+							{t("fileInput_label") && (
+								<FormLabel
+									className={form.formState.errors.file ? "text-destructive" : "text-foreground"}
+									htmlFor="file-input"
+								>
+									{t("fileInput_label")}
+								</FormLabel>
+							)}
+
 							<FormControl>
-								<Input placeholder={t("form_fileNamePlaceholder")} {...field} />
+								<div className={styles.fileInputWrapper}>
+									<Input
+										id="file-input"
+										{...form.register("file")}
+										accept="image/*, .pdf, .pptx, .xlsx, .docx"
+										className={styles.fileInput}
+										placeholder={t("fileInput_placeholder")}
+										type="file"
+										onChange={handleInputFileChange}
+									/>
+								</div>
 							</FormControl>
 
-							{form.formState.errors.filename ? (
-								<FormMessage />
+							{form.formState.errors.file ? (
+								<p className="text-sm font-medium text-destructive">
+									{String(form.formState.errors.file.message)}
+								</p>
 							) : (
-								<FormDescription>{t("form_fileNameDescription")}</FormDescription>
+								t("fileInput_description") && (
+									<FormDescription>{t("fileInput_description")}</FormDescription>
+								)
 							)}
 						</FormItem>
-					)}
-				/>
 
-				<FormField
-					control={form.control}
-					name="description"
-					render={({ field }) => (
-						<FormItem className="">
-							<FormLabel>{t("form_fileDescription")}</FormLabel>
-							<FormControl>
-								<Input placeholder={t("form_fileDescriptionPlaceholder")} {...field} />
-							</FormControl>
+						{/* Filename */}
+						<FormField
+							control={form.control}
+							name="filename"
+							render={({ field }) => (
+								<FormItem className="space-y-0">
+									{t("filename_label") && <FormLabel>{t("filename_label")}</FormLabel>}
+									<FormControl>
+										<Input className="text-lg" placeholder={t("filename_placeholder")} {...field} />
+									</FormControl>
 
-							{form.formState.errors.description ? (
-								<FormMessage />
-							) : (
-								<FormDescription>{t("form_fileDescriptionDescription")}</FormDescription>
+									{form.formState.errors.filename ? (
+										<FormMessage />
+									) : (
+										t("filename_description") && (
+											<FormDescription>{t("filename_description")}</FormDescription>
+										)
+									)}
+								</FormItem>
 							)}
-						</FormItem>
-					)}
-				/>
-
-				<Button type="submit">
-					{submitting ? t("form_btn_submitting") : t("form_btn_submit")}
-				</Button>
-
-				<div className="w-full rounded-md overflow-hidden">
-					<AspectRatio ratio={16 / 9}>
-						<Image
-							ref={displayImageRef}
-							alt="Display image before upload"
-							className="object-cover object-center w-full h-full rounded-md"
-							height="0"
-							sizes="208px"
-							src={fileUri}
-							width="0"
 						/>
-					</AspectRatio>
+
+						{/* Description */}
+						<FormField
+							control={form.control}
+							name="description"
+							render={({ field }) => (
+								<FormItem
+									className="flex-grow h-auto mb:h-1"
+									data-color-mode={theme === "dark" ? "dark" : "light" || "auto"}
+								>
+									{t("description_label") && <FormLabel>{t("description_label")}</FormLabel>}
+									<FormControl>
+										<MDEditor
+											autoFocus
+											enableScroll
+											commands={[...commands.getCommands()]}
+											height={form.formState.errors.description ? "calc(100% - 1.8em)" : "100%"}
+											overflow={false}
+											preview="edit"
+											textareaProps={{
+												spellCheck: true,
+												placeholder: t("description_placeholder"),
+												style: {
+													overscrollBehavior: "none",
+													display: "block",
+													color: "inherit",
+												},
+											}}
+											value={field.value}
+											onChange={field.onChange}
+										/>
+									</FormControl>
+									{form.formState.errors.description ? (
+										<FormMessage className="z-10 relative" />
+									) : (
+										t("description_description") && (
+											<FormDescription>{t("description_description")}</FormDescription>
+										)
+									)}
+								</FormItem>
+							)}
+						/>
+					</div>
 				</div>
+
+				{/* Submit button */}
+				<Button type="submit">{submitting ? t("btn_submitting") : t("btn_submit")}</Button>
 			</form>
 		</Form>
 	);

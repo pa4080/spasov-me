@@ -31,7 +31,7 @@ interface Props {
 }
 
 const FileDelete: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileId }) => {
-	const t = msgs("FilesFeed");
+	const t = msgs("FilesAdmin_Form_OLD");
 	const { session, setFiles } = useAppContext();
 	const [submitting, setSubmitting] = useState(false);
 

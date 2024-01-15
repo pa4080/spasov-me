@@ -248,6 +248,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	it_gitlab: {
+		name: "it_gitlab",
+		uri: {
+			light: "/assets/icons/it/gitlab.svg",
+			dark: "/assets/icons/it/gitlab.svg",
+		},
+		info: {
+			height: 2305,
+			width: 2500,
+			type: "svg",
+			ratio: 1.08,
+		},
+	},
 	it_html: {
 		name: "it_html",
 		uri: {

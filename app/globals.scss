@@ -352,6 +352,14 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 }
 
 /* Markdown Editor */
+body .w-md-editor {
+	border-radius: theme("borderRadius.md");
+}
+
+body .w-md-editor-toolbar {
+	border-radius: theme("borderRadius.md") theme("borderRadius.md") 0 0;
+}
+
 body .w-md-editor-text-pre > code,
 body .w-md-editor-text-input,
 body .w-md-editor-preview > * {

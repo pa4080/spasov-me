@@ -43,13 +43,15 @@ const Section: React.FC<Props> = ({ className, files, type = "common", visibleIt
 			</SectionHeader>
 
 			<div className={styles.feed}>
-				{files?.map((file, index) => (
-					<FileCard
-						key={index}
-						className={visibleItems > index ? "" : "section-card-collapsible"}
-						file={file}
-					/>
-				))}
+				{files
+					?.sort((b, a) => a.uploadDate.getTime() - b.uploadDate.getTime())
+					?.map((file, index) => (
+						<FileCard
+							key={index}
+							className={visibleItems > index ? "" : "section-card-collapsible"}
+							file={file}
+						/>
+					))}
 			</div>
 		</div>
 	);
