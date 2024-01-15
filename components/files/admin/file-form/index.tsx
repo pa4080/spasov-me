@@ -2,6 +2,8 @@
 import React, { useRef, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import MDEditor, { commands } from "@uiw/react-md-editor";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import slugify from "slugify";
@@ -23,6 +25,8 @@ import { roundTo } from "@/lib/round";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import { useBreakpoint } from "@/hooks/useBreakpoint";
+
 import styles from "./_files-form.module.scss";
 import { File_FormSchema, File_FormSchemaGenerator } from "./schema";
 
@@ -40,6 +44,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 
 	const displayImageRef = useRef<HTMLImageElement>(null);
 	const [fileToUpload, setFileToUpload] = useState<File | null>(null);
+	const { isAboveMb } = useBreakpoint("mb");
 
 	const FormSchema = File_FormSchemaGenerator(
 		[
@@ -50,6 +55,8 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 		],
 		!!formData
 	);
+
+	const { theme } = useTheme();
 
 	const form = useForm<File_FormSchema>({
 		resolver: zodResolver(FormSchema),
@@ -152,12 +159,12 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 				onSubmit={form.handleSubmit(handleSubmit)}
 			>
 				{/* Grid */}
-				<div className="flex flex-col sm:grid sm:grid-cols-8 gap-3">
+				<div className="flex flex-col-reverse mb:grid mb:grid-cols-9 gap-3">
 					{/* Left grid */}
-					<div className="sm:col-span-4 flex flex-col gap-3">
+					<div className="mb:col-span-4 flex flex-col gap-3">
 						{/* Image Preview */}
-						<div className="w-full rounded-md overflow-clip">
-							<AspectRatio ratio={4 / 3}>
+						<div className="w-full rounded-md overflow-clip border border-border/50">
+							<AspectRatio ratio={isAboveMb ? 1 / 1 : 16 / 9}>
 								<Image
 									ref={displayImageRef}
 									alt="Display image before upload"
@@ -171,7 +178,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 						</div>
 					</div>
 					{/* Right grid */}
-					<div className="sm:col-span-4 flex flex-col gap-3 h-full">
+					<div className="mb:col-span-5 flex flex-col gap-3 h-full">
 						{/* File input  */}
 						<FormItem>
 							{t("fileInput_label") && (
@@ -235,14 +242,34 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 							control={form.control}
 							name="description"
 							render={({ field }) => (
-								<FormItem className="">
+								<FormItem
+									className="flex-grow h-auto mb:h-1"
+									data-color-mode={theme === "dark" ? "dark" : "light" || "auto"}
+								>
 									{t("description_label") && <FormLabel>{t("description_label")}</FormLabel>}
 									<FormControl>
-										<Input placeholder={t("description_placeholder")} {...field} />
+										<MDEditor
+											autoFocus
+											enableScroll
+											commands={[...commands.getCommands()]}
+											height={form.formState.errors.description ? "calc(100% - 1.8em)" : "100%"}
+											overflow={false}
+											preview="edit"
+											textareaProps={{
+												spellCheck: true,
+												placeholder: t("description_placeholder"),
+												style: {
+													overscrollBehavior: "none",
+													display: "block",
+													color: "inherit",
+												},
+											}}
+											value={field.value}
+											onChange={field.onChange}
+										/>
 									</FormControl>
-
 									{form.formState.errors.description ? (
-										<FormMessage />
+										<FormMessage className="z-10 relative" />
 									) : (
 										t("description_description") && (
 											<FormDescription>{t("description_description")}</FormDescription>

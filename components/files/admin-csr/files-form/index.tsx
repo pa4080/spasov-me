@@ -29,7 +29,7 @@ import { FileDocument } from "@/interfaces/File";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
-import styles from "../../_files.module.scss";
+import styles from "../_files-old.module.scss";
 import { Files_FormSchema, FormSchemaGenerator } from "./schema";
 
 interface Props {
