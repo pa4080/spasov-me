@@ -387,7 +387,25 @@
 		"dialog_btn_add_submitting": "Submitting...",
 		"toast_submitted": "The file was successfully updated."
 	},
-	"FilesFeed": {
+	"FilesAdmin_Form": {
+		"schema_file": "The file is absolutely required. It cannot start with a special character or a number.",
+
+		"fileInput_label": "",
+		"fileInput_placeholder": "The allowed formats are: png, jpg, jpeg, svg, webp, jfif, pdf, pptx, xlsx, docx.",
+		"fileInput_description": "",
+
+		"filename_label": "",
+		"filename_placeholder": "Override the name of the file. Use numbers, latin alphabet, dashes and underscores.",
+		"filename_description": "",
+
+		"description_label": "",
+		"description_placeholder": "Description of the file. It will be used as a description in the galleries.",
+		"description_description": "",
+
+		"btn_submit": "Submit",
+		"btn_submitting": "Submitting..."
+	},
+	"FilesAdmin_Form_OLD": {
 		"dialog_title_upload": "Upload a file",
 		"dialog_title_edit": "Edit the file \"{ filename }\"",
 		"dialog_title_delete": "You are about to delete the file \"{ filename }\"",

@@ -28,7 +28,7 @@ interface Props {
 }
 
 const FileCreate: React.FC<Props> = ({ className }) => {
-	const t = msgs("FilesFeed");
+	const t = msgs("FilesAdmin_Form");
 	const { session, setFiles } = useAppContext();
 
 	const [submitting, setSubmitting] = useState(false);

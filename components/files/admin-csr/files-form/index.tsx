@@ -41,7 +41,7 @@ interface Props {
 }
 
 const Files_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
-	const t = msgs("FilesFeed");
+	const t = msgs("FilesAdmin_Form_OLD");
 	const locale = "en";
 
 	const displayImageRef = useRef<HTMLImageElement>(null);

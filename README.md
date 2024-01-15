@@ -6,14 +6,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## WARNING
 
-**January 2024: The package `sharp 0.33.2` requires _Node-API v9, including Node.js (^18.17.0 or >= 20.3.0), Deno and Bun._ Unfortunately the versions of Node.js available on Vercel are not compatible with the lates version of this package. So we are still using `sharp 0.32.6` for now.**
+**January 2024: The package [`sharp 0.33.2`](https://www.npmjs.com/package//sharp#sharp) requires _Node-API v9, including Node.js (^18.17.0 or >= 20.3.0), Deno and Bun._ Unfortunately the versions of Node.js available on Vercel are not compatible with the lates version of this package. So we are still using `sharp 0.32.6` for now.**
 
 ## Todo
 
 - [ ] Refactor Files
-  - [ ] Upload form + MarkDown dor the description
-  - [ ] Get the files on the server side ?
-- [ ] Refactor Pages/admin like the oder admin pages ??
+  - [ ] Upload form + MarkDown for the description
+  - [x] Get the files on the server side ?
+- [ ] Refactor Pages/admin like the other admin pages ??
   - [ ] Use server actions to get and manipulate the data
   - [ ] Simplify `_pages.actions.ts` by removing th un necessary return objects
   - [ ] Add revalidation and redirect to the end of the actions

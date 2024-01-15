@@ -29,7 +29,7 @@ interface Props {
 }
 
 const FileEdit: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileId }) => {
-	const t = msgs("FilesFeed");
+	const t = msgs("FilesAdmin_Form");
 	const { session, setFiles } = useAppContext();
 
 	const [submitting, setSubmitting] = useState(false);

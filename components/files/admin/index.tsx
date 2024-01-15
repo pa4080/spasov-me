@@ -13,7 +13,7 @@ const FilesAdmin: React.FC<Props> = async ({ className }) => {
 
 	return (
 		<div className={`${styles.files} ${className}`}>
-			<Section files={files} type="common" visibleItems={12} />
+			<Section files={files} type="common" visibleItems={8} />
 		</div>
 	);
 };

@@ -1,13 +1,10 @@
 "use client";
-
 import React, { useRef, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-
-import slugify from "slugify";
-
 import Image from "next/image";
+import { useForm } from "react-hook-form";
+import slugify from "slugify";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
@@ -26,7 +23,7 @@ import { roundTo } from "@/lib/round";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import styles from "../../_files.module.scss";
+import styles from "./_files-form.module.scss";
 import { File_FormSchema, File_FormSchemaGenerator } from "./schema";
 
 interface Props {
@@ -38,7 +35,7 @@ interface Props {
 }
 
 const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
-	const t = msgs("FilesFeed");
+	const t = msgs("FilesAdmin_Form");
 	const locale = "en";
 
 	const displayImageRef = useRef<HTMLImageElement>(null);
@@ -46,10 +43,10 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 
 	const FormSchema = File_FormSchemaGenerator(
 		[
-			t("formSchema_file"),
-			t("formSchema_name"),
-			t("form_fileInputDescription"),
-			t("formSchema_description"),
+			t("schema_file"),
+			t("fileInput_placeholder"),
+			t("fileInput_placeholder"),
+			t("fileInput_placeholder"),
 		],
 		!!formData
 	);
@@ -81,10 +78,10 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 				}
 			);
 
-			if (!filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/)) {
+			if (!filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif|jfif)$/)) {
 				form.setError("file", {
 					type: "manual",
-					message: t("form_fileInputDescription"),
+					message: t("fileInput_placeholder"),
 				});
 
 				return;
@@ -129,7 +126,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 		if (!fileToUpload && !formData) {
 			form.setError("file", {
 				type: "manual",
-				message: t("formSchema_file"),
+				message: t("schema_file"),
 			});
 
 			return;
@@ -150,92 +147,115 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 
 	return (
 		<Form {...form}>
-			<form className={`${styles.form} ${className}`} onSubmit={form.handleSubmit(handleSubmit)}>
-				<FormItem>
-					<FormLabel
-						className={form.formState.errors.file ? "text-destructive" : "text-foreground"}
-						htmlFor="file-input"
-					>
-						{t("form_fileInput")}
-					</FormLabel>
-
-					<FormControl>
-						<div className={styles.fileInputWrapper}>
-							<Input
-								id="file-input"
-								{...form.register("file")}
-								accept="image/*, .pdf, .pptx, .xlsx, .docx"
-								className={styles.fileInput}
-								type="file"
-								onChange={handleInputFileChange}
-							/>
+			<form
+				className={`w-full space-y-6 relative ${className}`}
+				onSubmit={form.handleSubmit(handleSubmit)}
+			>
+				{/* Grid */}
+				<div className="flex flex-col sm:grid sm:grid-cols-8 gap-3">
+					{/* Left grid */}
+					<div className="sm:col-span-4 flex flex-col gap-3">
+						{/* Image Preview */}
+						<div className="w-full rounded-md overflow-clip">
+							<AspectRatio ratio={4 / 3}>
+								<Image
+									ref={displayImageRef}
+									alt="Display image before upload"
+									className="object-cover object-center w-full h-full rounded-md"
+									height="0"
+									sizes="208px"
+									src={fileUri}
+									width="0"
+								/>
+							</AspectRatio>
 						</div>
-					</FormControl>
-
-					{form.formState.errors.file ? (
-						<p className="text-sm font-medium text-destructive">
-							{String(form.formState.errors.file.message)}
-						</p>
-					) : (
-						<FormDescription>{t("form_fileInputDescription")}</FormDescription>
-					)}
-				</FormItem>
-
-				<FormField
-					control={form.control}
-					name="filename"
-					render={({ field }) => (
+					</div>
+					{/* Right grid */}
+					<div className="sm:col-span-4 flex flex-col gap-3 h-full">
+						{/* File input  */}
 						<FormItem>
-							<FormLabel>{t("form_fileName")}</FormLabel>
+							{t("fileInput_label") && (
+								<FormLabel
+									className={form.formState.errors.file ? "text-destructive" : "text-foreground"}
+									htmlFor="file-input"
+								>
+									{t("fileInput_label")}
+								</FormLabel>
+							)}
+
 							<FormControl>
-								<Input placeholder={t("form_fileNamePlaceholder")} {...field} />
+								<div className={styles.fileInputWrapper}>
+									<Input
+										id="file-input"
+										{...form.register("file")}
+										accept="image/*, .pdf, .pptx, .xlsx, .docx"
+										className={styles.fileInput}
+										placeholder={t("fileInput_placeholder")}
+										type="file"
+										onChange={handleInputFileChange}
+									/>
+								</div>
 							</FormControl>
 
-							{form.formState.errors.filename ? (
-								<FormMessage />
+							{form.formState.errors.file ? (
+								<p className="text-sm font-medium text-destructive">
+									{String(form.formState.errors.file.message)}
+								</p>
 							) : (
-								<FormDescription>{t("form_fileNameDescription")}</FormDescription>
+								t("fileInput_description") && (
+									<FormDescription>{t("fileInput_description")}</FormDescription>
+								)
 							)}
 						</FormItem>
-					)}
-				/>
 
-				<FormField
-					control={form.control}
-					name="description"
-					render={({ field }) => (
-						<FormItem className="">
-							<FormLabel>{t("form_fileDescription")}</FormLabel>
-							<FormControl>
-								<Input placeholder={t("form_fileDescriptionPlaceholder")} {...field} />
-							</FormControl>
+						{/* Filename */}
+						<FormField
+							control={form.control}
+							name="filename"
+							render={({ field }) => (
+								<FormItem className="space-y-0">
+									{t("filename_label") && <FormLabel>{t("filename_label")}</FormLabel>}
+									<FormControl>
+										<Input placeholder={t("filename_placeholder")} {...field} />
+									</FormControl>
 
-							{form.formState.errors.description ? (
-								<FormMessage />
-							) : (
-								<FormDescription>{t("form_fileDescriptionDescription")}</FormDescription>
+									{form.formState.errors.filename ? (
+										<FormMessage />
+									) : (
+										t("filename_description") && (
+											<FormDescription>{t("filename_description")}</FormDescription>
+										)
+									)}
+								</FormItem>
 							)}
-						</FormItem>
-					)}
-				/>
-
-				<Button type="submit">
-					{submitting ? t("form_btn_submitting") : t("form_btn_submit")}
-				</Button>
-
-				<div className="w-full rounded-md overflow-hidden">
-					<AspectRatio ratio={16 / 9}>
-						<Image
-							ref={displayImageRef}
-							alt="Display image before upload"
-							className="object-cover object-center w-full h-full rounded-md"
-							height="0"
-							sizes="208px"
-							src={fileUri}
-							width="0"
 						/>
-					</AspectRatio>
+
+						{/* Description */}
+						<FormField
+							control={form.control}
+							name="description"
+							render={({ field }) => (
+								<FormItem className="">
+									{t("description_label") && <FormLabel>{t("description_label")}</FormLabel>}
+									<FormControl>
+										<Input placeholder={t("description_placeholder")} {...field} />
+									</FormControl>
+
+									{form.formState.errors.description ? (
+										<FormMessage />
+									) : (
+										t("description_description") && (
+											<FormDescription>{t("description_description")}</FormDescription>
+										)
+									)}
+								</FormItem>
+							)}
+						/>
+					</div>
 				</div>
+
+				{/* Submit button */}
+				<Button type="submit">{submitting ? t("btn_submitting") : t("btn_submit")}</Button>
 			</form>
 		</Form>
 	);
