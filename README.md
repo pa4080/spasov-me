@@ -13,12 +13,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [x] Refactor Files
   - [x] Upload form + MarkDown for the description
   - [x] Get the files on the server side ?
-- [ ] Refactor Pages/admin like the other admin pages ??
-  - [ ] Use server actions to get and manipulate the data
-  - [ ] Simplify `_pages.actions.ts` by removing th un necessary return objects
-  - [ ] Add revalidation and redirect to the end of the actions
+- [ ] Add relations field between the galleries and the files
+- [ ] Lock the file delete action while it is in use
 - [ ] Gallery display
-- [ ] Add relation field between the galleries and the files
 - [ ] Projects Admin? > Form design
 - [ ] Projects public
 - [ ] Single project + gallery > design
@@ -30,6 +27,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [ ] Blog feed public
 - [ ] Blog post public
 - [ ] API for creating blog posts
+- [ ] Refactor Pages/admin like the other admin pages ??
+  - [ ] Use server actions to get and manipulate the data
+  - [ ] Simplify `_pages.actions.ts` by removing th un necessary return objects
+  - [ ] Add revalidation and redirect to the end of the actions
 
 ## Next.js features to learn
 

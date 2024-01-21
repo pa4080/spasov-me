@@ -13,6 +13,7 @@ import { LucideIcon, X } from "lucide-react";
 import React, { KeyboardEvent, useCallback, useRef, useState } from "react";
 import { Control, FieldError, FieldValues, Merge, Path, PathValue } from "react-hook-form";
 
+import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,11 +25,8 @@ import {
 } from "@/components/ui/command";
 import { FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-
-import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
-import iconsMap, { IconsMapItem } from "@/public/assets/icons";
-
 import { FileData } from "@/interfaces/File";
+import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
 import DisplayFileImage from "./DisplayFileImage";
 
@@ -46,7 +44,7 @@ interface Props<T extends FieldValues> {
 	name: Path<T>;
 	itemsList: ItemList<T>;
 	Icon: LucideIcon;
-	maxLabelLength?: number;
+	labelMaxLength?: number;
 	displayType?: "label" | "tag_icon" | "gallery_image";
 	messages: {
 		label?: string;
@@ -72,7 +70,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
 	onSelect,
 	selected,
 	Icon,
-	maxLabelLength = 5,
+	labelMaxLength = 5,
 	displayType = "label",
 }: Props<T>) {
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -213,7 +211,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
 
 												// case "label":
 												default: {
-													const regExp = new RegExp(`^(.{${maxLabelLength}}).*$`);
+													const regExp = new RegExp(`^(.{${labelMaxLength}}).*$`);
 
 													return (
 														<Badge
@@ -223,7 +221,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
 														>
 															<Icon className="ml-1 mr-2 h-3 w-3 opacity-60" />
 															<span className="inline-block mr-1">
-																{item.label.length > maxLabelLength
+																{item.label.length > labelMaxLength
 																	? item.label.replace(regExp, "$1...")
 																	: item.label}
 															</span>
