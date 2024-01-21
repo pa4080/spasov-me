@@ -42,7 +42,7 @@ const SectionIndex: React.FC<Props> = ({ className, tags, type = "tagIndex" }) =
 					.map((tag) => (
 						<a key={tag._id} href={`#tag_${tag._id}`}>
 							<DisplayTagIcon
-								classNameBtn="!mt-0"
+								className_TooltipTrigger="!mt-0"
 								description={tag.description}
 								icon={iconsMap[tag.icon as IconsMapItem]}
 							/>

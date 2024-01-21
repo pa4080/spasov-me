@@ -9,6 +9,8 @@ import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-
 import { msgs } from "@/messages";
 import FileGFS from "@/models/file";
 
+import { Route } from "@/routes";
+
 import { getSession, revalidatePaths } from "../_common.actions";
 
 import { Readable } from "stream";
@@ -66,12 +68,16 @@ export const getFileList = async (): Promise<FileListItem[] | null> => {
 		return null;
 	}
 
-	return files
-		.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/))
-		.map((file) => ({
-			value: file._id.toString(),
-			label: file.filename,
-		}));
+	// const images = files.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/));
+
+	return files.map((file) => ({
+		value: file._id.toString(),
+		label: file.filename,
+		sourceImage: `${Route.api.FILES}/${file._id.toString()}/${
+			file.filename
+		}?v=${new Date(file.uploadDate).getTime()}`,
+		sourceDescription: file.filename,
+	}));
 };
 
 export const createFile = async (data: FormData, paths: string[]): Promise<true | null> => {

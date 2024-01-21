@@ -53,9 +53,6 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 									<DeleteFile file_id={file._id} filename={file.filename} />
 									<DisplaySingleFile uri={file.metadata.html.fileUri} />
 									<UpdateFile file={file} />
-									{/* <EntryDelete entry_id={entry._id} type={entry.entryType} />
-									<DisplayAttachment uri={entry.html.attachmentUri} />
-									<EntryUpdate entry={entry} files={files} tags={tags} type={entry.entryType} /> */}
 								</>
 							)}
 							<ToggleCollapsible

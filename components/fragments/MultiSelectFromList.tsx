@@ -9,16 +9,12 @@
 
 "use client";
 
-import { KeyboardEvent, useCallback, useRef, useState } from "react";
-
+import { LucideIcon, X } from "lucide-react";
+import React, { KeyboardEvent, useCallback, useRef, useState } from "react";
 import { Control, FieldError, FieldValues, Merge, Path, PathValue } from "react-hook-form";
 
-import { LucideIcon, X } from "lucide-react";
-
-import { FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-
-// import { Command as CommandPrimitive } from "cmdk";
-
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
 	Command,
 	CommandEmpty,
@@ -26,14 +22,21 @@ import {
 	CommandInput,
 	CommandItem,
 } from "@/components/ui/command";
+import { FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
+import iconsMap, { IconsMapItem } from "@/public/assets/icons";
+
+import { FileData } from "@/interfaces/File";
+
+import DisplayFileImage from "./DisplayFileImage";
 
 export interface Item<T> {
 	value: PathValue<T, Path<T>>;
 	label: string;
+	sourceImage?: string; // tag.icon: IconMap[string];
+	sourceDescription?: string; // tag.description;
 }
 
 export type ItemList<T> = Item<T>[];
@@ -43,6 +46,8 @@ interface Props<T extends FieldValues> {
 	name: Path<T>;
 	itemsList: ItemList<T>;
 	Icon: LucideIcon;
+	maxLabelLength?: number;
+	displayType?: "label" | "tag_icon" | "gallery_image";
 	messages: {
 		label?: string;
 		description?: string;
@@ -67,12 +72,11 @@ export default function MultiSelectFromList<T extends FieldValues>({
 	onSelect,
 	selected,
 	Icon,
+	maxLabelLength = 5,
+	displayType = "label",
 }: Props<T>) {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [inputValue, setInputValue] = useState("");
-	// const [selectedItems, setSelectedItems] = useState<ItemList<T>>(
-	// 	itemsList.filter((item) => selected?.includes(item.value)) || []
-	// );
 
 	const handleKeyDown = useCallback(
 		(e: KeyboardEvent<HTMLDivElement>) => {
@@ -97,6 +101,25 @@ export default function MultiSelectFromList<T extends FieldValues>({
 			}
 		},
 		[onSelect, selected]
+	);
+
+	const SelectedItemRemoveBtn: React.FC<{ item: Item<T> }> = ({ item }) => (
+		<div
+			className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+			role="button"
+			onClick={() => handleUnselect(item)}
+			onKeyDown={(e) => {
+				if (e.key === "Enter") {
+					handleUnselect(item);
+				}
+			}}
+			onMouseDown={(e) => {
+				e.preventDefault();
+				e.stopPropagation();
+			}}
+		>
+			<X className="h-3 w-3 text-muted-foreground hover:text-foreground ml-0" />
+		</div>
 	);
 
 	const handleUnselect = useCallback(
@@ -136,32 +159,79 @@ export default function MultiSelectFromList<T extends FieldValues>({
 									itemsList
 										.filter((item) => selected?.includes(item.value))
 										.map((item) => {
-											return (
-												<Badge
-													key={item.value}
-													className="h-fit text-sm font-normal tracking-wider py-1 text-foreground"
-													variant="secondary"
-												>
-													<Icon className="ml-1 mr-2 h-3 w-3 opacity-60" />
-													{item.label}
-													<div
-														className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-														role="button"
-														onClick={() => handleUnselect(item)}
-														onKeyDown={(e) => {
-															if (e.key === "Enter") {
-																handleUnselect(item);
-															}
-														}}
-														onMouseDown={(e) => {
-															e.preventDefault();
-															e.stopPropagation();
-														}}
-													>
-														<X className="h-3 w-3 text-muted-foreground hover:text-foreground ml-1" />
-													</div>
-												</Badge>
-											);
+											switch (displayType) {
+												case "gallery_image": {
+													if (item.sourceImage && item.sourceDescription) {
+														const itemToFile = {
+															filename: item.sourceDescription,
+															metadata: {
+																html: {
+																	fileUri: item.sourceImage,
+																},
+															},
+														} as FileData;
+
+														return (
+															<Badge
+																key={item.value}
+																className="h-fit text-sm font-normal tracking-wider text-foreground py-0.5 px-1 rounded-md"
+																variant="secondary"
+															>
+																<DisplayFileImage
+																	className={`w-8 h-8 rounded-sm`}
+																	description={item.sourceDescription}
+																	file={itemToFile}
+																	sizes={["32px", "32px"]}
+																/>
+																<SelectedItemRemoveBtn item={item} />
+															</Badge>
+														);
+													}
+												}
+
+												case "tag_icon": {
+													if (item.sourceImage && item.sourceDescription) {
+														return (
+															<Badge
+																key={item.value}
+																className="h-fit text-sm font-normal tracking-wider text-foreground py-[6px] px-1 rounded-md"
+																variant="secondary"
+															>
+																<DisplayTagIcon
+																	key={item.value}
+																	className="p-0 hover:bg-transparent dark:hover:bg-transparent"
+																	className_TooltipTrigger="!mt-0"
+																	description={item.sourceDescription}
+																	icon={iconsMap[item.sourceImage as IconsMapItem]}
+																	size={24}
+																/>
+																<SelectedItemRemoveBtn item={item} />
+															</Badge>
+														);
+													}
+												}
+
+												// case "label":
+												default: {
+													const regExp = new RegExp(`^(.{${maxLabelLength}}).*$`);
+
+													return (
+														<Badge
+															key={item.value}
+															className="h-fit text-sm font-normal tracking-wider py-1 text-foreground"
+															variant="secondary"
+														>
+															<Icon className="ml-1 mr-2 h-3 w-3 opacity-60" />
+															<span className="inline-block mr-1">
+																{item.label.length > maxLabelLength
+																	? item.label.replace(regExp, "$1...")
+																	: item.label}
+															</span>
+															<SelectedItemRemoveBtn item={item} />
+														</Badge>
+													);
+												}
+											}
 										})
 								) : (
 									<Badge

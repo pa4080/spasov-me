@@ -34,7 +34,7 @@ const TechTags: React.FC<Props> = ({ className, tags }) => {
 					.map((tag) => (
 						<DisplayTagIcon
 							key={tag._id}
-							classNameBtn="!mt-0"
+							className_TooltipTrigger="!mt-0"
 							description={tag.description}
 							icon={iconsMap[tag.icon as IconsMapItem]}
 						/>

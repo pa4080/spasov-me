@@ -166,7 +166,7 @@ const EntryForm: React.FC<Props> = ({
 						</div>
 
 						<div className="flex gap-3 flex-col 3xs:flex-row sm:flex-col w-full">
-							{/* Checkbox */}
+							{/* Checkbox | Is public? */}
 							<FormField
 								control={form.control}
 								name="visibility"
@@ -298,12 +298,14 @@ const EntryForm: React.FC<Props> = ({
 						Icon={Tag}
 						className="w-full sm:col-span-7"
 						control={form.control}
+						displayType="tag_icon"
 						error={form.formState.errors.tags}
 						itemsList={
 							tags?.map((tag) => ({
 								value: tag._id,
 								label: tag.name,
-								// label: `${tag.name} [${tag.description}]`,
+								sourceImage: tag.icon,
+								sourceDescription: tag.description,
 							})) ?? []
 						}
 						messages={{
@@ -328,6 +330,7 @@ const EntryForm: React.FC<Props> = ({
 						Icon={Paperclip}
 						className="w-full sm:col-span-7"
 						control={form.control}
+						displayType="gallery_image"
 						error={form.formState.errors.gallery}
 						itemsList={files ?? []}
 						messages={{
