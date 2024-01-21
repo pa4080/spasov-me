@@ -1,18 +1,16 @@
 "use client";
 import React from "react";
 
+import { useTheme } from "next-themes";
 import Image from "next/image";
 
-import { useTheme } from "next-themes";
-
-import { IconMap } from "@/interfaces/IconMap";
-
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { IconMap } from "@/interfaces/IconMap";
 import { cn } from "@/lib/cn-utils";
 
 interface Props {
 	className?: string;
-	classNameBtn?: string;
+	className_TooltipTrigger?: string;
 	icon: IconMap[string];
 	size?: number;
 	description?: string;
@@ -20,7 +18,7 @@ interface Props {
 
 const DisplayTagIcon: React.FC<Props> = ({
 	className,
-	classNameBtn,
+	className_TooltipTrigger,
 	icon,
 	size = 30,
 	description,
@@ -34,35 +32,7 @@ const DisplayTagIcon: React.FC<Props> = ({
 		className
 	);
 
-	if (description) {
-		return (
-			<TooltipProvider>
-				<Tooltip>
-					<TooltipTrigger className={classNameBtn}>
-						<Image
-							priority
-							alt={icon?.name || "Icon"}
-							className={classNameGenerated}
-							// border border-transparent hover:bg-secondary hover:border-muted-secondary
-							height={height}
-							src={
-								theme === "dark"
-									? icon?.uri?.dark || "/assets/icons/placeholder.svg"
-									: icon?.uri?.light || "/assets/icons/placeholder.svg"
-							}
-							style={{ width, height, minWidth: height }}
-							width={width}
-						/>
-					</TooltipTrigger>
-					<TooltipContent className="border-2 border-muted-secondary dark:border-primary">
-						<p>{description}</p>
-					</TooltipContent>
-				</Tooltip>
-			</TooltipProvider>
-		);
-	}
-
-	return (
+	const TheImage = (
 		<Image
 			priority
 			alt={icon?.name || "Icon"}
@@ -73,10 +43,25 @@ const DisplayTagIcon: React.FC<Props> = ({
 					? icon?.uri?.dark || "/assets/icons/placeholder.svg"
 					: icon?.uri?.light || "/assets/icons/placeholder.svg"
 			}
-			style={{ width, height }}
+			style={{ width, height, minWidth: height }}
 			width={width}
 		/>
 	);
+
+	if (description) {
+		return (
+			<TooltipProvider>
+				<Tooltip>
+					<TooltipTrigger className={className_TooltipTrigger}>{TheImage}</TooltipTrigger>
+					<TooltipContent className="border-2 border-muted-secondary dark:border-primary">
+						<p>{description}</p>
+					</TooltipContent>
+				</Tooltip>
+			</TooltipProvider>
+		);
+	}
+
+	return TheImage;
 };
 
 export default DisplayTagIcon;

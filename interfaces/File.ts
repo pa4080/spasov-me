@@ -18,6 +18,8 @@ export interface FileDocument extends Omit<GridFSFile, "metadata"> {
 export interface FileListItem {
 	value: string;
 	label: string;
+	sourceImage?: string; // Actually this is the URI of the image used in the (entry, post, project) form gallery
+	sourceDescription?: string; // Actually this is the name of the image used in the (entry, post, project) form gallery
 }
 
 export interface FileHtmlProps {

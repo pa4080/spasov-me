@@ -24,10 +24,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-import { FileListItem } from "@/interfaces/File";
+import { FileData, FileListItem } from "@/interfaces/File";
 import { TagData } from "@/interfaces/Tag";
 import { AboutEntryType, aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataTypes";
 import { msgs } from "@/messages";
+
+import DisplayFileImage from "@/components/fragments/DisplayFileImage";
+
+import { Route } from "@/routes";
 
 import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
 
@@ -166,7 +170,7 @@ const EntryForm: React.FC<Props> = ({
 						</div>
 
 						<div className="flex gap-3 flex-col 3xs:flex-row sm:flex-col w-full">
-							{/* Checkbox */}
+							{/* Checkbox | Is public? */}
 							<FormField
 								control={form.control}
 								name="visibility"
@@ -207,11 +211,12 @@ const EntryForm: React.FC<Props> = ({
 						</div>
 
 						{/* Attachment (image, pdf) */}
-						{files && (
+						<div className="flex gap-1 w-full max-w-full items-center justify-center">
 							<Combobox
+								className="w-full"
 								control={form.control}
 								error={form.formState.errors.attachment}
-								list={files}
+								list={files ?? []}
 								messages={{
 									label: t("attachment_label"),
 									description: t("attachment_description"),
@@ -223,7 +228,25 @@ const EntryForm: React.FC<Props> = ({
 								name="attachment"
 								setValue={form.setValue}
 							/>
-						)}
+							<DisplayFileImage
+								className={`rounded-md object-cover w-10 h-10 min-w-10 border ${form.watch("attachment") ? "opacity-90" : "opacity-25"}`}
+								file={
+									{
+										filename:
+											files?.find((f) => f.value === form.watch("attachment"))?.label ??
+											Route.assets.IMAGE_PLACEHOLDER,
+										metadata: {
+											html: {
+												fileUri:
+													files?.find((f) => f.value === form.watch("attachment"))?.sourceImage ??
+													Route.assets.IMAGE_PLACEHOLDER,
+											},
+										},
+									} as FileData
+								}
+								sizes={["40px", "40px"]}
+							/>
+						</div>
 					</div>
 
 					{/* Right grid */}
@@ -298,12 +321,14 @@ const EntryForm: React.FC<Props> = ({
 						Icon={Tag}
 						className="w-full sm:col-span-7"
 						control={form.control}
+						displayType="tag_icon"
 						error={form.formState.errors.tags}
 						itemsList={
 							tags?.map((tag) => ({
 								value: tag._id,
 								label: tag.name,
-								// label: `${tag.name} [${tag.description}]`,
+								sourceImage: tag.icon,
+								sourceDescription: tag.description,
 							})) ?? []
 						}
 						messages={{
@@ -328,6 +353,7 @@ const EntryForm: React.FC<Props> = ({
 						Icon={Paperclip}
 						className="w-full sm:col-span-7"
 						control={form.control}
+						displayType="gallery_image"
 						error={form.formState.errors.gallery}
 						itemsList={files ?? []}
 						messages={{

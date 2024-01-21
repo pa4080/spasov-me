@@ -2,6 +2,7 @@
 
 import {
 	Control,
+	ControllerRenderProps,
 	FieldError,
 	FieldValues,
 	Path,
@@ -43,6 +44,7 @@ interface Props<T extends FieldValues> {
 	control: Control<T>;
 	list: ComboBoxList<T>[];
 	name: Path<T>;
+	labelMaxLength?: number;
 	setValue: UseFormSetValue<T>;
 	messages: {
 		label: string;
@@ -63,7 +65,18 @@ export default function Combobox<T extends FieldValues>({
 	messages,
 	error,
 	className,
+	labelMaxLength = 15,
 }: Props<T>) {
+	const regExp = new RegExp(`^(.{${labelMaxLength}}).*$`);
+
+	const label = (field: ControllerRenderProps<T, Path<T>>) => {
+		const label = field.value
+			? list.find((item) => item.value === field.value)?.label
+			: messages.pleaseSelect;
+
+		return label && label.length > labelMaxLength ? label.replace(regExp, "$1...") : label;
+	};
+
 	return (
 		<FormField
 			control={control}
@@ -81,11 +94,7 @@ export default function Combobox<T extends FieldValues>({
 									role="combobox"
 									variant="outline"
 								>
-									<div className="line-clamp-1 text-left">
-										{field.value
-											? list.find((item) => item.value === field.value)?.label
-											: messages.pleaseSelect}
-									</div>
+									<div className="line-clamp-1 text-left">{label(field)}</div>
 									<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-60" />
 								</Button>
 							</FormControl>
