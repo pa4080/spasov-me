@@ -4,13 +4,15 @@ import { Route } from "@/routes";
 
 export type LoadDataFromApiRoute = <T>(
 	route: keyof typeof Route.api,
-	setCallback?: Dispatch<SetStateAction<T[]>>
+	setCallback: Dispatch<SetStateAction<T[]>>,
+	controller: AbortController
 ) => Promise<T[]> | null;
 
-const loadDataFromApiRoute: LoadDataFromApiRoute = async (route, setCallback) => {
+const loadDataFromApiRoute: LoadDataFromApiRoute = async (route, setCallback, controller) => {
 	try {
 		const response = await fetch(Route.api[route], {
 			// cache: "force-cache",
+			signal: controller.signal,
 		});
 
 		if (!response.ok) {

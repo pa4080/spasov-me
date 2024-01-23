@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { useSession } from "next-auth/react";
 
@@ -10,8 +10,6 @@ import { useAppContext } from "@/contexts/AppContext";
 import { PageDoc } from "@/interfaces/Page";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
-
-import loadDataFromApiRoute from "@/lib/load-data-fom-api-route";
 
 import CreatePage from "./page-actions/CreatePage";
 import DeletePage from "./page-actions/DeletePage";
@@ -26,7 +24,7 @@ interface Props {
 }
 
 const PagesAdmin: React.FC<Props> = ({ className }) => {
-	const { pages, setPages, files, setFiles } = useAppContext();
+	const { pages, setPages } = useAppContext();
 
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -36,18 +34,6 @@ const PagesAdmin: React.FC<Props> = ({ className }) => {
 	const { data: session } = useSession();
 
 	const t = msgs("PagesFeed");
-
-	useEffect(() => {
-		if (!pages || pages.length === 0) {
-			loadDataFromApiRoute("PAGES", setPages);
-		}
-
-		if (!files || files.length === 0) {
-			loadDataFromApiRoute("FILES", setFiles);
-		}
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 
 	const handleDelete = (e: React.SyntheticEvent, page: PageDoc) => {
 		e.preventDefault();
