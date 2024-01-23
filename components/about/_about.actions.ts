@@ -11,6 +11,8 @@ import { msgs } from "@/messages";
 import AboutEntry from "@/models/about-entry";
 import { Route } from "@/routes";
 
+import { fileAttachment_add, fileAttachment_remove } from "../files/_files.actions";
+
 export const getEntries = async ({
 	hyphen,
 	typeList,
@@ -76,7 +78,7 @@ export const getEntries = async ({
 	}
 };
 
-export const createEntry = async (data: FormData, paths: string[]): Promise<true | null> => {
+export const createEntry = async (data: FormData, paths: string[]): Promise<boolean | null> => {
 	try {
 		const session = await getSession();
 
@@ -86,9 +88,6 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<true
 			return null;
 		}
 
-		await connectToMongoDb();
-
-		// TODO: use Array.from(data.entries()); like in _files.actions.ts ??
 		const newAboutEntryData: NewAboutEntryData = {
 			title: data.get("title") as string,
 			description: data.get("description") as string,
@@ -99,22 +98,35 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<true
 			dateTo: data.get("dateTo") as string,
 			visibility: data.get("visibility") as string,
 			tags: (data.get("tags") as string).split(",") as string[],
-			gallery: (data.get("gallery") as string).split(",") as string[],
 
+			gallery: (data.get("gallery") as string).split(",") as string[],
 			attachment: data.get("attachment") as string,
+
 			creator: session?.user.id as string,
 		};
 
 		deleteFalsyKeys(newAboutEntryData, ["attachment", "dateTo", "gallery"]);
 
+		await connectToMongoDb();
 		const newAboutEntryDocument = new AboutEntry(newAboutEntryData);
 
 		await newAboutEntryDocument.save();
 		await newAboutEntryDocument.populate(["attachment", "tags", "gallery"]);
 
+		if (newAboutEntryData.attachment) {
+			return await fileAttachment_add({
+				attachedDocument: {
+					_id: newAboutEntryDocument._id.toString(),
+					title: newAboutEntryDocument.title,
+					type: Route.public.ABOUT.name,
+				},
+				target_file_id: newAboutEntryData.attachment,
+			});
+		}
+
 		return true;
 	} catch (error) {
-		console.error(error);
+		console.error("Unable to create new entry", error);
 
 		return null;
 	} finally {
@@ -126,7 +138,7 @@ export const updateEntry = async (
 	data: FormData,
 	entry_id: string,
 	paths: string[]
-): Promise<true | null> => {
+): Promise<boolean | null> => {
 	try {
 		const session = await getSession();
 
@@ -136,10 +148,8 @@ export const updateEntry = async (
 			return null;
 		}
 
-		await connectToMongoDb();
-
 		// TODO: use Array.from(data.entries()); like in _files.actions.ts ??
-		const newAboutEntryData: NewAboutEntryData = {
+		const aboutEntryData_new: NewAboutEntryData = {
 			title: data.get("title") as string,
 			description: data.get("description") as string,
 			country: data.get("country") as CountryType,
@@ -154,11 +164,16 @@ export const updateEntry = async (
 			creator: session?.user.id as string,
 		};
 
-		deleteFalsyKeys(newAboutEntryData, ["attachment", "dateTo", "gallery"]);
+		deleteFalsyKeys(aboutEntryData_new, ["attachment", "dateTo", "gallery"]);
 
-		const updatedAboutEntryDocument = await AboutEntry.findOneAndUpdate(
+		await connectToMongoDb();
+
+		const aboutEntryDocument_prev = await AboutEntry.findOne(mongo_id_obj(entry_id));
+		const aboutEntryData_prev = aboutEntryDocument_prev.toObject();
+
+		const aboutEntryDocument_new = await AboutEntry.findOneAndUpdate(
 			mongo_id_obj(entry_id),
-			newAboutEntryData,
+			aboutEntryData_new,
 			{
 				new: true,
 				strict: true,
@@ -166,26 +181,45 @@ export const updateEntry = async (
 		);
 
 		// If the "attachment" prop previously existed but was removed
-		if (!newAboutEntryData.attachment) {
-			updatedAboutEntryDocument.attachment = undefined;
+		if (aboutEntryData_new.attachment) {
+			await fileAttachment_add({
+				attachedDocument: {
+					_id: aboutEntryDocument_new._id.toString(),
+					title: aboutEntryDocument_new.title,
+					type: Route.public.ABOUT.name,
+				},
+				target_file_id: aboutEntryData_new.attachment,
+			});
+		} else {
+			aboutEntryDocument_new.attachment = undefined;
+		}
+
+		if (
+			aboutEntryData_prev.attachment &&
+			aboutEntryData_prev.attachment !== aboutEntryData_new.attachment
+		) {
+			await fileAttachment_remove({
+				attachedDocument_id: aboutEntryData_prev._id.toString(),
+				target_file_id: aboutEntryData_prev.attachment,
+			});
 		}
 
 		// If the "gallery" prop previously existed but was removed
-		if (!newAboutEntryData.gallery) {
-			updatedAboutEntryDocument.gallery = undefined;
+		if (!aboutEntryData_new.gallery) {
+			aboutEntryDocument_new.gallery = undefined;
 		}
 
 		// If the "dateTo" prop previously existed but was removed
-		if (!newAboutEntryData.dateTo) {
-			updatedAboutEntryDocument.dateTo = undefined;
+		if (!aboutEntryData_new.dateTo) {
+			aboutEntryDocument_new.dateTo = undefined;
 		}
 
-		await updatedAboutEntryDocument.save();
-		await updatedAboutEntryDocument.populate(["attachment", "tags", "gallery"]);
+		await aboutEntryDocument_new.save();
+		await aboutEntryDocument_new.populate(["attachment", "tags", "gallery"]);
 
 		return true;
 	} catch (error) {
-		console.error(error);
+		console.error("Unable to update entry", error);
 
 		return null;
 	} finally {
@@ -193,25 +227,32 @@ export const updateEntry = async (
 	}
 };
 
-export const deleteEntry = async (entry_id: string, paths: string[]): Promise<true | null> => {
+export const deleteEntry = async (entry_id: string, paths: string[]): Promise<boolean> => {
 	try {
 		const session = await getSession();
 
 		if (!session?.user) {
 			console.error(msgs("Errors")("invalidUser"));
 
-			return null;
+			return false;
 		}
 
 		await connectToMongoDb();
 
 		const deletedObject = await AboutEntry.findOneAndDelete(mongo_id_obj(entry_id));
 
-		return !!deletedObject ? true : null;
-	} catch (error) {
-		console.error(error);
+		if (deletedObject.attachment) {
+			return await fileAttachment_remove({
+				attachedDocument_id: deletedObject._id.toString(),
+				target_file_id: deletedObject.attachment,
+			});
+		}
 
-		return null;
+		return !!deletedObject;
+	} catch (error) {
+		console.error("Unable to delete entry", error);
+
+		return false;
 	} finally {
 		revalidatePaths({ paths, redirectTo: paths[0] });
 	}

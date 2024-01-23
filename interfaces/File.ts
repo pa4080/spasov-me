@@ -2,6 +2,11 @@ import { GridFSFile } from "mongodb";
 
 import { UserObject } from "@/interfaces/User";
 
+export interface AttachedDocument {
+	type: string;
+	title: string;
+	_id: string;
+}
 export interface FileMetadata {
 	description: string;
 	creator: UserObject;
@@ -9,6 +14,7 @@ export interface FileMetadata {
 	contentType: string;
 	lastModified: Date;
 	originalName: string;
+	attachedTo?: AttachedDocument[];
 }
 
 export interface FileDocument extends Omit<GridFSFile, "metadata"> {

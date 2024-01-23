@@ -484,7 +484,7 @@ body .w-md-editor {
  */
 @supports (animation-timeline: view()) {
 	@media (prefers-reduced-motion: no-preference) {
-		#section_resume .md-processed-to-html p,
+		.section_resume-public-text .md-processed-to-html p,
 		.pop-header,
 		.pop-item:not(.expand-collapsed-current.expand-collapsed) {
 			animation: fadeInPopItem ease-out forwards;

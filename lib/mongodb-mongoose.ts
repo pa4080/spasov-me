@@ -28,13 +28,13 @@ let isConnected = false; // track the connection status
 let bucket: mongoose.mongo.GridFSBucket | null = null;
 
 export const connectToMongoDb = async () => {
-	mongoose.set("strictQuery", true);
-
-	if (isConnected) {
-		return;
-	}
-
 	try {
+		mongoose.set("strictQuery", true);
+
+		if (isConnected) {
+			return;
+		}
+
 		await mongoose.connect(MONGODB_URI, {
 			dbName: MONGODB_DB_NAME,
 		});

@@ -1,20 +1,13 @@
 export const data = {
 	country_list: ["bulgaria"],
 	city_list: ["sofia", "pazardjik", "yambol", "plovdiv"],
-	aboutEntry_type_list: [
-		"businessCard",
-		"resume",
-		"employment",
-		"education",
-		"portfolio",
-		"spokenLanguages",
-	],
+	aboutEntry_type_list: ["businessCard", "resume", "employment", "education", "spokenLanguages"],
 	tag_type_list: [
 		"informationTechnologies",
-		"skills",
 		"mechanicalEngineering",
 		"officeApplications",
 		"system",
+		"skills",
 	],
 } as const;
 

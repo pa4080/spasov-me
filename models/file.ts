@@ -16,6 +16,17 @@ const FileGFS_Schema = new Schema(
 				type: Schema.Types.ObjectId,
 				ref: User,
 			},
+			// size: String,
+			// contentType: String,
+			// lastModified: Date,
+			// originalName: String,
+			// attachedTo: [
+			// 	{
+			// 		type: String,
+			// 		title: String,
+			// 		_id: String,
+			// 	},
+			// ],
 		},
 	},
 	{ strict: false }

@@ -45,7 +45,7 @@ const Resume: React.FC<Props> = ({ entries, className, type }) => {
 					/>
 				</SectionHeader>
 
-				<div className={`${cardStyles.card}`}>
+				<div className={`section_resume-public-text ${cardStyles.card}`}>
 					<div className={`${cardStyles.description} md-processed-to-html`}>
 						{descriptionArr.map((description, index) => (
 							<div
