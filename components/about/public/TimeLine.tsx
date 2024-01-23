@@ -38,7 +38,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 
 	return (
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
-			<SectionHeader title={section_title}>
+			<SectionHeader className="pop-header" title={section_title}>
 				<ToggleCollapsible
 					target_id={toggle_target_id}
 					text={[t("btnAll"), t("btnLess")]}
@@ -49,7 +49,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 				{entriesByType?.map((entry, index) => (
 					<EntryCard
 						key={index}
-						className={visibleItems > index ? "" : "section-card-collapsible"}
+						className={visibleItems > index ? "pop-item" : "section-card-collapsible pop-item"}
 						displayTags={displayTags}
 						entry={entry}
 					/>

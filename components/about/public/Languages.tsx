@@ -62,7 +62,7 @@ const SpokenLanguages: React.FC<Props> = ({ className, type, entries }) => {
 
 	return (
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
-			<SectionHeader title={section_title} />
+			<SectionHeader className="pop-header" title={section_title} />
 
 			<div className="space-y-4">
 				{entries
@@ -74,7 +74,7 @@ const SpokenLanguages: React.FC<Props> = ({ className, type, entries }) => {
 						return (
 							<div
 								key={index}
-								className="flex flex-wrap gap-2 3xs:gap-4 xa:gap-6 justify-start items-center"
+								className="flex flex-wrap gap-2 3xs:gap-4 xa:gap-6 justify-start items-center pop-item"
 							>
 								<div className="4xs:w-24">{title}</div>
 								<div className="text-sm 5xs:text-base">{stars(Number(points))}</div>
