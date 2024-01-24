@@ -183,7 +183,17 @@ export const updateFile = async (
 		const newDocData = {
 			description: data.get("description") as string,
 			file_name: data.get("filename") as string,
+			attachedTo: JSON.parse(data.get("attachedTo") as string) as AttachedToDocument[],
 		};
+
+		// Need to compare the differences, if there are any:
+		// Use the new array for the updated object...
+		// According to the removed items:
+		// Find the related documents and remove the attachedTo file,
+		// note it could be in the gallery or as attachment.
+		// Also the related documents could be: About, Page, Post, Project.
+		// console.log("newDocData.attachedTo", newDocData.attachedTo);
+		// console.log("dbDocument.metadata.attachedTo", dbDocument.toObject().metadata.attachedTo);
 
 		deleteFalsyKeys(newDocData);
 

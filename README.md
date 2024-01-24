@@ -17,7 +17,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [x] attachments (about-entries > via Server actions)
   - [ ] galleries (about-entries > via Server actions)
   - [ ] attachments (pages > via API)
-  - [ ] Display the file's attachedTo array in its display and edit form
+  - [x] Display the file's attachedTo in the file's card
+  - [x] Display the file's attachedTo in the file's form
   - [ ] Detach the file from its edit form
   - [ ] Lock the file's delete action while it is in use
 - [ ] Gallery display

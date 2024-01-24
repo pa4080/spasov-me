@@ -15,13 +15,10 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { roundTo } from "@/lib/round";
 import { msgs } from "@/messages";
 
-import { Badge } from "@/components/ui/badge";
-
 import { capitalize } from "@/lib/capitalize";
 
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-
 import DeleteFile from "../file-actions/DeleteFile";
+import FileAttachedToBadge from "../file-actions/FileAttachedToBadge";
 import UpdateFile from "../file-actions/UpdateFile";
 import styles from "./_file-card.module.scss";
 
@@ -103,34 +100,14 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 						</div>
 						{file.metadata.attachedTo && file.metadata.attachedTo.length > 0 && (
 							<div className={`${styles.attachedTo}`}>
-								{file.metadata.attachedTo.map((item, index) => {
-									const labelMaxLength = 20;
-									const regExp = new RegExp(`^(.{${labelMaxLength}}).*$`);
-									const badgeText =
-										item.title.length > labelMaxLength
-											? item.title.replace(regExp, "$1...")
-											: item.title;
-
-									return (
-										<TooltipProvider key={item._id}>
-											<Tooltip>
-												<TooltipTrigger>
-													<Badge
-														className="h-fit text-sm font-normal tracking-wider py-1 text-foreground"
-														variant="secondary"
-													>
-														<span className="inline-block mr-1">{badgeText}</span>
-														{/* <SelectedItemRemoveBtn item={item} /> */}
-													</Badge>
-												</TooltipTrigger>
-												<TooltipContent className="border-2 border-muted-secondary dark:border-primary max-w-xs">
-													<p className="font-semibold text-base">{`${capitalize(item.type)}: ${item.title}`}</p>
-													<p className="text-xs">{t("index_id", { index, id: item._id })}</p>
-												</TooltipContent>
-											</Tooltip>
-										</TooltipProvider>
-									);
-								})}
+								{file.metadata.attachedTo.map((item, index) => (
+									<FileAttachedToBadge
+										key={index}
+										badgeLabel={item.title}
+										ttContentLn1={`${capitalize(item.type)}: ${item.title}`}
+										ttContentLn2={t("index_id", { index, id: item._id })}
+									/>
+								))}
 							</div>
 						)}
 					</div>

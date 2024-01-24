@@ -7,6 +7,7 @@ export interface AttachedToDocument {
 	title: string;
 	_id: string;
 }
+
 export interface FileMetadata {
 	description: string;
 	creator: UserObject;
