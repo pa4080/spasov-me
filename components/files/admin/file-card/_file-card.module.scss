@@ -9,11 +9,11 @@
 		display: none;
 	}
 
-	&:global(.expand-collapsed) :global(.card-item-collapsible) {
+	&:global(.expand-collapsed.file-card) :global(.card-item-collapsible) {
 		display: inherit;
 	}
 
-	&:global(.expand-collapsed) :global(.card-item-thumb) {
+	&:global(.expand-collapsed.file-card) :global(.card-item-thumb) {
 		@apply absolute top-0 left-0 my-2 sm:my-0 opacity-0;
 	}
 
@@ -46,7 +46,7 @@
 		}
 	}
 
-	&:global(.expand-collapsed-current) {
+	&:global(.expand-collapsed-current.file-card) {
 		position: relative;
 
 		&:before {
@@ -64,7 +64,7 @@
 		"header header"
 		"image info";
 
-	:global(.expand-collapsed) & {
+	:global(.expand-collapsed.file-card) & {
 		grid-template-columns: auto;
 		grid-template-rows: auto auto auto 1fr;
 		grid-template-areas:
@@ -82,7 +82,7 @@
 			"image info"
 			"image content";
 
-		:global(.expand-collapsed) & {
+		:global(.expand-collapsed.file-card) & {
 			grid-template-columns: auto 1fr;
 			grid-template-rows: auto auto 1fr;
 			grid-template-areas:
@@ -103,7 +103,7 @@
 
 		grid-area: info;
 
-		:global(.expand-collapsed) & {
+		:global(.expand-collapsed.file-card) & {
 			@apply flex-row gap-x-3;
 		}
 
@@ -127,12 +127,12 @@
 
 		grid-area: image;
 
-		:global(.expand-collapsed) & {
+		:global(.expand-collapsed.file-card) & {
 			@apply max-w-[100%] sm:max-w-[320px];
-			transition: max-width 300ms ease-out; // animate-zoomIn 250ms
+			transition: max-width 300ms ease-out;
 		}
 
-		:global(.expand-collapsed) & {
+		:global(.expand-collapsed.file-card) & {
 			@apply justify-center;
 		}
 
@@ -161,11 +161,19 @@
 		}
 	}
 
-	.content {
+	.contentWrapper {
 		grid-area: content;
 
-		.description {
-			@apply w-full;
+		.content {
+			@apply flex flex-col w-full h-full;
+
+			.description {
+				@apply w-full flex-grow;
+			}
+
+			.attachedTo {
+				@apply w-full mt-3 flex flex-wrap gap-1;
+			}
 		}
 	}
 

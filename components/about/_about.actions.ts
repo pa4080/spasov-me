@@ -111,7 +111,7 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<bool
 		const newAboutEntryDocument = new AboutEntry(newAboutEntryData);
 
 		await newAboutEntryDocument.save();
-		await newAboutEntryDocument.populate(["attachment", "tags", "gallery"]);
+		// await newAboutEntryDocument.populate(["attachment", "tags", "gallery"]);
 
 		if (newAboutEntryData.attachment) {
 			return await fileAttachment_add({
@@ -169,7 +169,7 @@ export const updateEntry = async (
 		await connectToMongoDb();
 
 		const aboutEntryDocument_prev = await AboutEntry.findOne(mongo_id_obj(entry_id));
-		const aboutEntryData_prev = aboutEntryDocument_prev.toObject();
+		// const aboutEntryData_prev = aboutEntryDocument_prev.toObject();
 
 		const aboutEntryDocument_new = await AboutEntry.findOneAndUpdate(
 			mongo_id_obj(entry_id),
@@ -195,12 +195,12 @@ export const updateEntry = async (
 		}
 
 		if (
-			aboutEntryData_prev.attachment &&
-			aboutEntryData_prev.attachment !== aboutEntryData_new.attachment
+			aboutEntryDocument_prev.attachment.toString() &&
+			aboutEntryDocument_prev.attachment.toString() !== aboutEntryData_new.attachment
 		) {
 			await fileAttachment_remove({
-				attachedDocument_id: aboutEntryData_prev._id.toString(),
-				target_file_id: aboutEntryData_prev.attachment,
+				attachedDocument_id: aboutEntryDocument_prev._id.toString(),
+				target_file_id: aboutEntryDocument_prev.attachment.toString(),
 			});
 		}
 

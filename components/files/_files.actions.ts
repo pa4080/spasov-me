@@ -2,7 +2,7 @@
 
 import { ObjectId } from "mongodb";
 
-import { AttachedDocument, FileData, FileDocument, FileListItem } from "@/interfaces/File";
+import { AttachedToDocument, FileData, FileDocument, FileListItem } from "@/interfaces/File";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import fileDocumentToData from "@/lib/file-doc-to-file-data";
 import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
@@ -293,14 +293,14 @@ export const fileAttachment_add = async ({
 	attachedDocument,
 	target_file_id,
 }: {
-	attachedDocument: AttachedDocument;
+	attachedDocument: AttachedToDocument;
 	target_file_id: string;
 }) => {
 	try {
 		await connectToMongoDb();
 		const target_file_ObjectId = new ObjectId(target_file_id);
 		const dbFileGFSDoc = (await FileGFS.findOne(target_file_ObjectId)).toObject() as FileDocument;
-		const attachedTo = (dbFileGFSDoc.metadata.attachedTo as AttachedDocument[]) || [];
+		const attachedTo = (dbFileGFSDoc.metadata.attachedTo as AttachedToDocument[]) || [];
 
 		if (!!attachedTo.find(({ _id }: { _id: string }) => _id === attachedDocument._id)) {
 			return true;
@@ -339,7 +339,7 @@ export const fileAttachment_remove = async ({
 		await connectToMongoDb();
 		const target_file_ObjectId = new ObjectId(target_file_id);
 		const dbFileGFSDoc = (await FileGFS.findOne(target_file_ObjectId)).toObject() as FileDocument;
-		const attachedTo = (dbFileGFSDoc.metadata.attachedTo as AttachedDocument[]) || [];
+		const attachedTo = (dbFileGFSDoc.metadata.attachedTo as AttachedToDocument[]) || [];
 
 		return !!(await FileGFS.updateOne(
 			{ _id: target_file_ObjectId },

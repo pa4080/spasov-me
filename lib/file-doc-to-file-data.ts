@@ -17,6 +17,7 @@ export default function fileDocumentToData(files: FileDocument[]): FileData[] {
 			contentType: file.metadata?.contentType,
 			lastModified: file.metadata?.lastModified,
 			originalName: file.metadata?.originalName,
+			attachedTo: file.metadata?.attachedTo,
 			html: {
 				title: processMarkdown({ markdown: file.filename, hyphen: true }),
 				description: processMarkdown({ markdown: file.metadata?.description, hyphen: true }),

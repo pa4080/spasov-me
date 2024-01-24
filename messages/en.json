@@ -380,7 +380,8 @@
 		"size": "Size",
 		"contentType": "Content type",
 		"lastModified": "Last modified",
-		"kilobyte": "KB"
+		"kilobyte": "KB",
+		"index_id": "[index { index }]: { id }"
 	},
 	"FilesAdmin_CreateFile": {
 		"dialog_title": "Create (upload) a new file",

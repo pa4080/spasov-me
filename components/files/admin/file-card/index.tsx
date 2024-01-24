@@ -15,6 +15,12 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { roundTo } from "@/lib/round";
 import { msgs } from "@/messages";
 
+import { Badge } from "@/components/ui/badge";
+
+import { capitalize } from "@/lib/capitalize";
+
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
 import DeleteFile from "../file-actions/DeleteFile";
 import UpdateFile from "../file-actions/UpdateFile";
 import styles from "./_file-card.module.scss";
@@ -39,7 +45,7 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 		});
 
 	return (
-		<div className={`${styles.cardWrapper} ${className}`} id={toggle_target_id}>
+		<div className={`${styles.cardWrapper} file-card ${className}`} id={toggle_target_id}>
 			<div className={styles.card}>
 				<div className={styles.imageContainer}>
 					<DisplayFileImage className={`${styles.imageThumb} card-item-thumb`} file={file} />
@@ -88,11 +94,45 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 					</div>
 				</div>
 
-				<div className={`${styles.content} card-item-collapsible`}>
-					<div className={`${styles.description} md-processed-to-html`}>
-						{descriptionArr.map((description, index) => {
-							return <div dangerouslySetInnerHTML={{ __html: description }} key={index} />;
-						})}
+				<div className={`${styles.contentWrapper} card-item-collapsible`}>
+					<div className={styles.content}>
+						<div className={`${styles.description} md-processed-to-html`}>
+							{descriptionArr.map((description, index) => {
+								return <div dangerouslySetInnerHTML={{ __html: description }} key={index} />;
+							})}
+						</div>
+						{file.metadata.attachedTo && file.metadata.attachedTo.length > 0 && (
+							<div className={`${styles.attachedTo}`}>
+								{file.metadata.attachedTo.map((item, index) => {
+									const labelMaxLength = 20;
+									const regExp = new RegExp(`^(.{${labelMaxLength}}).*$`);
+									const badgeText =
+										item.title.length > labelMaxLength
+											? item.title.replace(regExp, "$1...")
+											: item.title;
+
+									return (
+										<TooltipProvider key={item._id}>
+											<Tooltip>
+												<TooltipTrigger>
+													<Badge
+														className="h-fit text-sm font-normal tracking-wider py-1 text-foreground"
+														variant="secondary"
+													>
+														<span className="inline-block mr-1">{badgeText}</span>
+														{/* <SelectedItemRemoveBtn item={item} /> */}
+													</Badge>
+												</TooltipTrigger>
+												<TooltipContent className="border-2 border-muted-secondary dark:border-primary max-w-xs">
+													<p className="font-semibold text-base">{`${capitalize(item.type)}: ${item.title}`}</p>
+													<p className="text-xs">{t("index_id", { index, id: item._id })}</p>
+												</TooltipContent>
+											</Tooltip>
+										</TooltipProvider>
+									);
+								})}
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
