@@ -1,5 +1,7 @@
 "use server";
 
+import { ObjectId } from "mongoose";
+
 import { getSession, revalidatePaths } from "@/components/_common.actions";
 import { AboutEntryData, AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
 import { AboutEntryType, CityType, CountryType } from "@/interfaces/_dataTypes";
@@ -88,7 +90,8 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<bool
 			return null;
 		}
 
-		const newAboutEntryData: NewAboutEntryData = {
+		// Get the input data from the form
+		const aboutEntryData_new: NewAboutEntryData = {
 			title: data.get("title") as string,
 			description: data.get("description") as string,
 			country: data.get("country") as CountryType,
@@ -97,30 +100,46 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<bool
 			dateFrom: data.get("dateFrom") as string,
 			dateTo: data.get("dateTo") as string,
 			visibility: data.get("visibility") as string,
-			tags: (data.get("tags") as string).split(",") as string[],
-
-			gallery: (data.get("gallery") as string).split(",") as string[],
 			attachment: data.get("attachment") as string,
+
+			tags: JSON.parse(data.get("tags") as string) as string[],
+			gallery: JSON.parse(data.get("gallery") as string) as string[],
 
 			creator: session?.user.id as string,
 		};
 
-		deleteFalsyKeys(newAboutEntryData, ["attachment", "dateTo", "gallery"]);
+		deleteFalsyKeys(aboutEntryData_new, ["attachment", "dateTo", "gallery"]);
 
+		// Connect to the DB and create a new document
 		await connectToMongoDb();
-		const newAboutEntryDocument = new AboutEntry(newAboutEntryData);
+		const aboutEntryDocument_new = new AboutEntry(aboutEntryData_new);
 
-		await newAboutEntryDocument.save();
-		// await newAboutEntryDocument.populate(["attachment", "tags", "gallery"]);
+		// Save the new document
+		await aboutEntryDocument_new.save();
 
-		if (newAboutEntryData.attachment) {
-			return await fileAttachment_add({
+		// Deal with the "attachment"
+		if (aboutEntryData_new.attachment) {
+			await fileAttachment_add({
 				attachedDocument: {
-					_id: newAboutEntryDocument._id.toString(),
-					title: newAboutEntryDocument.title,
+					_id: aboutEntryDocument_new._id.toString(),
+					title: aboutEntryDocument_new.title,
 					type: Route.public.ABOUT.name,
 				},
-				target_file_id: newAboutEntryData.attachment,
+				target_file_id: aboutEntryData_new.attachment,
+			});
+		}
+
+		// Deal with the "gallery"
+		if (aboutEntryData_new.gallery) {
+			aboutEntryData_new.gallery.map(async (file_id) => {
+				await fileAttachment_add({
+					attachedDocument: {
+						_id: aboutEntryDocument_new._id.toString(),
+						title: aboutEntryDocument_new.title,
+						type: Route.public.ABOUT.name,
+					},
+					target_file_id: file_id,
+				});
 			});
 		}
 
@@ -148,7 +167,7 @@ export const updateEntry = async (
 			return null;
 		}
 
-		// TODO: use Array.from(data.entries()); like in _files.actions.ts ??
+		// Get the input data from the form
 		const aboutEntryData_new: NewAboutEntryData = {
 			title: data.get("title") as string,
 			description: data.get("description") as string,
@@ -158,19 +177,19 @@ export const updateEntry = async (
 			dateFrom: data.get("dateFrom") as string,
 			dateTo: data.get("dateTo") as string,
 			visibility: data.get("visibility") as string,
-			tags: (data.get("tags") as string).split(",") as string[],
-			gallery: (data.get("gallery") as string).split(",") as string[],
 			attachment: data.get("attachment") as string,
+
+			tags: JSON.parse(data.get("tags") as string) as string[],
+			gallery: JSON.parse(data.get("gallery") as string) as string[],
+
 			creator: session?.user.id as string,
 		};
 
 		deleteFalsyKeys(aboutEntryData_new, ["attachment", "dateTo", "gallery"]);
 
+		// Connect to the DB
 		await connectToMongoDb();
-
 		const aboutEntryDocument_prev = await AboutEntry.findOne(mongo_id_obj(entry_id));
-		// const aboutEntryData_prev = aboutEntryDocument_prev.toObject();
-
 		const aboutEntryDocument_new = await AboutEntry.findOneAndUpdate(
 			mongo_id_obj(entry_id),
 			aboutEntryData_new,
@@ -180,7 +199,7 @@ export const updateEntry = async (
 			}
 		);
 
-		// If the "attachment" prop previously existed but was removed
+		// Deal with the "attachment" > add the relation for the new file
 		if (aboutEntryData_new.attachment) {
 			await fileAttachment_add({
 				attachedDocument: {
@@ -194,6 +213,7 @@ export const updateEntry = async (
 			aboutEntryDocument_new.attachment = undefined;
 		}
 
+		// Deal with the "attachment" > remove the relation for the old file
 		if (
 			aboutEntryDocument_prev.attachment.toString() &&
 			aboutEntryDocument_prev.attachment.toString() !== aboutEntryData_new.attachment
@@ -204,18 +224,46 @@ export const updateEntry = async (
 			});
 		}
 
-		// If the "gallery" prop previously existed but was removed
-		if (!aboutEntryData_new.gallery) {
+		// Deal with the "gallery" > add the relation for the new files
+		if (aboutEntryData_new.gallery) {
+			aboutEntryData_new.gallery.map(async (file_id) => {
+				await fileAttachment_add({
+					attachedDocument: {
+						_id: aboutEntryDocument_new._id.toString(),
+						title: aboutEntryDocument_new.title,
+						type: Route.public.ABOUT.name,
+					},
+					target_file_id: file_id,
+				});
+			});
+		} else {
 			aboutEntryDocument_new.gallery = undefined;
 		}
 
-		// If the "dateTo" prop previously existed but was removed
+		// Deal with the "gallery" > remove the relation for the old files
+		if (aboutEntryDocument_prev.gallery.length) {
+			const galleryDiffIds = aboutEntryDocument_prev.gallery.filter(
+				(file_id: ObjectId) => !aboutEntryData_new.gallery?.includes(file_id.toString())
+			);
+
+			if (galleryDiffIds.length) {
+				galleryDiffIds.map(async (file_id: ObjectId) => {
+					await fileAttachment_remove({
+						attachedDocument_id: aboutEntryDocument_prev._id.toString(),
+						target_file_id: file_id.toString(),
+					});
+				});
+			}
+		}
+
+		// Deal with the "dateTo"
 		if (!aboutEntryData_new.dateTo) {
 			aboutEntryDocument_new.dateTo = undefined;
 		}
 
+		// Save the document with the changes above
 		await aboutEntryDocument_new.save();
-		await aboutEntryDocument_new.populate(["attachment", "tags", "gallery"]);
+		// await aboutEntryDocument_new.populate(["attachment", "tags", "gallery"]); // TODO: remove this unnecessary line
 
 		return true;
 	} catch (error) {
@@ -237,14 +285,25 @@ export const deleteEntry = async (entry_id: string, paths: string[]): Promise<bo
 			return false;
 		}
 
+		// Connect to the DB and delete the entry
 		await connectToMongoDb();
-
 		const deletedObject = await AboutEntry.findOneAndDelete(mongo_id_obj(entry_id));
 
+		// Deal with the "attachment"
 		if (deletedObject.attachment) {
-			return await fileAttachment_remove({
+			await fileAttachment_remove({
 				attachedDocument_id: deletedObject._id.toString(),
 				target_file_id: deletedObject.attachment,
+			});
+		}
+
+		// Deal with the "gallery"
+		if (deletedObject.gallery && deletedObject.gallery.length > 0) {
+			deletedObject.gallery.map(async (file_id: ObjectId) => {
+				await fileAttachment_remove({
+					attachedDocument_id: deletedObject._id.toString(),
+					target_file_id: file_id.toString(),
+				});
 			});
 		}
 

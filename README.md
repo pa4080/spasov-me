@@ -15,7 +15,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [x] Get the files on the server side ?
 - [ ] Add relations field between the attachments/galleries and the files
   - [x] attachments (about-entries > via Server actions)
-  - [ ] galleries (about-entries > via Server actions)
+  - [x] galleries (about-entries > via Server actions)
   - [ ] attachments (pages > via API)
   - [x] Display the file's attachedTo in the file's card
   - [x] Display the file's attachedTo in the file's form
