@@ -30,9 +30,15 @@ const FilesAdmin: React.FC<Props> = ({ className }) => {
 	const [actionFile, setActionFile] = useState<FileDocument>();
 
 	useEffect(() => {
+		const controller = new AbortController();
+
 		if (!files || files.length === 0) {
-			loadDataFromApiRoute("FILES", setFiles);
+			loadDataFromApiRoute("FILES", setFiles, controller);
 		}
+
+		return () => {
+			controller.abort();
+		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

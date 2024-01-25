@@ -38,6 +38,15 @@ export const File_FormSchemaGenerator = (messages?: string[], isFileOptional = f
 		 * 		.optional()
 		 * 		.transform((e) => (e === "" ? undefined : e)),
 		 */
+		attachedTo: z
+			.array(
+				z.object({
+					type: z.string(),
+					title: z.string(),
+					_id: z.string(),
+				})
+			)
+			.optional(),
 	});
 
 export const File_FormSchema = File_FormSchemaGenerator();

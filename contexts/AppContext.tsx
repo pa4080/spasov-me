@@ -16,6 +16,7 @@ import { AuthProviders } from "@/types/next-auth-providers";
 
 import { FileDocument } from "@/interfaces/File";
 import { PageDoc } from "@/interfaces/Page";
+import loadDataFromApiRoute from "@/lib/load-data-fom-api-route";
 
 interface AppContextProps {
 	session: Session | null;
@@ -46,23 +47,19 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 			})();
 		}
 
-		// loadDataFromApiRoute("PAGES", setPages);
+		const controller = new AbortController();
+
+		(async () => {
+			await loadDataFromApiRoute("PAGES", setPages, controller);
+			await loadDataFromApiRoute("FILES", setFiles, controller);
+		})();
+
+		return () => {
+			controller.abort();
+		};
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	/**
-	useEffect(() => {
-		if (!session) {
-			// setPages([]);
-			setFiles([]);
-
-			return;
-		}
-
-		// loadDataFromApiRoute("PAGES", setPages);
-		loadDataFromApiRoute("FILES", setFiles);
-	}, [session]);
-	 */
 
 	return (
 		<AppContext.Provider

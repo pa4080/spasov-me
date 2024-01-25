@@ -23,18 +23,24 @@
 		"SERVICES": "Services",
 		"HOME": "Home",
 
-		"FILES": "Files",
-		"FILES_DESC": "Upload, browse and manage files",
-		"TAGS": "Tags",
-		"TAGS_DESC": "Browse and manage tags",
-		"THEME": "Theme",
-		"THEME_DESC": "Preview the color theme",
-		"PAGES_SR": "Pages (SR attempt)",
-		"PAGES_SR_DESC": "Edit the Home page cards vi server ations",
-		"PAGES": "Pages",
-		"PAGES_DESC": "Edit the Home page cards",
 		"ABOUT": "About",
 		"ABOUT_DESC": "Edit the about (CV) page",
+
+		"FILES": "Files",
+		"FILES_DESC": "Upload, browse and manage files",
+
+		"TAGS": "Tags",
+		"TAGS_DESC": "Browse and manage tags",
+
+		"THEME": "Theme",
+		"THEME_DESC": "Preview the color theme",
+
+		"PAGES_SR": "Pages (SR attempt)",
+		"PAGES_SR_DESC": "Edit the Home page cards vi server ations",
+
+		"PAGES": "Pages",
+		"PAGES_DESC": "Edit the Home page cards",
+
 		"BLOB": "Blob Storage",
 		"BLOB_DESC": "Upload files to Vercel Blob",
 
@@ -238,12 +244,11 @@
 		"type_placeholder": "Select Type",
 		"type_description": "",
 		"aboutEntry_type_list": {
-			"spokenLanguages": "Spoken Languages",
 			"businessCard": "Business card",
-			"employment": "Employment",
 			"resume": "Resume",
+			"employment": "Employment",
 			"education": "Education",
-			"portfolio": "Portfolio"
+			"spokenLanguages": "Spoken Languages"
 		},
 
 		"dateFrom_label": "From",
@@ -375,7 +380,8 @@
 		"size": "Size",
 		"contentType": "Content type",
 		"lastModified": "Last modified",
-		"kilobyte": "KB"
+		"kilobyte": "KB",
+		"index_id": "[index { index }]: { id }"
 	},
 	"FilesAdmin_CreateFile": {
 		"dialog_title": "Create (upload) a new file",

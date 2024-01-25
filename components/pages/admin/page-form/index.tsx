@@ -75,11 +75,11 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 	}, [files]);
 
 	// Manage "visibility" switch
-	const routesArr = Object.keys(Route.public)
+	const publicRoutesArr = Object.keys(Route.public)
 		.filter((key) => key !== "HOME")
 		.map((key) => Route.public[key as keyof typeof Route.public]);
 
-	const routeList = routesArr.map((route) => ({
+	const publicRoutesAsValueValueArr = publicRoutesArr.map((route) => ({
 		value: route.uri.slice(1),
 		label: route.uri.slice(1),
 	}));
@@ -89,7 +89,7 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 		const subscription = form.watch((value, { name, type }) => {
 			if (name === "uri") {
 				const visibilityValue =
-					routesArr.find((route) => route.uri.slice(1) === value.uri)?.visible ?? false;
+					publicRoutesArr.find((route) => route.uri.slice(1) === value.uri)?.visible ?? false;
 
 				form.setValue("visibility", visibilityValue);
 			}
@@ -146,7 +146,7 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 				<Combobox
 					control={form.control}
 					error={form.formState.errors.uri}
-					list={routeList}
+					list={publicRoutesAsValueValueArr}
 					messages={{
 						label: t("form_pageUri_label"),
 						description: t("form_pageUri_description"),

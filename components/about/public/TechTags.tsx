@@ -23,9 +23,9 @@ const TechTags: React.FC<Props> = ({ className, tags }) => {
 
 	return (
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
-			<SectionHeader title={section_title} />
+			<SectionHeader className="pop-header" title={section_title} />
 
-			<div className="flex flex-wrap gap-2 items-center justify-start">
+			<div className="flex flex-wrap gap-2 items-center justify-start pop-item">
 				{tags
 					?.filter(({ tagType }) => tagType !== "system")
 					?.sort((a, b) =>

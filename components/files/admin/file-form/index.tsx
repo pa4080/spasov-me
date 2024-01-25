@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import MDEditor, { commands } from "@uiw/react-md-editor";
@@ -20,13 +20,16 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FileData } from "@/interfaces/File";
+import { AttachedToDocument, FileData } from "@/interfaces/File";
 import { roundTo } from "@/lib/round";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 
+import { capitalize } from "@/lib/capitalize";
+
+import FileAttachedToBadge from "../file-actions/FileAttachedToBadge";
 import styles from "./_files-form.module.scss";
 import { File_FormSchema, File_FormSchemaGenerator } from "./schema";
 
@@ -40,9 +43,11 @@ interface Props {
 
 const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
 	const t = msgs("FilesAdmin_Form");
+	const tCard = msgs("FilesAdmin_DisplayFileCard");
 	const locale = "en";
 
 	const displayImageRef = useRef<HTMLImageElement>(null);
+	const collisionBoundaryRef = useRef<HTMLFormElement>(null);
 	const [fileToUpload, setFileToUpload] = useState<File | null>(null);
 	const { isAboveMb } = useBreakpoint("mb");
 	const { isAboveSm } = useBreakpoint("sm");
@@ -65,13 +70,26 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 			file: null,
 			filename: "",
 			description: "",
+			attachedTo: [],
 		},
 		values: {
 			file: null,
 			filename: formData?.filename ?? "",
 			description: formData?.metadata?.description ?? "",
+			attachedTo: formData?.metadata?.attachedTo ?? [],
 		},
 	});
+
+	const [attachedTo, setAttachedTo] = useState<AttachedToDocument[] | null>(null);
+
+	useEffect(() => {
+		setAttachedTo(form.watch("attachedTo") ?? null);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [form, form.watch("attachedTo")]);
+
+	const removeAttachedToItemById = (id: string) => {
+		form.setValue("attachedTo", attachedTo?.filter(({ _id }) => _id !== id) ?? []);
+	};
 
 	const handleInputFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.item(0) ?? null;
@@ -156,6 +174,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 	return (
 		<Form {...form}>
 			<form
+				ref={collisionBoundaryRef}
 				className={`w-full space-y-4 relative ${className}`}
 				onSubmit={form.handleSubmit(handleSubmit)}
 			>
@@ -280,6 +299,21 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 							)}
 						/>
 					</div>
+				</div>
+
+				<div className="float-end flex flex-wrap gap-2 !mt-4">
+					{attachedTo &&
+						attachedTo.length > 0 &&
+						attachedTo.map((item, index) => (
+							<FileAttachedToBadge
+								key={index}
+								badgeLabel={item.title}
+								collisionBoundaryRef={collisionBoundaryRef}
+								removeItemById={() => removeAttachedToItemById(item._id)}
+								ttContentLn1={`${capitalize(item.type)}: ${item.title}`}
+								ttContentLn2={tCard("index_id", { index, id: item._id })}
+							/>
+						))}
 				</div>
 
 				{/* Submit button */}

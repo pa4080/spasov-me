@@ -15,7 +15,10 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { roundTo } from "@/lib/round";
 import { msgs } from "@/messages";
 
+import { capitalize } from "@/lib/capitalize";
+
 import DeleteFile from "../file-actions/DeleteFile";
+import FileAttachedToBadge from "../file-actions/FileAttachedToBadge";
 import UpdateFile from "../file-actions/UpdateFile";
 import styles from "./_file-card.module.scss";
 
@@ -39,7 +42,7 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 		});
 
 	return (
-		<div className={`${styles.cardWrapper} ${className}`} id={toggle_target_id}>
+		<div className={`${styles.cardWrapper} file-card ${className}`} id={toggle_target_id}>
 			<div className={styles.card}>
 				<div className={styles.imageContainer}>
 					<DisplayFileImage className={`${styles.imageThumb} card-item-thumb`} file={file} />
@@ -88,11 +91,25 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 					</div>
 				</div>
 
-				<div className={`${styles.content} card-item-collapsible`}>
-					<div className={`${styles.description} md-processed-to-html`}>
-						{descriptionArr.map((description, index) => {
-							return <div dangerouslySetInnerHTML={{ __html: description }} key={index} />;
-						})}
+				<div className={`${styles.contentWrapper} card-item-collapsible`}>
+					<div className={styles.content}>
+						<div className={`${styles.description} md-processed-to-html`}>
+							{descriptionArr.map((description, index) => {
+								return <div dangerouslySetInnerHTML={{ __html: description }} key={index} />;
+							})}
+						</div>
+						{file.metadata.attachedTo && file.metadata.attachedTo.length > 0 && (
+							<div className={`${styles.attachedTo}`}>
+								{file.metadata.attachedTo.map((item, index) => (
+									<FileAttachedToBadge
+										key={index}
+										badgeLabel={item.title}
+										ttContentLn1={`${capitalize(item.type)}: ${item.title}`}
+										ttContentLn2={t("index_id", { index, id: item._id })}
+									/>
+								))}
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

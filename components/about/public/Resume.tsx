@@ -37,7 +37,7 @@ const Resume: React.FC<Props> = ({ entries, className, type }) => {
 		entry &&
 		descriptionArr && (
 			<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
-				<SectionHeader title={section_title}>
+				<SectionHeader className="pop-header" title={section_title}>
 					<ToggleCollapsible
 						target_id={toggle_target_id}
 						text={[t("btnMore"), t("btnLess")]}
@@ -45,7 +45,7 @@ const Resume: React.FC<Props> = ({ entries, className, type }) => {
 					/>
 				</SectionHeader>
 
-				<div className={`${cardStyles.card}`}>
+				<div className={`section_resume-public-text ${cardStyles.card}`}>
 					<div className={`${cardStyles.description} md-processed-to-html`}>
 						{descriptionArr.map((description, index) => (
 							<div

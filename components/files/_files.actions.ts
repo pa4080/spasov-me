@@ -2,7 +2,7 @@
 
 import { ObjectId } from "mongodb";
 
-import { FileData, FileDocument, FileListItem } from "@/interfaces/File";
+import { AttachedToDocument, FileData, FileDocument, FileListItem } from "@/interfaces/File";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import fileDocumentToData from "@/lib/file-doc-to-file-data";
 import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
@@ -183,7 +183,17 @@ export const updateFile = async (
 		const newDocData = {
 			description: data.get("description") as string,
 			file_name: data.get("filename") as string,
+			attachedTo: JSON.parse(data.get("attachedTo") as string) as AttachedToDocument[],
 		};
+
+		// Need to compare the differences, if there are any:
+		// Use the new array for the updated object...
+		// According to the removed items:
+		// Find the related documents and remove the attachedTo file,
+		// note it could be in the gallery or as attachment.
+		// Also the related documents could be: About, Page, Post, Project.
+		// console.log("newDocData.attachedTo", newDocData.attachedTo);
+		// console.log("dbDocument.metadata.attachedTo", dbDocument.toObject().metadata.attachedTo);
 
 		deleteFalsyKeys(newDocData);
 
@@ -285,5 +295,75 @@ export const deleteFile = async (file_id: string, paths: string[]): Promise<true
 		return null;
 	} finally {
 		revalidatePaths({ paths, redirectTo: paths[0] });
+	}
+};
+
+// Attach a FileDocument to a (other)Document
+export const fileAttachment_add = async ({
+	attachedDocument,
+	target_file_id,
+}: {
+	attachedDocument: AttachedToDocument;
+	target_file_id: string;
+}) => {
+	try {
+		await connectToMongoDb();
+		const target_file_ObjectId = new ObjectId(target_file_id);
+		const dbFileGFSDoc = (await FileGFS.findOne(target_file_ObjectId)).toObject() as FileDocument;
+		const attachedTo = (dbFileGFSDoc.metadata.attachedTo as AttachedToDocument[]) || [];
+
+		if (!!attachedTo.find(({ _id }: { _id: string }) => _id === attachedDocument._id)) {
+			return true;
+		}
+
+		return !!(await FileGFS.updateOne(
+			{ _id: target_file_ObjectId },
+			{
+				$set: {
+					"metadata.attachedTo": [
+						...attachedTo,
+						{
+							type: attachedDocument.type,
+							title: attachedDocument.title,
+							_id: attachedDocument._id,
+						},
+					],
+				},
+			}
+		));
+	} catch (error) {
+		console.error("Unable to add attached document", error);
+
+		return false;
+	}
+};
+
+export const fileAttachment_remove = async ({
+	attachedDocument_id,
+	target_file_id,
+}: {
+	attachedDocument_id: string;
+	target_file_id: string;
+}) => {
+	try {
+		await connectToMongoDb();
+		const target_file_ObjectId = new ObjectId(target_file_id);
+		const dbFileGFSDoc = (await FileGFS.findOne(target_file_ObjectId)).toObject() as FileDocument;
+		const attachedTo = (dbFileGFSDoc.metadata.attachedTo as AttachedToDocument[]) || [];
+
+		return !!(await FileGFS.updateOne(
+			{ _id: target_file_ObjectId },
+			{
+				$set: {
+					"metadata.attachedTo": attachedTo.filter(
+						({ _id }: { _id: string }) => _id !== attachedDocument_id
+					),
+				},
+			}
+		));
+	} catch (error) {
+		console.error("Unable to remove attached document", error);
+
+		return false;
 	}
 };

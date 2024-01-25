@@ -477,3 +477,47 @@ body .w-md-editor {
 		@apply mt-2;
 	}
 }
+
+/**
+ * CSS Animations
+ * > https://www.youtube.com/watch?v=UmzFk68Bwdk
+ */
+@supports (animation-timeline: view()) {
+	@media (prefers-reduced-motion: no-preference) {
+		.section_resume-public-text .md-processed-to-html p,
+		.pop-header,
+		.pop-item:not(.expand-collapsed-current.expand-collapsed) {
+			animation: fadeInPopItem ease-out forwards;
+			// transform-origin: bottom left;
+			// animation-timeline: view(95% -35%);
+			animation-timeline: view();
+			animation-range-start: calc($footer-height * -3.6);
+			animation-range-end: calc($footer-height * 1.8);
+			// contain; entry; entry 200px; exit; entry-crossing; normal
+		}
+
+		.pop-header {
+			animation-range-end: calc($footer-height * 1.4);
+		}
+
+		@keyframes fadeInPopItem {
+			0% {
+				scale: 0.3;
+				opacity: 0.5;
+				translate: 0 40%;
+				filter: grayscale(1);
+			}
+			95%,
+			100% {
+				scale: 1;
+				opacity: 1;
+				translate: 0 0;
+				filter: grayscale(1);
+			}
+			98%,
+			100% {
+				filter: grayscale(0);
+			}
+		}
+	}
+}

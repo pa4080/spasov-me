@@ -324,12 +324,16 @@ const EntryForm: React.FC<Props> = ({
 						displayType="tag_icon"
 						error={form.formState.errors.tags}
 						itemsList={
-							tags?.map((tag) => ({
-								value: tag._id,
-								label: tag.name,
-								sourceImage: tag.icon,
-								sourceDescription: tag.description,
-							})) ?? []
+							tags
+								?.sort((a, b) =>
+									a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
+								)
+								?.map((tag) => ({
+									value: tag._id,
+									label: tag.name,
+									sourceImage: tag.icon,
+									sourceDescription: tag.description,
+								})) ?? []
 						}
 						messages={{
 							label: t("tags_label"),

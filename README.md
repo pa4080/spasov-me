@@ -13,8 +13,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [x] Refactor Files
   - [x] Upload form + MarkDown for the description
   - [x] Get the files on the server side ?
-- [ ] Add relations field between the galleries and the files
-- [ ] Lock the file delete action while it is in use
+- [ ] Add relations field between the attachments/galleries and the files
+  - [x] attachments (about-entries > via Server actions)
+  - [ ] galleries (about-entries > via Server actions)
+  - [ ] attachments (pages > via API)
+  - [x] Display the file's attachedTo in the file's card
+  - [x] Display the file's attachedTo in the file's form
+  - [ ] Detach the file from its edit form
+  - [ ] Lock the file's delete action while it is in use
 - [ ] Gallery display
 - [ ] Projects Admin? > Form design
 - [ ] Projects public
