@@ -18,6 +18,8 @@ import { msgs } from "@/messages";
 
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 
+import { Route } from "@/routes";
+
 import { updateFile } from "../../_files.actions";
 import FileForm from "../file-form";
 import { File_FormSchema } from "../file-form/schema";
@@ -38,8 +40,12 @@ const UpdateFile: React.FC<Props> = ({ className, file }) => {
 		setSubmitting(true);
 
 		try {
-			// TODO: Revalidate "projects", "about", etc. when rhe relations are implemented
-			const response = await updateFile(generateFormDataFromObject(data), file._id, [pathname]);
+			const response = await updateFile(generateFormDataFromObject(data), file._id, [
+				pathname,
+				Route.admin.ABOUT,
+				Route.public.ABOUT.uri,
+				// TODO: Revalidate "projects", "blog", etc. when they are implemented
+			]);
 
 			serverActionResponseToastAndLocationReload({
 				trigger: !!response,

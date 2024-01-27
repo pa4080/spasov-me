@@ -44,12 +44,14 @@ export const Route = {
 		},
 	},
 	admin: {
+		THEME: "/admin/theme",
 		PAGES: "/admin/pages",
 		ABOUT: "/admin/about",
-		THEME: "/admin/theme",
+		PORTFOLIO: "/admin/portfolio",
 		FILES: "/admin/files",
 		TAGS: "/admin/tags",
 		BLOB: "/admin/blob",
+		BLOG: "/admin/blog",
 	},
 	api: {
 		PAGES: "/api/data/pages",

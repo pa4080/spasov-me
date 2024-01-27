@@ -29,7 +29,7 @@ import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 import { capitalize } from "@/lib/capitalize";
 
-import FileAttachedToBadge from "../file-actions/FileAttachedToBadge";
+import AttachedToBadge from "../file-actions/AttachedToBadge";
 import styles from "./_files-form.module.scss";
 import { File_FormSchema, File_FormSchemaGenerator } from "./schema";
 
@@ -83,7 +83,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 	const [attachedTo, setAttachedTo] = useState<AttachedToDocument[] | null>(null);
 
 	useEffect(() => {
-		setAttachedTo(form.watch("attachedTo") ?? null);
+		setAttachedTo((form?.watch("attachedTo") as AttachedToDocument[]) ?? null);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [form, form.watch("attachedTo")]);
 
@@ -305,7 +305,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 					{attachedTo &&
 						attachedTo.length > 0 &&
 						attachedTo.map((item, index) => (
-							<FileAttachedToBadge
+							<AttachedToBadge
 								key={index}
 								badgeLabel={item.title}
 								collisionBoundaryRef={collisionBoundaryRef}

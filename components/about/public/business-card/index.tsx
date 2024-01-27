@@ -41,11 +41,13 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type }) => {
 					className={styles.businessCardTitle}
 				/>
 
-				<div className={styles.businessCardImageWrapper}>
+				<div
+					className={`${styles.imageWrapper} bg-secondary drop-shadow-[1px_2px_4px_rgba(17,17,17,0.4)] dark:bg-foreground-secondary dark:drop-shadow-[1px_2px_4px_rgba(17,17,17,1)]`}
+				>
 					<Image
 						priority
 						alt={entry.title}
-						className={styles.businessCardImage}
+						className={styles.image}
 						fetchPriority="high"
 						height={200}
 						src={entry.html.attachmentUri || Route.assets.IMAGE_PLACEHOLDER}

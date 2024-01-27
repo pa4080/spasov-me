@@ -19,8 +19,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] attachments (pages > via API)
   - [x] Display the file's attachedTo in the file's card
   - [x] Display the file's attachedTo in the file's form
-  - [ ] Detach the file from its edit form
-  - [ ] Lock the file's delete action while it is in use
+  - [x] Detach the file from its edit form
+  - [x] Lock the file's delete action while it is in use
 - [ ] Gallery display
 - [ ] Projects Admin? > Form design
 - [ ] Projects public
