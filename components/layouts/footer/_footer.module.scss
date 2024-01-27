@@ -1,7 +1,7 @@
 @import "@/app/globals.variables.module.scss";
 
 .footer {
-	@apply relative flex items-center justify-center w-full h-footer overflow-hidden;
+	@apply relative flex items-center justify-center w-full h-footer overflow-hidden bg-background;
 
 	box-shadow: 0 -2px 6px 3px theme("colors.background");
 	z-index: 1;
