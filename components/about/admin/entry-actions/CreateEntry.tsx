@@ -56,6 +56,7 @@ const CreateEntry: React.FC<Props> = ({ className, type, files, tags }) => {
 			const response = await createEntry(generateFormDataFromObject(data), [
 				pathname,
 				Route.public.ABOUT.uri,
+				Route.admin.FILES,
 			]);
 
 			serverActionResponseToastAndLocationReload({

@@ -42,7 +42,11 @@ const DeleteEntry: React.FC<Props> = ({ className, type, entry_id }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await deleteEntry(entry_id, [pathname, Route.public.ABOUT.uri]);
+			const response = await deleteEntry(entry_id, [
+				pathname,
+				Route.public.ABOUT.uri,
+				Route.admin.FILES,
+			]);
 
 			serverActionResponseToastAndLocationReload({
 				trigger: !!response,

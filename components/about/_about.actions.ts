@@ -1,6 +1,6 @@
 "use server";
 
-import { ObjectId } from "mongoose";
+import { ObjectId } from "mongodb";
 
 import { getSession, revalidatePaths } from "@/components/_common.actions";
 import { AboutEntryData, AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
@@ -51,7 +51,6 @@ export const getEntries = async ({
 								entry.attachment?.filename
 							}?v=${new Date(entry.attachment?.uploadDate).getTime()}`,
 					},
-
 					title: entry.title,
 					description: entry.description,
 					country: entry.country,
@@ -91,7 +90,7 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<bool
 		}
 
 		// Get the input data from the form
-		const aboutEntryData_new: NewAboutEntryData = {
+		const documentData_new: NewAboutEntryData = {
 			title: data.get("title") as string,
 			description: data.get("description") as string,
 			country: data.get("country") as CountryType,
@@ -108,35 +107,35 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<bool
 			creator: session?.user.id as string,
 		};
 
-		deleteFalsyKeys(aboutEntryData_new, ["attachment", "dateTo", "gallery"]);
+		deleteFalsyKeys(documentData_new, ["attachment", "dateTo", "gallery"]);
 
 		// Connect to the DB and create a new document
 		await connectToMongoDb();
-		const aboutEntryDocument_new = new AboutEntry(aboutEntryData_new);
+		const document_new = new AboutEntry(documentData_new);
 
 		// Save the new document
-		await aboutEntryDocument_new.save();
+		await document_new.save();
 
 		// Deal with the "attachment"
-		if (aboutEntryData_new.attachment) {
+		if (documentData_new.attachment) {
 			await fileAttachment_add({
 				attachedDocument: {
-					_id: aboutEntryDocument_new._id.toString(),
-					title: aboutEntryDocument_new.title,
-					type: Route.public.ABOUT.name,
+					_id: document_new._id.toString(),
+					title: document_new.title,
+					type: "about",
 				},
-				target_file_id: aboutEntryData_new.attachment,
+				target_file_id: documentData_new.attachment,
 			});
 		}
 
 		// Deal with the "gallery"
-		if (aboutEntryData_new.gallery) {
-			aboutEntryData_new.gallery.map(async (file_id) => {
+		if (documentData_new.gallery) {
+			documentData_new.gallery.map(async (file_id) => {
 				await fileAttachment_add({
 					attachedDocument: {
-						_id: aboutEntryDocument_new._id.toString(),
-						title: aboutEntryDocument_new.title,
-						type: Route.public.ABOUT.name,
+						_id: document_new._id.toString(),
+						title: document_new.title,
+						type: "about",
 					},
 					target_file_id: file_id,
 				});
@@ -168,7 +167,7 @@ export const updateEntry = async (
 		}
 
 		// Get the input data from the form
-		const aboutEntryData_new: NewAboutEntryData = {
+		const documentData_new: NewAboutEntryData = {
 			title: data.get("title") as string,
 			description: data.get("description") as string,
 			country: data.get("country") as CountryType,
@@ -185,14 +184,14 @@ export const updateEntry = async (
 			creator: session?.user.id as string,
 		};
 
-		deleteFalsyKeys(aboutEntryData_new, ["attachment", "dateTo", "gallery"]);
+		deleteFalsyKeys(documentData_new, ["attachment", "dateTo", "gallery"]);
 
 		// Connect to the DB
 		await connectToMongoDb();
-		const aboutEntryDocument_prev = await AboutEntry.findOne(mongo_id_obj(entry_id));
-		const aboutEntryDocument_new = await AboutEntry.findOneAndUpdate(
+		const document_prev = await AboutEntry.findOne(mongo_id_obj(entry_id));
+		const document_new = await AboutEntry.findOneAndUpdate(
 			mongo_id_obj(entry_id),
-			aboutEntryData_new,
+			documentData_new,
 			{
 				new: true,
 				strict: true,
@@ -200,56 +199,56 @@ export const updateEntry = async (
 		);
 
 		// Deal with the "attachment" > add the relation for the new file
-		if (aboutEntryData_new.attachment) {
+		if (documentData_new.attachment) {
 			await fileAttachment_add({
 				attachedDocument: {
-					_id: aboutEntryDocument_new._id.toString(),
-					title: aboutEntryDocument_new.title,
-					type: Route.public.ABOUT.name,
+					_id: document_new._id.toString(),
+					title: document_new.title,
+					type: "about",
 				},
-				target_file_id: aboutEntryData_new.attachment,
+				target_file_id: documentData_new.attachment,
 			});
 		} else {
-			aboutEntryDocument_new.attachment = undefined;
+			document_new.attachment = undefined;
 		}
 
 		// Deal with the "attachment" > remove the relation for the old file
 		if (
-			aboutEntryDocument_prev.attachment.toString() &&
-			aboutEntryDocument_prev.attachment.toString() !== aboutEntryData_new.attachment
+			document_prev.attachment.toString() &&
+			document_prev.attachment.toString() !== documentData_new.attachment
 		) {
 			await fileAttachment_remove({
-				attachedDocument_id: aboutEntryDocument_prev._id.toString(),
-				target_file_id: aboutEntryDocument_prev.attachment.toString(),
+				attachedDocument_id: document_prev._id.toString(),
+				target_file_id: document_prev.attachment.toString(),
 			});
 		}
 
 		// Deal with the "gallery" > add the relation for the new files
-		if (aboutEntryData_new.gallery) {
-			aboutEntryData_new.gallery.map(async (file_id) => {
+		if (documentData_new.gallery) {
+			documentData_new.gallery.map(async (file_id) => {
 				await fileAttachment_add({
 					attachedDocument: {
-						_id: aboutEntryDocument_new._id.toString(),
-						title: aboutEntryDocument_new.title,
-						type: Route.public.ABOUT.name,
+						_id: document_new._id.toString(),
+						title: document_new.title,
+						type: "about",
 					},
 					target_file_id: file_id,
 				});
 			});
 		} else {
-			aboutEntryDocument_new.gallery = undefined;
+			document_new.gallery = undefined;
 		}
 
 		// Deal with the "gallery" > remove the relation for the old files
-		if (aboutEntryDocument_prev.gallery.length) {
-			const galleryDiffIds = aboutEntryDocument_prev.gallery.filter(
-				(file_id: ObjectId) => !aboutEntryData_new.gallery?.includes(file_id.toString())
+		if (document_prev.gallery.length) {
+			const gallery_removed = document_prev.gallery.filter(
+				(file_id: ObjectId) => !documentData_new.gallery?.includes(file_id.toString())
 			);
 
-			if (galleryDiffIds.length) {
-				galleryDiffIds.map(async (file_id: ObjectId) => {
+			if (gallery_removed.length) {
+				gallery_removed.map(async (file_id: ObjectId) => {
 					await fileAttachment_remove({
-						attachedDocument_id: aboutEntryDocument_prev._id.toString(),
+						attachedDocument_id: document_prev._id.toString(),
 						target_file_id: file_id.toString(),
 					});
 				});
@@ -257,13 +256,12 @@ export const updateEntry = async (
 		}
 
 		// Deal with the "dateTo"
-		if (!aboutEntryData_new.dateTo) {
-			aboutEntryDocument_new.dateTo = undefined;
+		if (!documentData_new.dateTo) {
+			document_new.dateTo = undefined;
 		}
 
 		// Save the document with the changes above
-		await aboutEntryDocument_new.save();
-		// await aboutEntryDocument_new.populate(["attachment", "tags", "gallery"]); // TODO: remove this unnecessary line
+		await document_new.save();
 
 		return true;
 	} catch (error) {
@@ -287,27 +285,27 @@ export const deleteEntry = async (entry_id: string, paths: string[]): Promise<bo
 
 		// Connect to the DB and delete the entry
 		await connectToMongoDb();
-		const deletedObject = await AboutEntry.findOneAndDelete(mongo_id_obj(entry_id));
+		const document_deleted = await AboutEntry.findOneAndDelete(mongo_id_obj(entry_id));
 
 		// Deal with the "attachment"
-		if (deletedObject.attachment) {
+		if (document_deleted.attachment) {
 			await fileAttachment_remove({
-				attachedDocument_id: deletedObject._id.toString(),
-				target_file_id: deletedObject.attachment,
+				attachedDocument_id: document_deleted._id.toString(),
+				target_file_id: document_deleted.attachment.toString(),
 			});
 		}
 
 		// Deal with the "gallery"
-		if (deletedObject.gallery && deletedObject.gallery.length > 0) {
-			deletedObject.gallery.map(async (file_id: ObjectId) => {
+		if (document_deleted.gallery && document_deleted.gallery.length > 0) {
+			document_deleted.gallery.map(async (file_id: ObjectId) => {
 				await fileAttachment_remove({
-					attachedDocument_id: deletedObject._id.toString(),
+					attachedDocument_id: document_deleted._id.toString(),
 					target_file_id: file_id.toString(),
 				});
 			});
 		}
 
-		return !!deletedObject;
+		return !!document_deleted;
 	} catch (error) {
 		console.error("Unable to delete entry", error);
 

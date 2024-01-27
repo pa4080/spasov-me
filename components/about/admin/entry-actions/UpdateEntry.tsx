@@ -56,6 +56,7 @@ const UpdateEntry: React.FC<Props> = ({ className, type, entry, files, tags }) =
 			const response = await updateEntry(generateFormDataFromObject(data), entry._id, [
 				pathname,
 				Route.public.ABOUT.uri,
+				Route.admin.FILES,
 			]);
 
 			serverActionResponseToastAndLocationReload({

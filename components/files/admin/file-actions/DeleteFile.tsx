@@ -24,9 +24,10 @@ export interface Props {
 	className?: string;
 	file_id: string;
 	filename: string;
+	disabled?: boolean;
 }
 
-const DeleteFile: React.FC<Props> = ({ className, file_id, filename }) => {
+const DeleteFile: React.FC<Props> = ({ className, file_id, filename, disabled }) => {
 	const t = msgs("FilesAdmin_DeleteFile");
 
 	const [submitting, setSubmitting] = useState(false);
@@ -59,6 +60,7 @@ const DeleteFile: React.FC<Props> = ({ className, file_id, filename }) => {
 				<AlertDialogTrigger>
 					<ButtonIcon
 						className="pl-[2.6px] bg-transparent icon_accent_secondary"
+						disabled={disabled || submitting}
 						height={22}
 						type="trash"
 						width={22}

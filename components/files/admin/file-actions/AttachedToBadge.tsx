@@ -56,7 +56,7 @@ interface Props {
 	collisionBoundaryRef?: React.RefObject<HTMLFormElement>;
 }
 
-const FileAttachedToBadge: React.FC<Props> = ({
+const AttachedToBadge: React.FC<Props> = ({
 	className,
 	badgeLabel,
 	badgeLabelMaxLength = 20,
@@ -91,4 +91,4 @@ const FileAttachedToBadge: React.FC<Props> = ({
 	return <TheBadge badgeText={badgeText} className={className} onClick={removeItemById} />;
 };
 
-export default FileAttachedToBadge;
+export default AttachedToBadge;

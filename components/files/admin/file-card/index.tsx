@@ -17,8 +17,8 @@ import { msgs } from "@/messages";
 
 import { capitalize } from "@/lib/capitalize";
 
+import AttachedToBadge from "../file-actions/AttachedToBadge";
 import DeleteFile from "../file-actions/DeleteFile";
-import FileAttachedToBadge from "../file-actions/FileAttachedToBadge";
 import UpdateFile from "../file-actions/UpdateFile";
 import styles from "./_file-card.module.scss";
 
@@ -53,7 +53,11 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 						<div className={styles.buttonsContainer}>
 							{displayActions && (
 								<>
-									<DeleteFile file_id={file._id} filename={file.filename} />
+									<DeleteFile
+										disabled={file.metadata.attachedTo && file.metadata.attachedTo?.length > 0}
+										file_id={file._id}
+										filename={file.filename}
+									/>
 									<DisplaySingleFile uri={file.metadata.html.fileUri} />
 									<UpdateFile file={file} />
 								</>
@@ -101,7 +105,7 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 						{file.metadata.attachedTo && file.metadata.attachedTo.length > 0 && (
 							<div className={`${styles.attachedTo}`}>
 								{file.metadata.attachedTo.map((item, index) => (
-									<FileAttachedToBadge
+									<AttachedToBadge
 										key={index}
 										badgeLabel={item.title}
 										ttContentLn1={`${capitalize(item.type)}: ${item.title}`}

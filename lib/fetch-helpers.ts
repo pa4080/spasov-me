@@ -1,3 +1,6 @@
+/**
+ * TODO: the functions defined here are not used anywhere, so we can safely remove the file
+ */
 import slugify from "slugify";
 
 import { PostType, PostTypeFromDb } from "@/interfaces/Post";

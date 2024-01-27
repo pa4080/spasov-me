@@ -3,7 +3,7 @@ import { GridFSFile } from "mongodb";
 import { UserObject } from "@/interfaces/User";
 
 export interface AttachedToDocument {
-	type: string;
+	type: "about" | "post" | "project" | "page";
 	title: string;
 	_id: string;
 }
