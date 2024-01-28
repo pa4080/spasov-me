@@ -1,18 +1,31 @@
 "use server";
 
-import { NewPageDoc, PageDoc } from "@/interfaces/Page";
-import { UserObject } from "@/interfaces/User";
+import { PageDoc } from "@/interfaces/Page";
 
 import { getSession } from "@/components/_common.actions";
-import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
-import { connectToMongoDb, mongo_id_obj } from "@/lib/mongodb-mongoose";
+import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import { msgs } from "@/messages";
 import Page from "@/models/page";
 
-export const getPages = async (): Promise<PageDoc[]> => {
+export const getPages = async ({
+	public: visible,
+}: {
+	public?: boolean;
+} = {}): Promise<null | PageDoc[]> => {
 	try {
+		if (visible) {
+			await connectToMongoDb();
+			const pages: PageDoc[] = await Page.find({}).populate(["image"]);
+
+			return pages.filter((page) => page.visibility);
+		}
+
+		if (!(await getSession())?.user) {
+			throw new Error(msgs("Errors")("invalidUser"));
+		}
+
 		await connectToMongoDb();
-		const pages: PageDoc[] = await Page.find(mongo_id_obj()).populate(["creator", "image"]);
+		const pages: PageDoc[] = await Page.find({}).populate(["image"]);
 
 		return pages;
 	} catch (error) {
@@ -20,77 +33,4 @@ export const getPages = async (): Promise<PageDoc[]> => {
 
 		return [];
 	}
-};
-
-export const getPublicPages = async (): Promise<PageDoc[]> => {
-	try {
-		await connectToMongoDb();
-		const pages: PageDoc[] = await Page.find(mongo_id_obj()).populate(["creator", "image"]);
-
-		return pages.filter((page) => page.visibility);
-	} catch (error) {
-		console.error(error);
-
-		return [];
-	}
-};
-
-export const getPagesConditionally = async (): Promise<PageDoc[]> => {
-	try {
-		await connectToMongoDb();
-		const pages: PageDoc[] = await Page.find(mongo_id_obj()).populate(["creator", "image"]);
-
-		const session = await getSession();
-
-		if (session?.user) {
-			return pages;
-		} else {
-			return pages.filter((page) => page.visibility);
-		}
-	} catch (error) {
-		console.error(error);
-
-		return [];
-	}
-};
-
-export const createPage = async (data: FormData): Promise<PageDoc> => {
-	const session = await getSession();
-
-	if (!session?.user) {
-		console.error(msgs("Errors")("invalidUser"));
-
-		return {} as PageDoc;
-	}
-
-	await connectToMongoDb();
-
-	const newPageData: NewPageDoc = {
-		title: data.get("title") as string,
-		description: data.get("description") as string,
-		uri: data.get("uri") as string,
-		image: data.get("image") as string,
-		visibility: data.get("visibility") as string,
-		creator: session?.user.id,
-	};
-
-	deleteFalsyKeys(newPageData, ["image"]);
-
-	const newPageDocument = new Page(newPageData);
-
-	await newPageDocument.save();
-	await newPageDocument.populate(["creator", "image"]);
-
-	return {
-		title: newPageDocument.title,
-		description: newPageDocument.description,
-		uri: newPageDocument.uri,
-		_id: newPageDocument._id.toString(),
-		image: newPageDocument.image?._id.toString(),
-		visibility: newPageDocument.visibility,
-		creator: {
-			name: newPageDocument.creator.name,
-			email: newPageDocument.creator.email,
-		} as UserObject,
-	};
 };

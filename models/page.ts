@@ -23,13 +23,13 @@ const PageSchema = new Schema({
 	},
 	uri: {
 		type: String,
-		match: [/^[a-z][a-z0-9-]+$/, "The URI must start wit lowercase latin alphabet!"],
+		match: [/^[a-z][a-z0-9-]+$/, "The URI must start wit lowercase latin alphabet or number!"],
 	},
 	creator: {
 		type: Schema.Types.ObjectId,
 		ref: User,
 	},
-	image: {
+	attachment: {
 		type: Schema.Types.ObjectId,
 		ref: FileGFS,
 	},

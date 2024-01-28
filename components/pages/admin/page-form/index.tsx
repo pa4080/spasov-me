@@ -52,7 +52,7 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 			title: "",
 			description: "",
 			uri: "",
-			image: "",
+			attachment: "",
 			visibility: false,
 		},
 		values: formData,
@@ -61,6 +61,7 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 	// Generate "image files" list
 	const [imageFiles, setImageFiles] = useState<ComboBoxList<Pages_FormSchema>[]>([]);
 
+	// TODO: When Server actions are implemented for pages, we will use getFileList({ images: true })
 	useEffect(() => {
 		if (files.length > 0) {
 			const filterImageFiles = files
@@ -162,17 +163,17 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 				{/* Image */}
 				<Combobox
 					control={form.control}
-					error={form.formState.errors.image}
+					error={form.formState.errors.attachment}
 					list={imageFiles}
 					messages={{
-						label: t("form_pageImage_label"),
-						description: t("form_pageImage_description"),
-						placeholder: t("form_pageImage_search"),
-						pleaseSelect: t("form_pageImage_select"),
-						notFound: t("form_pageImage_searchNotFound"),
-						selectNone: t("form_pageImage_selectNone"),
+						label: t("form_pageAttachment_label"),
+						description: t("form_pageAttachment_description"),
+						placeholder: t("form_pageAttachment_search"),
+						pleaseSelect: t("form_pageAttachment_select"),
+						notFound: t("form_pageAttachment_searchNotFound"),
+						selectNone: t("form_pageAttachment_selectNone"),
 					}}
-					name="image"
+					name="attachment"
 					setValue={form.setValue}
 				/>
 

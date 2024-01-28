@@ -38,11 +38,12 @@ const PagesAdmin: React.FC<Props> = ({ className }) => {
 	const handleDelete = (e: React.SyntheticEvent, page: PageDoc) => {
 		e.preventDefault();
 
+		// This documentToData should be processed at server action level
 		setActionPage({
 			title: page.title,
 			description: page.description,
 			uri: page.uri,
-			image: page.image?._id.toString(),
+			attachment: page.attachment?._id.toString(),
 			visibility:
 				typeof page.visibility === "string"
 					? page.visibility === "true"
@@ -59,11 +60,12 @@ const PagesAdmin: React.FC<Props> = ({ className }) => {
 	const handleEdit = (e: React.SyntheticEvent, page: PageDoc) => {
 		e.preventDefault();
 
+		// This documentToData should be processed at server action level
 		setActionPage({
 			title: page.title,
 			description: page.description,
 			uri: page.uri,
-			image: page.image?._id.toString(),
+			attachment: page.attachment?._id.toString(),
 			visibility:
 				typeof page.visibility === "string"
 					? page.visibility === "true"

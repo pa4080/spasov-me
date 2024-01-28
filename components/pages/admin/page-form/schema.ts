@@ -16,7 +16,7 @@ export const Pages_FormSchemaGenerator = (messages?: string[]) =>
 			.toLowerCase()
 			.regex(/^[a-z][a-z0-9-]+$/)
 			.trim(),
-		image: z.string().optional(),
+		attachment: z.string().optional(),
 		visibility: z.boolean(),
 	});
 

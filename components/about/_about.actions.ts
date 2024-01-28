@@ -8,7 +8,7 @@ import { AboutEntryType, CityType, CountryType } from "@/interfaces/_dataTypes";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb, mongo_id_obj } from "@/lib/mongodb-mongoose";
 import { msgs } from "@/messages";
-import AboutEntry from "@/models/about-entry";
+import AboutEntry from "@/models/about";
 
 import aboutDocumentToData from "@/lib/process-aboutDoc-to-aboutData";
 

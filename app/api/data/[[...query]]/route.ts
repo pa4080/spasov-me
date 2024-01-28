@@ -35,7 +35,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "@/lib/auth-options";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
-import AboutEntry from "@/models/about-entry";
+import AboutEntry from "@/models/about";
 import Page from "@/models/page";
 import Tag from "@/models/tag";
 import User from "@/models/user";
@@ -68,9 +68,9 @@ export async function GET(request: NextRequest, { params }: Context) {
 		switch (type) {
 			case "pages": {
 				if (session) {
-					response = await Page.find(_id(id)).populate(["creator", "image"]);
+					response = await Page.find(_id(id)).populate(["creator", "attachment"]);
 				} else {
-					response = await Page.find(_id(id)).populate(["image"]);
+					response = await Page.find(_id(id)).populate(["attachment"]);
 				}
 
 				break;
@@ -160,9 +160,9 @@ export async function POST(request: NextRequest, { params }: Context) {
 				await dbDocument.save();
 
 				if (session) {
-					response = await dbDocument.populate(["creator", "image"]);
+					response = await dbDocument.populate(["creator", "attachment"]);
 				} else {
-					response = await dbDocument.populate(["image"]);
+					response = await dbDocument.populate(["attachment"]);
 				}
 
 				break;
@@ -306,9 +306,9 @@ export async function PUT(request: NextRequest, { params }: Context) {
 		switch (type) {
 			case "pages": {
 				if (session) {
-					response = await updatedDocument.populate(["creator", "image"]);
+					response = await updatedDocument.populate(["creator", "attachment"]);
 				} else {
-					response = await updatedDocument.populate(["image"]);
+					response = await updatedDocument.populate(["attachment"]);
 				}
 
 				break;

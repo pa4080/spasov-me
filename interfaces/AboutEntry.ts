@@ -1,7 +1,6 @@
-import { UserObject } from "@/interfaces/User";
-
 import { FileData, FileDocument } from "./File";
 import { TagData, TagDoc } from "./Tag";
+import { UserObject } from "./User";
 import { AboutEntryType, CityType, CountryType } from "./_dataTypes";
 
 export interface AboutEntryDoc {

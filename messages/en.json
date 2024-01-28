@@ -66,7 +66,7 @@
 	},
 	"PagesFeed": {
 		"index_title": "Public available pages",
-		"index_pageImage_alt": "Image for the page '{ title }'",
+		"index_pageAttachment_alt": "Image for the page '{ title }'",
 
 		"dialog_title_add": "Add a new page",
 		"dialog_title_edit": "Edit the \"{ title }\" page entry",
@@ -95,12 +95,12 @@
 		"form_pageUri_select": "Select URI for the page...",
 		"form_pageUri_selectNone": "Must be chosen!",
 
-		"form_pageImage_label": "Select page image",
-		"form_pageImage_description": "Choice an image. It must exist on the system.",
-		"form_pageImage_search": "Search for an image...",
-		"form_pageImage_searchNotFound": "The image could not be found.",
-		"form_pageImage_select": "Select an image...",
-		"form_pageImage_selectNone": "None!",
+		"form_pageAttachment_label": "Select page image",
+		"form_pageAttachment_description": "Choice an image. It must exist on the system.",
+		"form_pageAttachment_search": "Search for an image...",
+		"form_pageAttachment_searchNotFound": "The image could not be found.",
+		"form_pageAttachment_select": "Select an image...",
+		"form_pageAttachment_selectNone": "None!",
 
 		"form_pageVisibility_title": "Page visibility",
 		"form_pageVisibility_description": "The value depends on the page URI and it is also defined in @/routes.tsx",

@@ -61,13 +61,13 @@ const PageCard: React.FC<Props> = ({ className, page, handleDelete, handleEdit }
 					onClick={(e) => handleEdit(e, page)}
 				/>
 			</div>
-			{page.image && (
+			{page.attachment && (
 				<div className={styles.cardImageEditMode}>
 					<Image
 						priority
-						alt={t("index_pageImage_alt", { title: page.title })}
+						alt={t("index_pageAttachment_alt", { title: page.title })}
 						height={260}
-						src={`${Route.api.FILES}/${page.image._id.toString()}/${page.image.filename}`}
+						src={`${Route.api.FILES}/${page.attachment._id.toString()}/${page.attachment.filename}`}
 						width={462}
 					/>
 				</div>

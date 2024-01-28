@@ -1,25 +1,25 @@
-import { GridFSFile } from "mongodb";
-
-import { UserObject } from "@/interfaces/User";
+import { FileDocument } from "./File";
+import { UserObject } from "./User";
 
 export type PageDoc = {
 	_id: string;
 	creator: UserObject;
+
 	title: string;
 	description: string;
 	uri: string;
-	image?: GridFSFile;
+	attachment?: FileDocument;
 	visibility: boolean | string;
 };
 
-export type NewPageDoc = Omit<PageDoc, "_id" | "image" | "creator"> & {
+export type NewPageDoc = Omit<PageDoc, "_id" | "attachment" | "creator"> & {
 	creator: string;
-	image?: string;
+	attachment?: string;
 };
 
 type PageDocToFetch = {
 	data: PageDoc | NewPageDoc | Record<string, unknown>;
-	// image_id?: string | null;
+	// attachment_id?: string | null;
 	user_id?: string | undefined;
 };
 

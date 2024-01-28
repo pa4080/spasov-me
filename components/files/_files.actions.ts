@@ -15,7 +15,7 @@ import { msgs } from "@/messages";
 import FileGFS from "@/models/file";
 import { Route } from "@/routes";
 
-import AboutEntry from "@/models/about-entry";
+import AboutEntry from "@/models/about";
 
 import { getSession, revalidatePaths } from "../_common.actions";
 
@@ -67,16 +67,24 @@ export const getFiles = async (): Promise<FileData[] | null> => {
 	}
 };
 
-export const getFileList = async (): Promise<FileListItem[] | null> => {
+export const getFileList = async ({ images }: { images?: boolean } = {}): Promise<
+	FileListItem[] | null
+> => {
 	const files = await getFiles();
 
 	if (!files || files?.length === 0) {
 		return null;
 	}
 
-	// const images = files.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/));
+	let filteredFiles = files;
 
-	return files.map((file) => ({
+	if (images) {
+		filteredFiles = files.filter((file) =>
+			file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/)
+		);
+	}
+
+	return filteredFiles.map((file) => ({
 		value: file._id.toString(),
 		label: file.filename,
 		sourceImage: `${Route.api.FILES}/${file._id.toString()}/${
