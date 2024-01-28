@@ -1,10 +1,9 @@
 import { FileData, FileDocument } from "@/interfaces/File";
-
 import { Route } from "@/routes";
 
 import { processMarkdown } from "./process-markdown";
 
-export default function fileDocumentToData(files: FileDocument[]): FileData[] {
+export default function fileDocumentToData({ files }: { files: FileDocument[] }): FileData[] {
 	return files.map((file) => ({
 		_id: file._id.toString(),
 		filename: file.filename,

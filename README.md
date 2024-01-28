@@ -1,6 +1,6 @@
 # Spasov.me home page
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/25a5b655a9ce437aa5867df55352e90c)](https://app.codacy.com/gh/metalevel-tech/spasov-me/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+<!-- [![Codacy Badge](https://app.codacy.com/project/badge/Grade/25a5b655a9ce437aa5867df55352e90c)](https://app.codacy.com/gh/metalevel-tech/spasov-me/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) -->
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -14,13 +14,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [x] Upload form + MarkDown for the description
   - [x] Get the files on the server side ?
 - [ ] Add relations field between the attachments/galleries and the files
-  - [x] attachments (about-entries > via Server actions)
-  - [x] galleries (about-entries > via Server actions)
-  - [ ] attachments (pages > via API)
+  - [x] attachments (about entries > via Server actions)
+  - [x] galleries (about entries > via Server actions)
   - [x] Display the file's attachedTo in the file's card
   - [x] Display the file's attachedTo in the file's form
   - [x] Detach the file from its edit form
   - [x] Lock the file's delete action while it is in use
+  - [ ] Refactor Pages to use Server actions
 - [ ] Gallery display
 - [ ] Projects Admin? > Form design
 - [ ] Projects public

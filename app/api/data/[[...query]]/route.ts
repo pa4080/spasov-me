@@ -1,16 +1,12 @@
 /**
+ * NOTE: This API is deprecated. It doesn't posse all features
+ *       implemented in "@/components/data/_<data>.actions.ts".
+ *       I.e. linking the files to "about", "posts", "projects", etc.
+ *
  * @see https://nextjs.org/docs/app/api-reference
  * @see https://nextjs.org/docs/app/api-reference/file-conventions/route
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
  * @see Ref: https://youtu.be/wm5gMKuwSYk?t=7699
- *
- * @note The PATCH and DELETE functions are created bt the help of the
- * 			 VSC extension Bito GPT-4 AI. To check how this is implemented
- *       in the original guide you can @see https://youtu.be/wm5gMKuwSYk?t=10336
- *
- * Spas Z. Spasov REST API Implementation notes:
- * A route file (only for app/ router) allows you
- * to create custom request handlers for a given route.
  *
  * export async function GET(request: Request) {}     // GET:  Retrieve a resource(s)
  * export async function HEAD(request: Request) {}    // HEAD: Retrieve resource metadata
@@ -36,16 +32,13 @@
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
-import AboutEntry from "@/models/about-entry";
-
 import { authOptions } from "@/lib/auth-options";
-
+import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
+import AboutEntry from "@/models/about-entry";
 import Page from "@/models/page";
 import Tag from "@/models/tag";
 import User from "@/models/user";
-
-import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 
 import { errorMessages } from "../../common";
 
@@ -83,7 +76,7 @@ export async function GET(request: NextRequest, { params }: Context) {
 				break;
 			}
 
-			case "about-entries": {
+			case "about": {
 				if (session) {
 					response = await AboutEntry.find(_id(id)).populate(["creator", "attachment"]);
 				} else {
@@ -156,10 +149,8 @@ export async function POST(request: NextRequest, { params }: Context) {
 
 		/**
 		 * Here is how to test, does the schema include certain field
-		 * in ver 8+ of Mongoose/MongoDB
-		 *
-			console.log( dbDocument.schema.obj );
-			console.log( !!dbDocument.schema.obj.image );
+		 * > console.log( dbDocument.schema.obj );
+		 * > console.log( !!dbDocument.schema.obj.image );
 		 */
 
 		switch (type) {
@@ -177,7 +168,7 @@ export async function POST(request: NextRequest, { params }: Context) {
 				break;
 			}
 
-			case "about-entries": {
+			case "about": {
 				dbDocument = new AboutEntry(request_object);
 
 				await dbDocument.save();
@@ -219,8 +210,9 @@ export async function POST(request: NextRequest, { params }: Context) {
 				break;
 			}
 
-			default:
+			default: {
 				return NextResponse.json({ error: errorMessages.e501 }, { status: 501 });
+			}
 		}
 
 		return NextResponse.json(
@@ -270,7 +262,7 @@ export async function PUT(request: NextRequest, { params }: Context) {
 				break;
 			}
 
-			case "about-entries": {
+			case "about": {
 				dbDocument = AboutEntry;
 
 				break;
@@ -322,7 +314,7 @@ export async function PUT(request: NextRequest, { params }: Context) {
 				break;
 			}
 
-			case "about-entries": {
+			case "about": {
 				if (session) {
 					response = await updatedDocument.populate(["creator", "attachment"]);
 				} else {
@@ -412,7 +404,7 @@ export async function DELETE(request: NextRequest, { params }: Context) {
 				break;
 			}
 
-			case "about-entries": {
+			case "about": {
 				dbDocModel = AboutEntry;
 				break;
 			}

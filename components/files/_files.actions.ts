@@ -4,13 +4,13 @@ import { ObjectId } from "mongodb";
 
 import { AttachedToDocument, FileData, FileDocument, FileListItem } from "@/interfaces/File";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
-import fileDocumentToData from "@/lib/file-doc-to-file-data";
 import {
 	connectToMongoDb,
 	defaultChunkSize,
 	gridFSBucket,
 	mongo_id_obj,
 } from "@/lib/mongodb-mongoose";
+import fileDocumentToData from "@/lib/process-fileDoc-to-fileData";
 import { msgs } from "@/messages";
 import FileGFS from "@/models/file";
 import { Route } from "@/routes";
@@ -42,7 +42,7 @@ export const getFilesV1 = async (): Promise<FileData[] | null> => {
 			return null;
 		}
 
-		return fileDocumentToData(files);
+		return fileDocumentToData({ files });
 	} catch (error) {
 		console.error(error);
 
@@ -59,7 +59,7 @@ export const getFiles = async (): Promise<FileData[] | null> => {
 			return null;
 		}
 
-		return fileDocumentToData(files.map((file) => file.toObject()));
+		return fileDocumentToData({ files: files.map((file) => file.toObject()) });
 	} catch (error) {
 		console.error(error);
 
@@ -91,9 +91,7 @@ export const createFile = async (data: FormData, paths: string[]): Promise<true 
 		const session = await getSession();
 
 		if (!session?.user) {
-			console.error(msgs("Errors")("invalidUser"));
-
-			return null;
+			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
 		// connect to the database and get the bucket
@@ -168,9 +166,7 @@ export const updateFile = async (
 		const session = await getSession();
 
 		if (!session?.user) {
-			console.error(msgs("Errors")("invalidUser"));
-
-			return null;
+			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
 		// Generate the ObjectId, connect to the db and get the bucket
@@ -280,12 +276,8 @@ export const updateFile = async (
 
 export const deleteFile = async (file_id: string, paths: string[]): Promise<true | null> => {
 	try {
-		const session = await getSession();
-
-		if (!session?.user) {
-			console.error(msgs("Errors")("invalidUser"));
-
-			return null;
+		if (!(await getSession())?.user) {
+			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
 		const bucket = await gridFSBucket();

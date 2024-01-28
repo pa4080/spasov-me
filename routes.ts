@@ -56,7 +56,7 @@ export const Route = {
 	api: {
 		PAGES: "/api/data/pages",
 		POSTS: "/api/data/posts",
-		ABOUT_ENTRY: "/api/data/about-entries",
+		ABOUT: "/api/data/about",
 		FILES: "/api/files",
 		BLOB: "/api/blob",
 	},

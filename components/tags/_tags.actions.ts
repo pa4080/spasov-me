@@ -9,8 +9,6 @@ import { msgs } from "@/messages";
 import Tag from "@/models/tag";
 
 export const getTags = async (): Promise<TagData[] | null> => {
-	"use server";
-
 	try {
 		await connectToMongoDb();
 		const tags: TagDoc[] = await Tag.find(mongo_id_obj());
@@ -35,14 +33,11 @@ export const createTag = async (data: FormData, paths: string[]): Promise<true |
 		const session = await getSession();
 
 		if (!session?.user) {
-			console.error(msgs("Errors")("invalidUser"));
-
-			return null;
+			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
 		await connectToMongoDb();
 
-		// TODO: use Array.from(data.entries()); like in _files.actions.ts ??
 		const newTagData: NewTagData = {
 			name: data.get("name") as string,
 			description: data.get("description") as string,
@@ -77,14 +72,11 @@ export const updateTag = async (
 		const session = await getSession();
 
 		if (!session?.user) {
-			console.error(msgs("Errors")("invalidUser"));
-
-			return null;
+			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
 		await connectToMongoDb();
 
-		// TODO: use Array.from(data.entries()); like in _files.actions.ts ??
 		const newTagData: NewTagData = {
 			name: data.get("name") as string,
 			description: data.get("description") as string,
@@ -115,12 +107,8 @@ export const updateTag = async (
 
 export const deleteTag = async (tag_id: string, paths: string[]): Promise<true | null> => {
 	try {
-		const session = await getSession();
-
-		if (!session?.user) {
-			console.error(msgs("Errors")("invalidUser"));
-
-			return null;
+		if (!(await getSession())?.user) {
+			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
 		await connectToMongoDb();

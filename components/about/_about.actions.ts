@@ -6,72 +6,47 @@ import { getSession, revalidatePaths } from "@/components/_common.actions";
 import { AboutEntryData, AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
 import { AboutEntryType, CityType, CountryType } from "@/interfaces/_dataTypes";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
-import fileDocumentToData from "@/lib/file-doc-to-file-data";
 import { connectToMongoDb, mongo_id_obj } from "@/lib/mongodb-mongoose";
-import { processMarkdown } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 import AboutEntry from "@/models/about-entry";
-import { Route } from "@/routes";
+
+import aboutDocumentToData from "@/lib/process-aboutDoc-to-aboutData";
 
 import { fileAttachment_add, fileAttachment_remove } from "../files/_files.actions";
 
 export const getEntries = async ({
 	hyphen,
 	typeList,
+	public: visible,
 }: {
 	hyphen?: boolean;
 	typeList?: AboutEntryType[];
+	public?: boolean;
 }): Promise<AboutEntryData[] | null> => {
 	try {
+		if (visible) {
+			await connectToMongoDb();
+			const entries: AboutEntryDoc[] = await AboutEntry.find({}).populate([
+				"attachment",
+				"tags",
+				"gallery",
+			]);
+
+			return aboutDocumentToData({ entries, hyphen, typeList, visible });
+		}
+
+		if (!(await getSession())?.user) {
+			throw new Error(msgs("Errors")("invalidUser"));
+		}
+
 		await connectToMongoDb();
-		const entries: AboutEntryDoc[] = await AboutEntry.find(mongo_id_obj()).populate([
+		const entries: AboutEntryDoc[] = await AboutEntry.find({}).populate([
 			"attachment",
 			"tags",
 			"gallery",
 		]);
 
-		return entries
-			.filter(({ entryType }) => (typeList && typeList.includes(entryType)) ?? true)
-			.map((entry) => {
-				return {
-					_id: entry._id.toString(),
-					html: {
-						// This cannot be done in the client side
-						title: processMarkdown({
-							markdown: entry.title,
-							hyphen,
-						}),
-						description: processMarkdown({
-							markdown: entry.description,
-							hyphen,
-						}),
-						attachmentUri:
-							entry.attachment &&
-							`${Route.api.FILES}/${entry.attachment?._id.toString()}/${
-								entry.attachment?.filename
-							}?v=${new Date(entry.attachment?.uploadDate).getTime()}`,
-					},
-					title: entry.title,
-					description: entry.description,
-					country: entry.country,
-					city: entry.city,
-					dateFrom: entry.dateFrom as Date,
-					dateTo: entry.dateTo as Date | undefined,
-					entryType: entry.entryType,
-					visibility: entry.visibility as boolean,
-					attachment: entry.attachment?._id.toString(),
-					tags:
-						entry.tags?.map((tag) => ({
-							name: tag.name,
-							description: tag.description,
-							_id: tag._id.toString(),
-							icon: tag.icon,
-							tagType: tag.tagType,
-							orderKey: tag.orderKey,
-						})) || [],
-					gallery: fileDocumentToData(entry.gallery || []),
-				};
-			});
+		return aboutDocumentToData({ entries, hyphen, typeList, visible });
 	} catch (error) {
 		console.error(error);
 
@@ -84,9 +59,7 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<bool
 		const session = await getSession();
 
 		if (!session?.user) {
-			console.error(msgs("Errors")("invalidUser"));
-
-			return null;
+			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
 		// Get the input data from the form
@@ -161,9 +134,7 @@ export const updateEntry = async (
 		const session = await getSession();
 
 		if (!session?.user) {
-			console.error(msgs("Errors")("invalidUser"));
-
-			return null;
+			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
 		// Get the input data from the form
@@ -275,12 +246,8 @@ export const updateEntry = async (
 
 export const deleteEntry = async (entry_id: string, paths: string[]): Promise<boolean> => {
 	try {
-		const session = await getSession();
-
-		if (!session?.user) {
-			console.error(msgs("Errors")("invalidUser"));
-
-			return false;
+		if (!(await getSession())?.user) {
+			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
 		// Connect to the DB and delete the entry

@@ -1,4 +1,6 @@
 /**
+ * NOTE: This API doesn't posse all features implemented in "@/components/files/_files.actions.ts".
+ *       Primary we are using the API's GET() method.
  * @see https://mongodb.github.io/mongo-csharp-driver/2.8/reference/gridfs/uploadingfiles/
  * @see https://mongodb.github.io/node-mongodb-native/6.0/classes/GridFSBucket.html#openUploadStream
  * @see https://mongodb.github.io/node-mongodb-native/6.0/classes/GridFSBucket.html#openUploadStreamWithId
