@@ -15,7 +15,7 @@ export const getPages = async ({
 	try {
 		if (visible) {
 			await connectToMongoDb();
-			const pages: PageDoc[] = await Page.find({}).populate(["image"]);
+			const pages: PageDoc[] = await Page.find({}).populate(["attachment"]);
 
 			return pages.filter((page) => page.visibility);
 		}
@@ -25,7 +25,7 @@ export const getPages = async ({
 		}
 
 		await connectToMongoDb();
-		const pages: PageDoc[] = await Page.find({}).populate(["image"]);
+		const pages: PageDoc[] = await Page.find({}).populate(["attachment"]);
 
 		return pages;
 	} catch (error) {

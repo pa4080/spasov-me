@@ -43,8 +43,8 @@ const UpdateFile: React.FC<Props> = ({ className, file }) => {
 			const response = await updateFile(generateFormDataFromObject(data), file._id, [
 				pathname,
 				Route.admin.ABOUT,
-				Route.public.ABOUT.uri,
-				// TODO: Revalidate "projects", "blog", etc. when they are implemented
+				Route.admin.PORTFOLIO,
+				Route.admin.PAGES,
 			]);
 
 			serverActionResponseToastAndLocationReload({

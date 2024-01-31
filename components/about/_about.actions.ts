@@ -17,7 +17,7 @@ import { fileAttachment_add, fileAttachment_remove } from "../files/_files.actio
 export const getEntries = async ({
 	hyphen,
 	typeList,
-	public: visible,
+	public: visible = false,
 }: {
 	hyphen?: boolean;
 	typeList?: AboutEntryType[];
@@ -35,9 +35,14 @@ export const getEntries = async ({
 			return aboutDocumentToData({ entries, hyphen, typeList, visible });
 		}
 
-		if (!(await getSession())?.user) {
-			throw new Error(msgs("Errors")("invalidUser"));
-		}
+		/**
+		 * It is not possible to getSession() because it uses next/headers,
+		 * And the "/admin/about" component cannot be statically generated.
+
+			if (!(await getSession())?.user) {
+				throw new Error(msgs("Errors")("invalidUser"));
+			}
+		 */
 
 		await connectToMongoDb();
 		const entries: AboutEntryDoc[] = await AboutEntry.find({}).populate([

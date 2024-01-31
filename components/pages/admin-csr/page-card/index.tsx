@@ -11,7 +11,7 @@ import { PageDoc } from "@/interfaces/Page";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import styles from "../../_pages.module.scss";
+import styles from "../_pages.module.scss";
 
 interface Props {
 	className?: string;

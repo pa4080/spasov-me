@@ -1,0 +1,63 @@
+@import "@/app/globals.variables.module.scss";
+
+.pages {
+	.section {
+		@apply space-y-8;
+	}
+
+	.section + .section {
+		@apply mt-16;
+	}
+
+	.feed {
+		@apply grid grid-cols-1 md:grid-cols-2 grid-flow-row gap-12 md:gap-10 lg:gap-14;
+	}
+
+	.card {
+		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[5%] rounded-2xl h-full p-6 md:p-8 relative min-h-fit flex items-start flex-col gap-3 justify-start cursor-pointer;
+
+		transition:
+			background-color 0.5s,
+			box-shadow 0.5s,
+			opacity 0.5s,
+			box-shadow 0.5s;
+
+		&:hover {
+			@apply bg-popover/[40%] dark:bg-popover/[80%];
+
+			transition:
+				background-color 0.5s,
+				box-shadow 0.5s,
+				opacity 0.5s,
+				box-shadow 0.5s;
+
+			:global(.light) & {
+				box-shadow: 0 6px 24px theme("colors.primary.DEFAULT");
+			}
+
+			:global(.light-brown) & {
+				box-shadow: 0 8px 32px theme("colors.primary.DEFAULT");
+			}
+
+			:global(.dark) & {
+				box-shadow: 0 8px 32px theme("colors.muted.DEFAULT");
+			}
+		}
+
+		.title {
+			@apply font-unicephalon text-2xl tracking-wider text-foreground-secondary;
+		}
+
+		.buttons {
+			@apply flex gap-1 absolute right-0 top-0 p-4 rounded-2xl;
+		}
+
+		.cardImageEditMode {
+			@apply mt-8 border w-full drop-shadow-2xl rounded-md overflow-hidden;
+
+			img {
+				@apply w-full h-auto;
+			}
+		}
+	}
+}
