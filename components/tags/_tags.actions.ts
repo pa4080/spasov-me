@@ -2,16 +2,16 @@
 
 import { getSession, revalidatePaths } from "@/components/_common.actions";
 import { NewTagData, TagData, TagDoc } from "@/interfaces/Tag";
-import { TagType } from "@/interfaces/_dataTypes";
+import { TagType } from "@/interfaces/_common-data-types";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
-import { connectToMongoDb, mongo_id_obj } from "@/lib/mongodb-mongoose";
+import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import { msgs } from "@/messages";
 import Tag from "@/models/tag";
 
 export const getTags = async (): Promise<TagData[] | null> => {
 	try {
 		await connectToMongoDb();
-		const tags: TagDoc[] = await Tag.find(mongo_id_obj());
+		const tags: TagDoc[] = await Tag.find({});
 
 		return tags.map((tag) => ({
 			_id: tag._id.toString(),
@@ -88,7 +88,7 @@ export const updateTag = async (
 
 		deleteFalsyKeys(newTagData);
 
-		const updatedTagDocument = await Tag.findOneAndUpdate(mongo_id_obj(tag_id), newTagData, {
+		const updatedTagDocument = await Tag.findOneAndUpdate({ _id: tag_id }, newTagData, {
 			new: true,
 			strict: true,
 		});
@@ -113,7 +113,7 @@ export const deleteTag = async (tag_id: string, paths: string[]): Promise<true |
 
 		await connectToMongoDb();
 
-		const deletedObject = await Tag.findOneAndDelete(mongo_id_obj(tag_id));
+		const deletedObject = await Tag.findOneAndDelete({ _id: tag_id });
 
 		return !!deletedObject ? true : null;
 	} catch (error) {

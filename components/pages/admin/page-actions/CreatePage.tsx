@@ -29,7 +29,7 @@ interface Props {
 }
 
 const CreatePage: React.FC<Props> = ({ className, files }) => {
-	const t = msgs("PagesAdmin_CreatePage");
+	const t = msgs("PageCards_CreatePage");
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353

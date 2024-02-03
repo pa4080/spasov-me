@@ -21,7 +21,7 @@ interface Props {
 }
 
 const Section: React.FC<Props> = ({ className, pages, files, type = "common" }) => {
-	const t = msgs("PagesAdmin");
+	const t = msgs("PageCards");
 
 	type tType = Parameters<typeof t>[0];
 
@@ -42,7 +42,7 @@ const Section: React.FC<Props> = ({ className, pages, files, type = "common" }) 
 			</SectionHeader>
 
 			<div className={styles.feed}>
-				{pages?.map((page, index) => <PageCard key={index} page={page} />)}
+				{pages?.map((page, index) => <PageCard key={index} files={files} page={page} />)}
 			</div>
 		</div>
 	);

@@ -26,7 +26,12 @@ import { Switch } from "@/components/ui/switch";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileData, FileListItem } from "@/interfaces/File";
 import { TagData } from "@/interfaces/Tag";
-import { AboutEntryType, aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataTypes";
+import {
+	AboutEntryType,
+	aboutEntryTuple,
+	cityTuple,
+	countryTuple,
+} from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
 
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";

@@ -1,6 +1,6 @@
 import { UserObject } from "@/interfaces/User";
 
-import { TagType } from "./_dataTypes";
+import { TagType } from "./_common-data-types";
 
 export interface TagDoc {
 	_id: string;

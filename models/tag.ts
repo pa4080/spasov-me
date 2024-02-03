@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-import { tagTuple } from "@/interfaces/_dataTypes";
+import { tagTuple } from "@/interfaces/_common-data-types";
 
 import User from "./user";
 

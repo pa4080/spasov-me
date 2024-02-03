@@ -1,7 +1,7 @@
 import { FileData, FileDocument } from "./File";
 import { TagData, TagDoc } from "./Tag";
 import { UserObject } from "./User";
-import { AboutEntryType, CityType, CountryType } from "./_dataTypes";
+import { AboutEntryType, CityType, CountryType } from "./_common-data-types";
 
 export interface AboutEntryDoc {
 	_id: string;

@@ -4,17 +4,16 @@ import { ObjectId } from "mongodb";
 
 import { AttachedToDocument, FileData, FileDocument, FileListItem } from "@/interfaces/File";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
-import {
-	connectToMongoDb,
-	defaultChunkSize,
-	gridFSBucket,
-	mongo_id_obj,
-} from "@/lib/mongodb-mongoose";
+import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
 import { fileDocumentsToData } from "@/lib/process-data-files";
 import { msgs } from "@/messages";
 import AboutEntry from "@/models/about";
 import FileGFS from "@/models/file";
 import { Route } from "@/routes";
+
+import Page from "@/models/page";
+
+import { ModelType } from "@/interfaces/_common-data-types";
 
 import { getSession, revalidatePaths } from "../_common.actions";
 
@@ -432,16 +431,26 @@ export const fileAttachment_detach = async ({
 		// If there are differences, process them.
 		await connectToMongoDb();
 
-		// Deal with the "about-entry" documents
-		const attachedTo_diff_about = attachedTo_diff.filter(({ type }) => type === "about");
+		if (attachedTo_diff.length > 0) {
+			attachedTo_diff.forEach(async ({ _id, type }: { _id: string; type: ModelType }) => {
+				let document;
 
-		// TODO: Do the same for the other models like "portfolio", "blog", "pages", etc.
-		// TODO: This should be a function with three params: attachedTo_diff_Arr, file_id, db Model
-		if (attachedTo_diff_about.length > 0) {
-			const about_ids = attachedTo_diff_about.map(({ _id }) => _id);
+				switch (type) {
+					case "About": {
+						document = await AboutEntry.findOne({ _id });
+						break;
+					}
 
-			about_ids.forEach(async (entry_id) => {
-				const document = await AboutEntry.findOne(mongo_id_obj(entry_id));
+					case "Page": {
+						document = await Page.findOne({ _id });
+						break;
+					}
+
+					default: {
+						document = null;
+						break;
+					}
+				}
 
 				if (document) {
 					if (document.attachment && document.attachment.toString() === file_id) {
@@ -457,7 +466,9 @@ export const fileAttachment_detach = async ({
 					await document.save();
 				} else {
 					console.warn(
-						`The entry '${entry_id}' does not exist.\n > It is safe to remove the relevant record from the 'attachedTo' array of '${file_id}'.`
+						`The DB document with Id '${_id}' does not exist.\n > ` +
+							`It is safe to remove the relevant record from the ` +
+							`'attachedTo' array of '${file_id}'.`
 					);
 				}
 			});

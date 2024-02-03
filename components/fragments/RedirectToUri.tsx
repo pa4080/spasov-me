@@ -10,7 +10,7 @@ interface Props {
 	uri?: string;
 }
 
-const DisplaySingleFile: React.FC<Props> = ({ className, uri }) => {
+const RedirectToUri: React.FC<Props> = ({ className, uri }) => {
 	const router = useRouter();
 
 	return (
@@ -27,4 +27,4 @@ const DisplaySingleFile: React.FC<Props> = ({ className, uri }) => {
 	);
 };
 
-export default DisplaySingleFile;
+export default RedirectToUri;

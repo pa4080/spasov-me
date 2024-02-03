@@ -23,7 +23,7 @@ interface Props {
 	className?: string;
 }
 
-const PagesAdmin: React.FC<Props> = ({ className }) => {
+const PageCards: React.FC<Props> = ({ className }) => {
 	const { pages, setPages } = useAppContext();
 
 	const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -119,4 +119,4 @@ const PagesAdmin: React.FC<Props> = ({ className }) => {
 	);
 };
 
-export default PagesAdmin;
+export default PageCards;

@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { FileListItem } from "@/interfaces/File";
 import { TagData } from "@/interfaces/Tag";
-import { AboutEntryType } from "@/interfaces/_dataTypes";
+import { AboutEntryType } from "@/interfaces/_common-data-types";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";

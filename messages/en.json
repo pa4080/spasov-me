@@ -64,10 +64,11 @@
 		"greeting_ln1": "Welcome to",
 		"greeting_ln2": "&nbsp;my site"
 	},
-	"PagesAdmin": {
-		"title_common": "Edit home page cards"
+	"PageCards": {
+		"title_common": "Edit home page cards",
+		"index_pageAttachment_alt": "Image for the page '{ title }'"
 	},
-	"PagesAdmin_CreatePage": {
+	"PageCards_CreatePage": {
 		"toast_success": "The page was successfully created.",
 		"toast_error": "Something went wrong. Please try again.",
 		"dialog_btn_add": "Add a page",
@@ -75,7 +76,13 @@
 		"dialog_title": "Add a new page",
 		"dialog_description": ""
 	},
-	"PagesAdmin_Form": {
+	"PageCards_UpdatePage": {
+		"toast_success": "The page was successfully updated.",
+		"toast_error": "Something went wrong. Please try again.",
+		"dialog_title": "Update an existing page",
+		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>"
+	},
+	"PageCards_Form": {
 		"form_pageTitle": "Page title",
 		"form_pageTitlePlaceholder": "Page title...",
 		"form_pageTitleDescription": "Enter the display title/name of the page.",

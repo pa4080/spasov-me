@@ -10,7 +10,7 @@ import SectionHeader from "@/components/fragments/section-header";
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
 
-import { TagType } from "@/interfaces/_dataTypes";
+import { TagType } from "@/interfaces/_common-data-types";
 
 import { hyphenateString } from "@/lib/process-text";
 

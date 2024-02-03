@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-import { aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataTypes";
+import { aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_common-data-types";
 
 import FileGFS from "./file";
 import Tag from "./tag";

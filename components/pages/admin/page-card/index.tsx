@@ -1,46 +1,37 @@
-"use client";
-
 import React from "react";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { Switch } from "@/components/ui/switch";
 import { PageData } from "@/interfaces/Page";
 import { msgs } from "@/messages";
 
+import RedirectToUri from "@/components/fragments/RedirectToUri";
+
+import { FileListItem } from "@/interfaces/File";
+
 import styles from "../../_pages.module.scss";
+import UpdatePage from "../page-actions/UpdatePage";
 
 interface Props {
 	className?: string;
 	page: PageData;
+	files: FileListItem[] | null | undefined;
 }
 
-const PageCard: React.FC<Props> = ({ className, page }) => {
-	const t = msgs("PagesFeed_OLD");
-	const router = useRouter(); // We can't use <Link><ButtonIcon /></Link>, because Tge inner component have onClick()
+const PageCard: React.FC<Props> = ({ className, page, files }) => {
+	const t = msgs("PageCards");
 
 	return (
 		<div className={`${styles.card} ${className}`}>
 			<div className={styles.buttons}>
-				<ButtonIcon
+				{/* <ButtonIcon
 					className="pl-[2.6px] bg-transparent icon_accent_secondary"
-					height={18}
+					height={22}
 					type="trash"
-					width={18}
-					// eslint-disable-next-line no-console
-					onClick={(e) => console.log(e, page)}
-				/>
-				<ButtonIcon
-					className="pl-[2.8px] bg-transparent icon_accent_secondary"
-					height={18}
-					type="up-right-from-square"
-					width={18}
-					onClick={() => {
-						router.push(`/${page.uri}`);
-					}}
-				/>
+					width={22}
+				/> */}
+				<RedirectToUri uri={`/${page.uri}`} />
 				<Switch
 					disabled
 					checked={
@@ -52,14 +43,7 @@ const PageCard: React.FC<Props> = ({ className, page }) => {
 					}
 					className="mt-1 mr-1"
 				/>
-				<ButtonIcon
-					className="pl-[4.5px] bg-transparent icon_accent_secondary"
-					height={18}
-					type="brush"
-					width={18}
-					// eslint-disable-next-line no-console
-					onClick={(e) => console.log(e, page)}
-				/>
+				<UpdatePage files={files} page={page} />
 			</div>
 			{page.attachment && page.html.attachmentUri && (
 				<div className={styles.cardImageEditMode}>

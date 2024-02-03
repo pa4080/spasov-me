@@ -22,7 +22,9 @@ import { msgs } from "@/messages";
 
 import { Route } from "@/routes";
 
-import { FileListItem } from "@/interfaces/File";
+import { FileData, FileListItem } from "@/interfaces/File";
+
+import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 
 import Combobox from "../../../fragments/Combobox";
 import { Pages_FormSchema, Pages_FormSchemaGenerator } from "./schema";
@@ -42,7 +44,7 @@ const PageForm: React.FC<Props> = ({
 	formData,
 	files,
 }) => {
-	const t = msgs("PagesAdmin_Form");
+	const t = msgs("PageCards_Form");
 
 	const FormSchema = Pages_FormSchemaGenerator([
 		t("schema_title"),
@@ -151,22 +153,43 @@ const PageForm: React.FC<Props> = ({
 					setValue={form.setValue}
 				/>
 
-				{/* Image */}
-				<Combobox
-					control={form.control}
-					error={form.formState.errors.attachment}
-					list={files ?? []}
-					messages={{
-						label: t("form_pageAttachment_label"),
-						description: t("form_pageAttachment_description"),
-						placeholder: t("form_pageAttachment_search"),
-						pleaseSelect: t("form_pageAttachment_select"),
-						notFound: t("form_pageAttachment_searchNotFound"),
-						selectNone: t("form_pageAttachment_selectNone"),
-					}}
-					name="attachment"
-					setValue={form.setValue}
-				/>
+				{/* Attachment: Image */}
+				<div className="flex gap-2 w-full max-w-full items-center justify-center">
+					<Combobox
+						className="w-full"
+						control={form.control}
+						error={form.formState.errors.attachment}
+						list={files ?? []}
+						messages={{
+							label: t("form_pageAttachment_label"),
+							description: t("form_pageAttachment_description"),
+							placeholder: t("form_pageAttachment_search"),
+							pleaseSelect: t("form_pageAttachment_select"),
+							notFound: t("form_pageAttachment_searchNotFound"),
+							selectNone: t("form_pageAttachment_selectNone"),
+						}}
+						name="attachment"
+						setValue={form.setValue}
+					/>
+					<DisplayFileImage
+						className={`rounded-md object-cover w-24 h-24 min-w-24 border ${form.watch("attachment") ? "opacity-90" : "opacity-25"}`}
+						file={
+							{
+								filename:
+									files?.find((f) => f.value === form.watch("attachment"))?.label ??
+									Route.assets.IMAGE_PLACEHOLDER,
+								metadata: {
+									html: {
+										fileUri:
+											files?.find((f) => f.value === form.watch("attachment"))?.sourceImage ??
+											Route.assets.IMAGE_PLACEHOLDER,
+									},
+								},
+							} as FileData
+						}
+						sizes={["90px", "90px"]}
+					/>
+				</div>
 
 				{/* Checkbox */}
 				<FormField

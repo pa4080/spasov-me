@@ -1,5 +1,5 @@
 import { AboutEntryData, AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
-import { AboutEntryType, CityType, CountryType } from "@/interfaces/_dataTypes";
+import { AboutEntryType, CityType, CountryType } from "@/interfaces/_common-data-types";
 import { Route } from "@/routes";
 
 import { fileDocumentsToData } from "./process-data-files";

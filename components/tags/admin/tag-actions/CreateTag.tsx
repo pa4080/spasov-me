@@ -18,7 +18,7 @@ import { msgs } from "@/messages";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 
-import { TagType } from "@/interfaces/_dataTypes";
+import { TagType } from "@/interfaces/_common-data-types";
 
 import { IconMap } from "@/interfaces/IconMap";
 

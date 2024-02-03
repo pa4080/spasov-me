@@ -5,6 +5,7 @@ import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { enUS as en } from "date-fns/locale";
 
+import RedirectToUri from "@/components/fragments/RedirectToUri";
 import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
 import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
@@ -14,7 +15,6 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
-import DisplaySingleFile from "../../../fragments/DisplayAttachment";
 import DeleteEntry from "../../admin/entry-actions/DeleteEntry";
 import UpdateEntry from "../../admin/entry-actions/UpdateEntry";
 import styles from "./_entry-card.module.scss";
@@ -86,7 +86,7 @@ const EntryCard: React.FC<Props> = ({
 							{displayActions && (
 								<>
 									<DeleteEntry entry_id={entry._id} type={entry.entryType} />
-									<DisplaySingleFile uri={entry.html.attachmentUri} />
+									<RedirectToUri uri={entry.html.attachmentUri} />
 									<UpdateEntry entry={entry} files={files} tags={tags} type={entry.entryType} />
 								</>
 							)}
