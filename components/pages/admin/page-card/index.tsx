@@ -7,21 +7,18 @@ import { useRouter } from "next/navigation";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { Switch } from "@/components/ui/switch";
-import { PageDoc } from "@/interfaces/Page";
+import { PageData } from "@/interfaces/Page";
 import { msgs } from "@/messages";
-import { Route } from "@/routes";
 
 import styles from "../../_pages.module.scss";
 
 interface Props {
 	className?: string;
-	page: PageDoc;
-	handleDelete: (e: React.SyntheticEvent, page: PageDoc) => void;
-	handleEdit: (e: React.SyntheticEvent, page: PageDoc) => void;
+	page: PageData;
 }
 
-const PageCard: React.FC<Props> = ({ className, page, handleDelete, handleEdit }) => {
-	const t = msgs("PagesFeed");
+const PageCard: React.FC<Props> = ({ className, page }) => {
+	const t = msgs("PagesFeed_OLD");
 	const router = useRouter(); // We can't use <Link><ButtonIcon /></Link>, because Tge inner component have onClick()
 
 	return (
@@ -32,7 +29,8 @@ const PageCard: React.FC<Props> = ({ className, page, handleDelete, handleEdit }
 					height={18}
 					type="trash"
 					width={18}
-					onClick={(e) => handleDelete(e, page)}
+					// eslint-disable-next-line no-console
+					onClick={(e) => console.log(e, page)}
 				/>
 				<ButtonIcon
 					className="pl-[2.8px] bg-transparent icon_accent_secondary"
@@ -59,16 +57,17 @@ const PageCard: React.FC<Props> = ({ className, page, handleDelete, handleEdit }
 					height={18}
 					type="brush"
 					width={18}
-					onClick={(e) => handleEdit(e, page)}
+					// eslint-disable-next-line no-console
+					onClick={(e) => console.log(e, page)}
 				/>
 			</div>
-			{page.attachment && (
+			{page.attachment && page.html.attachmentUri && (
 				<div className={styles.cardImageEditMode}>
 					<Image
 						priority
 						alt={t("index_pageAttachment_alt", { title: page.title })}
 						height={260}
-						src={`${Route.api.FILES}/${page.attachment._id.toString()}/${page.attachment.filename}`}
+						src={page.html.attachmentUri}
 						width={462}
 					/>
 				</div>

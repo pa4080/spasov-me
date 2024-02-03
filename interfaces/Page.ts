@@ -12,14 +12,27 @@ export type PageDoc = {
 	visibility: boolean | string;
 };
 
-export type NewPageDoc = Omit<PageDoc, "_id" | "attachment" | "creator"> & {
+export type NewPageData = Omit<PageDoc, "_id" | "attachment" | "creator"> & {
 	creator: string;
 	attachment?: string;
 };
 
+export interface PageHtmlProps {
+	title: string;
+	description: string;
+	attachmentUri?: string;
+}
+
+export interface PageData extends Omit<PageDoc, "_id" | "attachment" | "creator" | "visibility"> {
+	_id: string;
+	html: PageHtmlProps;
+	attachment: string | undefined;
+	visibility: boolean;
+}
+
+// These are helpers for the API version
 type PageDocToFetch = {
-	data: PageDoc | NewPageDoc | Record<string, unknown>;
-	// attachment_id?: string | null;
+	data: PageDoc | NewPageData | Record<string, unknown>;
 	user_id?: string | undefined;
 };
 

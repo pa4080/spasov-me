@@ -1,11 +1,11 @@
-import { AboutEntryData, AboutEntryDoc } from "@/interfaces/AboutEntry";
-import { AboutEntryType } from "@/interfaces/_dataTypes";
+import { AboutEntryData, AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
+import { AboutEntryType, CityType, CountryType } from "@/interfaces/_dataTypes";
 import { Route } from "@/routes";
 
-import fileDocumentToData from "./process-fileDoc-to-fileData";
+import { fileDocumentsToData } from "./process-data-files";
 import { processMarkdown } from "./process-markdown";
 
-export default function aboutDocumentToData({
+export function aboutDocumentsToData({
 	entries,
 	hyphen,
 	typeList,
@@ -61,7 +61,32 @@ export default function aboutDocumentToData({
 						tagType: tag.tagType,
 						orderKey: tag.orderKey,
 					})) || [],
-				gallery: fileDocumentToData({ files: entry.gallery || [] }),
+				gallery: fileDocumentsToData({ files: entry.gallery || [] }),
 			};
 		});
+}
+
+export function aboutFormDataToNewEntryData({
+	data,
+	user_id,
+}: {
+	data: FormData;
+	user_id: string;
+}): NewAboutEntryData {
+	return {
+		title: data.get("title") as string,
+		description: data.get("description") as string,
+		country: data.get("country") as CountryType,
+		city: data.get("city") as CityType,
+		entryType: data.get("entryType") as AboutEntryType,
+		dateFrom: data.get("dateFrom") as string,
+		dateTo: data.get("dateTo") as string,
+		visibility: data.get("visibility") as string,
+		attachment: data.get("attachment") as string,
+
+		tags: JSON.parse(data.get("tags") as string) as string[],
+		gallery: JSON.parse(data.get("gallery") as string) as string[],
+
+		creator: user_id,
+	};
 }

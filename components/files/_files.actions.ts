@@ -10,12 +10,11 @@ import {
 	gridFSBucket,
 	mongo_id_obj,
 } from "@/lib/mongodb-mongoose";
-import fileDocumentToData from "@/lib/process-fileDoc-to-fileData";
+import { fileDocumentsToData } from "@/lib/process-data-files";
 import { msgs } from "@/messages";
+import AboutEntry from "@/models/about";
 import FileGFS from "@/models/file";
 import { Route } from "@/routes";
-
-import AboutEntry from "@/models/about";
 
 import { getSession, revalidatePaths } from "../_common.actions";
 
@@ -42,7 +41,7 @@ export const getFilesV1 = async (): Promise<FileData[] | null> => {
 			return null;
 		}
 
-		return fileDocumentToData({ files });
+		return fileDocumentsToData({ files });
 	} catch (error) {
 		console.error(error);
 
@@ -59,7 +58,7 @@ export const getFiles = async (): Promise<FileData[] | null> => {
 			return null;
 		}
 
-		return fileDocumentToData({ files: files.map((file) => file.toObject()) });
+		return fileDocumentsToData({ files: files.map((file) => file.toObject()) });
 	} catch (error) {
 		console.error(error);
 
@@ -106,7 +105,7 @@ export const createFile = async (data: FormData, paths: string[]): Promise<true 
 		const bucket = await gridFSBucket();
 
 		/**
-		 * This is much inconvenient approach. 
+		 * This is much inconvenient approach.
 		 * Be cause we cannot process in a loop in our case...
 		 *
 		const formEntries = Array.from(data.entries());

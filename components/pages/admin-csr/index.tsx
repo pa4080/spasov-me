@@ -33,7 +33,7 @@ const PagesAdmin: React.FC<Props> = ({ className }) => {
 
 	const { data: session } = useSession();
 
-	const t = msgs("PagesFeed");
+	const t = msgs("PagesFeed_OLD");
 
 	const handleDelete = (e: React.SyntheticEvent, page: PageDoc) => {
 		e.preventDefault();

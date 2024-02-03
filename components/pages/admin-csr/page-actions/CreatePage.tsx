@@ -28,7 +28,7 @@ interface Props {
 }
 
 const CreatePage: React.FC<Props> = ({ className, session, setPages }) => {
-	const t = msgs("PagesFeed");
+	const t = msgs("PagesFeed_OLD");
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353

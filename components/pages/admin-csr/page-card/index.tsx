@@ -21,7 +21,7 @@ interface Props {
 }
 
 const PageCard: React.FC<Props> = ({ className, page, handleDelete, handleEdit }) => {
-	const t = msgs("PagesFeed");
+	const t = msgs("PagesFeed_OLD");
 	const router = useRouter(); // We can't use <Link><ButtonIcon /></Link>, because Tge inner component have onClick()
 
 	return (

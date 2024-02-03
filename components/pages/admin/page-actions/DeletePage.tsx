@@ -41,7 +41,7 @@ const DeletePage: React.FC<Props> = ({
 	setPages,
 	session,
 }) => {
-	const t = msgs("PagesFeed");
+	const t = msgs("PagesFeed_OLD");
 
 	const [submitting, setSubmitting] = useState(false);
 

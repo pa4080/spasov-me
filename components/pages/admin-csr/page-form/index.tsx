@@ -35,7 +35,7 @@ interface Props {
 }
 
 const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
-	const t = msgs("PagesFeed");
+	const t = msgs("PagesFeed_OLD");
 
 	const { files } = useAppContext();
 

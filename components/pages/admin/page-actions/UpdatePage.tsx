@@ -16,7 +16,7 @@ import { PageDoc, preparePageDocToFetch } from "@/interfaces/Page";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import PagesForm from "../page-form";
+import PageForm from "../page-form";
 import { Pages_FormSchema } from "../page-form/schema";
 
 interface Props {
@@ -37,7 +37,7 @@ const UpdatePage: React.FC<Props> = ({
 	setPages,
 	session,
 }) => {
-	const t = msgs("PagesFeed");
+	const t = msgs("PagesFeed_OLD");
 
 	const [submitting, setSubmitting] = useState(false);
 
@@ -111,7 +111,7 @@ const UpdatePage: React.FC<Props> = ({
 						<DialogDescription>{t("dialog_description")}</DialogDescription>
 					</DialogHeader>
 
-					<PagesForm formData={pageData} submitting={submitting} onSubmit={handleEditPage} />
+					<PageForm formData={pageData} submitting={submitting} onSubmit={handleEditPage} />
 				</DialogContent>
 			</Dialog>
 		)

@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -19,12 +18,13 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { useAppContext } from "@/contexts/AppContext";
 import { msgs } from "@/messages";
 
 import { Route } from "@/routes";
 
-import Combobox, { ComboBoxList } from "../../../fragments/Combobox";
+import { FileListItem } from "@/interfaces/File";
+
+import Combobox from "../../../fragments/Combobox";
 import { Pages_FormSchema, Pages_FormSchemaGenerator } from "./schema";
 
 interface Props {
@@ -32,18 +32,23 @@ interface Props {
 	onSubmit: (data: Pages_FormSchema) => void;
 	submitting?: boolean;
 	formData?: Pages_FormSchema;
+	files?: FileListItem[] | null;
 }
 
-const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
-	const t = msgs("PagesFeed");
-
-	const { files } = useAppContext();
+const PageForm: React.FC<Props> = ({
+	className,
+	onSubmit,
+	submitting = false,
+	formData,
+	files,
+}) => {
+	const t = msgs("PagesAdmin_Form");
 
 	const FormSchema = Pages_FormSchemaGenerator([
-		t("formSchema_title"),
-		t("formSchema_description"),
-		t("formSchema_uri"),
-		t("formSchema_image"),
+		t("schema_title"),
+		t("schema_description"),
+		t("schema_uri"),
+		t("schema_image"),
 	]);
 
 	const form = useForm<Pages_FormSchema>({
@@ -57,23 +62,6 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 		},
 		values: formData,
 	});
-
-	// Generate "image files" list
-	const [imageFiles, setImageFiles] = useState<ComboBoxList<Pages_FormSchema>[]>([]);
-
-	// TODO: When Server actions are implemented for pages, we will use getFileList({ images: true })
-	useEffect(() => {
-		if (files.length > 0) {
-			const filterImageFiles = files
-				.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|gif)$/))
-				.map((file) => ({
-					value: file._id.toString(),
-					label: file.filename,
-				}));
-
-			setImageFiles(filterImageFiles);
-		}
-	}, [files]);
 
 	// Manage "visibility" switch
 	const publicRoutesArr = Object.keys(Route.public)
@@ -102,7 +90,10 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 
 	return (
 		<Form {...form}>
-			<form className={`w-full space-y-6 ${className}`} onSubmit={form.handleSubmit(onSubmit)}>
+			<form
+				className={`w-full space-y-4 relative ${className}`}
+				onSubmit={form.handleSubmit(onSubmit)}
+			>
 				{/* Title */}
 				<FormField
 					control={form.control}
@@ -164,7 +155,7 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 				<Combobox
 					control={form.control}
 					error={form.formState.errors.attachment}
-					list={imageFiles}
+					list={files ?? []}
 					messages={{
 						label: t("form_pageAttachment_label"),
 						description: t("form_pageAttachment_description"),
@@ -204,4 +195,4 @@ const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, f
 	);
 };
 
-export default PagesForm;
+export default PageForm;
