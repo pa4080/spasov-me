@@ -1,47 +1,33 @@
-"use client";
-
 import React from "react";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
-import styles from "@/components/pages/_pages.module.scss";
 import { Switch } from "@/components/ui/switch";
-import { PageDoc } from "@/interfaces/Page";
+import { PageData } from "@/interfaces/Page";
 import { msgs } from "@/messages";
-import { Route } from "@/routes";
+
+import RedirectToUri from "@/components/fragments/RedirectToUri";
+
+import { FileListItem } from "@/interfaces/File";
+
+import styles from "../../_pages.module.scss";
+import DeletePage from "../page-actions/DeletePage";
+import UpdatePage from "../page-actions/UpdatePage";
 
 interface Props {
 	className?: string;
-	page: PageDoc;
-	handleDelete: (e: React.SyntheticEvent, page: PageDoc) => void;
-	handleEdit: (e: React.SyntheticEvent, page: PageDoc) => void;
+	page: PageData;
+	files: FileListItem[] | null | undefined;
 }
 
-const PageCard: React.FC<Props> = ({ className, page, handleDelete, handleEdit }) => {
-	const t = msgs("PagesFeed");
-	const router = useRouter(); // We can't use <Link><ButtonIcon /></Link>, because Tge inner component have onClick()
+const PageCard: React.FC<Props> = ({ className, page, files }) => {
+	const t = msgs("PageCards");
 
 	return (
 		<div className={`${styles.card} ${className}`}>
 			<div className={styles.buttons}>
-				<ButtonIcon
-					className="pl-[2.6px] bg-transparent icon_accent_secondary"
-					height={18}
-					type="trash"
-					width={18}
-					onClick={(e) => handleDelete(e, page)}
-				/>
-				<ButtonIcon
-					className="pl-[2.8px] bg-transparent icon_accent_secondary"
-					height={18}
-					type="up-right-from-square"
-					width={18}
-					onClick={() => {
-						router.push(`/${page.uri}`);
-					}}
-				/>
+				<DeletePage page_id={page._id} page_title={page.title} />
+				<RedirectToUri uri={`/${page.uri}`} />
 				<Switch
 					disabled
 					checked={
@@ -53,21 +39,15 @@ const PageCard: React.FC<Props> = ({ className, page, handleDelete, handleEdit }
 					}
 					className="mt-1 mr-1"
 				/>
-				<ButtonIcon
-					className="pl-[4.5px] bg-transparent icon_accent_secondary"
-					height={18}
-					type="brush"
-					width={18}
-					onClick={(e) => handleEdit(e, page)}
-				/>
+				<UpdatePage files={files} page={page} />
 			</div>
-			{page.image && (
+			{page.attachment && page.html.attachmentUri && (
 				<div className={styles.cardImageEditMode}>
 					<Image
 						priority
-						alt={t("index_pageImage_alt", { title: page.title })}
+						alt={t("index_pageAttachment_alt", { title: page.title })}
 						height={260}
-						src={`${Route.api.FILES}/${page.image._id.toString()}/${page.image.filename}`}
+						src={page.html.attachmentUri}
 						width={462}
 					/>
 				</div>

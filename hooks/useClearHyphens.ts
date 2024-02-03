@@ -4,6 +4,14 @@
  */
 import { useEffect } from "react";
 
+declare global {
+	interface Window {
+		shouldCopyInnerHTML: boolean;
+	}
+}
+
+window.shouldCopyInnerHTML = false;
+
 export function useClearHyphens() {
 	useEffect(() => {
 		/**
@@ -101,16 +109,34 @@ export function useClearHyphens() {
 				cleanedPreElements[i].innerHTML = originalPreContents[i];
 			}
 
-			cleanedHtml = cleanedDoc.documentElement.innerHTML;
+			const cleanedDocEl = cleanedDoc.documentElement;
 
-			event.clipboardData?.setData("text/html", cleanedHtml);
+			if (window.shouldCopyInnerHTML) {
+				cleanedHtml = cleanedDocEl.innerHTML;
+				event.clipboardData?.setData("text/html", cleanedHtml);
+				window.shouldCopyInnerHTML = false;
+			} else {
+				cleanedDocEl.innerHTML = cleanedDocEl.innerHTML.replace(/(<\/[a-z][a-z0-9]*>)/gi, "$1\n");
+				cleanedHtml = cleanedDocEl.innerText.replace(/(\n)+/g, "\n");
+				event.clipboardData?.setData("text/plain", cleanedHtml);
+			}
+
 			event.preventDefault();
 		};
 
+		const detectKeys = (event: KeyboardEvent) => {
+			// https://stackoverflow.com/q/5203407
+			if (event.key === "Alt") {
+				window.shouldCopyInnerHTML = true;
+			}
+		};
+
 		document.addEventListener("copy", cleanClipboardV3);
+		document.addEventListener("keydown", detectKeys);
 
 		return () => {
 			document.removeEventListener("copy", cleanClipboardV3);
+			document.removeEventListener("keydown", detectKeys);
 		};
 	}, []);
 }

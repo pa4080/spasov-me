@@ -5,7 +5,7 @@ import SectionHeader from "@/components/fragments/section-header";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileListItem } from "@/interfaces/File";
 import { TagData } from "@/interfaces/Tag";
-import { AboutEntryType } from "@/interfaces/_dataTypes";
+import { AboutEntryType } from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 

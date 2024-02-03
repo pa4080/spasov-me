@@ -3,14 +3,11 @@
 import React from "react";
 
 import Link from "next/link";
-
 import { usePathname } from "next/navigation";
 
-import { Route } from "@/routes";
-
 import SiteLogo from "@/components/layouts/logo/SiteLogo";
-
 import { msgs } from "@/messages";
+import { Route } from "@/routes";
 
 import styles from "./_navbar.module.scss";
 

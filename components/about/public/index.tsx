@@ -18,14 +18,14 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 	const entriesHyphenated = await getEntries({
 		hyphen: true,
 		typeList: ["employment", "education", "resume"],
+		public: true,
 	});
 
 	const entriesClear = await getEntries({
 		hyphen: false,
 		typeList: ["businessCard", "spokenLanguages"],
+		public: true,
 	});
-
-	// console.log(entriesClear);
 
 	const tags = await getTags();
 

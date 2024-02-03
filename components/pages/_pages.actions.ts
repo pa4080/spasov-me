@@ -1,96 +1,162 @@
 "use server";
 
-import { NewPageDoc, PageDoc } from "@/interfaces/Page";
-import { UserObject } from "@/interfaces/User";
+import { PageData, PageDoc } from "@/interfaces/Page";
 
-import { getSession } from "@/components/_common.actions";
+import { getSession, revalidatePaths } from "@/components/_common.actions";
+import { fileAttachment_add, fileAttachment_remove } from "@/components/files/_files.actions";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
-import { connectToMongoDb, mongo_id_obj } from "@/lib/mongodb-mongoose";
+import { connectToMongoDb } from "@/lib/mongodb-mongoose";
+import { pageDocumentsToData, pageFormDataToNewEntryData } from "@/lib/process-data-pages";
 import { msgs } from "@/messages";
 import Page from "@/models/page";
 
-export const getPages = async (): Promise<PageDoc[]> => {
+export const getPages = async ({
+	public: visible,
+}: {
+	public?: boolean;
+} = {}): Promise<null | PageData[]> => {
 	try {
 		await connectToMongoDb();
-		const pages: PageDoc[] = await Page.find(mongo_id_obj()).populate(["creator", "image"]);
+		const pages: PageDoc[] = await Page.find({}).populate(["attachment"]);
 
-		return pages;
+		return pageDocumentsToData({ pages, visible });
 	} catch (error) {
 		console.error(error);
 
-		return [];
+		return null;
 	}
 };
 
-export const getPublicPages = async (): Promise<PageDoc[]> => {
+export const createPage = async (data: FormData, paths: string[]): Promise<boolean | null> => {
 	try {
-		await connectToMongoDb();
-		const pages: PageDoc[] = await Page.find(mongo_id_obj()).populate(["creator", "image"]);
-
-		return pages.filter((page) => page.visibility);
-	} catch (error) {
-		console.error(error);
-
-		return [];
-	}
-};
-
-export const getPagesConditionally = async (): Promise<PageDoc[]> => {
-	try {
-		await connectToMongoDb();
-		const pages: PageDoc[] = await Page.find(mongo_id_obj()).populate(["creator", "image"]);
-
 		const session = await getSession();
 
-		if (session?.user) {
-			return pages;
-		} else {
-			return pages.filter((page) => page.visibility);
+		if (!session?.user) {
+			throw new Error(msgs("Errors")("invalidUser"));
 		}
-	} catch (error) {
-		console.error(error);
 
-		return [];
+		const documentData_new = pageFormDataToNewEntryData({
+			data,
+			user_id: session?.user.id,
+		});
+
+		deleteFalsyKeys(documentData_new, ["attachment"]);
+
+		// Connect to the DB and create a new document
+		await connectToMongoDb();
+		const document_new = new Page(documentData_new);
+
+		// Save the new document
+		await document_new.save();
+
+		// Deal with the "attachment"
+		if (documentData_new.attachment) {
+			await fileAttachment_add({
+				attachedDocument: {
+					_id: document_new._id.toString(),
+					title: document_new.title,
+					type: "Page",
+				},
+				target_file_id: documentData_new.attachment,
+			});
+		}
+
+		return true;
+	} catch (error) {
+		console.error("Unable to create new page card", error);
+
+		return null;
+	} finally {
+		revalidatePaths({ paths, redirectTo: paths[0] });
 	}
 };
 
-export const createPage = async (data: FormData): Promise<PageDoc> => {
-	const session = await getSession();
+export const updatePage = async (
+	data: FormData,
+	page_id: string,
+	paths: string[]
+): Promise<boolean | null> => {
+	try {
+		const session = await getSession();
 
-	if (!session?.user) {
-		console.error(msgs("Errors")("invalidUser"));
+		if (!session?.user) {
+			throw new Error(msgs("Errors")("invalidUser"));
+		}
 
-		return {} as PageDoc;
+		const documentData_new = pageFormDataToNewEntryData({
+			data,
+			user_id: session?.user.id,
+		});
+
+		deleteFalsyKeys(documentData_new, ["attachment"]);
+
+		// Connect to the DB and create a new document
+		await connectToMongoDb();
+		const document_prev = await Page.findOne({ _id: page_id });
+		const document_new = await Page.findOneAndUpdate({ _id: page_id }, documentData_new, {
+			new: true,
+			strict: true,
+		});
+
+		// Deal with the "attachment" > remove the relation for the old file
+		if (document_prev?.attachment) {
+			await fileAttachment_remove({
+				attachedDocument_id: document_prev._id.toString(),
+				target_file_id: document_prev.attachment.toString(),
+			});
+		}
+
+		// Deal with the "attachment" > add the relation for the new file
+		if (documentData_new.attachment) {
+			await fileAttachment_add({
+				attachedDocument: {
+					_id: document_new._id.toString(),
+					title: document_new.title,
+					type: "Page",
+				},
+				target_file_id: documentData_new.attachment,
+			});
+		} else {
+			document_new.attachment = undefined;
+		}
+
+		// Save the new document
+		await document_new.save();
+
+		return true;
+	} catch (error) {
+		console.error("Unable to update page card", error);
+
+		return null;
+	} finally {
+		revalidatePaths({ paths, redirectTo: paths[0] });
 	}
+};
 
-	await connectToMongoDb();
+export const deletePage = async (page_id: string, paths: string[]): Promise<boolean> => {
+	try {
+		if (!(await getSession())?.user) {
+			throw new Error(msgs("Errors")("invalidUser"));
+		}
 
-	const newPageData: NewPageDoc = {
-		title: data.get("title") as string,
-		description: data.get("description") as string,
-		uri: data.get("uri") as string,
-		image: data.get("image") as string,
-		visibility: data.get("visibility") as string,
-		creator: session?.user.id,
-	};
+		// Connect to the DB and delete the entry
+		await connectToMongoDb();
+		const document_deleted = await Page.findOneAndDelete({ _id: page_id });
 
-	deleteFalsyKeys(newPageData, ["image"]);
+		// Deal with the "attachment"
+		if (document_deleted.attachment) {
+			await fileAttachment_remove({
+				attachedDocument_id: document_deleted._id.toString(),
+				target_file_id: document_deleted.attachment.toString(),
+			});
+		}
 
-	const newPageDocument = new Page(newPageData);
+		return !!document_deleted;
+	} catch (error) {
+		console.error("Unable to delete entry", error);
 
-	await newPageDocument.save();
-	await newPageDocument.populate(["creator", "image"]);
-
-	return {
-		title: newPageDocument.title,
-		description: newPageDocument.description,
-		uri: newPageDocument.uri,
-		_id: newPageDocument._id.toString(),
-		image: newPageDocument.image?._id.toString(),
-		visibility: newPageDocument.visibility,
-		creator: {
-			name: newPageDocument.creator.name,
-			email: newPageDocument.creator.email,
-		} as UserObject,
-	};
+		return false;
+	} finally {
+		revalidatePaths({ paths, redirectTo: paths[0] });
+	}
 };

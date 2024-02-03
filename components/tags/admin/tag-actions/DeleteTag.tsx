@@ -16,7 +16,7 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
-import { TagType } from "@/interfaces/_dataTypes";
+import { TagType } from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 

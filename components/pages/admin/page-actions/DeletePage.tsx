@@ -1,8 +1,7 @@
 "use client";
-
 import React, { useState } from "react";
 
-import { Session } from "next-auth";
+import { usePathname } from "next/navigation";
 
 import {
 	AlertDialog,
@@ -13,105 +12,82 @@ import {
 	AlertDialogFooter,
 	AlertDialogHeader,
 	AlertDialogTitle,
+	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { PageDoc } from "@/interfaces/Page";
+import ButtonIcon from "@/components/fragments/ButtonIcon";
+import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 
-import { Pages_FormSchema } from "../page-form/schema";
+import { deletePage } from "../../_pages.actions";
 
-interface Props {
+export interface Props {
 	className?: string;
-	session: Session | null;
-	setPages: React.Dispatch<React.SetStateAction<PageDoc[]>>;
-	isOpen: boolean;
-	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-	pageData?: Pages_FormSchema;
-	pageId?: string;
+	page_id: string;
+	page_title: string;
 }
 
-const DeletePage: React.FC<Props> = ({
-	isOpen,
-	setIsOpen,
-	pageData,
-	pageId,
-	setPages,
-	session,
-}) => {
-	const t = msgs("PagesFeed");
+const DeletePage: React.FC<Props> = ({ className, page_id, page_title }) => {
+	const t = msgs("PageCards_DeletePage");
 
 	const [submitting, setSubmitting] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
+	const pathname = usePathname();
 
-	const deletePage = async () => {
+	const handleDeletePage = async () => {
 		setSubmitting(true);
 
 		try {
-			const response = await fetch(`${Route.api.PAGES}/${pageId}`, { method: "DELETE" });
+			const response = await deletePage(page_id, [
+				pathname,
+				Route.public.HOME.uri,
+				Route.admin.FILES,
+			]);
 
-			if (response.ok) {
-				const deletedPage = (await response.json()).data;
-
-				setPages((prevPages) => prevPages.filter((page) => page._id !== deletedPage._id));
-
-				toast({
-					title: t("dialog_toast_response_title", { status: response.status }),
-					description: <pre className="toast_pre_info">{JSON.stringify(deletedPage, null, 2)}</pre>,
-				});
-			} else {
-				const errors = (await response.json()).errors;
-
-				toast({
-					title: t("dialog_toast_response_title", { status: response.status }),
-					description: <pre className="toast_pre_info">{JSON.stringify(errors, null, 2)}</pre>,
-					// variant: "destructive",
-					variant: "default",
-				});
-			}
+			serverActionResponseToastAndLocationReload({
+				trigger: !!response,
+				msgSuccess: t("toast_success"),
+				msgError: t("toast_error"),
+				redirectTo: pathname,
+			});
 		} catch (error) {
 			console.error(error);
 		} finally {
 			setSubmitting(false);
+			setIsOpen(false);
 		}
 	};
 
-	const handleDeletePage = (e: React.SyntheticEvent) => {
-		e.preventDefault();
-
-		toast({
-			title: t("dialog_toast_submit_title"),
-			description: (
-				<pre className="toast_pre_info">
-					{JSON.stringify({ action: "DELETE", pageId, pageData }, null, 2)}
-				</pre>
-			),
-		}) && setIsOpen(false);
-
-		deletePage();
-	};
-
-	if (!pageData || !pageId) {
-		return;
-	}
-
 	return (
-		session?.user && (
+		<div className={className}>
 			<AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+				<AlertDialogTrigger>
+					<ButtonIcon
+						className="pl-[2.6px] bg-transparent icon_accent_secondary"
+						height={22}
+						type="trash"
+						width={22}
+						onClick={() => setIsOpen(true)}
+					/>
+				</AlertDialogTrigger>
 				<AlertDialogContent>
 					<AlertDialogHeader>
-						<AlertDialogTitle className="text-ring-secondary">
-							{t("dialog_title_delete", { title: pageData.title })}
-						</AlertDialogTitle>
-						<AlertDialogDescription className="hyphens-auto break-words">
-							{t("dialog_description_delete", { title: pageData.title, id: pageId })}
-						</AlertDialogDescription>
+						<AlertDialogTitle className="text-ring-secondary">{t("dialog_title")}</AlertDialogTitle>
+						{t("dialog_description") && (
+							<AlertDialogDescription
+								className="hyphens-auto break-words"
+								dangerouslySetInnerHTML={{
+									__html: t("dialog_description", { id: page_id, title: page_title }),
+								}}
+							/>
+						)}
 					</AlertDialogHeader>
 					<AlertDialogFooter>
 						<AlertDialogAction
 							className={buttonVariants({ variant: "destructive" })}
-							onClick={handleDeletePage}
+							onClick={() => handleDeletePage()}
 						>
 							{submitting ? t("dialog_btn_delete_submitting") : t("dialog_btn_delete")}
 						</AlertDialogAction>
@@ -121,7 +97,7 @@ const DeletePage: React.FC<Props> = ({
 					</AlertDialogFooter>
 				</AlertDialogContent>
 			</AlertDialog>
-		)
+		</div>
 	);
 };
 

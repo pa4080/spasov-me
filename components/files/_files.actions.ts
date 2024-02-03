@@ -4,18 +4,16 @@ import { ObjectId } from "mongodb";
 
 import { AttachedToDocument, FileData, FileDocument, FileListItem } from "@/interfaces/File";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
-import fileDocumentToData from "@/lib/file-doc-to-file-data";
-import {
-	connectToMongoDb,
-	defaultChunkSize,
-	gridFSBucket,
-	mongo_id_obj,
-} from "@/lib/mongodb-mongoose";
+import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
+import { fileDocumentsToData } from "@/lib/process-data-files";
 import { msgs } from "@/messages";
+import AboutEntry from "@/models/about";
 import FileGFS from "@/models/file";
 import { Route } from "@/routes";
 
-import AboutEntry from "@/models/about-entry";
+import Page from "@/models/page";
+
+import { ModelType } from "@/interfaces/_common-data-types";
 
 import { getSession, revalidatePaths } from "../_common.actions";
 
@@ -42,7 +40,7 @@ export const getFilesV1 = async (): Promise<FileData[] | null> => {
 			return null;
 		}
 
-		return fileDocumentToData(files);
+		return fileDocumentsToData({ files });
 	} catch (error) {
 		console.error(error);
 
@@ -59,7 +57,7 @@ export const getFiles = async (): Promise<FileData[] | null> => {
 			return null;
 		}
 
-		return fileDocumentToData(files.map((file) => file.toObject()));
+		return fileDocumentsToData({ files: files.map((file) => file.toObject()) });
 	} catch (error) {
 		console.error(error);
 
@@ -67,16 +65,24 @@ export const getFiles = async (): Promise<FileData[] | null> => {
 	}
 };
 
-export const getFileList = async (): Promise<FileListItem[] | null> => {
+export const getFileList = async ({ images }: { images?: boolean } = {}): Promise<
+	FileListItem[] | null
+> => {
 	const files = await getFiles();
 
 	if (!files || files?.length === 0) {
 		return null;
 	}
 
-	// const images = files.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/));
+	let filteredFiles = files;
 
-	return files.map((file) => ({
+	if (images) {
+		filteredFiles = files.filter((file) =>
+			file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif)$/)
+		);
+	}
+
+	return filteredFiles.map((file) => ({
 		value: file._id.toString(),
 		label: file.filename,
 		sourceImage: `${Route.api.FILES}/${file._id.toString()}/${
@@ -91,16 +97,14 @@ export const createFile = async (data: FormData, paths: string[]): Promise<true 
 		const session = await getSession();
 
 		if (!session?.user) {
-			console.error(msgs("Errors")("invalidUser"));
-
-			return null;
+			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
 		// connect to the database and get the bucket
 		const bucket = await gridFSBucket();
 
 		/**
-		 * This is much inconvenient approach. 
+		 * This is much inconvenient approach.
 		 * Be cause we cannot process in a loop in our case...
 		 *
 		const formEntries = Array.from(data.entries());
@@ -168,9 +172,7 @@ export const updateFile = async (
 		const session = await getSession();
 
 		if (!session?.user) {
-			console.error(msgs("Errors")("invalidUser"));
-
-			return null;
+			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
 		// Generate the ObjectId, connect to the db and get the bucket
@@ -280,12 +282,8 @@ export const updateFile = async (
 
 export const deleteFile = async (file_id: string, paths: string[]): Promise<true | null> => {
 	try {
-		const session = await getSession();
-
-		if (!session?.user) {
-			console.error(msgs("Errors")("invalidUser"));
-
-			return null;
+		if (!(await getSession())?.user) {
+			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
 		const bucket = await gridFSBucket();
@@ -433,16 +431,26 @@ export const fileAttachment_detach = async ({
 		// If there are differences, process them.
 		await connectToMongoDb();
 
-		// Deal with the "about-entry" documents
-		const attachedTo_diff_about = attachedTo_diff.filter(({ type }) => type === "about");
+		if (attachedTo_diff.length > 0) {
+			attachedTo_diff.forEach(async ({ _id, type }: { _id: string; type: ModelType }) => {
+				let document;
 
-		// TODO: Do the same for the other models like "portfolio", "blog", "pages", etc.
-		// TODO: This should be a function with three params: attachedTo_diff_Arr, file_id, db Model
-		if (attachedTo_diff_about.length > 0) {
-			const about_ids = attachedTo_diff_about.map(({ _id }) => _id);
+				switch (type) {
+					case "About": {
+						document = await AboutEntry.findOne({ _id });
+						break;
+					}
 
-			about_ids.forEach(async (entry_id) => {
-				const document = await AboutEntry.findOne(mongo_id_obj(entry_id));
+					case "Page": {
+						document = await Page.findOne({ _id });
+						break;
+					}
+
+					default: {
+						document = null;
+						break;
+					}
+				}
 
 				if (document) {
 					if (document.attachment && document.attachment.toString() === file_id) {
@@ -458,7 +466,9 @@ export const fileAttachment_detach = async ({
 					await document.save();
 				} else {
 					console.warn(
-						`The entry '${entry_id}' does not exist.\n > It is safe to remove the relevant record from the 'attachedTo' array of '${file_id}'.`
+						`The DB document with Id '${_id}' does not exist.\n > ` +
+							`It is safe to remove the relevant record from the ` +
+							`'attachedTo' array of '${file_id}'.`
 					);
 				}
 			});

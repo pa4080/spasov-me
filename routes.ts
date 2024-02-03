@@ -44,9 +44,9 @@ export const Route = {
 		},
 	},
 	admin: {
-		THEME: "/admin/theme",
 		PAGES: "/admin/pages",
 		ABOUT: "/admin/about",
+		THEME: "/admin/theme",
 		PORTFOLIO: "/admin/portfolio",
 		FILES: "/admin/files",
 		TAGS: "/admin/tags",
@@ -56,7 +56,7 @@ export const Route = {
 	api: {
 		PAGES: "/api/data/pages",
 		POSTS: "/api/data/posts",
-		ABOUT_ENTRY: "/api/data/about-entries",
+		ABOUT: "/api/data/about",
 		FILES: "/api/files",
 		BLOB: "/api/blob",
 	},

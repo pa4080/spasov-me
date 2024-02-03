@@ -3,7 +3,7 @@ import React from "react";
 import SectionHeader from "@/components/fragments/section-header";
 import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-import { AboutEntryType } from "@/interfaces/_dataTypes";
+import { AboutEntryType } from "@/interfaces/_common-data-types";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 

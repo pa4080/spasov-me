@@ -1,6 +1,6 @@
 import React from "react";
 
-import { AboutEntryType } from "@/interfaces/_dataTypes";
+import { AboutEntryType } from "@/interfaces/_common-data-types";
 
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 

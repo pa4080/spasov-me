@@ -1,25 +1,38 @@
-import { GridFSFile } from "mongodb";
-
-import { UserObject } from "@/interfaces/User";
+import { FileDocument } from "./File";
+import { UserObject } from "./User";
 
 export type PageDoc = {
 	_id: string;
 	creator: UserObject;
+
 	title: string;
 	description: string;
 	uri: string;
-	image?: GridFSFile;
+	attachment?: FileDocument;
 	visibility: boolean | string;
 };
 
-export type NewPageDoc = Omit<PageDoc, "_id" | "image" | "creator"> & {
+export type NewPageData = Omit<PageDoc, "_id" | "attachment" | "creator"> & {
 	creator: string;
-	image?: string;
+	attachment?: string;
 };
 
+export interface PageHtmlProps {
+	title: string;
+	description: string;
+	attachmentUri?: string;
+}
+
+export interface PageData extends Omit<PageDoc, "_id" | "attachment" | "creator" | "visibility"> {
+	_id: string;
+	html: PageHtmlProps;
+	attachment: string | undefined;
+	visibility: boolean;
+}
+
+// These are helpers for the API version
 type PageDocToFetch = {
-	data: PageDoc | NewPageDoc | Record<string, unknown>;
-	// image_id?: string | null;
+	data: PageDoc | NewPageData | Record<string, unknown>;
 	user_id?: string | undefined;
 };
 

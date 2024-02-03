@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-import { aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_dataTypes";
+import { aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_common-data-types";
 
 export const Entry_FormSchemaGenerator = (messages?: string[]) =>
 	z.object({

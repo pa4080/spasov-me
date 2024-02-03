@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-import { tagTuple } from "@/interfaces/_dataTypes";
+import { tagTuple } from "@/interfaces/_common-data-types";
 
 export const Tag_FormSchemaGenerator = (messages?: string[]) =>
 	z.object({

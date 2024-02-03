@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/form";
 
 import { Button } from "@/components/ui/button";
-import { TagType, tagTuple } from "@/interfaces/_dataTypes";
+import { TagType, tagTuple } from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
 
 import { IconMap } from "@/interfaces/IconMap";

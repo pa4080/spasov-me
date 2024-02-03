@@ -9,7 +9,7 @@ import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 
 import { FileData } from "@/interfaces/File";
 
-import DisplaySingleFile from "@/components/fragments/DisplayAttachment";
+import RedirectToUri from "@/components/fragments/RedirectToUri";
 import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { roundTo } from "@/lib/round";
@@ -58,7 +58,7 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 										file_id={file._id}
 										filename={file.filename}
 									/>
-									<DisplaySingleFile uri={file.metadata.html.fileUri} />
+									<RedirectToUri uri={file.metadata.html.fileUri} />
 									<UpdateFile file={file} />
 								</>
 							)}

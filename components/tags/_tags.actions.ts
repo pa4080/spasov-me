@@ -2,18 +2,16 @@
 
 import { getSession, revalidatePaths } from "@/components/_common.actions";
 import { NewTagData, TagData, TagDoc } from "@/interfaces/Tag";
-import { TagType } from "@/interfaces/_dataTypes";
+import { TagType } from "@/interfaces/_common-data-types";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
-import { connectToMongoDb, mongo_id_obj } from "@/lib/mongodb-mongoose";
+import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import { msgs } from "@/messages";
 import Tag from "@/models/tag";
 
 export const getTags = async (): Promise<TagData[] | null> => {
-	"use server";
-
 	try {
 		await connectToMongoDb();
-		const tags: TagDoc[] = await Tag.find(mongo_id_obj());
+		const tags: TagDoc[] = await Tag.find({});
 
 		return tags.map((tag) => ({
 			_id: tag._id.toString(),
@@ -35,14 +33,11 @@ export const createTag = async (data: FormData, paths: string[]): Promise<true |
 		const session = await getSession();
 
 		if (!session?.user) {
-			console.error(msgs("Errors")("invalidUser"));
-
-			return null;
+			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
 		await connectToMongoDb();
 
-		// TODO: use Array.from(data.entries()); like in _files.actions.ts ??
 		const newTagData: NewTagData = {
 			name: data.get("name") as string,
 			description: data.get("description") as string,
@@ -77,14 +72,11 @@ export const updateTag = async (
 		const session = await getSession();
 
 		if (!session?.user) {
-			console.error(msgs("Errors")("invalidUser"));
-
-			return null;
+			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
 		await connectToMongoDb();
 
-		// TODO: use Array.from(data.entries()); like in _files.actions.ts ??
 		const newTagData: NewTagData = {
 			name: data.get("name") as string,
 			description: data.get("description") as string,
@@ -96,7 +88,7 @@ export const updateTag = async (
 
 		deleteFalsyKeys(newTagData);
 
-		const updatedTagDocument = await Tag.findOneAndUpdate(mongo_id_obj(tag_id), newTagData, {
+		const updatedTagDocument = await Tag.findOneAndUpdate({ _id: tag_id }, newTagData, {
 			new: true,
 			strict: true,
 		});
@@ -115,17 +107,13 @@ export const updateTag = async (
 
 export const deleteTag = async (tag_id: string, paths: string[]): Promise<true | null> => {
 	try {
-		const session = await getSession();
-
-		if (!session?.user) {
-			console.error(msgs("Errors")("invalidUser"));
-
-			return null;
+		if (!(await getSession())?.user) {
+			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
 		await connectToMongoDb();
 
-		const deletedObject = await Tag.findOneAndDelete(mongo_id_obj(tag_id));
+		const deletedObject = await Tag.findOneAndDelete({ _id: tag_id });
 
 		return !!deletedObject ? true : null;
 	} catch (error) {

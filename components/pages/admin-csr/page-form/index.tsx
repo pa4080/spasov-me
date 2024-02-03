@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect } from "react";
+
+import React, { useEffect, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -18,15 +19,12 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+import { useAppContext } from "@/contexts/AppContext";
 import { msgs } from "@/messages";
 
 import { Route } from "@/routes";
 
-import { FileData, FileListItem } from "@/interfaces/File";
-
-import DisplayFileImage from "@/components/fragments/DisplayFileImage";
-
-import Combobox from "../../../fragments/Combobox";
+import Combobox, { ComboBoxList } from "../../../fragments/Combobox";
 import { Pages_FormSchema, Pages_FormSchemaGenerator } from "./schema";
 
 interface Props {
@@ -34,23 +32,18 @@ interface Props {
 	onSubmit: (data: Pages_FormSchema) => void;
 	submitting?: boolean;
 	formData?: Pages_FormSchema;
-	files?: FileListItem[] | null;
 }
 
-const PageForm: React.FC<Props> = ({
-	className,
-	onSubmit,
-	submitting = false,
-	formData,
-	files,
-}) => {
-	const t = msgs("PageCards_Form");
+const PagesForm: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
+	const t = msgs("PagesFeed_OLD");
+
+	const { files } = useAppContext();
 
 	const FormSchema = Pages_FormSchemaGenerator([
-		t("schema_title"),
-		t("schema_description"),
-		t("schema_uri"),
-		t("schema_image"),
+		t("formSchema_title"),
+		t("formSchema_description"),
+		t("formSchema_uri"),
+		t("formSchema_image"),
 	]);
 
 	const form = useForm<Pages_FormSchema>({
@@ -64,6 +57,23 @@ const PageForm: React.FC<Props> = ({
 		},
 		values: formData,
 	});
+
+	// Generate "image files" list
+	const [imageFiles, setImageFiles] = useState<ComboBoxList<Pages_FormSchema>[]>([]);
+
+	// TODO: When Server actions are implemented for pages, we will use getFileList({ images: true })
+	useEffect(() => {
+		if (files.length > 0) {
+			const filterImageFiles = files
+				.filter((file) => file.filename.match(/\.(png|jpg|jpeg|svg|webp|gif)$/))
+				.map((file) => ({
+					value: file._id.toString(),
+					label: file.filename,
+				}));
+
+			setImageFiles(filterImageFiles);
+		}
+	}, [files]);
 
 	// Manage "visibility" switch
 	const publicRoutesArr = Object.keys(Route.public)
@@ -92,10 +102,7 @@ const PageForm: React.FC<Props> = ({
 
 	return (
 		<Form {...form}>
-			<form
-				className={`w-full space-y-4 relative ${className}`}
-				onSubmit={form.handleSubmit(onSubmit)}
-			>
+			<form className={`w-full space-y-6 ${className}`} onSubmit={form.handleSubmit(onSubmit)}>
 				{/* Title */}
 				<FormField
 					control={form.control}
@@ -153,43 +160,22 @@ const PageForm: React.FC<Props> = ({
 					setValue={form.setValue}
 				/>
 
-				{/* Attachment: Image */}
-				<div className="flex gap-2 w-full max-w-full items-center justify-center">
-					<Combobox
-						className="w-full"
-						control={form.control}
-						error={form.formState.errors.attachment}
-						list={files ?? []}
-						messages={{
-							label: t("form_pageAttachment_label"),
-							description: t("form_pageAttachment_description"),
-							placeholder: t("form_pageAttachment_search"),
-							pleaseSelect: t("form_pageAttachment_select"),
-							notFound: t("form_pageAttachment_searchNotFound"),
-							selectNone: t("form_pageAttachment_selectNone"),
-						}}
-						name="attachment"
-						setValue={form.setValue}
-					/>
-					<DisplayFileImage
-						className={`rounded-md object-cover w-24 h-24 min-w-24 border ${form.watch("attachment") ? "opacity-90" : "opacity-25"}`}
-						file={
-							{
-								filename:
-									files?.find((f) => f.value === form.watch("attachment"))?.label ??
-									Route.assets.IMAGE_PLACEHOLDER,
-								metadata: {
-									html: {
-										fileUri:
-											files?.find((f) => f.value === form.watch("attachment"))?.sourceImage ??
-											Route.assets.IMAGE_PLACEHOLDER,
-									},
-								},
-							} as FileData
-						}
-						sizes={["90px", "90px"]}
-					/>
-				</div>
+				{/* Image */}
+				<Combobox
+					control={form.control}
+					error={form.formState.errors.attachment}
+					list={imageFiles}
+					messages={{
+						label: t("form_pageAttachment_label"),
+						description: t("form_pageAttachment_description"),
+						placeholder: t("form_pageAttachment_search"),
+						pleaseSelect: t("form_pageAttachment_select"),
+						notFound: t("form_pageAttachment_searchNotFound"),
+						selectNone: t("form_pageAttachment_selectNone"),
+					}}
+					name="attachment"
+					setValue={form.setValue}
+				/>
 
 				{/* Checkbox */}
 				<FormField
@@ -218,4 +204,4 @@ const PageForm: React.FC<Props> = ({
 	);
 };
 
-export default PageForm;
+export default PagesForm;

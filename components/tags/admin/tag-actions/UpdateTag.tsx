@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { IconMap } from "@/interfaces/IconMap";
 import { TagData } from "@/interfaces/Tag";
-import { TagType } from "@/interfaces/_dataTypes";
+import { TagType } from "@/interfaces/_common-data-types";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
