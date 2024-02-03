@@ -82,6 +82,16 @@
 		"dialog_title": "Update an existing page",
 		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>"
 	},
+	"PageCards_DeletePage": {
+		"dialog_title": "Delete a page",
+		"dialog_description": "<p class='json-desc'>Title: <b><code>{ title }</code></b></p><p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+		"dialog_btn_delete": "Delete the page",
+		"dialog_btn_delete_submitting": "Deleting...",
+		"dialog_btn_cancel": "Cancel",
+		"toast_deleted": "The page was successfully deleted!",
+		"toast_success": "The page was successfully deleted!",
+		"toast_error": "Something went wrong. Please try again."
+	},
 	"PageCards_Form": {
 		"form_pageTitle": "Page title",
 		"form_pageTitlePlaceholder": "Page title...",
@@ -443,6 +453,15 @@
 		"toast_success": "The file was successfully created (uploaded).",
 		"toast_error": "Something went wrong. Please try again."
 	},
+	"FilesAdmin_UpdateFile": {
+		"dialog_title": "Update a file",
+		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+		"dialog_btn_add": "Update the file",
+		"dialog_btn_add_submitting": "Submitting...",
+		"toast_submitted": "The file was successfully updated.",
+		"toast_success": "The file was successfully updated.",
+		"toast_error": "Something went wrong. Please try again."
+	},
 	"FilesAdmin_DeleteFile": {
 		"dialog_title": "Delete a file",
 		"dialog_description": "<p class='json-desc'>Name: <b><code>{ filename }</code></b></p><p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
@@ -451,15 +470,6 @@
 		"dialog_btn_cancel": "Cancel",
 		"toast_deleted": "The file was successfully deleted!",
 		"toast_success": "The file was successfully deleted!",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"FilesAdmin_UpdateFile": {
-		"dialog_title": "Update a file",
-		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
-		"dialog_btn_add": "Update the file",
-		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The file was successfully updated.",
-		"toast_success": "The file was successfully updated.",
 		"toast_error": "Something went wrong. Please try again."
 	},
 	"FilesAdmin_Form": {

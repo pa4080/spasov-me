@@ -132,3 +132,31 @@ export const updatePage = async (
 		revalidatePaths({ paths, redirectTo: paths[0] });
 	}
 };
+
+export const deletePage = async (page_id: string, paths: string[]): Promise<boolean> => {
+	try {
+		if (!(await getSession())?.user) {
+			throw new Error(msgs("Errors")("invalidUser"));
+		}
+
+		// Connect to the DB and delete the entry
+		await connectToMongoDb();
+		const document_deleted = await Page.findOneAndDelete({ _id: page_id });
+
+		// Deal with the "attachment"
+		if (document_deleted.attachment) {
+			await fileAttachment_remove({
+				attachedDocument_id: document_deleted._id.toString(),
+				target_file_id: document_deleted.attachment.toString(),
+			});
+		}
+
+		return !!document_deleted;
+	} catch (error) {
+		console.error("Unable to delete entry", error);
+
+		return false;
+	} finally {
+		revalidatePaths({ paths, redirectTo: paths[0] });
+	}
+};

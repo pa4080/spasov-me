@@ -11,6 +11,7 @@ import RedirectToUri from "@/components/fragments/RedirectToUri";
 import { FileListItem } from "@/interfaces/File";
 
 import styles from "../../_pages.module.scss";
+import DeletePage from "../page-actions/DeletePage";
 import UpdatePage from "../page-actions/UpdatePage";
 
 interface Props {
@@ -25,12 +26,7 @@ const PageCard: React.FC<Props> = ({ className, page, files }) => {
 	return (
 		<div className={`${styles.card} ${className}`}>
 			<div className={styles.buttons}>
-				{/* <ButtonIcon
-					className="pl-[2.6px] bg-transparent icon_accent_secondary"
-					height={22}
-					type="trash"
-					width={22}
-				/> */}
+				<DeletePage page_id={page._id} page_title={page.title} />
 				<RedirectToUri uri={`/${page.uri}`} />
 				<Switch
 					disabled
