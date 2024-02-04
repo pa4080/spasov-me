@@ -16,7 +16,7 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import { Route } from "@/routes";
 
-import { FileDocument } from "@/interfaces/File";
+import { FileData } from "@/interfaces/File";
 
 import { msgs } from "@/messages";
 
@@ -55,7 +55,7 @@ const FileCreate: React.FC<Props> = ({ className }) => {
 			});
 
 			if (response.ok) {
-				const newFile: FileDocument = (await response.json()).data;
+				const newFile: FileData = (await response.json()).data;
 
 				// TODO: Here we waiting a while for the backend upload stream to finish
 				// find a way to do this without waiting with timeout but with a promise

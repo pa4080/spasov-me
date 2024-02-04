@@ -12,7 +12,7 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
-import { PageDoc, preparePageDocToFetch } from "@/interfaces/Page";
+import { PageData, preparePageDocToFetch } from "@/interfaces/Page";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
@@ -22,7 +22,7 @@ import { Pages_FormSchema } from "../page-form/schema";
 interface Props {
 	className?: string;
 	session: Session | null;
-	setPages: React.Dispatch<React.SetStateAction<PageDoc[]>>;
+	setPages: React.Dispatch<React.SetStateAction<PageData[]>>;
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
 	pageData?: Pages_FormSchema;

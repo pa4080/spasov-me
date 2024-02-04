@@ -10,17 +10,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- [x] Refactor Files
-  - [x] Upload form + MarkDown for the description
-  - [x] Get the files on the server side ?
-- [ ] Add relations field between the attachments/galleries and the files
-  - [x] attachments (about entries > via Server actions)
-  - [x] galleries (about entries > via Server actions)
-  - [x] Display the file's attachedTo in the file's card
-  - [x] Display the file's attachedTo in the file's form
-  - [x] Detach the file from its edit form
-  - [x] Lock the file's delete action while it is in use
-  - [ ] Refactor Pages to use Server actions
+- [ ] Files public/visible switch
 - [ ] Gallery display
 - [ ] Projects Admin? > Form design
 - [ ] Projects public

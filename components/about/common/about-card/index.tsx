@@ -15,9 +15,9 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
-import DeleteEntry from "../../admin/entry-actions/DeleteEntry";
-import UpdateEntry from "../../admin/entry-actions/UpdateEntry";
-import styles from "./_entry-card.module.scss";
+import DeleteAboutEntry from "../../admin/about-actions/DeleteAboutEntry";
+import UpdateAboutEntry from "../../admin/about-actions/UpdateAboutEntry";
+import styles from "./_about-card.module.scss";
 
 interface Props {
 	className?: string;
@@ -28,7 +28,7 @@ interface Props {
 	displayActions?: boolean;
 }
 
-const EntryCard: React.FC<Props> = ({
+const AboutEntryCard: React.FC<Props> = ({
 	entry,
 	className,
 	files,
@@ -85,9 +85,14 @@ const EntryCard: React.FC<Props> = ({
 						<div className={styles.buttonsContainer}>
 							{displayActions && (
 								<>
-									<DeleteEntry entry_id={entry._id} type={entry.entryType} />
+									<DeleteAboutEntry entry_id={entry._id} type={entry.entryType} />
 									<RedirectToUri uri={entry.html.attachmentUri} />
-									<UpdateEntry entry={entry} files={files} tags={tags} type={entry.entryType} />
+									<UpdateAboutEntry
+										entry={entry}
+										files={files}
+										tags={tags}
+										type={entry.entryType}
+									/>
 								</>
 							)}
 							<ToggleCollapsible
@@ -126,7 +131,7 @@ const EntryCard: React.FC<Props> = ({
 									.map((tag) => (
 										<DisplayTagIcon
 											key={tag._id}
-											description={tag.description}
+											description={tag.html.description}
 											icon={iconsMap[tag.icon as IconsMapItem]}
 										/>
 									))}
@@ -139,4 +144,4 @@ const EntryCard: React.FC<Props> = ({
 	);
 };
 
-export default EntryCard;
+export default AboutEntryCard;

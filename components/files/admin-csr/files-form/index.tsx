@@ -23,7 +23,7 @@ import { roundTo } from "@/lib/round";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { FileDocument } from "@/interfaces/File";
+import { FileData } from "@/interfaces/File";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
@@ -35,7 +35,7 @@ interface Props {
 	onSubmit: (data: Files_FormSchema) => void;
 	submitting?: boolean;
 	isContainerDialogOpen?: boolean;
-	formData?: FileDocument;
+	formData?: FileData;
 }
 
 const Files_Form: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {

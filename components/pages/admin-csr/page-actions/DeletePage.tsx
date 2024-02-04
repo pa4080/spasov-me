@@ -19,14 +19,14 @@ import { toast } from "@/components/ui/use-toast";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { PageDoc } from "@/interfaces/Page";
+import { PageData } from "@/interfaces/Page";
 
 import { Pages_FormSchema } from "../page-form/schema";
 
 interface Props {
 	className?: string;
 	session: Session | null;
-	setPages: React.Dispatch<React.SetStateAction<PageDoc[]>>;
+	setPages: React.Dispatch<React.SetStateAction<PageData[]>>;
 	isOpen: boolean;
 	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	pageData?: Pages_FormSchema;

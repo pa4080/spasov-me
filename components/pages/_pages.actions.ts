@@ -6,20 +6,22 @@ import { getSession, revalidatePaths } from "@/components/_common.actions";
 import { fileAttachment_add, fileAttachment_remove } from "@/components/files/_files.actions";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
-import { pageDocumentsToData, pageFormDataToNewEntryData } from "@/lib/process-data-pages";
+import { pageDocuments_toData, pageFormData_toNewEntryData } from "@/lib/process-data-pages";
 import { msgs } from "@/messages";
 import Page from "@/models/page";
 
 export const getPages = async ({
 	public: visible,
+	hyphen = false,
 }: {
 	public?: boolean;
+	hyphen?: boolean;
 } = {}): Promise<null | PageData[]> => {
 	try {
 		await connectToMongoDb();
 		const pages: PageDoc[] = await Page.find({}).populate(["attachment"]);
 
-		return pageDocumentsToData({ pages, visible });
+		return pageDocuments_toData({ pages, visible, hyphen });
 	} catch (error) {
 		console.error(error);
 
@@ -35,7 +37,7 @@ export const createPage = async (data: FormData, paths: string[]): Promise<boole
 			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
-		const documentData_new = pageFormDataToNewEntryData({
+		const documentData_new = pageFormData_toNewEntryData({
 			data,
 			user_id: session?.user.id,
 		});
@@ -83,7 +85,7 @@ export const updatePage = async (
 			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
-		const documentData_new = pageFormDataToNewEntryData({
+		const documentData_new = pageFormData_toNewEntryData({
 			data,
 			user_id: session?.user.id,
 		});

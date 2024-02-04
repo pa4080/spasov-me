@@ -27,7 +27,7 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 		public: true,
 	});
 
-	const tags = await getTags();
+	const tags = await getTags({ hyphen: true, public: true });
 
 	return (
 		<div className={`${styles.about} ${className}`}>

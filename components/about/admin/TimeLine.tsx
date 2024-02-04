@@ -11,8 +11,8 @@ import { Route } from "@/routes";
 
 import ToggleCollapsible from "../../fragments/toggle-collapsible";
 import styles from "../_about.module.scss";
-import EntryCard from "../common/entry-card";
-import CreateEntry from "./entry-actions/CreateEntry";
+import AboutEntryCard from "../common/about-card";
+import CreateAboutEntry from "./about-actions/CreateAboutEntry";
 
 interface Props {
 	className?: string;
@@ -43,7 +43,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths paths={[Route.public.ABOUT.uri]} />
-				<CreateEntry files={files} tags={tags} type={type} />
+				<CreateAboutEntry files={files} tags={tags} type={type} />
 				<ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}
@@ -53,7 +53,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 			</SectionHeader>
 			<div className={styles.feed}>
 				{entriesByType?.map((entry, index) => (
-					<EntryCard
+					<AboutEntryCard
 						key={index}
 						displayActions
 						className={visibleItems > index ? "" : "section-card-collapsible"}

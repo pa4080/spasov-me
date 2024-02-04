@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb";
 import { AttachedToDocument, FileData, FileDocument, FileListItem } from "@/interfaces/File";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
-import { fileDocumentsToData } from "@/lib/process-data-files";
+import { fileDocuments_toData } from "@/lib/process-data-files";
 import { msgs } from "@/messages";
 import AboutEntry from "@/models/about";
 import FileGFS from "@/models/file";
@@ -40,7 +40,7 @@ export const getFilesV1 = async (): Promise<FileData[] | null> => {
 			return null;
 		}
 
-		return fileDocumentsToData({ files });
+		return fileDocuments_toData({ files });
 	} catch (error) {
 		console.error(error);
 
@@ -48,7 +48,13 @@ export const getFilesV1 = async (): Promise<FileData[] | null> => {
 	}
 };
 
-export const getFiles = async (): Promise<FileData[] | null> => {
+export const getFiles = async ({
+	hyphen = true,
+	public: visible = false,
+}: {
+	hyphen?: boolean;
+	public?: boolean;
+} = {}): Promise<FileData[] | null> => {
 	try {
 		await connectToMongoDb();
 		const files = await FileGFS.find();
@@ -57,7 +63,7 @@ export const getFiles = async (): Promise<FileData[] | null> => {
 			return null;
 		}
 
-		return fileDocumentsToData({ files: files.map((file) => file.toObject()) });
+		return fileDocuments_toData({ files: files.map((file) => file.toObject()), hyphen, visible });
 	} catch (error) {
 		console.error(error);
 

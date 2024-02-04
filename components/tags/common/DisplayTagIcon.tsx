@@ -54,7 +54,7 @@ const DisplayTagIcon: React.FC<Props> = ({
 				<Tooltip>
 					<TooltipTrigger className={className_TooltipTrigger}>{TheImage}</TooltipTrigger>
 					<TooltipContent className="border-2 border-muted-secondary dark:border-primary">
-						<p>{description}</p>
+						<div dangerouslySetInnerHTML={{ __html: description }} />
 					</TooltipContent>
 				</Tooltip>
 			</TooltipProvider>

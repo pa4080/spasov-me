@@ -23,8 +23,8 @@ import { Route } from "@/routes";
 
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 
-import EntryForm from "../entry-form";
-import { Entry_FormSchema } from "../entry-form/schema";
+import AboutEntryForm from "../about-form";
+import { Entry_FormSchema } from "../about-form/schema";
 
 interface Props {
 	className?: string;
@@ -34,7 +34,7 @@ interface Props {
 	tags: TagData[] | null | undefined;
 }
 
-const UpdateEntry: React.FC<Props> = ({ className, type, entry, files, tags }) => {
+const UpdateAboutEntry: React.FC<Props> = ({ className, type, entry, files, tags }) => {
 	const t = msgs("AboutCV_UpdateEntry");
 	const entryTypeLabel = (
 		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
@@ -104,7 +104,7 @@ const UpdateEntry: React.FC<Props> = ({ className, type, entry, files, tags }) =
 						)}
 					</DialogHeader>
 
-					<EntryForm
+					<AboutEntryForm
 						className={t("dialog_description") ? "mt-0" : "mt-1"}
 						entryType={type}
 						files={files}
@@ -119,4 +119,4 @@ const UpdateEntry: React.FC<Props> = ({ className, type, entry, files, tags }) =
 	);
 };
 
-export default UpdateEntry;
+export default UpdateAboutEntry;

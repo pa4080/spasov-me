@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
 
-import { FileDocument } from "@/interfaces/File";
+import { FileData } from "@/interfaces/File";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
@@ -24,7 +24,7 @@ interface Props {
 	className?: string;
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
-	fileData?: FileDocument;
+	fileData?: FileData;
 	fileId?: string;
 }
 
@@ -55,7 +55,7 @@ const FileEdit: React.FC<Props> = ({ isOpen, setIsOpen, fileData, fileId }) => {
 			});
 
 			if (response.ok) {
-				const newFile: FileDocument = (await response.json()).data;
+				const newFile: FileData = (await response.json()).data;
 
 				// TODO: Here we waiting a while for the backend upload stream to finish
 				// find a way to do this without waiting with timeout but with a promise

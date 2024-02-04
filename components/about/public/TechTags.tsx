@@ -26,19 +26,14 @@ const TechTags: React.FC<Props> = ({ className, tags }) => {
 			<SectionHeader className="pop-header" title={section_title} />
 
 			<div className="flex flex-wrap gap-2 items-center justify-start pop-item">
-				{tags
-					?.filter(({ tagType }) => tagType !== "system")
-					?.sort((a, b) =>
-						a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
-					)
-					.map((tag) => (
-						<DisplayTagIcon
-							key={tag._id}
-							className_TooltipTrigger="!mt-0"
-							description={tag.description}
-							icon={iconsMap[tag.icon as IconsMapItem]}
-						/>
-					))}
+				{tags?.map((tag) => (
+					<DisplayTagIcon
+						key={tag._id}
+						className_TooltipTrigger="!mt-0"
+						description={tag.description}
+						icon={iconsMap[tag.icon as IconsMapItem]}
+					/>
+				))}
 			</div>
 		</div>
 	);

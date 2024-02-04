@@ -1,0 +1,61 @@
+import { NewTagData, TagData, TagDoc } from "@/interfaces/Tag";
+import { TagType } from "@/interfaces/_common-data-types";
+
+import { processMarkdown } from "./process-markdown";
+
+export function tagDocuments_toData({
+	tags,
+	hyphen = true,
+	visible,
+	sorted = true,
+}: {
+	tags: TagDoc[];
+	hyphen?: boolean;
+	visible?: boolean;
+	sorted?: boolean;
+}): TagData[] {
+	let tagsFiltered = tags;
+
+	if (visible) {
+		tagsFiltered = tags.filter(({ tagType }) => tagType !== "system");
+	}
+
+	if (sorted) {
+		tagsFiltered = tagsFiltered.sort((a, b) =>
+			a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
+		);
+	}
+
+	return tagsFiltered.map((tag) => ({
+		_id: tag._id.toString(),
+		name: tag.name,
+		description: tag.description,
+		html: {
+			description: processMarkdown({
+				markdown: tag.description,
+				hyphen,
+			}),
+		},
+		icon: tag.icon,
+		tagType: tag.tagType,
+		orderKey: tag.orderKey,
+	}));
+}
+
+export function tagFormData_toNewTagData({
+	data,
+	user_id,
+}: {
+	data: FormData;
+	user_id: string;
+}): NewTagData {
+	return {
+		name: data.get("name") as string,
+		description: data.get("description") as string,
+		icon: data.get("icon") as string,
+		tagType: data.get("tagType") as TagType,
+		orderKey: data.get("orderKey") as string,
+
+		creator: user_id,
+	};
+}
