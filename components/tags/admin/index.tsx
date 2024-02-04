@@ -10,7 +10,7 @@ interface Props {
 }
 
 const TagsAdmin: React.FC<Props> = async ({ className }) => {
-	const tags = await getTags();
+	const tags = await getTags({ public: false, hyphen: true });
 
 	return (
 		<div className={`${styles.about} ${className}`}>

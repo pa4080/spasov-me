@@ -4,7 +4,7 @@ import React from "react";
 
 import Image from "next/image";
 
-import { FileDocument } from "@/interfaces/File";
+import { FileData } from "@/interfaces/File";
 import { Route } from "@/routes";
 
 import styles from "./_files-old.module.scss";
@@ -13,8 +13,8 @@ import ButtonIcon from "../../fragments/ButtonIcon";
 
 interface Props {
 	className?: string;
-	file: FileDocument;
-	setActionFile: React.Dispatch<React.SetStateAction<FileDocument | undefined>>;
+	file: FileData;
+	setActionFile: React.Dispatch<React.SetStateAction<FileData | undefined>>;
 	setActionFileId: React.Dispatch<React.SetStateAction<string>>;
 	setIsDeleteDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	setIsEditDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,14 +28,14 @@ const FileDisplay: React.FC<Props> = ({
 	setIsDeleteDialogOpen,
 	setIsEditDialogOpen,
 }) => {
-	const handleDelete = (e: React.SyntheticEvent, file: FileDocument) => {
+	const handleDelete = (e: React.SyntheticEvent, file: FileData) => {
 		e.preventDefault();
 		setActionFile(file);
 		setIsDeleteDialogOpen(true);
 		setActionFileId(file._id.toString());
 	};
 
-	const handleEdit = (e: React.SyntheticEvent, file: FileDocument) => {
+	const handleEdit = (e: React.SyntheticEvent, file: FileData) => {
 		e.preventDefault();
 		setActionFile(file);
 		setIsEditDialogOpen(true);

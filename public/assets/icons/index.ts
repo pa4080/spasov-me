@@ -105,6 +105,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	"it_builder-io": {
+		name: "it_builder-io",
+		uri: {
+			light: "/assets/icons/it/builder-io.svg",
+			dark: "/assets/icons/it/builder-io.svg",
+		},
+		info: {
+			height: 293,
+			width: 256,
+			type: "svg",
+			ratio: 0.87,
+		},
+	},
 	it_cloudflare: {
 		name: "it_cloudflare",
 		uri: {
@@ -233,6 +246,19 @@ const iconsMap = {
 			width: 32,
 			type: "svg",
 			ratio: 1,
+		},
+	},
+	it_figma: {
+		name: "it_figma",
+		uri: {
+			light: "/assets/icons/it/figma.svg",
+			dark: "/assets/icons/it/figma.svg",
+		},
+		info: {
+			height: 2500,
+			width: 1667,
+			type: "svg",
+			ratio: 0.67,
 		},
 	},
 	"it_git-icon": {
@@ -448,6 +474,19 @@ const iconsMap = {
 		uri: {
 			light: "/assets/icons/it/mariadb.svg",
 			dark: "/assets/icons/it/mariadb.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	it_markdown: {
+		name: "it_markdown",
+		uri: {
+			light: "/assets/icons/it/markdown.svg",
+			dark: "/assets/icons/it/markdown.svg",
 		},
 		info: {
 			height: 32,
@@ -714,6 +753,32 @@ const iconsMap = {
 			width: 2500,
 			type: "svg",
 			ratio: 1.63,
+		},
+	},
+	"it_notepad-plus-plus": {
+		name: "it_notepad-plus-plus",
+		uri: {
+			light: "/assets/icons/it/notepad-plus-plus.svg",
+			dark: "/assets/icons/it/notepad-plus-plus.svg",
+		},
+		info: {
+			height: 2042,
+			width: 2500,
+			type: "svg",
+			ratio: 1.22,
+		},
+	},
+	"it_notepad-pp": {
+		name: "it_notepad-pp",
+		uri: {
+			light: "/assets/icons/it/notepad-pp.svg",
+			dark: "/assets/icons/it/notepad-pp.svg",
+		},
+		info: {
+			height: 256,
+			width: 256,
+			type: "svg",
+			ratio: 1,
 		},
 	},
 	"it_php-fa": {

@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 import SectionHeader from "@/components/fragments/section-header";
 import { useAppContext } from "@/contexts/AppContext";
-import { PageDoc } from "@/interfaces/Page";
+import { PageData } from "@/interfaces/Page";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
@@ -35,7 +35,7 @@ const PageCards: React.FC<Props> = ({ className }) => {
 
 	const t = msgs("PagesFeed_OLD");
 
-	const handleDelete = (e: React.SyntheticEvent, page: PageDoc) => {
+	const handleDelete = (e: React.SyntheticEvent, page: PageData) => {
 		e.preventDefault();
 
 		// This documentToData should be processed at server action level
@@ -43,7 +43,7 @@ const PageCards: React.FC<Props> = ({ className }) => {
 			title: page.title,
 			description: page.description,
 			uri: page.uri,
-			attachment: page.attachment?._id.toString(),
+			attachment: page.attachment,
 			visibility:
 				typeof page.visibility === "string"
 					? page.visibility === "true"
@@ -57,7 +57,7 @@ const PageCards: React.FC<Props> = ({ className }) => {
 		setIsDeleteDialogOpen(true);
 	};
 
-	const handleEdit = (e: React.SyntheticEvent, page: PageDoc) => {
+	const handleEdit = (e: React.SyntheticEvent, page: PageData) => {
 		e.preventDefault();
 
 		// This documentToData should be processed at server action level
@@ -65,7 +65,7 @@ const PageCards: React.FC<Props> = ({ className }) => {
 			title: page.title,
 			description: page.description,
 			uri: page.uri,
-			attachment: page.attachment?._id.toString(),
+			attachment: page.attachment,
 			visibility:
 				typeof page.visibility === "string"
 					? page.visibility === "true"
@@ -79,7 +79,7 @@ const PageCards: React.FC<Props> = ({ className }) => {
 		setIsEditDialogOpen(true);
 	};
 
-	const Section = ({ pages, title: section_title }: { pages: PageDoc[]; title: string }) => (
+	const Section = ({ pages, title: section_title }: { pages: PageData[]; title: string }) => (
 		<div className={styles.section}>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths paths={[Route.public.HOME.uri]} />

@@ -14,17 +14,26 @@ import { getProviders, useSession } from "next-auth/react";
 
 import { AuthProviders } from "@/types/next-auth-providers";
 
-import { FileDocument } from "@/interfaces/File";
-import { PageDoc } from "@/interfaces/Page";
-import loadDataFromApiRoute from "@/lib/load-data-fom-api-route";
+import { getEntries } from "@/components/about/_about.actions";
+import { getFiles } from "@/components/files/_files.actions";
+import { getPages } from "@/components/pages/_pages.actions";
+import { getTags } from "@/components/tags/_tags.actions";
+import { AboutEntryData } from "@/interfaces/AboutEntry";
+import { FileData } from "@/interfaces/File";
+import { PageData } from "@/interfaces/Page";
+import { TagData } from "@/interfaces/Tag";
 
 interface AppContextProps {
 	session: Session | null;
-	pages: PageDoc[];
-	setPages: Dispatch<SetStateAction<PageDoc[]>>;
-	files: FileDocument[];
-	setFiles: Dispatch<SetStateAction<FileDocument[]>>;
 	authProviders: AuthProviders;
+	aboutEntries: AboutEntryData[];
+	setAboutEntries: Dispatch<SetStateAction<AboutEntryData[]>>;
+	files: FileData[];
+	setFiles: Dispatch<SetStateAction<FileData[]>>;
+	pages: PageData[];
+	setPages: Dispatch<SetStateAction<PageData[]>>;
+	tags: TagData[];
+	setTags: Dispatch<SetStateAction<TagData[]>>;
 }
 
 const AppContext = createContext<AppContextProps>({} as AppContextProps);
@@ -34,42 +43,56 @@ interface AppContextProviderProps {
 }
 
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
-	const [pages, setPages] = useState<PageDoc[]>([]);
-	const [files, setFiles] = useState<FileDocument[]>([]);
 	const [authProviders, setAuthProviders] = useState<AuthProviders>(null);
+	const [aboutEntries, setAboutEntries] = useState<AboutEntryData[]>([]);
+	const [files, setFiles] = useState<FileData[]>([]);
+	const [pages, setPages] = useState<PageData[]>([]);
+	const [tags, setTags] = useState<TagData[]>([]);
 
 	const { data: session } = useSession();
 
 	useEffect(() => {
-		if (!authProviders) {
-			(async () => {
-				setAuthProviders(await getProviders());
-			})();
-		}
-
-		const controller = new AbortController();
-
 		(async () => {
-			await loadDataFromApiRoute("PAGES", setPages, controller);
-			await loadDataFromApiRoute("FILES", setFiles, controller);
+			setAuthProviders(await getProviders());
+
+			setAboutEntries((await getEntries({ hyphen: true, public: true })) ?? []);
+			setFiles((await getFiles({ hyphen: true, public: true })) ?? []);
+			setPages((await getPages({ hyphen: true, public: true })) ?? []);
+			setTags((await getTags({ hyphen: true, public: true })) ?? []);
 		})();
 
-		return () => {
-			controller.abort();
-		};
-
+		return () => {};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	useEffect(() => {
+		// eslint-disable-next-line no-console
+		console.log("FILES", files);
+	}, [files]);
+
+	useEffect(() => {
+		// eslint-disable-next-line no-console
+		console.log("PAGES", pages);
+	}, [pages]);
+
+	useEffect(() => {
+		// eslint-disable-next-line no-console
+		console.log("TAGS", tags);
+	}, [tags]);
 
 	return (
 		<AppContext.Provider
 			value={{
-				pages,
-				setPages,
 				session,
+				authProviders,
+				aboutEntries,
+				setAboutEntries,
 				files,
 				setFiles,
-				authProviders,
+				pages,
+				setPages,
+				tags,
+				setTags,
 			}}
 		>
 			{children}

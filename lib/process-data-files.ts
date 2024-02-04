@@ -3,8 +3,23 @@ import { Route } from "@/routes";
 
 import { processMarkdown } from "./process-markdown";
 
-export function fileDocumentsToData({ files }: { files: FileDocument[] }): FileData[] {
-	return files.map((file) => ({
+export function fileDocuments_toData({
+	files,
+	hyphen = true,
+	visible,
+}: {
+	files: FileDocument[];
+	hyphen?: boolean;
+	visible?: boolean;
+}): FileData[] {
+	let filesFiltered = files;
+
+	if (visible) {
+		// Need to update the file model to add a visibility field
+		filesFiltered = files.filter((file) => file);
+	}
+
+	return filesFiltered.map((file) => ({
 		_id: file._id.toString(),
 		filename: file.filename,
 		length: file.length,
@@ -19,7 +34,7 @@ export function fileDocumentsToData({ files }: { files: FileDocument[] }): FileD
 			attachedTo: file.metadata?.attachedTo,
 			html: {
 				title: processMarkdown({ markdown: file.filename, hyphen: true }),
-				description: processMarkdown({ markdown: file.metadata?.description, hyphen: true }),
+				description: processMarkdown({ markdown: file.metadata?.description, hyphen }),
 				fileUri: `${Route.api.FILES}/${file._id.toString()}/${file.filename}?v=${new Date(
 					file.uploadDate
 				).getTime()}`,

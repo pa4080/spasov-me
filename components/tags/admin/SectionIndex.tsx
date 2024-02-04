@@ -35,19 +35,15 @@ const SectionIndex: React.FC<Props> = ({ className, tags, type = "tagIndex" }) =
 			</SectionHeader>
 
 			<div className="flex flex-wrap gap-2 items-center justify-start">
-				{tags
-					?.sort((a, b) =>
-						a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
-					)
-					.map((tag) => (
-						<a key={tag._id} href={`#tag_${tag._id}`}>
-							<DisplayTagIcon
-								className_TooltipTrigger="!mt-0"
-								description={tag.description}
-								icon={iconsMap[tag.icon as IconsMapItem]}
-							/>
-						</a>
-					))}
+				{tags?.map((tag) => (
+					<a key={tag._id} href={`#tag_${tag._id}`}>
+						<DisplayTagIcon
+							className_TooltipTrigger="!mt-0"
+							description={tag.html.description}
+							icon={iconsMap[tag.icon as IconsMapItem]}
+						/>
+					</a>
+				))}
 			</div>
 		</div>
 	);

@@ -17,6 +17,11 @@ export interface NewTagData extends Omit<TagDoc, "_id" | "creator"> {
 	creator: string;
 }
 
+export interface TagHtmlProps {
+	description: string;
+}
+
 export interface TagData extends Omit<TagDoc, "_id" | "creator"> {
 	_id: string;
+	html: TagHtmlProps;
 }

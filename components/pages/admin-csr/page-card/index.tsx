@@ -7,17 +7,16 @@ import { useRouter } from "next/navigation";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { Switch } from "@/components/ui/switch";
-import { PageDoc } from "@/interfaces/Page";
+import { PageData } from "@/interfaces/Page";
 import { msgs } from "@/messages";
-import { Route } from "@/routes";
 
 import styles from "../_pages.module.scss";
 
 interface Props {
 	className?: string;
-	page: PageDoc;
-	handleDelete: (e: React.SyntheticEvent, page: PageDoc) => void;
-	handleEdit: (e: React.SyntheticEvent, page: PageDoc) => void;
+	page: PageData;
+	handleDelete: (e: React.SyntheticEvent, page: PageData) => void;
+	handleEdit: (e: React.SyntheticEvent, page: PageData) => void;
 }
 
 const PageCard: React.FC<Props> = ({ className, page, handleDelete, handleEdit }) => {
@@ -62,13 +61,13 @@ const PageCard: React.FC<Props> = ({ className, page, handleDelete, handleEdit }
 					onClick={(e) => handleEdit(e, page)}
 				/>
 			</div>
-			{page.attachment && (
+			{page.attachment && page.html.attachmentUri && (
 				<div className={styles.cardImageEditMode}>
 					<Image
 						priority
 						alt={t("index_pageAttachment_alt", { title: page.title })}
 						height={260}
-						src={`${Route.api.FILES}/${page.attachment._id.toString()}/${page.attachment.filename}`}
+						src={page.html.attachmentUri}
 						width={462}
 					/>
 				</div>

@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 
 import Combobox from "@/components/fragments/Combobox";
 import DatePicker from "@/components/fragments/DatePicker";
+import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import MultiSelectFromList from "@/components/fragments/MultiSelectFromList";
 import SelectFromList from "@/components/fragments/SelectFromList";
 import { Button } from "@/components/ui/button";
@@ -33,9 +34,6 @@ import {
 	countryTuple,
 } from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
-
-import DisplayFileImage from "@/components/fragments/DisplayFileImage";
-
 import { Route } from "@/routes";
 
 import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
@@ -50,7 +48,7 @@ interface Props {
 	tags: TagData[] | null;
 }
 
-const EntryForm: React.FC<Props> = ({
+const AboutEntryForm: React.FC<Props> = ({
 	className,
 	entryType = aboutEntryTuple[0],
 	formData,
@@ -392,4 +390,4 @@ const EntryForm: React.FC<Props> = ({
 	);
 };
 
-export default EntryForm;
+export default AboutEntryForm;

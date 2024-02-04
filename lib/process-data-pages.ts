@@ -3,9 +3,9 @@ import { Route } from "@/routes";
 
 import { processMarkdown } from "./process-markdown";
 
-export function pageDocumentsToData({
+export function pageDocuments_toData({
 	pages,
-	hyphen,
+	hyphen = false,
 	visible,
 }: {
 	pages: PageDoc[];
@@ -18,35 +18,33 @@ export function pageDocumentsToData({
 		pagesFiltered = pages.filter((entry) => entry.visibility);
 	}
 
-	return pagesFiltered.map((page) => {
-		return {
-			_id: page._id.toString(),
-			html: {
-				// This cannot be done in the client side
-				title: processMarkdown({
-					markdown: page.title,
-					hyphen,
-				}),
-				description: processMarkdown({
-					markdown: page.description,
-					hyphen,
-				}),
-				attachmentUri:
-					page.attachment &&
-					`${Route.api.FILES}/${page.attachment?._id.toString()}/${
-						page.attachment?.filename
-					}?v=${new Date(page.attachment?.uploadDate).getTime()}`,
-			},
-			uri: page.uri,
-			title: page.title,
-			description: page.description,
-			visibility: page.visibility as boolean,
-			attachment: page.attachment?._id.toString(),
-		};
-	});
+	return pagesFiltered.map((page) => ({
+		_id: page._id.toString(),
+		html: {
+			// This cannot be done in the client side
+			title: processMarkdown({
+				markdown: page.title,
+				hyphen,
+			}),
+			description: processMarkdown({
+				markdown: page.description,
+				hyphen,
+			}),
+			attachmentUri:
+				page.attachment &&
+				`${Route.api.FILES}/${page.attachment?._id.toString()}/${
+					page.attachment?.filename
+				}?v=${new Date(page.attachment?.uploadDate).getTime()}`,
+		},
+		uri: page.uri,
+		title: page.title,
+		description: page.description,
+		visibility: page.visibility as boolean,
+		attachment: page.attachment?._id.toString(),
+	}));
 }
 
-export function pageFormDataToNewEntryData({
+export function pageFormData_toNewEntryData({
 	data,
 	user_id,
 }: {

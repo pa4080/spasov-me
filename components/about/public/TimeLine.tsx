@@ -10,7 +10,7 @@ import SectionHeader from "@/components/fragments/section-header";
 
 import ToggleCollapsible from "../../fragments/toggle-collapsible";
 import styles from "../_about.module.scss";
-import EntryCard from "../common/entry-card";
+import AboutEntryCard from "../common/about-card";
 
 interface Props {
 	className?: string;
@@ -47,7 +47,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 			</SectionHeader>
 			<div className={styles.feed}>
 				{entriesByType?.map((entry, index) => (
-					<EntryCard
+					<AboutEntryCard
 						key={index}
 						className={visibleItems > index ? "pop-item" : "section-card-collapsible pop-item"}
 						displayTags={displayTags}

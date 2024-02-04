@@ -14,7 +14,7 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
-import { PageDoc, preparePageDocToFetch } from "@/interfaces/Page";
+import { PageData, preparePageDocToFetch } from "@/interfaces/Page";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
@@ -24,7 +24,7 @@ import { Pages_FormSchema } from "../page-form/schema";
 interface Props {
 	className?: string;
 	session: Session | null;
-	setPages: React.Dispatch<React.SetStateAction<PageDoc[]>>;
+	setPages: React.Dispatch<React.SetStateAction<PageData[]>>;
 }
 
 const CreatePage: React.FC<Props> = ({ className, session, setPages }) => {
@@ -46,7 +46,7 @@ const CreatePage: React.FC<Props> = ({ className, session, setPages }) => {
 			});
 
 			if (response.ok) {
-				const newPage: PageDoc = (await response.json()).data;
+				const newPage: PageData = (await response.json()).data;
 
 				setPages((prevPages) => [...prevPages, newPage]);
 

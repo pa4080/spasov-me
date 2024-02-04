@@ -23,7 +23,13 @@ export interface GenericActionProps {
 interface Props extends Omit<GenericActionProps, "tagType" | "tag_id"> {}
 
 const TagCard: React.FC<Props> = ({ tag, className, icons }) => {
-	const { name, description, icon, tagType, orderKey } = tag;
+	const {
+		name,
+		html: { description },
+		icon,
+		tagType,
+		orderKey,
+	} = tag;
 
 	const t = msgs("TagsAdmin_Display");
 	const tForm = msgs("TagsAdmin_Form");
@@ -42,7 +48,7 @@ const TagCard: React.FC<Props> = ({ tag, className, icons }) => {
 				</div>
 				<div className={styles.cardRow}>
 					<div className={styles.leftCol}>{t("description")}:</div>
-					<div className={styles.rightCol}>{description}</div>
+					<div dangerouslySetInnerHTML={{ __html: description }} className={styles.rightCol} />
 				</div>
 				<div className={styles.cardRow}>
 					<div className={styles.leftCol}>{t("type")}:</div>

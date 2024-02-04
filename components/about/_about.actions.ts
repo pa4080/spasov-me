@@ -8,7 +8,7 @@ import { AboutEntryData, AboutEntryDoc } from "@/interfaces/AboutEntry";
 import { AboutEntryType } from "@/interfaces/_common-data-types";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
-import { aboutDocumentsToData, aboutFormDataToNewEntryData } from "@/lib/process-data-about";
+import { aboutDocuments_toData, aboutFormData_toNewEntryData } from "@/lib/process-data-about";
 import { msgs } from "@/messages";
 import AboutEntry from "@/models/about";
 
@@ -29,7 +29,7 @@ export const getEntries = async ({
 			"gallery",
 		]);
 
-		return aboutDocumentsToData({ entries, hyphen, typeList, visible });
+		return aboutDocuments_toData({ entries, hyphen, typeList, visible });
 	} catch (error) {
 		console.error(error);
 
@@ -46,7 +46,7 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<bool
 		}
 
 		// Get the input data from the form
-		const documentData_new = aboutFormDataToNewEntryData({
+		const documentData_new = aboutFormData_toNewEntryData({
 			data,
 			user_id: session?.user.id,
 		});
@@ -109,7 +109,7 @@ export const updateEntry = async (
 		}
 
 		// Get the input data from the form
-		const documentData_new = aboutFormDataToNewEntryData({
+		const documentData_new = aboutFormData_toNewEntryData({
 			data,
 			user_id: session?.user.id,
 		});

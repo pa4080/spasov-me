@@ -28,7 +28,7 @@ export interface Props {
 	entry_id: string;
 }
 
-const DeleteEntry: React.FC<Props> = ({ className, type, entry_id }) => {
+const DeleteAboutEntry: React.FC<Props> = ({ className, type, entry_id }) => {
 	const t = msgs("AboutCV_DeleteEntry");
 	const entryTypeLabel = (
 		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
@@ -105,4 +105,4 @@ const DeleteEntry: React.FC<Props> = ({ className, type, entry_id }) => {
 	);
 };
 
-export default DeleteEntry;
+export default DeleteAboutEntry;

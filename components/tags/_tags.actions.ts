@@ -1,26 +1,27 @@
 "use server";
 
 import { getSession, revalidatePaths } from "@/components/_common.actions";
-import { NewTagData, TagData, TagDoc } from "@/interfaces/Tag";
-import { TagType } from "@/interfaces/_common-data-types";
+import { TagData, TagDoc } from "@/interfaces/Tag";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
+import { tagDocuments_toData, tagFormData_toNewTagData } from "@/lib/process-data-tags";
 import { msgs } from "@/messages";
 import Tag from "@/models/tag";
 
-export const getTags = async (): Promise<TagData[] | null> => {
+export const getTags = async ({
+	public: visible,
+	hyphen = false,
+	sorted = true,
+}: {
+	public?: boolean;
+	hyphen?: boolean;
+	sorted?: boolean;
+} = {}): Promise<TagData[] | null> => {
 	try {
 		await connectToMongoDb();
 		const tags: TagDoc[] = await Tag.find({});
 
-		return tags.map((tag) => ({
-			_id: tag._id.toString(),
-			name: tag.name,
-			description: tag.description,
-			icon: tag.icon,
-			tagType: tag.tagType,
-			orderKey: tag.orderKey,
-		}));
+		return tagDocuments_toData({ tags, visible, hyphen, sorted });
 	} catch (error) {
 		console.error(error);
 
@@ -38,18 +39,14 @@ export const createTag = async (data: FormData, paths: string[]): Promise<true |
 
 		await connectToMongoDb();
 
-		const newTagData: NewTagData = {
-			name: data.get("name") as string,
-			description: data.get("description") as string,
-			icon: data.get("icon") as string,
-			tagType: data.get("tagType") as TagType,
-			creator: session?.user.id as string,
-			orderKey: data.get("orderKey") as string,
-		};
+		const documentData_new = tagFormData_toNewTagData({
+			data,
+			user_id: session?.user.id,
+		});
 
-		deleteFalsyKeys(newTagData);
+		deleteFalsyKeys(documentData_new);
 
-		const newTagDocument = new Tag(newTagData);
+		const newTagDocument = new Tag(documentData_new);
 
 		await newTagDocument.save();
 
@@ -77,23 +74,19 @@ export const updateTag = async (
 
 		await connectToMongoDb();
 
-		const newTagData: NewTagData = {
-			name: data.get("name") as string,
-			description: data.get("description") as string,
-			icon: data.get("icon") as string,
-			tagType: data.get("tagType") as TagType,
-			orderKey: data.get("orderKey") as string,
-			creator: session?.user.id as string,
-		};
+		const documentData_new = tagFormData_toNewTagData({
+			data,
+			user_id: session?.user.id,
+		});
 
-		deleteFalsyKeys(newTagData);
+		deleteFalsyKeys(documentData_new);
 
-		const updatedTagDocument = await Tag.findOneAndUpdate({ _id: tag_id }, newTagData, {
+		const document_new = await Tag.findOneAndUpdate({ _id: tag_id }, documentData_new, {
 			new: true,
 			strict: true,
 		});
 
-		await updatedTagDocument.save();
+		await document_new.save();
 
 		return true;
 	} catch (error) {
@@ -113,9 +106,9 @@ export const deleteTag = async (tag_id: string, paths: string[]): Promise<true |
 
 		await connectToMongoDb();
 
-		const deletedObject = await Tag.findOneAndDelete({ _id: tag_id });
+		const document_deleted = await Tag.findOneAndDelete({ _id: tag_id });
 
-		return !!deletedObject ? true : null;
+		return !!document_deleted ? true : null;
 	} catch (error) {
 		console.error(error);
 
