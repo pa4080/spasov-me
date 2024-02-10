@@ -23,4 +23,9 @@ export type CityType = (typeof data.city_name_list)[number];
 export type AboutEntryType = (typeof data.about_type_list)[number];
 export type TagType = (typeof data.tag_type_list)[number];
 
-export type ModelType = "About" | "Post" | "Project" | "Page" | "File" | "Tag" | "User";
+export type ModelType = "AboutEntry" | "PageCard" | "Post" | "Project" | "File" | "Tag" | "User";
+export interface AttachedToDocument {
+	modelType: ModelType;
+	title: string;
+	_id: string;
+}

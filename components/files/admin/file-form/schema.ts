@@ -41,7 +41,7 @@ export const File_FormSchemaGenerator = (messages?: string[], isFileOptional = f
 		attachedTo: z
 			.array(
 				z.object({
-					type: z.string(),
+					modelType: z.string(),
 					title: z.string(),
 					_id: z.string(),
 				})

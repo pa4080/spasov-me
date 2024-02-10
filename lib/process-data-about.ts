@@ -1,4 +1,4 @@
-import { AboutEntryData, AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
+import { AboutEntryData, AboutEntryDocPopulated, NewAboutEntryData } from "@/interfaces/AboutEntry";
 import { AboutEntryType, CityType, CountryType } from "@/interfaces/_common-data-types";
 import { Route } from "@/routes";
 
@@ -12,7 +12,7 @@ export function aboutDocuments_toData({
 	typeList,
 	visible,
 }: {
-	entries: AboutEntryDoc[];
+	entries: AboutEntryDocPopulated[];
 	hyphen?: boolean;
 	typeList?: AboutEntryType[];
 	visible?: boolean;

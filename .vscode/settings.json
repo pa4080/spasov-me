@@ -1,4 +1,10 @@
 {
+	// "workbench.colorCustomizations": {
+	// 	"titleBar.activeBackground": "#5c77e5",
+	// 	"titleBar.activeForeground": "#e7e7e7",
+	// 	"titleBar.inactiveBackground": "#D763B6",
+	// 	"titleBar.inactiveForeground": "#e7e7e799"
+	// },
 	"cSpell.words": [
 		"'",
 		"Appstimate",
@@ -89,11 +95,9 @@
 	// https://github.com/microsoft/vscode/issues/170589
 	// https://github.com/tailwindlabs/tailwindcss/discussions/5258#discussioncomment-1979394
 	"css.customData": [".vscode/css-container.json", ".vscode/css-tailwind.json"],
-	"editor.guides.bracketPairs": true,
-	"editor.guides.highlightActiveBracketPair": true,
-	"editor.guides.highlightActiveIndentation": true,
-	"editor.guides.bracketPairsHorizontal": "active",
-	"editor.bracketPairColorization.enabled": true,
+	"svg.preview.background": "transparent",
+	"cssModules.camelCase": true,
+
 	"reactTsScss.autoComplete": true,
 	"reactTsScss.definition": true,
 	"reactTsScss.peekProperties": true,
@@ -102,6 +106,9 @@
 	"reactTsScss.diagnostics": true,
 	"reactTsScss.baseDir": "./",
 	"reactTsScss.cssSyntaxColor": true,
+	"reactTsScss.references": true,
+	"reactTsScss.codelens": true,
+	"reactTsScss.autoImport": true,
 	"reactTsScss.cleanUpDefs": [
 		"*.module.css",
 		"*.module.scss",
@@ -109,28 +116,48 @@
 		"*.module.less",
 		"*.module.styl"
 	],
-	"reactTsScss.references": true,
-	"reactTsScss.codelens": true,
-	"cssModules.camelCase": true,
+
 	"files.autoSave": "off",
+	"editor.formatOnPaste": true,
 	"editor.formatOnSave": true,
-	"[typescript]": {
-		"editor.codeActionsOnSave": {
-			"source.fixAll": "always",
-			"source.organizeImports": true
-		}
+	"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+	"editor.guides.bracketPairs": true,
+	"editor.guides.highlightActiveBracketPair": true,
+	"editor.guides.highlightActiveIndentation": true,
+	"editor.guides.bracketPairsHorizontal": "active",
+	"editor.bracketPairColorization.enabled": true,
+
+	"prettier.singleQuote": true,
+	"eslint.format.enable": true,
+	// "eslint.workingDirectories": ["apps/main", "apps/mono-test"],
+
+	"[dotenv]": {
+		"editor.defaultFormatter": "foxundermoon.shell-format"
 	},
-	"[typescriptreact]": {
-		"editor.codeActionsOnSave": {
-			"source.fixAll": "always",
-			"source.organizeImports": true
-		}
+	"[jsonc]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"[typescript][typescriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.codeActionsOnSave": {
-			"source.fixAll": "always",
-			"source.organizeImports": "explicit"
+			// "source.fixAll": "always",
+			// "source.addMissingImports": "always"
+			"source.fixAll.eslint": "always",
+			"source.organizeImports": "always"
 		}
 	},
-	"svg.preview.background": "transparent"
+	"[html]": {
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": "never"
+		}
+	},
+	"[shellscript]": {
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"[ignore]": {
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	}
 }

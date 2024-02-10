@@ -1,4 +1,4 @@
-import { FileData, FileDocument } from "@/interfaces/File";
+import { FileData, FileDoc } from "@/interfaces/File";
 import { Route } from "@/routes";
 
 import { processMarkdown } from "./process-markdown";
@@ -8,14 +8,14 @@ export function fileDocuments_toData({
 	hyphen = true,
 	visible,
 }: {
-	files: FileDocument[];
+	files: FileDoc[];
 	hyphen?: boolean;
 	visible?: boolean;
 }): FileData[] {
 	let filesFiltered = files;
 
 	if (visible) {
-		// Need to update the file model to add a visibility field
+		// TODO: Update the file model to add a visibility field
 		filesFiltered = files.filter((file) => file);
 	}
 

@@ -1,5 +1,5 @@
 import { NewTagData, TagData, TagDoc } from "@/interfaces/Tag";
-import { TagType } from "@/interfaces/_common-data-types";
+import { AttachedToDocument, TagType } from "@/interfaces/_common-data-types";
 
 import { processMarkdown } from "./process-markdown";
 
@@ -30,15 +30,16 @@ export function tagDocuments_toData({
 		_id: tag._id.toString(),
 		name: tag.name,
 		description: tag.description,
+		icon: tag.icon,
+		tagType: tag.tagType,
+		orderKey: tag.orderKey,
+		attachedTo: tag.attachedTo,
 		html: {
 			description: processMarkdown({
 				markdown: tag.description,
 				hyphen,
 			}),
 		},
-		icon: tag.icon,
-		tagType: tag.tagType,
-		orderKey: tag.orderKey,
 	}));
 }
 
@@ -55,6 +56,7 @@ export function tagFormData_toNewTagData({
 		icon: data.get("icon") as string,
 		tagType: data.get("tagType") as TagType,
 		orderKey: data.get("orderKey") as string,
+		attachedTo: JSON.parse(data.get("attachedTo") as string) as AttachedToDocument[],
 
 		creator: user_id,
 	};

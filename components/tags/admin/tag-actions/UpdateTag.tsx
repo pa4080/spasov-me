@@ -33,10 +33,10 @@ interface Props {
 }
 
 const UpdateTag: React.FC<Props> = ({ className, tagType, tag, icons }) => {
-	const t = msgs("TagsAdmin_UpdateEntry");
-	const tagTypeLabel = (
-		msgs("TagsAdmin_Form")("tag_type_list") as unknown as Record<string, string>
-	)[tagType];
+	const t = msgs("Tags_Update");
+	const tagTypeLabel = (msgs("Tags_Form")("tag_type_list") as unknown as Record<string, string>)[
+		tagType
+	];
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
@@ -44,6 +44,7 @@ const UpdateTag: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 
 	const handleUpdateEntry = async (data: Tag_FormSchema) => {
 		setSubmitting(true);
+
 		try {
 			/**
 			 * In case we were used <form action={addPage}> this conversion will not be needed,

@@ -8,7 +8,7 @@ import { Schema, model, models } from "mongoose";
 import FileGFS from "./file";
 import User from "./user";
 
-const PageSchema = new Schema({
+const PageCardSchema = new Schema({
 	title: {
 		type: String,
 		required: [true, "Title is required!"],
@@ -35,5 +35,5 @@ const PageSchema = new Schema({
 	},
 });
 
-const Page = models.Page || model("Page", PageSchema);
-export default Page;
+const PageCard = models.PageCard || model("PageCard", PageCardSchema);
+export default PageCard;

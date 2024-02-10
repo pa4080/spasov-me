@@ -25,7 +25,7 @@ interface Props {
  * In the format of: `title_${type}`, i.e. "title_employment"
  */
 const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries, displayTags }) => {
-	const t = msgs("AboutCV");
+	const t = msgs("AboutEntries");
 
 	type tType = Parameters<typeof t>[0];
 

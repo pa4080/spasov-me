@@ -26,7 +26,7 @@ interface Props {
 }
 
 const CreateFile: React.FC<Props> = ({ className }) => {
-	const t = msgs("FilesAdmin_CreateFile");
+	const t = msgs("Files_Create");
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353

@@ -31,14 +31,14 @@ const TagCard: React.FC<Props> = ({ tag, className, icons }) => {
 		orderKey,
 	} = tag;
 
-	const t = msgs("TagsAdmin_Display");
-	const tForm = msgs("TagsAdmin_Form");
+	const t = msgs("Tags_Display");
+	const tForm = msgs("Tags_Form");
 
 	return (
 		<div className={`${styles.cardWrapper} ${className}`} id={`tag_${tag._id}`}>
 			<div className={styles.card}>
 				<div className={styles.buttons}>
-					<DeleteTag tagType={tag.tagType} tag_id={tag._id} />
+					<DeleteTag tag={tag} />
 					<UpdateTag icons={icons} tag={tag} tagType={tag.tagType} />
 				</div>
 

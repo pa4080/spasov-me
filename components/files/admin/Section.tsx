@@ -22,7 +22,7 @@ interface Props {
 }
 
 const Section: React.FC<Props> = ({ className, files, type = "common", visibleItems = 2 }) => {
-	const t = msgs("FilesAdmin");
+	const t = msgs("Files");
 
 	type tType = Parameters<typeof t>[0];
 

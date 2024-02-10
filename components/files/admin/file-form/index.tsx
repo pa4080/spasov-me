@@ -20,7 +20,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { AttachedToDocument, FileData } from "@/interfaces/File";
+import { FileData } from "@/interfaces/File";
 import { roundTo } from "@/lib/round";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
@@ -29,7 +29,9 @@ import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 import { capitalize } from "@/lib/capitalize";
 
-import AttachedToBadge from "../file-actions/AttachedToBadge";
+import { AttachedToDocument } from "@/interfaces/_common-data-types";
+
+import AttachedToBadge from "../../../fragments/AttachedToBadge";
 import styles from "./_files-form.module.scss";
 import { File_FormSchema, File_FormSchemaGenerator } from "./schema";
 
@@ -42,10 +44,9 @@ interface Props {
 }
 
 const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
-	const t = msgs("FilesAdmin_Form");
-	const tCard = msgs("FilesAdmin_DisplayFileCard");
+	const t = msgs("Files_Form");
+	const tCard = msgs("Files_Display");
 	const locale = "en";
-
 	const displayImageRef = useRef<HTMLImageElement>(null);
 	const collisionBoundaryRef = useRef<HTMLFormElement>(null);
 	const [fileToUpload, setFileToUpload] = useState<File | null>(null);
@@ -310,14 +311,16 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 								badgeLabel={item.title}
 								collisionBoundaryRef={collisionBoundaryRef}
 								removeItemById={() => removeAttachedToItemById(item._id)}
-								ttContentLn1={`${capitalize(item.type)}: ${item.title}`}
+								ttContentLn1={`${capitalize(item.modelType)}: ${item.title}`}
 								ttContentLn2={tCard("index_id", { index, id: item._id })}
 							/>
 						))}
 				</div>
 
 				{/* Submit button */}
-				<Button type="submit">{submitting ? t("btn_submitting") : t("btn_submit")}</Button>
+				<Button disabled={submitting} type="submit">
+					{submitting ? t("btn_submitting") : t("btn_submit")}
+				</Button>
 			</form>
 		</Form>
 	);

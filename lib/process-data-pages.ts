@@ -1,17 +1,18 @@
-import { NewPageData, PageData, PageDoc } from "@/interfaces/Page";
+import { NewPageCardData, PageCardData, PageCardDocPopulated } from "@/interfaces/PageCard";
+
 import { Route } from "@/routes";
 
 import { processMarkdown } from "./process-markdown";
 
-export function pageDocuments_toData({
+export function PageCardDocuments_toData({
 	pages,
 	hyphen = false,
 	visible,
 }: {
-	pages: PageDoc[];
+	pages: PageCardDocPopulated[];
 	hyphen?: boolean;
 	visible?: boolean;
-}): PageData[] {
+}): PageCardData[] {
 	let pagesFiltered = pages;
 
 	if (visible) {
@@ -50,7 +51,7 @@ export function pageFormData_toNewEntryData({
 }: {
 	data: FormData;
 	user_id: string;
-}): NewPageData {
+}): NewPageCardData {
 	return {
 		title: data.get("title") as string,
 		description: data.get("description") as string,

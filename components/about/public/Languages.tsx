@@ -53,7 +53,7 @@ function stars(points: number, maxStars: number = 5, starWeight: number = 10) {
  * In the format of: `title_${type}`, i.e. "title_employment"
  */
 const SpokenLanguages: React.FC<Props> = ({ className, type, entries }) => {
-	const t = msgs("AboutCV");
+	const t = msgs("AboutEntries");
 
 	type tType = Parameters<typeof t>[0];
 

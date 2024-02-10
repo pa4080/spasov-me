@@ -21,7 +21,7 @@ import { Route } from "@/routes";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 
-import { deletePage } from "../../_pages.actions";
+import { deletePageCard } from "../../_pages.actions";
 
 export interface Props {
 	className?: string;
@@ -30,7 +30,7 @@ export interface Props {
 }
 
 const DeletePage: React.FC<Props> = ({ className, page_id, page_title }) => {
-	const t = msgs("PageCards_DeletePage");
+	const t = msgs("PageCards_Delete");
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +40,7 @@ const DeletePage: React.FC<Props> = ({ className, page_id, page_title }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await deletePage(page_id, [
+			const response = await deletePageCard(page_id, [
 				pathname,
 				Route.public.HOME.uri,
 				Route.admin.FILES,

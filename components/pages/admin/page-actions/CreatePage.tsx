@@ -19,7 +19,7 @@ import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { createPage } from "../../_pages.actions";
+import { createPageCard } from "../../_pages.actions";
 import PageForm from "../page-form";
 import { Pages_FormSchema } from "../page-form/schema";
 
@@ -29,7 +29,7 @@ interface Props {
 }
 
 const CreatePage: React.FC<Props> = ({ className, files }) => {
-	const t = msgs("PageCards_CreatePage");
+	const t = msgs("PageCards_Create");
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
@@ -39,7 +39,7 @@ const CreatePage: React.FC<Props> = ({ className, files }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await createPage(generateFormDataFromObject(data), [
+			const response = await createPageCard(generateFormDataFromObject(data), [
 				pathname,
 				Route.public.HOME.uri,
 				Route.admin.FILES,

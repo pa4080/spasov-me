@@ -57,7 +57,7 @@ const AboutEntryForm: React.FC<Props> = ({
 	files,
 	tags,
 }) => {
-	const t = msgs("AboutCV_Form");
+	const t = msgs("AboutEntries_Form");
 
 	const FormSchema = Entry_FormSchemaGenerator([
 		t("schema_title"),

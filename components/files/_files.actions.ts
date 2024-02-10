@@ -2,20 +2,17 @@
 
 import { ObjectId } from "mongodb";
 
-import { AttachedToDocument, FileData, FileDocument, FileListItem } from "@/interfaces/File";
+import { FileData, FileDoc, FileListItem } from "@/interfaces/File";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
 import { fileDocuments_toData } from "@/lib/process-data-files";
 import { msgs } from "@/messages";
-import AboutEntry from "@/models/about";
 import FileGFS from "@/models/file";
 import { Route } from "@/routes";
 
-import Page from "@/models/page";
+import { AttachedToDocument } from "@/interfaces/_common-data-types";
 
-import { ModelType } from "@/interfaces/_common-data-types";
-
-import { getSession, revalidatePaths } from "../_common.actions";
+import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "../_common.actions";
 
 import { Readable } from "stream";
 
@@ -34,7 +31,7 @@ export const getFilesV1 = async (): Promise<FileData[] | null> => {
 		 */
 		const bucket = await gridFSBucket();
 
-		const files = (await bucket.find().toArray()) as FileDocument[];
+		const files = (await bucket.find().toArray()) as FileDoc[];
 
 		if (files?.length === 0) {
 			return null;
@@ -111,7 +108,7 @@ export const createFile = async (data: FormData, paths: string[]): Promise<true 
 
 		/**
 		 * This is much inconvenient approach.
-		 * Be cause we cannot process in a loop in our case...
+		 * Because we cannot process in a loop in our case...
 		 *
 		const formEntries = Array.from(data.entries());
 		const description = formEntries.find((entry) => entry[0] === "description")?.[1] as string;
@@ -204,10 +201,10 @@ export const updateFile = async (
 		deleteFalsyKeys(documentData_new);
 
 		// Process the "attachedTo" array first
-		await fileAttachment_detach({
+		await attachedTo_detachFromTarget({
 			attachedToArr_new: documentData_new.attachedTo,
 			attachedToArr_old: document.toObject().metadata.attachedTo,
-			file_id: file_id,
+			target_id: file_id,
 		});
 
 		// Process the "file" itself --- TODO: uncomment the lines related to attachedTo
@@ -316,24 +313,25 @@ export const deleteFile = async (file_id: string, paths: string[]): Promise<true
 };
 
 /**
- * This function is used within the other documents forms,
+ * This function is used within the other documents,
  * like as "About", "Portfolio/Projects", "Blog/Posts" etc.,
- * to ADD the relevant "attachedTo" item from a file.
+ * to ADD the relevant "attachedTo" item to a File.
  */
 export const fileAttachment_add = async ({
-	attachedDocument,
+	documentToAttach,
 	target_file_id,
 }: {
-	attachedDocument: AttachedToDocument;
+	documentToAttach: AttachedToDocument;
 	target_file_id: string;
 }): Promise<boolean> => {
 	try {
 		await connectToMongoDb();
 		const target_file_ObjectId = new ObjectId(target_file_id);
-		const dbFileGFSDoc = (await FileGFS.findOne(target_file_ObjectId)).toObject() as FileDocument;
+		const dbFileGFSDoc = (await FileGFS.findOne(target_file_ObjectId)).toObject() as FileDoc;
 		const attachedTo = (dbFileGFSDoc.metadata.attachedTo as AttachedToDocument[]) || [];
 
-		if (!!attachedTo.find(({ _id }: { _id: string }) => _id === attachedDocument._id)) {
+		// Check if the document is already attached
+		if (!!attachedTo.find(({ _id }: { _id: string }) => _id === documentToAttach._id)) {
 			return true;
 		}
 
@@ -344,25 +342,25 @@ export const fileAttachment_add = async ({
 					"metadata.attachedTo": [
 						...attachedTo,
 						{
-							type: attachedDocument.type,
-							title: attachedDocument.title,
-							_id: attachedDocument._id,
+							modelType: documentToAttach.modelType,
+							title: documentToAttach.title,
+							_id: documentToAttach._id,
 						},
 					],
 				},
 			}
 		));
 	} catch (error) {
-		console.error("Unable to add attached document", error);
+		console.error("Unable to add attached document to a File: ", error);
 
 		return false;
 	}
 };
 
 /**
- * This function is used within the other documents forms,
+ * This function is used within the other documents,
  * like as "About", "Portfolio/Projects", "Blog/Posts" etc.,
- * to REMOVE the relevant "attachedTo" item from a file.
+ * to REMOVE the relevant "attachedTo" item from a File.
  */
 export const fileAttachment_remove = async ({
 	attachedDocument_id,
@@ -374,7 +372,7 @@ export const fileAttachment_remove = async ({
 	try {
 		await connectToMongoDb();
 		const target_file_ObjectId = new ObjectId(target_file_id);
-		const dbFileGFSDoc = (await FileGFS.findOne(target_file_ObjectId)).toObject() as FileDocument;
+		const dbFileGFSDoc = (await FileGFS.findOne(target_file_ObjectId)).toObject() as FileDoc;
 		const attachedTo = (dbFileGFSDoc.metadata.attachedTo as AttachedToDocument[]) || [];
 
 		return !!(await FileGFS.updateOne(
@@ -388,101 +386,7 @@ export const fileAttachment_remove = async ({
 			}
 		));
 	} catch (error) {
-		console.error("Unable to remove attached document", error);
-
-		return false;
-	}
-};
-
-/**
- * This function is used within the file's form,
- * to DETACH (REMOVE) an "attachedTo" item from a file.
- * The function is used only within "fileUpdate()".
- *
- * The availability of some "attachedTo" items blocks
- * the "fileDelete()", so if we want to remove the file
- * We must manually remove the "attachedTo" items as
- * accident file remove prevention.
- */
-export const fileAttachment_detach = async ({
-	attachedToArr_new,
-	attachedToArr_old,
-	file_id,
-}: {
-	attachedToArr_new: AttachedToDocument[];
-	attachedToArr_old: AttachedToDocument[];
-	file_id: string;
-}): Promise<boolean> => {
-	try {
-		// Init an empty array for the differences
-		let attachedTo_diff: AttachedToDocument[] = [];
-
-		// If all attachedTo items are removed
-		if (attachedToArr_old?.length > 0 && !attachedToArr_new) {
-			attachedTo_diff = attachedToArr_old;
-		}
-
-		// If partially "attachedTo" items are removed
-		if (attachedToArr_old?.length > 0 && attachedToArr_new?.length > 0) {
-			const attachedToArr_new_ids = attachedToArr_new.map(({ _id }) => _id);
-
-			attachedTo_diff = attachedToArr_old.filter(({ _id }) => !attachedToArr_new_ids.includes(_id));
-		}
-
-		// If "attachedTo" array is not changed
-		if (attachedTo_diff.length === 0) {
-			return true;
-		}
-
-		// If there are differences, process them.
-		await connectToMongoDb();
-
-		if (attachedTo_diff.length > 0) {
-			attachedTo_diff.forEach(async ({ _id, type }: { _id: string; type: ModelType }) => {
-				let document;
-
-				switch (type) {
-					case "About": {
-						document = await AboutEntry.findOne({ _id });
-						break;
-					}
-
-					case "Page": {
-						document = await Page.findOne({ _id });
-						break;
-					}
-
-					default: {
-						document = null;
-						break;
-					}
-				}
-
-				if (document) {
-					if (document.attachment && document.attachment.toString() === file_id) {
-						document.attachment = undefined;
-					}
-
-					if (document.gallery && document.gallery.length > 0) {
-						document.gallery = document.gallery.filter(
-							(gallery_file_id: ObjectId) => gallery_file_id.toString() !== file_id
-						);
-					}
-
-					await document.save();
-				} else {
-					console.warn(
-						`The DB document with Id '${_id}' does not exist.\n > ` +
-							`It is safe to remove the relevant record from the ` +
-							`'attachedTo' array of '${file_id}'.`
-					);
-				}
-			});
-		}
-
-		return true;
-	} catch (error) {
-		console.error("Unable to add attached document", error);
+		console.error("Unable to remove attached document from a File: ", error);
 
 		return false;
 	}

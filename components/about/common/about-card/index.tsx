@@ -36,8 +36,8 @@ const AboutEntryCard: React.FC<Props> = ({
 	displayTags = true,
 	displayActions = false,
 }) => {
-	const tTime = msgs("AboutCV_Form");
-	const tCommon = msgs("AboutCV");
+	const tTime = msgs("AboutEntries_Form");
+	const tCommon = msgs("AboutEntries");
 
 	const { dateFrom, dateTo } = entry;
 	const dtFrom = new Date(dateFrom);

@@ -1,8 +1,13 @@
 "use server";
+import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 
+import { AttachedToDocument, ModelType } from "@/interfaces/_common-data-types";
 import { authOptions } from "@/lib/auth-options";
+import { connectToMongoDb } from "@/lib/mongodb-mongoose";
+import AboutEntry from "@/models/about-entry";
+import PageCard from "@/models/page-card";
 
 export const revalidatePaths = async <T extends string>({
 	paths,
@@ -40,4 +45,105 @@ export const getSession = async () => {
 	const session = await getServerSession(authOptions);
 
 	return session;
+};
+
+/**
+ * This function is used within the File and Tag forms,
+ * to DETACH (REMOVE) an "attachedTo" items.
+ * So far the function is used only within
+ * "fileUpdate()" and "tagUpdate()".
+ */
+export const attachedTo_detachFromTarget = async ({
+	attachedToArr_new,
+	attachedToArr_old,
+	target_id,
+}: {
+	attachedToArr_new: AttachedToDocument[] | undefined;
+	attachedToArr_old: AttachedToDocument[] | undefined;
+	target_id: string;
+}): Promise<boolean> => {
+	try {
+		// Init an empty array for the differences
+		let attachedTo_diff: AttachedToDocument[] = [];
+
+		// If all attachedTo items are removed
+		if (attachedToArr_old && attachedToArr_old?.length > 0 && !attachedToArr_new) {
+			attachedTo_diff = attachedToArr_old;
+		}
+
+		// If partially "attachedTo" items are removed
+		if (
+			attachedToArr_old &&
+			attachedToArr_old?.length > 0 &&
+			attachedToArr_new &&
+			attachedToArr_new?.length > 0
+		) {
+			const attachedToArr_new_ids = attachedToArr_new.map(({ _id }) => _id);
+
+			attachedTo_diff = attachedToArr_old.filter(({ _id }) => !attachedToArr_new_ids.includes(_id));
+		}
+
+		// If "attachedTo" array is not changed
+		if (attachedTo_diff.length === 0) {
+			return true;
+		}
+
+		// If there are differences, process them.
+		await connectToMongoDb();
+
+		if (attachedTo_diff.length > 0) {
+			attachedTo_diff.forEach(async ({ _id, modelType }: { _id: string; modelType: ModelType }) => {
+				let document;
+
+				switch (modelType) {
+					case "AboutEntry": {
+						document = await AboutEntry.findOne({ _id });
+						break;
+					}
+
+					case "PageCard": {
+						document = await PageCard.findOne({ _id });
+						break;
+					}
+
+					default: {
+						document = null;
+						break;
+					}
+				}
+
+				if (document) {
+					if (document.attachment && document.attachment.toString() === target_id) {
+						document.attachment = undefined;
+					}
+
+					if (document.gallery && document.gallery.length > 0) {
+						document.gallery = document.gallery.filter(
+							(gallery_file_id: ObjectId) => gallery_file_id.toString() !== target_id
+						);
+					}
+
+					if (document.tags && document.tags.length > 0) {
+						document.tags = document.tags.filter(
+							(tag_id: ObjectId) => tag_id.toString() !== target_id
+						);
+					}
+
+					await document.save();
+				} else {
+					console.warn(
+						`The DB document with Id '${_id}' does not exist.\n > ` +
+							`It is safe to remove the relevant record from the ` +
+							`'attachedTo' array of '${target_id}'.`
+					);
+				}
+			});
+		}
+
+		return true;
+	} catch (error) {
+		console.error("Unable to remove attached document", error);
+
+		return false;
+	}
 };

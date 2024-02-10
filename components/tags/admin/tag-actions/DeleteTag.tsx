@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
+import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -16,25 +17,22 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
-import { TagType } from "@/interfaces/_common-data-types";
+import { TagData } from "@/interfaces/Tag";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
-
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 
 import { deleteTag } from "../../_tags.actions";
 
 interface Props {
 	className?: string;
-	tagType: TagType;
-	tag_id: string;
+	tag: TagData;
 }
 
-const DeleteTag: React.FC<Props> = ({ className, tagType, tag_id }) => {
-	const t = msgs("TagsAdmin_DeleteTag");
-	const tagTypeLabel = (
-		msgs("TagsAdmin_Form")("tag_type_list") as unknown as Record<string, string>
-	)[tagType];
+const DeleteTag: React.FC<Props> = ({ className, tag }) => {
+	const t = msgs("Tags_Delete");
+	const tagTypeLabel = (msgs("Tags_Form")("tag_type_list") as unknown as Record<string, string>)[
+		tag.tagType
+	];
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +42,7 @@ const DeleteTag: React.FC<Props> = ({ className, tagType, tag_id }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await deleteTag(tag_id, [pathname, Route.public.ABOUT.uri]);
+			const response = await deleteTag(tag._id, [pathname, Route.public.ABOUT.uri]);
 
 			serverActionResponseToastAndLocationReload({
 				trigger: !!response,
@@ -66,6 +64,7 @@ const DeleteTag: React.FC<Props> = ({ className, tagType, tag_id }) => {
 				<AlertDialogTrigger>
 					<ButtonIcon
 						className="pl-[2.6px] bg-transparent icon_accent_secondary"
+						disabled={(tag.attachedTo && tag.attachedTo?.length > 0) || submitting}
 						height={18}
 						type="trash"
 						width={18}
@@ -81,7 +80,11 @@ const DeleteTag: React.FC<Props> = ({ className, tagType, tag_id }) => {
 							<AlertDialogDescription
 								className="hyphens-auto break-words"
 								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: tag_id }),
+									__html: t("dialog_description", {
+										id: tag._id,
+										name: tag.name,
+										description: tag.description,
+									}),
 								}}
 							/>
 						)}

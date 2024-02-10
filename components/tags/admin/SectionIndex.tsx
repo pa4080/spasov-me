@@ -20,7 +20,7 @@ interface Props {
 }
 
 const SectionIndex: React.FC<Props> = ({ className, tags, type = "tagIndex" }) => {
-	const t = msgs("TagsAdmin");
+	const t = msgs("Tags");
 
 	type tType = Parameters<typeof t>[0];
 

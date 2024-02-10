@@ -1,6 +1,6 @@
 import { UserObject } from "@/interfaces/User";
 
-import { TagType } from "./_common-data-types";
+import { AttachedToDocument, TagType } from "./_common-data-types";
 
 export interface TagDoc {
 	_id: string;
@@ -11,6 +11,7 @@ export interface TagDoc {
 	icon: string;
 	tagType: TagType;
 	orderKey: string;
+	attachedTo?: AttachedToDocument[];
 }
 
 export interface NewTagData extends Omit<TagDoc, "_id" | "creator"> {

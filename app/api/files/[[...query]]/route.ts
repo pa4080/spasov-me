@@ -9,7 +9,7 @@ import { GridFSFile, ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
-import { FileDocument } from "@/interfaces/File";
+import { FileDoc } from "@/interfaces/File";
 import { authOptions } from "@/lib/auth-options";
 import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
 import FileGFS from "@/models/file";
@@ -129,7 +129,7 @@ export async function POST(request: NextRequest, { params }: Context) {
 				const user_id = formEntries.find((entry) => entry[0] === "user_id")?.[1] as string;
 				const file_form_field = formEntries.find((entry) => entry[0] === "file")?.[1];
 
-				let responseObject: GridFSFile = {} as FileDocument;
+				let responseObject: GridFSFile = {} as FileDoc;
 
 				if (typeof file_form_field === "object") {
 					// convert the file to a blob, alt.: file_form_field as Blob
@@ -220,7 +220,7 @@ export async function PATCH(request: NextRequest, { params }: Context) {
 					fileFormField: formEntries.find((entry) => entry[0] === "file")?.[1],
 				};
 
-				let responseObject: GridFSFile = {} as FileDocument;
+				let responseObject: GridFSFile = {} as FileDoc;
 				// Connect to the database and get the bucket
 				const bucket = await gridFSBucket();
 

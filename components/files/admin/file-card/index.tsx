@@ -17,7 +17,7 @@ import { msgs } from "@/messages";
 
 import { capitalize } from "@/lib/capitalize";
 
-import AttachedToBadge from "../file-actions/AttachedToBadge";
+import AttachedToBadge from "../../../fragments/AttachedToBadge";
 import DeleteFile from "../file-actions/DeleteFile";
 import UpdateFile from "../file-actions/UpdateFile";
 import styles from "./_file-card.module.scss";
@@ -28,8 +28,8 @@ interface Props {
 }
 
 const FileCard: React.FC<Props> = ({ className, file }) => {
-	const tCommon = msgs("FilesAdmin");
-	const t = msgs("FilesAdmin_DisplayFileCard");
+	const tCommon = msgs("Files");
+	const t = msgs("Files_Display");
 
 	const displayActions = true;
 
@@ -53,11 +53,7 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 						<div className={styles.buttonsContainer}>
 							{displayActions && (
 								<>
-									<DeleteFile
-										disabled={file.metadata.attachedTo && file.metadata.attachedTo?.length > 0}
-										file_id={file._id}
-										filename={file.filename}
-									/>
+									<DeleteFile file={file} />
 									<RedirectToUri uri={file.metadata.html.fileUri} />
 									<UpdateFile file={file} />
 								</>
@@ -108,7 +104,7 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 									<AttachedToBadge
 										key={index}
 										badgeLabel={item.title}
-										ttContentLn1={`${capitalize(item.type)}: ${item.title}`}
+										ttContentLn1={`${capitalize(item.modelType)}: ${item.title}`}
 										ttContentLn2={t("index_id", { index, id: item._id })}
 									/>
 								))}

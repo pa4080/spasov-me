@@ -4,6 +4,8 @@ import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
 
+import { PageCardData } from "@/interfaces/PageCard";
+
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
@@ -15,23 +17,22 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { FileListItem } from "@/interfaces/File";
-import { PageData } from "@/interfaces/Page";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { updatePage } from "../../_pages.actions";
+import { updatePageCard } from "../../_pages.actions";
 import PageForm from "../page-form";
 import { Pages_FormSchema } from "../page-form/schema";
 
 interface Props {
 	className?: string;
-	page: PageData;
+	page: PageCardData;
 	files?: FileListItem[] | null | undefined;
 }
 
 const UpdatePage: React.FC<Props> = ({ className, page, files }) => {
-	const t = msgs("PageCards_UpdatePage");
+	const t = msgs("PageCards_Update");
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
@@ -41,7 +42,7 @@ const UpdatePage: React.FC<Props> = ({ className, page, files }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await updatePage(generateFormDataFromObject(data), page._id, [
+			const response = await updatePageCard(generateFormDataFromObject(data), page._id, [
 				pathname,
 				Route.public.HOME.uri,
 				Route.admin.FILES,

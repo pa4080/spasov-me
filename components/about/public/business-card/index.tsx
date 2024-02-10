@@ -18,7 +18,7 @@ interface Props {
 }
 
 const BusinessCard: React.FC<Props> = ({ entries, className, type }) => {
-	// const t = msgs("AboutCV");
+	// const t = msgs("AboutEntries");
 	// type tType = Parameters<typeof t>[0];
 	// const section_title = t(`title_${type}` as tType);
 

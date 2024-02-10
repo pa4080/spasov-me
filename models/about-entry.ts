@@ -43,13 +43,6 @@ const AboutEntrySchema = new Schema({
 		type: Boolean,
 		required: [true, "Visibility is required!"],
 	},
-	tags: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: Tag,
-			required: [true, "At least one Tag is required!"],
-		},
-	],
 	creator: {
 		type: Schema.Types.ObjectId,
 		ref: User,
@@ -62,6 +55,13 @@ const AboutEntrySchema = new Schema({
 		{
 			type: Schema.Types.ObjectId,
 			ref: FileGFS,
+		},
+	],
+	tags: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: Tag,
+			required: [true, "At least one Tag is required!"],
 		},
 	],
 });
