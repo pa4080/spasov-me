@@ -1,4 +1,4 @@
-import { FileData, FileDocument } from "@/interfaces/File";
+import { FileData, FileDoc } from "@/interfaces/File";
 import { Route } from "@/routes";
 
 import { processMarkdown } from "./process-markdown";
@@ -8,7 +8,7 @@ export function fileDocuments_toData({
 	hyphen = true,
 	visible,
 }: {
-	files: FileDocument[];
+	files: FileDoc[];
 	hyphen?: boolean;
 	visible?: boolean;
 }): FileData[] {

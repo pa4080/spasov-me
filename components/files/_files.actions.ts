@@ -2,7 +2,7 @@
 
 import { ObjectId } from "mongodb";
 
-import { FileData, FileDocument, FileListItem } from "@/interfaces/File";
+import { FileData, FileDoc, FileListItem } from "@/interfaces/File";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
 import { fileDocuments_toData } from "@/lib/process-data-files";
@@ -31,7 +31,7 @@ export const getFilesV1 = async (): Promise<FileData[] | null> => {
 		 */
 		const bucket = await gridFSBucket();
 
-		const files = (await bucket.find().toArray()) as FileDocument[];
+		const files = (await bucket.find().toArray()) as FileDoc[];
 
 		if (files?.length === 0) {
 			return null;
@@ -313,24 +313,25 @@ export const deleteFile = async (file_id: string, paths: string[]): Promise<true
 };
 
 /**
- * This function is used within the other documents forms,
+ * This function is used within the other documents,
  * like as "About", "Portfolio/Projects", "Blog/Posts" etc.,
- * to ADD the relevant "attachedTo" item from a file.
+ * to ADD the relevant "attachedTo" item to a File.
  */
 export const fileAttachment_add = async ({
-	attachedDocument,
+	documentToAttach,
 	target_file_id,
 }: {
-	attachedDocument: AttachedToDocument;
+	documentToAttach: AttachedToDocument;
 	target_file_id: string;
 }): Promise<boolean> => {
 	try {
 		await connectToMongoDb();
 		const target_file_ObjectId = new ObjectId(target_file_id);
-		const dbFileGFSDoc = (await FileGFS.findOne(target_file_ObjectId)).toObject() as FileDocument;
+		const dbFileGFSDoc = (await FileGFS.findOne(target_file_ObjectId)).toObject() as FileDoc;
 		const attachedTo = (dbFileGFSDoc.metadata.attachedTo as AttachedToDocument[]) || [];
 
-		if (!!attachedTo.find(({ _id }: { _id: string }) => _id === attachedDocument._id)) {
+		// Check if the document is already attached
+		if (!!attachedTo.find(({ _id }: { _id: string }) => _id === documentToAttach._id)) {
 			return true;
 		}
 
@@ -341,25 +342,25 @@ export const fileAttachment_add = async ({
 					"metadata.attachedTo": [
 						...attachedTo,
 						{
-							modelType: attachedDocument.modelType,
-							title: attachedDocument.title,
-							_id: attachedDocument._id,
+							modelType: documentToAttach.modelType,
+							title: documentToAttach.title,
+							_id: documentToAttach._id,
 						},
 					],
 				},
 			}
 		));
 	} catch (error) {
-		console.error("Unable to add attached document", error);
+		console.error("Unable to add attached document to a File: ", error);
 
 		return false;
 	}
 };
 
 /**
- * This function is used within the other documents forms,
+ * This function is used within the other documents,
  * like as "About", "Portfolio/Projects", "Blog/Posts" etc.,
- * to REMOVE the relevant "attachedTo" item from a file.
+ * to REMOVE the relevant "attachedTo" item from a File.
  */
 export const fileAttachment_remove = async ({
 	attachedDocument_id,
@@ -371,7 +372,7 @@ export const fileAttachment_remove = async ({
 	try {
 		await connectToMongoDb();
 		const target_file_ObjectId = new ObjectId(target_file_id);
-		const dbFileGFSDoc = (await FileGFS.findOne(target_file_ObjectId)).toObject() as FileDocument;
+		const dbFileGFSDoc = (await FileGFS.findOne(target_file_ObjectId)).toObject() as FileDoc;
 		const attachedTo = (dbFileGFSDoc.metadata.attachedTo as AttachedToDocument[]) || [];
 
 		return !!(await FileGFS.updateOne(
@@ -385,7 +386,7 @@ export const fileAttachment_remove = async ({
 			}
 		));
 	} catch (error) {
-		console.error("Unable to remove attached document", error);
+		console.error("Unable to remove attached document from a File: ", error);
 
 		return false;
 	}

@@ -1,4 +1,4 @@
-import { NewPageCardData, PageCardData, PageCardDoc } from "@/interfaces/PageCard";
+import { NewPageCardData, PageCardData, PageCardDocPopulated } from "@/interfaces/PageCard";
 
 import { Route } from "@/routes";
 
@@ -9,7 +9,7 @@ export function PageCardDocuments_toData({
 	hyphen = false,
 	visible,
 }: {
-	pages: PageCardDoc[];
+	pages: PageCardDocPopulated[];
 	hyphen?: boolean;
 	visible?: boolean;
 }): PageCardData[] {

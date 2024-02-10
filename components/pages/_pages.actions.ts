@@ -1,6 +1,6 @@
 "use server";
 
-import { PageCardData, PageCardDoc } from "@/interfaces/PageCard";
+import { PageCardData, PageCardDocPopulated } from "@/interfaces/PageCard";
 
 import { getSession, revalidatePaths } from "@/components/_common.actions";
 import { fileAttachment_add, fileAttachment_remove } from "@/components/files/_files.actions";
@@ -19,7 +19,7 @@ export const getPageCards = async ({
 } = {}): Promise<null | PageCardData[]> => {
 	try {
 		await connectToMongoDb();
-		const pages: PageCardDoc[] = await PageCard.find({}).populate(["attachment"]);
+		const pages: PageCardDocPopulated[] = await PageCard.find({}).populate(["attachment"]);
 
 		return PageCardDocuments_toData({ pages, visible, hyphen });
 	} catch (error) {
@@ -54,7 +54,7 @@ export const createPageCard = async (data: FormData, paths: string[]): Promise<b
 		// Deal with the "attachment"
 		if (documentData_new.attachment) {
 			await fileAttachment_add({
-				attachedDocument: {
+				documentToAttach: {
 					_id: document_new._id.toString(),
 					title: document_new.title,
 					modelType: "PageCard",
@@ -111,7 +111,7 @@ export const updatePageCard = async (
 		// Deal with the "attachment" > add the relation for the new file
 		if (documentData_new.attachment) {
 			await fileAttachment_add({
-				attachedDocument: {
+				documentToAttach: {
 					_id: document_new._id.toString(),
 					title: document_new.title,
 					modelType: "PageCard",

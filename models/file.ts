@@ -22,7 +22,7 @@ const FileGFS_Schema = new Schema(
 			// originalName: String,
 			// attachedTo: [
 			// 	{
-			// 		type: String,
+			// 		modelType: String,
 			// 		title: String,
 			// 		_id: String,
 			// 	},

@@ -17,6 +17,8 @@ import { aboutDocuments_toData, aboutFormData_toNewEntryData } from "@/lib/proce
 import { msgs } from "@/messages";
 import AboutEntry from "@/models/about-entry";
 
+import { tagAttachment_add, tagAttachment_remove } from "../tags/_tags.actions";
+
 export const getEntries = async ({
 	hyphen,
 	typeList,
@@ -144,23 +146,10 @@ export const deleteEntry = async (entry_id: string, paths: string[]): Promise<bo
 		await connectToMongoDb();
 		const document_deleted = await AboutEntry.findOneAndDelete({ _id: entry_id });
 
-		// Deal with the "attachment"
-		if (document_deleted.attachment) {
-			await fileAttachment_remove({
-				attachedDocument_id: document_deleted._id.toString(),
-				target_file_id: document_deleted.attachment.toString(),
-			});
-		}
-
-		// Deal with the "gallery"
-		if (document_deleted.gallery && document_deleted.gallery.length > 0) {
-			document_deleted.gallery.map(async (file_id: ObjectId) => {
-				await fileAttachment_remove({
-					attachedDocument_id: document_deleted._id.toString(),
-					target_file_id: file_id.toString(),
-				});
-			});
-		}
+		await process_relations({
+			document_prev: document_deleted,
+			modelType: "AboutEntry",
+		});
 
 		return !!document_deleted;
 	} catch (error) {
@@ -178,60 +167,96 @@ const process_relations = async ({
 	document_prev,
 	modelType,
 }: {
-	documentData_new: NewAboutEntryData;
-	document_new: AboutEntryDoc;
+	documentData_new?: NewAboutEntryData;
+	document_new?: AboutEntryDoc;
 	document_prev?: AboutEntryDoc;
 	modelType: ModelType;
 }) => {
-	// Deal with the "attachment" > remove the relation for the old file
+	// Deal with the previous state of the document
 	if (document_prev) {
-		if (document_prev?.attachment) {
+		// Deal with the "attachment"
+		if (document_prev.attachment) {
 			await fileAttachment_remove({
 				attachedDocument_id: document_prev._id.toString(),
 				target_file_id: document_prev.attachment.toString(),
 			});
 		}
-	}
 
-	// Deal with the "attachment" > add the relation for the new file
-	if (documentData_new.attachment) {
-		await fileAttachment_add({
-			attachedDocument: {
-				_id: document_new._id.toString(),
-				title: document_new.title,
-				modelType: modelType,
-			},
-			target_file_id: documentData_new.attachment,
-		});
-	} else {
-		document_new.attachment = undefined;
-	}
+		// Deal with the "gallery"
+		if (document_prev.gallery && document_prev.gallery.length > 0) {
+			await Promise.all(
+				document_prev.gallery.map(async (file_id: ObjectId) => {
+					await fileAttachment_remove({
+						attachedDocument_id: document_prev._id.toString(),
+						target_file_id: file_id.toString(),
+					});
+				})
+			);
+		}
 
-	// Deal with the "gallery" > remove the relation for the old files
-	if (document_prev) {
-		if (document_prev?.gallery && document_prev?.gallery.length > 0) {
-			document_prev.gallery.map(async (file_id: ObjectId) => {
-				await fileAttachment_remove({
-					attachedDocument_id: document_prev._id.toString(),
-					target_file_id: file_id.toString(),
-				});
-			});
+		// Deal with the "tags"
+		if (document_prev.tags && document_prev.tags.length > 0) {
+			await Promise.all(
+				document_prev.tags.map(async (tag_id: ObjectId) => {
+					await tagAttachment_remove({
+						attachedDocument_id: document_prev._id.toString(),
+						target_tag_id: tag_id.toString(),
+					});
+				})
+			);
 		}
 	}
 
-	// Deal with the "gallery" > add the relation for the new files
-	if (documentData_new?.gallery && documentData_new?.gallery.length > 0) {
-		documentData_new.gallery.map(async (file_id) => {
+	// Deal with the current state of the document
+	if (documentData_new && document_new) {
+		// Deal with the "attachment"
+		if (documentData_new.attachment) {
 			await fileAttachment_add({
-				attachedDocument: {
+				documentToAttach: {
 					_id: document_new._id.toString(),
 					title: document_new.title,
 					modelType: modelType,
 				},
-				target_file_id: file_id,
+				target_file_id: documentData_new.attachment,
 			});
-		});
-	} else {
-		document_new.gallery = undefined;
+		} else {
+			document_new.attachment = undefined;
+		}
+
+		// Deal with the "gallery"
+		if (documentData_new.gallery && documentData_new.gallery.length > 0) {
+			await Promise.all(
+				documentData_new.gallery.map(async (file_id) => {
+					await fileAttachment_add({
+						documentToAttach: {
+							_id: document_new._id.toString(),
+							title: document_new.title,
+							modelType: modelType,
+						},
+						target_file_id: file_id,
+					});
+				})
+			);
+		} else {
+			document_new.gallery = undefined;
+		}
+
+		// Deal with the "tags"
+		if (documentData_new.tags && documentData_new.tags.length > 0) {
+			await Promise.all(
+				documentData_new.tags.map(async (tag_id) => {
+					await tagAttachment_add({
+						documentToAttach: {
+							_id: document_new._id.toString(),
+							title: document_new.title,
+							modelType: modelType,
+						},
+						target_tag_id: tag_id,
+					});
+				})
+			);
+		} else {
+			document_new.tags = undefined;
+		}
 	}
 };

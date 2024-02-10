@@ -53,11 +53,7 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 						<div className={styles.buttonsContainer}>
 							{displayActions && (
 								<>
-									<DeleteFile
-										disabled={file.metadata.attachedTo && file.metadata.attachedTo?.length > 0}
-										file_id={file._id}
-										filename={file.filename}
-									/>
+									<DeleteFile file={file} />
 									<RedirectToUri uri={file.metadata.html.fileUri} />
 									<UpdateFile file={file} />
 								</>

@@ -38,7 +38,7 @@ const TagCard: React.FC<Props> = ({ tag, className, icons }) => {
 		<div className={`${styles.cardWrapper} ${className}`} id={`tag_${tag._id}`}>
 			<div className={styles.card}>
 				<div className={styles.buttons}>
-					<DeleteTag tagType={tag.tagType} tag_id={tag._id} />
+					<DeleteTag tag={tag} />
 					<UpdateTag icons={icons} tag={tag} tagType={tag.tagType} />
 				</div>
 

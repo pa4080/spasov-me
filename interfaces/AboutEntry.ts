@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 
-import { FileData, FileDocument } from "./File";
+import { FileData, FileDoc } from "./File";
 import { TagData, TagDoc } from "./Tag";
 import { UserObject } from "./User";
 import { AboutEntryType, CityType, CountryType } from "./_common-data-types";
@@ -17,7 +17,7 @@ export interface AboutEntryDoc {
 	dateFrom: Date | string;
 	dateTo: Date | string | undefined;
 	visibility: boolean | string;
-	tags: ObjectId[];
+	tags: ObjectId[] | undefined;
 	attachment?: ObjectId | undefined; // attachment?: FileDocument;
 	gallery: ObjectId[] | undefined; // gallery: FileDocument[];
 }
@@ -25,8 +25,8 @@ export interface AboutEntryDoc {
 export interface AboutEntryDocPopulated
 	extends Omit<AboutEntryDoc, "attachment" | "tags" | "gallery"> {
 	tags: TagDoc[];
-	attachment?: FileDocument | undefined;
-	gallery: FileDocument[] | undefined;
+	attachment?: FileDoc | undefined;
+	gallery: FileDoc[] | undefined;
 }
 
 export interface NewAboutEntryData

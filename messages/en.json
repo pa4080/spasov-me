@@ -331,7 +331,7 @@
 	},
 	"Tags_Delete": {
 		"dialog_title": "Delete a tag of type { tagType } ",
-		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p><p class='json-desc'>Name: <b><code>{ name }</code></b></p><p class='json-desc'>Description: <b><code>{ description }</code></b></p>",
 		"dialog_btn_delete": "Delete the tag",
 		"dialog_btn_delete_submitting": "Deleting...",
 		"dialog_btn_cancel": "Cancel",

@@ -18,16 +18,15 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
+import { FileData } from "@/interfaces/File";
 import { msgs } from "@/messages";
 
 export interface Props {
 	className?: string;
-	file_id: string;
-	filename: string;
-	disabled?: boolean;
+	file: FileData;
 }
 
-const DeleteFile: React.FC<Props> = ({ className, file_id, filename, disabled }) => {
+const DeleteFile: React.FC<Props> = ({ className, file }) => {
 	const t = msgs("Files_Delete");
 
 	const [submitting, setSubmitting] = useState(false);
@@ -38,7 +37,7 @@ const DeleteFile: React.FC<Props> = ({ className, file_id, filename, disabled })
 		setSubmitting(true);
 
 		try {
-			const response = await deleteFile(file_id, [pathname]);
+			const response = await deleteFile(file._id, [pathname]);
 
 			serverActionResponseToastAndLocationReload({
 				trigger: !!response,
@@ -60,7 +59,9 @@ const DeleteFile: React.FC<Props> = ({ className, file_id, filename, disabled })
 				<AlertDialogTrigger>
 					<ButtonIcon
 						className="pl-[2.6px] bg-transparent icon_accent_secondary"
-						disabled={disabled || submitting}
+						disabled={
+							(file.metadata.attachedTo && file.metadata.attachedTo?.length > 0) || submitting
+						}
 						height={22}
 						type="trash"
 						width={22}
@@ -74,7 +75,7 @@ const DeleteFile: React.FC<Props> = ({ className, file_id, filename, disabled })
 							<AlertDialogDescription
 								className="hyphens-auto break-words"
 								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { filename, id: file_id }),
+									__html: t("dialog_description", { filename: file.filename, id: file._id }),
 								}}
 							/>
 						)}

@@ -58,8 +58,8 @@ export const attachedTo_detachFromTarget = async ({
 	attachedToArr_old,
 	target_id,
 }: {
-	attachedToArr_new: AttachedToDocument[];
-	attachedToArr_old: AttachedToDocument[];
+	attachedToArr_new: AttachedToDocument[] | undefined;
+	attachedToArr_old: AttachedToDocument[] | undefined;
 	target_id: string;
 }): Promise<boolean> => {
 	try {
@@ -67,12 +67,17 @@ export const attachedTo_detachFromTarget = async ({
 		let attachedTo_diff: AttachedToDocument[] = [];
 
 		// If all attachedTo items are removed
-		if (attachedToArr_old?.length > 0 && !attachedToArr_new) {
+		if (attachedToArr_old && attachedToArr_old?.length > 0 && !attachedToArr_new) {
 			attachedTo_diff = attachedToArr_old;
 		}
 
 		// If partially "attachedTo" items are removed
-		if (attachedToArr_old?.length > 0 && attachedToArr_new?.length > 0) {
+		if (
+			attachedToArr_old &&
+			attachedToArr_old?.length > 0 &&
+			attachedToArr_new &&
+			attachedToArr_new?.length > 0
+		) {
 			const attachedToArr_new_ids = attachedToArr_new.map(({ _id }) => _id);
 
 			attachedTo_diff = attachedToArr_old.filter(({ _id }) => !attachedToArr_new_ids.includes(_id));

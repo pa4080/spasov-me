@@ -1,4 +1,6 @@
-import { FileDocument } from "./File";
+import { ObjectId } from "mongodb";
+
+import { FileDoc } from "./File";
 import { UserObject } from "./User";
 
 export type PageCardDoc = {
@@ -8,9 +10,13 @@ export type PageCardDoc = {
 	title: string;
 	description: string;
 	uri: string;
-	attachment?: FileDocument;
+	attachment?: ObjectId;
 	visibility: boolean | string;
 };
+
+export interface PageCardDocPopulated extends Omit<PageCardDoc, "attachment"> {
+	attachment?: FileDoc;
+}
 
 export type NewPageCardData = Omit<PageCardDoc, "_id" | "attachment" | "creator"> & {
 	creator: string;

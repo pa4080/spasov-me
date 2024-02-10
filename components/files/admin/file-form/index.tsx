@@ -47,7 +47,6 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 	const t = msgs("Files_Form");
 	const tCard = msgs("Files_Display");
 	const locale = "en";
-
 	const displayImageRef = useRef<HTMLImageElement>(null);
 	const collisionBoundaryRef = useRef<HTMLFormElement>(null);
 	const [fileToUpload, setFileToUpload] = useState<File | null>(null);

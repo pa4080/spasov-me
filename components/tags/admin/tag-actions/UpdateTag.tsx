@@ -44,6 +44,7 @@ const UpdateTag: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 
 	const handleUpdateEntry = async (data: Tag_FormSchema) => {
 		setSubmitting(true);
+
 		try {
 			/**
 			 * In case we were used <form action={addPage}> this conversion will not be needed,

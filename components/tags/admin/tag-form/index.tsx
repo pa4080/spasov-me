@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,6 +21,10 @@ import { Input } from "@/components/ui/input";
 import { IconMap } from "@/interfaces/IconMap";
 import { AttachedToDocument, TagType, tagTuple } from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
+
+import AttachedToBadge from "@/components/fragments/AttachedToBadge";
+
+import { capitalize } from "@/lib/capitalize";
 
 import DisplayTagIcon from "../../common/DisplayTagIcon";
 import { Tag_FormSchema, Tag_FormSchemaGenerator } from "./schema";
@@ -43,6 +47,8 @@ const TagForm: React.FC<Props> = ({
 	icons,
 }) => {
 	const t = msgs("Tags_Form");
+	const tCard = msgs("Tags_Display");
+	const collisionBoundaryRef = useRef<HTMLFormElement>(null);
 
 	const FormSchema = Tag_FormSchemaGenerator([
 		t("schema_name_length"),
@@ -78,7 +84,11 @@ const TagForm: React.FC<Props> = ({
 
 	return (
 		<Form {...form}>
-			<form className={`w-full space-y-4 ${className}`} onSubmit={form.handleSubmit(onSubmit)}>
+			<form
+				ref={collisionBoundaryRef}
+				className={`w-full space-y-4 ${className}`}
+				onSubmit={form.handleSubmit(onSubmit)}
+			>
 				<div className="flex flex-col gap-3">
 					{/* Name */}
 					<FormField
@@ -196,7 +206,7 @@ const TagForm: React.FC<Props> = ({
 					/>
 				</div>
 
-				{/* <div className="float-end flex flex-wrap gap-2 !mt-4">
+				<div className="flex flex-wrap gap-2 !mt-4">
 					{attachedTo &&
 						attachedTo.length > 0 &&
 						attachedTo.map((item, index) => (
@@ -209,7 +219,7 @@ const TagForm: React.FC<Props> = ({
 								ttContentLn2={tCard("index_id", { index, id: item._id })}
 							/>
 						))}
-				</div> */}
+				</div>
 
 				<Button disabled={submitting} type="submit">
 					{submitting ? t("btn_submitting") : t("btn_submit")}

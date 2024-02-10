@@ -14,7 +14,7 @@ export interface FileMetadata {
 	attachedTo?: AttachedToDocument[];
 }
 
-export interface FileDocument extends Omit<GridFSFile, "metadata"> {
+export interface FileDoc extends Omit<GridFSFile, "metadata"> {
 	metadata: FileMetadata;
 }
 
@@ -32,7 +32,7 @@ export interface FileHtmlProps {
 }
 
 /**
- * example for FileDocument:
+ * example for FileDoc:
  *
 {
 	metadata: [Object],
@@ -44,7 +44,7 @@ export interface FileHtmlProps {
 },
 */
 
-export interface FileData extends Omit<FileDocument, "_id" | "creator" | "metadata"> {
+export interface FileData extends Omit<FileDoc, "_id" | "creator" | "metadata"> {
 	_id: string;
 	metadata: Omit<FileMetadata, "creator"> & { html: FileHtmlProps };
 }
