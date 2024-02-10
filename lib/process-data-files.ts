@@ -15,8 +15,7 @@ export function fileDocuments_toData({
 	let filesFiltered = files;
 
 	if (visible) {
-		// TODO: Update the file model to add a visibility field
-		filesFiltered = files.filter((file) => file);
+		filesFiltered = files.filter((file) => file.metadata?.visibility === true);
 	}
 
 	return filesFiltered.map((file) => ({
@@ -32,6 +31,7 @@ export function fileDocuments_toData({
 			lastModified: file.metadata?.lastModified,
 			originalName: file.metadata?.originalName,
 			attachedTo: file.metadata?.attachedTo,
+			visibility: file.metadata?.visibility,
 			html: {
 				title: processMarkdown({ markdown: file.filename, hyphen: true }),
 				description: processMarkdown({ markdown: file.metadata?.description, hyphen }),

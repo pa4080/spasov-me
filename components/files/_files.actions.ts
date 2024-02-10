@@ -196,6 +196,7 @@ export const updateFile = async (
 			description: data.get("description") as string,
 			file_name: data.get("filename") as string,
 			attachedTo: JSON.parse(data.get("attachedTo") as string) as AttachedToDocument[],
+			visibility: data.get("visibility") as string,
 		};
 
 		deleteFalsyKeys(documentData_new);
@@ -234,6 +235,7 @@ export const updateFile = async (
 					contentType: file.type,
 					lastModified: file.lastModified,
 					originalName: file.name,
+					visibility: documentData_new.visibility || document.metadata?.visibility,
 					attachedTo: documentData_new.attachedTo || document.metadata?.attachedTo,
 				},
 				chunkSizeBytes: file.size < defaultChunkSize ? file.size + 4 : defaultChunkSize,
@@ -256,6 +258,11 @@ export const updateFile = async (
 
 			if (document.metadata?.description !== documentData_new?.description) {
 				document.metadata.description = documentData_new.description;
+				await document.save();
+			}
+
+			if (document.metadata?.visibility !== documentData_new?.visibility) {
+				document.metadata.visibility = documentData_new.visibility;
 				await document.save();
 			}
 

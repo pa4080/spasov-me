@@ -12,6 +12,7 @@ export interface FileMetadata {
 	lastModified: Date;
 	originalName: string;
 	attachedTo?: AttachedToDocument[];
+	visibility: boolean | string;
 }
 
 export interface FileDoc extends Omit<GridFSFile, "metadata"> {

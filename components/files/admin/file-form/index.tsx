@@ -31,6 +31,8 @@ import { capitalize } from "@/lib/capitalize";
 
 import { AttachedToDocument } from "@/interfaces/_common-data-types";
 
+import { Switch } from "@/components/ui/switch";
+
 import AttachedToBadge from "../../../fragments/AttachedToBadge";
 import styles from "./_files-form.module.scss";
 import { File_FormSchema, File_FormSchemaGenerator } from "./schema";
@@ -72,12 +74,14 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 			filename: "",
 			description: "",
 			attachedTo: [],
+			visibility: true,
 		},
 		values: {
 			file: null,
 			filename: formData?.filename ?? "",
 			description: formData?.metadata?.description ?? "",
 			attachedTo: formData?.metadata?.attachedTo ?? [],
+			visibility: formData?.metadata?.visibility ? true : false,
 		},
 	});
 
@@ -198,44 +202,68 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 							</AspectRatio>
 						</div>
 					</div>
+
 					{/* Right grid */}
 					<div className="mb:col-span-5 flex flex-col gap-3 h-full">
-						{/* File input  */}
-						<FormItem>
-							{t("fileInput_label") && (
-								<FormLabel
-									className={form.formState.errors.file ? "text-destructive" : "text-foreground"}
-									htmlFor="file-input"
-								>
-									{t("fileInput_label")}
-								</FormLabel>
-							)}
+						<div className="flex flex-row gap-3 w-full">
+							{/* File input  */}
+							<FormItem className="w-full">
+								{t("fileInput_label") && (
+									<FormLabel
+										className={form.formState.errors.file ? "text-destructive" : "text-foreground"}
+										htmlFor="file-input"
+									>
+										{t("fileInput_label")}
+									</FormLabel>
+								)}
 
-							<FormControl>
-								<div className={styles.fileInputWrapper}>
-									<Input
-										id="file-input"
-										{...form.register("file")}
-										accept="image/*, .pdf, .pptx, .xlsx, .docx"
-										className={styles.fileInput}
-										placeholder={t("fileInput_placeholder")}
-										type="file"
-										onChange={handleInputFileChange}
-									/>
-								</div>
-							</FormControl>
+								<FormControl>
+									<div className={styles.fileInputWrapper}>
+										<Input
+											id="file-input"
+											{...form.register("file")}
+											accept="image/*, .pdf, .pptx, .xlsx, .docx"
+											className={styles.fileInput}
+											placeholder={t("fileInput_placeholder")}
+											type="file"
+											onChange={handleInputFileChange}
+										/>
+									</div>
+								</FormControl>
 
-							{form.formState.errors.file ? (
-								<p className="text-sm font-medium text-destructive">
-									{String(form.formState.errors.file.message)}
-								</p>
-							) : (
-								t("fileInput_description") && (
-									<FormDescription>{t("fileInput_description")}</FormDescription>
-								)
-							)}
-						</FormItem>
+								{form.formState.errors.file ? (
+									<p className="text-sm font-medium text-destructive">
+										{String(form.formState.errors.file.message)}
+									</p>
+								) : (
+									t("fileInput_description") && (
+										<FormDescription>{t("fileInput_description")}</FormDescription>
+									)
+								)}
+							</FormItem>
 
+							{/* Checkbox | Is public? */}
+							<FormField
+								control={form.control}
+								name="visibility"
+								// eslint-disable-next-line @typescript-eslint/no-unused-vars
+								render={({ field }) => (
+									<FormItem className="rounded-md border space-y-0 min-w-36">
+										<div className="flex items-center justify-between py-2 pl-4 pr-3">
+											<div>
+												<FormLabel>{t("visibility_title")}</FormLabel>
+												{t("visibility_description") && (
+													<FormDescription>{t("visibility_description")}</FormDescription>
+												)}
+											</div>
+											<FormControl>
+												<Switch checked={field.value} onCheckedChange={field.onChange} />
+											</FormControl>
+										</div>
+									</FormItem>
+								)}
+							/>
+						</div>
 						{/* Filename */}
 						<FormField
 							control={form.control}

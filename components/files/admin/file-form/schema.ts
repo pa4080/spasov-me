@@ -47,6 +47,7 @@ export const File_FormSchemaGenerator = (messages?: string[], isFileOptional = f
 				})
 			)
 			.optional(),
+		visibility: z.boolean().optional(),
 	});
 
 export const File_FormSchema = File_FormSchemaGenerator();

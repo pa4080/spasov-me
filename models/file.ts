@@ -11,22 +11,31 @@ const MONGODB_FILES_BUCKET_NAME = process.env.MONGODB_FILES_BUCKET_NAME;
 const FileGFS_Schema = new Schema(
 	{
 		metadata: {
-			description: String,
+			description: {
+				type: String,
+			},
 			creator: {
 				type: Schema.Types.ObjectId,
 				ref: User,
 			},
-			// size: String,
-			// contentType: String,
-			// lastModified: Date,
-			// originalName: String,
-			// attachedTo: [
-			// 	{
-			// 		modelType: String,
-			// 		title: String,
-			// 		_id: String,
-			// 	},
-			// ],
+			size: {
+				type: String,
+			},
+			contentType: {
+				type: String,
+			},
+			lastModified: {
+				type: Date,
+			},
+			originalName: {
+				type: String,
+			},
+			visibility: {
+				type: Boolean,
+				default: true,
+				required: [true, "Visibility is required!"],
+			},
+			attachedTo: [], // AttachedToDocument[]; use [], otherwise we need to use: Schema > Model > Collection > ObjectIds
 		},
 	},
 	{ strict: false }
