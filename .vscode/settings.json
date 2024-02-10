@@ -80,6 +80,7 @@
 		"data/[[...query]]": "database",
 		"session-info": "meta",
 		"components/pages": "base",
+		"components/page-cards": "base",
 		"components/about": "base",
 		"components/cintact": "base",
 		"components/files": "base",

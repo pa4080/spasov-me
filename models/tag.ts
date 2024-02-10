@@ -29,7 +29,7 @@ const TagSchema = new Schema({
 		default: "1",
 		required: [true, "Order key is required!"],
 	},
-	attachedTo: [], // Otherwise we need to have schema > model > collection and ObjectIds
+	attachedTo: [], // AttachedToDocument[]; use [], otherwise we need to use: Schema > Model > Collection > ObjectIds
 
 	creator: {
 		type: Schema.Types.ObjectId,

@@ -74,6 +74,17 @@ export function useClearHyphens() {
 			// Get the selected range
 			const selectedRange = window.getSelection()?.getRangeAt(0);
 
+			const isSelectedInMDEditor =
+				selectedRange?.commonAncestorContainer?.parentElement?.classList.contains(
+					"w-md-editor-area"
+				);
+			const isSelectedEditable =
+				selectedRange?.commonAncestorContainer?.parentElement?.querySelector("input, textarea");
+
+			if (isSelectedInMDEditor || isSelectedEditable) {
+				return;
+			}
+
 			// Create a div and append the selected range's cloned contents
 			const tempDiv = document.createElement("div");
 

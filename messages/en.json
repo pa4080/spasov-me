@@ -436,6 +436,9 @@
 		"description_placeholder": "Description of the file. It will be used as a description in the galleries.",
 		"description_description": "",
 
+		"visibility_title": "Is public?",
+		"visibility_description": "",
+
 		"btn_submit": "Submit",
 		"btn_submitting": "Submitting..."
 	}

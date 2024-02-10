@@ -17,6 +17,8 @@ import { msgs } from "@/messages";
 
 import { capitalize } from "@/lib/capitalize";
 
+import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
+
 import AttachedToBadge from "../../../fragments/AttachedToBadge";
 import DeleteFile from "../file-actions/DeleteFile";
 import UpdateFile from "../file-actions/UpdateFile";
@@ -49,11 +51,16 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 					<DisplayFileImage className={`${styles.imageLarge} card-item-collapsible`} file={file} />
 				</div>
 				<div className={styles.header}>
-					<div className={`${styles.buttons} ${displayActions ? "w-36" : "w-8"}`}>
+					<div className={`${styles.buttons} ${displayActions ? "w-48" : "w-8"}`}>
 						<div className={styles.buttonsContainer}>
 							{displayActions && (
 								<>
 									<DeleteFile file={file} />
+									<VisibilitySwitchDisplay
+										disabled
+										checked={file.metadata.visibility}
+										className="mt-0.5"
+									/>
 									<RedirectToUri uri={file.metadata.html.fileUri} />
 									<UpdateFile file={file} />
 								</>

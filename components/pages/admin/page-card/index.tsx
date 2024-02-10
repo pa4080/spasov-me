@@ -3,10 +3,11 @@ import React from "react";
 import Image from "next/image";
 
 import RedirectToUri from "@/components/fragments/RedirectToUri";
-import { Switch } from "@/components/ui/switch";
 import { FileListItem } from "@/interfaces/File";
 import { PageCardData } from "@/interfaces/PageCard";
 import { msgs } from "@/messages";
+
+import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 
 import styles from "../../_pages.module.scss";
 import DeletePage from "../page-actions/DeletePage";
@@ -26,17 +27,7 @@ const PageCard: React.FC<Props> = ({ className, page, files }) => {
 			<div className={styles.buttons}>
 				<DeletePage page_id={page._id} page_title={page.title} />
 				<RedirectToUri uri={`/${page.uri}`} />
-				<Switch
-					disabled
-					checked={
-						typeof page.visibility === "string"
-							? page.visibility === "true"
-								? true
-								: false
-							: page.visibility
-					}
-					className="mt-1 mr-1"
-				/>
+				<VisibilitySwitchDisplay disabled checked={page.visibility} className="mt-1 mr-1" />
 				<UpdatePage files={files} page={page} />
 			</div>
 			{page.attachment && page.html.attachmentUri && (
