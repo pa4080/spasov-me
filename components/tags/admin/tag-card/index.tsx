@@ -31,8 +31,8 @@ const TagCard: React.FC<Props> = ({ tag, className, icons }) => {
 		orderKey,
 	} = tag;
 
-	const t = msgs("TagsAdmin_Display");
-	const tForm = msgs("TagsAdmin_Form");
+	const t = msgs("Tags_Display");
+	const tForm = msgs("Tags_Form");
 
 	return (
 		<div className={`${styles.cardWrapper} ${className}`} id={`tag_${tag._id}`}>

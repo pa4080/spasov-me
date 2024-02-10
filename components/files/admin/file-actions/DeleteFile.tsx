@@ -28,7 +28,7 @@ export interface Props {
 }
 
 const DeleteFile: React.FC<Props> = ({ className, file_id, filename, disabled }) => {
-	const t = msgs("FilesAdmin_DeleteFile");
+	const t = msgs("Files_Delete");
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);

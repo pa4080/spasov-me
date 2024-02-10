@@ -1,32 +1,31 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { Input } from "@/components/ui/input";
-
+import Combobox from "@/components/fragments/Combobox";
+import SelectFromList from "@/components/fragments/SelectFromList";
+import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
 	FormDescription,
-	// FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-
-import { Button } from "@/components/ui/button";
-import { TagType, tagTuple } from "@/interfaces/_common-data-types";
+import { Input } from "@/components/ui/input";
+import { IconMap } from "@/interfaces/IconMap";
+import { AttachedToDocument, TagType, tagTuple } from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
 
-import { IconMap } from "@/interfaces/IconMap";
+import AttachedToBadge from "@/components/fragments/AttachedToBadge";
 
-import Combobox from "@/components/fragments/Combobox";
+import { capitalize } from "@/lib/capitalize";
 
-import SelectFromList from "../../../fragments/SelectFromList";
 import DisplayTagIcon from "../../common/DisplayTagIcon";
 import { Tag_FormSchema, Tag_FormSchemaGenerator } from "./schema";
 
@@ -47,7 +46,7 @@ const TagForm: React.FC<Props> = ({
 	submitting,
 	icons,
 }) => {
-	const t = msgs("TagsAdmin_Form");
+	const t = msgs("Tags_Form");
 
 	const FormSchema = Tag_FormSchemaGenerator([
 		t("schema_name_length"),
@@ -69,6 +68,17 @@ const TagForm: React.FC<Props> = ({
 		},
 		values: formData,
 	});
+
+	const [attachedTo, setAttachedTo] = useState<AttachedToDocument[] | null>(null);
+
+	useEffect(() => {
+		setAttachedTo((form?.watch("attachedTo") as AttachedToDocument[]) ?? null);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [form, form.watch("attachedTo")]);
+
+	const removeAttachedToItemById = (id: string) => {
+		form.setValue("attachedTo", attachedTo?.filter(({ _id }) => _id !== id) ?? []);
+	};
 
 	return (
 		<Form {...form}>
@@ -188,6 +198,21 @@ const TagForm: React.FC<Props> = ({
 						}}
 						name="tagType"
 					/>
+				</div>
+
+				<div className="float-end flex flex-wrap gap-2 !mt-4">
+					{attachedTo &&
+						attachedTo.length > 0 &&
+						attachedTo.map((item, index) => (
+							<AttachedToBadge
+								key={index}
+								badgeLabel={item.title}
+								collisionBoundaryRef={collisionBoundaryRef}
+								removeItemById={() => removeAttachedToItemById(item._id)}
+								ttContentLn1={`${capitalize(item.type)}: ${item.title}`}
+								ttContentLn2={tCard("index_id", { index, id: item._id })}
+							/>
+						))}
 				</div>
 
 				<Button disabled={submitting} type="submit">

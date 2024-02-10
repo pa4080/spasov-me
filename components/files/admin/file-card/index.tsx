@@ -17,7 +17,7 @@ import { msgs } from "@/messages";
 
 import { capitalize } from "@/lib/capitalize";
 
-import AttachedToBadge from "../file-actions/AttachedToBadge";
+import AttachedToBadge from "../../../fragments/AttachedToBadge";
 import DeleteFile from "../file-actions/DeleteFile";
 import UpdateFile from "../file-actions/UpdateFile";
 import styles from "./_file-card.module.scss";
@@ -28,8 +28,8 @@ interface Props {
 }
 
 const FileCard: React.FC<Props> = ({ className, file }) => {
-	const tCommon = msgs("FilesAdmin");
-	const t = msgs("FilesAdmin_DisplayFileCard");
+	const tCommon = msgs("Files");
+	const t = msgs("Files_Display");
 
 	const displayActions = true;
 

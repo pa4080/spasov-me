@@ -29,6 +29,13 @@ const TagSchema = new Schema({
 		default: "1",
 		required: [true, "Order key is required!"],
 	},
+	attachedTo: [
+		{
+			type: String,
+			title: String,
+			_id: String,
+		},
+	],
 
 	creator: {
 		type: Schema.Types.ObjectId,

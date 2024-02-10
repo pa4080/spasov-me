@@ -16,7 +16,7 @@ interface Props {
 }
 
 const TechTags: React.FC<Props> = ({ className, tags }) => {
-	const t = msgs("AboutCV");
+	const t = msgs("AboutEntries");
 
 	const section_title = t(`title_techTags`);
 	const toggle_target_id = `section_techTags`;

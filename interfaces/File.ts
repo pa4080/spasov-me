@@ -2,13 +2,7 @@ import { GridFSFile } from "mongodb";
 
 import { UserObject } from "@/interfaces/User";
 
-import { ModelType } from "./_common-data-types";
-
-export interface AttachedToDocument {
-	type: ModelType;
-	title: string;
-	_id: string;
-}
+import { AttachedToDocument } from "./_common-data-types";
 
 export interface FileMetadata {
 	description: string;

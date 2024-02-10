@@ -31,10 +31,10 @@ interface Props {
 }
 
 const DeleteTag: React.FC<Props> = ({ className, tagType, tag_id }) => {
-	const t = msgs("TagsAdmin_DeleteTag");
-	const tagTypeLabel = (
-		msgs("TagsAdmin_Form")("tag_type_list") as unknown as Record<string, string>
-	)[tagType];
+	const t = msgs("Tags_Delete");
+	const tagTypeLabel = (msgs("Tags_Form")("tag_type_list") as unknown as Record<string, string>)[
+		tagType
+	];
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);

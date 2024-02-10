@@ -24,3 +24,8 @@ export type AboutEntryType = (typeof data.about_type_list)[number];
 export type TagType = (typeof data.tag_type_list)[number];
 
 export type ModelType = "About" | "Post" | "Project" | "Page" | "File" | "Tag" | "User";
+export interface AttachedToDocument {
+	type: ModelType;
+	title: string;
+	_id: string;
+}

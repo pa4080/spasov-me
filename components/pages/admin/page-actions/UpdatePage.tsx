@@ -31,7 +31,7 @@ interface Props {
 }
 
 const UpdatePage: React.FC<Props> = ({ className, page, files }) => {
-	const t = msgs("PageCards_UpdatePage");
+	const t = msgs("PageCards_Update");
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353

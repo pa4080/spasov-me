@@ -30,7 +30,7 @@ interface Props {
 }
 
 const UpdateFile: React.FC<Props> = ({ className, file }) => {
-	const t = msgs("FilesAdmin_UpdateFile");
+	const t = msgs("Files_Update");
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);

@@ -64,116 +64,6 @@
 		"greeting_ln1": "Welcome to",
 		"greeting_ln2": "&nbsp;my site"
 	},
-	"PageCards": {
-		"title_common": "Edit home page cards",
-		"index_pageAttachment_alt": "Image for the page '{ title }'"
-	},
-	"PageCards_CreatePage": {
-		"toast_success": "The page was successfully created.",
-		"toast_error": "Something went wrong. Please try again.",
-		"dialog_btn_add": "Add a page",
-		"dialog_btn_add_submitting": "Submitting...",
-		"dialog_title": "Add a new page",
-		"dialog_description": ""
-	},
-	"PageCards_UpdatePage": {
-		"toast_success": "The page was successfully updated.",
-		"toast_error": "Something went wrong. Please try again.",
-		"dialog_title": "Update an existing page",
-		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>"
-	},
-	"PageCards_DeletePage": {
-		"dialog_title": "Delete a page",
-		"dialog_description": "<p class='json-desc'>Title: <b><code>{ title }</code></b></p><p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
-		"dialog_btn_delete": "Delete the page",
-		"dialog_btn_delete_submitting": "Deleting...",
-		"dialog_btn_cancel": "Cancel",
-		"toast_deleted": "The page was successfully deleted!",
-		"toast_success": "The page was successfully deleted!",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"PageCards_Form": {
-		"form_pageTitle": "Page title",
-		"form_pageTitlePlaceholder": "Page title...",
-		"form_pageTitleDescription": "Enter the display title/name of the page.",
-		"form_pageDescription": "Page description",
-		"form_pageDescriptionPlaceholder": "Page description...",
-		"form_pageDescriptionDescription": "Enter the description of the page.",
-
-		"form_pageUri_label": "Select page URI",
-		"form_pageUri_description": "This will be used in the URL. The values are defined in @/routes.tsx",
-		"form_pageUri_placeholder": "page-slug",
-		"form_pageUri_searchNotFound": "The searched URI could not be found.",
-		"form_pageUri_select": "Select URI for the page...",
-		"form_pageUri_selectNone": "Must be chosen!",
-
-		"form_pageAttachment_label": "Select page image",
-		"form_pageAttachment_description": "Choice an image. It must exist on the system.",
-		"form_pageAttachment_search": "Search for an image...",
-		"form_pageAttachment_searchNotFound": "The image could not be found.",
-		"form_pageAttachment_select": "Select an image...",
-		"form_pageAttachment_selectNone": "None!",
-
-		"form_pageVisibility_title": "Page visibility",
-		"form_pageVisibility_description": "The value depends on the page URI and it is also defined in @/routes.tsx",
-
-		"form_btn_submit": "Submit",
-		"form_btn_submitting": "Submitting...",
-
-		"schema_title": "The page title must be at least 2 characters.",
-		"schema_description": "The description must be at least 20 characters.",
-		"schema_uri": "The Page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
-		"schema_image": "The allowed formats are: png, jpg, jpeg, svg, webp."
-	},
-	"PagesFeed_OLD": {
-		"index_title": "Public available pages",
-		"index_pageAttachment_alt": "Image for the page '{ title }'",
-
-		"dialog_title_add": "Add a new page",
-		"dialog_title_edit": "Edit the \"{ title }\" page entry",
-		"dialog_title_delete": "You are about to delete the \"{ title }\" file entry",
-		"dialog_description": "This must be a valid/existing public page, defined within the project. By adding it here it will be available as a card at the homepage.",
-		"dialog_description_delete": "This action cannot be undone. This will permanently delete the \"{ title }\" entry (id \"{ id }\") and remove its data from our servers. Are you absolutely sure?",
-		"dialog_btn_add_a_page": "Add a page",
-		"dialog_btn_add_a_page_submitting": "Submitting...",
-		"dialog_btn_cancel": "Cancel",
-		"dialog_btn_delete": "Delete",
-		"dialog_btn_delete_submitting": "Deleting...",
-		"dialog_toast_submit_title": "You submitted the following values:",
-		"dialog_toast_response_title": "The server response with status { status } and data:",
-
-		"form_pageTitle": "Page title",
-		"form_pageTitlePlaceholder": "Page title...",
-		"form_pageTitleDescription": "Enter the display title/name of the page.",
-		"form_pageDescription": "Page description",
-		"form_pageDescriptionPlaceholder": "Page description...",
-		"form_pageDescriptionDescription": "Enter the description of the page.",
-
-		"form_pageUri_label": "Select page URI",
-		"form_pageUri_description": "This will be used in the URL. The values are defined in @/routes.tsx",
-		"form_pageUri_placeholder": "page-slug",
-		"form_pageUri_searchNotFound": "The searched URI could not be found.",
-		"form_pageUri_select": "Select URI for the page...",
-		"form_pageUri_selectNone": "Must be chosen!",
-
-		"form_pageAttachment_label": "Select page image",
-		"form_pageAttachment_description": "Choice an image. It must exist on the system.",
-		"form_pageAttachment_search": "Search for an image...",
-		"form_pageAttachment_searchNotFound": "The image could not be found.",
-		"form_pageAttachment_select": "Select an image...",
-		"form_pageAttachment_selectNone": "None!",
-
-		"form_pageVisibility_title": "Page visibility",
-		"form_pageVisibility_description": "The value depends on the page URI and it is also defined in @/routes.tsx",
-
-		"form_btn_submit": "Submit",
-		"form_btn_submitting": "Submitting...",
-
-		"formSchema_title": "The page title must be at least 2 characters.",
-		"formSchema_description": "The description must be at least 20 characters.",
-		"formSchema_uri": "The Page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
-		"formSchema_image": "The allowed formats are: png, jpg, jpeg, svg, webp."
-	},
 	"Contact": {
 		"title": "Let's build together!",
 
@@ -224,7 +114,68 @@
 		"btn_revalidate": "Revalidate paths",
 		"btn_revalidate_submitting": "Revalidating..."
 	},
-	"AboutCV": {
+	"PageCards": {
+		"title_common": "Edit home page cards",
+		"index_pageAttachment_alt": "Image for the page '{ title }'"
+	},
+	"PageCards_Create": {
+		"toast_success": "The page was successfully created.",
+		"toast_error": "Something went wrong. Please try again.",
+		"dialog_btn_add": "Add a page",
+		"dialog_btn_add_submitting": "Submitting...",
+		"dialog_title": "Add a new page",
+		"dialog_description": ""
+	},
+	"PageCards_Update": {
+		"toast_success": "The page was successfully updated.",
+		"toast_error": "Something went wrong. Please try again.",
+		"dialog_title": "Update an existing page",
+		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>"
+	},
+	"PageCards_Delete": {
+		"dialog_title": "Delete a page",
+		"dialog_description": "<p class='json-desc'>Title: <b><code>{ title }</code></b></p><p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+		"dialog_btn_delete": "Delete the page",
+		"dialog_btn_delete_submitting": "Deleting...",
+		"dialog_btn_cancel": "Cancel",
+		"toast_deleted": "The page was successfully deleted!",
+		"toast_success": "The page was successfully deleted!",
+		"toast_error": "Something went wrong. Please try again."
+	},
+	"PageCards_Form": {
+		"form_pageTitle": "Page title",
+		"form_pageTitlePlaceholder": "Page title...",
+		"form_pageTitleDescription": "Enter the display title/name of the page.",
+		"form_pageDescription": "Page description",
+		"form_pageDescriptionPlaceholder": "Page description...",
+		"form_pageDescriptionDescription": "Enter the description of the page.",
+
+		"form_pageUri_label": "Select page URI",
+		"form_pageUri_description": "This will be used in the URL. The values are defined in @/routes.tsx",
+		"form_pageUri_placeholder": "page-slug",
+		"form_pageUri_searchNotFound": "The searched URI could not be found.",
+		"form_pageUri_select": "Select URI for the page...",
+		"form_pageUri_selectNone": "Must be chosen!",
+
+		"form_pageAttachment_label": "Select page image",
+		"form_pageAttachment_description": "Choice an image. It must exist on the system.",
+		"form_pageAttachment_search": "Search for an image...",
+		"form_pageAttachment_searchNotFound": "The image could not be found.",
+		"form_pageAttachment_select": "Select an image...",
+		"form_pageAttachment_selectNone": "None!",
+
+		"form_pageVisibility_title": "Page visibility",
+		"form_pageVisibility_description": "The value depends on the page URI and it is also defined in @/routes.tsx",
+
+		"form_btn_submit": "Submit",
+		"form_btn_submitting": "Submitting...",
+
+		"schema_title": "The page title must be at least 2 characters.",
+		"schema_description": "The description must be at least 20 characters.",
+		"schema_uri": "The Page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
+		"schema_image": "The allowed formats are: png, jpg, jpeg, svg, webp."
+	},
+	"AboutEntries": {
 		"title_spokenLanguages": "Languages",
 		"title_businessCard": "Business card",
 		"title_resume": "Resume",
@@ -236,7 +187,7 @@
 		"btnLess": "Show less",
 		"btnAll": "Show all"
 	},
-	"AboutCV_CreateEntry": {
+	"AboutEntries_Create": {
 		"dialog_title": "Create a new { entryType } entry",
 		"dialog_description": "",
 		"dialog_btn_add": "Add a new entry",
@@ -245,7 +196,7 @@
 		"toast_success": "The entry was successfully created.",
 		"toast_error": "Something went wrong. Please try again."
 	},
-	"AboutCV_UpdateEntry": {
+	"AboutEntries_Update": {
 		"dialog_title": "Update an existing { entryType } entry",
 		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
 		"dialog_btn_add": "Update the entry",
@@ -254,7 +205,7 @@
 		"toast_success": "The entry was successfully updated.",
 		"toast_error": "Something went wrong. Please try again."
 	},
-	"AboutCV_DeleteEntry": {
+	"AboutEntries_Delete": {
 		"dialog_title": "Delete an entry of type { entryType } ",
 		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
 		"dialog_btn_delete": "Delete the entry",
@@ -264,7 +215,7 @@
 		"toast_success": "The entry was successfully deleted!",
 		"toast_error": "Something went wrong. Please try again."
 	},
-	"AboutCV_Form": {
+	"AboutEntries_Form": {
 		"schema_title": "The entry title must be at least 4 characters.",
 		"schema_description": "The description must be at least 10 characters.",
 		"schema_country": "The country is required.",
@@ -345,7 +296,7 @@
 
 		"dateTo_now_current": "Now"
 	},
-	"TagsAdmin": {
+	"Tags": {
 		"title_system": "System (not listed) Tags",
 		"title_informationTechnologies": "Information Technologies",
 		"title_mechanicalEngineering": "Mechanical Engineering",
@@ -355,7 +306,7 @@
 		"btnAll": "Show all",
 		"btnLess": "Show less"
 	},
-	"TagsAdmin_CreateTag": {
+	"Tags_Create": {
 		"dialog_title": "Create a new tag of type { tagType }",
 		"dialog_description": "",
 		"dialog_btn_add": "Add a new tag",
@@ -364,7 +315,7 @@
 		"toast_success": "The tag was successfully created.",
 		"toast_error": "Something went wrong. Please try again."
 	},
-	"TagsAdmin_UpdateEntry": {
+	"Tags_Update": {
 		"dialog_title": "Update an existing { tagType } tag",
 		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
 		"dialog_btn_add": "Update the tag",
@@ -373,14 +324,15 @@
 		"toast_success": "The tag was successfully updated.",
 		"toast_error": "Something went wrong. Please try again."
 	},
-	"TagsAdmin_Display": {
+	"Tags_Display": {
 		"name": "Name (slug)",
 		"description": "Description",
 		"type": "Type",
 		"icon": "Icon",
-		"orderKey": "Order key"
+		"orderKey": "Order key",
+		"index_id": "[index { index }]: { id }"
 	},
-	"TagsAdmin_DeleteTag": {
+	"Tags_Delete": {
 		"dialog_title": "Delete a tag of type { tagType } ",
 		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
 		"dialog_btn_delete": "Delete the tag",
@@ -390,7 +342,7 @@
 		"toast_success": "The tag was successfully deleted!",
 		"toast_error": "Something went wrong. Please try again."
 	},
-	"TagsAdmin_Form": {
+	"Tags_Form": {
 		"schema_name_length": "The tag name must be at least 2 characters (lowercase).",
 		"schema_name_monolite": "It will be used in the search and as a slug, so must be monolite word and dashes optionally.",
 		"schema_description": "The description must be at least 6 characters.",
@@ -431,20 +383,20 @@
 		"btn_submit": "Submit",
 		"btn_submitting": "Submitting..."
 	},
-	"FilesAdmin": {
+	"Files": {
 		"title_common": "Not categorized",
 		"btnAll": "Show all",
 		"btnLess": "Show less",
 		"btnMore": "Read more"
 	},
-	"FilesAdmin_DisplayFileCard": {
+	"Files_Display": {
 		"size": "Size",
 		"contentType": "Content type",
 		"lastModified": "Last modified",
 		"kilobyte": "KB",
 		"index_id": "[index { index }]: { id }"
 	},
-	"FilesAdmin_CreateFile": {
+	"Files_Create": {
 		"dialog_title": "Create (upload) a new file",
 		"dialog_description": "",
 		"dialog_btn_add": "Add a new file",
@@ -453,7 +405,7 @@
 		"toast_success": "The file was successfully created (uploaded).",
 		"toast_error": "Something went wrong. Please try again."
 	},
-	"FilesAdmin_UpdateFile": {
+	"Files_Update": {
 		"dialog_title": "Update a file",
 		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
 		"dialog_btn_add": "Update the file",
@@ -462,7 +414,7 @@
 		"toast_success": "The file was successfully updated.",
 		"toast_error": "Something went wrong. Please try again."
 	},
-	"FilesAdmin_DeleteFile": {
+	"Files_Delete": {
 		"dialog_title": "Delete a file",
 		"dialog_description": "<p class='json-desc'>Name: <b><code>{ filename }</code></b></p><p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
 		"dialog_btn_delete": "Delete the file",
@@ -472,7 +424,7 @@
 		"toast_success": "The file was successfully deleted!",
 		"toast_error": "Something went wrong. Please try again."
 	},
-	"FilesAdmin_Form": {
+	"Files_Form": {
 		"schema_file": "The file is absolutely required. It cannot start with a special character or a number.",
 
 		"fileInput_label": "",
@@ -489,35 +441,5 @@
 
 		"btn_submit": "Submit",
 		"btn_submitting": "Submitting..."
-	},
-	"FilesAdmin_Form_OLD": {
-		"dialog_title_upload": "Upload a file",
-		"dialog_title_edit": "Edit the file \"{ filename }\"",
-		"dialog_title_delete": "You are about to delete the file \"{ filename }\"",
-		"dialog_description": "The files uploaded here will be accessible site wide.",
-		"dialog_description_delete": "This action cannot be undone. This will permanently delete the file entry \"{ filename }\" (id \"{ id }\") and remove its data from our servers. Are you absolutely sure?",
-		"dialog_btn_label_upload": "Upload a file",
-		"dialog_btn_label_uploading": "Uploading...",
-		"dialog_btn_cancel": "Cancel",
-		"dialog_btn_delete": "Delete",
-		"dialog_btn_delete_submitting": "Deleting...",
-		"dialog_toast_submit_title": "You submitted the following values:",
-		"dialog_toast_response_title": "The server response with status { status } and data:",
-
-		"form_fileName": "Override the file name",
-		"form_fileNamePlaceholder": "File-name-example.webp",
-		"form_fileNameDescription": "Enter the name of the file. Use numbers, latin alphabet, dashes and underscores.",
-		"form_fileDescription": "File description",
-		"form_fileDescriptionPlaceholder": "File description...",
-		"form_fileDescriptionDescription": "Write a note where the file will be used. The field is optional.",
-		"form_fileInput": "Upload a file",
-		"form_fileInputChoiceFile": "Click to choice or drag and drop a file here",
-		"form_fileInputDescription": "The allowed formats are: png, jpg, jpeg, svg, webp, pdf, pptx, xlsx, docx.",
-		"form_btn_submit": "Upload",
-		"form_btn_submitting": "Uploading...",
-
-		"formSchema_name": "The file name is required it can contain only latin alphanumeric characters, dots, dashes and underscores. Cannot start with a special character.",
-		"formSchema_description": "The description is optional, it should be a string.",
-		"formSchema_file": "The file is absolutely required. It cannot start with a special character or a number."
 	}
 }

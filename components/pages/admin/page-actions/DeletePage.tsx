@@ -30,7 +30,7 @@ export interface Props {
 }
 
 const DeletePage: React.FC<Props> = ({ className, page_id, page_title }) => {
-	const t = msgs("PageCards_DeletePage");
+	const t = msgs("PageCards_Delete");
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);

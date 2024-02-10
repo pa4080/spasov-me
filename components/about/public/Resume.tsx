@@ -17,7 +17,7 @@ interface Props {
 }
 
 const Resume: React.FC<Props> = ({ entries, className, type }) => {
-	const t = msgs("AboutCV");
+	const t = msgs("AboutEntries");
 
 	type tType = Parameters<typeof t>[0];
 

@@ -35,9 +35,9 @@ interface Props {
 }
 
 const UpdateAboutEntry: React.FC<Props> = ({ className, type, entry, files, tags }) => {
-	const t = msgs("AboutCV_UpdateEntry");
+	const t = msgs("AboutEntries_Update");
 	const entryTypeLabel = (
-		msgs("AboutCV_Form")("aboutEntry_type_list") as unknown as Record<string, string>
+		msgs("AboutEntries_Form")("aboutEntry_type_list") as unknown as Record<string, string>
 	)[type];
 
 	const [submitting, setSubmitting] = useState(false);
