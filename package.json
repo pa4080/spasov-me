@@ -13,11 +13,12 @@
 		"lint": "next lint",
 		"prepare": "husky install",
 		"pre-commit": "pnpm run check-branch-name && lint-staged",
-		"push-u": "git push origin $(git branch | sed 's/^..//') -u"
+		"git-push-u": "git push origin $(git branch | sed 's/^..//') -u"
 	},
 	"lint-staged": {
 		"*.{ts,tsx}": "eslint --fix",
-		"*.css": "stylelint --fix"
+		"*.css": "stylelint --fix",
+		"*.scss": "stylelint --fix"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.3.4",

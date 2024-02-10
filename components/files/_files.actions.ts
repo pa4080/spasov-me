@@ -111,7 +111,7 @@ export const createFile = async (data: FormData, paths: string[]): Promise<true 
 
 		/**
 		 * This is much inconvenient approach.
-		 * Be cause we cannot process in a loop in our case...
+		 * Because we cannot process in a loop in our case...
 		 *
 		const formEntries = Array.from(data.entries());
 		const description = formEntries.find((entry) => entry[0] === "description")?.[1] as string;
