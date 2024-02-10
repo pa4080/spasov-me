@@ -2,12 +2,11 @@ import React from "react";
 
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 import SectionHeader from "@/components/fragments/section-header";
-import { PageData } from "@/interfaces/Page";
+import { FileListItem } from "@/interfaces/File";
+import { PageCardData } from "@/interfaces/PageCard";
 import { hyphenateString } from "@/lib/process-text";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
-
-import { FileListItem } from "@/interfaces/File";
 
 import styles from "../_pages.module.scss";
 import CreatePage from "./page-actions/CreatePage";
@@ -15,7 +14,7 @@ import PageCard from "./page-card";
 
 interface Props {
 	className?: string;
-	pages: PageData[] | null;
+	pages: PageCardData[] | null;
 	files?: FileListItem[] | null;
 	type?: "common";
 }

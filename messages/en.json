@@ -35,11 +35,8 @@
 		"THEME": "Theme",
 		"THEME_DESC": "Preview the color theme",
 
-		"PAGES_SR": "Pages (SR attempt)",
-		"PAGES_SR_DESC": "Edit the Home page cards vi server ations",
-
-		"PAGES": "Pages",
-		"PAGES_DESC": "Edit the Home page cards",
+		"PAGES": "Page cards",
+		"PAGES_DESC": "Edit the page cards displayed at Home",
 
 		"BLOB": "Blob Storage",
 		"BLOB_DESC": "Upload files to Vercel Blob",

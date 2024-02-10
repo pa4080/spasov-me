@@ -1,7 +1,7 @@
 import { FileDocument } from "./File";
 import { UserObject } from "./User";
 
-export type PageDoc = {
+export type PageCardDoc = {
 	_id: string;
 	creator: UserObject;
 
@@ -12,31 +12,32 @@ export type PageDoc = {
 	visibility: boolean | string;
 };
 
-export type NewPageData = Omit<PageDoc, "_id" | "attachment" | "creator"> & {
+export type NewPageCardData = Omit<PageCardDoc, "_id" | "attachment" | "creator"> & {
 	creator: string;
 	attachment?: string;
 };
 
-export interface PageHtmlProps {
+export interface PageCardHtmlProps {
 	title: string;
 	description: string;
 	attachmentUri?: string;
 }
 
-export interface PageData extends Omit<PageDoc, "_id" | "attachment" | "creator" | "visibility"> {
+export interface PageCardData
+	extends Omit<PageCardDoc, "_id" | "attachment" | "creator" | "visibility"> {
 	_id: string;
-	html: PageHtmlProps;
+	html: PageCardHtmlProps;
 	attachment: string | undefined;
 	visibility: boolean;
 }
 
 // These are helpers for the API version
-type PageDocToFetch = {
-	data: PageDoc | NewPageData | Record<string, unknown>;
+type PageCardDocToFetch = {
+	data: PageCardDoc | NewPageCardData | Record<string, unknown>;
 	user_id?: string | undefined;
 };
 
-export const preparePageDocToFetch = ({ data, user_id }: PageDocToFetch) => {
+export const preparePageCardDocToFetch = ({ data, user_id }: PageCardDocToFetch) => {
 	return JSON.stringify({
 		...data,
 		creator: user_id,

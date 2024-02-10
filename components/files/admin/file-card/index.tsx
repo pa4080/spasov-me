@@ -108,7 +108,7 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 									<AttachedToBadge
 										key={index}
 										badgeLabel={item.title}
-										ttContentLn1={`${capitalize(item.type)}: ${item.title}`}
+										ttContentLn1={`${capitalize(item.modelType)}: ${item.title}`}
 										ttContentLn2={t("index_id", { index, id: item._id })}
 									/>
 								))}

@@ -15,7 +15,7 @@ export function fileDocuments_toData({
 	let filesFiltered = files;
 
 	if (visible) {
-		// Need to update the file model to add a visibility field
+		// TODO: Update the file model to add a visibility field
 		filesFiltered = files.filter((file) => file);
 	}
 

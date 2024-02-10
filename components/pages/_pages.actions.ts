@@ -1,27 +1,27 @@
 "use server";
 
-import { PageData, PageDoc } from "@/interfaces/Page";
+import { PageCardData, PageCardDoc } from "@/interfaces/PageCard";
 
 import { getSession, revalidatePaths } from "@/components/_common.actions";
 import { fileAttachment_add, fileAttachment_remove } from "@/components/files/_files.actions";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
-import { pageDocuments_toData, pageFormData_toNewEntryData } from "@/lib/process-data-pages";
+import { PageCardDocuments_toData, pageFormData_toNewEntryData } from "@/lib/process-data-pages";
 import { msgs } from "@/messages";
-import Page from "@/models/page";
+import PageCard from "@/models/page-card";
 
-export const getPages = async ({
+export const getPageCards = async ({
 	public: visible,
 	hyphen = false,
 }: {
 	public?: boolean;
 	hyphen?: boolean;
-} = {}): Promise<null | PageData[]> => {
+} = {}): Promise<null | PageCardData[]> => {
 	try {
 		await connectToMongoDb();
-		const pages: PageDoc[] = await Page.find({}).populate(["attachment"]);
+		const pages: PageCardDoc[] = await PageCard.find({}).populate(["attachment"]);
 
-		return pageDocuments_toData({ pages, visible, hyphen });
+		return PageCardDocuments_toData({ pages, visible, hyphen });
 	} catch (error) {
 		console.error(error);
 
@@ -29,7 +29,7 @@ export const getPages = async ({
 	}
 };
 
-export const createPage = async (data: FormData, paths: string[]): Promise<boolean | null> => {
+export const createPageCard = async (data: FormData, paths: string[]): Promise<boolean | null> => {
 	try {
 		const session = await getSession();
 
@@ -46,7 +46,7 @@ export const createPage = async (data: FormData, paths: string[]): Promise<boole
 
 		// Connect to the DB and create a new document
 		await connectToMongoDb();
-		const document_new = new Page(documentData_new);
+		const document_new = new PageCard(documentData_new);
 
 		// Save the new document
 		await document_new.save();
@@ -57,7 +57,7 @@ export const createPage = async (data: FormData, paths: string[]): Promise<boole
 				attachedDocument: {
 					_id: document_new._id.toString(),
 					title: document_new.title,
-					type: "Page",
+					modelType: "PageCard",
 				},
 				target_file_id: documentData_new.attachment,
 			});
@@ -73,7 +73,7 @@ export const createPage = async (data: FormData, paths: string[]): Promise<boole
 	}
 };
 
-export const updatePage = async (
+export const updatePageCard = async (
 	data: FormData,
 	page_id: string,
 	paths: string[]
@@ -94,8 +94,8 @@ export const updatePage = async (
 
 		// Connect to the DB and create a new document
 		await connectToMongoDb();
-		const document_prev = await Page.findOne({ _id: page_id });
-		const document_new = await Page.findOneAndUpdate({ _id: page_id }, documentData_new, {
+		const document_prev = await PageCard.findOne({ _id: page_id });
+		const document_new = await PageCard.findOneAndUpdate({ _id: page_id }, documentData_new, {
 			new: true,
 			strict: true,
 		});
@@ -114,7 +114,7 @@ export const updatePage = async (
 				attachedDocument: {
 					_id: document_new._id.toString(),
 					title: document_new.title,
-					type: "Page",
+					modelType: "PageCard",
 				},
 				target_file_id: documentData_new.attachment,
 			});
@@ -135,7 +135,7 @@ export const updatePage = async (
 	}
 };
 
-export const deletePage = async (page_id: string, paths: string[]): Promise<boolean> => {
+export const deletePageCard = async (page_id: string, paths: string[]): Promise<boolean> => {
 	try {
 		if (!(await getSession())?.user) {
 			throw new Error(msgs("Errors")("invalidUser"));
@@ -143,7 +143,7 @@ export const deletePage = async (page_id: string, paths: string[]): Promise<bool
 
 		// Connect to the DB and delete the entry
 		await connectToMongoDb();
-		const document_deleted = await Page.findOneAndDelete({ _id: page_id });
+		const document_deleted = await PageCard.findOneAndDelete({ _id: page_id });
 
 		// Deal with the "attachment"
 		if (document_deleted.attachment) {

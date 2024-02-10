@@ -2,20 +2,17 @@
 
 import { ObjectId } from "mongodb";
 
-import { AttachedToDocument, FileData, FileDocument, FileListItem } from "@/interfaces/File";
+import { FileData, FileDocument, FileListItem } from "@/interfaces/File";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
 import { fileDocuments_toData } from "@/lib/process-data-files";
 import { msgs } from "@/messages";
-import AboutEntry from "@/models/about";
 import FileGFS from "@/models/file";
 import { Route } from "@/routes";
 
-import Page from "@/models/page";
+import { AttachedToDocument } from "@/interfaces/_common-data-types";
 
-import { ModelType } from "@/interfaces/_common-data-types";
-
-import { getSession, revalidatePaths } from "../_common.actions";
+import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "../_common.actions";
 
 import { Readable } from "stream";
 
@@ -204,10 +201,10 @@ export const updateFile = async (
 		deleteFalsyKeys(documentData_new);
 
 		// Process the "attachedTo" array first
-		await fileAttachment_detach({
+		await attachedTo_detachFromTarget({
 			attachedToArr_new: documentData_new.attachedTo,
 			attachedToArr_old: document.toObject().metadata.attachedTo,
-			file_id: file_id,
+			target_id: file_id,
 		});
 
 		// Process the "file" itself --- TODO: uncomment the lines related to attachedTo
@@ -344,7 +341,7 @@ export const fileAttachment_add = async ({
 					"metadata.attachedTo": [
 						...attachedTo,
 						{
-							type: attachedDocument.type,
+							modelType: attachedDocument.modelType,
 							title: attachedDocument.title,
 							_id: attachedDocument._id,
 						},
@@ -389,100 +386,6 @@ export const fileAttachment_remove = async ({
 		));
 	} catch (error) {
 		console.error("Unable to remove attached document", error);
-
-		return false;
-	}
-};
-
-/**
- * This function is used within the file's form,
- * to DETACH (REMOVE) an "attachedTo" item from a file.
- * The function is used only within "fileUpdate()".
- *
- * The availability of some "attachedTo" items blocks
- * the "fileDelete()", so if we want to remove the file
- * We must manually remove the "attachedTo" items as
- * accident file remove prevention.
- */
-export const fileAttachment_detach = async ({
-	attachedToArr_new,
-	attachedToArr_old,
-	file_id,
-}: {
-	attachedToArr_new: AttachedToDocument[];
-	attachedToArr_old: AttachedToDocument[];
-	file_id: string;
-}): Promise<boolean> => {
-	try {
-		// Init an empty array for the differences
-		let attachedTo_diff: AttachedToDocument[] = [];
-
-		// If all attachedTo items are removed
-		if (attachedToArr_old?.length > 0 && !attachedToArr_new) {
-			attachedTo_diff = attachedToArr_old;
-		}
-
-		// If partially "attachedTo" items are removed
-		if (attachedToArr_old?.length > 0 && attachedToArr_new?.length > 0) {
-			const attachedToArr_new_ids = attachedToArr_new.map(({ _id }) => _id);
-
-			attachedTo_diff = attachedToArr_old.filter(({ _id }) => !attachedToArr_new_ids.includes(_id));
-		}
-
-		// If "attachedTo" array is not changed
-		if (attachedTo_diff.length === 0) {
-			return true;
-		}
-
-		// If there are differences, process them.
-		await connectToMongoDb();
-
-		if (attachedTo_diff.length > 0) {
-			attachedTo_diff.forEach(async ({ _id, type }: { _id: string; type: ModelType }) => {
-				let document;
-
-				switch (type) {
-					case "About": {
-						document = await AboutEntry.findOne({ _id });
-						break;
-					}
-
-					case "Page": {
-						document = await Page.findOne({ _id });
-						break;
-					}
-
-					default: {
-						document = null;
-						break;
-					}
-				}
-
-				if (document) {
-					if (document.attachment && document.attachment.toString() === file_id) {
-						document.attachment = undefined;
-					}
-
-					if (document.gallery && document.gallery.length > 0) {
-						document.gallery = document.gallery.filter(
-							(gallery_file_id: ObjectId) => gallery_file_id.toString() !== file_id
-						);
-					}
-
-					await document.save();
-				} else {
-					console.warn(
-						`The DB document with Id '${_id}' does not exist.\n > ` +
-							`It is safe to remove the relevant record from the ` +
-							`'attachedTo' array of '${file_id}'.`
-					);
-				}
-			});
-		}
-
-		return true;
-	} catch (error) {
-		console.error("Unable to add attached document", error);
 
 		return false;
 	}

@@ -312,7 +312,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 								badgeLabel={item.title}
 								collisionBoundaryRef={collisionBoundaryRef}
 								removeItemById={() => removeAttachedToItemById(item._id)}
-								ttContentLn1={`${capitalize(item.type)}: ${item.title}`}
+								ttContentLn1={`${capitalize(item.modelType)}: ${item.title}`}
 								ttContentLn2={tCard("index_id", { index, id: item._id })}
 							/>
 						))}

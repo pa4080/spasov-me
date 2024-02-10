@@ -35,8 +35,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "@/lib/auth-options";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
-import AboutEntry from "@/models/about";
-import Page from "@/models/page";
+import AboutEntry from "@/models/about-entry";
+import PageCard from "@/models/page-card";
 import Tag from "@/models/tag";
 import User from "@/models/user";
 
@@ -68,9 +68,9 @@ export async function GET(request: NextRequest, { params }: Context) {
 		switch (type) {
 			case "pages": {
 				if (session) {
-					response = await Page.find(_id(id)).populate(["creator", "attachment"]);
+					response = await PageCard.find(_id(id)).populate(["creator", "attachment"]);
 				} else {
-					response = await Page.find(_id(id)).populate(["attachment"]);
+					response = await PageCard.find(_id(id)).populate(["attachment"]);
 				}
 
 				break;
@@ -155,7 +155,7 @@ export async function POST(request: NextRequest, { params }: Context) {
 
 		switch (type) {
 			case "pages": {
-				dbDocument = new Page(request_object);
+				dbDocument = new PageCard(request_object);
 
 				await dbDocument.save();
 
@@ -257,7 +257,7 @@ export async function PUT(request: NextRequest, { params }: Context) {
 
 		switch (type) {
 			case "pages": {
-				dbDocument = Page;
+				dbDocument = PageCard;
 
 				break;
 			}
@@ -390,7 +390,7 @@ export async function DELETE(request: NextRequest, { params }: Context) {
 
 		switch (type) {
 			case "pages": {
-				dbDocModel = Page;
+				dbDocModel = PageCard;
 				break;
 			}
 

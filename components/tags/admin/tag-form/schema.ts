@@ -45,7 +45,7 @@ export const Tag_FormSchemaGenerator = (messages?: string[]) =>
 		attachedTo: z
 			.array(
 				z.object({
-					type: z.string(),
+					modelType: z.string(),
 					title: z.string(),
 					_id: z.string(),
 				})

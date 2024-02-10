@@ -2,7 +2,7 @@ import React from "react";
 
 import Link from "next/link";
 
-import { getPages } from "../_pages.actions";
+import { getPageCards } from "../_pages.actions";
 import styles from "../_pages.module.scss";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const FeedPages: React.FC<Props> = async ({ className }) => {
-	const pages = await getPages({ public: true });
+	const pages = await getPageCards({ public: true });
 
 	return (
 		<div className={`${styles.pages} ${className}`}>

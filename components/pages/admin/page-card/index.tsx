@@ -2,13 +2,11 @@ import React from "react";
 
 import Image from "next/image";
 
-import { Switch } from "@/components/ui/switch";
-import { PageData } from "@/interfaces/Page";
-import { msgs } from "@/messages";
-
 import RedirectToUri from "@/components/fragments/RedirectToUri";
-
+import { Switch } from "@/components/ui/switch";
 import { FileListItem } from "@/interfaces/File";
+import { PageCardData } from "@/interfaces/PageCard";
+import { msgs } from "@/messages";
 
 import styles from "../../_pages.module.scss";
 import DeletePage from "../page-actions/DeletePage";
@@ -16,7 +14,7 @@ import UpdatePage from "../page-actions/UpdatePage";
 
 interface Props {
 	className?: string;
-	page: PageData;
+	page: PageCardData;
 	files: FileListItem[] | null | undefined;
 }
 

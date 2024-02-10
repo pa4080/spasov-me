@@ -22,10 +22,6 @@ import { IconMap } from "@/interfaces/IconMap";
 import { AttachedToDocument, TagType, tagTuple } from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
 
-import AttachedToBadge from "@/components/fragments/AttachedToBadge";
-
-import { capitalize } from "@/lib/capitalize";
-
 import DisplayTagIcon from "../../common/DisplayTagIcon";
 import { Tag_FormSchema, Tag_FormSchemaGenerator } from "./schema";
 
@@ -200,7 +196,7 @@ const TagForm: React.FC<Props> = ({
 					/>
 				</div>
 
-				<div className="float-end flex flex-wrap gap-2 !mt-4">
+				{/* <div className="float-end flex flex-wrap gap-2 !mt-4">
 					{attachedTo &&
 						attachedTo.length > 0 &&
 						attachedTo.map((item, index) => (
@@ -209,11 +205,11 @@ const TagForm: React.FC<Props> = ({
 								badgeLabel={item.title}
 								collisionBoundaryRef={collisionBoundaryRef}
 								removeItemById={() => removeAttachedToItemById(item._id)}
-								ttContentLn1={`${capitalize(item.type)}: ${item.title}`}
+								ttContentLn1={`${capitalize(item.modelType)}: ${item.title}`}
 								ttContentLn2={tCard("index_id", { index, id: item._id })}
 							/>
 						))}
-				</div>
+				</div> */}
 
 				<Button disabled={submitting} type="submit">
 					{submitting ? t("btn_submitting") : t("btn_submit")}

@@ -2,7 +2,7 @@ import React from "react";
 
 import { getFileList } from "@/components/files/_files.actions";
 
-import { getPages } from "../_pages.actions";
+import { getPageCards } from "../_pages.actions";
 import styles from "../_pages.module.scss";
 import Section from "./Section";
 
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const PageCards: React.FC<Props> = async ({ className }) => {
-	const pages = await getPages({ public: false });
+	const pages = await getPageCards({ public: false });
 	const fileList = await getFileList({ images: true });
 
 	return (
