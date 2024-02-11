@@ -20,6 +20,7 @@ import { capitalize } from "@/lib/capitalize";
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 
 import AttachedToBadge from "../../../fragments/AttachedToBadge";
+import CopyFileUri from "../file-actions/CopyFileUri";
 import DeleteFile from "../file-actions/DeleteFile";
 import UpdateFile from "../file-actions/UpdateFile";
 import styles from "./_file-card.module.scss";
@@ -55,12 +56,13 @@ const FileCard: React.FC<Props> = ({ className, file }) => {
 						<div className={styles.buttonsContainer}>
 							{displayActions && (
 								<>
-									<DeleteFile file={file} />
+									<CopyFileUri uri={file.metadata.html.fileUri} />
 									<VisibilitySwitchDisplay
 										disabled
 										checked={file.metadata.visibility}
 										className="mt-0.5"
 									/>
+									<DeleteFile file={file} />
 									<RedirectToUri uri={file.metadata.html.fileUri} />
 									<UpdateFile file={file} />
 								</>
