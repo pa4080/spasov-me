@@ -1,3 +1,9 @@
+/**
+ * For video embedding see:
+ * -> https://unifiedjs.com/explore/package/rehype-video/
+ * -> https://github.com/jaywcjlove/rehype-video/tree/main
+ * +> https://unifiedjs.com/explore/package/remark-directive/
+ */
 import { hyphenateSync as hyphenate } from "hyphen/en";
 import rehypeExternalLinks, { Target } from "rehype-external-links";
 import rehypeFormat from "rehype-format";

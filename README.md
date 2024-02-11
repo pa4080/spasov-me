@@ -10,7 +10,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- [ ] File copy url button in the file card buttons
 - [ ] Gallery display
 - [ ] Projects Admin? > Form design
 - [ ] Projects public
