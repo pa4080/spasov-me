@@ -1,4 +1,4 @@
-@import url("@/app/globals.variables.module.scss");
+@import "@/app/globals.variables.module.scss";
 
 // Without this wrapper "display:grid" of .cardPublic
 // takes precedence over "display:none" of the dynamically added .hidden
@@ -26,11 +26,11 @@
 
 		content: "";
 		position: absolute;
-		inset: -0.3rem -0.1rem;
 		display: block;
 		border-radius: 0.4rem;
 		outline: 4px dashed transparent;
 		outline-offset: 0.5rem;
+		inset: -0.3rem -0.1rem;
 	}
 
 	&:hover {
@@ -54,21 +54,17 @@
 	@apply grid relative gap-x-3 sm:gap-x-6 gap-y-2 sm:gap-y-2;
 
 	@screen sm {
-		grid-template:
-			"image header" auto "image info" auto "image content" 1fr / auto 1fr;
+		grid-template: "image header" auto "image info" auto "image content" 1fr / auto 1fr;
 
 		:global(.expand-collapsed.file-card) & {
-			grid-template:
-				"image header" auto "image info" auto "image content" 1fr / auto 1fr;
+			grid-template: "image header" auto "image info" auto "image content" 1fr / auto 1fr;
 		}
 	}
 
-	grid-template:
-		"header header" auto "image info" 1fr / auto 1fr;
+	grid-template: "header header" auto "image info" 1fr / auto 1fr;
 
 	:global(.expand-collapsed.file-card) & {
-		grid-template:
-			"header" auto "info" auto "image" auto "content" 1fr / auto;
+		grid-template: "header" auto "info" auto "image" auto "content" 1fr / auto;
 	}
 
 	.header {

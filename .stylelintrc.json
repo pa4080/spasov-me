@@ -3,6 +3,7 @@
 	"plugins": ["stylelint-order", "stylelint-scss"],
 	"ignoreFiles": ["public/css/**/*"],
 	"rules": {
+		"import-notation": "string",
 		"selector-class-pattern": "^[a-z][a-zA-Z0-9_-]+$",
 		"comment-empty-line-before": [
 			"always",
