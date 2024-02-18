@@ -30,13 +30,13 @@ const PageCard: React.FC<Props> = ({ className, page, files }) => {
 				<VisibilitySwitchDisplay disabled checked={page.visibility} className="mt-1 mr-1" />
 				<UpdatePage files={files} page={page} />
 			</div>
-			{page.attachment && page.html.attachmentUri && (
+			{page.attachment && page.html.attachment && (
 				<div className={styles.cardImageEditMode}>
 					<Image
 						priority
 						alt={t("index_pageAttachment_alt", { title: page.title })}
 						height={260}
-						src={page.html.attachmentUri}
+						src={page.html.attachment?.metadata.html.fileUri}
 						width={462}
 					/>
 				</div>

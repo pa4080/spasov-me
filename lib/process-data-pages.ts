@@ -1,7 +1,6 @@
 import { NewPageCardData, PageCardData, PageCardDocPopulated } from "@/interfaces/PageCard";
 
-import { Route } from "@/routes";
-
+import { fileDocuments_toData } from "./process-data-files";
 import { processMarkdown } from "./process-markdown";
 
 export function PageCardDocuments_toData({
@@ -31,11 +30,9 @@ export function PageCardDocuments_toData({
 				markdown: page.description,
 				hyphen,
 			}),
-			attachmentUri:
-				page.attachment &&
-				`${Route.api.FILES}/${page.attachment?._id.toString()}/${
-					page.attachment?.filename
-				}?v=${new Date(page.attachment?.uploadDate).getTime()}`,
+			attachment: fileDocuments_toData({
+				files: page?.attachment ? [page?.attachment] : [],
+			})?.[0],
 		},
 		uri: page.uri,
 		title: page.title,

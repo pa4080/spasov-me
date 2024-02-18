@@ -159,7 +159,7 @@
 		"form_pageAttachment_search": "Search for an image...",
 		"form_pageAttachment_searchNotFound": "The image could not be found.",
 		"form_pageAttachment_select": "Select an image...",
-		"form_pageAttachment_selectNone": "None!",
+		"form_pageAttachment_selectNone": "< None! >",
 
 		"form_pageVisibility_title": "Page visibility",
 		"form_pageVisibility_description": "The value depends on the page URI and it is also defined in @/routes.tsx",
@@ -272,21 +272,21 @@
 		"attachment_search": "Search for an attachment...",
 		"attachment_select": "Attachment...",
 		"attachment_searchNotFound": "Not found.",
-		"attachment_selectNone": "None",
+		"attachment_selectNone": "< None! >",
 
 		"tags_label": "",
 		"tags_description": "",
 		"tags_search": "Search for a tag...",
 		"tags_add": "Add tags",
 		"tags_searchNotFound": "Not found...",
-		"tags_selectNone": "None",
+		"tags_selectNone": "< None! >",
 
 		"gallery_label": "",
 		"gallery_description": "",
 		"gallery_search": "Search for a file...",
 		"gallery_add": "Add gallery items",
 		"gallery_searchNotFound": "Not found...",
-		"gallery_selectNone": "None",
+		"gallery_selectNone": "< None! >",
 
 		"btn_submit": "Submit",
 		"btn_submitting": "Submitting...",
@@ -441,5 +441,11 @@
 
 		"btn_submit": "Submit",
 		"btn_submitting": "Submitting..."
+	},
+	"Gallery": {
+		"dialog_title": "{ title } [gallery]",
+		"dialog_description": "",
+		"dialog_btn_close": "Close",
+		"counter": "Slide { current } of { count }"
 	}
 }

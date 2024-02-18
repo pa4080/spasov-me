@@ -40,7 +40,7 @@ export interface NewAboutEntryData
 export interface AboutEntryHtmlProps {
 	title: string;
 	description: string;
-	attachmentUri?: string;
+	attachment?: FileData;
 }
 
 export interface AboutEntryData
@@ -50,10 +50,10 @@ export interface AboutEntryData
 	> {
 	_id: string;
 	html: AboutEntryHtmlProps;
-	attachment: string | undefined;
-	gallery?: FileData[];
 	tags: TagData[];
 	dateFrom: Date;
 	dateTo: Date | undefined;
 	visibility: boolean;
+	attachment?: string;
+	gallery?: FileData[];
 }

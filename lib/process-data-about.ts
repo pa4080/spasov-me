@@ -1,6 +1,5 @@
 import { AboutEntryData, AboutEntryDocPopulated, NewAboutEntryData } from "@/interfaces/AboutEntry";
 import { AboutEntryType, CityType, CountryType } from "@/interfaces/_common-data-types";
-import { Route } from "@/routes";
 
 import { fileDocuments_toData } from "./process-data-files";
 import { tagDocuments_toData } from "./process-data-tags";
@@ -37,11 +36,9 @@ export function aboutDocuments_toData({
 					markdown: entry.description,
 					hyphen,
 				}),
-				attachmentUri:
-					entry.attachment &&
-					`${Route.api.FILES}/${entry.attachment?._id.toString()}/${
-						entry.attachment?.filename
-					}?v=${new Date(entry.attachment?.uploadDate).getTime()}`,
+				attachment: fileDocuments_toData({
+					files: entry?.attachment ? [entry?.attachment] : [],
+				})?.[0],
 			},
 			title: entry.title,
 			description: entry.description,

@@ -45,7 +45,8 @@ export type IconEmbSvgPathType =
 	| "angles-up-up-c"
 	| "angles-up-down-rev-c"
 	| "angles-up-down-reverse"
-	| "angles-up-down";
+	| "angles-up-down"
+	| "folder-image";
 
 /**
  * It is possible to override the default colors of the SVG element
@@ -528,7 +529,6 @@ const SvgPathLib: React.FC<SvgPathLibProps> = ({ type, className_Path1, classNam
 					<path
 						className={className_Path2}
 						d="M386.3 160l-17.1-17.1c-62.5-62.5-163.8-62.5-226.3 0s-62.5 163.8 0 226.3s163.8 62.5 226.3 0c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3c-87.5 87.5-229.3 87.5-316.8 0s-87.5-229.3 0-316.8s229.3-87.5 316.8 0L432 115.2V160H386.3z"
-						opacity=".4"
 					/>
 					<path
 						className={className_Path1}
@@ -546,6 +546,19 @@ const SvgPathLib: React.FC<SvgPathLibProps> = ({ type, className_Path1, classNam
 					<path
 						className={className_Path1}
 						d="M224 64c-44.2 0-80 35.8-80 80v48H80V144C80 64.5 144.5 0 224 0c57.5 0 107 33.7 130.1 82.3c7.6 16 .8 35.1-15.2 42.6s-35.1 .8-42.6-15.2C283.4 82.6 255.9 64 224 64z"
+					/>
+				</>
+			);
+		case "folder-image":
+			return (
+				<>
+					<path
+						className={className_Path2}
+						d="M448 480H64c-35.3 0-64-28.7-64-64V96C0 60.7 28.7 32 64 32H192c20.1 0 39.1 9.5 51.2 25.6l19.2 25.6c6 8.1 15.5 12.8 25.6 12.8H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64zM176 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm120 0c-8 0-15.5 4-20 10.7l-56 84L202.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6h80 48H392c8.9 0 17-4.9 21.2-12.7s3.7-17.3-1.2-24.6l-96-144C311.5 228 304 224 296 224z"
+					/>
+					<path
+						className={className_Path1}
+						d="M296 224c8 0 15.5 4 20 10.7l96 144c4.9 7.4 5.4 16.8 1.2 24.6S400.9 416 392 416H248 200 120c-9.2 0-17.6-5.3-21.6-13.6s-2.9-18.2 2.9-25.4l64-80c4.6-5.7 11.4-9 18.7-9s14.2 3.3 18.7 9l17.3 21.6 56-84C280.5 228 288 224 296 224z"
 					/>
 				</>
 			);

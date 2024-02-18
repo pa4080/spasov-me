@@ -31,8 +31,10 @@ const ButtonIcon: React.FC<Props> = ({
 }) => {
 	return (
 		<div
-			className={`flex items-center justify-center cursor-pointer rounded-sm hover:bg-accent-secondary/40 bg-accent-secondary/20 grayscale hover:grayscale-0 hover:brightness-110 active:brightness-75 transition-colors duration-300 ${
-				disabled && "cursor-not-allowed opacity-40 grayscale hover:grayscale"
+			className={`flex items-center justify-center rounded-sm hover:bg-accent-secondary/40 bg-accent-secondary/20  hover:brightness-110 active:brightness-75 transition-colors duration-300 ${
+				disabled
+					? "cursor-not-allowed opacity-40 grayscale hover:grayscale"
+					: "cursor-pointer grayscale hover:grayscale-0"
 			} ${className}`}
 			style={{
 				width: `${width + widthOffset}px`,

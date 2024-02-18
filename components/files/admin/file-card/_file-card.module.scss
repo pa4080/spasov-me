@@ -17,31 +17,26 @@
 		@apply absolute top-0 left-0 my-2 sm:my-0 opacity-0;
 	}
 
-	&:before {
+	&::before {
 		@apply transition-all duration-300 ease-in-out;
 
-		position: absolute;
-		top: -0.3rem;
-		bottom: -0.3rem;
-		left: -0.1rem;
-		right: -0.1rem;
-		display: block;
+		@screen xa {
+			inset: -0.4rem -0.15rem;
+		}
+
 		content: "";
+		position: absolute;
+		display: block;
 		border-radius: 0.4rem;
 		outline: 4px dashed transparent;
 		outline-offset: 0.5rem;
-
-		@screen xa {
-			top: -0.4rem;
-			bottom: -0.4rem;
-			left: -0.15rem;
-			right: -0.15rem;
-		}
+		inset: -0.3rem -0.1rem;
 	}
 
 	&:hover {
-		&:before {
+		&::before {
 			@apply transition-all duration-200 ease-in-out;
+
 			outline: 4px dashed theme("colors.primary.DEFAULT/60%");
 		}
 	}
@@ -49,7 +44,7 @@
 	&:global(.expand-collapsed-current.file-card) {
 		position: relative;
 
-		&:before {
+		&::before {
 			outline: 4px solid theme("colors.primary.DEFAULT");
 		}
 	}
@@ -58,38 +53,18 @@
 .card {
 	@apply grid relative gap-x-3 sm:gap-x-6 gap-y-2 sm:gap-y-2;
 
-	grid-template-columns: auto 1fr;
-	grid-template-rows: auto 1fr;
-	grid-template-areas:
-		"header header"
-		"image info";
-
-	:global(.expand-collapsed.file-card) & {
-		grid-template-columns: auto;
-		grid-template-rows: auto auto auto 1fr;
-		grid-template-areas:
-			"header"
-			"info"
-			"image"
-			"content";
-	}
-
 	@screen sm {
-		grid-template-columns: auto 1fr;
-		grid-template-rows: auto auto 1fr;
-		grid-template-areas:
-			"image header"
-			"image info"
-			"image content";
+		grid-template: "image header" auto "image info" auto "image content" 1fr / auto 1fr;
 
 		:global(.expand-collapsed.file-card) & {
-			grid-template-columns: auto 1fr;
-			grid-template-rows: auto auto 1fr;
-			grid-template-areas:
-				"image header"
-				"image info"
-				"image content";
+			grid-template: "image header" auto "image info" auto "image content" 1fr / auto 1fr;
 		}
+	}
+
+	grid-template: "header header" auto "image info" 1fr / auto 1fr;
+
+	:global(.expand-collapsed.file-card) & {
+		grid-template: "header" auto "info" auto "image" auto "content" 1fr / auto;
 	}
 
 	.header {
@@ -123,17 +98,16 @@
 	}
 
 	.imageContainer {
+		--tw-drop-shadow: drop-shadow(0 5px 15px rgb(0 0 0 / 20%));
+
 		@apply flex items-center justify-start sm:justify-end h-full overflow-hidden drop-shadow-2xl w-full select-none relative max-w-[80px];
 
 		grid-area: image;
 
 		:global(.expand-collapsed.file-card) & {
-			@apply max-w-[100%] sm:max-w-[320px];
-			transition: max-width 300ms ease-out;
-		}
+			@apply max-w-[100%] sm:max-w-[320px] justify-center;
 
-		:global(.expand-collapsed.file-card) & {
-			@apply justify-center;
+			transition: max-width 300ms ease-out;
 		}
 
 		.imageLarge {
@@ -156,7 +130,7 @@
 	.title {
 		@apply text-lg tracking-wide font-semibold hyphens-auto;
 
-		& > p:last-of-type {
+		> p:last-of-type {
 			@apply mb-0;
 		}
 	}

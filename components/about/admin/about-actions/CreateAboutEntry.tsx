@@ -87,6 +87,7 @@ const CreateAboutEntry: React.FC<Props> = ({ className, type, files, tags }) => 
 						label={t("dialog_btn_add")}
 						labelSubmitting={t("dialog_btn_add_submitting")}
 						submitting={submitting}
+						type="rectangle-history-circle-plus"
 						width={42} // 62
 						widthOffset={24}
 						onClick={() => setIsOpen(true)}

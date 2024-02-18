@@ -15,6 +15,7 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
+import Gallery from "../../../fragments/Gallery";
 import DeleteAboutEntry from "../../admin/about-actions/DeleteAboutEntry";
 import UpdateAboutEntry from "../../admin/about-actions/UpdateAboutEntry";
 import styles from "./_about-card.module.scss";
@@ -46,6 +47,8 @@ const AboutEntryCard: React.FC<Props> = ({
 	const descriptionArr = entry.html.description.split(splitDescriptionKeyword).map((str) => {
 		return str.replace(commentsMatcher, "");
 	});
+
+	const haveGallery = entry.attachment || (entry?.gallery && entry?.gallery?.length > 0);
 
 	return (
 		<div className={`${styles.cardWrapper} ${className}`} id={toggle_target_id}>
@@ -81,18 +84,27 @@ const AboutEntryCard: React.FC<Props> = ({
 					</div>
 				</div>
 				<div className={styles.header}>
-					<div className={`${styles.buttons} ${displayActions ? "w-36" : "w-8"}`}>
+					<div
+						className={`${styles.buttons} ${displayActions ? "w-36" : haveGallery ? "w-16" : "w-8"}`}
+					>
 						<div className={styles.buttonsContainer}>
-							{displayActions && (
+							{displayActions ? (
 								<>
 									<DeleteAboutEntry entry_id={entry._id} type={entry.entryType} />
-									<RedirectToUri uri={entry.html.attachmentUri} />
+									<RedirectToUri uri={entry.html.attachment?.metadata.html.fileUri} />
+									<Gallery entry={entry} files={files} tags={tags} type={entry.entryType} />
 									<UpdateAboutEntry
 										entry={entry}
 										files={files}
 										tags={tags}
 										type={entry.entryType}
 									/>
+								</>
+							) : (
+								<>
+									{haveGallery && (
+										<Gallery entry={entry} files={files} tags={tags} type={entry.entryType} />
+									)}
 								</>
 							)}
 							<ToggleCollapsible

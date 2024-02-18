@@ -50,7 +50,7 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type }) => {
 						className={styles.image}
 						fetchPriority="high"
 						height={200}
-						src={entry.html.attachmentUri || Route.assets.IMAGE_PLACEHOLDER}
+						src={entry.html.attachment?.metadata.html.fileUri || Route.assets.IMAGE_PLACEHOLDER}
 						width={200}
 					/>
 				</div>
