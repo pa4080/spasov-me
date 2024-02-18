@@ -1,9 +1,9 @@
 {
 	"extends": ["stylelint-config-standard"],
-	"plugins": ["stylelint-order"],
+	"plugins": ["stylelint-order", "stylelint-scss"],
 	"ignoreFiles": ["public/css/**/*"],
 	"rules": {
-		"selector-class-pattern": "^[a-z][a-zA-Z0-9]+$",
+		"selector-class-pattern": "^[a-z][a-zA-Z0-9_-]+$",
 		"comment-empty-line-before": [
 			"always",
 			{ "except": ["first-nested"], "ignore": ["after-comment", "stylelint-commands"] }
@@ -14,6 +14,27 @@
 				"ignorePseudoClasses": ["global"]
 			}
 		],
+		"function-no-unknown": [
+			true,
+			{
+				"ignoreFunctions": ["theme"]
+			}
+		],
+		"at-rule-no-unknown": [
+			true,
+			{
+				"ignoreAtRules": ["extends", "tailwind", "screen"]
+			}
+		],
+		"scss/at-rule-no-unknown": [
+			true,
+			{
+				"ignoreAtRules": ["extends", "tailwind", "screen"]
+			}
+		],
+		"no-invalid-double-slash-comments": null,
+		"scss/dollar-variable-pattern": "^foo",
+		"scss/selector-no-redundant-nesting-selector": true,
 		"order/order": [
 			[
 				"dollar-variables",

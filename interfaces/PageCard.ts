@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 
-import { FileDoc } from "./File";
+import { FileData, FileDoc } from "./File";
 import { UserObject } from "./User";
 
 export type PageCardDoc = {
@@ -26,7 +26,7 @@ export type NewPageCardData = Omit<PageCardDoc, "_id" | "attachment" | "creator"
 export interface PageCardHtmlProps {
 	title: string;
 	description: string;
-	attachmentUri?: string;
+	attachment?: FileData;
 }
 
 export interface PageCardData

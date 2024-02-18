@@ -12,6 +12,7 @@ interface Props {
 	file: FileData;
 	sizes?: [string, string];
 	description?: string;
+	style?: React.CSSProperties;
 }
 
 const DisplayFileImage: React.FC<Props> = ({
@@ -20,6 +21,7 @@ const DisplayFileImage: React.FC<Props> = ({
 	file,
 	sizes = ["160px", "320px"],
 	description,
+	style,
 }) => {
 	const TheImage = file.filename.match(/\.(pdf|pptx|xlsx|docx)$/) ? (
 		<Image
@@ -29,6 +31,7 @@ const DisplayFileImage: React.FC<Props> = ({
 			height="0"
 			sizes={sizes?.[0] || "160px"}
 			src={`${Route.assets.MIME_TYPE}/${file.filename.split(".").pop()}.png`}
+			style={style}
 			width="0"
 		/>
 	) : (
@@ -39,6 +42,7 @@ const DisplayFileImage: React.FC<Props> = ({
 			height="0"
 			sizes={sizes?.[1] || "320px"}
 			src={file.metadata.html.fileUri}
+			style={style}
 			width="0"
 		/>
 	);

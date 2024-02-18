@@ -33,6 +33,7 @@ export function fileDocuments_toData({
 			attachedTo: file.metadata?.attachedTo,
 			visibility: file.metadata?.visibility,
 			html: {
+				filename: file.filename,
 				title: processMarkdown({ markdown: file.filename, hyphen: true }),
 				description: processMarkdown({ markdown: file.metadata?.description, hyphen }),
 				fileUri: `${Route.api.FILES}/${file._id.toString()}/${file.filename}?v=${new Date(

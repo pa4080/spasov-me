@@ -10,7 +10,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- [ ] Gallery display
 - [ ] Projects Admin? > Form design
 - [ ] Projects public
 - [ ] Single project + gallery > design

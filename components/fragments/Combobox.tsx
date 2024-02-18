@@ -105,6 +105,24 @@ export default function Combobox<T extends FieldValues>({
 								<CommandEmpty>{messages.notFound}</CommandEmpty>
 
 								<CommandGroup className="max-h-52 overflow-y-scroll mt-1">
+									<CommandItem
+										value={undefined}
+										onSelect={() => {
+											setValue(name, undefined as PathValue<T, Path<T>>);
+										}}
+									>
+										<PopoverClose className="w-full flex items-center justify-start">
+											<Check
+												className={`mr-2 h-4 w-4 ${
+													undefined === field.value ? "opacity-100" : "opacity-0"
+												}`}
+												strokeWidth={3}
+											/>
+
+											<div className="line-clamp-1 text-left">{messages.selectNone}</div>
+										</PopoverClose>
+									</CommandItem>
+
 									{list.map((item) => (
 										<CommandItem
 											key={item.value}
@@ -124,23 +142,6 @@ export default function Combobox<T extends FieldValues>({
 											</PopoverClose>
 										</CommandItem>
 									))}
-									<CommandItem
-										value={undefined}
-										onSelect={() => {
-											setValue(name, undefined as PathValue<T, Path<T>>);
-										}}
-									>
-										<PopoverClose className="w-full flex items-center justify-start">
-											<Check
-												className={`mr-2 h-4 w-4 ${
-													undefined === field.value ? "opacity-100" : "opacity-0"
-												}`}
-												strokeWidth={3}
-											/>
-
-											<div className="line-clamp-1 text-left">{messages.selectNone}</div>
-										</PopoverClose>
-									</CommandItem>
 								</CommandGroup>
 							</Command>
 						</PopoverContent>
