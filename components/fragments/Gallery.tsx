@@ -105,10 +105,10 @@ const Gallery: React.FC<Props> = ({ className, entry }) => {
 								} as React.CSSProperties
 							}
 						>
-							<CarouselContent className="w-full h-full items-center ml-0 sa:-ml-4">
+							<CarouselContent className="w-full h-full items-center -ml-0.5 sa:-ml-4">
 								{gallery?.map((item, index) => {
 									return (
-										<CarouselItem key={index} className="w-full h-fit pl-0 sa:pl-8 select-none">
+										<CarouselItem key={index} className="w-full h-fit pl-1 sa:pl-8 select-none">
 											<DisplayFileImage
 												className={`rounded-md h-auto w-auto max-h-[74vh] mx-auto`}
 												file={
