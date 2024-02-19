@@ -138,10 +138,10 @@ const iconsMap = {
 			dark: "/assets/icons/it/composer.svg",
 		},
 		info: {
-			height: 2500,
-			width: 1888,
+			height: 32,
+			width: 32,
 			type: "svg",
-			ratio: 0.76,
+			ratio: 1,
 		},
 	},
 	it_containers: {
@@ -391,6 +391,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	"it_lib-virt": {
+		name: "it_lib-virt",
+		uri: {
+			light: "/assets/icons/it/lib-virt.svg",
+			dark: "/assets/icons/it/lib-virt.svg",
+		},
+		info: {
+			height: 292,
+			width: 343,
+			type: "svg",
+			ratio: 1.17,
+		},
+	},
 	"it_linux-0": {
 		name: "it_linux-0",
 		uri: {
@@ -467,6 +480,19 @@ const iconsMap = {
 			width: 300,
 			type: "png",
 			ratio: 1.11,
+		},
+	},
+	it_lua: {
+		name: "it_lua",
+		uri: {
+			light: "/assets/icons/it/lua.svg",
+			dark: "/assets/icons/it/lua.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
 		},
 	},
 	it_mariadb: {
@@ -1050,6 +1076,19 @@ const iconsMap = {
 		info: {
 			height: 2500,
 			width: 2500,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	it_truenas: {
+		name: "it_truenas",
+		uri: {
+			light: "/assets/icons/it/truenas.svg",
+			dark: "/assets/icons/it/truenas.svg",
+		},
+		info: {
+			height: 90,
+			width: 90,
 			type: "svg",
 			ratio: 1,
 		},
