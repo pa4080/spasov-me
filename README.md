@@ -20,11 +20,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [ ] Blog post admin
 - [ ] Blog feed public
 - [ ] Blog post public
-- [ ] API for creating blog posts
-- [ ] Refactor Pages/admin like the other admin pages ??
-  - [ ] Use server actions to get and manipulate the data
-  - [ ] Simplify `_pages.actions.ts` by removing th un necessary return objects
-  - [ ] Add revalidation and redirect to the end of the actions
+- [ ] API for creating blog posts ??
+- [ ] Gallery: display .PDF, .XLS, .XLSX, .DOC, .DOCX, .PPTX, .PPT
 
 ## Next.js features to learn
 
