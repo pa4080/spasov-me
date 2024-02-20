@@ -3,38 +3,37 @@
 // Without this wrapper "display:grid" of .cardPublic
 // takes precedence over "display:none" of the dynamically added .hidden
 .cardWrapper {
-	@apply scroll-m-8;
+	@apply scroll-m-8 relative;
 
-	:global(.card-item-collapsible) {
-		display: none;
+	/* Box outline */
+	&::before {
+		@apply transition-all duration-300 ease-in-out;
+
+		content: "";
+		position: absolute;
+		display: block;
+		border-radius: 0.4rem;
+		outline: 4px dashed transparent;
+		outline-offset: 0.5rem;
+		inset: -0.3rem -0.1rem;
+
+		/* stylelint-disable-next-line order/order */
+		@screen xa {
+			inset: -0.4rem -0.15rem;
+		}
 	}
 
-	&:global(.expand-collapsed) :global(.card-item-collapsible) {
-		display: inherit;
+	&:hover {
+		&::before {
+			@apply transition-all duration-200 ease-in-out;
+
+			outline: 4px dashed theme("colors.primary.DEFAULT/60%");
+		}
 	}
 
-	&:global(.expand-collapsed-current) {
-		position: relative;
-
-		&:before {
-			position: absolute;
-			top: -0.3rem;
-			bottom: -0.3rem;
-			left: -0.1rem;
-			right: -0.1rem;
-			display: block;
-			content: "";
-			border-radius: 0.4rem;
+	&:global(.expand-collapsed-current.about-card) {
+		&::before {
 			outline: 4px solid theme("colors.primary.DEFAULT");
-			outline-offset: 0.5rem;
-
-			// See the _main-layout.module.scss for explanation
-			@screen xa {
-				top: -0.4rem;
-				bottom: -0.4rem;
-				left: -0.15rem;
-				right: -0.15rem;
-			}
 		}
 	}
 
@@ -47,7 +46,7 @@
 
 		transition: margin-top 0.2s ease-out 0.05s;
 
-		& > p {
+		> p {
 			@apply mb-2;
 
 			transition: margin-top 0.2s ease-out 0.05s;
@@ -59,7 +58,7 @@
 
 		transition: margin-top 0.05s ease-in;
 
-		& > p {
+		> p {
 			@apply mb-4;
 
 			transition: margin-top 0.05s ease-in;
@@ -71,15 +70,21 @@
 	}
 
 	:global(.card-item-collapsible) {
+		display: none;
+
 		@apply mt-2;
+
+		> :global(.about-entry-tags) {
+			@apply mt-4;
+		}
+	}
+
+	&:global(.expand-collapsed) :global(.card-item-collapsible) {
+		display: inherit;
 	}
 
 	:global(.about-entry-tags) {
 		@apply flex gap-1 flex-wrap p-0;
-	}
-
-	:global(.card-item-collapsible) > :global(.about-entry-tags) {
-		@apply mt-4;
 	}
 }
 
@@ -91,6 +96,7 @@
 		"meta-info"
 		"content-description";
 
+	/* stylelint-disable-next-line order/order */
 	@screen sa {
 		grid-template:
 			"meta-info content-title"
@@ -133,7 +139,7 @@
 	.title {
 		@apply text-lg tracking-wide font-semibold hyphens-auto;
 
-		& > p:last-of-type {
+		> p:last-of-type {
 			@apply mb-0;
 		}
 	}

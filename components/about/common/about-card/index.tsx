@@ -51,7 +51,7 @@ const AboutEntryCard: React.FC<Props> = ({
 	const haveGallery = entry.attachment || (entry?.gallery && entry?.gallery?.length > 0);
 
 	return (
-		<div className={`${styles.cardWrapper} ${className}`} id={toggle_target_id}>
+		<div className={`${styles.cardWrapper} about-card ${className}`} id={toggle_target_id}>
 			<div className={styles.card}>
 				<div className={styles.info}>
 					<div className={styles.date}>
