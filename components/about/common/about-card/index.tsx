@@ -85,7 +85,7 @@ const AboutEntryCard: React.FC<Props> = ({
 				</div>
 				<div className={styles.header}>
 					<div
-						className={`${styles.buttons} ${displayActions ? "w-40" : haveGallery ? "w-16" : "w-8"}`}
+						className={`${styles.buttons} ${displayActions ? "w-44" : haveGallery ? "w-16" : "w-8"}`}
 					>
 						<div className={styles.buttonsContainer}>
 							{displayActions ? (
