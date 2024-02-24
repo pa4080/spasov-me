@@ -35,6 +35,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 	const section_title = t(`title_${type}` as tType);
 	const toggle_target_id = `section_${type}`;
 
+	// Filter the items by their type - i.e. ["employment", "education", ...]
 	const entriesByType = entries
 		?.filter(({ entryType }) => entryType === type)
 		.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
