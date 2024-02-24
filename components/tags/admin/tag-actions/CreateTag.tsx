@@ -87,7 +87,7 @@ const CreateTag: React.FC<Props> = ({ className, tagType, icons }) => {
 						onClick={() => setIsOpen(true)}
 					/>
 				</DialogTrigger>
-				<DialogContent className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl">
+				<DialogContent className="ma:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl">
 					<DialogHeader>
 						<DialogTitle>{t("dialog_title", { tagType: tagTypeLabel })}</DialogTitle>
 						{t("dialog_description") && (

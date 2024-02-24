@@ -75,7 +75,7 @@ const UpdatePage: React.FC<Props> = ({ className, page, files }) => {
 					/>
 				</DialogTrigger>
 				<DialogContent
-					className="sm:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
+					className="ma:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
 					closeOnOverlayClick={false}
 				>
 					<DialogHeader>

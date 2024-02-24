@@ -106,10 +106,10 @@ const AboutEntryForm: React.FC<Props> = ({
 				onSubmit={form.handleSubmit(onSubmit)}
 			>
 				{/* Grid */}
-				<div className="flex flex-col sm:grid sm:grid-cols-7 gap-3">
+				<div className="flex flex-col ma:grid ma:grid-cols-7 gap-3">
 					{/* Left grid */}
-					<div className="sm:col-span-2 flex flex-col gap-3">
-						<div className="flex gap-3 sm:flex-col w-full">
+					<div className="ma:col-span-2 flex flex-col gap-3">
+						<div className="flex gap-3 ma:flex-col w-full">
 							{/* Country */}
 							<SelectFromList
 								className="flex-1"
@@ -146,7 +146,7 @@ const AboutEntryForm: React.FC<Props> = ({
 						</div>
 
 						{/* Date From and Date To */}
-						<div className="flex gap-3 sm:gap-1 w-full">
+						<div className="flex gap-3 ma:gap-1 w-full">
 							{/* Date From */}
 							<DatePicker
 								className="flex-1"
@@ -172,7 +172,7 @@ const AboutEntryForm: React.FC<Props> = ({
 							/>
 						</div>
 
-						<div className="flex gap-3 flex-col 3xs:flex-row sm:flex-col w-full">
+						<div className="flex gap-3 flex-col 3xs:flex-row ma:flex-col w-full">
 							{/* Checkbox | Is public? */}
 							<FormField
 								control={form.control}
@@ -253,7 +253,7 @@ const AboutEntryForm: React.FC<Props> = ({
 					</div>
 
 					{/* Right grid */}
-					<div className="sm:col-span-5 flex flex-col gap-3 h-full">
+					<div className="ma:col-span-5 flex flex-col gap-3 h-full">
 						{/* Title */}
 						<FormField
 							control={form.control}
@@ -282,7 +282,7 @@ const AboutEntryForm: React.FC<Props> = ({
 							name="description"
 							render={({ field }) => (
 								<FormItem
-									className="flex-grow h-96 sm:h-1"
+									className="flex-grow h-96 ma:h-1"
 									data-color-mode={theme === "dark" ? "dark" : "light" || "auto"}
 								>
 									{t("description_label") && <FormLabel>{t("description_label")}</FormLabel>}
@@ -322,7 +322,7 @@ const AboutEntryForm: React.FC<Props> = ({
 					{/* Tags - full grid */}
 					<MultiSelectFromList
 						Icon={Tag}
-						className="w-full sm:col-span-7"
+						className="w-full ma:col-span-7"
 						control={form.control}
 						displayType="tag_icon"
 						error={form.formState.errors.tags}
@@ -358,7 +358,7 @@ const AboutEntryForm: React.FC<Props> = ({
 					{/* Gallery - full grid */}
 					<MultiSelectFromList
 						Icon={Paperclip}
-						className="w-full sm:col-span-7"
+						className="w-full ma:col-span-7"
 						control={form.control}
 						displayType="gallery_image"
 						error={form.formState.errors.gallery}
