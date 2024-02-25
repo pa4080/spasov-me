@@ -385,7 +385,10 @@
 		"btn_submitting": "Submitting..."
 	},
 	"Files": {
-		"title_common": "Not categorized",
+		"section_title_common": "Not categorized",
+		"section_title_about_entry": "About",
+		"section_title_project": "Portfolio",
+		"section_title_post": "Blog posts",
 		"btnAll": "Show all",
 		"btnLess": "Show less",
 		"btnMore": "Read more"

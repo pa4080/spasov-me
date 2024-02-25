@@ -449,11 +449,14 @@ body textarea.w-md-editor-text-input:focus {
 }
 
 /* Collapsible items (see components/fragments/toggle-collapsible) */
+.sub-section-collapsible,
 .section-card-collapsible {
 	display: none;
 }
 
-.expand-collapsed.list-section .section-card-collapsible {
+.expand-collapsed.list-sub-section .section-card-collapsible,
+.expand-collapsed.list-section :not(.list-sub-section) .section-card-collapsible,
+.expand-collapsed.list-section .sub-section-collapsible {
 	display: inherit;
 }
 
