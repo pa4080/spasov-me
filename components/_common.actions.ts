@@ -11,6 +11,7 @@ import { authOptions } from "@/lib/auth-options";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import AboutEntry from "@/models/about-entry";
 import PageCard from "@/models/page-card";
+import Project from "@/models/project";
 
 export const revalidatePaths = async <T extends string>({
 	paths,
@@ -106,6 +107,11 @@ export const attachedTo_detachFromTarget = async ({
 
 					case "PageCard": {
 						document = await PageCard.findOne({ _id });
+						break;
+					}
+
+					case "Project": {
+						document = await Project.findOne({ _id });
 						break;
 					}
 

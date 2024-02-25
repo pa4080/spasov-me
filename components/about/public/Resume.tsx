@@ -8,7 +8,7 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { msgs } from "@/messages";
 
 import styles from "../_about.module.scss";
-import cardStyles from "../common/about-card/_about-card.module.scss";
+import cardStyles from "../common/Card/_about-card.module.scss";
 
 interface Props {
 	entries: AboutEntryData[] | null;

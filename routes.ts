@@ -7,18 +7,18 @@ export const Route = {
 			uri: "/",
 			visible: true,
 		},
-		PORTFOLIO: {
-			inFeed: true,
-			inNavbar: true,
-			name: "portfolio",
-			uri: "/portfolio",
-			visible: false,
-		},
 		ABOUT: {
 			inFeed: true,
 			inNavbar: true,
 			name: "about",
 			uri: "/about",
+			visible: true,
+		},
+		PORTFOLIO: {
+			inFeed: true,
+			inNavbar: true,
+			name: "portfolio",
+			uri: "/portfolio",
 			visible: true,
 		},
 		BLOG: {

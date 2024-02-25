@@ -1,0 +1,15 @@
+@import "@/app/globals.variables.module.scss";
+
+.portfolio {
+	.section {
+		@apply scroll-m-8;
+
+		.feed {
+			@apply space-y-10;
+		}
+	}
+
+	.section + .section {
+		@apply mt-20;
+	}
+}

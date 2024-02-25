@@ -1,6 +1,6 @@
 {
 	"name": "spasov-me",
-	"version": "1.1.0",
+	"version": "2.0.0",
 	"private": true,
 	"scripts": {
 		"check-branch-name": "chmod 755 githooks/check_branch_name.sh && bash githooks/check_branch_name.sh",
@@ -18,7 +18,7 @@
 	"lint-staged": {
 		"*.{ts,tsx}": "eslint --fix",
 		"*.css": "stylelint --fix",
-		"*.scss": "stylelint"
+		"*.scss": "stylelint --fix"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.3.4",
