@@ -33,7 +33,7 @@
 
 	&:global(.expand-collapsed-current.about-card) {
 		&::before {
-			outline: 4px solid theme("colors.primary.DEFAULT");
+			outline: 4px solid theme("colors.primary.DEFAULT/60%");
 		}
 	}
 
@@ -47,7 +47,7 @@
 		transition: margin-top 0.2s ease-out 0.05s;
 
 		> p {
-			@apply mb-2;
+			@apply mb-0;
 
 			transition: margin-top 0.2s ease-out 0.05s;
 		}

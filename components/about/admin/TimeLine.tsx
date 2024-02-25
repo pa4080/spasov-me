@@ -57,6 +57,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 					<AboutEntryCard
 						key={index}
 						displayActions
+						displayGalleryInline
 						className={visibleItems > index ? "" : "section-card-collapsible"}
 						entry={entry}
 						files={files}

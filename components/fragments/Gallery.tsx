@@ -12,7 +12,7 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-import { FileData } from "@/interfaces/File";
+import { FileData, FileHtmlProps } from "@/interfaces/File";
 import { msgs } from "@/messages";
 
 import { Button } from "@/components/ui/button";
@@ -24,23 +24,18 @@ import {
 	CarouselPrevious,
 	type CarouselApi,
 } from "@/components/ui/carousel";
+import { ProjectData } from "@/interfaces/Project";
 
 interface Props {
 	className?: string;
-	entry: AboutEntryData;
+	entry: AboutEntryData | ProjectData;
+	gallery: FileHtmlProps[] | undefined;
 }
 
-const Gallery: React.FC<Props> = ({ className, entry }) => {
+const Gallery: React.FC<Props> = ({ className, entry, gallery }) => {
 	const t = msgs("Gallery");
 
 	const [isOpen, setIsOpen] = useState(false);
-
-	let gallery = entry?.gallery?.map((file) => file.metadata.html);
-
-	gallery =
-		entry?.html?.attachment && gallery
-			? [entry?.html?.attachment.metadata.html].concat(gallery)
-			: gallery;
 
 	const [api, setApi] = React.useState<CarouselApi>();
 	const [current, setCurrent] = React.useState(0);

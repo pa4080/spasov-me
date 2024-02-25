@@ -10,11 +10,13 @@ import RedirectToUri from "@/components/fragments/RedirectToUri";
 import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
 import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-import { FileListItem } from "@/interfaces/File";
+import { FileData, FileListItem } from "@/interfaces/File";
 import { TagData } from "@/interfaces/Tag";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
+
+import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 
 import DeleteAboutEntry from "../../admin/Actions/Delete";
 import UpdateAboutEntry from "../../admin/Actions/Update";
@@ -25,8 +27,9 @@ interface Props {
 	entry: AboutEntryData;
 	files?: FileListItem[] | null | undefined;
 	tags?: TagData[] | null | undefined;
-	displayTags?: boolean;
 	displayActions?: boolean;
+	displayTagsInline?: boolean;
+	displayGalleryInline?: boolean;
 }
 
 const AboutEntryCard: React.FC<Props> = ({
@@ -34,8 +37,9 @@ const AboutEntryCard: React.FC<Props> = ({
 	className,
 	files,
 	tags,
-	displayTags = true,
 	displayActions = false,
+	displayTagsInline = true,
+	displayGalleryInline = false,
 }) => {
 	const tTime = msgs("AboutEntries_Form");
 	const tCommon = msgs("AboutEntries");
@@ -48,7 +52,16 @@ const AboutEntryCard: React.FC<Props> = ({
 		return str.replace(commentsMatcher, "");
 	});
 
-	const haveGallery = entry.attachment || (entry?.gallery && entry?.gallery?.length > 0);
+	let gallery = entry?.gallery
+		?.map((file) => file.metadata.html)
+		?.sort((a, b) => a.filename.localeCompare(b.filename));
+
+	gallery =
+		entry?.html?.attachment && gallery
+			? [entry?.html?.attachment.metadata.html].concat(gallery)
+			: gallery;
+
+	const haveGallery = gallery && gallery.length > 0;
 
 	return (
 		<div className={`${styles.cardWrapper} about-card ${className}`} id={toggle_target_id}>
@@ -92,11 +105,11 @@ const AboutEntryCard: React.FC<Props> = ({
 								<>
 									<DeleteAboutEntry entry={entry} />
 									<RedirectToUri uri={entry.html.attachment?.metadata.html.fileUri} />
-									<Gallery entry={entry} />
+									<Gallery entry={entry} gallery={gallery} />
 									<UpdateAboutEntry entry={entry} files={files} tags={tags} />
 								</>
 							) : (
-								<>{haveGallery && <Gallery entry={entry} />}</>
+								<>{haveGallery && <Gallery entry={entry} gallery={gallery} />}</>
 							)}
 							<ToggleCollapsible
 								tooltip
@@ -124,7 +137,7 @@ const AboutEntryCard: React.FC<Props> = ({
 						/>
 					))}
 
-					{displayTags && (
+					{displayTagsInline && (
 						<div className="card-item-collapsible">
 							<div className="about-entry-tags">
 								{entry.tags
@@ -138,6 +151,31 @@ const AboutEntryCard: React.FC<Props> = ({
 											icon={iconsMap[tag.icon as IconsMapItem]}
 										/>
 									))}
+							</div>
+						</div>
+					)}
+
+					{displayGalleryInline && gallery && gallery.length > 0 && (
+						<div className="card-item-collapsible">
+							<div className="flex gap-2 flex-wrap p-0 mt-4">
+								{gallery.map((image, index) => (
+									<DisplayFileImage
+										key={index}
+										className={`w-8 h-8 rounded-sm`}
+										description={image.filename}
+										file={
+											{
+												filename: image.filename,
+												metadata: {
+													html: {
+														fileUri: image.fileUri,
+													},
+												},
+											} as FileData
+										}
+										sizes={["32px", "32px"]}
+									/>
+								))}
 							</div>
 						</div>
 					)}

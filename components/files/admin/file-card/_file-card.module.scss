@@ -45,7 +45,7 @@
 
 	&:global(.expand-collapsed-current.file-card) {
 		&::before {
-			outline: 4px solid theme("colors.primary.DEFAULT");
+			outline: 4px solid theme("colors.primary.DEFAULT/60%");
 		}
 	}
 }

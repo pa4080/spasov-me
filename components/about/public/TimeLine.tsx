@@ -50,7 +50,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 					<AboutEntryCard
 						key={index}
 						className={visibleItems > index ? "pop-item" : "section-card-collapsible pop-item"}
-						displayTags={displayTags}
+						displayTagsInline={displayTags}
 						entry={entry}
 					/>
 				))}
