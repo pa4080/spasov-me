@@ -2,7 +2,7 @@ import React from "react";
 
 import { msgs } from "@/messages";
 
-import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
+import DisplayIcon from "@/components/fragments/DisplayIcon";
 import { TagData } from "@/interfaces/Tag";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
@@ -27,7 +27,7 @@ const TechTags: React.FC<Props> = ({ className, tags }) => {
 
 			<div className="flex flex-wrap gap-2 items-center justify-start pop-item">
 				{tags?.map((tag) => (
-					<DisplayTagIcon
+					<DisplayIcon
 						key={tag._id}
 						className_TooltipTrigger="!mt-0"
 						description={tag.html.description}

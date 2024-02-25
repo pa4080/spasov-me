@@ -26,7 +26,7 @@ import AttachedToBadge from "@/components/fragments/AttachedToBadge";
 
 import { capitalize } from "@/lib/capitalize";
 
-import DisplayTagIcon from "../../common/DisplayTagIcon";
+import DisplayIcon from "../../../fragments/DisplayIcon";
 import { Tag_FormSchema, Tag_FormSchemaGenerator } from "./schema";
 
 interface Props {
@@ -158,7 +158,7 @@ const TagForm: React.FC<Props> = ({
 							/>
 
 							<div className="max-h-full h-full min-w-fit border rounded-md bg-primary flex items-center justify-center p-1">
-								<DisplayTagIcon
+								<DisplayIcon
 									className="hover:bg-transparent dark:hover:bg-transparent"
 									icon={icons[form.watch("icon") ?? "placeholder"]}
 								/>

@@ -5,7 +5,7 @@ import React from "react";
 
 import { msgs } from "@/messages";
 
-import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
+import DisplayIcon from "@/components/fragments/DisplayIcon";
 import { IconMap } from "@/interfaces/IconMap";
 import { TagData } from "@/interfaces/Tag";
 
@@ -63,7 +63,7 @@ const TagCard: React.FC<Props> = ({ tag, className, icons }) => {
 				<div className={styles.cardRow}>
 					<div className={styles.leftCol}>{t("icon")}:</div>
 					<div className={styles.rightCol}>
-						<DisplayTagIcon icon={icons[icon]} />
+						<DisplayIcon icon={icons[icon]} />
 					</div>
 				</div>
 			</div>

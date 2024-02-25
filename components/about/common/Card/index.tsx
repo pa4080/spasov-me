@@ -5,10 +5,10 @@ import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { enUS as en } from "date-fns/locale";
 
+import DisplayIcon from "@/components/fragments/DisplayIcon";
 import Gallery from "@/components/fragments/Gallery";
 import RedirectToUri from "@/components/fragments/RedirectToUri";
 import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
-import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileData, FileListItem } from "@/interfaces/File";
 import { TagData } from "@/interfaces/Tag";
@@ -145,7 +145,7 @@ const AboutEntryCard: React.FC<Props> = ({
 										a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
 									)
 									.map((tag) => (
-										<DisplayTagIcon
+										<DisplayIcon
 											key={tag._id}
 											description={tag.html.description}
 											icon={iconsMap[tag.icon as IconsMapItem]}

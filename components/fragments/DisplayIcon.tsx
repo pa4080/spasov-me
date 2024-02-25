@@ -14,14 +14,16 @@ interface Props {
 	icon: IconMap[string];
 	size?: number;
 	description?: string;
+	onClick?: () => void;
 }
 
-const DisplayTagIcon: React.FC<Props> = ({
+const DisplayIcon: React.FC<Props> = ({
 	className,
 	className_TooltipTrigger,
 	icon,
 	size = 30,
 	description,
+	onClick,
 }) => {
 	const { theme } = useTheme();
 	const height = size;
@@ -52,7 +54,9 @@ const DisplayTagIcon: React.FC<Props> = ({
 		return (
 			<TooltipProvider>
 				<Tooltip>
-					<TooltipTrigger className={className_TooltipTrigger}>{TheImage}</TooltipTrigger>
+					<TooltipTrigger className={className_TooltipTrigger} onClick={onClick}>
+						{TheImage}
+					</TooltipTrigger>
 					<TooltipContent className="border-2 border-muted-secondary dark:border-primary">
 						<div dangerouslySetInnerHTML={{ __html: description }} />
 					</TooltipContent>
@@ -64,4 +68,4 @@ const DisplayTagIcon: React.FC<Props> = ({
 	return TheImage;
 };
 
-export default DisplayTagIcon;
+export default DisplayIcon;

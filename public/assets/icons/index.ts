@@ -274,6 +274,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	it_github: {
+		name: "it_github",
+		uri: {
+			light: "/assets/icons/it/github-light.svg",
+			dark: "/assets/icons/it/github-dark.svg",
+		},
+		info: {
+			height: 512,
+			width: 496,
+			type: "svg",
+			ratio: 0.97,
+		},
+	},
 	it_gitlab: {
 		name: "it_gitlab",
 		uri: {
@@ -1821,6 +1834,19 @@ const iconsMap = {
 			ratio: 0.88,
 		},
 	},
+	"ui_domain-www-icon": {
+		name: "ui_domain-www-icon",
+		uri: {
+			light: "/assets/icons/ui/domain-www-icon-light.svg",
+			dark: "/assets/icons/ui/domain-www-icon-dark.svg",
+		},
+		info: {
+			height: 91,
+			width: 123,
+			type: "svg",
+			ratio: 1.35,
+		},
+	},
 	ui_fingerprint: {
 		name: "ui_fingerprint",
 		uri: {
@@ -1832,32 +1858,6 @@ const iconsMap = {
 			width: 808,
 			type: "svg",
 			ratio: 1.08,
-		},
-	},
-	"ui_github-gray": {
-		name: "ui_github-gray",
-		uri: {
-			light: "/assets/icons/ui/github-gray.svg",
-			dark: "/assets/icons/ui/github-gray.svg",
-		},
-		info: {
-			height: 512,
-			width: 496,
-			type: "svg",
-			ratio: 0.97,
-		},
-	},
-	ui_github: {
-		name: "ui_github",
-		uri: {
-			light: "/assets/icons/ui/github.svg",
-			dark: "/assets/icons/ui/github.svg",
-		},
-		info: {
-			height: 512,
-			width: 496,
-			type: "svg",
-			ratio: 0.97,
 		},
 	},
 	ui_google: {
@@ -2079,6 +2079,19 @@ const iconsMap = {
 			width: 900,
 			type: "svg",
 			ratio: 1,
+		},
+	},
+	"ui_www-icon": {
+		name: "ui_www-icon",
+		uri: {
+			light: "/assets/icons/ui/www-icon-light.svg",
+			dark: "/assets/icons/ui/www-icon-dark.svg",
+		},
+		info: {
+			height: 80,
+			width: 123,
+			type: "svg",
+			ratio: 1.54,
 		},
 	},
 	placeholder: {

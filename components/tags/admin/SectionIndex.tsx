@@ -2,7 +2,7 @@ import React from "react";
 
 import { msgs } from "@/messages";
 
-import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
+import DisplayIcon from "@/components/fragments/DisplayIcon";
 import { TagData } from "@/interfaces/Tag";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
@@ -37,7 +37,7 @@ const SectionIndex: React.FC<Props> = ({ className, tags, type = "tagIndex" }) =
 			<div className="flex flex-wrap gap-2 items-center justify-start">
 				{tags?.map((tag) => (
 					<a key={tag._id} href={`#tag_${tag._id}`}>
-						<DisplayTagIcon
+						<DisplayIcon
 							className_TooltipTrigger="!mt-0"
 							description={tag.html.description}
 							icon={iconsMap[tag.icon as IconsMapItem]}

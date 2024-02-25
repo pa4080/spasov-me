@@ -13,7 +13,7 @@ import { LucideIcon, X } from "lucide-react";
 import React, { KeyboardEvent, useCallback, useRef, useState } from "react";
 import { Control, FieldError, FieldValues, Merge, Path, PathValue } from "react-hook-form";
 
-import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
+import DisplayIcon from "@/components/fragments/DisplayIcon";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -195,7 +195,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
 																className="h-fit text-sm font-normal tracking-wider text-foreground py-[6px] px-1 rounded-md"
 																variant="secondary"
 															>
-																<DisplayTagIcon
+																<DisplayIcon
 																	key={item.value}
 																	className="p-0 hover:bg-transparent dark:hover:bg-transparent"
 																	className_TooltipTrigger="!mt-0"
