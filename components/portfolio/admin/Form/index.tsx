@@ -61,7 +61,6 @@ const ProjectForm: React.FC<Props> = ({
 		t("schema_date"),
 		t("schema_date"),
 		t("schema_visibility"),
-		t("schema_attachment"),
 		t("schema_tags"),
 		t("schema_gallery"),
 	]);
@@ -80,6 +79,7 @@ const ProjectForm: React.FC<Props> = ({
 			projectType: entryType,
 			visibility: true,
 			attachment: undefined,
+			icon: undefined,
 			tags: [],
 			gallery: [],
 		},
@@ -244,6 +244,44 @@ const ProjectForm: React.FC<Props> = ({
 											html: {
 												fileUri:
 													files?.find((f) => f.value === form.watch("attachment"))?.sourceImage ??
+													Route.assets.IMAGE_PLACEHOLDER,
+											},
+										},
+									} as FileData
+								}
+								sizes={["40px", "40px"]}
+							/>
+						</div>
+
+						{/* Icon (image, pdf) */}
+						<div className="flex gap-1 w-full max-w-full items-center justify-center">
+							<Combobox
+								className="w-full"
+								control={form.control}
+								error={form.formState.errors.icon}
+								list={files ?? []}
+								messages={{
+									label: t("icon_label"),
+									description: t("icon_description"),
+									placeholder: t("icon_search"),
+									pleaseSelect: t("icon_select"),
+									notFound: t("icon_searchNotFound"),
+									selectNone: t("icon_selectNone"),
+								}}
+								name="icon"
+								setValue={form.setValue}
+							/>
+							<DisplayFileImage
+								className={`rounded-md object-cover w-10 h-10 min-w-10 border ${form.watch("icon") ? "opacity-90" : "opacity-25"}`}
+								file={
+									{
+										filename:
+											files?.find((f) => f.value === form.watch("icon"))?.label ??
+											Route.assets.IMAGE_PLACEHOLDER,
+										metadata: {
+											html: {
+												fileUri:
+													files?.find((f) => f.value === form.watch("icon"))?.sourceImage ??
 													Route.assets.IMAGE_PLACEHOLDER,
 											},
 										},

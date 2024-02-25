@@ -18,20 +18,24 @@ export interface ProjectDoc {
 	dateTo: Date | string | undefined;
 	visibility: boolean | string;
 	tags: ObjectId[] | undefined;
-	attachment?: ObjectId | undefined; // attachment?: FileDocument;
-	gallery: ObjectId[] | undefined; // gallery: FileDocument[];
+	attachment?: ObjectId | undefined;
+	icon?: ObjectId | undefined;
+	gallery: ObjectId[] | undefined;
 }
 
-export interface ProjectDocPopulated extends Omit<ProjectDoc, "attachment" | "tags" | "gallery"> {
+export interface ProjectDocPopulated
+	extends Omit<ProjectDoc, "attachment" | "tags" | "gallery" | "icon"> {
 	tags: TagDoc[];
 	attachment?: FileDoc | undefined;
+	icon?: FileDoc | undefined;
 	gallery: FileDoc[] | undefined;
 }
 
 export interface NewProjectData
-	extends Omit<ProjectDoc, "_id" | "attachment" | "creator" | "tags" | "gallery"> {
+	extends Omit<ProjectDoc, "_id" | "attachment" | "creator" | "tags" | "gallery" | "icon"> {
 	creator: string;
 	attachment?: string;
+	icon?: string;
 	tags: string[];
 	gallery?: string[];
 }
@@ -40,19 +44,29 @@ export interface ProjectHtmlProps {
 	title: string;
 	description: string;
 	attachment?: FileData;
+	icon?: FileData;
 }
 
 export interface ProjectData
 	extends Omit<
 		ProjectDoc,
-		"_id" | "attachment" | "creator" | "tags" | "dateTo" | "dateFrom" | "visibility" | "gallery"
+		| "_id"
+		| "attachment"
+		| "creator"
+		| "tags"
+		| "dateTo"
+		| "dateFrom"
+		| "visibility"
+		| "gallery"
+		| "icon"
 	> {
 	_id: string;
 	html: ProjectHtmlProps;
 	dateFrom: Date;
 	dateTo: Date | undefined;
 	visibility: boolean;
-	tags: TagData[];
 	attachment?: string;
+	icon?: string;
+	tags: TagData[];
 	gallery?: FileData[];
 }

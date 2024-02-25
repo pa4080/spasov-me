@@ -461,7 +461,6 @@
 		"schema_date": "Select a date.",
 		"schema_type": "Select a type.",
 		"schema_visibility": "The default visibility value is \"true\".",
-		"schema_attachment": "Attach a file to the project - i.e. cover image.",
 		"schema_tags": "Select at least one tag.",
 		"schema_gallery": "Select multiple attachments.",
 
@@ -505,6 +504,13 @@
 		"attachment_select": "Attachment...",
 		"attachment_searchNotFound": "Not found.",
 		"attachment_selectNone": "< None! >",
+
+		"icon_label": "",
+		"icon_description": "",
+		"icon_search": "Search for an icon...",
+		"icon_select": "Icon...",
+		"icon_searchNotFound": "Not found.",
+		"icon_selectNone": "< None! >",
 
 		"tags_label": "",
 		"tags_description": "",

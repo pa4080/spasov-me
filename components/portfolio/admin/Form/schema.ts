@@ -51,26 +51,17 @@ export const Project_FormSchemaGenerator = (messages?: string[]) =>
 			},
 		}),
 		// This will be an Image (GridFS document) Id as a string
-		attachment: z
-			.string({
-				// eslint-disable-next-line @typescript-eslint/no-unused-vars
-				errorMap: (issue, _ctx) => {
-					switch (issue.code) {
-						default:
-							return { message: String(messages?.[6]) };
-					}
-				},
-			})
-			.optional(),
+		attachment: z.string().optional(),
+		icon: z.string().optional(),
 		tags: z.array(z.string()).refine((tags) => tags.length > 0, {
-			message: String(messages?.[7]),
+			message: String(messages?.[6]),
 		}),
 		gallery: z.array(z.string(), {
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			errorMap: (issue, _ctx) => {
 				switch (issue.code) {
 					default:
-						return { message: String(messages?.[8]) };
+						return { message: String(messages?.[7]) };
 				}
 			},
 		}),

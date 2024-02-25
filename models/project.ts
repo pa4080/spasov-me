@@ -45,6 +45,10 @@ const ProjectSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: FileGFS,
 	},
+	icon: {
+		type: Schema.Types.ObjectId,
+		ref: FileGFS,
+	},
 	gallery: [
 		{
 			type: Schema.Types.ObjectId,

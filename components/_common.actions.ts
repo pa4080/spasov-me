@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import { fileAttachment_add, fileAttachment_remove } from "@/components/files/_files.actions";
 import { tagAttachment_add, tagAttachment_remove } from "@/components/tags/_tags.actions";
 import { AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
+import { NewProjectData, ProjectDoc } from "@/interfaces/Project";
 import { AttachedToDocument, ModelType } from "@/interfaces/_common-data-types";
 import { authOptions } from "@/lib/auth-options";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
@@ -126,6 +127,10 @@ export const attachedTo_detachFromTarget = async ({
 						document.attachment = undefined;
 					}
 
+					if (document.icon && document.icon.toString() === target_id) {
+						document.icon = undefined;
+					}
+
 					if (document.gallery && document.gallery.length > 0) {
 						document.gallery = document.gallery.filter(
 							(gallery_file_id: ObjectId) => gallery_file_id.toString() !== target_id
@@ -166,9 +171,9 @@ export const process_relations = async ({
 	document_prev,
 	modelType,
 }: {
-	documentData_new?: NewAboutEntryData;
-	document_new?: AboutEntryDoc;
-	document_prev?: AboutEntryDoc;
+	documentData_new?: NewAboutEntryData | NewProjectData;
+	document_new?: AboutEntryDoc | ProjectDoc;
+	document_prev?: AboutEntryDoc | ProjectDoc;
 	modelType: ModelType;
 }) => {
 	// Deal with the previous state of the document
@@ -178,6 +183,14 @@ export const process_relations = async ({
 			await fileAttachment_remove({
 				attachedDocument_id: document_prev._id.toString(),
 				target_file_id: document_prev.attachment.toString(),
+			});
+		}
+
+		// Deal with the "icon"
+		if ("icon" in document_prev && document_prev.icon) {
+			await fileAttachment_remove({
+				attachedDocument_id: document_prev._id.toString(),
+				target_file_id: document_prev.icon.toString(),
 			});
 		}
 
@@ -220,6 +233,20 @@ export const process_relations = async ({
 			});
 		} else {
 			document_new.attachment = undefined;
+		}
+
+		// Deal with the "icon"
+		if ("icon" in documentData_new && documentData_new.icon) {
+			await fileAttachment_add({
+				documentToAttach: {
+					_id: document_new._id.toString(),
+					title: document_new.title,
+					modelType: modelType,
+				},
+				target_file_id: documentData_new.icon,
+			});
+		} else {
+			(document_new as ProjectDoc).icon = undefined;
 		}
 
 		// Deal with the "gallery"

@@ -40,6 +40,9 @@ export function projectDocuments_toData({
 				attachment: fileDocuments_toData({
 					files: project?.attachment ? [project?.attachment] : [],
 				})?.[0],
+				icon: fileDocuments_toData({
+					files: project?.icon ? [project?.icon] : [],
+				})?.[0],
 			},
 			title: project.title,
 			description: project.description,
@@ -50,6 +53,7 @@ export function projectDocuments_toData({
 			projectType: project.projectType,
 			visibility: project.visibility as boolean,
 			attachment: project.attachment?._id.toString(),
+			icon: project.icon?._id.toString(),
 			tags: tagDocuments_toData({ tags: project.tags || [], hyphen: true }),
 			gallery: fileDocuments_toData({ files: project.gallery || [] }),
 		}));
@@ -72,6 +76,7 @@ export function projectFormData_toNewProjectData({
 		dateTo: data.get("dateTo") as string,
 		visibility: data.get("visibility") as string,
 		attachment: data.get("attachment") as string,
+		icon: data.get("icon") as string,
 
 		tags: JSON.parse(data.get("tags") as string) as string[],
 		gallery: JSON.parse(data.get("gallery") as string) as string[],
