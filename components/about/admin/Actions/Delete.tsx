@@ -18,21 +18,20 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
-import { AboutEntryType } from "@/interfaces/_common-data-types";
+import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
 export interface Props {
 	className?: string;
-	type: AboutEntryType;
-	entry_id: string;
+	entry: AboutEntryData;
 }
 
-const DeleteAboutEntry: React.FC<Props> = ({ className, type, entry_id }) => {
+const DeleteAboutEntry: React.FC<Props> = ({ className, entry }) => {
 	const t = msgs("AboutEntries_Delete");
 	const entryTypeLabel = (
 		msgs("AboutEntries_Form")("aboutEntry_type_list") as unknown as Record<string, string>
-	)[type];
+	)[entry.entryType];
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +41,7 @@ const DeleteAboutEntry: React.FC<Props> = ({ className, type, entry_id }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await deleteEntry(entry_id, [
+			const response = await deleteEntry(entry._id, [
 				pathname,
 				Route.public.ABOUT.uri,
 				Route.admin.FILES,
@@ -83,7 +82,7 @@ const DeleteAboutEntry: React.FC<Props> = ({ className, type, entry_id }) => {
 							<AlertDialogDescription
 								className="hyphens-auto break-words"
 								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: entry_id }),
+									__html: t("dialog_description", { id: entry._id }),
 								}}
 							/>
 						)}

@@ -1,9 +1,10 @@
 "use client";
+
 import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
 
-import { updateEntry } from "@/components/about/_about.actions";
+import { createEntry } from "@/components/about/_about.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
@@ -13,7 +14,6 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileListItem } from "@/interfaces/File";
 import { TagData } from "@/interfaces/Tag";
 import { AboutEntryType } from "@/interfaces/_common-data-types";
@@ -23,29 +23,29 @@ import { Route } from "@/routes";
 
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 
-import AboutEntryForm from "../about-form";
-import { Entry_FormSchema } from "../about-form/schema";
+import AboutEntryForm from "../Form";
+import { Entry_FormSchema } from "../Form/schema";
 
 interface Props {
 	className?: string;
-	entry: AboutEntryData;
 	type: AboutEntryType;
 	files?: FileListItem[] | null | undefined;
 	tags: TagData[] | null | undefined;
 }
 
-const UpdateAboutEntry: React.FC<Props> = ({ className, type, entry, files, tags }) => {
-	const t = msgs("AboutEntries_Update");
+const CreateAboutEntry: React.FC<Props> = ({ className, type, files, tags }) => {
+	const t = msgs("AboutEntries_Create");
 	const entryTypeLabel = (
 		msgs("AboutEntries_Form")("aboutEntry_type_list") as unknown as Record<string, string>
 	)[type];
 
 	const [submitting, setSubmitting] = useState(false);
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
 	const pathname = usePathname();
 
-	const handleUpdateEntry = async (data: Entry_FormSchema) => {
+	const handleCreateEntry = async (data: Entry_FormSchema) => {
 		setSubmitting(true);
+
 		try {
 			/**
 			 * In case we were used <form action={addPage}> this conversion will not be needed,
@@ -53,7 +53,7 @@ const UpdateAboutEntry: React.FC<Props> = ({ className, type, entry, files, tags
 			 * form.action()... @see https://stackoverflow.com/a/40552372/6543935
 			 */
 
-			const response = await updateEntry(generateFormDataFromObject(data), entry._id, [
+			const response = await createEntry(generateFormDataFromObject(data), [
 				pathname,
 				Route.public.ABOUT.uri,
 				Route.admin.FILES,
@@ -82,10 +82,14 @@ const UpdateAboutEntry: React.FC<Props> = ({ className, type, entry, files, tags
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogTrigger disabled={submitting}>
 					<ButtonIcon
-						className="pl-1 bg-transparent icon_accent_secondary"
-						height={22}
-						type="brush"
-						width={22}
+						className="pl-[0.75rem] pr-[0.7rem] rounded-lg icon_accent_secondary"
+						height={26} // 36 // pl-[0.6rem] pr-[0.7rem]
+						label={t("dialog_btn_add")}
+						labelSubmitting={t("dialog_btn_add_submitting")}
+						submitting={submitting}
+						type="rectangle-history-circle-plus"
+						width={42} // 62
+						widthOffset={24}
 						onClick={() => setIsOpen(true)}
 					/>
 				</DialogTrigger>
@@ -98,20 +102,19 @@ const UpdateAboutEntry: React.FC<Props> = ({ className, type, entry, files, tags
 						{t("dialog_description") && (
 							<DialogDescription
 								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: entry._id }),
+									__html: t("dialog_description", { id: "new id" }),
 								}}
 							/>
 						)}
 					</DialogHeader>
 
 					<AboutEntryForm
-						className={t("dialog_description") ? "mt-0" : "mt-1"}
+						className="mt-1"
 						entryType={type}
 						files={files}
-						formData={entry}
 						submitting={submitting}
 						tags={tags}
-						onSubmit={handleUpdateEntry}
+						onSubmit={handleCreateEntry}
 					/>
 				</DialogContent>
 			</Dialog>
@@ -119,4 +122,4 @@ const UpdateAboutEntry: React.FC<Props> = ({ className, type, entry, files, tags
 	);
 };
 
-export default UpdateAboutEntry;
+export default CreateAboutEntry;

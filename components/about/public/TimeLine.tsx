@@ -10,7 +10,7 @@ import SectionHeader from "@/components/fragments/section-header";
 
 import ToggleCollapsible from "../../fragments/toggle-collapsible";
 import styles from "../_about.module.scss";
-import AboutEntryCard from "../common/about-card";
+import AboutEntryCard from "../common/Card";
 
 interface Props {
 	className?: string;

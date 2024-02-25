@@ -5,6 +5,7 @@ import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { enUS as en } from "date-fns/locale";
 
+import Gallery from "@/components/fragments/Gallery";
 import RedirectToUri from "@/components/fragments/RedirectToUri";
 import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
 import DisplayTagIcon from "@/components/tags/common/DisplayTagIcon";
@@ -15,9 +16,8 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
-import Gallery from "../../../fragments/Gallery";
-import DeleteAboutEntry from "../../admin/about-actions/DeleteAboutEntry";
-import UpdateAboutEntry from "../../admin/about-actions/UpdateAboutEntry";
+import DeleteAboutEntry from "../../admin/Actions/Delete";
+import UpdateAboutEntry from "../../admin/Actions/Update";
 import styles from "./_about-card.module.scss";
 
 interface Props {
@@ -90,15 +90,10 @@ const AboutEntryCard: React.FC<Props> = ({
 						<div className={styles.buttonsContainer}>
 							{displayActions ? (
 								<>
-									<DeleteAboutEntry entry_id={entry._id} type={entry.entryType} />
+									<DeleteAboutEntry entry={entry} />
 									<RedirectToUri uri={entry.html.attachment?.metadata.html.fileUri} />
 									<Gallery entry={entry} />
-									<UpdateAboutEntry
-										entry={entry}
-										files={files}
-										tags={tags}
-										type={entry.entryType}
-									/>
+									<UpdateAboutEntry entry={entry} files={files} tags={tags} />
 								</>
 							) : (
 								<>{haveGallery && <Gallery entry={entry} />}</>

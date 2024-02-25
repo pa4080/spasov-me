@@ -3,6 +3,9 @@ import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 
+import { fileAttachment_add, fileAttachment_remove } from "@/components/files/_files.actions";
+import { tagAttachment_add, tagAttachment_remove } from "@/components/tags/_tags.actions";
+import { AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
 import { AttachedToDocument, ModelType } from "@/interfaces/_common-data-types";
 import { authOptions } from "@/lib/auth-options";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
@@ -145,5 +148,108 @@ export const attachedTo_detachFromTarget = async ({
 		console.error("Unable to remove attached document", error);
 
 		return false;
+	}
+};
+
+/**
+ * Process the relations between the models - attachedTo, gallery, tags
+ */
+export const process_relations = async ({
+	documentData_new,
+	document_new,
+	document_prev,
+	modelType,
+}: {
+	documentData_new?: NewAboutEntryData;
+	document_new?: AboutEntryDoc;
+	document_prev?: AboutEntryDoc;
+	modelType: ModelType;
+}) => {
+	// Deal with the previous state of the document
+	if (document_prev) {
+		// Deal with the "attachment"
+		if (document_prev.attachment) {
+			await fileAttachment_remove({
+				attachedDocument_id: document_prev._id.toString(),
+				target_file_id: document_prev.attachment.toString(),
+			});
+		}
+
+		// Deal with the "gallery"
+		if (document_prev.gallery && document_prev.gallery.length > 0) {
+			await Promise.all(
+				document_prev.gallery.map(async (file_id: ObjectId) => {
+					await fileAttachment_remove({
+						attachedDocument_id: document_prev._id.toString(),
+						target_file_id: file_id.toString(),
+					});
+				})
+			);
+		}
+
+		// Deal with the "tags"
+		if (document_prev.tags && document_prev.tags.length > 0) {
+			await Promise.all(
+				document_prev.tags.map(async (tag_id: ObjectId) => {
+					await tagAttachment_remove({
+						attachedDocument_id: document_prev._id.toString(),
+						target_tag_id: tag_id.toString(),
+					});
+				})
+			);
+		}
+	}
+
+	// Deal with the current state of the document
+	if (documentData_new && document_new) {
+		// Deal with the "attachment"
+		if (documentData_new.attachment) {
+			await fileAttachment_add({
+				documentToAttach: {
+					_id: document_new._id.toString(),
+					title: document_new.title,
+					modelType: modelType,
+				},
+				target_file_id: documentData_new.attachment,
+			});
+		} else {
+			document_new.attachment = undefined;
+		}
+
+		// Deal with the "gallery"
+		if (documentData_new.gallery && documentData_new.gallery.length > 0) {
+			await Promise.all(
+				documentData_new.gallery.map(async (file_id) => {
+					await fileAttachment_add({
+						documentToAttach: {
+							_id: document_new._id.toString(),
+							title: document_new.title,
+							modelType: modelType,
+						},
+						target_file_id: file_id,
+					});
+				})
+			);
+		} else {
+			document_new.gallery = undefined;
+		}
+
+		// Deal with the "tags"
+		if (documentData_new.tags && documentData_new.tags.length > 0) {
+			await Promise.all(
+				documentData_new.tags.map(async (tag_id) => {
+					await tagAttachment_add({
+						documentToAttach: {
+							_id: document_new._id.toString(),
+							title: document_new.title,
+							modelType: modelType,
+						},
+						target_tag_id: tag_id,
+					});
+				})
+			);
+		} else {
+			document_new.tags = undefined;
+		}
 	}
 };

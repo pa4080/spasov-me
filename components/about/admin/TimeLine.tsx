@@ -11,8 +11,8 @@ import { Route } from "@/routes";
 
 import ToggleCollapsible from "../../fragments/toggle-collapsible";
 import styles from "../_about.module.scss";
-import AboutEntryCard from "../common/about-card";
-import CreateAboutEntry from "./about-actions/CreateAboutEntry";
+import AboutEntryCard from "../common/Card";
+import CreateAboutEntry from "./Actions/Create";
 
 interface Props {
 	className?: string;

@@ -1,10 +1,9 @@
 "use client";
-
 import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
 
-import { createEntry } from "@/components/about/_about.actions";
+import { updateEntry } from "@/components/about/_about.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
@@ -14,38 +13,37 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileListItem } from "@/interfaces/File";
 import { TagData } from "@/interfaces/Tag";
-import { AboutEntryType } from "@/interfaces/_common-data-types";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 
-import AboutEntryForm from "../about-form";
-import { Entry_FormSchema } from "../about-form/schema";
+import AboutEntryForm from "../Form";
+import { Entry_FormSchema } from "../Form/schema";
 
 interface Props {
 	className?: string;
-	type: AboutEntryType;
+	entry: AboutEntryData;
 	files?: FileListItem[] | null | undefined;
 	tags: TagData[] | null | undefined;
 }
 
-const CreateAboutEntry: React.FC<Props> = ({ className, type, files, tags }) => {
-	const t = msgs("AboutEntries_Create");
+const UpdateAboutEntry: React.FC<Props> = ({ className, entry, files, tags }) => {
+	const t = msgs("AboutEntries_Update");
 	const entryTypeLabel = (
 		msgs("AboutEntries_Form")("aboutEntry_type_list") as unknown as Record<string, string>
-	)[type];
+	)[entry.entryType];
 
 	const [submitting, setSubmitting] = useState(false);
-	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
+	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
 
-	const handleCreateEntry = async (data: Entry_FormSchema) => {
+	const handleUpdateEntry = async (data: Entry_FormSchema) => {
 		setSubmitting(true);
-
 		try {
 			/**
 			 * In case we were used <form action={addPage}> this conversion will not be needed,
@@ -53,7 +51,7 @@ const CreateAboutEntry: React.FC<Props> = ({ className, type, files, tags }) => 
 			 * form.action()... @see https://stackoverflow.com/a/40552372/6543935
 			 */
 
-			const response = await createEntry(generateFormDataFromObject(data), [
+			const response = await updateEntry(generateFormDataFromObject(data), entry._id, [
 				pathname,
 				Route.public.ABOUT.uri,
 				Route.admin.FILES,
@@ -82,14 +80,10 @@ const CreateAboutEntry: React.FC<Props> = ({ className, type, files, tags }) => 
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogTrigger disabled={submitting}>
 					<ButtonIcon
-						className="pl-[0.75rem] pr-[0.7rem] rounded-lg icon_accent_secondary"
-						height={26} // 36 // pl-[0.6rem] pr-[0.7rem]
-						label={t("dialog_btn_add")}
-						labelSubmitting={t("dialog_btn_add_submitting")}
-						submitting={submitting}
-						type="rectangle-history-circle-plus"
-						width={42} // 62
-						widthOffset={24}
+						className="pl-1 bg-transparent icon_accent_secondary"
+						height={22}
+						type="brush"
+						width={22}
 						onClick={() => setIsOpen(true)}
 					/>
 				</DialogTrigger>
@@ -102,19 +96,20 @@ const CreateAboutEntry: React.FC<Props> = ({ className, type, files, tags }) => 
 						{t("dialog_description") && (
 							<DialogDescription
 								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: "new id" }),
+									__html: t("dialog_description", { id: entry._id }),
 								}}
 							/>
 						)}
 					</DialogHeader>
 
 					<AboutEntryForm
-						className="mt-1"
-						entryType={type}
+						className={t("dialog_description") ? "mt-0" : "mt-1"}
+						entryType={entry.entryType}
 						files={files}
+						formData={entry}
 						submitting={submitting}
 						tags={tags}
-						onSubmit={handleCreateEntry}
+						onSubmit={handleUpdateEntry}
 					/>
 				</DialogContent>
 			</Dialog>
@@ -122,4 +117,4 @@ const CreateAboutEntry: React.FC<Props> = ({ className, type, files, tags }) => 
 	);
 };
 
-export default CreateAboutEntry;
+export default UpdateAboutEntry;
