@@ -92,7 +92,7 @@ const AboutEntryCard: React.FC<Props> = ({
 								<>
 									<DeleteAboutEntry entry_id={entry._id} type={entry.entryType} />
 									<RedirectToUri uri={entry.html.attachment?.metadata.html.fileUri} />
-									<Gallery entry={entry} files={files} tags={tags} type={entry.entryType} />
+									<Gallery entry={entry} />
 									<UpdateAboutEntry
 										entry={entry}
 										files={files}
@@ -101,11 +101,7 @@ const AboutEntryCard: React.FC<Props> = ({
 									/>
 								</>
 							) : (
-								<>
-									{haveGallery && (
-										<Gallery entry={entry} files={files} tags={tags} type={entry.entryType} />
-									)}
-								</>
+								<>{haveGallery && <Gallery entry={entry} />}</>
 							)}
 							<ToggleCollapsible
 								tooltip

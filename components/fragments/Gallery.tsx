@@ -12,9 +12,7 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-import { FileData, FileListItem } from "@/interfaces/File";
-import { TagData } from "@/interfaces/Tag";
-import { AboutEntryType } from "@/interfaces/_common-data-types";
+import { FileData } from "@/interfaces/File";
 import { msgs } from "@/messages";
 
 import { Button } from "@/components/ui/button";
@@ -30,9 +28,6 @@ import {
 interface Props {
 	className?: string;
 	entry: AboutEntryData;
-	type: AboutEntryType;
-	files?: FileListItem[] | null | undefined;
-	tags: TagData[] | null | undefined;
 }
 
 const Gallery: React.FC<Props> = ({ className, entry }) => {
