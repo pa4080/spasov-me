@@ -11,7 +11,7 @@ interface Props {
 	className?: string;
 }
 
-const AboutAdmin: React.FC<Props> = async ({ className }) => {
+const PortfolioAdmin: React.FC<Props> = async ({ className }) => {
 	const projects = await getProjects({ hyphen: true });
 	const tags = await getTags();
 	const fileList = await getFileList();
@@ -23,7 +23,7 @@ const AboutAdmin: React.FC<Props> = async ({ className }) => {
 				projects={projects}
 				tags={tags}
 				type="informationTechnologies"
-				visibleItems={1}
+				visibleItems={5}
 			/>
 			{/* <TimeLine projects={entries} files={fileList} tags={tags} type="resume" visibleItems={1} />
 			<TimeLine projects={entries} files={fileList} tags={tags} type="employment" />
@@ -33,4 +33,4 @@ const AboutAdmin: React.FC<Props> = async ({ className }) => {
 	);
 };
 
-export default AboutAdmin;
+export default PortfolioAdmin;

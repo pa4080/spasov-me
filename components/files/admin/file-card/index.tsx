@@ -28,15 +28,16 @@ import styles from "./_file-card.module.scss";
 interface Props {
 	className?: string;
 	file: FileData;
+	section_id?: string;
 }
 
-const FileCard: React.FC<Props> = ({ className, file }) => {
+const FileCard: React.FC<Props> = ({ className, file, section_id = "common" }) => {
 	const tCommon = msgs("Files");
 	const t = msgs("Files_Display");
 
 	const displayActions = true;
 
-	const toggle_target_id = `file_${file?._id.toString()}`;
+	const toggle_target_id = `file_${file?._id}_${section_id}`;
 
 	const descriptionArr = file.metadata.html.description
 		.split(splitDescriptionKeyword)
