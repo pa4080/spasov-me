@@ -46,6 +46,7 @@ export function projectDocuments_toData({
 			},
 			title: project.title,
 			description: project.description,
+			slug: project.slug,
 			urlHome: project.urlHome,
 			urlRepo: project.urlRepo,
 			dateFrom: project.dateFrom as Date,
@@ -69,6 +70,7 @@ export function projectFormData_toNewProjectData({
 	return {
 		title: data.get("title") as string,
 		description: data.get("description") as string,
+		slug: data.get("slug") as string,
 		urlHome: data.get("urlHome") as string,
 		urlRepo: data.get("urlRepo") as string,
 		projectType: data.get("projectType") as ProjectType,

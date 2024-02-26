@@ -65,6 +65,14 @@ export const Project_FormSchemaGenerator = (messages?: string[]) =>
 				}
 			},
 		}),
+		slug: z
+			.string()
+			.min(4, {
+				message: messages?.[8],
+			})
+			.regex(/^[a-z][a-z0-9-]+$/, {
+				message: messages?.[9],
+			}),
 	});
 
 export const Project_FormSchema = Project_FormSchemaGenerator();

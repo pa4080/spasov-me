@@ -19,11 +19,11 @@
 		&::before {
 			content: "";
 			position: absolute;
-			inset: -0.3rem -0.1rem;
 			display: block;
 			border-radius: 0.4rem;
 			outline: 4px solid theme("colors.primary.DEFAULT");
 			outline-offset: 0.5rem;
+			inset: -0.3rem -0.1rem;
 
 			// See the _main-layout.module.scss for explanation
 			@screen xa {
@@ -99,6 +99,10 @@
 
 		.projectLinks {
 			@apply p-0 m-0 flex gap-1;
+		}
+
+		.slug {
+			@apply line-clamp-1 max-w-[90%];
 		}
 	}
 

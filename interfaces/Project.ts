@@ -11,6 +11,7 @@ export interface ProjectDoc {
 
 	title: string;
 	description: string;
+	slug: string;
 	urlHome: string;
 	urlRepo: string;
 	projectType: ProjectType;

@@ -463,6 +463,8 @@
 		"schema_visibility": "The default visibility value is \"true\".",
 		"schema_tags": "Select at least one tag.",
 		"schema_gallery": "Select multiple attachments.",
+		"schema_slug_length": "The slug must be at least 4 characters.",
+		"schema_slug_schema": "Slug must be in-kebab-case.",
 
 		"title_label": "",
 		"title_placeholder": "Title of the project",
@@ -479,6 +481,10 @@
 		"urlRepo_label": "",
 		"urlRepo_placeholder": "Repository of the project",
 		"urlRepo_description": "",
+
+		"slug_label": "",
+		"slug_placeholder": "Slug of the project",
+		"slug_description": "",
 
 		"type_label": "",
 		"type_placeholder": "Select Type",

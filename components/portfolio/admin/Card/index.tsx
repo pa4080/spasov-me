@@ -93,6 +93,11 @@ const ProjectAdminCard: React.FC<Props> = ({
 							<span className={styles.lightPrimaryText}>{tTime("dateTo_now_current")}</span>
 						)}
 					</div>
+
+					{project.slug && (
+						<div className={`${styles.slug} ${styles.lightSecondaryText}`}>/{project.slug}</div>
+					)}
+
 					<div className={styles.projectLinks}>
 						<ResourceUrlDisplayAsIcon type="home" url={project.urlHome} />
 						<ResourceUrlDisplayAsIcon type="repo" url={project.urlRepo} />

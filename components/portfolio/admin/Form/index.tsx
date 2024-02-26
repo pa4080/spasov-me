@@ -1,11 +1,13 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import MDEditor, { commands } from "@uiw/react-md-editor";
 import { Paperclip, Tag } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useForm } from "react-hook-form";
+
+import slugify from "slugify";
 
 import Combobox from "@/components/fragments/Combobox";
 import DatePicker from "@/components/fragments/DatePicker";
@@ -63,6 +65,8 @@ const ProjectForm: React.FC<Props> = ({
 		t("schema_visibility"),
 		t("schema_tags"),
 		t("schema_gallery"),
+		t("schema_slug_length"),
+		t("schema_slug_schema"),
 	]);
 
 	const { theme } = useTheme();
@@ -72,6 +76,7 @@ const ProjectForm: React.FC<Props> = ({
 		defaultValues: {
 			title: "",
 			description: "",
+			slug: "",
 			urlHome: "",
 			urlRepo: "",
 			dateFrom: undefined,
@@ -91,6 +96,21 @@ const ProjectForm: React.FC<Props> = ({
 				}
 			: undefined,
 	});
+
+	// Auto generate slug on the base of the title, if it is not set
+	useEffect(() => {
+		if (!form.getValues("slug") || form.getValues("slug") === "") {
+			form.setValue(
+				"slug",
+				slugify(form.getValues("title"), {
+					lower: true,
+					remove: /[*+~()'"!:@]/g,
+					locale: "en",
+				})
+			);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [form.getFieldState("title").isTouched, form.watch("title")]);
 
 	return (
 		<Form {...form}>
@@ -129,6 +149,66 @@ const ProjectForm: React.FC<Props> = ({
 							/>
 						</div>
 
+						{/* Slug */}
+						<FormField
+							control={form.control}
+							name="slug"
+							render={({ field }) => (
+								<FormItem className="space-y-0">
+									{t("slug_label") && <FormLabel>{t("slug_label")}</FormLabel>}
+									<FormControl>
+										<Input className="" placeholder={t("slug_placeholder")} {...field} />
+									</FormControl>
+
+									{form.formState.errors.slug ? (
+										<FormMessage className="!mt-1" />
+									) : (
+										t("slug_description") && (
+											<FormDescription>{t("slug_description")}</FormDescription>
+										)
+									)}
+								</FormItem>
+							)}
+						/>
+
+						{/* Icon (image) */}
+						<div className="flex gap-1 w-full max-w-full items-center justify-center">
+							<Combobox
+								className="w-full"
+								control={form.control}
+								error={form.formState.errors.icon}
+								list={files?.filter(({ label }) => label?.match(/\.(png|webp|svg|jpg)$/i)) ?? []}
+								messages={{
+									label: t("icon_label"),
+									description: t("icon_description"),
+									placeholder: t("icon_search"),
+									pleaseSelect: t("icon_select"),
+									notFound: t("icon_searchNotFound"),
+									selectNone: t("icon_selectNone"),
+								}}
+								name="icon"
+								setValue={form.setValue}
+							/>
+							<DisplayFileImage
+								className={`rounded-md object-cover w-10 h-10 min-w-10 border ${form.watch("icon") ? "opacity-90" : "opacity-25"}`}
+								file={
+									{
+										filename:
+											files?.find((f) => f.value === form.watch("icon"))?.label ??
+											Route.assets.IMAGE_PLACEHOLDER,
+										metadata: {
+											html: {
+												fileUri:
+													files?.find((f) => f.value === form.watch("icon"))?.sourceImage ??
+													Route.assets.IMAGE_PLACEHOLDER,
+											},
+										},
+									} as FileData
+								}
+								sizes={["40px", "40px"]}
+							/>
+						</div>
+
 						{/* Project's homepage url */}
 						<FormField
 							control={form.control}
@@ -141,7 +221,7 @@ const ProjectForm: React.FC<Props> = ({
 									</FormControl>
 
 									{form.formState.errors.urlHome ? (
-										<FormMessage />
+										<FormMessage className="!mt-1" />
 									) : (
 										t("urlHome_description") && (
 											<FormDescription>{t("urlHome_description")}</FormDescription>
@@ -163,7 +243,7 @@ const ProjectForm: React.FC<Props> = ({
 									</FormControl>
 
 									{form.formState.errors.urlRepo ? (
-										<FormMessage />
+										<FormMessage className="!mt-1" />
 									) : (
 										t("urlRepo_description") && (
 											<FormDescription>{t("urlRepo_description")}</FormDescription>
@@ -252,44 +332,6 @@ const ProjectForm: React.FC<Props> = ({
 								sizes={["40px", "40px"]}
 							/>
 						</div>
-
-						{/* Icon (image, pdf) */}
-						<div className="flex gap-1 w-full max-w-full items-center justify-center">
-							<Combobox
-								className="w-full"
-								control={form.control}
-								error={form.formState.errors.icon}
-								list={files ?? []}
-								messages={{
-									label: t("icon_label"),
-									description: t("icon_description"),
-									placeholder: t("icon_search"),
-									pleaseSelect: t("icon_select"),
-									notFound: t("icon_searchNotFound"),
-									selectNone: t("icon_selectNone"),
-								}}
-								name="icon"
-								setValue={form.setValue}
-							/>
-							<DisplayFileImage
-								className={`rounded-md object-cover w-10 h-10 min-w-10 border ${form.watch("icon") ? "opacity-90" : "opacity-25"}`}
-								file={
-									{
-										filename:
-											files?.find((f) => f.value === form.watch("icon"))?.label ??
-											Route.assets.IMAGE_PLACEHOLDER,
-										metadata: {
-											html: {
-												fileUri:
-													files?.find((f) => f.value === form.watch("icon"))?.sourceImage ??
-													Route.assets.IMAGE_PLACEHOLDER,
-											},
-										},
-									} as FileData
-								}
-								sizes={["40px", "40px"]}
-							/>
-						</div>
 					</div>
 
 					{/* Right grid */}
@@ -302,11 +344,15 @@ const ProjectForm: React.FC<Props> = ({
 								<FormItem className="space-y-0">
 									{t("title_label") && <FormLabel>{t("title_label")}</FormLabel>}
 									<FormControl>
-										<Input className="text-lg" placeholder={t("title_placeholder")} {...field} />
+										<Input
+											className="text-lg bg-primary"
+											placeholder={t("title_placeholder")}
+											{...field}
+										/>
 									</FormControl>
 
 									{form.formState.errors.title ? (
-										<FormMessage />
+										<FormMessage className="!mt-1" />
 									) : (
 										t("title_description") && (
 											<FormDescription>{t("title_description")}</FormDescription>
