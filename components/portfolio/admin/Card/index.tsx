@@ -145,7 +145,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 					))}
 
 					{displayTagsInline && (
-						<div className="card-item-collapsible">
+						<div className="card-item-collapsible--disabled">
 							<div className="about-entry-tags">
 								{project.tags
 									?.sort((a, b) =>
@@ -163,7 +163,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 					)}
 
 					{displayGalleryInline && gallery && gallery.length > 0 && (
-						<div className="card-item-collapsible">
+						<div className="card-item-collapsible--disabled">
 							<div className="flex gap-2 flex-wrap p-0 mt-4">
 								{gallery.map((image, index) => (
 									<DisplayFileImage
