@@ -11,7 +11,7 @@ export default function AvatarUploadPage() {
 	const [blob, setBlob] = useState<PutBlobResult | null>(null);
 
 	return (
-		<div className="margin_vh_top margin_vh_bottom space-y-12">
+		<div className="margin_vh_top margin_vh_bottom space-y-12 scroll-m-40">
 			<h1 className="section_title">Upload Blob</h1>
 
 			<form
