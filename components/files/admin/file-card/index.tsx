@@ -46,7 +46,10 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common" }) =
 		});
 
 	return (
-		<div className={`${styles.cardWrapper} file-card ${className}`} id={toggle_target_id}>
+		<div
+			className={`${styles.cardWrapper} card-borer-wrapper file-card ${className}`}
+			id={toggle_target_id}
+		>
 			<div className={styles.card}>
 				<div className={styles.imageContainer}>
 					<DisplayFileImage className={`${styles.imageThumb} card-item-thumb`} file={file} />

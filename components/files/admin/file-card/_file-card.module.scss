@@ -1,52 +1,8 @@
 @import "@/app/globals.variables.module.scss";
 
-// Without this wrapper "display:grid" of .cardPublic
-// takes precedence over "display:none" of the dynamically added .hidden
 .cardWrapper {
-	@apply scroll-m-8 relative;
-
-	:global(.card-item-collapsible) {
-		display: none;
-	}
-
-	&:global(.expand-collapsed.file-card) :global(.card-item-collapsible) {
-		display: inherit;
-	}
-
 	&:global(.expand-collapsed.file-card) :global(.card-item-thumb) {
 		@apply absolute top-0 left-0 my-2 sm:my-0 opacity-0;
-	}
-
-	/* Box outline */
-	&::before {
-		@apply transition-all duration-300 ease-in-out;
-
-		content: "";
-		position: absolute;
-		display: block;
-		border-radius: 0.4rem;
-		outline: 4px dashed transparent;
-		outline-offset: 0.5rem;
-		inset: -0.3rem -0.1rem;
-
-		/* stylelint-disable-next-line order/order */
-		@screen xa {
-			inset: -0.4rem -0.15rem;
-		}
-	}
-
-	&:hover {
-		&::before {
-			@apply transition-all duration-200 ease-in-out;
-
-			outline: 4px dashed theme("colors.primary.DEFAULT/60%");
-		}
-	}
-
-	&:global(.expand-collapsed-current.file-card) {
-		&::before {
-			outline: 4px solid theme("colors.primary.DEFAULT/60%");
-		}
 	}
 }
 

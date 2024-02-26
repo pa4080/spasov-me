@@ -67,7 +67,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 	const haveGallery = gallery && gallery.length > 0;
 
 	return (
-		<div className={`${styles.cardWrapper} ${className}`} id={toggle_target_id}>
+		<div className={`card-borer-wrapper ${className}`} id={toggle_target_id}>
 			<div className={styles.card}>
 				<div className={styles.info}>
 					<div className={styles.date}>
