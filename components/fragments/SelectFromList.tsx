@@ -79,7 +79,7 @@ export default function SelectFromList<T extends FieldValues>({
 					</Select>
 
 					{error ? (
-						<FormMessage />
+						<FormMessage className="!mt-1" />
 					) : (
 						messages.description && <FormDescription>{messages.description}</FormDescription>
 					)}

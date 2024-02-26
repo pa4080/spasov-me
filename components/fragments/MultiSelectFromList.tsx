@@ -278,7 +278,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
 					</Popover>
 
 					{error ? (
-						<FormMessage />
+						<FormMessage className="!mt-1" />
 					) : (
 						messages.description && <FormDescription>{messages.description}</FormDescription>
 					)}

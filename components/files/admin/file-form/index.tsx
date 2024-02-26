@@ -276,7 +276,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 									</FormControl>
 
 									{form.formState.errors.filename ? (
-										<FormMessage />
+										<FormMessage className="!mt-1" />
 									) : (
 										t("filename_description") && (
 											<FormDescription>{t("filename_description")}</FormDescription>

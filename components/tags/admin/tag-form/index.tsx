@@ -102,7 +102,7 @@ const TagForm: React.FC<Props> = ({
 								</FormControl>
 
 								{form.formState.errors.name ? (
-									<FormMessage />
+									<FormMessage className="!mt-1" />
 								) : (
 									t("name_description") && (
 										<FormDescription>{t("name_description")}</FormDescription>
@@ -124,7 +124,7 @@ const TagForm: React.FC<Props> = ({
 								</FormControl>
 
 								{form.formState.errors.description ? (
-									<FormMessage />
+									<FormMessage className="!mt-1" />
 								) : (
 									t("description_description") && (
 										<FormDescription>{t("description_description")}</FormDescription>
@@ -177,7 +177,7 @@ const TagForm: React.FC<Props> = ({
 									</FormControl>
 
 									{form.formState.errors.orderKey ? (
-										<FormMessage />
+										<FormMessage className="!mt-1" />
 									) : (
 										t("orderKey_description") && (
 											<FormDescription>{t("orderKey_description")}</FormDescription>

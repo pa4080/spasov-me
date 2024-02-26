@@ -266,7 +266,7 @@ const AboutEntryForm: React.FC<Props> = ({
 									</FormControl>
 
 									{form.formState.errors.title ? (
-										<FormMessage />
+										<FormMessage className="!mt-1" />
 									) : (
 										t("title_description") && (
 											<FormDescription>{t("title_description")}</FormDescription>

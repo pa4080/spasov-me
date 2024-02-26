@@ -108,7 +108,7 @@ const PageForm: React.FC<Props> = ({
 							</FormControl>
 
 							{form.formState.errors.title ? (
-								<FormMessage />
+								<FormMessage className="!mt-1" />
 							) : (
 								<FormDescription>{t("form_pageTitleDescription")}</FormDescription>
 							)}
@@ -128,7 +128,7 @@ const PageForm: React.FC<Props> = ({
 							</FormControl>
 
 							{form.formState.errors.description ? (
-								<FormMessage />
+								<FormMessage className="!mt-1" />
 							) : (
 								<FormDescription>{t("form_pageDescriptionDescription")}</FormDescription>
 							)}
