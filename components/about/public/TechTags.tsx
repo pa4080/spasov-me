@@ -3,10 +3,10 @@ import React from "react";
 import { msgs } from "@/messages";
 
 import DisplayIcon from "@/components/fragments/DisplayIcon";
-import { TagData } from "@/interfaces/Tag";
-import iconsMap, { IconsMapItem } from "@/public/assets/icons";
-
 import SectionHeader from "@/components/fragments/section-header";
+import { TagData } from "@/interfaces/Tag";
+import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
+import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
 import styles from "../_about.module.scss";
 
@@ -19,7 +19,7 @@ const TechTags: React.FC<Props> = ({ className, tags }) => {
 	const t = msgs("AboutEntries");
 
 	const section_title = t(`title_techTags`);
-	const toggle_target_id = `section_techTags`;
+	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_techTags`);
 
 	return (
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>

@@ -29,7 +29,11 @@
 		}
 
 		.projectLinks {
-			@apply p-0 m-0 flex gap-1;
+			@apply pt-1 m-0 flex gap-2 transition-all duration-300;
+
+			.iconWrapper {
+				@apply fill-foreground-secondary hover:fill-ring-secondary flex items-center justify-center h-full;
+			}
 		}
 	}
 

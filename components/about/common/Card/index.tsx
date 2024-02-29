@@ -5,6 +5,7 @@ import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { enUS as en } from "date-fns/locale";
 
+import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 import Gallery from "@/components/fragments/Gallery";
 import RedirectToUri from "@/components/fragments/RedirectToUri";
@@ -13,10 +14,9 @@ import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileData, FileListItem } from "@/interfaces/File";
 import { TagData } from "@/interfaces/Tag";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
-
-import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 
 import DeleteAboutEntry from "../../admin/Actions/Delete";
 import UpdateAboutEntry from "../../admin/Actions/Update";
@@ -47,7 +47,7 @@ const AboutEntryCard: React.FC<Props> = ({
 	const { dateFrom, dateTo } = entry;
 	const dtFrom = new Date(dateFrom);
 	const dtTo = dateTo ? new Date(dateTo) : undefined;
-	const toggle_target_id = `entry_${entry?._id.toString()}`;
+	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`entry_${entry?._id.toString()}`);
 	const descriptionArr = entry.html.description.split(splitDescriptionKeyword).map((str) => {
 		return str.replace(commentsMatcher, "");
 	});

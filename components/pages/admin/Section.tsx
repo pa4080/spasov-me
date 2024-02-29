@@ -5,6 +5,7 @@ import SectionHeader from "@/components/fragments/section-header";
 import { FileListItem } from "@/interfaces/File";
 import { PageCardData } from "@/interfaces/PageCard";
 import { hyphenateString } from "@/lib/process-text";
+import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
@@ -25,7 +26,7 @@ const Section: React.FC<Props> = ({ className, pages, files, type = "common" }) 
 	type tType = Parameters<typeof t>[0];
 
 	const section_title = type === "common" ? hyphenateString(t(`title_${type}` as tType)) : type;
-	const toggle_target_id = `section_${type}`;
+	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_${type}`);
 
 	return (
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>

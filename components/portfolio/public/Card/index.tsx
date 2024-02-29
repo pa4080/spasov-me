@@ -8,7 +8,7 @@ import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 
-import ResourceUrlDisplayAsIcon from "../../common/UrlDisplay";
+import DisplayResourceUrlAsIcon from "../../common/DisplayResourceUrlAsIcon";
 import styles from "./_card.module.scss";
 
 interface Props {
@@ -33,8 +33,12 @@ const ProjectPublicCard: React.FC<Props> = ({ project, className }) => {
 				<div dangerouslySetInnerHTML={{ __html: descriptionArr[0] }} />
 
 				<div className={styles.projectLinks}>
-					<ResourceUrlDisplayAsIcon type="home" url={project.urlHome} />
-					<ResourceUrlDisplayAsIcon type="repo" url={project.urlRepo} />
+					<div className={styles.iconWrapper}>
+						<DisplayResourceUrlAsIcon size={23} type="home" url={project.urlHome} />
+					</div>
+					<div className={styles.iconWrapper}>
+						<DisplayResourceUrlAsIcon size={28} type="repo" url={project.urlRepo} />
+					</div>
 				</div>
 			</div>
 		</div>

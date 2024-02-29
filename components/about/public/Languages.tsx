@@ -1,12 +1,10 @@
 import React from "react";
 
-import { AboutEntryType } from "@/interfaces/_common-data-types";
-
-import { AboutEntryData } from "@/interfaces/AboutEntry";
-
-import { msgs } from "@/messages";
-
 import SectionHeader from "@/components/fragments/section-header";
+import { AboutEntryData } from "@/interfaces/AboutEntry";
+import { AboutEntryType } from "@/interfaces/_common-data-types";
+import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
+import { msgs } from "@/messages";
 
 import styles from "../_about.module.scss";
 
@@ -58,7 +56,7 @@ const SpokenLanguages: React.FC<Props> = ({ className, type, entries }) => {
 	type tType = Parameters<typeof t>[0];
 
 	const section_title = t(`title_${type}` as tType);
-	const toggle_target_id = `section_${type}`;
+	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_${type}`);
 
 	return (
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>

@@ -2,15 +2,15 @@ import React from "react";
 
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 import SectionHeader from "@/components/fragments/section-header";
+import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
 import { FileListItem } from "@/interfaces/File";
+import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
 import { ProjectType } from "@/interfaces/_common-data-types";
+import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { ProjectData } from "@/interfaces/Project";
-
-import ToggleCollapsible from "../../fragments/toggle-collapsible";
 import CreateProject from "./Actions/Create";
 import ProjectAdminCard from "./Card";
 import styles from "./_portfolio.module.scss";
@@ -41,7 +41,7 @@ const TimeLine: React.FC<Props> = ({
 	type tType = Parameters<typeof t>[0];
 
 	const section_title = t(`title_${type}` as tType);
-	const toggle_target_id = `section_${type}`;
+	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_${type}`);
 
 	// Filter the items by their type - i.e. ["informationTechnologies", "education", ...]
 	const projectsByType = projects

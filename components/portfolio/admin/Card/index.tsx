@@ -14,10 +14,11 @@ import { FileData, FileListItem } from "@/interfaces/File";
 import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
-import ResourceUrlDisplayAsIcon from "../../common/UrlDisplay";
+import DisplayResourceUrlAsIcon from "../../common/DisplayResourceUrlAsIcon";
 import DeleteProject from "../Actions/Delete";
 import UpdateProject from "../Actions/Update";
 import styles from "./_card.module.scss";
@@ -47,7 +48,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 	const { dateFrom, dateTo } = project;
 	const dtFrom = new Date(dateFrom);
 	const dtTo = dateTo ? new Date(dateTo) : undefined;
-	const toggle_target_id = `entry_${project?._id.toString()}`;
+	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`entry_${project?._id.toString()}`);
 	const descriptionArr = project.html.description.split(splitDescriptionKeyword).map((str) => {
 		return str.replace(commentsMatcher, "");
 	});
@@ -99,8 +100,12 @@ const ProjectAdminCard: React.FC<Props> = ({
 					)}
 
 					<div className={styles.projectLinks}>
-						<ResourceUrlDisplayAsIcon type="home" url={project.urlHome} />
-						<ResourceUrlDisplayAsIcon type="repo" url={project.urlRepo} />
+						<div className={styles.iconWrapper}>
+							<DisplayResourceUrlAsIcon size={23} type="home" url={project.urlHome} />
+						</div>
+						<div className={styles.iconWrapper}>
+							<DisplayResourceUrlAsIcon size={28} type="repo" url={project.urlRepo} />
+						</div>
 					</div>
 				</div>
 				<div className={styles.header}>
@@ -145,7 +150,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 					))}
 
 					{displayTagsInline && (
-						<div className="card-item-collapsible--disabled">
+						<div className="card-item-collapsible--disabled mt-4">
 							<div className="about-entry-tags">
 								{project.tags
 									?.sort((a, b) =>

@@ -9,17 +9,16 @@ import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 
 import { FileData } from "@/interfaces/File";
 
+import AttachedToBadge from "@/components/fragments/AttachedToBadge";
 import RedirectToUri from "@/components/fragments/RedirectToUri";
+import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
+import { capitalize } from "@/lib/capitalize";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { roundTo } from "@/lib/round";
+import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
-import { capitalize } from "@/lib/capitalize";
-
-import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
-
-import AttachedToBadge from "../../../fragments/AttachedToBadge";
 import CopyFileUri from "../file-actions/CopyFileUri";
 import DeleteFile from "../file-actions/DeleteFile";
 import UpdateFile from "../file-actions/UpdateFile";
@@ -37,7 +36,7 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common" }) =
 
 	const displayActions = true;
 
-	const toggle_target_id = `file_${file?._id}_${section_id}`;
+	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`file_${file?._id}_${section_id}`);
 
 	const descriptionArr = file.metadata.html.description
 		.split(splitDescriptionKeyword)

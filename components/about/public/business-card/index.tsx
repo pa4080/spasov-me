@@ -3,10 +3,9 @@ import React from "react";
 import Image from "next/image";
 
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-
 import { AboutEntryType } from "@/interfaces/_common-data-types";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
-
+import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { Route } from "@/routes";
 
 import styles from "./_business-card.module.scss";
@@ -22,7 +21,7 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type }) => {
 	// type tType = Parameters<typeof t>[0];
 	// const section_title = t(`title_${type}` as tType);
 
-	const toggle_target_id = `section_${type}`;
+	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_${type}`);
 
 	const entry =
 		entries
