@@ -138,7 +138,7 @@ const ToggleCollapsible: React.FC<Props> = ({
 										viewBoxWidth={14}
 									/>
 								</TooltipTrigger>
-								<TooltipContent>{isContentShown ? text[0] : text[1]}</TooltipContent>
+								<TooltipContent>{isContentShown ? text[1] : text[0]}</TooltipContent>
 							</Tooltip>
 						</TooltipProvider>
 					) : (
