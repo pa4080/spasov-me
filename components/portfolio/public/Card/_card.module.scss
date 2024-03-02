@@ -4,7 +4,7 @@
 	@apply scroll-m-8 relative;
 
 	.card {
-		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[25%] rounded-2xl h-full p-4 min-h-fit flex items-start flex-col gap-1 justify-start border-4 border-transparent;
+		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[25%] rounded-2xl h-full p-6 pb-5 min-h-fit flex items-start flex-col gap-4 justify-start border-4 border-transparent;
 
 		transition:
 			background-color 0.5s,
@@ -28,11 +28,15 @@
 			}
 		}
 
-		.projectLinks {
-			@apply pt-1 m-0 flex gap-2 transition-all duration-300;
+		.projectFooter {
+			@apply flex flex-row items-center justify-between gap-2 w-full;
 
-			.iconWrapper {
-				@apply fill-foreground-secondary hover:fill-ring-secondary flex items-center justify-center h-full;
+			.projectLinks {
+				@apply pt-1 m-0 flex gap-2 transition-all duration-300 items-center justify-start;
+
+				.iconWrapper {
+					@apply fill-foreground-secondary hover:fill-ring-secondary flex items-center justify-center h-full;
+				}
 			}
 		}
 	}
