@@ -71,7 +71,7 @@ export type IconEmbSvgPathType =
  * @param cursor Cursor type: pointer, default, inherit
  * @returns SVG element
  */
-interface IconEmbedSvgType {
+export interface IconEmbedSvgProps {
 	width?: number;
 	height?: number;
 	type?: IconEmbSvgPathType;
@@ -85,7 +85,7 @@ interface IconEmbedSvgType {
 	className_Path2?: string;
 }
 
-const IconEmbedSvg: React.FC<IconEmbedSvgType> = ({
+const IconEmbedSvg: React.FC<IconEmbedSvgProps> = ({
 	width = 20,
 	height = 20,
 	type = "check-square",

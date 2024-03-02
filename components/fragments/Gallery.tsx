@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
+import ButtonIcon, { ButtonIconProps } from "@/components/fragments/ButtonIcon";
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import {
 	Dialog,
@@ -26,22 +26,25 @@ import {
 } from "@/components/ui/carousel";
 import { ProjectData } from "@/interfaces/Project";
 
+import { IconEmbSvgPathType } from "./IconEmbedSvg";
+
 interface Props {
 	className?: string;
 	entry: AboutEntryData | ProjectData;
 	gallery: FileHtmlProps[] | undefined;
+	buttonIconProps?: ButtonIconProps;
 }
 
-const Gallery: React.FC<Props> = ({ className, entry, gallery }) => {
+const Gallery: React.FC<Props> = ({ className, entry, gallery, buttonIconProps }) => {
 	const t = msgs("Gallery");
 
 	const [isOpen, setIsOpen] = useState(false);
 
-	const [api, setApi] = React.useState<CarouselApi>();
-	const [current, setCurrent] = React.useState(0);
-	const [count, setCount] = React.useState(0);
+	const [api, setApi] = useState<CarouselApi>();
+	const [current, setCurrent] = useState(0);
+	const [count, setCount] = useState(0);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (!api) {
 			return;
 		}
@@ -54,18 +57,21 @@ const Gallery: React.FC<Props> = ({ className, entry, gallery }) => {
 		});
 	}, [api]);
 
+	const buttonIconPropsFinal = {
+		className: "px-0.5 bg-transparent icon_accent_secondary",
+		disabled: !gallery?.length,
+		height: 22,
+		type: "folder-image" as IconEmbSvgPathType,
+		width: 26,
+		onClick: () => setIsOpen(true),
+		...buttonIconProps,
+	};
+
 	return (
 		<div className={className}>
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogTrigger disabled={!gallery?.length}>
-					<ButtonIcon
-						className="px-0.5 bg-transparent icon_accent_secondary"
-						disabled={!gallery?.length}
-						height={22}
-						type="folder-image"
-						width={26}
-						onClick={() => setIsOpen(true)}
-					/>
+					<ButtonIcon {...buttonIconPropsFinal} />
 				</DialogTrigger>
 				<DialogContent
 					hideClose
