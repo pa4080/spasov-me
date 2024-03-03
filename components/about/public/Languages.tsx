@@ -1,6 +1,6 @@
 import React from "react";
 
-import SectionHeader from "@/components/fragments/section-header";
+import SectionHeader from "@/components/fragments/SectionHeader";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { AboutEntryType } from "@/interfaces/_common-data-types";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";

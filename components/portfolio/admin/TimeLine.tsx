@@ -1,8 +1,8 @@
 import React from "react";
 
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
-import SectionHeader from "@/components/fragments/section-header";
-import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
+import SectionHeader from "@/components/fragments/SectionHeader";
+import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { FileListItem } from "@/interfaces/File";
 import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";

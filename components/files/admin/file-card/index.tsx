@@ -11,8 +11,8 @@ import { FileData } from "@/interfaces/File";
 
 import AttachedToBadge from "@/components/fragments/AttachedToBadge";
 import RedirectToUri from "@/components/fragments/RedirectToUri";
+import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
-import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
 import { capitalize } from "@/lib/capitalize";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { roundTo } from "@/lib/round";

@@ -1,7 +1,7 @@
 import React from "react";
 
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
-import SectionHeader from "@/components/fragments/section-header";
+import SectionHeader from "@/components/fragments/SectionHeader";
 import { FileListItem } from "@/interfaces/File";
 import { PageCardData } from "@/interfaces/PageCard";
 import { hyphenateString } from "@/lib/process-text";

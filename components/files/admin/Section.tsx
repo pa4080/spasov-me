@@ -2,13 +2,13 @@ import React from "react";
 
 import { msgs } from "@/messages";
 
-import SectionHeader from "@/components/fragments/section-header";
+import SectionHeader from "@/components/fragments/SectionHeader";
 import { FileData } from "@/interfaces/File";
 import { hyphenateString } from "@/lib/process-text";
 
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 
-import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
+import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 
 import { ModelType } from "@/interfaces/_common-data-types";
 

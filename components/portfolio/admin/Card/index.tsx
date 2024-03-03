@@ -9,7 +9,7 @@ import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 import Gallery from "@/components/fragments/Gallery";
 import RedirectToUri from "@/components/fragments/RedirectToUri";
-import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
+import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { FileData, FileListItem } from "@/interfaces/File";
 import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";

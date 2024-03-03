@@ -1,7 +1,7 @@
 import React from "react";
 
-import SectionHeader from "@/components/fragments/section-header";
-import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
+import SectionHeader from "@/components/fragments/SectionHeader";
+import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { AboutEntryType } from "@/interfaces/_common-data-types";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";

@@ -3,7 +3,7 @@ import React from "react";
 import { msgs } from "@/messages";
 
 import DisplayIcon from "@/components/fragments/DisplayIcon";
-import SectionHeader from "@/components/fragments/section-header";
+import SectionHeader from "@/components/fragments/SectionHeader";
 import { TagData } from "@/interfaces/Tag";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";

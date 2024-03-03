@@ -85,7 +85,7 @@ const ProjectPublicCard: React.FC<Props> = ({ project, className }) => {
 								tooltipText={t("tooltip_gallery")}
 							>
 								<Gallery
-									buttonIconProps={{
+									dialogTrigger_buttonIconProps={{
 										className:
 											"p-0 bg-transparent hover:bg-transparent m-0 h-full fill-inherit grayscale-0",
 										widthOffset: 0,

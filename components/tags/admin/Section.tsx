@@ -1,8 +1,8 @@
 import React from "react";
 
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
-import SectionHeader from "@/components/fragments/section-header";
-import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
+import SectionHeader from "@/components/fragments/SectionHeader";
+import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { TagData } from "@/interfaces/Tag";
 import { TagType } from "@/interfaces/_common-data-types";
 import { hyphenateString } from "@/lib/process-text";
