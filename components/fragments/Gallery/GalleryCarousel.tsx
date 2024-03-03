@@ -18,9 +18,17 @@ interface Props {
 	className?: string;
 	gallery: FileHtmlProps[] | undefined;
 	setIsOpen?: (arg: boolean) => void;
+	counterAsText?: boolean;
+	descriptionDisplay?: boolean;
 }
 
-const GalleryCarousel: React.FC<Props> = ({ className, gallery, setIsOpen }) => {
+const GalleryCarousel: React.FC<Props> = ({
+	className,
+	gallery,
+	setIsOpen,
+	counterAsText,
+	descriptionDisplay,
+}) => {
 	const [api, setApi] = useState<CarouselApi>();
 	const [current_carouselItem, setCurrent] = useState(0);
 	const [carouselItems_count, setCount] = useState(0);
@@ -77,7 +85,9 @@ const GalleryCarousel: React.FC<Props> = ({ className, gallery, setIsOpen }) => 
 			</CarouselContent>
 			<Navigation
 				carouselItems_count={carouselItems_count}
+				counterAsText={counterAsText}
 				current_carouselItem={current_carouselItem}
+				descriptionDisplay={descriptionDisplay}
 				gallery={gallery}
 				setIsOpen={setIsOpen}
 			/>

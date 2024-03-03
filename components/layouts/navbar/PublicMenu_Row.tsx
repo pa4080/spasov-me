@@ -36,7 +36,7 @@ const PublicMenu_Row: React.FC<Props> = ({ className }) => {
 			>
 				<SiteLogo
 					autoBreak={false}
-					className={currentPathName === Route.public.HOME.uri ? "hover:saturate-200" : ""}
+					className={currentPathName === Route.public.HOME.uri ? "hover:saturate-150" : ""}
 					hover={currentPathName !== Route.public.HOME.uri}
 					style={{ width: "152px", height: "auto" }}
 				/>
@@ -54,7 +54,7 @@ const PublicMenu_Row: React.FC<Props> = ({ className }) => {
 							key={index}
 							className={`${styles.navItemRow} ${styles.navItemCommon} emphasize_drop_shadow ${
 								currentPathName !== Route.public[pathAsKey].uri
-									? "text-foreground-primary"
+									? "text-muted-foreground dark:text-foreground"
 									: "text-accent"
 							}`}
 							href={Route.public[pathAsKey].uri}

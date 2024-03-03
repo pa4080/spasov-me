@@ -10,15 +10,15 @@
 @layer base {
 	:root {
 		--background: 0 0% 96%;
-		--foreground: 0 0% 20%;
-		--foreground-secondary: 0 0% 40%;
+		--foreground: 0 0% 10%;
+		--foreground-secondary: 0 0% 30%;
 		--foreground-tertiary: 0 0% 50%;
 		--foreground-quaternary: 0 0% 60%;
 
-		--primary: 0 0% 86%;
+		--primary: 0 0% 80%;
 		--primary-foreground: 220.9 39.3% 11%;
 
-		--secondary: 0 0% 72%;
+		--secondary: 0 0% 68%;
 		--secondary-foreground: 220.9 39.3% 11%;
 
 		--accent: 216 64% 59%;
@@ -55,14 +55,14 @@
 	}
 
 	.light-brown {
-		--foreground: 34 30% 33%;
-		--foreground-secondary: 34 30% 39%;
+		--foreground: 34 30% 23%;
+		--foreground-secondary: 34 30% 29%;
 		--foreground-tertiary: 34 30% 42%;
 		--foreground-quaternary: 34 30% 45%;
 
-		--background: 34 30% 95%;
-		--primary: 34 30% 89%;
-		--secondary: 34 30% 82%;
+		--background: 34 30% 96%;
+		--primary: 34 30% 82%;
+		--secondary: 34 30% 68%;
 
 		--accent: 26 100% 50%;
 		--accent-secondary: 13 76% 44%;
@@ -257,7 +257,7 @@ main {
 .cls-5,
 .cls-4-gray,
 .cls-5-gray {
-	@apply fill-foreground;
+	@apply fill-muted-foreground dark:fill-foreground;
 }
 
 .cls-3 {

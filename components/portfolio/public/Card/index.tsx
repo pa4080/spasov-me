@@ -18,8 +18,8 @@ import { msgs } from "@/messages";
 
 import Gallery from "@/components/fragments/Gallery";
 
+import TooltipWrapper from "../../../fragments/TooltipWrapper";
 import DisplayResourceUrlAsIcon from "../../common/DisplayResourceUrlAsIcon";
-import TooltipWrapper from "../../common/TooltipWrapper";
 import styles from "./_card.module.scss";
 
 interface Props {

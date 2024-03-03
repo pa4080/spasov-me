@@ -8,11 +8,18 @@ interface Props {
 	tooltipText: string;
 }
 
+/**
+ * Note "asChild" passing the Trigger features to the contained DIV,
+ * thus we can provide children which is Button. Other wise e get the warning
+ * "<button> cannot appear as a descendant of <button>""
+ */
 const TooltipWrapper: React.FC<Props> = ({ className = "!mt-0", children, tooltipText }) => {
 	return (
 		<TooltipProvider>
 			<Tooltip>
-				<TooltipTrigger className={className}>{children}</TooltipTrigger>
+				<TooltipTrigger asChild className={className}>
+					<div>{children}</div>
+				</TooltipTrigger>
 				<TooltipContent className="border-2 border-muted-secondary dark:border-primary">
 					<div dangerouslySetInnerHTML={{ __html: tooltipText }} />
 				</TooltipContent>
