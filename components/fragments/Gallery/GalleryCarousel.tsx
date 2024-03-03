@@ -52,6 +52,10 @@ const GalleryCarousel: React.FC<Props> = ({
 				"flex-grow w-full flex flex-col items-center justify-center drop-shadow-2xl",
 				className
 			)}
+			opts={{
+				align: "start",
+				loop: true,
+			}}
 			setApi={setApi}
 			style={
 				{
@@ -64,7 +68,7 @@ const GalleryCarousel: React.FC<Props> = ({
 					return (
 						<CarouselItem
 							key={index}
-							className="w-full h-full flex items-center justify-center sa:pl-8 select-none"
+							className="w-full h-full flex items-center justify-center pl-0.5 sa:pl-4 select-none"
 						>
 							<DisplayFileImage
 								className={`rounded-md h-auto w-auto max-h-[74vh] mx-auto`}

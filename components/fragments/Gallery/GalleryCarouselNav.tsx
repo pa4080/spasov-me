@@ -32,8 +32,39 @@ const Navigation: React.FC<Props> = ({
 }) => {
 	const t = msgs("Gallery");
 
+	const Counter: React.FC<{ className?: string }> = ({ className }) =>
+		counterAsText ? (
+			<div
+				className={cn("flex text-sm text-foreground-secondary justify-center flex-grow", className)}
+			>
+				{t("counter", { current: current_carouselItem, count: carouselItems_count })}
+			</div>
+		) : (
+			<div
+				className={cn(
+					"flex gap-2 xs:gap-3 justify-center sa:translate-y-2 flex-grow flex-wrap",
+					className
+				)}
+			>
+				{Array.from({ length: carouselItems_count }).map((_, index) => (
+					<div
+						key={index}
+						className={cn("size-2 xs:size-3 rounded-full transition-colors duration-150", {
+							"bg-foreground": index + 1 === current_carouselItem,
+							"bg-secondary": index + 1 !== current_carouselItem,
+						})}
+					></div>
+				))}
+			</div>
+		);
+
 	return (
-		<div className={cn("w-full flex flex-wrap gap-2 justify-between items-end", className)}>
+		<div
+			className={cn(
+				"w-full flex gap-4 sa:gap-2 justify-between items-center flex-col sa:flex-row",
+				className
+			)}
+		>
 			{/* Close button */}
 			{setIsOpen && (
 				<Button
@@ -46,34 +77,19 @@ const Navigation: React.FC<Props> = ({
 			)}
 
 			{/* Description and Counter */}
-			<div className="flex-grow">
+			<div className="flex-grow h-full flex items-center justify-center flex-col">
 				{descriptionDisplay && gallery && current_carouselItem > 0 && (
 					<p
 						dangerouslySetInnerHTML={{ __html: gallery[current_carouselItem - 1].description }}
-						className="w-full line-clamp-1 text-center text-foreground"
+						className="w-full sa:line-clamp-1 text-center text-foreground"
 					/>
 				)}
-				{counterAsText ? (
-					<div className="text-center text-sm text-primary min-w-20">
-						{t("counter", { current: current_carouselItem, count: carouselItems_count })}
-					</div>
-				) : (
-					<div className="flex gap-3 w-full items-end justify-center mt-1">
-						{Array.from({ length: carouselItems_count }).map((_, index) => (
-							<div
-								key={index}
-								className={cn("size-3 rounded-full transition-colors duration-150", {
-									"bg-foreground": index + 1 === current_carouselItem,
-									"bg-secondary": index + 1 !== current_carouselItem,
-								})}
-							></div>
-						))}
-					</div>
-				)}
+
+				<Counter className="hidden sa:flex" />
 			</div>
 
 			{/* Next/Previous buttons and Counter */}
-			<div className="flex gap-3">
+			<div className="flex gap-3 items-center w-full sa:w-auto">
 				<CarouselPrevious
 					unstyled
 					className={buttons_className}
@@ -83,6 +99,7 @@ const Navigation: React.FC<Props> = ({
 					}}
 					variant="default"
 				/>
+				<Counter className="flex sa:hidden" />
 				<CarouselNext
 					unstyled
 					className={buttons_className}

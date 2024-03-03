@@ -51,11 +51,11 @@ const ProjectPublicCard: React.FC<Props> = ({ project, className }) => {
 	return (
 		<div className={`${styles.cardWrapper} ${className}`} id={`project_${project._id}`}>
 			<div className={styles.card}>
-				<div className="flex gap-2 items-center justify-start">
-					<div className="rounded-full p-1 overflow-clip bg-primary/80">
+				<div className="flex gap-2 items-center justify-start w-full">
+					<div className="rounded-full p-1 overflow-clip bg-primary/80 min-w-[3rem]">
 						<Image
 							alt={project.title}
-							className="w-10 h-10"
+							className="size-10"
 							height={44}
 							src={project.html.icon?.metadata.html.fileUri || Route.assets.IMAGE_PLACEHOLDER}
 							width={44}
@@ -63,7 +63,7 @@ const ProjectPublicCard: React.FC<Props> = ({ project, className }) => {
 					</div>
 					<div
 						dangerouslySetInnerHTML={{ __html: project.html.title }}
-						className="text-lg font-semibold line-clamp-1"
+						className="text-lg font-semibold line-clamp-1 flex-shrink"
 					/>
 				</div>
 				<div

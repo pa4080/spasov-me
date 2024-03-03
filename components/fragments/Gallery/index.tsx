@@ -49,7 +49,7 @@ const Gallery: React.FC<Props> = ({ className, entry, gallery, dialogTrigger_but
 			<DialogContent
 				hideClose
 				className={cn(
-					"sm:max-w-full sm:max-h-full sm:rounded-none sa:max-w-lg h-full sa:max-h-[calc((var(--vh,1vh)_*_90))] sa:rounded-lg min-w-[320px] sa:min-w-[calc(100vw-6rem)] min-h-[calc(100vh-4rem)] flex flex-col justify-normal gap-2 bg-background sa:border-border overflow-x-scroll 6xs:overflow-x-hidden",
+					"sm:max-w-full sm:max-h-full sm:rounded-none sa:max-w-lg h-full sa:max-h-[calc((var(--vh,1vh)_*_90))] sa:rounded-lg min-w-[320px] sa:min-w-[calc(100vw-6rem)] min-h-[calc(100vh-4rem)] flex flex-col justify-normal gap-0 bg-background sa:border-border overflow-x-scroll 6xs:overflow-x-hidden",
 					className
 				)}
 				closeOnOverlayClick={false}
