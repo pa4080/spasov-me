@@ -163,5 +163,6 @@
 	},
 	"[markdown]": {
 		"editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
-	}
+	},
+	"typescript.tsdk": "node_modules/typescript/lib"
 }

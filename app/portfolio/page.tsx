@@ -1,6 +1,6 @@
 import AboutPublic from "@/components/portfolio/public";
 
-const About: React.FC = () => {
+const Portfolio: React.FC = () => {
 	return (
 		<div className="margin_vh_top mb-24 scroll-m-40">
 			<AboutPublic />
@@ -8,4 +8,4 @@ const About: React.FC = () => {
 	);
 };
 
-export default About;
+export default Portfolio;

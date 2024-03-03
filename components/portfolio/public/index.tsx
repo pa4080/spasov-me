@@ -16,7 +16,7 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 
 	return (
 		<div className={`${styles.portfolio} ${className}`}>
-			<TimeLine projects={projectsHyphenated} type="informationTechnologies" />
+			<TimeLine projects={projectsHyphenated} />
 		</div>
 	);
 };
