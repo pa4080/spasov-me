@@ -7,13 +7,6 @@ export const Route = {
 			uri: "/",
 			visible: true,
 		},
-		ABOUT: {
-			inFeed: true,
-			inNavbar: true,
-			name: "about",
-			uri: "/about",
-			visible: true,
-		},
 		PORTFOLIO: {
 			inFeed: true,
 			inNavbar: true,
@@ -21,6 +14,14 @@ export const Route = {
 			uri: "/portfolio",
 			visible: true,
 		},
+		ABOUT: {
+			inFeed: true,
+			inNavbar: true,
+			name: "about",
+			uri: "/about",
+			visible: true,
+		},
+
 		BLOG: {
 			inFeed: true,
 			inNavbar: true,
@@ -46,12 +47,12 @@ export const Route = {
 	admin: {
 		PAGES: "/admin/pages",
 		ABOUT: "/admin/about",
-		THEME: "/admin/theme",
 		PORTFOLIO: "/admin/portfolio",
-		FILES: "/admin/files",
-		TAGS: "/admin/tags",
-		BLOB: "/admin/blob",
 		BLOG: "/admin/blog",
+		TAGS: "/admin/tags",
+		FILES: "/admin/files",
+		THEME: "/admin/theme",
+		BLOB: "/admin/blob",
 	},
 	api: {
 		PAGES: "/api/data/pages",

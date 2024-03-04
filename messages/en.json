@@ -24,8 +24,8 @@
 		"ABOUT": "About",
 		"ABOUT_DESC": "Edit the about (CV) page",
 
-		"FILES": "Files",
-		"FILES_DESC": "Upload, browse and manage files",
+		"PORTFOLIO": "Portfolio",
+		"PORTFOLIO_DESC": "Edit the project entries",
 
 		"TAGS": "Tags",
 		"TAGS_DESC": "Browse and manage tags",
@@ -39,8 +39,8 @@
 		"BLOB": "Blob Storage",
 		"BLOB_DESC": "Upload files to Vercel Blob",
 
-		"PORTFOLIO": "Portfolio",
-		"PORTFOLIO_DESC": "Edit the project entries",
+		"FILES": "Files",
+		"FILES_DESC": "Upload, browse and manage files",
 
 		"BLOG": "Blog",
 		"BLOG_DESC": "Edit the posts of the blog",
