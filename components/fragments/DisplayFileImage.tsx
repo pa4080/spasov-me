@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { FileData } from "@/interfaces/File";
+import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
 
 interface Props {
@@ -27,7 +28,7 @@ const DisplayFileImage: React.FC<Props> = ({
 		<Image
 			priority
 			alt={file.filename}
-			className={className}
+			className={cn("h-auto w-full", className)}
 			height="0"
 			sizes={sizes?.[0] || "160px"}
 			src={`${Route.assets.MIME_TYPE}/${file.filename.split(".").pop()}.png`}
@@ -38,7 +39,7 @@ const DisplayFileImage: React.FC<Props> = ({
 		<Image
 			priority
 			alt={file.filename}
-			className={className}
+			className={cn("h-auto w-full", className)}
 			height="0"
 			sizes={sizes?.[1] || "320px"}
 			src={file.metadata.html.fileUri}
