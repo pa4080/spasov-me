@@ -97,7 +97,7 @@ const GalleryCarousel: React.FC<Props> = ({
 		>
 			{navPosition === "top" && <Nav />}
 			<CarouselContent
-				className="w-full items-center h-full -ml-[1px] sa:-ml-2"
+				className="w-full items-center h-full ml-0 sa:-ml-2"
 				container_className={
 					navType === "inProject" ? "w-[1280px] max-w-[92vw] drop-shadow-2xl" : ""
 				}

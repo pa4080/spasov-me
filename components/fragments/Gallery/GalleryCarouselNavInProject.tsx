@@ -66,16 +66,23 @@ const GalleryCarouselNavInProject: React.FC<Props> = ({
 	return (
 		<div
 			className={cn(
-				"w-full flex gap-4 sa:gap-2 justify-between items-center flex-col-reverse sa:flex-row mt-2 sa:mt-6",
+				"w-full flex gap-4 sa:gap-2 justify-between items-center flex-col-reverse sa:flex-row mt-4 sa:mt-6",
 				className
 			)}
 		>
 			{/* Close button */}
 			<TooltipWrapper tooltipText={project.html.title}>
-				<div className="rounded-full p-1 overflow-clip bg-primary/80 min-w-[3rem]">
+				<div
+					className="rounded-full p-1 overflow-clip bg-primary/80 min-w-[3rem] drop-shadow-2xl z-10"
+					style={
+						{
+							"--tw-drop-shadow": "drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2))",
+						} as React.CSSProperties
+					}
+				>
 					<Image
 						alt={project.title}
-						className="size-10"
+						className="size-12"
 						height={44}
 						src={project.html.icon?.metadata.html.fileUri || Route.assets.IMAGE_PLACEHOLDER}
 						width={44}

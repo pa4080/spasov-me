@@ -455,6 +455,9 @@
 		"dialog_btn_close": "Close",
 		"counter": "Slide { current } of { count }"
 	},
+	"TechTags": {
+		"title": "Technologies"
+	},
 	"Projects_Form": {
 		"schema_title": "The project title must be at least 4 characters.",
 		"schema_description": "The description must be at least 10 characters.",

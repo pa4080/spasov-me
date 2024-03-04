@@ -4,13 +4,15 @@ import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { new_tab_target } from "@/lib/process-markdown";
 
-const DisplayResourceUrlAsIcon: React.FC<{
+interface Props {
 	url: string | undefined;
 	type: "home" | "repo";
 	size?: number;
 	icon_className_Path1?: string;
 	icon_className_Path2?: string;
-}> = ({
+}
+
+const DisplayResourceUrlAsIcon: React.FC<Props> = ({
 	url,
 	type,
 	size = 24,

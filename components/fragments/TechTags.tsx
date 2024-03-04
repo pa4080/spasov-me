@@ -8,21 +8,19 @@ import { TagData } from "@/interfaces/Tag";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
-import styles from "../_about.module.scss";
-
 interface Props {
 	className?: string;
 	tags: TagData[] | null;
 }
 
 const TechTags: React.FC<Props> = ({ className, tags }) => {
-	const t = msgs("AboutEntries");
+	const t = msgs("TechTags");
 
-	const section_title = t(`title_techTags`);
+	const section_title = t(`title`);
 	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_techTags`);
 
 	return (
-		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
+		<div className={`scroll-m-8 list-section ${className}`} id={toggle_target_id}>
 			<SectionHeader className="pop-header" title={section_title} />
 
 			<div className="flex flex-wrap gap-2 items-center justify-start pop-item">

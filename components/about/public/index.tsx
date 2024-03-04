@@ -2,12 +2,12 @@ import React from "react";
 
 import { getTags } from "@/components/tags/_tags.actions";
 
+import TechTags from "../../fragments/TechTags";
 import { getEntries } from "../_about.actions";
 import styles from "../_about.module.scss";
 import BusinessCard from "./BusinessCard";
 import SpokenLanguages from "./Languages";
 import Resume from "./Resume";
-import TechTags from "./TechTags";
 import TimeLine from "./TimeLine";
 
 interface Props {
