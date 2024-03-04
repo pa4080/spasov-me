@@ -5,6 +5,8 @@ import React from "react";
 
 import Image from "next/image";
 
+import Link from "next/link";
+
 import { FileListItem } from "@/interfaces/File";
 import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
@@ -93,7 +95,7 @@ const ProjectPublicCard: React.FC<Props> = ({ project, className }) => {
 										width: 27,
 										height: 26,
 										iconEmbedSvgProps: {
-											className_Path1: "fill-background",
+											className_Path1: "fill-transparent",
 											className_Path2: "fill-inherit",
 										},
 									}}
@@ -104,13 +106,15 @@ const ProjectPublicCard: React.FC<Props> = ({ project, className }) => {
 						</div>
 					</div>
 
-					<Button
-						className="transition-colors duration-300 hover:duration-150"
-						size="sm"
-						variant="defaultSecondary"
-					>
-						{t("button_call_to_action")}
-					</Button>
+					<Link href={`${Route.public.PORTFOLIO.uri}/${project.slug}`}>
+						<Button
+							className="transition-colors duration-300 hover:duration-150"
+							size="sm"
+							variant="defaultSecondary"
+						>
+							{t("button_call_to_action")}
+						</Button>
+					</Link>
 				</div>
 			</div>
 		</div>

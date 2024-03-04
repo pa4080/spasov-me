@@ -171,12 +171,37 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 }
 
 /* Text selection */
-*::selection:not(.w-md-editor-text-input) {
+:not(.w-md-editor-text > *)::selection {
 	background: hsl(var(--accent-tertiary));
 	color: hsl(var(--accent-foreground));
 }
 
 /* Scroll bars */
+* {
+	color-scheme: light dark;
+	scrollbar-width: thin;
+	scrollbar-color: theme("colors.muted.DEFAULT") transparent;
+}
+
+.dark * {
+	color-scheme: dark;
+	scrollbar-color: theme("colors.accent.DEFAULT") transparent;
+}
+
+html.dark {
+	color-scheme: dark;
+	scrollbar-color: theme("colors.accent.DEFAULT/5") transparent;
+}
+
+main {
+	margin-top: -8px;
+	margin-bottom: -8px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	scrollbar-gutter: stable both-edges;
+}
+
+/**
 * {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -184,10 +209,6 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 	-webkit-touch-callout: none;
 	scrollbar-width: thin;
 	scrollbar-color: theme("colors.muted.DEFAULT") transparent;
-}
-
-.dark * {
-	scrollbar-color: theme("colors.accent.DEFAULT") transparent;
 }
 
 *::-webkit-scrollbar {
@@ -226,15 +247,7 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 *::-webkit-scrollbar-corner {
 	background-color: hsl(var(--primary-foreground));
 }
-
-// Modern browsers :O
-main {
-	margin-top: -8px;
-	margin-bottom: -8px;
-	padding-top: 8px;
-	padding-bottom: 8px;
-	scrollbar-gutter: stable both-edges;
-}
+*/
 
 /* Logo */
 .logoContainer {

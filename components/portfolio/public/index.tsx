@@ -8,7 +8,7 @@ interface Props {
 	className?: string;
 }
 
-const AboutPublic: React.FC<Props> = async ({ className }) => {
+const PortfolioPublic: React.FC<Props> = async ({ className }) => {
 	const projectsHyphenated = await getProjects({
 		hyphen: true,
 		public: true,
@@ -21,4 +21,4 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 	);
 };
 
-export default AboutPublic;
+export default PortfolioPublic;

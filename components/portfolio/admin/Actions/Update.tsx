@@ -32,7 +32,7 @@ interface Props {
 }
 
 const UpdateProject: React.FC<Props> = ({ className, project, files, tags }) => {
-	const t = msgs("AboutEntries_Update");
+	const t = msgs("Projects_Update");
 	const projectTypeLabel = (
 		msgs("Projects_Form")("project_type_list") as unknown as Record<string, string>
 	)[project.projectType];

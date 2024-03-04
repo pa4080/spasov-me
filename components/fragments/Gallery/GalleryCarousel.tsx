@@ -12,7 +12,10 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/cn-utils";
 
+import { ProjectData } from "@/interfaces/Project";
+
 import Navigation from "./GalleryCarouselNav";
+import GalleryCarouselNavInProject from "./GalleryCarouselNavInProject";
 
 interface Props {
 	className?: string;
@@ -20,6 +23,9 @@ interface Props {
 	setIsOpen?: (arg: boolean) => void;
 	counterAsText?: boolean;
 	descriptionDisplay?: boolean;
+	navPosition?: "top" | "bottom";
+	navType?: "inProject" | "default";
+	projectData?: ProjectData;
 }
 
 const GalleryCarousel: React.FC<Props> = ({
@@ -28,6 +34,9 @@ const GalleryCarousel: React.FC<Props> = ({
 	setIsOpen,
 	counterAsText,
 	descriptionDisplay,
+	navPosition = "bottom",
+	navType = "default",
+	projectData,
 }) => {
 	const [api, setApi] = useState<CarouselApi>();
 	const [current_carouselItem, setCurrent] = useState(0);
@@ -46,10 +55,33 @@ const GalleryCarousel: React.FC<Props> = ({
 		});
 	}, [api]);
 
+	const Nav: React.FC = () => {
+		return navType === "inProject" && projectData ? (
+			<GalleryCarouselNavInProject
+				carouselItems_count={carouselItems_count}
+				counterAsText={counterAsText}
+				current_carouselItem={current_carouselItem}
+				descriptionDisplay={descriptionDisplay}
+				gallery={gallery}
+				projectData={projectData}
+			/>
+		) : (
+			<Navigation
+				carouselItems_count={carouselItems_count}
+				counterAsText={counterAsText}
+				current_carouselItem={current_carouselItem}
+				descriptionDisplay={descriptionDisplay}
+				gallery={gallery}
+				setIsOpen={setIsOpen}
+			/>
+		);
+	};
+
 	return (
 		<Carousel
 			className={cn(
-				"flex-grow w-full flex flex-col items-center justify-center drop-shadow-2xl",
+				"flex-grow w-full flex flex-col items-center justify-center",
+				navType === "default" && "drop-shadow-2xl",
 				className
 			)}
 			opts={{
@@ -63,7 +95,9 @@ const GalleryCarousel: React.FC<Props> = ({
 				} as React.CSSProperties
 			}
 		>
-			<CarouselContent className="w-full items-center -ml-0.5 sa:-ml-4 h-full">
+			{navPosition === "top" && <Nav />}
+			<CarouselContent className="w-full items-center h-full -ml-[1px] sa:-ml-2">
+				{/* -ml-0.5 sa:-ml-4 */}
 				{gallery?.map((item, index) => {
 					return (
 						<CarouselItem
@@ -87,14 +121,7 @@ const GalleryCarousel: React.FC<Props> = ({
 					);
 				})}
 			</CarouselContent>
-			<Navigation
-				carouselItems_count={carouselItems_count}
-				counterAsText={counterAsText}
-				current_carouselItem={current_carouselItem}
-				descriptionDisplay={descriptionDisplay}
-				gallery={gallery}
-				setIsOpen={setIsOpen}
-			/>
+			{navPosition === "bottom" && <Nav />}
 		</Carousel>
 	);
 };

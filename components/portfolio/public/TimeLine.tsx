@@ -14,16 +14,19 @@ interface Props {
 
 /**
  * The title of the section must exist in the messages.json file
- * In the format of: `title_${type}`, i.e. "title_employment"
+ * In the format of: `title_${type}`, i.e. "title_employment"...
+ *
+ * We won't filter the projects by type because we want to show all projects,
+ * ordered by date... probably we need may indicate the type by a icon?(!?)
  */
 const TimeLine: React.FC<Props> = ({ className, projects }) => {
-	const entriesByType = projects?.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
+	const projectsByType = projects?.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
 	return (
 		<div className={`${styles.section} ${className}`}>
 			<div className={styles.feed}>
-				{entriesByType?.map((entry, index) => (
-					<ProjectPublicCard key={index} className="" project={entry} />
+				{projectsByType?.map((project, index) => (
+					<ProjectPublicCard key={index} className="" project={project} />
 				))}
 			</div>
 		</div>
