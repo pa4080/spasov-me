@@ -1,12 +1,12 @@
 import React from "react";
 
-import Image from "next/image";
-
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { AboutEntryType } from "@/interfaces/_common-data-types";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { Route } from "@/routes";
+
+import DisplayFileImageWithSuspense from "@/components/fragments/DisplayFileImageWithSuspense";
 
 import styles from "./_business-card.module.scss";
 
@@ -43,13 +43,13 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type }) => {
 				<div
 					className={`${styles.imageWrapper} bg-secondary drop-shadow-[1px_2px_4px_rgba(17,17,17,0.4)] dark:bg-foreground-secondary dark:drop-shadow-[1px_2px_4px_rgba(17,17,17,1)]`}
 				>
-					<Image
+					<DisplayFileImageWithSuspense
 						priority
 						alt={entry.title}
 						className={styles.image}
 						fetchPriority="high"
 						height={200}
-						src={entry.html.attachment?.metadata.html.fileUri || Route.assets.IMAGE_PLACEHOLDER}
+						src={entry.html.attachment?.metadata.html.fileUri || Route.assets.LOGO_SVG}
 						width={200}
 					/>
 				</div>

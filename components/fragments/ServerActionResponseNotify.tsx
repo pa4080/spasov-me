@@ -18,14 +18,6 @@ export default function serverActionResponseToastAndLocationReload({
 	msgError,
 	redirectTo,
 }: Props) {
-	// if (trigger) {
-	// 	if (window) {
-	// 		setTimeout(() => {
-	// 			window.location.reload();
-	// 		}, 2000);
-	// 	}
-	// }
-
 	if (trigger && redirectTo) {
 		setTimeout(() => redirect(redirectTo), 1000);
 	}

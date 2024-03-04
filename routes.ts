@@ -65,5 +65,6 @@ export const Route = {
 		MIME_TYPE: "/assets/images/mime-type-icons",
 		IMAGES: "/assets/images",
 		IMAGE_PLACEHOLDER: "/assets/images/image-placeholder.webp",
+		LOGO_SVG: "/icons/svg/spasov.me.logo.svg",
 	},
 };

@@ -13,20 +13,22 @@
 	.businessCardTitle {
 		@apply font-unicephalon text-2xl 6xs:text-[7.8vw] xa:text-5xl sa:text-[2.5rem] mp:text-[2.75rem] ma:text-5xl tracking-wider text-foreground-secondary flex sa:flex-col justify-center sa:justify-end items-center sa:items-start text-center sa:text-left;
 
-		grid-area: title;
-		line-height: 1.2em;
-
 		@screen 6xs {
 			line-height: 1.15em;
 		}
+
+		grid-area: title;
+		line-height: 1.2em;
 	}
 
 	.imageWrapper {
 		@apply rounded-full overflow-hidden p-2 3xs:p-3 sa:p-2 w-fit h-fit mx-auto select-none;
 
-		// For somme reason "dark:" props doesn't work here and are moves in the component...
-		// bg-secondary drop-shadow-[1px_2px_4px_rgba(17,17,17,0.4)]
-		// dark:bg-foreground-secondary dark:drop-shadow-[1px_2px_4px_rgba(17,17,17,1)]
+		/**
+		 * For somme reason "dark:" props doesn't work here and are moves in the component...
+		 * bg-secondary drop-shadow-[1px_2px_4px_rgba(17,17,17,0.4)]
+		 * dark:bg-foreground-secondary dark:drop-shadow-[1px_2px_4px_rgba(17,17,17,1)]
+		 */
 
 		grid-area: image;
 
