@@ -19,9 +19,9 @@ import { roundTo } from "@/lib/round";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
-import CopyFileUri from "../file-actions/CopyFileUri";
-import DeleteFile from "../file-actions/DeleteFile";
-import UpdateFile from "../file-actions/UpdateFile";
+import CopyFileUri from "../Actions/CopyFileUri";
+import DeleteFile from "../Actions/DeleteFile";
+import UpdateFile from "../Actions/UpdateFile";
 import styles from "./_file-card.module.scss";
 
 interface Props {

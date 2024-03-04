@@ -6,7 +6,7 @@ import React from "react";
 
 import { notFound } from "next/navigation";
 
-import SingleProjectPublic from "@/components/portfolio/public/Project";
+import PortfolioPublicProject from "@/components/portfolio/public/Project";
 
 interface Props {
 	params: { slug: string[] };
@@ -20,7 +20,7 @@ const Project: React.FC<Props> = ({ params }) => {
 
 	return (
 		<div className="mt-2 sa:mt-6 mb-24 scroll-m-40">
-			<SingleProjectPublic projectIdSlug={params.slug[0]} />
+			<PortfolioPublicProject projectIdSlug={params.slug[0]} />
 		</div>
 	);
 };

@@ -11,8 +11,8 @@ import { TagData } from "@/interfaces/Tag";
 
 import styles from "./_tag-card.module.scss";
 
-import DeleteTag from "../tag-actions/DeleteTag";
-import UpdateTag from "../tag-actions/UpdateTag";
+import DeleteTag from "../Actions/DeleteTag";
+import UpdateTag from "../Actions/UpdateTag";
 
 export interface GenericActionProps {
 	className?: string;

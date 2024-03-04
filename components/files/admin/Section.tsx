@@ -13,8 +13,8 @@ import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { ModelType } from "@/interfaces/_common-data-types";
 
 import styles from "../_files.module.scss";
-import CreateFile from "./file-actions/CreateFile";
-import FileCard from "./file-card";
+import CreateFile from "./Actions/CreateFile";
+import FileCard from "./FileCard";
 
 interface Props {
 	className?: string;

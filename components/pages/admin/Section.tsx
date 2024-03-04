@@ -10,8 +10,8 @@ import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
 import styles from "../_pages.module.scss";
-import CreatePage from "./page-actions/CreatePage";
-import PageCard from "./page-card";
+import CreatePage from "./Actions/CreatePage";
+import PageCard from "./Card";
 
 interface Props {
 	className?: string;

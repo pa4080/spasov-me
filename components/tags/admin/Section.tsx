@@ -11,8 +11,8 @@ import { msgs } from "@/messages";
 import iconsMap from "@/public/assets/icons";
 
 import styles from "../_tags.module.scss";
-import CreateTag from "./tag-actions/CreateTag";
-import TagCard from "./tag-card";
+import CreateTag from "./Actions/CreateTag";
+import TagCard from "./Card";
 
 interface Props {
 	className?: string;

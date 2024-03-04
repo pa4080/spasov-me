@@ -22,8 +22,8 @@ import { Route } from "@/routes";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 
 import { updateTag } from "../../_tags.actions";
-import TagForm from "../tag-form";
-import { Tag_FormSchema } from "../tag-form/schema";
+import TagForm from "../Form";
+import { Tag_FormSchema } from "../Form/schema";
 
 interface Props {
 	className?: string;

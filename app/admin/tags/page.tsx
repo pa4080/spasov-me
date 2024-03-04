@@ -1,9 +1,9 @@
 import React from "react";
 
-import TagsAddAndEdit from "@/components/tags/admin";
+import TagsAdmin from "@/components/tags/admin";
 
 const Pages: React.FC = () => {
-	return <TagsAddAndEdit className="margin_vh_top margin_vh_bottom scroll-m-40" />;
+	return <TagsAdmin className="margin_vh_top margin_vh_bottom scroll-m-40" />;
 };
 
 export default Pages;

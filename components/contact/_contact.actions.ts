@@ -6,8 +6,8 @@ import { msgs } from "@/messages";
 import manifest from "@/public/manifest.json";
 
 import { FormDataType } from "./ContactForm";
-import EmailTemplate_Admin from "./email-templates/EmailTemplate_Admin";
-import EmailTemplate_Client from "./email-templates/EmailTemplate_Client";
+import EmailTemplate_Admin from "./Templates/EmailTemplate_Admin";
+import EmailTemplate_Client from "./Templates/EmailTemplate_Client";
 
 const reCaptcha = {
 	url: String(process.env.GOOGLE_reCAPTCHA_URL),

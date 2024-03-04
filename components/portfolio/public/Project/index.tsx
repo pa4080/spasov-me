@@ -3,7 +3,6 @@ import React from "react";
 import { notFound } from "next/navigation";
 
 import GalleryCarousel from "@/components/fragments/Gallery/GalleryCarousel";
-
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 
 import { getProjects } from "../../_portfolio.actions";
@@ -15,7 +14,7 @@ interface Props {
 	projectIdSlug: string; // This could be ._id or .slug
 }
 
-const SingleProjectPublic: React.FC<Props> = async ({ className, projectIdSlug }) => {
+const PortfolioPublicProject: React.FC<Props> = async ({ className, projectIdSlug }) => {
 	const projectsHyphenated = await getProjects({
 		hyphen: true,
 		public: true,
@@ -54,4 +53,4 @@ const SingleProjectPublic: React.FC<Props> = async ({ className, projectIdSlug }
 	);
 };
 
-export default SingleProjectPublic;
+export default PortfolioPublicProject;

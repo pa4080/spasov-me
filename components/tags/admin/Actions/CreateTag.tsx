@@ -4,8 +4,6 @@ import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
 	Dialog,
 	DialogContent,
@@ -14,36 +12,51 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { FileListItem } from "@/interfaces/File";
-import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
-import { msgs } from "@/messages";
-import { Route } from "@/routes";
 
-import { createPageCard } from "../../_pages.actions";
-import PageForm from "../page-form";
-import { Pages_FormSchema } from "../page-form/schema";
+import { msgs } from "@/messages";
+
+import ButtonIcon from "@/components/fragments/ButtonIcon";
+import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
+
+import { TagType } from "@/interfaces/_common-data-types";
+
+import { IconMap } from "@/interfaces/IconMap";
+
+import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
+
+import TagForm from "../Form";
+
+import { createTag } from "../../_tags.actions";
+
+import { Tag_FormSchema } from "../Form/schema";
 
 interface Props {
 	className?: string;
-	files?: FileListItem[] | null;
+	tagType: TagType;
+	icons: IconMap;
 }
 
-const CreatePage: React.FC<Props> = ({ className, files }) => {
-	const t = msgs("PageCards_Create");
+const CreateTag: React.FC<Props> = ({ className, tagType, icons }) => {
+	const t = msgs("Tags_Create");
+	const tagTypeLabel = (msgs("Tags_Form")("tag_type_list") as unknown as Record<string, string>)[
+		tagType
+	];
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
 	const pathname = usePathname();
 
-	const handleCreatePage = async (data: Pages_FormSchema) => {
+	const handleCreateTag = async (data: Tag_FormSchema) => {
 		setSubmitting(true);
 
 		try {
-			const response = await createPageCard(generateFormDataFromObject(data), [
-				pathname,
-				Route.public.HOME.uri,
-				Route.admin.FILES,
-			]);
+			/**
+			 * In case we were used <form action={addPage}> this conversion will not be needed,
+			 * Unfortunately, at the current moment nor "react-hook-form" nor "shadcn/ui" support
+			 * form.action()... @see https://stackoverflow.com/a/40552372/6543935
+			 */
+
+			const response = await createTag(generateFormDataFromObject(data), [pathname]);
 
 			serverActionResponseToastAndLocationReload({
 				trigger: !!response,
@@ -74,12 +87,9 @@ const CreatePage: React.FC<Props> = ({ className, files }) => {
 						onClick={() => setIsOpen(true)}
 					/>
 				</DialogTrigger>
-				<DialogContent
-					className="ma:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
-					closeOnOverlayClick={false}
-				>
+				<DialogContent className="ma:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl">
 					<DialogHeader>
-						<DialogTitle>{t("dialog_title")}</DialogTitle>
+						<DialogTitle>{t("dialog_title", { tagType: tagTypeLabel })}</DialogTitle>
 						{t("dialog_description") && (
 							<DialogDescription
 								dangerouslySetInnerHTML={{
@@ -89,11 +99,12 @@ const CreatePage: React.FC<Props> = ({ className, files }) => {
 						)}
 					</DialogHeader>
 
-					<PageForm
+					<TagForm
 						className="mt-1"
-						files={files}
+						icons={icons}
 						submitting={submitting}
-						onSubmit={handleCreatePage}
+						tagType={tagType}
+						onSubmit={handleCreateTag}
 					/>
 				</DialogContent>
 			</Dialog>
@@ -101,4 +112,4 @@ const CreatePage: React.FC<Props> = ({ className, files }) => {
 	);
 };
 
-export default CreatePage;
+export default CreateTag;

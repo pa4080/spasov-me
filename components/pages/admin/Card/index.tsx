@@ -10,8 +10,8 @@ import { msgs } from "@/messages";
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 
 import styles from "../../_pages.module.scss";
-import DeletePage from "../page-actions/DeletePage";
-import UpdatePage from "../page-actions/UpdatePage";
+import DeletePage from "../Actions/DeletePage";
+import UpdatePage from "../Actions/UpdatePage";
 
 interface Props {
 	className?: string;

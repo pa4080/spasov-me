@@ -436,7 +436,7 @@ body textarea.w-md-editor-text-input:focus {
 	}
 }
 
-/* Icons */
+/* Icons (<i/>) */
 .icon {
 	margin: 0 0.1em;
 	display: inline-block;
@@ -461,19 +461,7 @@ body textarea.w-md-editor-text-input:focus {
 	mask: url("/assets/icons/ui/star-stroke.svg") no-repeat 50% 50%;
 }
 
-/* Collapsible items (see components/fragments/ToggleCollapsible) */
-.sub-section-collapsible,
-.section-card-collapsible {
-	display: none;
-}
-
-.expand-collapsed.list-sub-section .section-card-collapsible,
-.expand-collapsed.list-section :not(.list-sub-section) .section-card-collapsible,
-.expand-collapsed.list-section .sub-section-collapsible {
-	display: inherit;
-}
-
-/* Format HTML tags defined in the locale.json files */
+/* Format HTML tags defined in the {locale}.json files */
 .json-desc {
 	b {
 		@apply text-foreground;
@@ -491,7 +479,7 @@ body textarea.w-md-editor-text-input:focus {
 
 /**
  * CSS Animations
- * > https://www.youtube.com/watch?v=UmzFk68Bwdk
+ * @see https://www.youtube.com/watch?v=UmzFk68Bwdk
  */
 @supports (animation-timeline: view()) {
 	@media (prefers-reduced-motion: no-preference) {
@@ -536,7 +524,19 @@ body textarea.w-md-editor-text-input:focus {
 	}
 }
 
-/* Border Card */
+/* Collapsible items (see components/fragments/ToggleCollapsible) */
+.sub-section-collapsible,
+.section-card-collapsible {
+	display: none;
+}
+
+.expand-collapsed.list-sub-section .section-card-collapsible,
+.expand-collapsed.list-section :not(.list-sub-section) .section-card-collapsible,
+.expand-collapsed.list-section .sub-section-collapsible {
+	display: inherit;
+}
+
+/* Bordered Card */
 .card-borer-wrapper {
 	@apply scroll-m-8 relative;
 

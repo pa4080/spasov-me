@@ -1,10 +1,13 @@
 "use client";
+
 import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
 
-import { createFile } from "@/components/files/_files.actions";
+import { PageCardData } from "@/interfaces/PageCard";
+
 import ButtonIcon from "@/components/fragments/ButtonIcon";
+import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
 	Dialog,
 	DialogContent,
@@ -13,30 +16,37 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import { FileListItem } from "@/interfaces/File";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
+import { Route } from "@/routes";
 
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
-
-import FileForm from "../file-form";
-import { File_FormSchema } from "../file-form/schema";
+import { updatePageCard } from "../../_pages.actions";
+import PageForm from "../Form";
+import { Pages_FormSchema } from "../Form/schema";
 
 interface Props {
 	className?: string;
+	page: PageCardData;
+	files?: FileListItem[] | null | undefined;
 }
 
-const CreateFile: React.FC<Props> = ({ className }) => {
-	const t = msgs("Files_Create");
+const UpdatePage: React.FC<Props> = ({ className, page, files }) => {
+	const t = msgs("PageCards_Update");
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
 	const pathname = usePathname();
 
-	const handleCreateFile = async (data: File_FormSchema) => {
+	const handleUpdatePage = async (data: Pages_FormSchema) => {
 		setSubmitting(true);
 
 		try {
-			const response = await createFile(generateFormDataFromObject(data), [pathname]);
+			const response = await updatePageCard(generateFormDataFromObject(data), page._id, [
+				pathname,
+				Route.public.HOME.uri,
+				Route.admin.FILES,
+			]);
 
 			serverActionResponseToastAndLocationReload({
 				trigger: !!response,
@@ -57,13 +67,10 @@ const CreateFile: React.FC<Props> = ({ className }) => {
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogTrigger disabled={submitting}>
 					<ButtonIcon
-						className="pl-[0.75rem] pr-[0.7rem] rounded-lg icon_accent_secondary"
-						height={26} // 36 // pl-[0.6rem] pr-[0.7rem]
-						label={t("dialog_btn_add")}
-						labelSubmitting={t("dialog_btn_add_submitting")}
-						submitting={submitting}
-						width={42} // 62
-						widthOffset={24}
+						className="pl-1 bg-transparent icon_accent_secondary"
+						height={22}
+						type="brush"
+						width={22}
 						onClick={() => setIsOpen(true)}
 					/>
 				</DialogTrigger>
@@ -76,17 +83,18 @@ const CreateFile: React.FC<Props> = ({ className }) => {
 						{t("dialog_description") && (
 							<DialogDescription
 								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: "new id" }),
+									__html: t("dialog_description", { id: page._id }),
 								}}
 							/>
 						)}
 					</DialogHeader>
 
-					<FileForm
-						className="mt-1"
-						isContainerDialogOpen={isOpen}
+					<PageForm
+						className={t("dialog_description") ? "mt-0" : "mt-1"}
+						files={files}
+						formData={page}
 						submitting={submitting}
-						onSubmit={handleCreateFile}
+						onSubmit={handleUpdatePage}
 					/>
 				</DialogContent>
 			</Dialog>
@@ -94,4 +102,4 @@ const CreateFile: React.FC<Props> = ({ className }) => {
 	);
 };
 
-export default CreateFile;
+export default UpdatePage;

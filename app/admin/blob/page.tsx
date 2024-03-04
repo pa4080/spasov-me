@@ -6,7 +6,7 @@ import { Route } from "@/routes";
 
 import type { PutBlobResult } from "@vercel/blob";
 
-export default function AvatarUploadPage() {
+export default function UploadPage() {
 	const inputFileRef = useRef<HTMLInputElement>(null);
 	const [blob, setBlob] = useState<PutBlobResult | null>(null);
 

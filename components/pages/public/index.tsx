@@ -9,7 +9,7 @@ interface Props {
 	className?: string;
 }
 
-const FeedPages: React.FC<Props> = async ({ className }) => {
+const PagesPublic: React.FC<Props> = async ({ className }) => {
 	const pages = await getPageCards({ public: true });
 
 	return (
@@ -28,4 +28,4 @@ const FeedPages: React.FC<Props> = async ({ className }) => {
 	);
 };
 
-export default FeedPages;
+export default PagesPublic;

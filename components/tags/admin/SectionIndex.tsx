@@ -10,7 +10,7 @@ import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
 import styles from "../_tags.module.scss";
-import CreateTag from "./tag-actions/CreateTag";
+import CreateTag from "./Actions/CreateTag";
 
 interface Props {
 	className?: string;
