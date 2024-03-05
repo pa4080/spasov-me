@@ -44,6 +44,7 @@ const DisplayFileImage: React.FC<Props> = ({
 			sizes={sizes?.[1] || "320px"}
 			src={file.metadata.html.fileUri}
 			style={style}
+			// unoptimized={file.filename?.match(/\.svg$/) ? true : false}
 			width="0"
 		/>
 	);

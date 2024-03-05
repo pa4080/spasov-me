@@ -82,14 +82,10 @@ export async function GET(request: NextRequest, { params }: Context) {
 				const stream = bucket.openDownloadStream(_id) as unknown as ReadableStream;
 
 				return new NextResponse(stream, {
-					/**
-					 * Actually we do not need to set headers manually...
-					 *
 					headers: {
 						// "Content-Type": `image/${file.filename.split(".").at(-1)}`,
 						"Content-Type": file?.metadata?.contentType || "image",
 					},
-					 */
 					status: 200,
 				});
 			}
