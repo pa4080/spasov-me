@@ -14,7 +14,7 @@ import { ModelType } from "@/interfaces/_common-data-types";
 
 import styles from "../_files.module.scss";
 import CreateFile from "./Actions/CreateFile";
-import FileCard from "./FileCard";
+import FileCard from "./Card";
 
 interface Props {
 	className?: string;

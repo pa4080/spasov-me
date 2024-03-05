@@ -66,11 +66,11 @@ const GalleryCarouselNavInProject: React.FC<Props> = ({
 	return (
 		<div
 			className={cn(
-				"w-full flex gap-4 sa:gap-2 justify-between items-center flex-col-reverse sa:flex-row mt-4 sa:mt-6",
+				"w-full flex gap-4 sa:gap-2 justify-between items-center flex-col-reverse sa:flex-row mt-4 sa:mt-4 h-max",
 				className
 			)}
 		>
-			{/* Close button */}
+			{/* Logo */}
 			<TooltipWrapper tooltipText={project.html.title}>
 				<div
 					className="rounded-full p-1 overflow-clip bg-primary/80 min-w-[3rem] drop-shadow-2xl z-10"
@@ -91,12 +91,14 @@ const GalleryCarouselNavInProject: React.FC<Props> = ({
 			</TooltipWrapper>
 
 			{/* Description and Counter */}
-			<div className="flex-grow h-full flex items-center justify-center flex-col">
+			<div className="flex-grow h-full flex items-center justify-start flex-col prose prose-p:m-0 max-w-none">
 				{descriptionDisplay && gallery && current_carouselItem > 0 && (
-					<p
-						dangerouslySetInnerHTML={{ __html: gallery[current_carouselItem - 1].description }}
-						className="w-full sa:line-clamp-1 text-center text-foreground"
-					/>
+					<div className="w-full h-full sa:-mt-2">
+						<p
+							dangerouslySetInnerHTML={{ __html: gallery[current_carouselItem - 1].description }}
+							className="w-full sa:line-clamp-1 text-center"
+						/>
+					</div>
 				)}
 
 				<Counter className="hidden sa:flex" />

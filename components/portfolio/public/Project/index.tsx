@@ -3,14 +3,11 @@ import React from "react";
 import { notFound } from "next/navigation";
 
 import GalleryCarousel from "@/components/fragments/Gallery/GalleryCarousel";
+import SectionHeader from "@/components/fragments/SectionHeader";
+import TechTags from "@/components/fragments/TechTags";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 
-import SectionHeader from "@/components/fragments/SectionHeader";
-
-import TechTags from "@/components/fragments/TechTags";
-
 import { getProjects } from "../../_portfolio.actions";
-
 import ProjectLinks from "../../common/ProjectLinks";
 import styles from "./_project.module.scss";
 

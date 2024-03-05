@@ -184,11 +184,12 @@ const appTwConfig: import("tailwindcss").Config = {
 			typography: {
 				DEFAULT: {
 					css: {
-						color: "var(--foreground)",
+						color: "hsl(var(--foreground))",
 						a: {
-							color: "var(--accent)",
+							textDecoration: "none",
+							color: "hsl(var(--accent))",
 							"&:hover": {
-								color: "var(--accent-secondary)",
+								color: "hsl(var(--accent-secondary))",
 							},
 						},
 					},

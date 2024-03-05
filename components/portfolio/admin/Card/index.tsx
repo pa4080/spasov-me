@@ -135,19 +135,21 @@ const ProjectAdminCard: React.FC<Props> = ({
 					<div dangerouslySetInnerHTML={{ __html: project.html.title }} className={styles.title} />
 				</div>
 				<div className={`${styles.description} md-processed-to-html`}>
-					{descriptionArr.map((description, index, arr) => (
-						<div
-							dangerouslySetInnerHTML={{ __html: description }}
-							key={index}
-							className={
-								index === 0
-									? arr.length > 1
-										? "card-item-static"
-										: "card-single-item"
-									: "card-item-collapsible"
-							}
-						/>
-					))}
+					<div className="prose max-w-none">
+						{descriptionArr.map((description, index, arr) => (
+							<div
+								dangerouslySetInnerHTML={{ __html: description }}
+								key={index}
+								className={
+									index === 0
+										? arr.length > 1
+											? "card-item-static font-semibold"
+											: "card-single-item font-semibold"
+										: "card-item-collapsible"
+								}
+							/>
+						))}
+					</div>
 
 					{displayTagsInline && (
 						<div className="card-item-collapsible--disabled mt-4">
