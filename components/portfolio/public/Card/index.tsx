@@ -42,6 +42,7 @@ const ProjectPublicCard: React.FC<Props> = ({ project, className }) => {
 							height={44}
 							src={project.html.icon?.metadata.html.fileUri || Route.assets.IMAGE_PLACEHOLDER}
 							// unoptimized={project.html.icon?.filename.match(/\.svg$/) ? true : false}
+
 							width={44}
 						/>
 					</div>
