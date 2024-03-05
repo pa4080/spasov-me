@@ -73,7 +73,13 @@ const DisplayFileImageWithSuspense: React.FC<Props> = ({
 				style={style}
 				width={0}
 				{...theProps}
-				unoptimized={(thisSrc as string).match(/\.svg$/) ? true : false}
+				unoptimized={
+					file?.filename.match(/\.svg$/)
+						? true
+						: false || (src as string)?.match(/\.svg$/)
+							? true
+							: false
+				}
 			/>
 		</Suspense>
 	);
