@@ -31,6 +31,9 @@
 		 */
 
 		grid-area: image;
+		background-position: center;
+		background-size: 160px;
+		background-repeat: no-repeat;
 
 		.image {
 			@apply rounded-full

@@ -47,6 +47,7 @@ const IconImageBased: React.FC<IconProps> = ({
 			className="icon"
 			draggable={false}
 			style={{ width, height, ...icon.style, ...style }}
+			unoptimized={iconUri.match(/\.svg$/) ? true : false}
 		/>
 	);
 };
