@@ -37,7 +37,7 @@ const PageCard: React.FC<Props> = ({ className, page, files }) => {
 						alt={t("index_pageAttachment_alt", { title: page.title })}
 						height={260}
 						src={page.html.attachment?.metadata.html.fileUri}
-						// unoptimized={page.html.attachment.filename.match(/\.svg$/) ? true : false}
+						unoptimized={page.html.attachment.filename.match(/\.svg$/) ? true : false}
 						width={462}
 					/>
 				</div>

@@ -202,7 +202,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 									height="0"
 									sizes="208px"
 									src={fileUri}
-									// unoptimized={fileUri?.match(/\.svg$/) ? true : false}
+									unoptimized={fileUri?.match(/\.svg$/) ? true : false}
 									width="0"
 								/>
 							</AspectRatio>
