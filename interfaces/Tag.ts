@@ -1,9 +1,11 @@
+import { ObjectId } from "mongodb";
+
 import { UserObject } from "@/interfaces/User";
 
 import { AttachedToDocument, TagType } from "./_common-data-types";
 
 export interface TagDoc {
-	_id: string;
+	_id: ObjectId;
 	creator: UserObject;
 
 	name: string;

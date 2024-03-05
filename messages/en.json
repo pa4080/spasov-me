@@ -17,8 +17,6 @@
 		"themeSelector": "Theme selector"
 	},
 	"Navigation": {
-		"BLOG": "Blog",
-		"PORTFOLIO": "Portfolio",
 		"CONTACT": "Contact",
 		"SERVICES": "Services",
 		"HOME": "Home",
@@ -26,8 +24,8 @@
 		"ABOUT": "About",
 		"ABOUT_DESC": "Edit the about (CV) page",
 
-		"FILES": "Files",
-		"FILES_DESC": "Upload, browse and manage files",
+		"PORTFOLIO": "Portfolio",
+		"PORTFOLIO_DESC": "Edit the project entries",
 
 		"TAGS": "Tags",
 		"TAGS_DESC": "Browse and manage tags",
@@ -40,6 +38,12 @@
 
 		"BLOB": "Blob Storage",
 		"BLOB_DESC": "Upload files to Vercel Blob",
+
+		"FILES": "Files",
+		"FILES_DESC": "Upload, browse and manage files",
+
+		"BLOG": "Blog",
+		"BLOG_DESC": "Edit the posts of the blog",
 
 		"signUp": "Sign Up",
 		"signIn": "Sign In",
@@ -381,7 +385,10 @@
 		"btn_submitting": "Submitting..."
 	},
 	"Files": {
-		"title_common": "Not categorized",
+		"section_title_common": "Not categorized",
+		"section_title_about_entry": "About",
+		"section_title_project": "Portfolio",
+		"section_title_post": "Blog posts",
 		"btnAll": "Show all",
 		"btnLess": "Show less",
 		"btnMore": "Read more"
@@ -447,5 +454,132 @@
 		"dialog_description": "",
 		"dialog_btn_close": "Close",
 		"counter": "Slide { current } of { count }"
+	},
+	"TechTags": {
+		"title": "Technologies"
+	},
+	"Projects_Form": {
+		"schema_title": "The project title must be at least 4 characters.",
+		"schema_description": "The description must be at least 10 characters.",
+		"schema_date": "Select a date.",
+		"schema_type": "Select a type.",
+		"schema_visibility": "The default visibility value is \"true\".",
+		"schema_tags": "Select at least one tag.",
+		"schema_gallery": "Select multiple attachments.",
+		"schema_slug_length": "The slug must be at least 4 characters.",
+		"schema_slug_schema": "Slug must be in-kebab-case.",
+
+		"title_label": "",
+		"title_placeholder": "Title of the project",
+		"title_description": "",
+
+		"description_label": "",
+		"description_placeholder": "Description of the project",
+		"description_description": "",
+
+		"urlHome_label": "",
+		"urlHome_placeholder": "Homepage of the project",
+		"urlHome_description": "",
+
+		"urlRepo_label": "",
+		"urlRepo_placeholder": "Repository of the project",
+		"urlRepo_description": "",
+
+		"slug_label": "",
+		"slug_placeholder": "Slug of the project",
+		"slug_description": "",
+
+		"type_label": "",
+		"type_placeholder": "Select Type",
+		"type_description": "",
+		"project_type_list": {
+			"informationTechnologies": "Information Technologies",
+			"mechanicalEngineering": "Mechanical Engineering",
+			"managementConsultancy": "Management Consultancy",
+			"education": "Education",
+			"officeApplications": "Office Applications"
+		},
+
+		"dateFrom_label": "From",
+		"dateTo_label": "To",
+		"date_button": "OK",
+
+		"visibility_title": "Is public?",
+		"visibility_description": "",
+
+		"attachment_label": "",
+		"attachment_description": "",
+		"attachment_search": "Search for an attachment...",
+		"attachment_select": "Attachment...",
+		"attachment_searchNotFound": "Not found.",
+		"attachment_selectNone": "< None! >",
+
+		"icon_label": "",
+		"icon_description": "",
+		"icon_search": "Search for an icon...",
+		"icon_select": "Icon...",
+		"icon_searchNotFound": "Not found.",
+		"icon_selectNone": "< None! >",
+
+		"tags_label": "",
+		"tags_description": "",
+		"tags_search": "Search for a tag...",
+		"tags_add": "Add tags",
+		"tags_searchNotFound": "Not found...",
+		"tags_selectNone": "< None! >",
+
+		"gallery_label": "",
+		"gallery_description": "",
+		"gallery_search": "Search for a file...",
+		"gallery_add": "Add gallery items",
+		"gallery_searchNotFound": "Not found...",
+		"gallery_selectNone": "< None! >",
+
+		"btn_submit": "Submit",
+		"btn_submitting": "Submitting...",
+
+		"dateTo_now_current": "Now"
+	},
+	"Projects": {
+		"title_informationTechnologies": "Information Technologies",
+		"title_mechanicalEngineering": "Mechanical Engineering",
+		"title_managementConsultancy": "Management Consultancy",
+		"title_education": "Education",
+		"title_officeApplications": "Office Applications",
+		"btnMore": "Read more",
+		"btnLess": "Show less",
+		"btnAll": "Show all"
+	},
+	"Projects_Create": {
+		"dialog_title": "Create a new { projectType } project",
+		"dialog_description": "",
+		"dialog_btn_add": "Add a new project",
+		"dialog_btn_add_submitting": "Submitting...",
+		"toast_submitted": "The project was successfully created.",
+		"toast_success": "The project was successfully created.",
+		"toast_error": "Something went wrong. Please try again."
+	},
+	"Projects_Update": {
+		"dialog_title": "Update an existing { projectType } project",
+		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+		"dialog_btn_add": "Update the project",
+		"dialog_btn_add_submitting": "Submitting...",
+		"toast_submitted": "The project was successfully updated.",
+		"toast_success": "The project was successfully updated.",
+		"toast_error": "Something went wrong. Please try again."
+	},
+	"Projects_Delete": {
+		"dialog_title": "Delete a project of type { projectType } ",
+		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+		"dialog_btn_delete": "Delete the project",
+		"dialog_btn_delete_submitting": "Deleting...",
+		"dialog_btn_cancel": "Cancel",
+		"toast_deleted": "The project was successfully deleted!",
+		"toast_success": "The project was successfully deleted!",
+		"toast_error": "Something went wrong. Please try again."
+	},
+	"Projects_CardPublic": {
+		"button_call_to_action": "Details",
+		"tooltip_gallery": "View project gallery"
 	}
 }

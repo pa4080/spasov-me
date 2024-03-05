@@ -4,7 +4,7 @@ import { FileData, FileDoc } from "./File";
 import { UserObject } from "./User";
 
 export type PageCardDoc = {
-	_id: string;
+	_id: ObjectId;
 	creator: UserObject;
 
 	title: string;

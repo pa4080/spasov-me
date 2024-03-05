@@ -192,7 +192,7 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 									/>
 								</FormControl>
 								{form.formState?.errors?.name ? (
-									<FormMessage />
+									<FormMessage className="!mt-1" />
 								) : (
 									<FormDescription>{t("form_name_description")}</FormDescription>
 								)}
@@ -215,7 +215,7 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 									/>
 								</FormControl>
 								{form.formState?.errors?.email ? (
-									<FormMessage />
+									<FormMessage className="!mt-1" />
 								) : (
 									<FormDescription>{t("form_email_description")}</FormDescription>
 								)}
@@ -237,7 +237,7 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 									/>
 								</FormControl>
 								{form.formState?.errors?.message ? (
-									<FormMessage />
+									<FormMessage className="!mt-1" />
 								) : (
 									<FormDescription>{t("form_message_description")}</FormDescription>
 								)}

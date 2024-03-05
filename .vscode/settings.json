@@ -40,6 +40,7 @@
 		"mazak",
 		"metacritic",
 		"mongoosejs",
+		"nbsp",
 		"nextauth",
 		"nextjs",
 		"nofollow",
@@ -56,6 +57,7 @@
 		"Safak",
 		"Shadcn",
 		"Spasov",
+		"stylelint",
 		"swapi",
 		"Tabler",
 		"tailwindcss",
@@ -71,24 +73,23 @@
 		// https://github.com/PKief/vscode-material-icon-theme
 		"files": "upload",
 		"components": "home",
-		"components/services": "",
-		"geo-data/languages": "",
 		"[[...query]]": "api",
-		"exercises": "vscode",
 		"files/[[...query]]": "upload",
 		"data": "database",
 		"data/[[...query]]": "database",
 		"session-info": "meta",
+		"app/[locale]": "home",
+		"components/services": "",
 		"components/pages": "base",
 		"components/page-cards": "base",
 		"components/about": "base",
-		"components/cintact": "base",
+		"components/contact": "base",
+		"components/portfolio": "base",
 		"components/files": "base",
 		"components/home": "base",
 		"components/theme": "base",
 		"components/ui": "core",
 		"components/fragments": "core",
-		"app/[locale]": "home",
 		"components/tags": "base"
 	},
 	// https://youtu.be/3_-Je5XpbqY?t=688
@@ -163,5 +164,6 @@
 	},
 	"[markdown]": {
 		"editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
-	}
+	},
+	"typescript.tsdk": "node_modules/typescript/lib"
 }

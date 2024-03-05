@@ -1,14 +1,15 @@
 import React from "react";
 
-import SectionHeader from "@/components/fragments/section-header";
-import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
+import SectionHeader from "@/components/fragments/SectionHeader";
+import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { AboutEntryType } from "@/interfaces/_common-data-types";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
 import styles from "../_about.module.scss";
-import cardStyles from "../common/about-card/_about-card.module.scss";
+import cardStyles from "../common/Card/_about-card.module.scss";
 
 interface Props {
 	entries: AboutEntryData[] | null;
@@ -22,7 +23,7 @@ const Resume: React.FC<Props> = ({ entries, className, type }) => {
 	type tType = Parameters<typeof t>[0];
 
 	const section_title = t(`title_${type}` as tType);
-	const toggle_target_id = `section_${type}`;
+	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_${type}`);
 
 	const entry =
 		entries

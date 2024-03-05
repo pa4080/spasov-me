@@ -6,12 +6,12 @@ import { Route } from "@/routes";
 
 import type { PutBlobResult } from "@vercel/blob";
 
-export default function AvatarUploadPage() {
+export default function UploadPage() {
 	const inputFileRef = useRef<HTMLInputElement>(null);
 	const [blob, setBlob] = useState<PutBlobResult | null>(null);
 
 	return (
-		<div className="margin_vh_top margin_vh_bottom space-y-12">
+		<div className="margin_vh_top margin_vh_bottom space-y-12 scroll-m-40">
 			<h1 className="section_title">Upload Blob</h1>
 
 			<form

@@ -1,16 +1,14 @@
 import React from "react";
 
-import { AboutEntryType } from "@/interfaces/_common-data-types";
-
+import SectionHeader from "@/components/fragments/SectionHeader";
+import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-
+import { AboutEntryType } from "@/interfaces/_common-data-types";
+import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
-import SectionHeader from "@/components/fragments/section-header";
-
-import ToggleCollapsible from "../../fragments/toggle-collapsible";
 import styles from "../_about.module.scss";
-import AboutEntryCard from "../common/about-card";
+import AboutEntryCard from "../common/Card";
 
 interface Props {
 	className?: string;
@@ -30,7 +28,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 	type tType = Parameters<typeof t>[0];
 
 	const section_title = t(`title_${type}` as tType);
-	const toggle_target_id = `section_${type}`;
+	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_${type}`);
 
 	const entriesByType = entries
 		?.filter(({ entryType }) => entryType === type)
@@ -50,7 +48,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 					<AboutEntryCard
 						key={index}
 						className={visibleItems > index ? "pop-item" : "section-card-collapsible pop-item"}
-						displayTags={displayTags}
+						displayTagsInline={displayTags}
 						entry={entry}
 					/>
 				))}

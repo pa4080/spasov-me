@@ -1,18 +1,19 @@
 import React from "react";
 
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
-import SectionHeader from "@/components/fragments/section-header";
+import SectionHeader from "@/components/fragments/SectionHeader";
+import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileListItem } from "@/interfaces/File";
 import { TagData } from "@/interfaces/Tag";
 import { AboutEntryType } from "@/interfaces/_common-data-types";
+import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import ToggleCollapsible from "../../fragments/toggle-collapsible";
 import styles from "../_about.module.scss";
-import AboutEntryCard from "../common/about-card";
-import CreateAboutEntry from "./about-actions/CreateAboutEntry";
+import AboutEntryCard from "../common/Card";
+import CreateAboutEntry from "./Actions/Create";
 
 interface Props {
 	className?: string;
@@ -33,8 +34,9 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 	type tType = Parameters<typeof t>[0];
 
 	const section_title = t(`title_${type}` as tType);
-	const toggle_target_id = `section_${type}`;
+	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_${type}`);
 
+	// Filter the items by their type - i.e. ["employment", "education", ...]
 	const entriesByType = entries
 		?.filter(({ entryType }) => entryType === type)
 		.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
@@ -56,6 +58,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 					<AboutEntryCard
 						key={index}
 						displayActions
+						displayGalleryInline
 						className={visibleItems > index ? "" : "section-card-collapsible"}
 						entry={entry}
 						files={files}

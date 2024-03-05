@@ -181,9 +181,27 @@ const appTwConfig: import("tailwindcss").Config = {
 				footer: "var(--footer-height)",
 				content: "var(--content-height)",
 			},
+			typography: {
+				DEFAULT: {
+					css: {
+						color: "hsl(var(--foreground))",
+						a: {
+							textDecoration: "none",
+							color: "hsl(var(--accent))",
+							"&:hover": {
+								color: "hsl(var(--accent-secondary))",
+							},
+						},
+					},
+				},
+			},
 		},
 	},
-	plugins: [require("tailwindcss-animate"), require("@tailwindcss/forms")],
+	plugins: [
+		require("tailwindcss-animate"),
+		require("@tailwindcss/forms"),
+		require("@tailwindcss/typography"),
+	],
 };
 
 export default appTwConfig;

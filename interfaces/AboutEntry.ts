@@ -6,7 +6,7 @@ import { UserObject } from "./User";
 import { AboutEntryType, CityType, CountryType } from "./_common-data-types";
 
 export interface AboutEntryDoc {
-	_id: string;
+	_id: ObjectId;
 	creator: UserObject;
 
 	title: string;

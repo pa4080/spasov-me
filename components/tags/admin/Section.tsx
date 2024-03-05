@@ -1,22 +1,18 @@
 import React from "react";
 
-import { msgs } from "@/messages";
-
+import RevalidatePaths from "@/components/fragments/RevalidatePaths";
+import SectionHeader from "@/components/fragments/SectionHeader";
+import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { TagData } from "@/interfaces/Tag";
+import { TagType } from "@/interfaces/_common-data-types";
+import { hyphenateString } from "@/lib/process-text";
+import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
+import { msgs } from "@/messages";
 import iconsMap from "@/public/assets/icons";
 
-import SectionHeader from "@/components/fragments/section-header";
-
-import RevalidatePaths from "@/components/fragments/RevalidatePaths";
-import ToggleCollapsible from "@/components/fragments/toggle-collapsible";
-
-import { TagType } from "@/interfaces/_common-data-types";
-
-import { hyphenateString } from "@/lib/process-text";
-
 import styles from "../_tags.module.scss";
-import CreateTag from "./tag-actions/CreateTag";
-import TagCard from "./tag-card";
+import CreateTag from "./Actions/CreateTag";
+import TagCard from "./Card";
 
 interface Props {
 	className?: string;
@@ -31,7 +27,7 @@ const Section: React.FC<Props> = ({ className, tags, type, visibleItems = 2 }) =
 	type tType = Parameters<typeof t>[0];
 
 	const section_title = hyphenateString(t(`title_${type}` as tType));
-	const toggle_target_id = `section_${type}`;
+	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_${type}`);
 
 	return (
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>

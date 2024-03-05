@@ -1,23 +1,13 @@
 "use server";
 
-import { ObjectId } from "mongodb";
-
-import { getSession, revalidatePaths } from "@/components/_common.actions";
-import { fileAttachment_add, fileAttachment_remove } from "@/components/files/_files.actions";
-import {
-	AboutEntryData,
-	AboutEntryDoc,
-	AboutEntryDocPopulated,
-	NewAboutEntryData,
-} from "@/interfaces/AboutEntry";
-import { AboutEntryType, ModelType } from "@/interfaces/_common-data-types";
+import { getSession, process_relations, revalidatePaths } from "@/components/_common.actions";
+import { AboutEntryData, AboutEntryDocPopulated } from "@/interfaces/AboutEntry";
+import { AboutEntryType } from "@/interfaces/_common-data-types";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import { aboutDocuments_toData, aboutFormData_toNewEntryData } from "@/lib/process-data-about";
 import { msgs } from "@/messages";
 import AboutEntry from "@/models/about-entry";
-
-import { tagAttachment_add, tagAttachment_remove } from "../tags/_tags.actions";
 
 export const getEntries = async ({
 	hyphen,
@@ -158,105 +148,5 @@ export const deleteEntry = async (entry_id: string, paths: string[]): Promise<bo
 		return false;
 	} finally {
 		revalidatePaths({ paths, redirectTo: paths[0] });
-	}
-};
-
-const process_relations = async ({
-	documentData_new,
-	document_new,
-	document_prev,
-	modelType,
-}: {
-	documentData_new?: NewAboutEntryData;
-	document_new?: AboutEntryDoc;
-	document_prev?: AboutEntryDoc;
-	modelType: ModelType;
-}) => {
-	// Deal with the previous state of the document
-	if (document_prev) {
-		// Deal with the "attachment"
-		if (document_prev.attachment) {
-			await fileAttachment_remove({
-				attachedDocument_id: document_prev._id.toString(),
-				target_file_id: document_prev.attachment.toString(),
-			});
-		}
-
-		// Deal with the "gallery"
-		if (document_prev.gallery && document_prev.gallery.length > 0) {
-			await Promise.all(
-				document_prev.gallery.map(async (file_id: ObjectId) => {
-					await fileAttachment_remove({
-						attachedDocument_id: document_prev._id.toString(),
-						target_file_id: file_id.toString(),
-					});
-				})
-			);
-		}
-
-		// Deal with the "tags"
-		if (document_prev.tags && document_prev.tags.length > 0) {
-			await Promise.all(
-				document_prev.tags.map(async (tag_id: ObjectId) => {
-					await tagAttachment_remove({
-						attachedDocument_id: document_prev._id.toString(),
-						target_tag_id: tag_id.toString(),
-					});
-				})
-			);
-		}
-	}
-
-	// Deal with the current state of the document
-	if (documentData_new && document_new) {
-		// Deal with the "attachment"
-		if (documentData_new.attachment) {
-			await fileAttachment_add({
-				documentToAttach: {
-					_id: document_new._id.toString(),
-					title: document_new.title,
-					modelType: modelType,
-				},
-				target_file_id: documentData_new.attachment,
-			});
-		} else {
-			document_new.attachment = undefined;
-		}
-
-		// Deal with the "gallery"
-		if (documentData_new.gallery && documentData_new.gallery.length > 0) {
-			await Promise.all(
-				documentData_new.gallery.map(async (file_id) => {
-					await fileAttachment_add({
-						documentToAttach: {
-							_id: document_new._id.toString(),
-							title: document_new.title,
-							modelType: modelType,
-						},
-						target_file_id: file_id,
-					});
-				})
-			);
-		} else {
-			document_new.gallery = undefined;
-		}
-
-		// Deal with the "tags"
-		if (documentData_new.tags && documentData_new.tags.length > 0) {
-			await Promise.all(
-				documentData_new.tags.map(async (tag_id) => {
-					await tagAttachment_add({
-						documentToAttach: {
-							_id: document_new._id.toString(),
-							title: document_new.title,
-							modelType: modelType,
-						},
-						target_tag_id: tag_id,
-					});
-				})
-			);
-		} else {
-			document_new.tags = undefined;
-		}
 	}
 };

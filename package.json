@@ -1,6 +1,6 @@
 {
 	"name": "spasov-me",
-	"version": "1.1.0",
+	"version": "2.0.0",
 	"private": true,
 	"scripts": {
 		"check-branch-name": "chmod 755 githooks/check_branch_name.sh && bash githooks/check_branch_name.sh",
@@ -79,6 +79,7 @@
 		"@commitlint/cli": "^18.4.4",
 		"@commitlint/config-conventional": "^18.4.4",
 		"@tailwindcss/forms": "^0.5.7",
+		"@tailwindcss/typography": "^0.5.10",
 		"@types/hyphen": "^1.6.7",
 		"@types/node": "^20.11.0",
 		"@types/react": "^18.2.47",

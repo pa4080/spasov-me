@@ -114,15 +114,11 @@ const NavigationMenu_NextLink_Styled = React.forwardRef<
 	}
 >(({ className, title, desc, href, ...props }, ref) => (
 	<Link legacyBehavior passHref href={href}>
-		<NavigationMenuPrimitive.Link
-			ref={ref}
-			className={cn("private_menu_item", className)}
-			{...props}
-		>
+		<NavigationMenuPrimitive.Link ref={ref} className={cn(className)} {...props}>
 			<p className="font-semibold" style={{ letterSpacing: "1px" }}>
 				{title}
 			</p>
-			<p className="line-clamp-2 leading-snug text-foreground-tertiary">{desc}</p>
+			<p className="line-clamp-2 leading-snug text-foreground-secondary">{desc}</p>
 		</NavigationMenuPrimitive.Link>
 	</Link>
 ));

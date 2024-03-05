@@ -8,7 +8,7 @@ interface Props {
 	className?: string;
 }
 
-const Contact: React.FC<Props> = ({ className }) => {
+const ContactFormWrapper: React.FC<Props> = ({ className }) => {
 	return (
 		<div className={`${styles.contact} ${className}`}>
 			<div className={styles.wrapper}>
@@ -18,4 +18,4 @@ const Contact: React.FC<Props> = ({ className }) => {
 	);
 };
 
-export default Contact;
+export default ContactFormWrapper;

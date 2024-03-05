@@ -10,7 +10,7 @@ interface Props {
 	className?: string;
 }
 
-const PageCards: React.FC<Props> = async ({ className }) => {
+const PagesAdmin: React.FC<Props> = async ({ className }) => {
 	const pages = await getPageCards({ public: false });
 	const fileList = await getFileList({ images: true });
 
@@ -21,4 +21,4 @@ const PageCards: React.FC<Props> = async ({ className }) => {
 	);
 };
 
-export default PageCards;
+export default PagesAdmin;

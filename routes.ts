@@ -12,7 +12,7 @@ export const Route = {
 			inNavbar: true,
 			name: "portfolio",
 			uri: "/portfolio",
-			visible: false,
+			visible: true,
 		},
 		ABOUT: {
 			inFeed: true,
@@ -21,6 +21,7 @@ export const Route = {
 			uri: "/about",
 			visible: true,
 		},
+
 		BLOG: {
 			inFeed: true,
 			inNavbar: true,
@@ -46,12 +47,12 @@ export const Route = {
 	admin: {
 		PAGES: "/admin/pages",
 		ABOUT: "/admin/about",
-		THEME: "/admin/theme",
 		PORTFOLIO: "/admin/portfolio",
-		FILES: "/admin/files",
-		TAGS: "/admin/tags",
-		BLOB: "/admin/blob",
 		BLOG: "/admin/blog",
+		TAGS: "/admin/tags",
+		FILES: "/admin/files",
+		THEME: "/admin/theme",
+		BLOB: "/admin/blob",
 	},
 	api: {
 		PAGES: "/api/data/pages",
@@ -64,5 +65,6 @@ export const Route = {
 		MIME_TYPE: "/assets/images/mime-type-icons",
 		IMAGES: "/assets/images",
 		IMAGE_PLACEHOLDER: "/assets/images/image-placeholder.webp",
+		LOGO_SVG: "/icons/svg/spasov.me.logo.svg",
 	},
 };

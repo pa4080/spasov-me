@@ -11,9 +11,27 @@ interface Props {
 const FilesAdmin: React.FC<Props> = async ({ className }) => {
 	const files = await getFiles();
 
+	const filesCommon = files?.filter(
+		(file) => !file.metadata.attachedTo || file.metadata.attachedTo.length === 0
+	);
+
+	const filesAbout = files?.filter(
+		(file) =>
+			file.metadata.attachedTo &&
+			file.metadata.attachedTo.find(({ modelType }) => modelType === "AboutEntry")
+	);
+
+	const filesPortfolio = files?.filter(
+		(file) =>
+			file.metadata.attachedTo &&
+			file.metadata.attachedTo.find(({ modelType }) => modelType === "Project")
+	);
+
 	return (
 		<div className={`${styles.files} ${className}`}>
-			<Section files={files} type="common" visibleItems={4} />
+			<Section files={filesCommon} type="common" />
+			<Section files={filesAbout} type="AboutEntry" />
+			<Section sortByAttachedTo files={filesPortfolio} type="Project" visibleItems={1} />
 		</div>
 	);
 };

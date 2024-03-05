@@ -2,13 +2,15 @@ import React from "react";
 
 import { getTags } from "@/components/tags/_tags.actions";
 
+import TechTags from "@/components/fragments/TechTags";
+
 import { getEntries } from "../_about.actions";
 import styles from "../_about.module.scss";
 import SpokenLanguages from "./Languages";
 import Resume from "./Resume";
-import TechTags from "./TechTags";
+
+import BusinessCard from "./BusinessCard";
 import TimeLine from "./TimeLine";
-import BusinessCard from "./business-card";
 
 interface Props {
 	className?: string;
@@ -36,7 +38,7 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 			<TimeLine displayTags={true} entries={entriesHyphenated} type="employment" />
 			<TimeLine displayTags={false} entries={entriesHyphenated} type="education" visibleItems={2} />
 			<SpokenLanguages entries={entriesClear} type="spokenLanguages" />
-			<TechTags tags={tags} />
+			<TechTags className={styles.section} tags={tags} />
 		</div>
 	);
 };
