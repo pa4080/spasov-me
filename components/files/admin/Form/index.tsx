@@ -181,7 +181,12 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 			<form
 				ref={collisionBoundaryRef}
 				className={`w-full space-y-4 relative ${className}`}
-				onSubmit={form.handleSubmit(handleSubmit)}
+				onSubmit={(e) => {
+					// https://github.com/react-hook-form/react-hook-form/issues/1005
+					e.preventDefault();
+					e.stopPropagation();
+					form.handleSubmit(handleSubmit)();
+				}}
 			>
 				{/* Grid */}
 				<div className="flex flex-col-reverse mb:grid mb:grid-cols-9 gap-3">

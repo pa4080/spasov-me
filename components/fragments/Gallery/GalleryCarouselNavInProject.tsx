@@ -73,7 +73,7 @@ const GalleryCarouselNavInProject: React.FC<Props> = ({
 			{/* Logo */}
 			<TooltipWrapper tooltipText={project.html.title}>
 				<div
-					className="rounded-full p-1 overflow-clip bg-primary/80 min-w-[3rem] drop-shadow-2xl z-10"
+					className="rounded-full overflow-clip bg-primary/80 min-w-[3.8rem] min-h-[3.8rem] flex items-center justify-center drop-shadow-2xl z-10"
 					style={
 						{
 							"--tw-drop-shadow": "drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2))",
@@ -95,7 +95,7 @@ const GalleryCarouselNavInProject: React.FC<Props> = ({
 				{descriptionDisplay && gallery && current_carouselItem > 0 && (
 					<div className="w-full h-full sa:-mt-2">
 						<p
-							dangerouslySetInnerHTML={{ __html: gallery[current_carouselItem - 1].description }}
+							dangerouslySetInnerHTML={{ __html: gallery[current_carouselItem - 1]?.description }}
 							className="w-full sa:line-clamp-1 text-center"
 						/>
 					</div>

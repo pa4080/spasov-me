@@ -11,6 +11,8 @@ import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import CreateFile from "@/components/files/admin/Actions/CreateFile";
+
 import CreateProject from "./Actions/Create";
 import ProjectAdminCard from "./Card";
 import styles from "./_portfolio.module.scss";
@@ -51,6 +53,7 @@ const TimeLine: React.FC<Props> = ({
 	return (
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
 			<SectionHeader title={section_title}>
+				<CreateFile />
 				<RevalidatePaths paths={[Route.public.PORTFOLIO.uri]} />
 				<CreateProject files={files} tags={tags} type={type} />
 				<ToggleCollapsible

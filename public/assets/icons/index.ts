@@ -1054,6 +1054,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	"it_shadcn-ui": {
+		name: "it_shadcn-ui",
+		uri: {
+			light: "/assets/icons/it/shadcn-ui-light.svg",
+			dark: "/assets/icons/it/shadcn-ui-dark.svg",
+		},
+		info: {
+			height: 256,
+			width: 256,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	it_sql: {
 		name: "it_sql",
 		uri: {

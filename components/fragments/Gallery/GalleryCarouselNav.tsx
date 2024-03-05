@@ -80,7 +80,7 @@ const Navigation: React.FC<Props> = ({
 			<div className="flex-grow h-full flex items-center justify-center flex-col prose prose-p:m-0 prose-p:-mt-1 max-w-none">
 				{descriptionDisplay && gallery && current_carouselItem > 0 && (
 					<p
-						dangerouslySetInnerHTML={{ __html: gallery[current_carouselItem - 1].description }}
+						dangerouslySetInnerHTML={{ __html: gallery[current_carouselItem - 1]?.description }}
 						className="w-full sa:line-clamp-1 text-center"
 					/>
 				)}

@@ -62,6 +62,7 @@ const CreateFile: React.FC<Props> = ({ className }) => {
 						label={t("dialog_btn_add")}
 						labelSubmitting={t("dialog_btn_add_submitting")}
 						submitting={submitting}
+						type="file-circle-plus"
 						width={42} // 62
 						widthOffset={24}
 						onClick={() => setIsOpen(true)}
