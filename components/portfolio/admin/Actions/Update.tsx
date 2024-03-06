@@ -52,7 +52,7 @@ const UpdateProject: React.FC<Props> = ({ className, project, files, tags }) => 
 
 			const response = await updateProject(generateFormDataFromObject(data), project._id, [
 				pathname,
-				Route.public.ABOUT.uri,
+				Route.public.PORTFOLIO.uri,
 				Route.admin.FILES,
 			]);
 

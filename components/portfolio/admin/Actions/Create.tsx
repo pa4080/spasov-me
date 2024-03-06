@@ -55,7 +55,7 @@ const CreateProject: React.FC<Props> = ({ className, type, files, tags }) => {
 
 			const response = await createProject(generateFormDataFromObject(data), [
 				pathname,
-				Route.public.ABOUT.uri,
+				Route.public.PORTFOLIO.uri,
 				Route.admin.FILES,
 			]);
 
