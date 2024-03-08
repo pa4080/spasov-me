@@ -149,6 +149,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 				form.setValue("filename", newFileName);
 			}
 
+			form.setValue("file", file);
 			setFileToUpload(file);
 		}
 	};

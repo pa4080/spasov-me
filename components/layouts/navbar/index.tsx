@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
 
 			<div className="flex justify-end items-center gap-3 pt-1 -mr-1">
 				<UserMenu />
-				<ThemeSwitch classNameBtn="scale-75 bg-primary text-foreground-secondary" strokeWidth={3} />
+				<ThemeSwitch classNameBtn="scale-75 bg-primary text-foreground-secondary" strokeWidth={2} />
 			</div>
 		</nav>
 	);

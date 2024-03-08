@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
+import ButtonIcon, { ButtonIconProps } from "@/components/fragments/ButtonIcon";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
 	Dialog,
@@ -20,6 +20,10 @@ import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import { useAppContext } from "@/contexts/AppContext";
+
+import { IconEmbSvgPathType } from "@/components/fragments/IconEmbedSvg";
+
 import { updateProject } from "../../_portfolio.actions";
 import ProjectForm from "../Form";
 import { Project_FormSchema } from "../Form/schema";
@@ -28,10 +32,17 @@ interface Props {
 	className?: string;
 	project: ProjectData;
 	files?: FileListItem[] | null | undefined;
-	tags: TagData[] | null | undefined;
+	tags?: TagData[] | null | undefined;
+	dialogTrigger_buttonIconProps?: ButtonIconProps;
 }
 
-const UpdateProject: React.FC<Props> = ({ className, project, files, tags }) => {
+const UpdateProject: React.FC<Props> = ({
+	className,
+	project,
+	files,
+	tags,
+	dialogTrigger_buttonIconProps,
+}) => {
 	const t = msgs("Projects_Update");
 	const projectTypeLabel = (
 		msgs("Projects_Form")("project_type_list") as unknown as Record<string, string>
@@ -40,6 +51,11 @@ const UpdateProject: React.FC<Props> = ({ className, project, files, tags }) => 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
+
+	const { session, tags: tagsContext, fileList: fileListContext } = useAppContext();
+
+	const tagsInUse = tags ?? tagsContext;
+	const filesInUse = files ?? fileListContext;
 
 	const handleUpdateProject = async (data: Project_FormSchema) => {
 		setSubmitting(true);
@@ -52,7 +68,7 @@ const UpdateProject: React.FC<Props> = ({ className, project, files, tags }) => 
 
 			const response = await updateProject(generateFormDataFromObject(data), project._id, [
 				pathname,
-				Route.public.ABOUT.uri,
+				Route.public.PORTFOLIO.uri,
 				Route.admin.FILES,
 			]);
 
@@ -70,49 +86,51 @@ const UpdateProject: React.FC<Props> = ({ className, project, files, tags }) => 
 		}
 	};
 
-	if (!tags) {
+	if (!tagsInUse || !session) {
 		return null;
 	}
 
-	return (
-		<div className={className}>
-			<Dialog open={isOpen} onOpenChange={setIsOpen}>
-				<DialogTrigger disabled={submitting}>
-					<ButtonIcon
-						className="pl-1 bg-transparent icon_accent_secondary"
-						height={22}
-						type="brush"
-						width={22}
-						onClick={() => setIsOpen(true)}
-					/>
-				</DialogTrigger>
-				<DialogContent
-					className="ma:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
-					closeOnOverlayClick={false}
-				>
-					<DialogHeader>
-						<DialogTitle>{t("dialog_title", { projectType: projectTypeLabel })}</DialogTitle>
-						{t("dialog_description") && (
-							<DialogDescription
-								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: project._id }),
-								}}
-							/>
-						)}
-					</DialogHeader>
+	const buttonIconPropsFinal = {
+		className: "pl-1 bg-transparent icon_accent_secondary",
+		disabled: !session,
+		height: 22,
+		type: "brush" as IconEmbSvgPathType,
+		width: 22,
+		onClick: () => setIsOpen(true),
+		...dialogTrigger_buttonIconProps,
+	};
 
-					<ProjectForm
-						className={t("dialog_description") ? "mt-0" : "mt-1"}
-						files={files}
-						formData={project}
-						projectType={project.projectType}
-						submitting={submitting}
-						tags={tags}
-						onSubmit={handleUpdateProject}
-					/>
-				</DialogContent>
-			</Dialog>
-		</div>
+	return (
+		<Dialog open={isOpen} onOpenChange={setIsOpen}>
+			<DialogTrigger className={className} disabled={submitting}>
+				<ButtonIcon {...buttonIconPropsFinal} />
+			</DialogTrigger>
+			<DialogContent
+				className="ma:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
+				closeOnOverlayClick={false}
+			>
+				<DialogHeader>
+					<DialogTitle>{t("dialog_title", { projectType: projectTypeLabel })}</DialogTitle>
+					{t("dialog_description") && (
+						<DialogDescription
+							dangerouslySetInnerHTML={{
+								__html: t("dialog_description", { id: project._id }),
+							}}
+						/>
+					)}
+				</DialogHeader>
+
+				<ProjectForm
+					className={t("dialog_description") ? "mt-0" : "mt-1"}
+					files={filesInUse}
+					formData={project}
+					projectType={project.projectType}
+					submitting={submitting}
+					tags={tagsInUse}
+					onSubmit={handleUpdateProject}
+				/>
+			</DialogContent>
+		</Dialog>
 	);
 };
 
