@@ -38,31 +38,31 @@ const ThemeSwitch: React.FC<Props> = ({ classNameBtn, strokeWidth }) => {
 			<DropdownMenuTrigger asChild>
 				<Button
 					aria-label={t("themeSelector")}
-					className={`hover:text-backgrounds grayscale hover:grayscale-0 !bg-accent/20 hover:!bg-accent/80 relative group transition-colors duration-200 border-none ${classNameBtn}`}
+					className={`hover:text-backgrounds relative group transition-colors duration-200 ${classNameBtn}`}
 					name={t("themeSelector")}
 					size="icon"
 					variant="outline"
 				>
 					<Sun
-						className={`size-8 group-hover:text-background transition-colors duration-200 ${
+						className={`h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200 ${
 							theme && theme === "light" ? "block" : "hidden"
 						}`}
 						strokeWidth={strokeWidth}
 					/>
 					<Sun
-						className={`size-8 group-hover:text-background transition-colors duration-200 ${
+						className={`h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200 ${
 							theme && theme === "light-brown" ? "block" : "hidden"
 						}`}
 						strokeWidth={strokeWidth}
 					/>
 					<Moon
-						className={`size-8 group-hover:text-background transition-colors duration-200 ${
+						className={`h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200 ${
 							theme && theme === "dark" ? "block" : "hidden"
 						}`}
 						strokeWidth={strokeWidth}
 					/>
 					<SunMoon
-						className={`size-8 group-hover:text-background transition-colors duration-200 ${
+						className={`h-[1.5rem] w-[1.5rem] group-hover:text-background transition-colors duration-200 ${
 							theme && theme === "system" ? "block" : "hidden"
 						}`}
 						strokeWidth={strokeWidth}
