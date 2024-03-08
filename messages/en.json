@@ -580,6 +580,7 @@
 	},
 	"Projects_CardPublic": {
 		"button_call_to_action": "Details",
-		"tooltip_gallery": "View project gallery"
+		"tooltip_gallery": "View project gallery",
+		"tooltip_update": "Edit the project"
 	}
 }
