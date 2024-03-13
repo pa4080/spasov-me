@@ -261,6 +261,19 @@ const iconsMap = {
 			ratio: 0.67,
 		},
 	},
+	"it_framer-motion-seeklogo": {
+		name: "it_framer-motion-seeklogo",
+		uri: {
+			light: "/assets/icons/it/framer-motion-seeklogo.svg",
+			dark: "/assets/icons/it/framer-motion-seeklogo.svg",
+		},
+		info: {
+			height: 2500,
+			width: 2500,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	"it_git-icon": {
 		name: "it_git-icon",
 		uri: {
@@ -298,6 +311,32 @@ const iconsMap = {
 			width: 2500,
 			type: "svg",
 			ratio: 1.08,
+		},
+	},
+	"it_google-reCAPTCHA-icon-big": {
+		name: "it_google-reCAPTCHA-icon-big",
+		uri: {
+			light: "/assets/icons/it/google-reCAPTCHA-icon-big.svg",
+			dark: "/assets/icons/it/google-reCAPTCHA-icon-big.svg",
+		},
+		info: {
+			height: 2494,
+			width: 2500,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"it_google-reCAPTCHA-icon-small": {
+		name: "it_google-reCAPTCHA-icon-small",
+		uri: {
+			light: "/assets/icons/it/google-reCAPTCHA-icon-small.svg",
+			dark: "/assets/icons/it/google-reCAPTCHA-icon-small.svg",
+		},
+		info: {
+			height: 130,
+			width: 150,
+			type: "svg",
+			ratio: 1.15,
 		},
 	},
 	it_html: {
@@ -1180,6 +1219,19 @@ const iconsMap = {
 		info: {
 			height: 800,
 			width: 800,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"it_zod-logo": {
+		name: "it_zod-logo",
+		uri: {
+			light: "/assets/icons/it/zod-logo.svg",
+			dark: "/assets/icons/it/zod-logo.svg",
+		},
+		info: {
+			height: 1080,
+			width: 1080,
 			type: "svg",
 			ratio: 1,
 		},
