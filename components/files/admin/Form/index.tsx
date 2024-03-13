@@ -81,7 +81,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 			filename: formData?.filename ?? "",
 			description: formData?.metadata?.description ?? "",
 			attachedTo: formData?.metadata?.attachedTo ?? [],
-			visibility: formData?.metadata?.visibility ? true : false,
+			visibility: !formData ? true : formData?.metadata.visibility ? true : false,
 		},
 	});
 
@@ -149,8 +149,8 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 				form.setValue("filename", newFileName);
 			}
 
-			form.setValue("file", file);
 			setFileToUpload(file);
+			// form.setValue("file", file);
 		}
 	};
 
@@ -172,9 +172,11 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 	const fileUri = formData
 		? formData.filename.match(/\.(pdf|pptx|xlsx|docx)$/)
 			? `${Route.assets.MIME_TYPE}/${formData.filename.split(".").pop()}.png`
-			: `${Route.api.FILES}/${formData?._id.toString()}/${formData?.filename}?v=${new Date(
-					formData.uploadDate
-				).getTime()}`
+			: formData.filename.match(/\.(svg)$/)
+				? `${Route.api.FILES}/${formData?._id.toString()}/${formData?.filename}`
+				: `${Route.api.FILES}/${formData?._id.toString()}/${formData?.filename}?v=${new Date(
+						formData.uploadDate
+					).getTime()}`
 		: Route.assets.IMAGE_PLACEHOLDER;
 
 	return (
@@ -203,7 +205,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 									height="0"
 									sizes="208px"
 									src={fileUri}
-									// unoptimized={fileUri?.match(/\.svg$/) ? true : false}
+									unoptimized={fileUri?.match(/\.svg$/) ? true : false}
 									width="0"
 								/>
 							</AspectRatio>
