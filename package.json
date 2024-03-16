@@ -17,8 +17,8 @@
 	},
 	"lint-staged": {
 		"*.{ts,tsx}": "eslint --fix",
-		"*.css": "stylelint --fix",
-		"*.scss": "stylelint --fix"
+		"src/*.css": "stylelint --fix",
+		"src/*.scss": "stylelint --fix"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.3.4",
