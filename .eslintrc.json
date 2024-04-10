@@ -2,6 +2,7 @@
 	"extends": [
 		"plugin:react/recommended",
 		"plugin:@typescript-eslint/recommended",
+		"plugin:react-hooks/recommended",
 		"plugin:prettier/recommended",
 		"plugin:import/recommended",
 		"plugin:import/typescript",
@@ -19,7 +20,7 @@
 			"jsx": true
 		}
 	},
-	"plugins": ["import", "react", "@typescript-eslint"],
+	"plugins": ["react-refresh", "import", "react", "@typescript-eslint"],
 	"rules": {
 		"eqeqeq": ["error", "always", { "null": "ignore" }],
 		"template-curly-spacing": "error",
