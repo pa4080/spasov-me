@@ -129,7 +129,7 @@
 	"editor.guides.bracketPairsHorizontal": "active",
 	"editor.bracketPairColorization.enabled": true,
 
-	"prettier.singleQuote": true,
+	"prettier.singleQuote": false,
 	"eslint.format.enable": true,
 	// "eslint.workingDirectories": ["apps/main", "apps/mono-test"],
 
