@@ -1,15 +1,16 @@
+import "@/env";
 import React from "react";
 
 // import { Analytics } from "@vercel/analytics/react";
 
-import { AppContextProvider } from "@/contexts/AppContext";
-import { Toaster } from "@/components/ui/toaster";
-import { unicephalon, inter } from "@/app/fonts";
-import manifest from "@/public/manifest.json";
-import ThemesProvider from "@/contexts/ThemesProvider";
+import { inter, unicephalon } from "@/app/fonts";
 import MainLayout from "@/components/layouts/main-layout";
+import { Toaster } from "@/components/ui/toaster";
+import { AppContextProvider } from "@/contexts/AppContext";
 import AuthSessionProvider from "@/contexts/AuthSessionProvider";
 import RecaptchaContextProvider from "@/contexts/RecaptchaContextProvider";
+import ThemesProvider from "@/contexts/ThemesProvider";
+import manifest from "@/public/manifest.json";
 
 import "./globals.scss";
 
