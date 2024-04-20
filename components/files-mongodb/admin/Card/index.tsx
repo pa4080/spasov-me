@@ -10,7 +10,7 @@ import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import { FileData } from "@/interfaces/File";
 
 import AttachedToBadge from "@/components/fragments/AttachedToBadge";
-import FileUriHandle from "@/components/fragments/FileUriHandle";
+import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 import { capitalize } from "@/lib/capitalize";
@@ -19,7 +19,7 @@ import { roundTo } from "@/lib/round";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
-import CopyFileUri from "../Actions/CopyFileUri";
+import CopyFileAddress from "../Actions/CopyFileAddress";
 import DeleteFile from "../Actions/DeleteFile";
 import UpdateFile from "../Actions/UpdateFile";
 import styles from "./_file-card.module.scss";
@@ -44,6 +44,8 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common" }) =
 			return str.replace(commentsMatcher, "");
 		});
 
+	const fileAddress = file.metadata.html?.fileUri || file.metadata.html.fileUrl || "";
+
 	return (
 		<div
 			className={`${styles.cardWrapper} card-borer-wrapper file-card ${className}`}
@@ -59,15 +61,15 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common" }) =
 						<div className={styles.buttonsContainer}>
 							{displayActions && (
 								<>
-									<CopyFileUri uri={file.metadata.html.fileUri} />
+									<CopyFileAddress address={fileAddress} />
 									<VisibilitySwitchDisplay
 										disabled
 										checked={file.metadata.visibility}
 										className="mt-0.5"
 									/>
 									<DeleteFile file={file} />
-									<FileUriHandle uri={file.metadata.html.fileUri} />
-									<FileUriHandle download uri={file.metadata.html.fileUri} />
+									<FileAddressHandle address={fileAddress} />
+									<FileAddressHandle download address={fileAddress} />
 									<UpdateFile file={file} />
 								</>
 							)}

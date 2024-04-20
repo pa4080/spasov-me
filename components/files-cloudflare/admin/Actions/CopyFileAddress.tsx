@@ -5,16 +5,16 @@ import ButtonIcon from "@/components/fragments/ButtonIcon";
 
 export interface Props {
 	className?: string;
-	uri: string;
+	address: string;
 }
 
-const CopyFileUri: React.FC<Props> = ({ className, uri }) => {
+const CopyFileAddress: React.FC<Props> = ({ className, address }) => {
 	const [submitting, setSubmitting] = useState(false);
 
-	const handleCopyFileUri = () => {
+	const handleCopyFileAddress = () => {
 		setSubmitting(true);
 
-		navigator.clipboard.writeText(`${uri}`);
+		navigator.clipboard.writeText(`${address}`);
 
 		setTimeout(() => {
 			setSubmitting(false);
@@ -28,10 +28,10 @@ const CopyFileUri: React.FC<Props> = ({ className, uri }) => {
 				height={22}
 				type={submitting ? "clipboard-check" : "clipboard"}
 				width={22}
-				onClick={handleCopyFileUri}
+				onClick={handleCopyFileAddress}
 			/>
 		</div>
 	);
 };
 
-export default CopyFileUri;
+export default CopyFileAddress;

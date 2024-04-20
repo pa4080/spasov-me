@@ -2,7 +2,7 @@ import React from "react";
 
 import Image from "next/image";
 
-import FileUriHandle from "@/components/fragments/FileUriHandle";
+import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 import { FileListItem } from "@/interfaces/File";
 import { PageCardData } from "@/interfaces/PageCard";
 import { msgs } from "@/messages";
@@ -26,7 +26,7 @@ const PageCard: React.FC<Props> = ({ className, page, files }) => {
 		<div className={`${styles.card} ${className}`}>
 			<div className={styles.buttons}>
 				<DeletePage page_id={page._id} page_title={page.title} />
-				<FileUriHandle uri={`/${page.uri}`} />
+				<FileAddressHandle address={`/${page.uri}`} />
 				<VisibilitySwitchDisplay disabled checked={page.visibility} className="mt-1 mr-1" />
 				<UpdatePage files={files} page={page} />
 			</div>

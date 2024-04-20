@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import slugify from "slugify";
 
+import AttachedToBadge from "@/components/fragments/AttachedToBadge";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,20 +21,15 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { FileData } from "@/interfaces/File";
+import { AttachedToDocument } from "@/interfaces/_common-data-types";
+import { capitalize } from "@/lib/capitalize";
 import { roundTo } from "@/lib/round";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { useBreakpoint } from "@/hooks/useBreakpoint";
-
-import { capitalize } from "@/lib/capitalize";
-
-import { AttachedToDocument } from "@/interfaces/_common-data-types";
-
-import { Switch } from "@/components/ui/switch";
-
-import AttachedToBadge from "../../../fragments/AttachedToBadge";
 import styles from "./_files-form.module.scss";
 import { File_FormSchema, File_FormSchemaGenerator } from "./schema";
 
@@ -172,11 +168,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 	const fileUri = formData
 		? formData.filename.match(/\.(pdf|pptx|xlsx|docx)$/)
 			? `${Route.assets.MIME_TYPE}/${formData.filename.split(".").pop()}.png`
-			: formData.filename.match(/\.(svg)$/)
-				? `${Route.api.FILES_MONGODB}/${formData?._id.toString()}/${formData?.filename}`
-				: `${Route.api.FILES_MONGODB}/${formData?._id.toString()}/${formData?.filename}?v=${new Date(
-						formData.uploadDate
-					).getTime()}`
+			: `https://${process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DOMAIN}/${formData?.filename}`
 		: Route.assets.IMAGE_PLACEHOLDER;
 
 	return (
@@ -273,6 +265,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 								)}
 							/>
 						</div>
+
 						{/* Filename */}
 						<FormField
 							control={form.control}
@@ -281,7 +274,12 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 								<FormItem className="space-y-0">
 									{t("filename_label") && <FormLabel>{t("filename_label")}</FormLabel>}
 									<FormControl>
-										<Input className="text-lg" placeholder={t("filename_placeholder")} {...field} />
+										<Input
+											className="text-lg"
+											placeholder={t("filename_placeholder")}
+											{...field}
+											disabled={!!formData}
+										/>
 									</FormControl>
 
 									{form.formState.errors.filename ? (

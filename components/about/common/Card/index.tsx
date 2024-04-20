@@ -7,7 +7,7 @@ import { enUS as en } from "date-fns/locale";
 
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
-import FileUriHandle from "@/components/fragments/FileUriHandle";
+import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 import Gallery from "@/components/fragments/Gallery";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
@@ -104,7 +104,7 @@ const AboutEntryCard: React.FC<Props> = ({
 							{displayActions ? (
 								<>
 									<DeleteAboutEntry entry={entry} />
-									<FileUriHandle uri={entry.html.attachment?.metadata.html.fileUri} />
+									<FileAddressHandle address={entry.html.attachment?.metadata.html.fileUri} />
 									<Gallery entry={entry} gallery={gallery} />
 									<UpdateAboutEntry entry={entry} files={files} tags={tags} />
 								</>

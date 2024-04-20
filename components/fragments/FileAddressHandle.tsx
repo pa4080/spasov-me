@@ -5,37 +5,39 @@ import ButtonIcon from "@/components/fragments/ButtonIcon";
 
 interface Props {
 	className?: string;
-	uri: string;
+	address: string;
 	download?: boolean; // If true triggers download instead of opening in new tab
 }
 
-const FileUriHandle: React.FC<Props> = ({ className, uri, download }) => {
+const FileAddressHandle: React.FC<Props> = ({ className, address, download }) => {
 	return (
 		<ButtonIcon
 			className={`pl-[2.8px] bg-transparent icon_accent_secondary ${className}`}
-			disabled={!uri}
+			disabled={!address}
 			height={22}
 			type={download ? "download" : "up-right-from-square"}
 			width={22}
 			onClick={() => {
-				if (!window || !uri) {
+				if (!window || !address) {
 					return;
 				}
 
 				if (download) {
 					const link = document.createElement("a");
 
-					link.href = uri;
-					link.setAttribute("download", "");
+					link.href = address;
+					link.setAttribute("download", address?.split("/").at(-1) ?? "");
+					link.setAttribute("target", "_blank");
+					link.setAttribute("type", "application/octet-stream");
 					document.body.appendChild(link);
 					link.click();
-					link.remove();
+					// link.remove();
 				} else {
-					uri && window && window.open(uri, "_blank");
+					address && window && window.open(address, "_blank");
 				}
 			}}
 		/>
 	);
 };
 
-export default FileUriHandle;
+export default FileAddressHandle;

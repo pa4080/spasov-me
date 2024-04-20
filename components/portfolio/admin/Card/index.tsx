@@ -7,7 +7,7 @@ import { enUS as en } from "date-fns/locale";
 
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
-import FileUriHandle from "@/components/fragments/FileUriHandle";
+import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 import Gallery from "@/components/fragments/Gallery";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { FileData, FileListItem } from "@/interfaces/File";
@@ -116,7 +116,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 							{displayActions ? (
 								<>
 									<DeleteProject project={project} />
-									<FileUriHandle uri={project.html.attachment?.metadata.html.fileUri} />
+									<FileAddressHandle address={project.html.attachment?.metadata.html.fileUri} />
 									<Gallery entry={project} gallery={gallery} />
 									<UpdateProject files={files} project={project} tags={tags} />
 								</>

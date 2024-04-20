@@ -6,10 +6,10 @@ import { AttachedToDocument } from "./_common-data-types";
 
 export interface FileMetadata {
 	description: string;
-	creator: UserObject;
+	creator: UserObject | string;
 	size: string;
 	contentType: string;
-	lastModified: Date;
+	lastModified: Date | string | number;
 	originalName: string;
 	attachedTo?: AttachedToDocument[];
 	visibility: boolean | string;
@@ -30,7 +30,8 @@ export interface FileHtmlProps {
 	filename: string;
 	title: string;
 	description: string;
-	fileUri: string;
+	fileUri?: string;
+	fileUrl?: string;
 }
 
 /**
@@ -46,7 +47,7 @@ export interface FileHtmlProps {
 },
 */
 
-export interface FileData extends Omit<FileDoc, "_id" | "creator" | "metadata"> {
+export interface FileData extends Omit<FileDoc, "_id" | "creator" | "metadata" | "chunkSize"> {
 	_id: string;
 	metadata: Omit<FileMetadata, "creator"> & { html: FileHtmlProps };
 }

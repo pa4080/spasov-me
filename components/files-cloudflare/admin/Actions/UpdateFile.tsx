@@ -18,9 +18,9 @@ import { msgs } from "@/messages";
 
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 
+import { updateFile } from "@/components/files-cloudflare/_files.actions";
 import { Route } from "@/routes";
 
-import { updateFile } from "../../_files.actions";
 import FileForm from "../Form";
 import { File_FormSchema } from "../Form/schema";
 
@@ -40,7 +40,7 @@ const UpdateFile: React.FC<Props> = ({ className, file }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await updateFile(generateFormDataFromObject(data), file._id, [
+			const response = await updateFile(generateFormDataFromObject(data), file.filename, file._id, [
 				pathname,
 				Route.admin.ABOUT,
 				Route.admin.PORTFOLIO,

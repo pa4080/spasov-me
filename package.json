@@ -3,6 +3,8 @@
 	"version": "2.0.0",
 	"private": true,
 	"scripts": {
+		"env-pull": "pnpm dlx vercel env pull",
+		"env-inject": "dotenv -e ./.env.local --",
 		"check-branch-name": "chmod 755 githooks/check_branch_name.sh && bash githooks/check_branch_name.sh",
 		"generate-icon-map": "ts-node --skip-project scripts/generate-icon-map.ts",
 		"purge-cache": "rm -rf .next",
@@ -22,6 +24,7 @@
 		"*.scss": "stylelint"
 	},
 	"dependencies": {
+		"@aws-sdk/client-s3": "^3.556.0",
 		"@hookform/resolvers": "^3.3.4",
 		"@radix-ui/react-alert-dialog": "^1.0.5",
 		"@radix-ui/react-aspect-ratio": "^1.0.3",
@@ -36,6 +39,7 @@
 		"@radix-ui/react-switch": "^1.0.3",
 		"@radix-ui/react-toast": "^1.1.5",
 		"@radix-ui/react-tooltip": "^1.0.7",
+		"@types/mime-types": "^2.1.4",
 		"@uiw/react-md-editor": "^4.0.3",
 		"@vercel/analytics": "^1.1.1",
 		"@vercel/blob": "^0.17.0",
@@ -44,11 +48,13 @@
 		"clsx": "^2.1.0",
 		"cmdk": "^0.2.0",
 		"date-fns": "^3.2.0",
+		"dotenv-cli": "^7.4.1",
 		"embla-carousel-react": "8.0.0-rc22",
 		"geist": "^1.2.1",
 		"hyphen": "^1.10.4",
 		"image-size": "^1.1.1",
 		"lucide-react": "^0.309.0",
+		"mime-types": "^2.1.35",
 		"mongodb": "^6.3.0",
 		"mongoose": "^8.0.4",
 		"next": "14.2.2",
@@ -88,6 +94,7 @@
 		"@typescript-eslint/eslint-plugin": "^6.18.1",
 		"@typescript-eslint/parser": "^6.18.1",
 		"autoprefixer": "^10.4.16",
+		"dotenv": "^16.4.5",
 		"eslint": "^8.56.0",
 		"eslint-config-next": "14.2.2",
 		"eslint-config-prettier": "^9.1.0",
@@ -111,6 +118,8 @@
 		"stylelint-scss": "^6.1.0",
 		"tailwindcss": "^3.4.3",
 		"tailwindcss-animate": "^1.0.7",
+		"ts-to-zod": "^3.8.3",
+		"tsx": "^4.7.2",
 		"typescript": "^5.4.5",
 		"vercel": "^33.1.0"
 	}

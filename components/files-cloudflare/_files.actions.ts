@@ -3,47 +3,25 @@
 import { ObjectId } from "mongodb";
 
 import { FileData, FileDoc, FileListItem } from "@/interfaces/File";
-import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
-import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
-import { fileDocuments_toData } from "@/lib/process-data-files";
+import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import { msgs } from "@/messages";
 import FileGFS from "@/models/file";
-import { Route } from "@/routes";
 
 import { AttachedToDocument } from "@/interfaces/_common-data-types";
 
-import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "../_common.actions";
+import {
+	getObject,
+	getObjectListAndDelete,
+	listObjects,
+	updateObject,
+	uploadObject,
+} from "@/lib/r2s3utils";
 
-import { Readable } from "stream";
+import { processMarkdown } from "@/lib/process-markdown";
 
-export const getFilesV1 = async (): Promise<FileData[] | null> => {
-	try {
-		/**
-		 * This version of the function causes the following error at the build time:
-		 *
-		 * > TypeError: Cannot read properties of undefined (reading 'collection')
-		 * > at new GridFSBucket (/config/workspace/spasov-me/node_modules/.pnpm/mongodb@6.2.0/node_modules/mongodb/lib/gridfs/index.js:29:35)
-		 * > at f (/config/workspace/spasov-me/.next/server/chunks/843.js:1:16624)
-		 * > at async m (/config/workspace/spasov-me/.next/server/app/admin/files/page.js:1:32576)
-		 * > at async Z (/config/workspace/spasov-me/.next/server/app/admin/files/page.js:1:32099
-		 *
-		 * It is interesting on Vercel this error does not occur!
-		 */
-		const bucket = await gridFSBucket();
+import { r2BucketDomain } from "@/env";
 
-		const files = (await bucket.find().toArray()) as FileDoc[];
-
-		if (files?.length === 0) {
-			return null;
-		}
-
-		return fileDocuments_toData({ files });
-	} catch (error) {
-		console.error(error);
-
-		return null;
-	}
-};
+import { getSession, revalidatePaths } from "../_common.actions";
 
 export const getFiles = async ({
 	hyphen = true,
@@ -53,14 +31,64 @@ export const getFiles = async ({
 	public?: boolean;
 } = {}): Promise<FileData[] | null> => {
 	try {
-		await connectToMongoDb();
-		const files = await FileGFS.find();
+		const filesRawR2List = await listObjects();
 
-		if (files?.length === 0) {
+		if (filesRawR2List?.length === 0) {
 			return null;
 		}
 
-		return fileDocuments_toData({ files: files.map((file) => file.toObject()), hyphen, visible });
+		const files: FileData[] = [];
+
+		/**
+		 * Notes:
+		 *
+		 * We cannot use GetObjectAttributesCommand,
+		 * because CloudFlare R2 returns not implemented...
+		 * So this is the reason we are using the most expensive
+		 * GetObjectCommand @getObject(), which returns also the
+		 * object itself.
+		 */
+
+		await Promise.all(
+			filesRawR2List.map(async (fRaw) => {
+				const file = await getObject({ objectKey: fRaw.Key!, partNumber: 1 });
+
+				const _id = fRaw.Key!.replace(/\..*$/, ""); // Note: file_id is the filename without extension!
+				const filename = fRaw.Key!;
+				const uploadDate = file?.LastModified || new Date();
+				const length = file?.ContentLength || 0;
+				const description = getMetadataValue(file?.Metadata, "description", "");
+
+				const f: FileData = {
+					_id,
+					filename,
+					uploadDate,
+					length,
+					metadata: {
+						description: description,
+						size: getMetadataValue(file?.Metadata, "size", ""),
+						contentType: getMetadataValue(file?.Metadata, "contenttype", ""),
+						lastModified: getMetadataValue(file?.Metadata, "lastmodified", new Date()),
+						originalName: getMetadataValue(file?.Metadata, "originalname", ""),
+						attachedTo: file?.Metadata?.attachedto
+							? JSON.parse(file?.Metadata?.attachedto)
+							: undefined,
+						visibility:
+							getMetadataValue(file?.Metadata, "visibility", "") === "true" ? true : false,
+						html: {
+							filename: filename,
+							title: processMarkdown({ markdown: filename, hyphen: true }),
+							description: processMarkdown({ markdown: description, hyphen }),
+							fileUrl: `https://${r2BucketDomain}/${filename}`,
+						},
+					},
+				};
+
+				files.push(f);
+			})
+		);
+
+		return visible ? files.filter((file) => file.metadata?.visibility === true) : files;
 	} catch (error) {
 		console.error(error);
 
@@ -88,14 +116,12 @@ export const getFileList = async ({ images }: { images?: boolean } = {}): Promis
 	return filteredFiles.map((file) => ({
 		value: file._id.toString(),
 		label: file.filename,
-		sourceImage: `${Route.api.FILES_MONGODB}/${file._id.toString()}/${
-			file.filename
-		}?v=${new Date(file.uploadDate).getTime()}`,
+		sourceImage: file.metadata.html.fileUrl,
 		sourceDescription: file.filename,
 	}));
 };
 
-export const createFile = async (data: FormData, paths: string[]): Promise<true | null> => {
+export const createFile = async (data: FormData, paths: string[]): Promise<boolean | null> => {
 	try {
 		const session = await getSession();
 
@@ -103,55 +129,35 @@ export const createFile = async (data: FormData, paths: string[]): Promise<true 
 			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
-		// connect to the database and get the bucket
-		const bucket = await gridFSBucket();
-
-		/**
-		 * This is much inconvenient approach.
-		 * Because we cannot process in a loop in our case...
-		 *
-		const formEntries = Array.from(data.entries());
-		const description = formEntries.find((entry) => entry[0] === "description")?.[1] as string;
-		const file_name = formEntries.find((entry) => entry[0] === "name")?.[1] as string;
-		const user_id = formEntries.find((entry) => entry[0] === "user_id")?.[1] as string;
-		const file_form_field = formEntries.find((entry) => entry[0] === "file")?.[1];
-		 */
-
 		const file = data.get("file") as File;
 		const description = data.get("description") as string;
 		const file_name = data.get("filename") as string;
+		const visibility = data.get("visibility") as string;
+
 		const user_id = session?.user.id as string;
+
+		const metadata = {
+			description,
+			creator: user_id,
+			size: file.size.toString(),
+			contentType: file.type,
+			lastModified: file.lastModified,
+			originalName: file.name,
+			visibility,
+		};
 
 		if (typeof file === "object") {
 			// Override the original filename
 			const filename = file_name || file.name;
 
-			// Convert the blob to stream
+			// Convert the blob to buffer
 			const buffer = Buffer.from(await file.arrayBuffer());
-			const stream = Readable.from(buffer);
 
-			const uploadStream = bucket.openUploadStream(filename, {
-				// Make sure to add content type so that it will be easier to set later.
-				metadata: {
-					description,
-					creator: new ObjectId(user_id),
-					size: file.size,
-					contentType: file.type,
-					lastModified: file.lastModified,
-					originalName: file.name,
-				},
-				chunkSizeBytes: file.size < defaultChunkSize ? file.size + 4 : defaultChunkSize,
+			return await uploadObject({
+				filename,
+				metadata,
+				fileBody: buffer,
 			});
-
-			// Pipe the readable stream to a writeable stream to save it to the database
-			const dbObject = stream.pipe(uploadStream);
-
-			await new Promise((resolve, reject) => {
-				uploadStream.on("finish", resolve);
-				uploadStream.on("error", reject);
-			});
-
-			return dbObject.id ? true : null;
 		} else {
 			console.error(msgs("Errors")("invalidFile"));
 
@@ -168,9 +174,10 @@ export const createFile = async (data: FormData, paths: string[]): Promise<true 
 
 export const updateFile = async (
 	data: FormData,
+	filename: string,
 	file_id: string,
 	paths: string[]
-): Promise<true | null> => {
+): Promise<boolean | null> => {
 	try {
 		const session = await getSession();
 
@@ -178,108 +185,65 @@ export const updateFile = async (
 			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
-		// Generate the ObjectId, connect to the db and get the bucket
-		await connectToMongoDb();
-		const _id = new ObjectId(file_id);
-		const document = await FileGFS.findOne(_id);
-		const bucket = await gridFSBucket();
-
-		if (!document) {
-			console.error(msgs("Errors")("invalidFile", { id: file_id }));
-
-			return null;
-		}
-
-		const user_id = session?.user.id;
 		const file = data.get("file") as File;
-		const documentData_new = {
-			description: data.get("description") as string,
-			file_name: data.get("filename") as string,
-			attachedTo: JSON.parse(data.get("attachedTo") as string) as AttachedToDocument[],
-			visibility: data.get("visibility") as string,
-		};
+		const description = data.get("description") as string;
+		const file_name = data.get("filename") as string;
+		const visibility = data.get("visibility") as string;
 
-		deleteFalsyKeys(documentData_new);
+		const user_id = session?.user.id as string;
 
-		// Process the "attachedTo" array first
-		await attachedTo_detachFromTarget({
-			attachedToArr_new: documentData_new.attachedTo,
-			attachedToArr_old: document.toObject().metadata.attachedTo,
-			target_id: file_id,
-		});
-
-		// Process the "file" itself --- TODO: uncomment the lines related to attachedTo
-		if (typeof file === "object") {
-			/**
-			 * In this case we need to replace the file itself,
-			 * so firs we need to remove it from the database, and
-			 * then we need to create a new one with the same _id.
-			 */
-
-			// Remove the file from the database
-			await bucket.delete(_id);
+		if (file && typeof file === "object") {
+			// If a new file is provided, delete the old file and upload the new one
+			const metadata = {
+				description,
+				creator: user_id,
+				size: file.size.toString(),
+				contentType: file.type,
+				lastModified: file.lastModified,
+				originalName: file.name,
+				visibility,
+			};
 
 			// Override the original filename
-			const filename = documentData_new.file_name || file.name;
+			const filename = file_name || file.name;
 
-			// Convert the blob to stream
+			// Delete the old file. Note: file_id is the filename without extension!
+			await getObjectListAndDelete({ prefix: file_id });
+
+			// Convert the blob to buffer
 			const buffer = Buffer.from(await file.arrayBuffer());
-			const stream = Readable.from(buffer);
 
-			const uploadStream = bucket.openUploadStreamWithId(_id, filename, {
-				// Make sure to add content type so that it will be easier to set later.
-				metadata: {
-					description: documentData_new.description || document.metadata?.description,
-					creator: new ObjectId(user_id),
-					size: file.size,
-					contentType: file.type,
-					lastModified: file.lastModified,
-					originalName: file.name,
-					visibility: documentData_new.visibility || document.metadata?.visibility,
-					attachedTo: documentData_new.attachedTo || document.metadata?.attachedTo,
-				},
-				chunkSizeBytes: file.size < defaultChunkSize ? file.size + 4 : defaultChunkSize,
+			// Upload the new file
+			return await uploadObject({
+				filename,
+				metadata,
+				fileBody: buffer,
 			});
-
-			// Pipe the readable stream to a writeable stream to save it to the database
-			const dbObject = stream.pipe(uploadStream);
-
-			await new Promise((resolve, reject) => {
-				uploadStream.on("finish", resolve);
-				uploadStream.on("error", reject);
-			});
-
-			return dbObject.id ? true : null;
 		} else {
-			/**
-			 * In this case we only need to update the "metadata", and/or the "filename".
-			 * So we do not need to create a new file and stream its content.
-			 */
+			// If no new file is provided, just update the metadata
+			const file = await getObject({ objectKey: file_name, partNumber: 1 });
 
-			if (document.metadata?.description !== documentData_new?.description) {
-				document.metadata.description = documentData_new.description;
-				await document.save();
+			if (!file || !file.Metadata) {
+				throw new Error(msgs("Errors")("invalidFile", { id: file_name }));
 			}
 
-			if (document.metadata?.visibility !== documentData_new?.visibility) {
-				document.metadata.visibility = documentData_new.visibility;
-				await document.save();
-			}
+			const metadataParse: Record<string, string> = {};
 
-			if (documentData_new.attachedTo !== document.toObject().metadata.attachedTo) {
-				document.metadata = {
-					...document.toObject().metadata,
-					attachedTo: documentData_new.attachedTo,
-				};
+			Object.entries(file.Metadata).forEach(([key, value]) => {
+				metadataParse[key] = JSON.parse(value);
+			});
 
-				await document.save();
-			}
+			const metadata = {
+				size: metadataParse.size,
+				originalName: metadataParse.originalname,
+				lastModified: new Date(),
+				contentType: file.ContentType || metadataParse.contenttype || "application/octet-stream",
+				description,
+				creator: user_id,
+				visibility,
+			};
 
-			if (document.filename !== documentData_new?.file_name) {
-				await bucket.rename(_id, documentData_new.file_name);
-			}
-
-			return true;
+			return await updateObject({ filename, metadata });
 		}
 	} catch (error) {
 		console.error(error);
@@ -290,24 +254,14 @@ export const updateFile = async (
 	}
 };
 
-export const deleteFile = async (file_id: string, paths: string[]): Promise<true | null> => {
+export const deleteFile = async (filename: string, paths: string[]): Promise<true | null> => {
 	try {
 		if (!(await getSession())?.user) {
 			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
-		const bucket = await gridFSBucket();
-		const _id = new ObjectId(file_id);
-
-		// Just check if does the file exists
-		const files = await bucket.find({ _id }).toArray();
-
-		if (files.length === 0) {
-			return null;
-		}
-
 		// Do the actual remove
-		await bucket.delete(_id);
+		await getObjectListAndDelete({ prefix: filename });
 
 		return true;
 	} catch (error) {
@@ -397,4 +351,15 @@ export const fileAttachment_remove = async ({
 
 		return false;
 	}
+};
+
+/**
+ * Helper function to get the metadata value
+ */
+const getMetadataValue = <T>(
+	metadata: Record<string, string> | undefined,
+	key: string,
+	defaultValue: T
+) => {
+	return metadata?.[key] ? JSON.parse(metadata?.[key]) : defaultValue;
 };
