@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
 
-import { deleteFile } from "@/components/files/_files.actions";
+import { deleteFile } from "@/components/files-mongodb/_files.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {

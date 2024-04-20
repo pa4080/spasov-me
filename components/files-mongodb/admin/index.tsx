@@ -8,7 +8,7 @@ interface Props {
 	className?: string;
 }
 
-const FilesAdmin: React.FC<Props> = async ({ className }) => {
+const FilesAdmin_MongoDB: React.FC<Props> = async ({ className }) => {
 	const files = await getFiles();
 
 	const filesCommon = files?.filter(
@@ -36,4 +36,4 @@ const FilesAdmin: React.FC<Props> = async ({ className }) => {
 	);
 };
 
-export default FilesAdmin;
+export default FilesAdmin_MongoDB;
