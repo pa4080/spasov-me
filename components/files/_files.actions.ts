@@ -88,7 +88,7 @@ export const getFileList = async ({ images }: { images?: boolean } = {}): Promis
 	return filteredFiles.map((file) => ({
 		value: file._id.toString(),
 		label: file.filename,
-		sourceImage: `${Route.api.FILES}/${file._id.toString()}/${
+		sourceImage: `${Route.api.FILES_MONGODB}/${file._id.toString()}/${
 			file.filename
 		}?v=${new Date(file.uploadDate).getTime()}`,
 		sourceDescription: file.filename,

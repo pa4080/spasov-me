@@ -173,8 +173,8 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 		? formData.filename.match(/\.(pdf|pptx|xlsx|docx)$/)
 			? `${Route.assets.MIME_TYPE}/${formData.filename.split(".").pop()}.png`
 			: formData.filename.match(/\.(svg)$/)
-				? `${Route.api.FILES}/${formData?._id.toString()}/${formData?.filename}`
-				: `${Route.api.FILES}/${formData?._id.toString()}/${formData?.filename}?v=${new Date(
+				? `${Route.api.FILES_MONGODB}/${formData?._id.toString()}/${formData?.filename}`
+				: `${Route.api.FILES_MONGODB}/${formData?._id.toString()}/${formData?.filename}?v=${new Date(
 						formData.uploadDate
 					).getTime()}`
 		: Route.assets.IMAGE_PLACEHOLDER;

@@ -15,7 +15,7 @@ import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-
 import FileGFS from "@/models/file";
 import { Route } from "@/routes";
 
-import { errorMessages } from "../../common";
+import { errorMessages } from "@/app/api/common";
 
 import { Readable } from "stream";
 
@@ -56,7 +56,7 @@ export async function GET(request: NextRequest, { params }: Context) {
 
 				return NextResponse.redirect(
 					new URL(
-						`${Route.api.FILES}/${fileId}/${file?.filename}`,
+						`${Route.api.FILES_MONGODB}/${fileId}/${file?.filename}`,
 						process.env.NEXTAUTH_URL ?? request.url
 					),
 					301

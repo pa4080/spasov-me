@@ -7,9 +7,8 @@ import { del, list, put } from "@vercel/blob";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
+import { errorMessages } from "@/app/api/common";
 import { authOptions } from "@/lib/auth-options";
-
-import { errorMessages } from "../common";
 
 export async function POST(request: Request): Promise<NextResponse> {
 	const session = await getServerSession(authOptions);
@@ -47,8 +46,8 @@ export async function POST(request: Request): Promise<NextResponse> {
 }
 
 /**
-	 * @example fetch("/api/blob")
-	 *
+	* @example fetch("/api/blob")
+	*
 	{
 		"hasMore": false,
 		"blobs": [
@@ -60,7 +59,8 @@ export async function POST(request: Request): Promise<NextResponse> {
 			},
 		]
 	}
-	*/
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(request: Request): Promise<NextResponse> {
 	const session = await getServerSession(authOptions);
 

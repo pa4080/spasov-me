@@ -15,7 +15,7 @@ export default function UploadPage() {
 	const [list, setList] = useState<PutBlobResult[] | null>(null);
 
 	const getList = async () => {
-		const response = await fetch(Route.api.BLOB);
+		const response = await fetch(Route.api.FILES_VERCEL_BLOB);
 		const list = await response.json();
 
 		setList(list.blobs as PutBlobResult[]);
@@ -30,7 +30,7 @@ export default function UploadPage() {
 
 		const file = inputFileRef.current.files[0];
 
-		const response = await fetch(`${Route.api.BLOB}?filename=${file.name}`, {
+		const response = await fetch(`${Route.api.FILES_VERCEL_BLOB}?filename=${file.name}`, {
 			method: "POST",
 			body: file,
 		});
@@ -42,7 +42,7 @@ export default function UploadPage() {
 	};
 
 	const delBlob = async (blob: PutBlobResult) => {
-		const response = await fetch(Route.api.BLOB + "?url=" + blob.url, {
+		const response = await fetch(Route.api.FILES_VERCEL_BLOB + "?url=" + blob.url, {
 			method: "DELETE",
 		});
 

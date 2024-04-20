@@ -36,7 +36,7 @@ export function fileDocuments_toData({
 				filename: file.filename,
 				title: processMarkdown({ markdown: file.filename, hyphen: true }),
 				description: processMarkdown({ markdown: file.metadata?.description, hyphen }),
-				fileUri: `${Route.api.FILES}/${file._id.toString()}/${file.filename}?v=${new Date(
+				fileUri: `${Route.api.FILES_MONGODB}/${file._id.toString()}/${file.filename}?v=${new Date(
 					file.uploadDate
 				).getTime()}`,
 			},
