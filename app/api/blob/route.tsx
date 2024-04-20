@@ -3,7 +3,7 @@
  * @see https://vercel.com/docs/storage/vercel-blob
  */
 
-import { put } from "@vercel/blob";
+import { del, list, put } from "@vercel/blob";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
@@ -44,4 +44,55 @@ export async function POST(request: Request): Promise<NextResponse> {
 	});
 
 	return NextResponse.json(blob);
+}
+
+/**
+	 * @example fetch("/api/blob")
+	 *
+	{
+		"hasMore": false,
+		"blobs": [
+			{
+				"url": "https://zmav0fjeywgydpex.public.blob.vercel-storage.com/simple-vercel-replica.logo-Yp3Urwt01ayuboYadZFpXwqWeh2sdk.svg",
+				"pathname": "simple-vercel-replica.logo.svg",
+				"size": 5087,
+				"uploadedAt": "2024-04-19T05:59:35.498Z"
+			},
+		]
+	}
+	*/
+export async function GET(request: Request): Promise<NextResponse> {
+	const session = await getServerSession(authOptions);
+
+	if (!session) {
+		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+	}
+
+	const blobRes = await list();
+
+	return NextResponse.json(blobRes);
+}
+
+export async function DELETE(request: Request): Promise<NextResponse> {
+	const session = await getServerSession(authOptions);
+
+	if (!session) {
+		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+	}
+
+	const { searchParams } = new URL(request.url);
+	const url = searchParams.get("url");
+
+	if (!url) {
+		return NextResponse.json(
+			{
+				error: "Missing file url",
+			},
+			{ status: 500 }
+		);
+	}
+
+	del(url);
+
+	return NextResponse.json({ url: url, deleted: true });
 }
