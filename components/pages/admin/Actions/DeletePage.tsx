@@ -43,7 +43,8 @@ const DeletePage: React.FC<Props> = ({ className, page_id, page_title }) => {
 			const response = await deletePageCard(page_id, [
 				pathname,
 				Route.public.HOME.uri,
-				Route.admin.FILES,
+				Route.admin.FILES_MONGODB, // TODO: files-cloudflare tidy up
+				Route.admin.FILES_CFR2, // TODO: files-cloudflare tidy up
 			]);
 
 			serverActionResponseToastAndLocationReload({

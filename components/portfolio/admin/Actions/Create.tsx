@@ -56,7 +56,8 @@ const CreateProject: React.FC<Props> = ({ className, type, files, tags }) => {
 			const response = await createProject(generateFormDataFromObject(data), [
 				pathname,
 				Route.public.PORTFOLIO.uri,
-				Route.admin.FILES,
+				Route.admin.FILES_MONGODB, // TODO: files-cloudflare tidy up
+				Route.admin.FILES_CFR2, // TODO: files-cloudflare tidy up
 			]);
 
 			serverActionResponseToastAndLocationReload({

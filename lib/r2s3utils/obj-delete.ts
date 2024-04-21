@@ -36,8 +36,12 @@ export const deleteObjectList = async ({
 			process.stdout.write(`\n🌵  Successfully deleted ${Deleted?.length} object(s):  🌵\n`);
 			Deleted?.map((o) => process.stdout.write(`💀  ${o.Key}\n`));
 		}
+
+		return Deleted?.length && Deleted?.length > 0 ? true : null;
 	} catch (err) {
 		console.error(err);
+
+		return null;
 	}
 };
 
@@ -58,8 +62,12 @@ export const getObjectListAndDelete = async ({
 		slicedObjects.push(objects.slice(i, i + 999));
 	}
 
+	let res = null;
+
 	for (const batch of slicedObjects) {
 		// The length of the array for delete must be between 1 and 1000
-		await deleteObjectList({ objects: batch.map((o) => ({ Key: o.Key })), log });
+		res = await deleteObjectList({ objects: batch.map((o) => ({ Key: o.Key })), log });
 	}
+
+	return res;
 };

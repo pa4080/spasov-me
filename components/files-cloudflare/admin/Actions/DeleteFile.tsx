@@ -37,7 +37,7 @@ const DeleteFile: React.FC<Props> = ({ className, file }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await deleteFile(file.filename, [pathname]);
+			const response = await deleteFile(file._id, [pathname]);
 
 			serverActionResponseToastAndLocationReload({
 				trigger: !!response,
