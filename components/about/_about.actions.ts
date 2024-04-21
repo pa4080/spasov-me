@@ -21,12 +21,12 @@ export const getEntries = async ({
 	try {
 		await connectToMongoDb();
 		const entries: AboutEntryDocPopulated[] = await AboutEntry.find({}).populate([
-			"attachment",
+			// "attachment",  // TODO: files-cloudflare tidy up
+			// "gallery",  // TODO: files-cloudflare tidy up
 			"tags",
-			"gallery",
 		]);
 
-		return aboutDocuments_toData({ entries, hyphen, typeList, visible });
+		return await aboutDocuments_toData({ entries, hyphen, typeList, visible });
 	} catch (error) {
 		console.error(error);
 
@@ -101,6 +101,7 @@ export const updateEntry = async (
 			strict: true,
 		});
 
+		// await process_relations()
 		await process_relations({
 			documentData_new,
 			document_new,

@@ -1,11 +1,7 @@
 "use server";
 
-import { ObjectId } from "mongodb";
-
-import { FileData, FileDoc, FileListItem } from "@/interfaces/File";
-import { connectToMongoDb } from "@/lib/mongodb-mongoose";
+import { FileData, FileListItem, FileMetadata } from "@/interfaces/File";
 import { msgs } from "@/messages";
-import FileGFS from "@/models/file";
 
 import { AttachedToDocument } from "@/interfaces/_common-data-types";
 
@@ -17,13 +13,11 @@ import {
 	uploadObject,
 } from "@/lib/r2s3utils";
 
-import { processMarkdown } from "@/lib/process-markdown";
+import { fileObject_toData } from "@/lib/process-data-files-cloudflare";
 
-import { r2BucketDomain } from "@/env";
+import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "./../_common.actions";
 
-import { getSession, revalidatePaths } from "../_common.actions";
-
-export const getFiles = async ({
+export const getFilesR2 = async ({
 	hyphen = true,
 	public: visible = false,
 }: {
@@ -37,58 +31,9 @@ export const getFiles = async ({
 			return null;
 		}
 
-		const files: FileData[] = [];
+		const files = await fileObject_toData({ files: filesRawR2List, hyphen, visible });
 
-		/**
-		 * Notes:
-		 *
-		 * We cannot use GetObjectAttributesCommand,
-		 * because CloudFlare R2 returns not implemented...
-		 * So this is the reason we are using the most expensive
-		 * GetObjectCommand @getObject(), which returns also the
-		 * object itself.
-		 */
-
-		await Promise.all(
-			filesRawR2List.map(async (file_raw) => {
-				const file = await getObject({ objectKey: file_raw.Key!, partNumber: 1 });
-
-				const _id = file_raw.Key!.replace(/\..*$/, ""); // Note: file_id is the filename without extension!
-				const filename = file_raw.Key!;
-				const uploadDate = file?.LastModified || new Date();
-				const length = file?.ContentLength || 0;
-				const description = getMetadataValue(file?.Metadata, "description", "");
-
-				const f: FileData = {
-					_id,
-					filename,
-					uploadDate,
-					length,
-					metadata: {
-						description: description,
-						size: getMetadataValue(file?.Metadata, "size", ""),
-						contentType: getMetadataValue(file?.Metadata, "contenttype", ""),
-						lastModified: getMetadataValue(file?.Metadata, "lastmodified", new Date()),
-						originalName: getMetadataValue(file?.Metadata, "originalname", ""),
-						attachedTo: file?.Metadata?.attachedto
-							? JSON.parse(file?.Metadata?.attachedto)
-							: undefined,
-						visibility:
-							getMetadataValue(file?.Metadata, "visibility", "") === "true" ? true : false,
-						html: {
-							filename: filename,
-							title: processMarkdown({ markdown: filename, hyphen: true }),
-							description: processMarkdown({ markdown: description, hyphen }),
-							fileUrl: `https://${r2BucketDomain}/${filename}`,
-						},
-					},
-				};
-
-				files.push(f);
-			})
-		);
-
-		return visible ? files.filter((file) => file.metadata?.visibility === true) : files;
+		return files;
 	} catch (error) {
 		console.error(error);
 
@@ -99,7 +44,7 @@ export const getFiles = async ({
 export const getFileList = async ({ images }: { images?: boolean } = {}): Promise<
 	FileListItem[] | null
 > => {
-	const files = await getFiles();
+	const files = await getFilesR2();
 
 	if (!files || files?.length === 0) {
 		return null;
@@ -189,26 +134,39 @@ export const updateFile = async (
 		const description = data.get("description") as string;
 		const file_name = data.get("filename") as string;
 		const visibility = data.get("visibility") as string;
+		const attachedTo = JSON.parse(data.get("attachedTo") as string) as AttachedToDocument[];
 
 		const user_id = session?.user.id as string;
+
+		// If no new file is provided, just update the metadata
+		const fileOld = await getObject({ objectKey: file_name, partNumber: 1 });
+		const attachedToOld = JSON.parse(fileOld?.Metadata?.attachedto || "[]");
+
+		// Process the "attachedTo" array first -- await attachedTo_detachFromTarget()
+		await attachedTo_detachFromTarget({
+			attachedToArr_new: attachedTo,
+			attachedToArr_old: attachedToOld,
+			target_id: file_id,
+		});
 
 		if (file && typeof file === "object") {
 			// If a new file is provided, delete the old file and upload the new one
 			const metadata = {
 				description,
+				attachedTo,
+				visibility,
 				creator: user_id,
 				size: file.size.toString(),
 				contentType: file.type,
 				lastModified: file.lastModified,
 				originalName: file.name,
-				visibility,
 			};
 
 			// Override the original filename
 			const filename = file_name || file.name;
 
 			// Delete the old file. Note: file_id is the filename without extension!
-			await getObjectListAndDelete({ prefix: file_id });
+			await getObjectListAndDelete({ prefix: file_id.replace(/^Id:/, "") });
 
 			// Convert the blob to buffer
 			const buffer = Buffer.from(await file.arrayBuffer());
@@ -220,27 +178,25 @@ export const updateFile = async (
 				fileBody: buffer,
 			});
 		} else {
-			// If no new file is provided, just update the metadata
-			const file = await getObject({ objectKey: file_name, partNumber: 1 });
-
-			if (!file || !file.Metadata) {
+			if (!fileOld || !fileOld.Metadata) {
 				throw new Error(msgs("Errors")("invalidFile", { id: file_name }));
 			}
 
 			const metadataParse: Record<string, string> = {};
 
-			Object.entries(file.Metadata).forEach(([key, value]) => {
+			Object.entries(fileOld.Metadata).forEach(([key, value]) => {
 				metadataParse[key] = JSON.parse(value);
 			});
 
 			const metadata = {
+				description,
+				attachedTo,
+				visibility,
 				size: metadataParse.size,
 				originalName: metadataParse.originalname,
 				lastModified: new Date(),
-				contentType: file.ContentType || metadataParse.contenttype || "application/octet-stream",
-				description,
+				contentType: fileOld.ContentType || metadataParse.contenttype || "application/octet-stream",
 				creator: user_id,
-				visibility,
 			};
 
 			return await updateObject({ filename, metadata });
@@ -254,16 +210,14 @@ export const updateFile = async (
 	}
 };
 
-export const deleteFile = async (filename: string, paths: string[]): Promise<true | null> => {
+export const deleteFile = async (file_id: string, paths: string[]): Promise<boolean | null> => {
 	try {
 		if (!(await getSession())?.user) {
 			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
 		// Do the actual remove
-		await getObjectListAndDelete({ prefix: filename });
-
-		return true;
+		return await getObjectListAndDelete({ prefix: file_id.replace(/^Id:/, "") });
 	} catch (error) {
 		console.error(error);
 
@@ -284,33 +238,42 @@ export const fileAttachment_add = async ({
 }: {
 	documentToAttach: AttachedToDocument;
 	target_file_id: string;
-}): Promise<boolean> => {
+}): Promise<boolean | null> => {
 	try {
-		await connectToMongoDb();
-		const target_file_ObjectId = new ObjectId(target_file_id);
-		const dbFileGFSDoc = (await FileGFS.findOne(target_file_ObjectId)).toObject() as FileDoc;
-		const attachedTo = (dbFileGFSDoc.metadata.attachedTo as AttachedToDocument[]) || [];
+		const files = await getFilesR2();
+		const targetFileObj = files?.find(({ _id }: { _id: string }) => _id === target_file_id);
+
+		if (!targetFileObj) {
+			throw new Error(msgs("Errors")("invalidFile", { id: target_file_id }));
+		}
+
+		const targetFileObj_attachedTo = targetFileObj?.metadata.attachedTo;
 
 		// Check if the document is already attached
-		if (!!attachedTo.find(({ _id }: { _id: string }) => _id === documentToAttach._id)) {
+		if (
+			targetFileObj_attachedTo &&
+			!!targetFileObj_attachedTo.find(({ _id }: { _id: string }) => _id === documentToAttach._id)
+		) {
 			return true;
 		}
 
-		return !!(await FileGFS.updateOne(
-			{ _id: target_file_ObjectId },
-			{
-				$set: {
-					"metadata.attachedTo": [
-						...attachedTo,
-						{
-							modelType: documentToAttach.modelType,
-							title: documentToAttach.title,
-							_id: documentToAttach._id,
-						},
-					],
-				},
-			}
-		));
+		const attachedToNew = [...(targetFileObj_attachedTo || []), documentToAttach];
+		const session = await getSession();
+		const creator = session?.user.id as string;
+		const visibility = targetFileObj.metadata.visibility ? "true" : "false";
+
+		const metadata: FileMetadata = {
+			description: targetFileObj.metadata.description,
+			size: targetFileObj.metadata.size,
+			contentType: targetFileObj.metadata.contentType,
+			lastModified: targetFileObj.metadata.lastModified,
+			originalName: targetFileObj.metadata.originalName,
+			visibility,
+			creator,
+			attachedTo: attachedToNew,
+		};
+
+		return await updateObject({ filename: targetFileObj.filename, metadata });
 	} catch (error) {
 		console.error("Unable to add attached document to a File: ", error);
 
@@ -329,37 +292,37 @@ export const fileAttachment_remove = async ({
 }: {
 	attachedDocument_id: string;
 	target_file_id: string;
-}): Promise<boolean> => {
+}): Promise<boolean | null> => {
 	try {
-		await connectToMongoDb();
-		const target_file_ObjectId = new ObjectId(target_file_id);
-		const dbFileGFSDoc = (await FileGFS.findOne(target_file_ObjectId)).toObject() as FileDoc;
-		const attachedTo = (dbFileGFSDoc.metadata.attachedTo as AttachedToDocument[]) || [];
+		const files = await getFilesR2();
+		const targetFileObj = files?.find(({ _id }: { _id: string }) => _id === target_file_id);
 
-		return !!(await FileGFS.updateOne(
-			{ _id: target_file_ObjectId },
-			{
-				$set: {
-					"metadata.attachedTo": attachedTo.filter(
-						({ _id }: { _id: string }) => _id !== attachedDocument_id
-					),
-				},
-			}
-		));
+		if (!targetFileObj) {
+			throw new Error(msgs("Errors")("invalidFile", { id: target_file_id }));
+		}
+
+		const attachedToNew = targetFileObj?.metadata.attachedTo?.filter(
+			({ _id }: { _id: string }) => _id !== attachedDocument_id
+		);
+		const session = await getSession();
+		const creator = session?.user.id as string;
+		const visibility = targetFileObj.metadata.visibility;
+
+		const metadata: FileMetadata = {
+			description: targetFileObj.metadata.description,
+			size: targetFileObj.metadata.size,
+			contentType: targetFileObj.metadata.contentType,
+			lastModified: targetFileObj.metadata.lastModified,
+			originalName: targetFileObj.metadata.originalName,
+			visibility,
+			creator,
+			attachedTo: attachedToNew,
+		};
+
+		return await updateObject({ filename: targetFileObj.filename, metadata });
 	} catch (error) {
 		console.error("Unable to remove attached document from a File: ", error);
 
 		return false;
 	}
-};
-
-/**
- * Helper function to get the metadata value
- */
-const getMetadataValue = <T>(
-	metadata: Record<string, string> | undefined,
-	key: string,
-	defaultValue: T
-) => {
-	return metadata?.[key] ? JSON.parse(metadata?.[key]) : defaultValue;
 };

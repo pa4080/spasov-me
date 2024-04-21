@@ -3,7 +3,7 @@ import React from "react";
 
 // import { Analytics } from "@vercel/analytics/react";
 
-import { inter, unicephalon } from "@/app/fonts";
+import { poppins, unicephalon } from "@/app/fonts";
 import MainLayout from "@/components/layouts/main-layout";
 import { Toaster } from "@/components/ui/toaster";
 import { AppContextProvider } from "@/contexts/AppContext";
@@ -44,7 +44,8 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
 		<html suppressHydrationWarning lang="en">
 			<body
 				className={
-					`${inter.className} ${unicephalon.variable} `
+					`${poppins.className} ${unicephalon.variable} `
+					// `${inter.className} ${unicephalon.variable} `
 					// `{GeistSans.className} ${GeistSans.variable} ${GeistMono.variable}`
 				}
 			>

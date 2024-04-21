@@ -1,6 +1,6 @@
 import { kv } from "@vercel/kv";
 
-import { getFiles } from "@/components/files-cloudflare/_files.actions";
+import { getFilesR2 } from "@/components/files-cloudflare/_files.actions";
 import { FileData } from "@/interfaces/File.js";
 
 let filesAcc: FileData[] | null = null;
@@ -26,7 +26,8 @@ export async function cachedFiles(files?: FileData[]): Promise<FileData[] | null
 				}))
 			: null;
 
-		filesAcc = redisCacheProcessed || (await getFiles({ cache: false, hyphen: true }));
+		// filesAcc = redisCacheProcessed || (await getFilesR2({ cache: false, hyphen: true }));
+		filesAcc = redisCacheProcessed || (await getFilesR2());
 
 		return filesAcc;
 	}

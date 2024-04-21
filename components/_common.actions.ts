@@ -76,7 +76,11 @@ export const attachedTo_detachFromTarget = async ({
 		let attachedTo_diff: AttachedToDocument[] = [];
 
 		// If all attachedTo items are removed
-		if (attachedToArr_old && attachedToArr_old?.length > 0 && !attachedToArr_new) {
+		if (
+			attachedToArr_old &&
+			attachedToArr_old?.length > 0 &&
+			(!attachedToArr_new || attachedToArr_new?.length === 0)
+		) {
 			attachedTo_diff = attachedToArr_old;
 		}
 
@@ -186,7 +190,7 @@ export const process_relations = async ({
 		if (document_prev.attachment) {
 			await fileAttachment_remove({
 				attachedDocument_id: document_prev._id.toString(),
-				target_file_id: document_prev.attachment.toString(),
+				target_file_id: document_prev.attachment,
 			});
 		}
 
@@ -194,17 +198,17 @@ export const process_relations = async ({
 		if ("icon" in document_prev && document_prev.icon) {
 			await fileAttachment_remove({
 				attachedDocument_id: document_prev._id.toString(),
-				target_file_id: document_prev.icon.toString(),
+				target_file_id: document_prev.icon,
 			});
 		}
 
 		// Deal with the "gallery"
 		if (document_prev.gallery && document_prev.gallery.length > 0) {
 			await Promise.all(
-				document_prev.gallery.map(async (file_id: ObjectId) => {
+				document_prev.gallery.map(async (file_id: string) => {
 					await fileAttachment_remove({
 						attachedDocument_id: document_prev._id.toString(),
-						target_file_id: file_id.toString(),
+						target_file_id: file_id,
 					});
 				})
 			);

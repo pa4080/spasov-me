@@ -1,11 +1,12 @@
 import { AboutEntryData, AboutEntryDocPopulated, NewAboutEntryData } from "@/interfaces/AboutEntry";
 import { AboutEntryType, CityType, CountryType } from "@/interfaces/_common-data-types";
 
-import { fileDocuments_toData } from "./process-data-files";
+import { getFilesR2 } from "@/components/files-cloudflare/_files.actions";
+
 import { tagDocuments_toData } from "./process-data-tags";
 import { processMarkdown } from "./process-markdown";
 
-export function aboutDocuments_toData({
+export async function aboutDocuments_toData({
 	entries,
 	hyphen,
 	typeList,
@@ -15,12 +16,14 @@ export function aboutDocuments_toData({
 	hyphen?: boolean;
 	typeList?: AboutEntryType[];
 	visible?: boolean;
-}): AboutEntryData[] {
+}): Promise<AboutEntryData[]> {
 	let entriesFiltered = entries;
 
 	if (visible) {
 		entriesFiltered = entries.filter((entry) => entry.visibility);
 	}
+
+	const files = await getFilesR2();
 
 	return entriesFiltered
 		.filter(({ entryType }) => (typeList && typeList.includes(entryType)) ?? true)
@@ -36,9 +39,7 @@ export function aboutDocuments_toData({
 					markdown: entry.description,
 					hyphen,
 				}),
-				attachment: fileDocuments_toData({
-					files: entry?.attachment ? [entry?.attachment] : [],
-				})?.[0],
+				attachment: files?.find((file) => file._id === entry?.attachment),
 			},
 			title: entry.title,
 			description: entry.description,
@@ -48,9 +49,9 @@ export function aboutDocuments_toData({
 			dateTo: entry.dateTo as Date | undefined,
 			entryType: entry.entryType,
 			visibility: entry.visibility as boolean,
-			attachment: entry.attachment?._id.toString(),
+			attachment: entry.attachment,
 			tags: tagDocuments_toData({ tags: entry.tags || [], hyphen: true }),
-			gallery: fileDocuments_toData({ files: entry.gallery || [] }),
+			gallery: files?.filter((file) => entry?.gallery?.includes(file._id)),
 		}));
 }
 

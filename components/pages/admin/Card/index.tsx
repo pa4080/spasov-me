@@ -9,6 +9,8 @@ import { msgs } from "@/messages";
 
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 
+import { Route } from "@/routes";
+
 import styles from "../../_pages.module.scss";
 import DeletePage from "../Actions/DeletePage";
 import UpdatePage from "../Actions/UpdatePage";
@@ -36,7 +38,11 @@ const PageCard: React.FC<Props> = ({ className, page, files }) => {
 						priority
 						alt={t("index_pageAttachment_alt", { title: page.title })}
 						height={260}
-						src={page.html.attachment?.metadata.html.fileUri}
+						src={
+							page.html.attachment?.metadata?.html?.fileUri ||
+							page.html.attachment?.metadata?.html?.fileUrl ||
+							Route.assets.IMAGE_PLACEHOLDER
+						}
 						unoptimized={page.html.attachment.filename.match(/\.svg$/) ? true : false}
 						width={462}
 					/>

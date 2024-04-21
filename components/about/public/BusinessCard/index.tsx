@@ -50,7 +50,11 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type }) => {
 						className={styles.image}
 						fetchPriority="high"
 						height={200}
-						src={entry.html.attachment?.metadata.html.fileUri || Route.assets.LOGO_SVG}
+						src={
+							entry.html.attachment?.metadata.html.fileUrl ||
+							entry.html.attachment?.metadata.html.fileUri ||
+							Route.assets.LOGO_SVG
+						}
 						unoptimized={entry.html.attachment?.filename.match(/\.svg$/) ? true : false}
 						width={200}
 					/>

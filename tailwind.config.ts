@@ -41,7 +41,8 @@ const appTwConfig: import("tailwindcss").Config = {
 			fontFamily: {
 				// sans: ["var(--font-geist-sans)", "sans-serif"],
 				// mono: ["var(--font-geist-mono)", "monospace"],
-				inter: ["var(--font-inter)", "sans-serif"],
+				// inter: ["var(--font-inter)", "sans-serif"],
+				poppins: ["var(--font-poppins)", "sans-serif"],
 				// robotoSlab: ["var(--font-roboto-slab)", "sans-serif"],
 				unicephalon: ["var(--font-unicephalon)", "serif"],
 				// multivacInterference: ["var(--font-multivac-interference)", "sans-serif"],

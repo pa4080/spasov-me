@@ -52,14 +52,20 @@ const AboutEntryCard: React.FC<Props> = ({
 		return str.replace(commentsMatcher, "");
 	});
 
-	let gallery = entry?.gallery
+	const attachmentAddress =
+		entry.html.attachment?.metadata.html?.fileUri ||
+		entry.html.attachment?.metadata.html?.fileUrl ||
+		"";
+
+	const getGallery = entry.gallery
 		?.map((file) => file.metadata.html)
 		?.sort((a, b) => a.filename.localeCompare(b.filename));
 
-	gallery =
-		entry?.html?.attachment && gallery
-			? [entry?.html?.attachment.metadata.html].concat(gallery)
-			: gallery;
+	let gallery = getGallery ?? [];
+
+	gallery = entry.html.attachment?.metadata.html
+		? [...gallery, entry.html.attachment?.metadata.html]
+		: gallery;
 
 	const haveGallery = gallery && gallery.length > 0;
 
@@ -104,7 +110,7 @@ const AboutEntryCard: React.FC<Props> = ({
 							{displayActions ? (
 								<>
 									<DeleteAboutEntry entry={entry} />
-									<FileAddressHandle address={entry.html.attachment?.metadata.html.fileUri} />
+									<FileAddressHandle address={attachmentAddress} />
 									<Gallery entry={entry} gallery={gallery} />
 									<UpdateAboutEntry entry={entry} files={files} tags={tags} />
 								</>
@@ -155,7 +161,7 @@ const AboutEntryCard: React.FC<Props> = ({
 						</div>
 					)}
 
-					{displayGalleryInline && gallery && gallery.length > 0 && (
+					{displayGalleryInline && haveGallery && (
 						<div className="card-item-collapsible">
 							<div className="flex gap-2 flex-wrap p-0 mt-4">
 								{gallery.map((image, index) => (
@@ -168,7 +174,7 @@ const AboutEntryCard: React.FC<Props> = ({
 												filename: image.filename,
 												metadata: {
 													html: {
-														fileUri: image.fileUri,
+														fileUri: image?.fileUri || image?.fileUrl,
 													},
 												},
 											} as FileData

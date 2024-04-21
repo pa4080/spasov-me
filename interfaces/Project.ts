@@ -19,9 +19,9 @@ export interface ProjectDoc {
 	dateTo: Date | string | undefined;
 	visibility: boolean | string;
 	tags: ObjectId[] | undefined;
-	attachment?: ObjectId | undefined;
-	icon?: ObjectId | undefined;
-	gallery: ObjectId[] | undefined;
+	attachment?: string | undefined;
+	icon?: string | undefined;
+	gallery: string[] | undefined;
 }
 
 export interface ProjectDocPopulated

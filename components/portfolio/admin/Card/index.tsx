@@ -116,7 +116,13 @@ const ProjectAdminCard: React.FC<Props> = ({
 							{displayActions ? (
 								<>
 									<DeleteProject project={project} />
-									<FileAddressHandle address={project.html.attachment?.metadata.html.fileUri} />
+									<FileAddressHandle
+										address={
+											project.html.attachment?.metadata?.html?.fileUri ||
+											project.html.attachment?.metadata?.html?.fileUrl ||
+											""
+										}
+									/>
 									<Gallery entry={project} gallery={gallery} />
 									<UpdateProject files={files} project={project} tags={tags} />
 								</>

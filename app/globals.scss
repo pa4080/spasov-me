@@ -393,7 +393,8 @@ body .w-md-editor-text-input {
 body .w-md-editor-text-pre,
 body .w-md-editor-text-input,
 body .w-md-editor-text > .w-md-editor-text-pre {
-	font-family: $font-inter !important;
+	/* font-family: $font-inter !important; */
+	font-family: $font-poppins !important;
 }
 
 body textarea.w-md-editor-text-input,
