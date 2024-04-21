@@ -44,6 +44,7 @@
 		"@vercel/analytics": "^1.1.1",
 		"@vercel/blob": "^0.17.0",
 		"@vercel/edge-config": "^0.4.1",
+		"@vercel/kv": "^1.0.1",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.0",
 		"cmdk": "^0.2.0",
@@ -121,6 +122,6 @@
 		"ts-to-zod": "^3.8.3",
 		"tsx": "^4.7.2",
 		"typescript": "^5.4.5",
-		"vercel": "^33.1.0"
+		"vercel": "^34.1.1"
 	}
 }

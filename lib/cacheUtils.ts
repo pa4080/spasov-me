@@ -1,0 +1,33 @@
+import { kv } from "@vercel/kv";
+
+import { getFiles } from "@/components/files-cloudflare/_files.actions";
+import { FileData } from "@/interfaces/File.js";
+
+let filesAcc: FileData[] | null = null;
+
+export async function cachedFiles(files?: FileData[]): Promise<FileData[] | null> {
+	if (files && files.length > 0) {
+		filesAcc = files;
+
+		await kv.del("files", "latest");
+		await kv.hset("files", { latest: JSON.stringify(files) });
+
+		return filesAcc;
+	}
+
+	if (filesAcc && filesAcc.length > 0) {
+		return filesAcc;
+	} else {
+		const redisCache: FileData[] | null = await kv.hget("files", "latest");
+		const redisCacheProcessed = redisCache
+			? redisCache.map((file) => ({
+					...file,
+					uploadDate: new Date(file.uploadDate),
+				}))
+			: null;
+
+		filesAcc = redisCacheProcessed || (await getFiles({ cache: false, hyphen: true }));
+
+		return filesAcc;
+	}
+}
