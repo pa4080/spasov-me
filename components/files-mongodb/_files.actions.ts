@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb";
 import { FileData, FileDoc, FileListItem } from "@/interfaces/File";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
-import { fileDocuments_toData } from "@/lib/process-data-files";
+import { fileDocuments_toData } from "@/lib/process-data-files-mongodb";
 import { msgs } from "@/messages";
 import FileGFS from "@/models/file";
 import { Route } from "@/routes";
