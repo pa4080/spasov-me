@@ -57,7 +57,7 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common" }) =
 					<DisplayFileImage className={`${styles.imageLarge} card-item-collapsible`} file={file} />
 				</div>
 				<div className={styles.header}>
-					<div className={`${styles.buttons} ${displayActions ? "w-64" : "w-8"}`}>
+					<div className={`${styles.buttons} ${displayActions ? "w-72" : "w-8"}`}>
 						<div className={styles.buttonsContainer}>
 							{displayActions && (
 								<>

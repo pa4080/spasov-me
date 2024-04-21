@@ -50,11 +50,11 @@ export const getFiles = async ({
 		 */
 
 		await Promise.all(
-			filesRawR2List.map(async (fRaw) => {
-				const file = await getObject({ objectKey: fRaw.Key!, partNumber: 1 });
+			filesRawR2List.map(async (file_raw) => {
+				const file = await getObject({ objectKey: file_raw.Key!, partNumber: 1 });
 
-				const _id = fRaw.Key!.replace(/\..*$/, ""); // Note: file_id is the filename without extension!
-				const filename = fRaw.Key!;
+				const _id = file_raw.Key!.replace(/\..*$/, ""); // Note: file_id is the filename without extension!
+				const filename = file_raw.Key!;
 				const uploadDate = file?.LastModified || new Date();
 				const length = file?.ContentLength || 0;
 				const description = getMetadataValue(file?.Metadata, "description", "");
