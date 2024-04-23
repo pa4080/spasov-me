@@ -7,6 +7,7 @@ const nextConfig = {
 	reactStrictMode: true,
 	// trailingSlash: true,
 	images: {
+		dangerouslyAllowSVG: true,
 		// https://nextjs.org/docs/messages/next-image-unconfigured-host
 		remotePatterns: [
 			{
@@ -18,6 +19,12 @@ const nextConfig = {
 			{
 				protocol: "https",
 				hostname: "avatars.githubusercontent.com",
+				port: "",
+				pathname: "/**",
+			},
+			{
+				protocol: "https",
+				hostname: "media.spasov.me",
 				port: "",
 				pathname: "/**",
 			},
@@ -48,7 +55,22 @@ const nextConfig = {
 	},
 	async headers() {
 		return process.env.VERCEL_ENV === "development"
-			? []
+			? [
+					{
+						source: "/:all*",
+						locale: false,
+						headers: [
+							{
+								key: "Cache-Control",
+								value: "public, max-age=10, s-maxage=10, must-revalidate",
+							},
+							{
+								key: "Access-Control-Allow-Origin",
+								value: "media.spasov.me",
+							},
+						],
+					},
+				]
 			: [
 					{
 						source: "/:all*(svg|jpg|png|webp|webm|mkv|avi|mp4|eot|svg|ttf|woff|woff2)",
@@ -57,6 +79,10 @@ const nextConfig = {
 							{
 								key: "Cache-Control",
 								value: "public, max-age=604800, s-maxage=604800, must-revalidate",
+							},
+							{
+								key: "Access-Control-Allow-Origin",
+								value: "media.spasov.me",
 							},
 						],
 					},

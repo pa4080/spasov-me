@@ -51,7 +51,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 
 		(async () => {
 			await loadDataFromApiRoute("PAGES", setPages, controller);
-			await loadDataFromApiRoute("FILES", setFiles, controller);
+			await loadDataFromApiRoute("FILES_MONGODB", setFiles, controller); // TODO: files-cloudflare tidy up -- need API for this
 		})();
 
 		return () => {

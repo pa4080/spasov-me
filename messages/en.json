@@ -36,11 +36,14 @@
 		"PAGES": "Page cards",
 		"PAGES_DESC": "Edit the page cards displayed at Home",
 
-		"BLOB": "Blob Storage",
-		"BLOB_DESC": "Upload files to Vercel Blob",
+		"FILES_MONGODB": "Files MongoDB",
+		"FILES_MONGODB_DESC": "Manage files on MongoDB GridFS",
 
-		"FILES": "Files",
-		"FILES_DESC": "Upload, browse and manage files",
+		"FILES_CFR2": "Files CloudFlare",
+		"FILES_CFR2_DESC": "Manage files on Cloudflare R2 Bucket",
+
+		"FILES_VERCEL": "Files Vercel",
+		"FILES_VERCEL_DESC": "Manage files on Vercel Blob Storage",
 
 		"BLOG": "Blog",
 		"BLOG_DESC": "Edit the posts of the blog",

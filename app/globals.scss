@@ -393,7 +393,8 @@ body .w-md-editor-text-input {
 body .w-md-editor-text-pre,
 body .w-md-editor-text-input,
 body .w-md-editor-text > .w-md-editor-text-pre {
-	font-family: $font-inter !important;
+	/* font-family: $font-inter !important; */
+	font-family: $font-poppins !important;
 }
 
 body textarea.w-md-editor-text-input,
@@ -537,7 +538,7 @@ body textarea.w-md-editor-text-input:focus {
 }
 
 /* Bordered Card */
-.card-borer-wrapper {
+.card-border-wrapper {
 	@apply scroll-m-8 relative;
 
 	/* Box outline */
@@ -578,6 +579,10 @@ body textarea.w-md-editor-text-input:focus {
 
 	.card-item-static {
 		@apply line-clamp-3 mt-1;
+
+		&.admin-projects-card {
+			@apply -mt-3;
+		}
 
 		transition: margin-top 0.2s ease-out 0.05s;
 

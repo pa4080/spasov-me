@@ -31,8 +31,10 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
 
 	return (
 		<div className="flex flex-row">
-			<RevalidatePaths className="scale-75 -mr-3" />
-			<NavigationMenu className={`${styles.loggedInMenu} ${className}`} viewportPosition="-right-4">
+			<NavigationMenu
+				className={`${styles.loggedInMenu} ${className}`}
+				viewportPosition="-right-16"
+			>
 				<NavigationMenuList>
 					<NavigationMenuItem>
 						<NavigationMenuTrigger
@@ -43,8 +45,8 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
 							<IconEmbedSvg type="sidebar-flip" />
 						</NavigationMenuTrigger>
 
-						<NavigationMenuContent className="w-64 sm:w-96">
-							<div className="sm:columns-2 border-b-2 border-b-primary pb-1 mb-1">
+						<NavigationMenuContent className="w-64 3xs:w-[22rem] 2xs:w-96">
+							<div className="3xs:columns-2 border-b-2 border-b-primary pb-1 mb-1">
 								{Object.keys(Route.admin).map((key) => (
 									<NavigationMenu_NextLink_Styled
 										key={key}
@@ -56,7 +58,7 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
 								))}
 							</div>
 
-							<div className="sm:columns-2">
+							<div className="3xs:columns-2">
 								<div className={styles.userMenuItem}>
 									<p className="font-bold">
 										{t("user")} ({session?.user?.accountProvider})
@@ -79,6 +81,8 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
 					</NavigationMenuItem>
 				</NavigationMenuList>
 			</NavigationMenu>
+
+			<RevalidatePaths className="scale-75 -mr-3 ml-1" />
 		</div>
 	);
 };

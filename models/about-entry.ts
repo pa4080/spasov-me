@@ -2,7 +2,6 @@ import { Schema, model, models } from "mongoose";
 
 import { aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_common-data-types";
 
-import FileGFS from "./file";
 import Tag from "./tag";
 import User from "./user";
 
@@ -48,13 +47,15 @@ const AboutEntrySchema = new Schema({
 		ref: User,
 	},
 	attachment: {
-		type: Schema.Types.ObjectId,
-		ref: FileGFS,
+		type: String,
+		// type: Schema.Types.ObjectId, // TODO: files-cloudflare tidy up
+		// ref: FileGFS, // TODO: files-cloudflare tidy up
 	},
 	gallery: [
 		{
-			type: Schema.Types.ObjectId,
-			ref: FileGFS,
+			type: String,
+			// type: Schema.Types.ObjectId, // TODO: files-cloudflare tidy up
+			// ref: FileGFS, // TODO: files-cloudflare tidy up
 		},
 	],
 	tags: [

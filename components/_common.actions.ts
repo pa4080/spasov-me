@@ -3,7 +3,11 @@ import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 
-import { fileAttachment_add, fileAttachment_remove } from "@/components/files/_files.actions";
+// import { fileAttachment_add, fileAttachment_remove, } from "@/components/files-mongodb/_files.actions"; // TODO: files-cloudflare tidy up
+import {
+	fileAttachment_add,
+	fileAttachment_remove,
+} from "@/components/files-cloudflare/_files.actions"; // TODO: files-cloudflare tidy up
 import { tagAttachment_add, tagAttachment_remove } from "@/components/tags/_tags.actions";
 import { AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
 import { NewProjectData, ProjectDoc } from "@/interfaces/Project";
@@ -72,7 +76,11 @@ export const attachedTo_detachFromTarget = async ({
 		let attachedTo_diff: AttachedToDocument[] = [];
 
 		// If all attachedTo items are removed
-		if (attachedToArr_old && attachedToArr_old?.length > 0 && !attachedToArr_new) {
+		if (
+			attachedToArr_old &&
+			attachedToArr_old?.length > 0 &&
+			(!attachedToArr_new || attachedToArr_new?.length === 0)
+		) {
 			attachedTo_diff = attachedToArr_old;
 		}
 
@@ -182,7 +190,7 @@ export const process_relations = async ({
 		if (document_prev.attachment) {
 			await fileAttachment_remove({
 				attachedDocument_id: document_prev._id.toString(),
-				target_file_id: document_prev.attachment.toString(),
+				target_file_id: document_prev.attachment,
 			});
 		}
 
@@ -190,17 +198,17 @@ export const process_relations = async ({
 		if ("icon" in document_prev && document_prev.icon) {
 			await fileAttachment_remove({
 				attachedDocument_id: document_prev._id.toString(),
-				target_file_id: document_prev.icon.toString(),
+				target_file_id: document_prev.icon,
 			});
 		}
 
 		// Deal with the "gallery"
 		if (document_prev.gallery && document_prev.gallery.length > 0) {
 			await Promise.all(
-				document_prev.gallery.map(async (file_id: ObjectId) => {
+				document_prev.gallery.map(async (file_id: string) => {
 					await fileAttachment_remove({
 						attachedDocument_id: document_prev._id.toString(),
-						target_file_id: file_id.toString(),
+						target_file_id: file_id,
 					});
 				})
 			);

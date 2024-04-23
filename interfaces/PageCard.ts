@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 
-import { FileData, FileDoc } from "./File";
+import { FileData } from "./File";
 import { UserObject } from "./User";
 
 export type PageCardDoc = {
@@ -15,7 +15,8 @@ export type PageCardDoc = {
 };
 
 export interface PageCardDocPopulated extends Omit<PageCardDoc, "attachment"> {
-	attachment?: FileDoc;
+	// attachment?: FileDoc; // TODO: files-cloudflare tidy up
+	attachment?: string; // TODO: files-cloudflare tidy up
 }
 
 export type NewPageCardData = Omit<PageCardDoc, "_id" | "attachment" | "creator"> & {

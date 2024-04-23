@@ -84,7 +84,11 @@ const GalleryCarouselNavInProject: React.FC<Props> = ({
 						alt={project.title}
 						className="size-12"
 						height={44}
-						src={project.html.icon?.metadata.html.fileUri || Route.assets.IMAGE_PLACEHOLDER}
+						src={
+							project.html.icon?.metadata.html.fileUrl ||
+							project.html.icon?.metadata.html.fileUri ||
+							Route.assets.IMAGE_PLACEHOLDER
+						}
 						unoptimized={project.html.icon?.filename.match(/\.svg$/) ? true : false}
 						width={44}
 					/>

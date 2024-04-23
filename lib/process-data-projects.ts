@@ -2,11 +2,12 @@ import { ProjectType } from "@/interfaces/_common-data-types";
 
 import { NewProjectData, ProjectData, ProjectDocPopulated } from "@/interfaces/Project";
 
-import { fileDocuments_toData } from "./process-data-files";
+import { getFilesR2 } from "@/components/files-cloudflare/_files.actions";
+
 import { tagDocuments_toData } from "./process-data-tags";
 import { processMarkdown } from "./process-markdown";
 
-export function projectDocuments_toData({
+export async function projectDocuments_toData({
 	projects,
 	hyphen,
 	typeList,
@@ -16,12 +17,14 @@ export function projectDocuments_toData({
 	hyphen?: boolean;
 	typeList?: ProjectType[];
 	visible?: boolean;
-}): ProjectData[] {
+}): Promise<ProjectData[]> {
 	let projectsFiltered = projects;
 
 	if (visible) {
 		projectsFiltered = projects.filter((entry) => entry.visibility);
 	}
+
+	const files = await getFilesR2();
 
 	return projectsFiltered
 		.filter(({ projectType }) => (typeList && typeList.includes(projectType)) ?? true)
@@ -37,12 +40,14 @@ export function projectDocuments_toData({
 					markdown: project.description,
 					hyphen,
 				}),
-				attachment: fileDocuments_toData({
-					files: project?.attachment ? [project?.attachment] : [],
-				})?.[0],
-				icon: fileDocuments_toData({
-					files: project?.icon ? [project?.icon] : [],
-				})?.[0],
+				// attachment: fileDocuments_toData({
+				// 	files: project?.attachment ? [project?.attachment] : [],
+				// })?.[0], // TODO: files-cloudflare tidy up
+				attachment: files?.find((file) => file?._id === project?.attachment),
+				// icon: fileDocuments_toData({
+				// 	files: project?.icon ? [project?.icon] : [],
+				// })?.[0], // TODO: files-cloudflare tidy up
+				icon: files?.find((file) => file?._id === project?.icon),
 			},
 			title: project.title,
 			description: project.description,
@@ -53,10 +58,13 @@ export function projectDocuments_toData({
 			dateTo: project.dateTo as Date | undefined,
 			projectType: project.projectType,
 			visibility: project.visibility as boolean,
-			attachment: project.attachment?._id.toString(),
-			icon: project.icon?._id.toString(),
+			// attachment: project.attachment?._id.toString(),  // TODO: files-cloudflare tidy up
+			// icon: project.icon?._id.toString(), // TODO: files-cloudflare tidy up
+			icon: project.icon,
+			attachment: project.attachment,
 			tags: tagDocuments_toData({ tags: project.tags || [], hyphen: true }),
-			gallery: fileDocuments_toData({ files: project.gallery || [] }),
+			// gallery: fileDocuments_toData({ files: project.gallery || [] }), // TODO: files-cloudflare tidy up
+			gallery: files?.filter((file) => project?.gallery?.includes(file._id)),
 		}));
 }
 

@@ -6,9 +6,54 @@ import * as React from "react";
 import { cn } from "@/lib/cn-utils";
 
 const Popover = PopoverPrimitive.Root;
-
 const PopoverTrigger = PopoverPrimitive.Trigger;
 const PopoverClose = PopoverPrimitive.Close;
+const PopoverAnchor = PopoverPrimitive.Anchor;
+
+/**
+ * Fix for issue with scrolling:
+ * @see https://github.com/shadcn-ui/ui/issues/607
+ */
+const useScrollFixForModalPopovers = () => {
+	const touchPosRef = React.useRef<number | null>(null);
+
+	const onWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+		event.stopPropagation();
+		const isScrollingDown = event.deltaY > 0;
+
+		if (isScrollingDown) {
+			event.currentTarget.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown" }));
+		} else {
+			event.currentTarget.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowUp" }));
+		}
+	};
+
+	const onTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+		touchPosRef.current = event.changedTouches[0]?.clientY ?? null;
+	};
+
+	const onTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+		const touchPos = event.changedTouches[0]?.clientY ?? null;
+
+		if (touchPosRef.current === null || touchPos === null) {
+			return;
+		}
+
+		event.stopPropagation();
+
+		const isScrollingDown = touchPosRef.current < touchPos;
+
+		if (isScrollingDown) {
+			event.currentTarget.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown" }));
+		} else {
+			event.currentTarget.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowUp" }));
+		}
+
+		touchPosRef.current = touchPos;
+	};
+
+	return { onWheel, onTouchStart, onTouchMove };
+};
 
 const PopoverContent = React.forwardRef<
 	React.ElementRef<typeof PopoverPrimitive.Content>,
@@ -23,23 +68,7 @@ const PopoverContent = React.forwardRef<
 				className
 			)}
 			sideOffset={sideOffset}
-			/**
-			 * Fix for issue with scrolling:
-			 * @see https://github.com/shadcn-ui/ui/issues/607
-			 */
-			onWheel={(e) => {
-				e.stopPropagation();
-
-				const isScrollingDown = e.deltaY > 0;
-
-				if (isScrollingDown) {
-					// Simulate arrow down key press
-					e.currentTarget.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown" }));
-				} else {
-					// Simulate arrow up key press
-					e.currentTarget.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowUp" }));
-				}
-			}}
+			{...useScrollFixForModalPopovers()}
 			{...props}
 		/>
 	</PopoverPrimitive.Portal>
@@ -47,4 +76,4 @@ const PopoverContent = React.forwardRef<
 
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
-export { Popover, PopoverClose, PopoverContent, PopoverTrigger };
+export { Popover, PopoverAnchor, PopoverClose, PopoverContent, PopoverTrigger };

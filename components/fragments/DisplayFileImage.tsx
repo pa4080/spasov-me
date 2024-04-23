@@ -42,7 +42,9 @@ const DisplayFileImage: React.FC<Props> = ({
 			className={cn("h-auto w-full", className)}
 			height="0"
 			sizes={sizes?.[1] || "320px"}
-			src={file.metadata.html.fileUri}
+			src={
+				file.metadata.html.fileUrl || file.metadata.html.fileUri || Route.assets.IMAGE_PLACEHOLDER
+			}
 			style={style}
 			unoptimized={file.filename?.match(/\.svg$/) ? true : false}
 			width="0"

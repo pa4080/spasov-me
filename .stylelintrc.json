@@ -1,7 +1,7 @@
 {
 	"extends": ["stylelint-config-standard"],
 	"plugins": ["stylelint-order", "stylelint-scss"],
-	"ignoreFiles": ["public/css/**/*"],
+	"ignoreFiles": ["public/css/**/*", "app/globals.variables.module.scss"],
 	"rules": {
 		"import-notation": "string",
 		"selector-class-pattern": "^[a-z][a-zA-Z0-9_-]+$",
@@ -43,7 +43,7 @@
 			}
 		],
 		"no-invalid-double-slash-comments": null,
-		"scss/dollar-variable-pattern": "^foo",
+		"scss/dollar-variable-pattern": "^[a-z][a-zA-Z0-9_-]+$",
 		"scss/selector-no-redundant-nesting-selector": true,
 		"order/order": [
 			[

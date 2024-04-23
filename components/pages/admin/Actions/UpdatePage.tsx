@@ -45,7 +45,8 @@ const UpdatePage: React.FC<Props> = ({ className, page, files }) => {
 			const response = await updatePageCard(generateFormDataFromObject(data), page._id, [
 				pathname,
 				Route.public.HOME.uri,
-				Route.admin.FILES,
+				Route.admin.FILES_MONGODB, // TODO: files-cloudflare tidy up
+				Route.admin.FILES_CFR2, // TODO: files-cloudflare tidy up
 			]);
 
 			serverActionResponseToastAndLocationReload({

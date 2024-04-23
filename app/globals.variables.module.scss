@@ -48,7 +48,8 @@ $font-unicephalon: var(--font-unicephalon), "serif";
 // $font-mono: var(--font-geist-mono), "monospace";
 // $font-geist-sans: var(--font-geist-sans), "sans-serif";
 // $font-geist-mono: var(--font-geist-mono), "monospace";
-$font-inter: var(--font-inter), "sans-serif";
+// $font-inter: var(--font-inter), "sans-serif";
+$font-poppins: var(--font-poppins), "sans-serif";
 // $font-robotoSlab: var(--font-roboto-slab), "serif";
 
 // functions
@@ -100,7 +101,8 @@ $content-height: var(--content-height);
 	// fontMono: $font-mono;
 	// fontGeistSans: $font-geist-sans;
 	// fontGeistMono: $font-geist-mono;
-	fontInter: $font-inter;
+	// fontInter: $font-inter;
+	fontPoppins: $font-poppins;
 	// fontRobotoSlab: $font-robotoSlab;
 
 	// Functions

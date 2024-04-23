@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 
-import { FileData, FileDoc } from "./File";
+import { FileData } from "./File";
 import { TagData, TagDoc } from "./Tag";
 import { UserObject } from "./User";
 import { ProjectType } from "./_common-data-types";
@@ -19,17 +19,17 @@ export interface ProjectDoc {
 	dateTo: Date | string | undefined;
 	visibility: boolean | string;
 	tags: ObjectId[] | undefined;
-	attachment?: ObjectId | undefined;
-	icon?: ObjectId | undefined;
-	gallery: ObjectId[] | undefined;
+	attachment?: string | undefined;
+	icon?: string | undefined;
+	gallery: string[] | undefined;
 }
 
 export interface ProjectDocPopulated
 	extends Omit<ProjectDoc, "attachment" | "tags" | "gallery" | "icon"> {
 	tags: TagDoc[];
-	attachment?: FileDoc | undefined;
-	icon?: FileDoc | undefined;
-	gallery: FileDoc[] | undefined;
+	attachment?: string | undefined;
+	icon?: string | undefined;
+	gallery: string[] | undefined;
 }
 
 export interface NewProjectData

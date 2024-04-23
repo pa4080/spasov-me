@@ -54,7 +54,8 @@ export type IconEmbSvgPathType =
 	| "square-github-mono"
 	| "browser-mono"
 	| "globe-pointer-mono"
-	| "file-circle-plus";
+	| "file-circle-plus"
+	| "download";
 
 /**
  * It is possible to override the default colors of the SVG element
@@ -818,6 +819,20 @@ const SvgPathLib: React.FC<SvgPathLibProps> = ({ type, className_Path1, classNam
 					<path
 						className={className_Path1}
 						d="M384 160L224 0V128c0 17.7 14.3 32 32 32H384zm48 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288zm16-208v48h48c8.8 0 16 7.2 16 16s-7.2 16-16 16H448v48c0 8.8-7.2 16-16 16s-16-7.2-16-16V384H368c-8.8 0-16-7.2-16-16s7.2-16 16-16h48V304c0-8.8 7.2-16 16-16s16 7.2 16 16z"
+					/>
+				</>
+			);
+		case "download":
+			// viewBox="0 0 512 512";
+			return (
+				<>
+					<path
+						className={className_Path2}
+						d="M178.7 352H64c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H333.3l-54.6 54.6c-12.5 12.5-32.8 12.5-45.3 0L178.7 352zM408 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"
+					/>
+					<path
+						className={className_Path1}
+						d="M256 0c17.7 0 32 14.3 32 32V306.7l73.4-73.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-128 128c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 306.7V32c0-17.7 14.3-32 32-32z"
 					/>
 				</>
 			);

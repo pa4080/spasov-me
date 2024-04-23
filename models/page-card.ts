@@ -5,7 +5,6 @@
  */
 import { Schema, model, models } from "mongoose";
 
-import FileGFS from "./file";
 import User from "./user";
 
 const PageCardSchema = new Schema({
@@ -30,8 +29,9 @@ const PageCardSchema = new Schema({
 		ref: User,
 	},
 	attachment: {
-		type: Schema.Types.ObjectId,
-		ref: FileGFS,
+		type: String,
+		// type: Schema.Types.ObjectId,
+		// ref: FileGFS,
 	},
 });
 
