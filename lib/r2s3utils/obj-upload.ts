@@ -1,9 +1,10 @@
 import { PutObjectCommand, PutObjectCommandInput, S3, S3Client } from "@aws-sdk/client-s3";
 
-import { r2BucketName } from "@/env";
 import { FileMetadata } from "@/interfaces/File";
 
 import { config } from "./index";
+
+const r2BucketName = process.env.CLOUDFLARE_R2_BUCKET_NAME;
 
 export const uploadObject = async ({
 	filename,

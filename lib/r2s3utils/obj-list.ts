@@ -1,7 +1,5 @@
 import { ListObjectsV2Command, S3, S3Client, _Object } from "@aws-sdk/client-s3";
 
-import { r2BucketName } from "@/env";
-
 import { config } from "./index";
 /**
  * Run from CLI:
@@ -12,6 +10,8 @@ import { config } from "./index";
  * > https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javascriptv3/example_code/s3/actions/list-objects.js
  * > https://docs.aws.amazon.com/AmazonS3/latest/userguide/example_s3_ListObjects_section.html
  */
+
+const r2BucketName = process.env.CLOUDFLARE_R2_BUCKET_NAME;
 
 export const listObjects = async (
 	{ bucket, prefix, log }: { bucket?: string; prefix?: string; log?: boolean } = { log: false }
