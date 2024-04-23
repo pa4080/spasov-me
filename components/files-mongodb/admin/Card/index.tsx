@@ -48,7 +48,7 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common" }) =
 
 	return (
 		<div
-			className={`${styles.cardWrapper} card-borer-wrapper file-card ${className}`}
+			className={`${styles.cardWrapper} card-border-wrapper file-card ${className}`}
 			id={toggle_target_id}
 		>
 			<div className={styles.card}>

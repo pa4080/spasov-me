@@ -5,6 +5,8 @@ import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { enUS as en } from "date-fns/locale";
 
+import Link from "next/link";
+
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 import FileAddressHandle from "@/components/fragments/FileAddressHandle";
@@ -17,6 +19,8 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
+
+import { Route } from "@/routes";
 
 import DisplayResourceUrlAsIcon from "../../common/DisplayResourceUrlAsIcon";
 import DeleteProject from "../Actions/Delete";
@@ -68,7 +72,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 	const haveGallery = gallery && gallery.length > 0;
 
 	return (
-		<div className={`card-borer-wrapper ${className}`} id={toggle_target_id}>
+		<div className={`card-border-wrapper ${className}`} id={toggle_target_id}>
 			<div className={styles.card}>
 				<div className={styles.info}>
 					<div className={styles.date}>
@@ -96,7 +100,9 @@ const ProjectAdminCard: React.FC<Props> = ({
 					</div>
 
 					{project.slug && (
-						<div className={`${styles.slug} ${styles.lightSecondaryText}`}>/{project.slug}</div>
+						<div className={`${styles.slug} ${styles.lightSecondaryText}`}>
+							<Link href={`${Route.public.PORTFOLIO.uri}/${project.slug}`}>/{project.slug}</Link>
+						</div>
 					)}
 
 					<div className={styles.projectLinks}>
@@ -149,7 +155,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 								className={
 									index === 0
 										? arr.length > 1
-											? "card-item-static font-semibold"
+											? "card-item-static font-semibold admin-projects-card"
 											: "card-single-item font-semibold"
 										: "card-item-collapsible"
 								}
