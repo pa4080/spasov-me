@@ -1,8 +1,8 @@
-import { ListObjectsV2Command, _Object } from "@aws-sdk/client-s3";
+import { ListObjectsV2Command, S3, S3Client, _Object } from "@aws-sdk/client-s3";
 
 import { r2BucketName } from "@/env";
 
-import { s3client } from "./index";
+import { config } from "./index";
 /**
  * Run from CLI:
  * > pnpm dotenv -e .env.local -- pnpm exec tsx -e 'require("./lib/r2s3utils/obj-list.ts").listObjects({log: true})'
@@ -16,14 +16,15 @@ import { s3client } from "./index";
 export const listObjects = async (
 	{ bucket, prefix, log }: { bucket?: string; prefix?: string; log?: boolean } = { log: false }
 ) => {
-	const command = new ListObjectsV2Command({
-		Bucket: bucket || r2BucketName,
-		Prefix: prefix || "",
-		MaxKeys: 5000,
-	});
+	const s3client = new S3(config) || new S3Client(config);
 
 	try {
 		let isTruncated: boolean | undefined = true;
+		const command = new ListObjectsV2Command({
+			Bucket: bucket || r2BucketName,
+			Prefix: prefix || "",
+			MaxKeys: 5000,
+		});
 
 		let contents: _Object[] = [];
 

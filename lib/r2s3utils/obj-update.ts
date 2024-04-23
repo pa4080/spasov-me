@@ -2,12 +2,12 @@
  * @see https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/s3/command/CopyObjectCommand/
  * @see https://stackoverflow.com/questions/72959475/how-can-i-modify-metadata-for-an-existing-cloudflare-r2-object
  */
-import { CopyObjectCommand } from "@aws-sdk/client-s3";
+import { CopyObjectCommand, S3, S3Client } from "@aws-sdk/client-s3";
 
 import { r2BucketName } from "@/env";
 import { FileMetadata } from "@/interfaces/File";
 
-import { s3client } from "./index";
+import { config } from "./index";
 
 export const updateObject = async ({
 	filename,
@@ -18,6 +18,8 @@ export const updateObject = async ({
 	metadata: FileMetadata;
 	bucket?: string;
 }) => {
+	const s3client = new S3(config) || new S3Client(config);
+
 	try {
 		const metadataRecord: Record<string, string> = {};
 

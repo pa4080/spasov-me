@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getFileList } from "@/components/files-mongodb/_files.actions"; // TODO: files-cloudflare tidy up
+import { getFileList } from "@/components/files-cloudflare/_files.actions"; // TODO: files-cloudflare tidy up
 
 import { getPageCards } from "../_pages.actions";
 import styles from "../_pages.module.scss";

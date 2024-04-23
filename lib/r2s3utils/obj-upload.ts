@@ -1,15 +1,10 @@
-import { PutObjectCommand, PutObjectCommandInput } from "@aws-sdk/client-s3";
+import { PutObjectCommand, PutObjectCommandInput, S3, S3Client } from "@aws-sdk/client-s3";
 
 import { r2BucketName } from "@/env";
-
 import { FileMetadata } from "@/interfaces/File";
 
-import { s3client } from "./index";
+import { config } from "./index";
 
-/**
- * @param fileName The name of the file incl. the relative path: tmp/prjId/subPath/file.name
- * @param localFsFilePath The absolute path to the file: /home/user/workDir/tmp/prjId/subPath/file.name
- */
 export const uploadObject = async ({
 	filename,
 	fileBody,
@@ -21,6 +16,8 @@ export const uploadObject = async ({
 	metadata: FileMetadata;
 	bucket?: string;
 }) => {
+	const s3client = new S3(config) || new S3Client(config);
+
 	try {
 		const metadataRecord: Record<string, string> = {};
 

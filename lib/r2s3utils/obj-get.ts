@@ -7,11 +7,11 @@
  * > https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javascriptv3/example_code/s3/actions/delete-objects.js
  */
 
-import { GetObjectCommand } from "@aws-sdk/client-s3";
+import { GetObjectCommand, S3, S3Client } from "@aws-sdk/client-s3";
 
 import { r2BucketName } from "@/env";
 
-import { s3client } from "./index";
+import { config } from "./index";
 
 export const getObject = async ({
 	objectKey,
@@ -24,6 +24,8 @@ export const getObject = async ({
 	log?: boolean;
 	partNumber?: number;
 }) => {
+	const s3client = new S3(config) || new S3Client(config);
+
 	try {
 		const command = new GetObjectCommand({
 			Bucket: bucket || r2BucketName,

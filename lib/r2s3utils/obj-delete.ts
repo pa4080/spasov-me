@@ -7,11 +7,11 @@
  * > https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/s3#code-examples
  * > https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javascriptv3/example_code/s3/actions/delete-objects.js
  */
-import { DeleteObjectsCommand, ObjectIdentifier } from "@aws-sdk/client-s3";
+import { DeleteObjectsCommand, ObjectIdentifier, S3, S3Client } from "@aws-sdk/client-s3";
 
 import { r2BucketName } from "@/env";
 
-import { listObjects, s3client } from "./index";
+import { config, listObjects } from "./index";
 
 export const deleteObjectList = async ({
 	bucket,
@@ -22,14 +22,16 @@ export const deleteObjectList = async ({
 	objects: ObjectIdentifier[];
 	log?: boolean;
 }) => {
-	const command = new DeleteObjectsCommand({
-		Bucket: bucket || r2BucketName,
-		Delete: {
-			Objects: objects,
-		},
-	});
+	const s3client = new S3(config) || new S3Client(config);
 
 	try {
+		const command = new DeleteObjectsCommand({
+			Bucket: bucket || r2BucketName,
+			Delete: {
+				Objects: objects,
+			},
+		});
+
 		const { Deleted } = await s3client.send(command);
 
 		if (log) {

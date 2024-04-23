@@ -1,9 +1,9 @@
+import { getFilesR2 } from "@/components/files-cloudflare/_files.actions";
 import { NewPageCardData, PageCardData, PageCardDocPopulated } from "@/interfaces/PageCard";
 
-import { fileDocuments_toData } from "./process-data-files-mongodb";
 import { processMarkdown } from "./process-markdown";
 
-export function PageCardDocuments_toData({
+export async function PageCardDocuments_toData({
 	pages,
 	hyphen = false,
 	visible,
@@ -11,12 +11,14 @@ export function PageCardDocuments_toData({
 	pages: PageCardDocPopulated[];
 	hyphen?: boolean;
 	visible?: boolean;
-}): PageCardData[] {
+}): Promise<PageCardData[]> {
 	let pagesFiltered = pages;
 
 	if (visible) {
 		pagesFiltered = pages.filter((entry) => entry.visibility);
 	}
+
+	const files = await getFilesR2();
 
 	return pagesFiltered.map((page) => ({
 		_id: page._id.toString(),
@@ -30,15 +32,17 @@ export function PageCardDocuments_toData({
 				markdown: page.description,
 				hyphen,
 			}),
-			attachment: fileDocuments_toData({
-				files: page?.attachment ? [page?.attachment] : [],
-			})?.[0],
+			// attachment: fileDocuments_toData({
+			// 	files: page?.attachment ? [page?.attachment] : [],
+			// })?.[0], // TODO: files-cloudflare tidy up
+			attachment: files?.find((file) => file?._id === page?.attachment),
 		},
 		uri: page.uri,
 		title: page.title,
 		description: page.description,
 		visibility: page.visibility as boolean,
-		attachment: page.attachment?._id.toString(),
+		// attachment: page.attachment?._id.toString(), // TODO: files-cloudflare tidy up
+		attachment: page.attachment, // TODO: files-cloudflare tidy up
 	}));
 }
 

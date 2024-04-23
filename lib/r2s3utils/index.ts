@@ -1,4 +1,4 @@
-import { S3, S3Client, S3ClientConfig } from "@aws-sdk/client-s3";
+import { S3ClientConfig } from "@aws-sdk/client-s3";
 
 import { env } from "@/env";
 
@@ -11,7 +11,8 @@ export const config: S3ClientConfig = {
 	endpoint: process.env.CLOUDFLARE_API_ENDPOINT!,
 };
 
-export const s3client = new S3(config) || new S3Client(config);
+// https://community.cloudflare.com/t/aws-sdk-v3-hangs-after-50-getobject-requests/476149
+// export const s3client = new S3(config) || new S3Client(config);
 
 export * from "./obj-delete";
 export * from "./obj-get";
