@@ -194,7 +194,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 												filename: image.filename,
 												metadata: {
 													html: {
-														fileUri: image.fileUri,
+														fileUri: image?.fileUri || image?.fileUrl,
 													},
 												},
 											} as FileData

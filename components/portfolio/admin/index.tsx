@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getFileList } from "@/components/files-mongodb/_files.actions"; // TODO: files-cloudflare tidy up
+import { getFileList } from "@/components/files-cloudflare/_files.actions"; // TODO: files-cloudflare tidy up
 import { getTags } from "@/components/tags/_tags.actions";
 
 import { getProjects } from "../_portfolio.actions";

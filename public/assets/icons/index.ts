@@ -1054,6 +1054,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	"it_recharts-logo-big-r": {
+		name: "it_recharts-logo-big-r",
+		uri: {
+			light: "/assets/icons/it/recharts-logo-big-r.png",
+			dark: "/assets/icons/it/recharts-logo-big-r.png",
+		},
+		info: {
+			height: 224,
+			width: 224,
+			type: "png",
+			ratio: 1,
+		},
+	},
 	"it_recharts-logo": {
 		name: "it_recharts-logo",
 		uri: {

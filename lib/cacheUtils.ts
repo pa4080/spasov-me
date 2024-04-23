@@ -5,7 +5,7 @@ import { FileData } from "@/interfaces/File.js";
 
 let filesAcc: FileData[] | null = null;
 
-export async function cachedFiles(files?: FileData[]): Promise<FileData[] | null> {
+export async function getFilesR2Cached(files?: FileData[]): Promise<FileData[] | null> {
 	if (files && files.length > 0) {
 		filesAcc = files;
 
