@@ -1,35 +1,21 @@
 import React from "react";
 
-import { notFound } from "next/navigation";
-
 import GalleryCarousel from "@/components/fragments/Gallery/GalleryCarousel";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import TechTags from "@/components/fragments/TechTags";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 
-import { getProjects } from "../../_portfolio.actions";
+import { ProjectData } from "@/interfaces/Project";
+
 import ProjectLinks from "../../common/ProjectLinks";
 import styles from "./_project.module.scss";
 
 interface Props {
 	className?: string;
-	projectIdSlug: string; // This could be ._id or .slug
+	project: ProjectData;
 }
 
-const PortfolioPublicProject: React.FC<Props> = async ({ className, projectIdSlug }) => {
-	const projectsHyphenated = await getProjects({
-		hyphen: true,
-		public: true,
-	});
-
-	const project = projectsHyphenated?.find(
-		(p) => p._id === projectIdSlug || p.slug === projectIdSlug
-	);
-
-	if (!project) {
-		notFound();
-	}
-
+const PortfolioPublicProject: React.FC<Props> = async ({ className, project }) => {
 	const descriptionArr = project.html.description.split(splitDescriptionKeyword).map((str) => {
 		return str.replace(commentsMatcher, "");
 	});
