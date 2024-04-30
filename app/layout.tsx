@@ -7,7 +7,6 @@ import MainLayout from "@/components/layouts/main-layout";
 import { Toaster } from "@/components/ui/toaster";
 import { AppContextProvider } from "@/contexts/AppContext";
 import AuthSessionProvider from "@/contexts/AuthSessionProvider";
-import RecaptchaContextProvider from "@/contexts/RecaptchaContextProvider";
 import ThemesProvider from "@/contexts/ThemesProvider";
 import manifest from "@/public/manifest.json";
 
@@ -50,12 +49,12 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
 			>
 				<AuthSessionProvider>
 					<AppContextProvider>
-						<RecaptchaContextProvider>
-							<ThemesProvider>
-								<MainLayout>{children}</MainLayout>
-								<Toaster />
-							</ThemesProvider>
-						</RecaptchaContextProvider>
+						{/* <RecaptchaContextProvider> */}
+						<ThemesProvider>
+							<MainLayout>{children}</MainLayout>
+							<Toaster />
+						</ThemesProvider>
+						{/* </RecaptchaContextProvider> */}
 					</AppContextProvider>
 				</AuthSessionProvider>
 				{/* {process.env.VERCEL_ENV === "production" && <Analytics />} */}

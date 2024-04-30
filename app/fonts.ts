@@ -1,7 +1,7 @@
 /**
  * @see https://nextjs.org/docs/app/building-your-application/optimizing/fonts
  */
-import { Inter, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import localFont from "next/font/local";
 // import { Inter, Roboto_Slab } from "next/font/google";
 // import { GeistSans } from "geist/font/sans";
@@ -9,11 +9,11 @@ import localFont from "next/font/local";
 
 // export { GeistSans, GeistMono };
 
-export const inter = Inter({
-	subsets: ["latin"],
-	display: "swap",
-	variable: "--font-inter",
-});
+// export const inter = Inter({
+// 	subsets: ["latin"],
+// 	display: "swap",
+// 	variable: "--font-inter",
+// });
 
 export const poppins = Poppins({
 	subsets: ["latin"],

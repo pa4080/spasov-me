@@ -355,7 +355,7 @@ main {
  * Google reCaptcha
  * @see https://github.com/pa4080/animated-portfolio/blob/b2f617bb8deaa4ad6a91937003cee6033ef033c2/components/contact/ContactForm.tsx#L175
  */
-.grecaptcha-badge {
+[data-style="bottomright"].grecaptcha-badge {
 	@apply transition-all duration-300;
 
 	box-shadow: theme("colors.muted.DEFAULT") 0 0 5px !important;
