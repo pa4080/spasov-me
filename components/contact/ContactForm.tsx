@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect } from "react";
 
 // Note: GoogleReCaptchaProvider require "use client", so we cannot include it in layout.tsx
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
@@ -53,14 +53,19 @@ interface Props {
 const ContactForm: React.FC<Props> = ({ className }) => {
 	const { executeRecaptcha } = useGoogleReCaptcha();
 	const { toast } = useToast();
-	const ref = useRef(null);
 
 	useEffect(() => {
-		const gRecaptchaBadge = document.querySelector(".grecaptcha-badge") as HTMLElement | null;
+		let gRecaptchaBadge: HTMLElement | null;
 
-		if (gRecaptchaBadge) {
-			gRecaptchaBadge.style.translate = "0px -60px";
-		}
+		setTimeout(() => {
+			gRecaptchaBadge = document.querySelector(
+				'[data-style="bottomright"].grecaptcha-badge'
+			) as HTMLElement | null;
+
+			if (gRecaptchaBadge) {
+				gRecaptchaBadge.style.translate = "0px -60px";
+			}
+		}, 300);
 
 		return () => {
 			if (gRecaptchaBadge) {
@@ -174,7 +179,7 @@ const ContactForm: React.FC<Props> = ({ className }) => {
 	);
 
 	return (
-		<div ref={ref} className={`${styles.formContainer} ${className}`}>
+		<div className={`${styles.formContainer} ${className}`}>
 			<Form {...form}>
 				<form className={styles.form} onSubmit={form.handleSubmit(onSubmit)}>
 					<FormField

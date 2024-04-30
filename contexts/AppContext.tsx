@@ -13,7 +13,7 @@ import { Session } from "next-auth";
 import { getProviders, useSession } from "next-auth/react";
 
 import { getEntries } from "@/components/about/_about.actions";
-import { getFileList, getFiles } from "@/components/files-mongodb/_files.actions"; // TODO: files-cloudflare tidy up
+import { getFileList, getFiles } from "@/components/files-mongodb/_files.actions";
 import { getPageCards } from "@/components/pages/_pages.actions";
 import { getProjects } from "@/components/portfolio/_portfolio.actions";
 import { getTags } from "@/components/tags/_tags.actions";

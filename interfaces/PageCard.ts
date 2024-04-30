@@ -15,8 +15,7 @@ export type PageCardDoc = {
 };
 
 export interface PageCardDocPopulated extends Omit<PageCardDoc, "attachment"> {
-	// attachment?: FileDoc; // TODO: files-cloudflare tidy up
-	attachment?: string; // TODO: files-cloudflare tidy up
+	attachment?: string;
 }
 
 export type NewPageCardData = Omit<PageCardDoc, "_id" | "attachment" | "creator"> & {

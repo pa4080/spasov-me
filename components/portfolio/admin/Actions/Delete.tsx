@@ -45,8 +45,8 @@ const DeleteProject: React.FC<Props> = ({ className, project }) => {
 			const response = await deleteProject(project._id, [
 				pathname,
 				Route.public.PORTFOLIO.uri,
-				Route.admin.FILES_MONGODB, // TODO: files-cloudflare tidy up
-				Route.admin.FILES_CFR2, // TODO: files-cloudflare tidy up
+				Route.admin.FILES_MONGODB,
+				Route.admin.FILES_CFR2,
 			]);
 
 			serverActionResponseToastAndLocationReload({

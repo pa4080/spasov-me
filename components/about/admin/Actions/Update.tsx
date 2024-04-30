@@ -3,6 +3,8 @@ import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
 
+import dynamic from "next/dynamic";
+
 import { updateEntry } from "@/components/about/_about.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
@@ -22,8 +24,10 @@ import { Route } from "@/routes";
 
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 
-import AboutEntryForm from "../Form";
 import { Entry_FormSchema } from "../Form/schema";
+
+// import AboutEntryForm from "../Form";
+const AboutEntryForm = dynamic(() => import("../Form"), { ssr: false });
 
 interface Props {
 	className?: string;
@@ -54,8 +58,8 @@ const UpdateAboutEntry: React.FC<Props> = ({ className, entry, files, tags }) =>
 			const response = await updateEntry(generateFormDataFromObject(data), entry._id, [
 				pathname,
 				Route.public.ABOUT.uri,
-				Route.admin.FILES_MONGODB, // TODO: files-cloudflare tidy up
-				Route.admin.FILES_CFR2, // TODO: files-cloudflare tidy up
+				Route.admin.FILES_MONGODB,
+				Route.admin.FILES_CFR2,
 			]);
 
 			serverActionResponseToastAndLocationReload({

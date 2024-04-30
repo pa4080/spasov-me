@@ -40,13 +40,7 @@ export async function projectDocuments_toData({
 					markdown: project.description,
 					hyphen,
 				}),
-				// attachment: fileDocuments_toData({
-				// 	files: project?.attachment ? [project?.attachment] : [],
-				// })?.[0], // TODO: files-cloudflare tidy up
 				attachment: files?.find((file) => file?._id === project?.attachment),
-				// icon: fileDocuments_toData({
-				// 	files: project?.icon ? [project?.icon] : [],
-				// })?.[0], // TODO: files-cloudflare tidy up
 				icon: files?.find((file) => file?._id === project?.icon),
 			},
 			title: project.title,
@@ -58,12 +52,9 @@ export async function projectDocuments_toData({
 			dateTo: project.dateTo as Date | undefined,
 			projectType: project.projectType,
 			visibility: project.visibility as boolean,
-			// attachment: project.attachment?._id.toString(),  // TODO: files-cloudflare tidy up
-			// icon: project.icon?._id.toString(), // TODO: files-cloudflare tidy up
 			icon: project.icon,
 			attachment: project.attachment,
 			tags: tagDocuments_toData({ tags: project.tags || [], hyphen: true }),
-			// gallery: fileDocuments_toData({ files: project.gallery || [] }), // TODO: files-cloudflare tidy up
 			gallery: files?.filter((file) => project?.gallery?.includes(file._id)),
 		}));
 }

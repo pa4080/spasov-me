@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
-
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
+import React, { useState } from "react";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import {
@@ -21,8 +21,9 @@ import serverActionResponseToastAndLocationReload from "@/components/fragments/S
 import { Route } from "@/routes";
 
 import { updateFile } from "../../_files.actions";
-import FileForm from "../Form";
 import { File_FormSchema } from "../Form/schema";
+// import FileForm from "../Form";
+const FileForm = dynamic(() => import("../Form"), { ssr: false });
 
 interface Props {
 	className?: string;

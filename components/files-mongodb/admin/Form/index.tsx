@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import MDEditor, { commands } from "@uiw/react-md-editor";
+import MDEditor from "@uiw/react-md-editor";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
@@ -309,7 +309,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 										<MDEditor
 											autoFocus
 											enableScroll
-											commands={[...commands.getCommands()]}
+											// commands={[...commands.getCommands()]}
 											height={form.formState.errors.description ? "calc(100% - 1.8em)" : "100%"}
 											overflow={false}
 											preview="edit"

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
+import React, { useState } from "react";
 
 import { createEntry } from "@/components/about/_about.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
@@ -23,8 +23,10 @@ import { Route } from "@/routes";
 
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 
-import AboutEntryForm from "../Form";
 import { Entry_FormSchema } from "../Form/schema";
+
+// import AboutEntryForm from "../Form";
+const AboutEntryForm = dynamic(() => import("../Form"), { ssr: false });
 
 interface Props {
 	className?: string;
@@ -56,8 +58,8 @@ const CreateAboutEntry: React.FC<Props> = ({ className, type, files, tags }) => 
 			const response = await createEntry(generateFormDataFromObject(data), [
 				pathname,
 				Route.public.ABOUT.uri,
-				Route.admin.FILES_MONGODB, // TODO: files-cloudflare tidy up
-				Route.admin.FILES_CFR2, // TODO: files-cloudflare tidy up
+				Route.admin.FILES_MONGODB,
+				Route.admin.FILES_CFR2,
 			]);
 
 			serverActionResponseToastAndLocationReload({

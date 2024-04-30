@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 
 import slugify from "slugify";
 
+import CreateFile from "@/components/files-mongodb/admin/Actions/CreateFile";
 import Combobox from "@/components/fragments/Combobox";
 import DatePicker from "@/components/fragments/DatePicker";
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
@@ -32,8 +33,6 @@ import { TagData } from "@/interfaces/Tag";
 import { ProjectType, projectTuple } from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
-
-import CreateFile from "@/components/files-mongodb/admin/Actions/CreateFile"; // TODO: files-cloudflare tidy up
 
 import { Project_FormSchema, Project_FormSchemaGenerator } from "./schema";
 

@@ -42,8 +42,8 @@ const CreatePage: React.FC<Props> = ({ className, files }) => {
 			const response = await createPageCard(generateFormDataFromObject(data), [
 				pathname,
 				Route.public.HOME.uri,
-				Route.admin.FILES_MONGODB, // TODO: files-cloudflare tidy up
-				Route.admin.FILES_CFR2, // TODO: files-cloudflare tidy up
+				Route.admin.FILES_MONGODB,
+				Route.admin.FILES_CFR2,
 			]);
 
 			serverActionResponseToastAndLocationReload({
