@@ -3,9 +3,9 @@
  */
 "use client";
 
-import React from "react";
-import { SessionProvider } from "next-auth/react";
 import { Session } from "next-auth";
+import { SessionProvider } from "next-auth/react";
+import React from "react";
 
 interface Props {
 	children: React.ReactNode;
@@ -24,7 +24,7 @@ interface Props {
  */
 const AuthSessionProvider: React.FC<Props> = ({ children, session }) => {
 	return (
-		<SessionProvider refetchInterval={5 * 60} session={session}>
+		<SessionProvider refetchInterval={15 * 60} session={session}>
 			{children}
 		</SessionProvider>
 	);

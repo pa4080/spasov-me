@@ -20,11 +20,7 @@ export const getEntries = async ({
 }): Promise<AboutEntryData[] | null> => {
 	try {
 		await connectToMongoDb();
-		const entries: AboutEntryDocPopulated[] = await AboutEntry.find({}).populate([
-			// "attachment",  // TODO: files-cloudflare tidy up
-			// "gallery",  // TODO: files-cloudflare tidy up
-			"tags",
-		]);
+		const entries: AboutEntryDocPopulated[] = await AboutEntry.find({}).populate(["tags"]);
 
 		return await aboutDocuments_toData({ entries, hyphen, typeList, visible });
 	} catch (error) {

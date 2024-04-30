@@ -38,8 +38,7 @@ const ProjectSchema = new Schema({
 		required: [true, "Date 'from' is required!"],
 	},
 	dateTo: {
-		type: Date,
-		// it is not required, so when it is not defined the frontend will display "Now"
+		type: Date, // it is not required, so when it is not defined the frontend will display "Now"
 	},
 	visibility: {
 		type: Boolean,
@@ -47,19 +46,13 @@ const ProjectSchema = new Schema({
 	},
 	attachment: {
 		type: String,
-		// type: Schema.Types.ObjectId, // TODO: files-cloudflare tidy up
-		// ref: FileGFS, // TODO: files-cloudflare tidy up
 	},
 	icon: {
 		type: String,
-		// type: Schema.Types.ObjectId, // TODO: files-cloudflare tidy up
-		// ref: FileGFS, // TODO: files-cloudflare tidy up
 	},
 	gallery: [
 		{
 			type: String,
-			// type: Schema.Types.ObjectId, // TODO: files-cloudflare tidy up
-			// ref: FileGFS, // TODO: files-cloudflare tidy up
 		},
 	],
 	tags: [

@@ -44,8 +44,8 @@ const DeleteAboutEntry: React.FC<Props> = ({ className, entry }) => {
 			const response = await deleteEntry(entry._id, [
 				pathname,
 				Route.public.ABOUT.uri,
-				Route.admin.FILES_MONGODB, // TODO: files-cloudflare tidy up
-				Route.admin.FILES_CFR2, // TODO: files-cloudflare tidy up
+				Route.admin.FILES_MONGODB,
+				Route.admin.FILES_CFR2,
 			]);
 
 			serverActionResponseToastAndLocationReload({

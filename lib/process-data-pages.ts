@@ -32,17 +32,13 @@ export async function PageCardDocuments_toData({
 				markdown: page.description,
 				hyphen,
 			}),
-			// attachment: fileDocuments_toData({
-			// 	files: page?.attachment ? [page?.attachment] : [],
-			// })?.[0], // TODO: files-cloudflare tidy up
 			attachment: files?.find((file) => file?._id === page?.attachment),
 		},
 		uri: page.uri,
 		title: page.title,
 		description: page.description,
 		visibility: page.visibility as boolean,
-		// attachment: page.attachment?._id.toString(), // TODO: files-cloudflare tidy up
-		attachment: page.attachment, // TODO: files-cloudflare tidy up
+		attachment: page.attachment,
 	}));
 }
 
