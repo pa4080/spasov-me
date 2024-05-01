@@ -44,14 +44,6 @@
 	}
 }
 
-.publicMenu {
-	@apply items-center justify-center gap-4 pb-0;
-
-	.navItemCommon {
-		@apply h-full transition-colors duration-100 hover:text-accent active:text-ring-secondary hover:transition-colors hover:duration-200 font-unicephalon tracking-wide sa:tracking-widest;
-	}
-
-	.navItemRow {
-		@apply text-[18px] pt-[3px];
-	}
+.navItemCommon {
+	@apply h-full transition-colors duration-100 hover:text-accent active:text-ring-secondary hover:transition-colors hover:duration-200 font-unicephalon tracking-wide sa:tracking-widest;
 }
