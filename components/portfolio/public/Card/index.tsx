@@ -61,7 +61,10 @@ const ProjectPublicCard: React.FC<Props> = ({ project, className }) => {
 
 				<div className={styles.projectFooter}>
 					<ProjectLinks project={project} />
-					<Link href={`${Route.public.PORTFOLIO.uri}/${project.slug}`}>
+					<Link
+						area-label="Link to the Project's page"
+						href={`${Route.public.PORTFOLIO.uri}/${project.slug}`}
+					>
 						<Button
 							className="transition-colors duration-300 hover:duration-150"
 							size="sm"

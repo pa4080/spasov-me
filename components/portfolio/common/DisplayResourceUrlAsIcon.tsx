@@ -39,7 +39,11 @@ const DisplayResourceUrlAsIcon: React.FC<Props> = ({
 	return (
 		<TooltipProvider>
 			<Tooltip>
-				<TooltipTrigger className="!mt-0" onClick={handleOnClick}>
+				<TooltipTrigger
+					aria-label="Open the Project's repository"
+					className="!mt-0"
+					onClick={handleOnClick}
+				>
 					<IconEmbedSvg
 						className_Path1={icon_className_Path1}
 						className_Path2={icon_className_Path2}
