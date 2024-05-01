@@ -22,7 +22,7 @@ const PublicMenu_Sheet: React.FC<Props> = ({ className, children }) => {
 	const menuItems: string[] = Object.keys(Route.public);
 
 	return (
-		<div className={`${styles.publicMenu} ${className}`}>
+		<div className={className}>
 			<Sheet>
 				<SheetTrigger
 					aria-label={t("altMenuButton")}

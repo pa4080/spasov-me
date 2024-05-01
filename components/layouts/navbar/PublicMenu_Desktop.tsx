@@ -24,20 +24,19 @@ const PublicMenu_Desktop: React.FC<Props> = ({ className }) => {
 	const menuItems: string[] = Object.keys(Route.public);
 
 	return (
-		<div className={`${styles.publicMenu} ${className}`}>
+		<div className={className}>
 			<Link
 				aria-label="Link to Home page"
 				as={Route.public.HOME.uri}
 				className={`${styles.navItemCommon} emphasize_drop_shadow`}
-				// This is a workaround for a Next.js bug, where
-				// the home page is not rerendered after 404 error
-				// which is rendered on the the same URI.
+				// This is a workaround for a Next.js bug, where the home page is not rerendered
+				// after 404 error which is rendered on the the same URI.
 				href={Route.public.HOME.uri}
 				style={{}}
 			>
 				<SiteLogo
 					autoBreak={false}
-					className={`${currentPathName === Route.public.HOME.uri ? "hover:saturate-150" : ""} translate-y-[1px]`}
+					className={`${currentPathName === Route.public.HOME.uri ? "hover:saturate-150" : ""}`}
 					hover={currentPathName !== Route.public.HOME.uri}
 					style={{ width: "152px", height: "28px" }}
 				/>
@@ -53,7 +52,7 @@ const PublicMenu_Desktop: React.FC<Props> = ({ className }) => {
 					return (
 						<Link
 							key={index}
-							className={`${styles.navItemRow} ${styles.navItemCommon} emphasize_drop_shadow  ${
+							className={`${styles.navItemCommon} text-[19px] translate-y-[2px] emphasize_drop_shadow ${
 								currentPathName !== Route.public[pathAsKey].uri
 									? "text-muted-foreground dark:text-foreground"
 									: "text-ring"

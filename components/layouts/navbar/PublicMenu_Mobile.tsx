@@ -9,11 +9,14 @@ import SiteLogo from "@/components/layouts/logo/SiteLogo";
 const PublicMenu_Sheet = dynamic(() => import("./PublicMenu_Sheet"), {
 	ssr: false,
 	loading: () => (
-		<SiteLogo
-			autoBreak={false}
-			className="emphasize_drop_shadow translate-y-[1px] sm:hidden"
-			style={{ width: "152px", height: "28px" }}
-		/>
+		// See the indexedDB.tsx file
+		<div className="flex sm:hidden items-center justify-center gap-4 pb-0">
+			<SiteLogo
+				autoBreak={false}
+				className="emphasize_drop_shadow"
+				style={{ width: "152px", height: "28px" }}
+			/>
+		</div>
 	),
 });
 
@@ -21,12 +24,12 @@ interface Props {
 	className?: string;
 }
 
-const PublicMenu_Mobile: React.FC<Props> = () => {
+const PublicMenu_Mobile: React.FC<Props> = ({ className }) => {
 	return (
-		<PublicMenu_Sheet>
+		<PublicMenu_Sheet className={className}>
 			<SiteLogo
 				autoBreak={false}
-				className="emphasize_drop_shadow translate-y-[5px] sm:hidden"
+				className="emphasize_drop_shadow"
 				style={{ width: "152px", height: "28px" }}
 			/>
 		</PublicMenu_Sheet>
