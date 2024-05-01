@@ -1,4 +1,5 @@
 "use client";
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 
 import ButtonIcon, { ButtonIconProps } from "@/components/fragments/ButtonIcon";
@@ -17,7 +18,11 @@ import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
 import { IconEmbSvgPathType } from "../IconEmbedSvg";
-import GalleryCarousel from "./GalleryCarousel";
+// import GalleryCarousel from "./GalleryCarousel";
+
+const GalleryCarousel = dynamic(() => import("./GalleryCarousel"), {
+	ssr: false,
+});
 
 interface Props {
 	className?: string;

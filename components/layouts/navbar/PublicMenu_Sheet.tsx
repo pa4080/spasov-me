@@ -1,26 +1,19 @@
-"use client";
-
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
-import Link from "next/link";
-
-import { usePathname } from "next/navigation";
-
-import { Route } from "@/routes";
-
-import SiteLogo from "@/components/layouts/logo/SiteLogo";
-
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
-
 import { msgs } from "@/messages";
+import { Route } from "@/routes";
 
 import styles from "./_navbar.module.scss";
 
 interface Props {
 	className?: string;
+	children: React.ReactNode;
 }
 
-const PublicMenu_Sheet: React.FC<Props> = ({ className }) => {
+const PublicMenu_Sheet: React.FC<Props> = ({ className, children }) => {
 	const t = msgs("Navigation");
 
 	type tType = Parameters<typeof t>[0];
@@ -35,22 +28,12 @@ const PublicMenu_Sheet: React.FC<Props> = ({ className }) => {
 					aria-label={t("altMenuButton")}
 					className={`${styles.navItemCommon} outline-none focus-visible:outline-none focus:outline-none`}
 				>
-					<SiteLogo
-						autoBreak={false}
-						className="emphasize_drop_shadow"
-						style={{ width: "152px", height: "auto" }}
-					/>
+					{children}
 				</SheetTrigger>
 
 				<SheetContent className="flex flex-col items-start justify-start gap-10 h-full" side="left">
 					<SheetHeader>
-						<SheetClose>
-							<SiteLogo
-								autoBreak={false}
-								className="emphasize_drop_shadow"
-								style={{ width: "152px", height: "auto" }}
-							/>
-						</SheetClose>
+						<SheetClose>{children}</SheetClose>
 					</SheetHeader>
 
 					<div className="flex flex-col gap-8 pl-2">

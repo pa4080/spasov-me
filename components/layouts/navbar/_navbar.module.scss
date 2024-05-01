@@ -9,6 +9,7 @@
 
 	.userMenu {
 		@apply items-center justify-center gap-4 flex;
+
 		.logInButton {
 			@apply flex;
 		}
@@ -41,16 +42,16 @@
 			}
 		}
 	}
+}
 
-	.publicMenu {
-		@apply items-center justify-center gap-4 pb-0; //  "flex" this class is triggered via JSX;
+.publicMenu {
+	@apply items-center justify-center gap-4 pb-0;
 
-		.navItemCommon {
-			@apply h-full transition-colors duration-100 hover:text-ring active:text-ring-secondary hover:transition-colors hover:duration-200 font-unicephalon tracking-wide sa:tracking-widest;
-		}
+	.navItemCommon {
+		@apply h-full transition-colors duration-100 hover:text-ring active:text-ring-secondary hover:transition-colors hover:duration-200 font-unicephalon tracking-wide sa:tracking-widest;
+	}
 
-		.navItemRow {
-			@apply text-[18px] pt-[3px];
-		}
+	.navItemRow {
+		@apply text-[18px] pt-[3px];
 	}
 }
