@@ -26,6 +26,7 @@ const PublicMenu_Desktop: React.FC<Props> = ({ className }) => {
 	return (
 		<div className={`${styles.publicMenu} ${className}`}>
 			<Link
+				aria-label="Link to Home page"
 				as={Route.public.HOME.uri}
 				className={`${styles.navItemCommon} emphasize_drop_shadow`}
 				// This is a workaround for a Next.js bug, where
