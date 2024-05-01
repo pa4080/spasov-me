@@ -26,6 +26,7 @@ const PublicMenu_Desktop: React.FC<Props> = ({ className }) => {
 	return (
 		<div className={`${styles.publicMenu} ${className}`}>
 			<Link
+				aria-label="Link to Home page"
 				as={Route.public.HOME.uri}
 				className={`${styles.navItemCommon} emphasize_drop_shadow`}
 				// This is a workaround for a Next.js bug, where
@@ -52,10 +53,10 @@ const PublicMenu_Desktop: React.FC<Props> = ({ className }) => {
 					return (
 						<Link
 							key={index}
-							className={`${styles.navItemRow} ${styles.navItemCommon} emphasize_drop_shadow ${
+							className={`${styles.navItemRow} ${styles.navItemCommon} emphasize_drop_shadow  ${
 								currentPathName !== Route.public[pathAsKey].uri
 									? "text-muted-foreground dark:text-foreground"
-									: "text-accent"
+									: "text-ring"
 							}`}
 							href={Route.public[pathAsKey].uri}
 						>

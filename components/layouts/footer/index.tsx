@@ -9,7 +9,12 @@ import styles from "./_footer.module.scss";
 const Footer: React.FC = () => {
 	return (
 		<footer className={styles.footer}>
-			<a className={styles.icon} href="https://github.com/pa4080" target={new_tab_target}>
+			<a
+				aria-label="Link to GitHub"
+				className={styles.icon}
+				href="https://github.com/pa4080"
+				target={new_tab_target}
+			>
 				<IconEmbedSvg
 					height={32}
 					type="github-rounded"
@@ -19,6 +24,7 @@ const Footer: React.FC = () => {
 				/>
 			</a>
 			<a
+				aria-label="Link to Ask Ubuntu"
 				className={styles.icon}
 				href="https://askubuntu.com/users/566421/pa4080"
 				target={new_tab_target}
@@ -32,6 +38,7 @@ const Footer: React.FC = () => {
 				/>
 			</a>
 			<a
+				aria-label="Link to MetaLevel Wiki"
 				className={`${styles.icon} ${styles.iconSpecial}`}
 				href="https://wiki.metalevel.tech"
 				target={new_tab_target}
@@ -45,6 +52,7 @@ const Footer: React.FC = () => {
 				/>
 			</a>
 			<a
+				aria-label="Link to LinkedIn"
 				className={styles.icon}
 				href="https://www.linkedin.com/in/spas-z-spasov"
 				target={new_tab_target}
@@ -58,6 +66,7 @@ const Footer: React.FC = () => {
 				/>
 			</a>
 			<a
+				aria-label="Link to Wikimedia"
 				className={styles.icon}
 				href="https://meta.wikimedia.org/wiki/User:Spas.Z.Spasov"
 				target={new_tab_target}
