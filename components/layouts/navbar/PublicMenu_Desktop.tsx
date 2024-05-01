@@ -15,7 +15,7 @@ interface Props {
 	className?: string;
 }
 
-const PublicMenu_Row: React.FC<Props> = ({ className }) => {
+const PublicMenu_Desktop: React.FC<Props> = ({ className }) => {
 	const t = msgs("Navigation");
 
 	type tType = Parameters<typeof t>[0];
@@ -36,9 +36,9 @@ const PublicMenu_Row: React.FC<Props> = ({ className }) => {
 			>
 				<SiteLogo
 					autoBreak={false}
-					className={currentPathName === Route.public.HOME.uri ? "hover:saturate-150" : ""}
+					className={`${currentPathName === Route.public.HOME.uri ? "hover:saturate-150" : ""} translate-y-[1px]`}
 					hover={currentPathName !== Route.public.HOME.uri}
-					style={{ width: "152px", height: "auto" }}
+					style={{ width: "152px", height: "28px" }}
 				/>
 			</Link>
 
@@ -68,4 +68,4 @@ const PublicMenu_Row: React.FC<Props> = ({ className }) => {
 	);
 };
 
-export default PublicMenu_Row;
+export default PublicMenu_Desktop;

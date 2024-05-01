@@ -1,6 +1,8 @@
 import React from "react";
 
-import GalleryCarousel from "@/components/fragments/Gallery/GalleryCarousel";
+import dynamic from "next/dynamic";
+
+// import GalleryCarousel from "@/components/fragments/Gallery/GalleryCarousel";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import TechTags from "@/components/fragments/TechTags";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
@@ -9,6 +11,10 @@ import { ProjectData } from "@/interfaces/Project";
 
 import ProjectLinks from "../../common/ProjectLinks";
 import styles from "./_project.module.scss";
+
+const GalleryCarousel = dynamic(() => import("@/components/fragments/Gallery/GalleryCarousel"), {
+	ssr: false,
+});
 
 interface Props {
 	className?: string;
