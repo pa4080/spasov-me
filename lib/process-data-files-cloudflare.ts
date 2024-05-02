@@ -59,7 +59,7 @@ export async function fileObject_toData({
 						filename: filename,
 						title: processMarkdown({ markdown: filename, hyphen: true }),
 						description: processMarkdown({ markdown: description, hyphen }),
-						fileUrl: `https://${r2BucketDomain}/${filename}`,
+						fileUrl: `https://${r2BucketDomain}/${filename}?v=${new Date(uploadDate).getTime()}`,
 					},
 				},
 			};
