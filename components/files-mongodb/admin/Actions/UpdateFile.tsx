@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
+import Loading from "@/components/fragments/Loading";
+import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
 	Dialog,
 	DialogContent,
@@ -15,15 +17,12 @@ import {
 import { FileData } from "@/interfaces/File";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
-
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
-
 import { Route } from "@/routes";
 
 import { updateFile } from "../../_files.actions";
 import { File_FormSchema } from "../Form/schema";
 // import FileForm from "../Form";
-const FileForm = dynamic(() => import("../Form"), { ssr: false });
+const FileForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
 
 interface Props {
 	className?: string;

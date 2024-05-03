@@ -18,10 +18,12 @@ import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
 import { IconEmbSvgPathType } from "../IconEmbedSvg";
+import Loading from "../Loading";
 // import GalleryCarousel from "./GalleryCarousel";
 
 const GalleryCarousel = dynamic(() => import("./GalleryCarousel"), {
 	ssr: false,
+	loading: () => <Loading scale={3} />,
 });
 
 interface Props {

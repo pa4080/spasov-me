@@ -3,7 +3,10 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
+import { updateFile } from "@/components/files-cloudflare/_files.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
+import Loading from "@/components/fragments/Loading";
+import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
 	Dialog,
 	DialogContent,
@@ -15,15 +18,11 @@ import {
 import { FileData } from "@/interfaces/File";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
-
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
-
-import { updateFile } from "@/components/files-cloudflare/_files.actions";
 import { Route } from "@/routes";
 
 import { File_FormSchema } from "../Form/schema";
 // import FileForm from "../Form";
-const FileForm = dynamic(() => import("../Form"), { ssr: false });
+const FileForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
 
 interface Props {
 	className?: string;

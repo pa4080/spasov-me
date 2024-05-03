@@ -5,6 +5,8 @@ import React, { useState } from "react";
 
 import { createFile } from "@/components/files-cloudflare/_files.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
+import Loading from "@/components/fragments/Loading";
+import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
 	Dialog,
 	DialogContent,
@@ -16,11 +18,9 @@ import {
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
-
 import { File_FormSchema } from "../Form/schema";
 // import FileForm from "../Form";
-const FileForm = dynamic(() => import("../Form"), { ssr: false });
+const FileForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
 
 interface Props {
 	className?: string;

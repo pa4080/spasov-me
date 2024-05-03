@@ -3,17 +3,18 @@ import React from "react";
 import dynamic from "next/dynamic";
 
 // import GalleryCarousel from "@/components/fragments/Gallery/GalleryCarousel";
+import Loading from "@/components/fragments/Loading";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import TechTags from "@/components/fragments/TechTags";
-import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
-
 import { ProjectData } from "@/interfaces/Project";
+import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 
 import ProjectLinks from "../../common/ProjectLinks";
 import styles from "./_project.module.scss";
 
 const GalleryCarousel = dynamic(() => import("@/components/fragments/Gallery/GalleryCarousel"), {
 	ssr: false,
+	loading: () => <Loading maxHeight="100%" scale={4} />,
 });
 
 interface Props {

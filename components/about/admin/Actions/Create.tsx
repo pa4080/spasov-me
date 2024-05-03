@@ -6,6 +6,8 @@ import React, { useState } from "react";
 
 import { createEntry } from "@/components/about/_about.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
+import Loading from "@/components/fragments/Loading";
+import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
 	Dialog,
 	DialogContent,
@@ -21,12 +23,13 @@ import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
-
 import { Entry_FormSchema } from "../Form/schema";
 
 // import AboutEntryForm from "../Form";
-const AboutEntryForm = dynamic(() => import("../Form"), { ssr: false });
+const AboutEntryForm = dynamic(() => import("../Form"), {
+	ssr: false,
+	loading: () => <Loading />,
+});
 
 interface Props {
 	className?: string;
