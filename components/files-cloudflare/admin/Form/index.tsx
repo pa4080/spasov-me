@@ -168,7 +168,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 	const fileUri = formData
 		? formData.filename.match(/\.(pdf|pptx|xlsx|docx)$/)
 			? `${Route.assets.MIME_TYPE}/${formData.filename.split(".").pop()}.png`
-			: `https://${process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DOMAIN}/${formData?.filename}`
+			: `https://${process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DOMAIN}/${formData?.filename}?v=${new Date(formData?.uploadDate).getTime()}`
 		: Route.assets.IMAGE_PLACEHOLDER;
 
 	return (

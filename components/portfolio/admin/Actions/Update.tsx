@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
 import ButtonIcon, { ButtonIconProps } from "@/components/fragments/ButtonIcon";
+import { IconEmbSvgPathType } from "@/components/fragments/IconEmbedSvg";
+import Loading from "@/components/fragments/Loading";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
 	Dialog,
@@ -13,6 +15,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import { useAppContext } from "@/contexts/AppContext";
 import { FileListItem } from "@/interfaces/File";
 import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
@@ -20,14 +23,10 @@ import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { useAppContext } from "@/contexts/AppContext";
-
-import { IconEmbSvgPathType } from "@/components/fragments/IconEmbedSvg";
-
 import { updateProject } from "../../_portfolio.actions";
 import { Project_FormSchema } from "../Form/schema";
 // import ProjectForm from "../Form";
-const ProjectForm = dynamic(() => import("../Form"), { ssr: false });
+const ProjectForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
 
 interface Props {
 	className?: string;
