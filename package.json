@@ -13,7 +13,7 @@
 		"start": "next start",
 		"start1": "next start -p 3001",
 		"lint": "next lint",
-		"prepare": "husky",
+		"prepare": "husky install",
 		"pre-commit": "pnpm run check-branch-name && lint-staged",
 		"git-push-u": "git push origin $(git branch | sed 's/^..//') -u"
 	},
