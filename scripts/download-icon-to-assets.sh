@@ -24,20 +24,32 @@ if [[ $1 == "list" ]]; then
 		exit 1
 	fi
 
-	${WGET} -q --no-check-certificate -O - https://github.com/vscode-icons/vscode-icons/blob/master/icons |
-		${JQ} '.payload.tree.items[].name' |
-		grep -v "folder_type" |
-		sed -e 's/"//g' -e "s/file_type_//g" -e "s/\.svg//g"
+	LIST=$(
+		${WGET} -q --no-check-certificate -O - https://github.com/vscode-icons/vscode-icons/blob/master/icons |
+			grep -P '<script type="application/json" data-target="react-app.embeddedData">.*</script>' |
+			sed -r 's#<script type="application/json" data-target="react-app.embeddedData">(.*?)</script>#\1#g' |
+			${JQ} '.payload.tree.items[].name' |
+			grep -v "folder_type" |
+			sed -e 's/"//g' -e "s/file_type_//g" -e "s/\.svg//g"
+	)
+
+	if [[ -z $2 ]]; then
+		echo "$LIST" | grep "$2"
+	else
+		echo "$LIST" | grep "$2"
+	fi
 
 	exit 0
+
 fi
 
 ICON="$1"
 
 if [[ -z "$ICON" ]]; then
 	echo "Usage: $0 <icon-url>"
-	echo "Usage: $0 <icon-name>|<lught_icon-name>"
+	echo "Usage: $0 <icon-name>|<light_icon-name>"
 	echo "Usage: $0 list"
+	echo "Usage: $0 list <icon-name>"
 	exit 1
 fi
 

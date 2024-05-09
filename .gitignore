@@ -3,6 +3,7 @@
 # tmp directopries
 tmp*
 scripts/dbbackup/**
+/analyze
 
 # dependencies
 /node_modules
