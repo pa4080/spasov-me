@@ -13,7 +13,7 @@ import { Session } from "next-auth";
 import { getProviders, useSession } from "next-auth/react";
 
 import { getEntries } from "@/components/about/_about.actions";
-import { getFileList, getFiles } from "@/components/files-mongodb/_files.actions";
+import { getFileList, getFilesR2 } from "@/components/files-cloudflare/_files.actions";
 import { getPageCards } from "@/components/pages/_pages.actions";
 import { getProjects } from "@/components/portfolio/_portfolio.actions";
 import { getTags } from "@/components/tags/_tags.actions";
@@ -63,7 +63,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 			setAuthProviders(await getProviders());
 
 			setAboutEntries((await getEntries({ hyphen: true, public: true })) ?? []);
-			setFiles((await getFiles({ hyphen: true, public: true })) ?? []);
+			setFiles((await getFilesR2({ hyphen: true, public: true })) ?? []);
 			setFileList((await getFileList()) ?? []);
 			setPages((await getPageCards({ hyphen: true, public: true })) ?? []);
 			setTags((await getTags({ hyphen: true, public: true })) ?? []);

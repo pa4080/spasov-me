@@ -248,6 +248,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	it_expressjs: {
+		name: "it_expressjs",
+		uri: {
+			light: "/assets/icons/it/expressjs.svg",
+			dark: "/assets/icons/it/expressjs.svg",
+		},
+		info: {
+			height: 16,
+			width: 16,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	it_figma: {
 		name: "it_figma",
 		uri: {
