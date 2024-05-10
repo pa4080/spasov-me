@@ -7,7 +7,7 @@ const nextConfig = {
 	reactStrictMode: true,
 	// trailingSlash: true,
 	images: {
-		unoptimized: true,
+		// unoptimized: true,
 		dangerouslyAllowSVG: true,
 		// https://nextjs.org/docs/messages/next-image-unconfigured-host
 		remotePatterns: [
