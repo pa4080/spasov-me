@@ -14,7 +14,9 @@ import styles from "./_project.module.scss";
 
 const GalleryCarousel = dynamic(() => import("@/components/fragments/Gallery/GalleryCarousel"), {
 	ssr: false,
-	loading: () => <Loading maxHeight="100%" scale={4} />,
+	loading: () => (
+		<Loading className="h-auto w-auto max-h-[74vh] mx-auto" maxHeight="100%" scale={4} />
+	),
 });
 
 interface Props {

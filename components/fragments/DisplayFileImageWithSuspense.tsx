@@ -41,7 +41,7 @@ const DisplayFileImageWithSuspense: React.FC<Props> = ({
 	const thisSrc = file
 		? isDocument
 			? `${Route.assets.MIME_TYPE}/${file.filename.split(".").pop()}.png`
-			: file.metadata.html.fileUri
+			: file.metadata.html.fileUrl || file.metadata.html.fileUri
 		: src;
 
 	const theProps = {

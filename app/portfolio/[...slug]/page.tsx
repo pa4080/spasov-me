@@ -35,9 +35,6 @@ const Project: React.FC<Props> = async ({ params }) => {
 		public: true,
 	});
 
-	// console.log(params);
-	// console.log(projectsHyphenated?.map((p) => ({ slug: [p.slug] })));
-
 	const project = projectsHyphenated?.find(
 		(p) => p._id === projectIdSlug || p.slug === projectIdSlug
 	);

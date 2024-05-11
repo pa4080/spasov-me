@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import { FileData, FileHtmlProps } from "@/interfaces/File";
 
 import {
@@ -14,6 +13,9 @@ import { cn } from "@/lib/cn-utils";
 
 import { ProjectData } from "@/interfaces/Project";
 
+import { Route } from "@/routes";
+
+import DisplayFileImage from "../DisplayFileImage";
 import Navigation from "./GalleryCarouselNav";
 import GalleryCarouselNavInProject from "./GalleryCarouselNavInProject";
 
@@ -107,21 +109,36 @@ const GalleryCarousel: React.FC<Props> = ({
 					return (
 						<CarouselItem
 							key={index}
-							className="w-full h-full flex items-center justify-center pl-0.5 sa:pl-4 select-none"
+							className="w-full h-auto flex items-center justify-center pl-0.5 sa:pl-4 select-none max-h-[74vh]"
 						>
-							<DisplayFileImage
-								className={`rounded-md h-auto w-auto max-h-[74vh] mx-auto`}
-								file={
-									{
-										filename: item.filename,
-										metadata: {
-											html: item,
-										},
-									} as FileData
-								}
-								// sizes={["360px", "(max-width: 1024px) 980px, 1920px"]}
-								sizes={["360px", "1920px"]}
-							/>
+							<div className="relative w-full pb-[56.25%]">
+								<div
+									className="absolute left-0 top-0 right-0 bottom-0 flex items-center justify-center"
+									style={{
+										backgroundImage: `url(${Route.assets.LOGO_SVG})`,
+										backgroundRepeat: "no-repeat",
+										backgroundPosition: "center",
+										backgroundSize: "30%",
+									}}
+								>
+									<DisplayFileImage
+										className="rounded-md w-auto mx-auto max-h-[74vh] h-auto"
+										file={
+											{
+												filename: item.filename,
+												metadata: {
+													html: item,
+												},
+											} as FileData
+										}
+										sizes={[
+											"360px",
+											"(max-width: 520px) 480px, (max-width: 640px) 560px, (max-width: 720px) 640px, (max-width: 920px) 820px, (max-width: 1024px) 940px, 1280px",
+										]}
+										// sizes={["360px", "1920px"]}
+									/>
+								</div>
+							</div>
 						</CarouselItem>
 					);
 				})}
