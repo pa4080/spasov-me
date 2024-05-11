@@ -1,13 +1,16 @@
+import { cn } from "@/lib/cn-utils";
+
 import SiteLogo from "../layouts/logo/SiteLogo";
 
 interface Props {
 	scale?: number;
 	maxHeight?: string;
+	className?: string;
 }
 
-const Loading: React.FC<Props> = ({ scale = 2, maxHeight = "480px" }) => (
+const Loading: React.FC<Props> = ({ scale = 2, maxHeight = "480px", className }) => (
 	<div
-		className="flex items-center justify-center"
+		className={cn("flex items-center justify-center", className)}
 		style={{
 			height: `${192 * scale}px`,
 			maxHeight,
