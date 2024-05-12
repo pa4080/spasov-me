@@ -37,6 +37,8 @@ export const connectToMongoDb = async () => {
 
 		await mongoose.connect(MONGODB_URI, {
 			dbName: MONGODB_DB_NAME,
+			connectTimeoutMS: 20000,
+			maxIdleTimeMS: 20000,
 		});
 
 		isConnected = true;

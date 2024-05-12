@@ -11,6 +11,7 @@ import { tagAttachment_add, tagAttachment_remove } from "@/components/tags/_tags
 import { AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
 import { NewProjectData, ProjectDoc } from "@/interfaces/Project";
 import { AttachedToDocument, ModelType } from "@/interfaces/_common-data-types";
+import { arraysEqual } from "@/lib/arrays-equal";
 import { authOptions } from "@/lib/auth-options";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import AboutEntry from "@/models/about-entry";
@@ -183,34 +184,51 @@ export const process_relations = async ({
 	document_prev?: AboutEntryDoc | ProjectDoc;
 	modelType: ModelType;
 }) => {
+	const updateAttachment: boolean = !arraysEqual(
+		[document_prev?.attachment ?? ""],
+		[document_new?.attachment ?? ""]
+	);
+	const updateIcon: boolean = !arraysEqual(
+		[document_prev && "icon" in document_prev ? document_prev.icon ?? "" : ""],
+		[document_new && "icon" in document_new ? document_new.icon ?? "" : ""]
+	);
+
+	const updateGallery: boolean = !arraysEqual(document_prev?.gallery, document_new?.gallery);
+
 	// Deal with the previous state of the document
 	if (document_prev) {
 		// Deal with the "attachment"
-		if (document_prev.attachment) {
-			await fileAttachment_remove({
-				attachedDocument_id: document_prev._id.toString(),
-				target_file_id: document_prev.attachment,
-			});
+		if (updateAttachment) {
+			if (document_prev.attachment) {
+				await fileAttachment_remove({
+					attachedDocument_id: document_prev._id.toString(),
+					target_file_id: document_prev.attachment,
+				});
+			}
 		}
 
 		// Deal with the "icon"
-		if ("icon" in document_prev && document_prev.icon) {
-			await fileAttachment_remove({
-				attachedDocument_id: document_prev._id.toString(),
-				target_file_id: document_prev.icon,
-			});
+		if (updateIcon) {
+			if ("icon" in document_prev && document_prev.icon) {
+				await fileAttachment_remove({
+					attachedDocument_id: document_prev._id.toString(),
+					target_file_id: document_prev.icon,
+				});
+			}
 		}
 
 		// Deal with the "gallery"
-		if (document_prev.gallery && document_prev.gallery.length > 0) {
-			await Promise.all(
-				document_prev.gallery.map(async (file_id: string) => {
-					await fileAttachment_remove({
-						attachedDocument_id: document_prev._id.toString(),
-						target_file_id: file_id,
-					});
-				})
-			);
+		if (updateGallery) {
+			if (document_prev.gallery && document_prev.gallery.length > 0) {
+				await Promise.all(
+					document_prev.gallery.map(async (file_id: string) => {
+						await fileAttachment_remove({
+							attachedDocument_id: document_prev._id.toString(),
+							target_file_id: file_id,
+						});
+					})
+				);
+			}
 		}
 
 		// Deal with the "tags"
@@ -229,49 +247,55 @@ export const process_relations = async ({
 	// Deal with the current state of the document
 	if (documentData_new && document_new) {
 		// Deal with the "attachment"
-		if (documentData_new.attachment) {
-			await fileAttachment_add({
-				documentToAttach: {
-					_id: document_new._id.toString(),
-					title: document_new.title,
-					modelType: modelType,
-				},
-				target_file_id: documentData_new.attachment,
-			});
-		} else {
-			document_new.attachment = undefined;
+		if (updateAttachment) {
+			if (documentData_new.attachment) {
+				await fileAttachment_add({
+					documentToAttach: {
+						_id: document_new._id.toString(),
+						title: document_new.title,
+						modelType: modelType,
+					},
+					target_file_id: documentData_new.attachment,
+				});
+			} else {
+				document_new.attachment = undefined;
+			}
 		}
 
 		// Deal with the "icon"
-		if ("icon" in documentData_new && documentData_new.icon) {
-			await fileAttachment_add({
-				documentToAttach: {
-					_id: document_new._id.toString(),
-					title: document_new.title,
-					modelType: modelType,
-				},
-				target_file_id: documentData_new.icon,
-			});
-		} else {
-			(document_new as ProjectDoc).icon = undefined;
+		if (updateIcon) {
+			if ("icon" in documentData_new && documentData_new.icon) {
+				await fileAttachment_add({
+					documentToAttach: {
+						_id: document_new._id.toString(),
+						title: document_new.title,
+						modelType: modelType,
+					},
+					target_file_id: documentData_new.icon,
+				});
+			} else {
+				(document_new as ProjectDoc).icon = undefined;
+			}
 		}
 
 		// Deal with the "gallery"
-		if (documentData_new.gallery && documentData_new.gallery.length > 0) {
-			await Promise.all(
-				documentData_new.gallery.map(async (file_id) => {
-					await fileAttachment_add({
-						documentToAttach: {
-							_id: document_new._id.toString(),
-							title: document_new.title,
-							modelType: modelType,
-						},
-						target_file_id: file_id,
-					});
-				})
-			);
-		} else {
-			document_new.gallery = undefined;
+		if (updateGallery) {
+			if (documentData_new.gallery && documentData_new.gallery.length > 0) {
+				await Promise.all(
+					documentData_new.gallery.map(async (file_id) => {
+						await fileAttachment_add({
+							documentToAttach: {
+								_id: document_new._id.toString(),
+								title: document_new.title,
+								modelType: modelType,
+							},
+							target_file_id: file_id,
+						});
+					})
+				);
+			} else {
+				document_new.gallery = undefined;
+			}
 		}
 
 		// Deal with the "tags"
