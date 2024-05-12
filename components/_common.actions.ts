@@ -12,6 +12,7 @@ import { AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
 import { NewProjectData, ProjectDoc } from "@/interfaces/Project";
 import { AttachedToDocument, ModelType } from "@/interfaces/_common-data-types";
 import { arraysEqual } from "@/lib/arrays-equal";
+import { arraysEqualDiff } from "@/lib/arrays-equal-diff";
 import { authOptions } from "@/lib/auth-options";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import AboutEntry from "@/models/about-entry";
@@ -184,22 +185,28 @@ export const process_relations = async ({
 	document_prev?: AboutEntryDoc | ProjectDoc;
 	modelType: ModelType;
 }) => {
-	const updateAttachment: boolean = !arraysEqual(
+	const updateAttachment = !arraysEqual(
 		[document_prev?.attachment ?? ""],
 		[document_new?.attachment ?? ""]
 	);
-	const updateIcon: boolean = !arraysEqual(
+
+	const updateIcon = !arraysEqual(
 		[document_prev && "icon" in document_prev ? document_prev.icon ?? "" : ""],
 		[document_new && "icon" in document_new ? document_new.icon ?? "" : ""]
 	);
 
-	const updateGallery: boolean = !arraysEqual(document_prev?.gallery, document_new?.gallery);
+	const [galleryEqual, galleryDiff_remove, galleryDiff_add] = arraysEqualDiff(
+		document_prev?.gallery,
+		document_new?.gallery
+	);
+
+	const updateGallery = !galleryEqual;
 
 	// Deal with the previous state of the document
 	if (document_prev) {
 		// Deal with the "attachment"
 		if (updateAttachment) {
-			if (document_prev.attachment) {
+			if (document_prev?.attachment && document_prev?.attachment !== "undefined") {
 				await fileAttachment_remove({
 					attachedDocument_id: document_prev._id.toString(),
 					target_file_id: document_prev.attachment,
@@ -209,7 +216,7 @@ export const process_relations = async ({
 
 		// Deal with the "icon"
 		if (updateIcon) {
-			if ("icon" in document_prev && document_prev.icon) {
+			if ("icon" in document_prev && document_prev?.icon && document_prev?.icon !== "undefined") {
 				await fileAttachment_remove({
 					attachedDocument_id: document_prev._id.toString(),
 					target_file_id: document_prev.icon,
@@ -219,9 +226,9 @@ export const process_relations = async ({
 
 		// Deal with the "gallery"
 		if (updateGallery) {
-			if (document_prev.gallery && document_prev.gallery.length > 0) {
+			if (galleryDiff_remove.length > 0) {
 				await Promise.all(
-					document_prev.gallery.map(async (file_id: string) => {
+					galleryDiff_remove.map(async (file_id: string) => {
 						await fileAttachment_remove({
 							attachedDocument_id: document_prev._id.toString(),
 							target_file_id: file_id,
@@ -248,7 +255,7 @@ export const process_relations = async ({
 	if (documentData_new && document_new) {
 		// Deal with the "attachment"
 		if (updateAttachment) {
-			if (documentData_new.attachment) {
+			if (documentData_new?.attachment && documentData_new?.attachment !== "undefined") {
 				await fileAttachment_add({
 					documentToAttach: {
 						_id: document_new._id.toString(),
@@ -264,7 +271,11 @@ export const process_relations = async ({
 
 		// Deal with the "icon"
 		if (updateIcon) {
-			if ("icon" in documentData_new && documentData_new.icon) {
+			if (
+				"icon" in documentData_new &&
+				documentData_new?.icon &&
+				documentData_new?.icon !== "undefined"
+			) {
 				await fileAttachment_add({
 					documentToAttach: {
 						_id: document_new._id.toString(),
@@ -280,9 +291,9 @@ export const process_relations = async ({
 
 		// Deal with the "gallery"
 		if (updateGallery) {
-			if (documentData_new.gallery && documentData_new.gallery.length > 0) {
+			if (galleryDiff_add.length > 0) {
 				await Promise.all(
-					documentData_new.gallery.map(async (file_id) => {
+					galleryDiff_add.map(async (file_id) => {
 						await fileAttachment_add({
 							documentToAttach: {
 								_id: document_new._id.toString(),

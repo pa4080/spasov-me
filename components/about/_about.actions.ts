@@ -87,7 +87,7 @@ export const updateEntry = async (
 			user_id: session?.user.id,
 		});
 
-		deleteFalsyKeys(documentData_new, ["attachment", "dateTo", "gallery"]);
+		deleteFalsyKeys(documentData_new, ["dateTo", "gallery"]);
 
 		// Connect to the DB
 		await connectToMongoDb();
