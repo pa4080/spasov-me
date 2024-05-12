@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -11,6 +11,8 @@ import { ProjectData } from "@/interfaces/Project";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
+
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 import TooltipWrapper from "../TooltipWrapper";
 
@@ -36,6 +38,7 @@ const GalleryCarouselNavInProject: React.FC<Props> = ({
 	buttons_className = "hover:text-background hover:bg-accent",
 }) => {
 	const t = msgs("Gallery");
+	const collisionBoundaryRef = useRef<HTMLDivElement>(null);
 
 	const Counter: React.FC<{ className?: string }> = ({ className }) =>
 		counterAsText ? (
@@ -103,13 +106,35 @@ const GalleryCarouselNavInProject: React.FC<Props> = ({
 			</TooltipWrapper>
 
 			{/* Description and Counter */}
-			<div className="flex-grow h-full flex items-center justify-start flex-col prose prose-p:m-0 max-w-none">
+			<div
+				ref={collisionBoundaryRef}
+				className="flex-grow h-full flex items-center justify-start flex-col prose prose-p:m-0 max-w-none"
+			>
 				{descriptionDisplay && gallery && current_carouselItem > 0 && (
 					<div className="w-full h-full sa:-mt-2">
-						<p
-							dangerouslySetInnerHTML={{ __html: gallery[current_carouselItem - 1]?.description }}
-							className="w-full sa:line-clamp-1 text-center"
-						/>
+						<TooltipProvider>
+							<Tooltip>
+								<TooltipTrigger className="w-full">
+									<p
+										dangerouslySetInnerHTML={{
+											__html: gallery[current_carouselItem - 1]?.description,
+										}}
+										className="w-full sa:line-clamp-1 text-center"
+									/>
+								</TooltipTrigger>
+								<TooltipContent
+									className="border-2 border-muted-secondary dark:border-primary text-lg max-w-lg"
+									collisionBoundary={collisionBoundaryRef?.current}
+								>
+									<p
+										dangerouslySetInnerHTML={{
+											__html: gallery[current_carouselItem - 1]?.description,
+										}}
+										className="w-full text-center"
+									/>
+								</TooltipContent>
+							</Tooltip>
+						</TooltipProvider>
 					</div>
 				)}
 
