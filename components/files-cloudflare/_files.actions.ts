@@ -306,7 +306,7 @@ export const fileAttachment_remove = async ({
 		);
 		const session = await getSession();
 		const creator = session?.user.id as string;
-		const visibility = targetFileObj.metadata.visibility;
+		const visibility = targetFileObj.metadata.visibility ? "true" : "false";
 
 		const metadata: FileMetadata = {
 			description: targetFileObj.metadata.description,

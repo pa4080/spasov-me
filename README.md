@@ -10,17 +10,22 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- [ ] Projects Admin? > Form design
-- [ ] Projects public
-- [ ] Single project + gallery > design
+- [ ] Process AttachedTo files in a different way
+
+- [x] Projects Admin? > Form design
+- [x] Projects public
+- [x] Single project + gallery > design
   - Desktop: Gallery on the left, Title and description on the right
   - Mobile: Gallery on the top, Title and description on the bottom
   - When click on the gallery display it on full screen
   - Use the Shad-cn/ui slider for the gallery
+
 - [ ] Blog post admin
 - [ ] Blog feed public
 - [ ] Blog post public
-- [ ] API for creating blog posts ??
+
+- [ ] **Search by content and filter by tag**
+
 - [ ] Gallery: display .PDF, .XLS, .XLSX, .DOC, .DOCX, .PPTX, .PPT
 
 ## Next.js features to learn

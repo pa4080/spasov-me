@@ -43,8 +43,15 @@ const ProjectPublicCard: React.FC<Props> = ({ project, className }) => {
 							src={
 								project.html.icon?.metadata.html.fileUrl ||
 								project.html.icon?.metadata.html.fileUri ||
-								Route.assets.IMAGE_PLACEHOLDER
+								Route.assets.LOGO_SVG
 							}
+							style={{
+								filter:
+									!project.html.icon?.metadata.html.fileUrl &&
+									!project.html.icon?.metadata.html.fileUri
+										? "grayscale(1)"
+										: "",
+							}}
 							unoptimized={project.html.icon?.filename.match(/\.svg$/) ? true : false}
 							width={44}
 						/>
