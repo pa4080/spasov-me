@@ -26,19 +26,17 @@ export function arraysEqualDiff(arr1: string[] | undefined, arr2: string[] | und
 		areEqual = arr1.length === arr2.length && arr1.every((value, index) => value === arr2[index]);
 	}
 
-	if (!areEqual) {
-		arr1?.forEach((value) => {
-			if (!arr2?.includes(value)) {
-				diff1.push(value);
-			}
-		});
+	arr1?.forEach((value) => {
+		if (!arr2?.includes(value)) {
+			diff1.push(value);
+		}
+	});
 
-		arr2?.forEach((value) => {
-			if (!arr1?.includes(value)) {
-				diff2.push(value);
-			}
-		});
-	}
+	arr2?.forEach((value) => {
+		if (!arr1?.includes(value)) {
+			diff2.push(value);
+		}
+	});
 
 	return [areEqual, diff1, diff2] as const;
 }
