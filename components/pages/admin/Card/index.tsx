@@ -3,13 +3,14 @@ import React from "react";
 import Image from "next/image";
 
 import FileAddressHandle from "@/components/fragments/FileAddressHandle";
+import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 import { FileListItem } from "@/interfaces/File";
+import { IconMap } from "@/interfaces/IconMap";
 import { PageCardData } from "@/interfaces/PageCard";
 import { msgs } from "@/messages";
-
-import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
-
 import { Route } from "@/routes";
+
+import DisplayIcon from "@/components/fragments/DisplayIcon";
 
 import styles from "../../_pages.module.scss";
 import DeletePage from "../Actions/DeletePage";
@@ -19,18 +20,34 @@ interface Props {
 	className?: string;
 	page: PageCardData;
 	files: FileListItem[] | null | undefined;
+	icons: IconMap;
 }
 
-const PageCard: React.FC<Props> = ({ className, page, files }) => {
+const PageCard: React.FC<Props> = ({ className, page, files, icons }) => {
 	const t = msgs("PageCards");
 
 	return (
 		<div className={`${styles.card} ${className}`}>
 			<div className={styles.buttons}>
-				<DeletePage page_id={page._id} page_title={page.title} />
-				<FileAddressHandle address={`/${page.uri}`} />
-				<VisibilitySwitchDisplay disabled checked={page.visibility} className="mt-1 mr-1" />
-				<UpdatePage files={files} page={page} />
+				<div
+					className="rounded-full p-1 overflow-clip bg-primary/80 min-w-[3rem]"
+					style={{
+						filter: page?.icon ? "" : "grayscale(1)",
+					}}
+				>
+					<DisplayIcon
+						className="hover:bg-transparent dark:hover:bg-transparent"
+						icon={icons[page?.icon || "ss_spasov.me.logo"]}
+						size={40}
+					/>
+				</div>
+
+				<div className="flex gap-1">
+					<DeletePage page_id={page._id} page_title={page.title} />
+					<FileAddressHandle address={`/${page.uri}`} />
+					<VisibilitySwitchDisplay disabled checked={page.visibility} className="mt-1 mr-1" />
+					<UpdatePage files={files} icons={icons} page={page} />
+				</div>
 			</div>
 			{page.attachment && page.html.attachment && (
 				<div className={styles.cardImageEditMode}>
@@ -48,7 +65,7 @@ const PageCard: React.FC<Props> = ({ className, page, files }) => {
 					/>
 				</div>
 			)}
-			<h1 className={`${styles.title} mt-4`}>{page.title}</h1>
+			<h1 className={`${styles.title} mt-12`}>{page.title}</h1>
 			<span>{page.description}</span>
 		</div>
 	);

@@ -17,6 +17,7 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { FileListItem } from "@/interfaces/File";
+import { IconMap } from "@/interfaces/IconMap";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
@@ -29,9 +30,10 @@ interface Props {
 	className?: string;
 	page: PageCardData;
 	files?: FileListItem[] | null | undefined;
+	icons: IconMap;
 }
 
-const UpdatePage: React.FC<Props> = ({ className, page, files }) => {
+const UpdatePage: React.FC<Props> = ({ className, page, files, icons }) => {
 	const t = msgs("PageCards_Update");
 
 	const [submitting, setSubmitting] = useState(false);
@@ -94,6 +96,7 @@ const UpdatePage: React.FC<Props> = ({ className, page, files }) => {
 						className={t("dialog_description") ? "mt-0" : "mt-1"}
 						files={files}
 						formData={page}
+						icons={icons}
 						submitting={submitting}
 						onSubmit={handleUpdatePage}
 					/>

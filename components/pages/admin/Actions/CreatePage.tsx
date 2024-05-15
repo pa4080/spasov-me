@@ -15,6 +15,7 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { FileListItem } from "@/interfaces/File";
+import { IconMap } from "@/interfaces/IconMap";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
@@ -26,9 +27,10 @@ import { Pages_FormSchema } from "../Form/schema";
 interface Props {
 	className?: string;
 	files?: FileListItem[] | null;
+	icons: IconMap;
 }
 
-const CreatePage: React.FC<Props> = ({ className, files }) => {
+const CreatePage: React.FC<Props> = ({ className, files, icons }) => {
 	const t = msgs("PageCards_Create");
 
 	const [submitting, setSubmitting] = useState(false);
@@ -93,6 +95,7 @@ const CreatePage: React.FC<Props> = ({ className, files }) => {
 					<PageForm
 						className="mt-1"
 						files={files}
+						icons={icons}
 						submitting={submitting}
 						onSubmit={handleCreatePage}
 					/>

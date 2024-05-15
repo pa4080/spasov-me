@@ -177,7 +177,15 @@
 		"schema_title": "The page title must be at least 2 characters.",
 		"schema_description": "The description must be at least 20 characters.",
 		"schema_uri": "The Page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
-		"schema_image": "The allowed formats are: png, jpg, jpeg, svg, webp."
+		"schema_image": "The allowed formats are: png, jpg, jpeg, svg, webp.",
+		"schema_icon": "These are icons from the FS, like in the Tags.",
+
+		"icon_label": "",
+		"icon_description": "",
+		"icon_search": "Search for an icon...",
+		"icon_select": "Select an icon...",
+		"icon_searchNotFound": "Not found.",
+		"icon_selectNone": "< Optional! >"
 	},
 	"AboutEntries": {
 		"title_spokenLanguages": "Languages",
@@ -382,7 +390,7 @@
 		"icon_search": "Search for an icon...",
 		"icon_select": "Select an icon...",
 		"icon_searchNotFound": "Not found.",
-		"icon_selectNone": "Must be chosen!",
+		"icon_selectNone": "< Optional! >",
 
 		"btn_submit": "Submit",
 		"btn_submitting": "Submitting..."

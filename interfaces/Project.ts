@@ -24,12 +24,8 @@ export interface ProjectDoc {
 	gallery: string[] | undefined;
 }
 
-export interface ProjectDocPopulated
-	extends Omit<ProjectDoc, "attachment" | "tags" | "gallery" | "icon"> {
+export interface ProjectDocPopulated extends Omit<ProjectDoc, "tags"> {
 	tags: TagDoc[];
-	attachment?: string | undefined;
-	icon?: string | undefined;
-	gallery: string[] | undefined;
 }
 
 export interface NewProjectData

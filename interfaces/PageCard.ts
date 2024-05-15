@@ -10,23 +10,24 @@ export type PageCardDoc = {
 	title: string;
 	description: string;
 	uri: string;
-	attachment?: ObjectId;
 	visibility: boolean | string;
+	attachment?: string;
+	icon: string; // The icon here is like the ione in the Tags
 };
 
-export interface PageCardDocPopulated extends Omit<PageCardDoc, "attachment"> {
-	attachment?: string;
-}
+export interface PageCardDocPopulated extends PageCardDoc {}
 
 export type NewPageCardData = Omit<PageCardDoc, "_id" | "attachment" | "creator"> & {
 	creator: string;
 	attachment?: string;
+	icon?: string;
 };
 
 export interface PageCardHtmlProps {
 	title: string;
 	description: string;
 	attachment?: FileData;
+	icon?: string;
 }
 
 export interface PageCardData
@@ -36,16 +37,3 @@ export interface PageCardData
 	attachment: string | undefined;
 	visibility: boolean;
 }
-
-// These are helpers for the API version
-type PageCardDocToFetch = {
-	data: PageCardDoc | NewPageCardData | Record<string, unknown>;
-	user_id?: string | undefined;
-};
-
-export const preparePageCardDocToFetch = ({ data, user_id }: PageCardDocToFetch) => {
-	return JSON.stringify({
-		...data,
-		creator: user_id,
-	});
-};

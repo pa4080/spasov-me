@@ -5,7 +5,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+import AttachedToBadge from "@/components/fragments/AttachedToBadge";
 import Combobox from "@/components/fragments/Combobox";
+import DisplayIcon from "@/components/fragments/DisplayIcon";
 import SelectFromList from "@/components/fragments/SelectFromList";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,13 +22,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { IconMap } from "@/interfaces/IconMap";
 import { AttachedToDocument, TagType, tagTuple } from "@/interfaces/_common-data-types";
+import { capitalize } from "@/lib/capitalize";
 import { msgs } from "@/messages";
 
-import AttachedToBadge from "@/components/fragments/AttachedToBadge";
-
-import { capitalize } from "@/lib/capitalize";
-
-import DisplayIcon from "../../../fragments/DisplayIcon";
 import { Tag_FormSchema, Tag_FormSchemaGenerator } from "./schema";
 
 interface Props {
@@ -135,8 +133,8 @@ const TagForm: React.FC<Props> = ({
 					/>
 
 					<div className="flex flex-col sm:flex-row gap-3 sm:gap-2 w-full">
+						{/* Icon */}
 						<div className="sm:flex-[2] flex flex-row gap-1">
-							{/* Icon */}
 							<Combobox
 								className="w-full"
 								control={form.control}
