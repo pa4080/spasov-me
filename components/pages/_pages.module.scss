@@ -14,7 +14,7 @@
 	}
 
 	.card {
-		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[25%] rounded-2xl h-full p-6 md:p-8 relative min-h-fit flex items-start flex-col gap-3 justify-start border-4 border-transparent;
+		@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[25%] rounded-2xl h-full p-6 pt-5 relative min-h-fit flex items-start flex-col gap-4 justify-start border-4 border-transparent;
 
 		transition:
 			background-color 0.5s,
@@ -43,7 +43,7 @@
 		}
 
 		.buttons {
-			@apply flex gap-1 absolute right-0 -top-1 p-4 rounded-2xl;
+			@apply flex gap-1 absolute right-0 -top-1 p-4 rounded-2xl justify-between w-full items-center;
 		}
 
 		.cardImageEditMode {

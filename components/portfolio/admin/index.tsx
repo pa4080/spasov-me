@@ -23,7 +23,7 @@ const PortfolioAdmin: React.FC<Props> = async ({ className }) => {
 				projects={projects}
 				tags={tags}
 				type="informationTechnologies"
-				visibleItems={5}
+				visibleItems={25}
 			/>
 			{/* <TimeLine projects={entries} files={fileList} tags={tags} type="resume" visibleItems={1} />
 			<TimeLine projects={entries} files={fileList} tags={tags} type="employment" />

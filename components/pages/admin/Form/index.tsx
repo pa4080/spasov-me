@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 
 import { Input } from "@/components/ui/input";
 
+import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
@@ -15,16 +16,16 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-
-import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+import { IconMap } from "@/interfaces/IconMap";
 import { msgs } from "@/messages";
-
 import { Route } from "@/routes";
 
 import { FileData, FileListItem } from "@/interfaces/File";
 
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
+
+import DisplayIcon from "@/components/fragments/DisplayIcon";
 
 import Combobox from "../../../fragments/Combobox";
 import { Pages_FormSchema, Pages_FormSchemaGenerator } from "./schema";
@@ -35,6 +36,7 @@ interface Props {
 	submitting?: boolean;
 	formData?: Pages_FormSchema;
 	files?: FileListItem[] | null;
+	icons: IconMap;
 }
 
 const PageForm: React.FC<Props> = ({
@@ -43,6 +45,7 @@ const PageForm: React.FC<Props> = ({
 	submitting = false,
 	formData,
 	files,
+	icons,
 }) => {
 	const t = msgs("PageCards_Form");
 
@@ -51,6 +54,7 @@ const PageForm: React.FC<Props> = ({
 		t("schema_description"),
 		t("schema_uri"),
 		t("schema_image"),
+		t("schema_icon"),
 	]);
 
 	const form = useForm<Pages_FormSchema>({
@@ -61,6 +65,7 @@ const PageForm: React.FC<Props> = ({
 			uri: "",
 			attachment: "",
 			visibility: false,
+			icon: "",
 		},
 		values: formData,
 	});
@@ -172,7 +177,7 @@ const PageForm: React.FC<Props> = ({
 						setValue={form.setValue}
 					/>
 					<DisplayFileImage
-						className={`rounded-md object-cover w-24 h-24 min-w-24 border ${form.watch("attachment") ? "opacity-90" : "opacity-25"}`}
+						className={`rounded-md object-cover max-h-full w-10 h-10 min-w-10 border -mt-2 ${form.watch("attachment") ? "opacity-90" : "opacity-25"}`}
 						file={
 							{
 								filename:
@@ -189,6 +194,36 @@ const PageForm: React.FC<Props> = ({
 						}
 						sizes={["90px", "90px"]}
 					/>
+				</div>
+
+				{/* Icon */}
+				<div className="sm:flex-[2] flex flex-row gap-2">
+					<Combobox
+						className="w-full"
+						control={form.control}
+						error={form.formState.errors.icon}
+						list={Object.keys(icons).map((icon) => ({
+							value: icon,
+							label: icon,
+						}))}
+						messages={{
+							label: t("icon_label"),
+							description: t("icon_description"),
+							placeholder: t("icon_search"),
+							pleaseSelect: t("icon_select"),
+							notFound: t("icon_searchNotFound"),
+							selectNone: t("icon_selectNone"),
+						}}
+						name="icon"
+						setValue={form.setValue}
+					/>
+
+					<div className="max-h-full h-full min-w-fit border rounded-md bg-primary flex items-center justify-center p-1">
+						<DisplayIcon
+							className="hover:bg-transparent dark:hover:bg-transparent"
+							icon={icons[form.watch("icon") ?? "placeholder"]}
+						/>
+					</div>
 				</div>
 
 				{/* Checkbox */}

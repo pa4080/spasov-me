@@ -31,7 +31,7 @@ const Section: React.FC<Props> = ({
 	type = "common",
 	visibleItems = 2,
 	sortByAttachedTo = true,
-	sortByAttachedToVisibleItems = 2,
+	sortByAttachedToVisibleItems = 25,
 }) => {
 	const t = msgs("Files");
 
@@ -80,37 +80,39 @@ const Section: React.FC<Props> = ({
 			</SectionHeader>
 
 			{attachedToDocuments && Object.keys(attachedToDocuments).length > 0 ? (
-				Object.keys(attachedToDocuments).map((attachedToDocument, index) => (
-					<div
-						key={index}
-						className={`${styles.feed} scroll-m-8 mt-12 list-sub-section ${sortByAttachedToVisibleItems > index ? "" : "sub-section-collapsible"}`}
-						id={`${toggle_target_id}_${index}`}
-					>
-						<div className="flex flex-row w-full justify-between gap-4 items-center border-4 h-10 border-primary bg-primary rounded-full">
-							<h2 className="text-xl font-semibold tracking-wide flex-grow pl-5 flex items-center rounded-full">
-								{attachedToDocument}
-							</h2>
-							<ToggleCollapsible
-								tooltip
-								className="-mr-1"
-								target_id={`${toggle_target_id}_${index}`}
-								text={[t("btnAll"), t("btnLess")]}
-								type="section"
-							/>
-						</div>
-
-						{attachedToDocuments[attachedToDocument]
-							?.sort((b, a) => a.uploadDate.getTime() - b.uploadDate.getTime())
-							?.map((file, index) => (
-								<FileCard
-									key={index}
-									className={visibleItems > index ? "" : "section-card-collapsible"}
-									file={file}
-									section_id={`${toggle_target_id}_${type}_${attachedToDocument.replace(/ /g, "_")}`}
+				Object.keys(attachedToDocuments)
+					.sort()
+					.map((attachedToDocument, index) => (
+						<div
+							key={index}
+							className={`${styles.feed} scroll-m-8 mt-12 list-sub-section ${sortByAttachedToVisibleItems > index ? "" : "sub-section-collapsible"}`}
+							id={`${toggle_target_id}_${index}`}
+						>
+							<div className="flex flex-row w-full justify-between gap-4 items-center border-4 h-10 border-primary bg-primary rounded-full">
+								<h2 className="text-xl font-semibold tracking-wide flex-grow pl-5 flex items-center rounded-full">
+									{attachedToDocument}
+								</h2>
+								<ToggleCollapsible
+									tooltip
+									className="-mr-1"
+									target_id={`${toggle_target_id}_${index}`}
+									text={[t("btnAll"), t("btnLess")]}
+									type="section"
 								/>
-							))}
-					</div>
-				))
+							</div>
+
+							{attachedToDocuments[attachedToDocument]
+								?.sort((b, a) => a.uploadDate.getTime() - b.uploadDate.getTime())
+								?.map((file, index) => (
+									<FileCard
+										key={index}
+										className={visibleItems > index ? "" : "section-card-collapsible"}
+										file={file}
+										section_id={`${toggle_target_id}_${type}_${attachedToDocument.replace(/ /g, "_")}`}
+									/>
+								))}
+						</div>
+					))
 			) : (
 				<div className={styles.feed}>
 					{files

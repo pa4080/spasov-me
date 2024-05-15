@@ -33,6 +33,9 @@ const PageCardSchema = new Schema({
 		// type: Schema.Types.ObjectId,
 		// ref: FileGFS,
 	},
+	icon: {
+		type: String,
+	},
 });
 
 const PageCard = models.PageCard || model("PageCard", PageCardSchema);

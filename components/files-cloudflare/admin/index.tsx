@@ -29,7 +29,7 @@ const FilesAdmin_CloudFlare: React.FC<Props> = async ({ className }) => {
 
 	return (
 		<div className={`${styles.files} ${className}`}>
-			<Section files={filesCommon} type="common" visibleItems={7} />
+			<Section files={filesCommon} type="common" visibleItems={25} />
 			<Section files={filesAbout} type="AboutEntry" />
 			<Section sortByAttachedTo files={filesPortfolio} type="Project" visibleItems={1} />
 		</div>

@@ -7,6 +7,7 @@ import { PageCardData } from "@/interfaces/PageCard";
 import { hyphenateString } from "@/lib/process-text";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
+import iconsMap from "@/public/assets/icons";
 import { Route } from "@/routes";
 
 import styles from "../_pages.module.scss";
@@ -32,7 +33,7 @@ const Section: React.FC<Props> = ({ className, pages, files, type = "common" }) 
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths paths={[Route.public.HOME.uri]} />
-				<CreatePage files={files} />
+				<CreatePage files={files} icons={iconsMap} />
 				{/* <ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}
@@ -42,7 +43,9 @@ const Section: React.FC<Props> = ({ className, pages, files, type = "common" }) 
 			</SectionHeader>
 
 			<div className={styles.feed}>
-				{pages?.map((page, index) => <PageCard key={index} files={files} page={page} />)}
+				{pages?.map((page, index) => (
+					<PageCard key={index} files={files} icons={iconsMap} page={page} />
+				))}
 			</div>
 		</div>
 	);

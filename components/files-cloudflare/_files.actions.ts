@@ -58,12 +58,14 @@ export const getFileList = async ({ images }: { images?: boolean } = {}): Promis
 		);
 	}
 
-	return filteredFiles.map((file) => ({
-		value: file._id.toString(),
-		label: file.filename,
-		sourceImage: file.metadata.html.fileUrl,
-		sourceDescription: file.filename,
-	}));
+	return filteredFiles
+		.map((file) => ({
+			value: file._id.toString(),
+			label: file.filename,
+			sourceImage: file.metadata.html.fileUrl,
+			sourceDescription: file.filename,
+		}))
+		.sort(({ label: a }, { label: b }) => a.localeCompare(b));
 };
 
 export const createFile = async (data: FormData, paths: string[]): Promise<boolean | null> => {
