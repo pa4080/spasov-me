@@ -31,25 +31,6 @@ const nextConfig = {
 			},
 		],
 	},
-	/**
-	env: {
-		HOT_JAR_ID: process.env.HOT_JAR_ID,
-		OPTIMIZE_ID: process.env.OPTIMIZE_ID,
-		GOOGLE_SITE_VERIFICATION_ID: process.env.GOOGLE_SITE_VERIFICATION_ID,
-		GTAG: process.env.GTAG,
-		REACT_APP_GATAG: process.env.REACT_APP_GATAG,
-	},
-	async rewrites() {
-		return process.env.VERCEL_ENV === "development"
-		? [
-			{
-				source: "/api/:path*",
-				destination: "https://openvscode-3001.metalevel.tech/api/:path*",
-			},
-		]
-		: [];
-	},
-	*/
 	sassOptions: {
 		includePaths: [path.join(__dirname, "styles")],
 	},
@@ -88,6 +69,16 @@ const nextConfig = {
 					},
 				];
 	},
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+nextConfig.webpack = (config, context) => {
+	config.module.rules.push({
+		test: /\.svg$/,
+		use: ["@svgr/webpack"],
+	});
+
+	return config;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, import/order
