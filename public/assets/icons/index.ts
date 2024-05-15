@@ -1990,6 +1990,175 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	"ss_clipboard-1-entry-black": {
+		name: "ss_clipboard-1-entry-black",
+		uri: {
+			light: "/assets/icons/ss/clipboard-1-entry-black.svg",
+			dark: "/assets/icons/ss/clipboard-1-entry-black.svg",
+		},
+		info: {
+			height: 592,
+			width: 581,
+			type: "svg",
+			ratio: 0.98,
+		},
+	},
+	"ss_clipboard-2-user-black": {
+		name: "ss_clipboard-2-user-black",
+		uri: {
+			light: "/assets/icons/ss/clipboard-2-user-black.svg",
+			dark: "/assets/icons/ss/clipboard-2-user-black.svg",
+		},
+		info: {
+			height: 592,
+			width: 581,
+			type: "svg",
+			ratio: 0.98,
+		},
+	},
+	"ss_clipboard-2-user-blue": {
+		name: "ss_clipboard-2-user-blue",
+		uri: {
+			light: "/assets/icons/ss/clipboard-2-user-blue.svg",
+			dark: "/assets/icons/ss/clipboard-2-user-blue.svg",
+		},
+		info: {
+			height: 592,
+			width: 581,
+			type: "svg",
+			ratio: 0.98,
+		},
+	},
+	"ss_clipboard-2-user-orange": {
+		name: "ss_clipboard-2-user-orange",
+		uri: {
+			light: "/assets/icons/ss/clipboard-2-user-orange.svg",
+			dark: "/assets/icons/ss/clipboard-2-user-orange.svg",
+		},
+		info: {
+			height: 592,
+			width: 581,
+			type: "svg",
+			ratio: 0.98,
+		},
+	},
+	"ss_clipboard-3-bullets-black": {
+		name: "ss_clipboard-3-bullets-black",
+		uri: {
+			light: "/assets/icons/ss/clipboard-3-bullets-black.svg",
+			dark: "/assets/icons/ss/clipboard-3-bullets-black.svg",
+		},
+		info: {
+			height: 592,
+			width: 581,
+			type: "svg",
+			ratio: 0.98,
+		},
+	},
+	"ss_clipboard-4-tick-black": {
+		name: "ss_clipboard-4-tick-black",
+		uri: {
+			light: "/assets/icons/ss/clipboard-4-tick-black.svg",
+			dark: "/assets/icons/ss/clipboard-4-tick-black.svg",
+		},
+		info: {
+			height: 592,
+			width: 581,
+			type: "svg",
+			ratio: 0.98,
+		},
+	},
+	"ss_clipboard-4-tick-blue": {
+		name: "ss_clipboard-4-tick-blue",
+		uri: {
+			light: "/assets/icons/ss/clipboard-4-tick-blue.svg",
+			dark: "/assets/icons/ss/clipboard-4-tick-blue.svg",
+		},
+		info: {
+			height: 592,
+			width: 581,
+			type: "svg",
+			ratio: 0.98,
+		},
+	},
+	"ss_clipboard-4-tick-orange": {
+		name: "ss_clipboard-4-tick-orange",
+		uri: {
+			light: "/assets/icons/ss/clipboard-4-tick-orange.svg",
+			dark: "/assets/icons/ss/clipboard-4-tick-orange.svg",
+		},
+		info: {
+			height: 592,
+			width: 581,
+			type: "svg",
+			ratio: 0.98,
+		},
+	},
+	"ss_clipboard-5-question-black": {
+		name: "ss_clipboard-5-question-black",
+		uri: {
+			light: "/assets/icons/ss/clipboard-5-question-black.svg",
+			dark: "/assets/icons/ss/clipboard-5-question-black.svg",
+		},
+		info: {
+			height: 592,
+			width: 581,
+			type: "svg",
+			ratio: 0.98,
+		},
+	},
+	"ss_clipboard-5-question-purple": {
+		name: "ss_clipboard-5-question-purple",
+		uri: {
+			light: "/assets/icons/ss/clipboard-5-question-purple.svg",
+			dark: "/assets/icons/ss/clipboard-5-question-purple.svg",
+		},
+		info: {
+			height: 592,
+			width: 581,
+			type: "svg",
+			ratio: 0.98,
+		},
+	},
+	"ss_clipboard-6-search-black": {
+		name: "ss_clipboard-6-search-black",
+		uri: {
+			light: "/assets/icons/ss/clipboard-6-search-black.svg",
+			dark: "/assets/icons/ss/clipboard-6-search-black.svg",
+		},
+		info: {
+			height: 592,
+			width: 581,
+			type: "svg",
+			ratio: 0.98,
+		},
+	},
+	"ss_clipboard-6-search-orange": {
+		name: "ss_clipboard-6-search-orange",
+		uri: {
+			light: "/assets/icons/ss/clipboard-6-search-orange-dark.svg",
+			dark: "/assets/icons/ss/clipboard-6-search-orange-dark.svg",
+		},
+		info: {
+			height: 592,
+			width: 581,
+			type: "svg",
+			ratio: 0.98,
+		},
+	},
+	"ss_spasov.me.logo": {
+		name: "ss_spasov.me.logo",
+		uri: {
+			light: "/assets/icons/ss/spasov.me.logo.svg",
+			dark: "/assets/icons/ss/spasov.me.logo.svg",
+		},
+		info: {
+			height: 592,
+			width: 587,
+			type: "svg",
+			ratio: 0.99,
+		},
+	},
 	"ui_angles-up-down-reverse-close": {
 		name: "ui_angles-up-down-reverse-close",
 		uri: {
@@ -2289,6 +2458,19 @@ const iconsMap = {
 			ratio: 1.54,
 		},
 	},
+	"placeholder-old": {
+		name: "placeholder-old",
+		uri: {
+			light: "/assets/icons/placeholder-old.svg",
+			dark: "/assets/icons/placeholder-old.svg",
+		},
+		info: {
+			height: 434,
+			width: 512,
+			type: "svg",
+			ratio: 1.18,
+		},
+	},
 	placeholder: {
 		name: "placeholder",
 		uri: {
@@ -2296,10 +2478,10 @@ const iconsMap = {
 			dark: "/assets/icons/placeholder.svg",
 		},
 		info: {
-			height: 434,
-			width: 512,
+			height: 592,
+			width: 587,
 			type: "svg",
-			ratio: 1.18,
+			ratio: 0.99,
 		},
 	},
 };
