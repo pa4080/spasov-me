@@ -2,9 +2,9 @@ import React from "react";
 
 import Link from "next/link";
 
-import DisplayIcon from "@/components/fragments/DisplayIcon";
-
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
+
+import DisplayIconEmbed from "@/components/fragments/DisplayIconEmbed";
 
 import { getPageCards } from "../_pages.actions";
 import styles from "../_pages.module.scss";
@@ -31,10 +31,10 @@ const PagesPublic: React.FC<Props> = async ({ className }) => {
 										filter: page?.icon ? "" : "grayscale(1)",
 									}}
 								>
-									<DisplayIcon
-										className="hover:bg-transparent dark:hover:bg-transparent"
+									<DisplayIconEmbed
+										height={48}
 										icon={iconsMap[(page?.icon as IconsMapItem) || "ss_spasov.me.logo"]}
-										size={48}
+										width={48}
 									/>
 								</div>
 							</div>
