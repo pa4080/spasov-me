@@ -21,7 +21,6 @@ export const Route = {
 			uri: "/about",
 			visible: true,
 		},
-
 		BLOG: {
 			inFeed: true,
 			inNavbar: true,
@@ -42,6 +41,13 @@ export const Route = {
 			name: "contact",
 			uri: "/contact",
 			visible: true,
+		},
+		SEARCH: {
+			inFeed: true,
+			inNavbar: true,
+			name: "search",
+			uri: "/search",
+			visible: false,
 		},
 	},
 	admin: {
