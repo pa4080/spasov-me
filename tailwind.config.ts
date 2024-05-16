@@ -193,6 +193,16 @@ const appTwConfig: import("tailwindcss").Config = {
 								color: "hsl(var(--accent-secondary))",
 							},
 						},
+						strong: {
+							color: "hsl(var(--foreground))",
+						},
+						blockquote: {
+							fontWeight: "400",
+							color: "hsl(var(--foreground))",
+							borderRadius: "0.125rem",
+							borderLeftColor: "hsl(var(--primary))",
+							borderLeftWidth: "0.375rem",
+						},
 					},
 				},
 			},
