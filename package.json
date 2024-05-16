@@ -67,6 +67,7 @@
 		"remark-parse": "^11.0.0",
 		"remark-rehype": "^11.1.0",
 		"resend": "^2.1.0",
+		"sharp": "^0.33.4",
 		"tailwind-merge": "^2.2.0",
 		"tailwindcss-animate": "^1.0.7",
 		"unified": "^11.0.4",
