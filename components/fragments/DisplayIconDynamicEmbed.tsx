@@ -1,4 +1,5 @@
 /**
+ * The embedding requires @svgr/webpack to work.
  * @see https://stackoverflow.com/questions/61339259/how-to-dynamically-import-svg-and-render-it-inline
  * @see https://stackblitz.com/edit/nextjs-dynamic-svg-import?file=components%2Flazy-svg.tsx
  * @see https://react-svgr.com/docs/next/
@@ -15,7 +16,7 @@ interface Props extends ComponentProps<"svg"> {
 	theme?: "light" | "dark";
 }
 
-const DisplayIconEmbed: React.FC<Props> = async ({ icon, theme = "light", ...props }) => {
+const DisplayIconDynamicEmbed: React.FC<Props> = async ({ icon, theme = "light", ...props }) => {
 	const svgFileRelative =
 		theme === "dark" ? icon?.uri?.dark || icon?.uri?.light : icon?.uri?.light || icon?.uri?.dark;
 	const name = `${svgFileRelative.slice(1).replace(/\.svg$/, "")}`;
@@ -26,4 +27,4 @@ const DisplayIconEmbed: React.FC<Props> = async ({ icon, theme = "light", ...pro
 	return <Svg {...props} />;
 };
 
-export default DisplayIconEmbed;
+export default DisplayIconDynamicEmbed;
