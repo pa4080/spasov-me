@@ -196,6 +196,9 @@ const appTwConfig: import("tailwindcss").Config = {
 					},
 				},
 			},
+			boxShadow: {
+				"home-cards": "0 35px 60px -15px hsla(0, 0%, 8%, 0.8)",
+			},
 		},
 	},
 	plugins: [
