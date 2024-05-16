@@ -71,16 +71,6 @@ const nextConfig = {
 	},
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-nextConfig.webpack = (config, context) => {
-	config.module.rules.push({
-		test: /\.svg$/,
-		use: ["@svgr/webpack"],
-	});
-
-	return config;
-};
-
 // eslint-disable-next-line @typescript-eslint/no-var-requires, import/order
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
 	enabled: process.env.BundleAnalyzer === "true",

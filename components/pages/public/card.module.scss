@@ -1,35 +1,3 @@
-@import "@/app/globals.variables.module.scss";
-
-.pages {
-	.section {
-		@apply space-y-8;
-	}
-
-	.section + .section {
-		@apply mt-16;
-	}
-
-	.feed {
-		@apply grid grid-cols-1 md:grid-cols-2 grid-flow-row gap-12 md:gap-10 lg:gap-14;
-	}
-
-	.title {
-		@apply font-unicephalon text-2xl tracking-wider text-foreground-secondary;
-	}
-
-	.buttons {
-		@apply flex gap-1 absolute right-0 -top-1 p-4 rounded-2xl justify-between w-full items-center;
-	}
-
-	.cardImageEditMode {
-		@apply mt-8 border w-full drop-shadow-2xl rounded-md overflow-hidden;
-
-		img {
-			@apply w-full h-auto;
-		}
-	}
-}
-
 // "bg-card/50 md:bg-card/[25%] dark:bg-card/25 rounded-2xl h-full p-6 pt-5 relative min-h-fit flex items-start flex-col gap-4 justify-start border-4 border-transparent hover:bg-popover/80 dark:hover:bg-popover hover:shadow-home-cards dark:hover:border-primary/60 transition-all duration-500"
 .card {
 	@apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[25%] rounded-2xl h-full p-6 pt-5 relative min-h-fit flex items-start flex-col gap-4 justify-start border-4 border-transparent;
