@@ -3,7 +3,7 @@ import React from "react";
 import { ProjectData } from "@/interfaces/Project";
 import { ProjectType } from "@/interfaces/_common-data-types";
 
-import ProjectPublicCard from "./Card";
+import ProjectPublic_Card from "./Card";
 import styles from "./_portfolio.module.scss";
 
 interface Props {
@@ -26,7 +26,7 @@ const TimeLine: React.FC<Props> = ({ className, projects }) => {
 		<div className={`${styles.section} ${className}`}>
 			<div className={styles.feed}>
 				{projectsByType?.map((project, index) => (
-					<ProjectPublicCard key={index} className="" project={project} />
+					<ProjectPublic_Card key={index} className="" project={project} />
 				))}
 			</div>
 		</div>
