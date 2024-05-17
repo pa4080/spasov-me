@@ -1,4 +1,4 @@
-@import "@/app/globals.variables.module.scss";
+@import "@/app/(styles)/globals.variables.module.scss";
 
 .businessCard {
 	@apply flex flex-col sa:grid gap-4 xa:gap-8 sa:gap-6 mb-16;

@@ -9,8 +9,9 @@ import TechTags from "@/components/fragments/TechTags";
 import { ProjectData } from "@/interfaces/Project";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 
+import { cn } from "@/lib/cn-utils";
+
 import ProjectLinks from "../../common/ProjectLinks";
-import styles from "./_project.module.scss";
 
 const GalleryCarousel = dynamic(() => import("@/components/fragments/Gallery/GalleryCarousel"), {
 	ssr: false,
@@ -39,7 +40,7 @@ const PortfolioPublicProject: React.FC<Props> = async ({ className, project }) =
 			: gallery;
 
 	return (
-		<div className={`${styles.container} ${className}`}>
+		<div className={cn("w-full pt-8 sa:pt-6 xl:pt-3 1xl:pt-1", className)}>
 			<GalleryCarousel
 				gallery={gallery}
 				navPosition="bottom"

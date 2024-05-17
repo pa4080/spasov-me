@@ -1,4 +1,4 @@
-@import "@/app/globals.variables.module.scss";
+@import "@/app/(styles)/globals.variables.module.scss";
 
 .sectionHeader {
 	@apply 2xs:flex 2xs:flex-row-reverse items-start justify-between gap-6 2xs:gap-4 mb-8 w-full scroll-m-6;

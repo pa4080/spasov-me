@@ -6,7 +6,7 @@
  * 				- "scrollTo()" function which can be used to scroll to a given top offset.
  * 				- "vh" property which is read only and returns the actual Viewport Height.
  *
- * @see 	@/app/globals.variables.module.scss @vh($q)
+ * @see 	@/app/(styles)/globals.variables.module.scss @vh($q)
  * 				@/app/globals.scss									vh(100)
  *  			@/components/sidebar/Sidebar.tsx
  * 			 	@/components/sidebar/ScrollToTop.tsx
