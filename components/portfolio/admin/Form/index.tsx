@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 
 import slugify from "slugify";
 
-import CreateFile from "@/components/files-mongodb/admin/Actions/CreateFile";
+import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
 import Combobox from "@/components/fragments/Combobox";
 import DatePicker from "@/components/fragments/DatePicker";
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
@@ -445,6 +445,7 @@ const ProjectForm: React.FC<Props> = ({
 					{/* Gallery - full grid */}
 					<MultiSelectFromList
 						Icon={Paperclip}
+						autoClearInput={false}
 						className="w-full ma:col-span-7"
 						control={form.control}
 						displayType="gallery_image"

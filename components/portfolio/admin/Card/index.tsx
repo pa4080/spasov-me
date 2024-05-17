@@ -66,8 +66,10 @@ const ProjectAdminCard: React.FC<Props> = ({
 			? [project?.html?.attachment.metadata.html].concat(gallery)
 			: gallery;
 
-	gallery =
-		project?.html?.icon && gallery ? [project?.html?.icon.metadata.html].concat(gallery) : gallery;
+	// This is disabled because the "icon" usually is SVG with a transparent background
+	// and looks ugly within the container which have the site logo oas background
+	// gallery =
+	// 	project?.html?.icon && gallery ? [project?.html?.icon.metadata.html].concat(gallery) : gallery;
 
 	const haveGallery = gallery && gallery.length > 0;
 

@@ -3,8 +3,9 @@ import React from "react";
 import { getFileList } from "@/components/files-cloudflare/_files.actions";
 import { getTags } from "@/components/tags/_tags.actions";
 
+import { cn } from "@/lib/cn-utils";
+
 import { getProjects } from "../_portfolio.actions";
-import styles from "./_portfolio.module.scss";
 import TimeLine from "./TimeLine";
 
 interface Props {
@@ -17,7 +18,7 @@ const PortfolioAdmin: React.FC<Props> = async ({ className }) => {
 	const fileList = await getFileList();
 
 	return (
-		<div className={`${styles.portfolio} ${className}`}>
+		<div className={cn("space-y-20", className)}>
 			<TimeLine
 				files={fileList}
 				projects={projects}

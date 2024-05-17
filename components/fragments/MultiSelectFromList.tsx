@@ -58,6 +58,7 @@ interface Props<T extends FieldValues> {
 	className?: string;
 	onSelect: (items: string[] | undefined) => void;
 	selected: string[] | undefined;
+	autoClearInput?: boolean;
 }
 
 export default function MultiSelectFromList<T extends FieldValues>({
@@ -72,6 +73,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
 	Icon,
 	labelMaxLength = 5,
 	displayType = "label",
+	autoClearInput = true,
 }: Props<T>) {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [inputValue, setInputValue] = useState("");
@@ -265,7 +267,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
 													e.stopPropagation();
 												}}
 												onSelect={() => {
-													setInputValue("");
+													autoClearInput && setInputValue("");
 													onSelect(selected ? [...selected, item.value] : [item.value]);
 												}}
 											>

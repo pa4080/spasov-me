@@ -39,6 +39,8 @@ interface AppContextProps {
 	setTags: Dispatch<SetStateAction<TagData[]>>;
 	projects: ProjectData[];
 	setProjects: Dispatch<SetStateAction<ProjectData[]>>;
+	setFilesData: () => Promise<void>;
+	setEntriesData: () => Promise<void>;
 }
 
 const AppContext = createContext<AppContextProps>({} as AppContextProps);
@@ -58,17 +60,25 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 
 	const { data: session } = useSession();
 
+	const setFilesData = async () => {
+		setFiles((await getFilesR2({ hyphen: true, public: true })) ?? []);
+		setFileList((await getFileList()) ?? []);
+	};
+
+	const setEntriesData = async () => {
+		setAboutEntries((await getEntries({ hyphen: true, public: true })) ?? []);
+		setPages((await getPageCards({ hyphen: true, public: true })) ?? []);
+		setTags((await getTags({ hyphen: true, public: true })) ?? []);
+		setProjects((await getProjects({ hyphen: true, public: true })) ?? []);
+	};
+
 	useEffect(() => {
 		(async () => {
 			setAuthProviders(await getProviders());
-
-			setAboutEntries((await getEntries({ hyphen: true, public: true })) ?? []);
-			setFiles((await getFilesR2({ hyphen: true, public: true })) ?? []);
-			setFileList((await getFileList()) ?? []);
-			setPages((await getPageCards({ hyphen: true, public: true })) ?? []);
-			setTags((await getTags({ hyphen: true, public: true })) ?? []);
-			setProjects((await getProjects({ hyphen: true, public: true })) ?? []);
 		})();
+
+		setFilesData();
+		setEntriesData();
 
 		return () => {};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -91,6 +101,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 				setTags,
 				projects,
 				setProjects,
+				setFilesData,
+				setEntriesData,
 			}}
 		>
 			{children}

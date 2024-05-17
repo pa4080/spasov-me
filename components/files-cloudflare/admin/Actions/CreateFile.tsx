@@ -18,6 +18,8 @@ import {
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 
+import { useAppContext } from "@/contexts/AppContext";
+
 import { File_FormSchema } from "../Form/schema";
 // import FileForm from "../Form";
 const FileForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
@@ -28,6 +30,7 @@ interface Props {
 
 const CreateFile: React.FC<Props> = ({ className }) => {
 	const t = msgs("Files_Create");
+	const { setFilesData } = useAppContext();
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
@@ -50,6 +53,8 @@ const CreateFile: React.FC<Props> = ({ className }) => {
 		} finally {
 			setSubmitting(false);
 			setIsOpen(false);
+
+			await setFilesData();
 		}
 	};
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import CreateFile from "@/components/files-mongodb/admin/Actions/CreateFile";
+import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
@@ -12,9 +12,10 @@ import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import { cn } from "@/lib/cn-utils";
+
 import CreateProject from "./Actions/Create";
 import ProjectAdminCard from "./Card";
-import styles from "./_portfolio.module.scss";
 
 interface Props {
 	className?: string;
@@ -50,7 +51,7 @@ const TimeLine: React.FC<Props> = ({
 		.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
 	return (
-		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
+		<div className={cn("portfolio-admin-section list-section scroll-m-8", className)}>
 			<SectionHeader title={section_title}>
 				<CreateFile />
 				<RevalidatePaths paths={[Route.public.PORTFOLIO.uri]} />
@@ -62,7 +63,7 @@ const TimeLine: React.FC<Props> = ({
 					type="section"
 				/>
 			</SectionHeader>
-			<div className={styles.feed}>
+			<div className="space-y-10">
 				{projectsByType?.map((project, index) => (
 					<ProjectAdminCard
 						key={index}
