@@ -11,7 +11,8 @@ import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import styles from "../_about.module.scss";
+import { cn } from "@/lib/cn-utils";
+
 import AboutEntryCard from "../common/Card";
 import CreateAboutEntry from "./Actions/Create";
 
@@ -42,7 +43,10 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 		.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
 	return (
-		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
+		<div
+			className={cn("about-cards-section list-section scroll-m-8", className)}
+			id={toggle_target_id}
+		>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths paths={[Route.public.ABOUT.uri]} />
 				<CreateAboutEntry files={files} tags={tags} type={type} />
@@ -53,7 +57,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 					type="section"
 				/>
 			</SectionHeader>
-			<div className={styles.feed}>
+			<div className="about-cards-section-items space-y-16">
 				{entriesByType?.map((entry, index) => (
 					<AboutEntryCard
 						key={index}

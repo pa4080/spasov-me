@@ -77,9 +77,9 @@
 
 	.dark {
 		--background: 0 0% 20%;
-		--foreground: 0 0% 85%;
-		--foreground-secondary: 0 0% 65%;
-		--foreground-tertiary: 0 0% 55%;
+		--foreground: 0 0% 90%;
+		--foreground-secondary: 0 0% 85%;
+		--foreground-tertiary: 0 0% 65%;
 		--foreground-quaternary: 0 0% 45%;
 
 		--primary: 0 0% 24%;
@@ -413,7 +413,7 @@ body textarea.w-md-editor-text-input:focus {
 
 /* Markdown Processed to HTML */
 .md-processed-to-html {
-	@apply text-foreground-secondary hyphens-auto xa:text-justify sa:text-[1.06rem] sa:leading-[1.5em];
+	@apply text-foreground-secondary hyphens-auto xa:text-justify sa:text-[1.05rem] sa:leading-[1.75em] tracking-wide;
 
 	a,
 	a:visited {

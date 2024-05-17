@@ -7,7 +7,6 @@ import { AboutEntryType } from "@/interfaces/_common-data-types";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
-import styles from "../_about.module.scss";
 import AboutEntryCard from "../common/Card";
 
 interface Props {
@@ -35,7 +34,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 		.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
 	return (
-		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
+		<div className={className} id={toggle_target_id}>
 			<SectionHeader className="pop-header" title={section_title}>
 				<ToggleCollapsible
 					target_id={toggle_target_id}
@@ -43,7 +42,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 					type="section"
 				/>
 			</SectionHeader>
-			<div className={styles.feed}>
+			<div className="about-cards-section-items space-y-16">
 				{entriesByType?.map((entry, index) => (
 					<AboutEntryCard
 						key={index}

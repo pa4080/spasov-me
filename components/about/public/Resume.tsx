@@ -8,7 +8,6 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
-import styles from "../_about.module.scss";
 import cardStyles from "../common/Card/_about-card.module.scss";
 
 interface Props {
@@ -37,7 +36,7 @@ const Resume: React.FC<Props> = ({ entries, className, type }) => {
 	return (
 		entry &&
 		descriptionArr && (
-			<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
+			<div className={className} id={toggle_target_id}>
 				<SectionHeader className="pop-header" title={section_title}>
 					<ToggleCollapsible
 						target_id={toggle_target_id}
