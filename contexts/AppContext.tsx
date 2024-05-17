@@ -4,6 +4,7 @@ import React, {
 	Dispatch,
 	SetStateAction,
 	createContext,
+	useCallback,
 	useContext,
 	useEffect,
 	useState,
@@ -60,17 +61,37 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 
 	const { data: session } = useSession();
 
-	const setFilesData = async () => {
-		setFiles((await getFilesR2({ hyphen: true, public: true })) ?? []);
-		setFileList((await getFileList()) ?? []);
-	};
+	const setFilesData = useCallback(async () => {
+		const data = await Promise.all([
+			getFilesR2({ hyphen: true, public: true }),
+			getFileList(),
+		]).then(([files, fileList]) => ({
+			files: files ?? [],
+			fileList: fileList ?? [],
+		}));
 
-	const setEntriesData = async () => {
-		setAboutEntries((await getEntries({ hyphen: true, public: true })) ?? []);
-		setPages((await getPageCards({ hyphen: true, public: true })) ?? []);
-		setTags((await getTags({ hyphen: true, public: true })) ?? []);
-		setProjects((await getProjects({ hyphen: true, public: true })) ?? []);
-	};
+		setFiles(data.files);
+		setFileList(data.fileList);
+	}, []);
+
+	const setEntriesData = useCallback(async () => {
+		const data = await Promise.all([
+			getEntries({ hyphen: true, public: true }),
+			getPageCards({ hyphen: true, public: true }),
+			getTags({ hyphen: true, public: true }),
+			getProjects({ hyphen: true, public: true }),
+		]).then(([aboutEntries, pages, tags, projects]) => ({
+			aboutEntries: aboutEntries ?? [],
+			pages: pages ?? [],
+			tags: tags ?? [],
+			projects: projects ?? [],
+		}));
+
+		setAboutEntries(data.aboutEntries);
+		setPages(data.pages);
+		setTags(data.tags);
+		setProjects(data.projects);
+	}, []);
 
 	useEffect(() => {
 		(async () => {

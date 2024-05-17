@@ -5,8 +5,6 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 
-import styles from "./_toggle-collapsible.module.scss";
-
 interface Props {
 	className?: string;
 	target_id: string; // the Id of the container
@@ -32,7 +30,7 @@ interface Props {
  *                  also it is a helper class for the other kind of sections
  */
 const ToggleCollapsible: React.FC<Props> = ({
-	className,
+	className = "section-toggle-collapsible",
 	target_id,
 	text = ["More", "Less"],
 	tooltip,
@@ -41,6 +39,17 @@ const ToggleCollapsible: React.FC<Props> = ({
 	const id = `#${target_id}`;
 	const [isContentShown, setIsContentShown] = useState(false);
 	const [targetContainer, setTargetContainer] = useState<Element | null>(null);
+
+	const classToggleIcon =
+		"cursor-pointer uppercase font-unicephalon w-10 h-10 rounded-full flex items-center " +
+		"justify-center text-foreground-secondary bg-primary hover:bg-background " +
+		"transition-colors duration-300 border-primary border-4";
+
+	const classToggleText =
+		"cursor-pointer uppercase font-unicephalon tracking-wider py-2 px-5 " +
+		"rounded-full text-foreground-secondary bg-primary transition-colors duration-300 " +
+		"hover:bg-foreground-secondary hover:text-background whitespace-nowrap " +
+		"-ml-8 2xs:ml-2 mt-1 2xs:-mt-0.5 -mb-4 2xs:mb-0";
 
 	const otherCardsActions = () => {
 		if (type === "card" || type === "card-single-item") {
@@ -60,28 +69,32 @@ const ToggleCollapsible: React.FC<Props> = ({
 	};
 
 	useEffect(() => {
-		const targetContainer = document.querySelector(id);
+		const thisTargetContainer = targetContainer ?? document.querySelector(id);
 
-		if (targetContainer?.classList.contains("expand-collapsed")) {
+		if (thisTargetContainer?.classList.contains("expand-collapsed")) {
 			setIsContentShown(true);
 		} else {
 			setIsContentShown(false);
 		}
 
-		setTargetContainer(targetContainer);
-	}, [id]);
+		setTargetContainer(thisTargetContainer);
+	}, [id, targetContainer]);
 
 	useEffect(() => {
+		const thisTargetContainer = targetContainer ?? document.querySelector(id);
+
 		if (isContentShown) {
 			setTimeout(() => {
-				targetContainer?.scrollIntoView({ behavior: "smooth", block: "start" });
+				thisTargetContainer?.scrollIntoView({ behavior: "smooth", block: "start" });
 			}, 10);
 		}
+
+		setTargetContainer(thisTargetContainer);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isContentShown]);
 
-	const handleClick = (e: React.SyntheticEvent) => {
-		e.preventDefault();
+	const handleClick = (e?: React.SyntheticEvent) => {
+		e && e.preventDefault();
 
 		targetContainer?.classList.toggle("expand-collapsed");
 		otherCardsActions();
@@ -104,13 +117,13 @@ const ToggleCollapsible: React.FC<Props> = ({
 	switch (type) {
 		case "card-single-item":
 			return (
-				<div className={`${styles.toggleButtons} ${className}`}>
+				<div className={className}>
 					{tooltip ? (
-						<button className={styles.classToggleIcon} onClick={handleClick}>
+						<button className={classToggleIcon} onClick={handleClick}>
 							<IconEmbedSvg type="angles-up-down" viewBoxHeight={16} viewBoxWidth={14} />
 						</button>
 					) : (
-						<div className={styles.classToggleText} onClick={handleClick}>
+						<div className={classToggleText} onClick={handleClick}>
 							{isContentShown ? text[1] : text[0]}
 						</div>
 					)}
@@ -119,11 +132,11 @@ const ToggleCollapsible: React.FC<Props> = ({
 
 		default:
 			return (
-				<div className={`${styles.toggleButtons} ${className}`}>
+				<div className={className}>
 					{tooltip ? (
 						<TooltipProvider>
 							<Tooltip>
-								<TooltipTrigger className={styles.classToggleIcon} onClick={handleClick}>
+								<TooltipTrigger className={classToggleIcon} onClick={handleClick}>
 									<IconEmbedSvg
 										className={isContentShown ? "hidden" : ""}
 										type="angles-up-down"
@@ -142,7 +155,7 @@ const ToggleCollapsible: React.FC<Props> = ({
 							</Tooltip>
 						</TooltipProvider>
 					) : (
-						<div className={styles.classToggleText} onClick={handleClick}>
+						<div className={classToggleText} onClick={handleClick}>
 							{isContentShown ? text[1] : text[0]}
 						</div>
 					)}

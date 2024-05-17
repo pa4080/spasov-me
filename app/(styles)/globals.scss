@@ -567,6 +567,7 @@ body textarea.w-md-editor-text-input:focus {
 		}
 	}
 
+	&:target,
 	&.expand-collapsed-current {
 		&::before {
 			outline: 4px solid theme("colors.primary.DEFAULT/60%");

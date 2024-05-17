@@ -42,7 +42,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 					type="section"
 				/>
 			</SectionHeader>
-			<div className="about-cards-section-items space-y-16">
+			<div className="about-cards-section-items space-y-14">
 				{entriesByType?.map((entry, index) => (
 					<AboutEntryCard
 						key={index}

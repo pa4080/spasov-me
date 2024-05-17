@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 
 import SiteLogo from "@/components/layouts/logo/SiteLogo";
