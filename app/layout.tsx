@@ -1,7 +1,6 @@
 import React from "react";
 
 // import { Analytics } from "@vercel/analytics/react";
-
 import { poppins, unicephalon } from "@/app/fonts";
 import MainLayout from "@/components/layouts/main-layout";
 import { Toaster } from "@/components/ui/toaster";
@@ -10,7 +9,7 @@ import AuthSessionProvider from "@/contexts/AuthSessionProvider";
 import ThemesProvider from "@/contexts/ThemesProvider";
 import manifest from "@/public/manifest.json";
 
-import "./globals.scss";
+import "./(styles)/globals.scss";
 
 import type { Metadata, Viewport } from "next";
 
@@ -40,13 +39,7 @@ interface RootLayoutProps {
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
 	return (
 		<html suppressHydrationWarning lang="en">
-			<body
-				className={
-					`${poppins.className} ${unicephalon.variable} `
-					// `${inter.className} ${unicephalon.variable} `
-					// `{GeistSans.className} ${GeistSans.variable} ${GeistMono.variable}`
-				}
-			>
+			<body className={`${poppins.className} ${unicephalon.variable} `}>
 				<AuthSessionProvider>
 					<AppContextProvider>
 						{/* <RecaptchaContextProvider> */}

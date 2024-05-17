@@ -1,14 +1,15 @@
 import React from "react";
 
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
-
 import { new_tab_target } from "@/lib/process-markdown";
 
 import styles from "./_footer.module.scss";
 
 const Footer: React.FC = () => {
 	return (
-		<footer className={styles.footer}>
+		<footer
+			className={`${styles.footer} relative flex items-center justify-center w-full h-footer overflow-hidden bg-background`}
+		>
 			<a
 				aria-label="Link to GitHub"
 				className={styles.icon}

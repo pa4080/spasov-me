@@ -580,11 +580,11 @@ body textarea.w-md-editor-text-input:focus {
 	.card-item-static {
 		@apply line-clamp-3 mt-1;
 
+		transition: margin-top 0.2s ease-out 0.05s;
+
 		&.admin-projects-card {
 			@apply -mt-3;
 		}
-
-		transition: margin-top 0.2s ease-out 0.05s;
 
 		> p {
 			@apply mb-0;

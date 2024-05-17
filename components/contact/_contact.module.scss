@@ -1,4 +1,4 @@
-@import "@/app/globals.variables.module.scss";
+@import "@/app/(styles)/globals.variables.module.scss";
 
 .contact {
 	@apply relative mx-auto my-12 sa:my-auto h-full select-none flex justify-center items-start sa:items-center w-full max-w-screen-1xl bg-secondary px-5 py-3 rounded-2xl;
@@ -21,6 +21,7 @@
 
 			.data {
 				@apply flex flex-col gap-3;
+
 				.dataItem {
 					h2 {
 						@apply text-foreground font-extrabold;
@@ -56,11 +57,11 @@
 				@apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full z-0 opacity-50;
 
 				svg {
+					fill: transparent;
 					stroke: $accent;
 					stroke-width: 0.15;
 					stroke-linecap: round;
 					stroke-linejoin: round;
-					fill: transparent;
 					fill-rule: evenodd;
 					clip-rule: evenodd;
 				}

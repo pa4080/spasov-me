@@ -3,7 +3,7 @@ import React from "react";
 import Footer from "@/components/layouts/footer";
 import Navbar from "@/components/layouts/navbar";
 
-import styles from "./_main-layout.module.scss";
+import { cn } from "@/lib/cn-utils";
 
 interface Props {
 	children: React.ReactNode;
@@ -12,13 +12,15 @@ interface Props {
 
 const MainLayout: React.FC<Props> = ({ children, className }) => {
 	return (
-		<div className={`${styles.mainLayout} ${className}`}>
+		<div
+			className={cn(
+				"overflow-x-hidden overflow-y-auto sm:overflow-y-hidden sm:flex sm:flex-col sm:h-[100vh]",
+				className
+			)}
+		>
 			<Navbar />
-			<main className={styles.contentContainer}>
-				<div className={styles.contentWrapper}>
-					{/* <div id="main-content" /> */}
-					{children}
-				</div>
+			<main className="flex-1 flex-grow overflow-x-hidden overflow-y-auto w-full px-6 xa:px-8 min-h-content">
+				<div className="max-w-4xl mx-auto">{children}</div>
 			</main>
 			<Footer />
 		</div>
