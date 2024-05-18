@@ -1,17 +1,78 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useAppContext } from "@/contexts/AppContext";
 import { cn } from "@/lib/cn-utils";
+import { msgs } from "@/messages";
+
+import { TagData } from "@/interfaces/Tag";
+
+import TagFilter from "./TagFilter";
+import TimeLine from "./TimeLine";
+
+interface SelectedTag {
+	tag: TagData;
+	aboutEntryIds: string[];
+	projectIds: string[];
+}
 
 interface Props {
 	className?: string;
 }
 
 const SearchPublic: React.FC<Props> = ({ className }) => {
+	const { tags, aboutEntries } = useAppContext();
+	const [selectedTag, setSelectedTag] = useState<SelectedTag | null>(null);
+	const t = msgs("Search");
+
+	const onTagClick = (tag: TagData) => {
+		setSelectedTag({
+			tag,
+			aboutEntryIds:
+				tag.attachedTo
+					?.filter(({ modelType }) => modelType === "AboutEntry")
+					.map(({ _id }) => _id) || [],
+			projectIds:
+				tag.attachedTo?.filter(({ modelType }) => modelType === "Project").map(({ _id }) => _id) ||
+				[],
+		});
+	};
+
+	useEffect(() => {
+		if (selectedTag) {
+			// eslint-disable-next-line no-console
+			console.log("selectedTag", selectedTag);
+		}
+	}, [selectedTag]);
+
+	const aboutEntriesFiltered = aboutEntries.filter(
+		({ _id }) => selectedTag && selectedTag.aboutEntryIds.includes(_id)
+	);
+
 	return (
-		<div className={cn("w-full", className)}>
-			<Input className="dark:border-muted-secondary" placeholder="Search" />
+		<div className={cn("space-y-20", cn(className))}>
+			{/* Form */}
+			<div className="relative mx-auto my-12 sa:my-auto h-full select-none flex justify-center items-start sa:items-center w-full max-w-screen-1xl bg-secondary px-5 py-3 rounded-2xl">
+				<div className="relative w-full flex-grow h-fit flex flex-col gap-3 sm:gap-6 px-2 py-0 sa:px-0 sa:py-2 space-y-6">
+					<div className="space-y-2">
+						<Label className="text-lg">{t("input_label")}</Label>
+						<Input
+							className="ring-offset-secondary focus-visible:ring-offset-secondary focus:ring-offset-secondary"
+							placeholder={t("input_placeholder")}
+						/>
+					</div>
+					<div className="space-y-2">
+						<Label className="text-lg">{t("tags_label")}</Label>
+						<TagFilter selectedTag={selectedTag?.tag || null} tags={tags} onTagClick={onTagClick} />
+					</div>
+				</div>
+			</div>
+
+			{/* Results */}
+			<TimeLine displayTags={false} entries={aboutEntriesFiltered} type="employment" />
+			<TimeLine displayTags={false} entries={aboutEntriesFiltered} type="education" />
 		</div>
 	);
 };

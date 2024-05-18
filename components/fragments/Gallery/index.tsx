@@ -17,6 +17,8 @@ import { ProjectData } from "@/interfaces/Project";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
+import { useAppContext } from "@/contexts/AppContext";
+
 import { IconEmbSvgPathType } from "../IconEmbedSvg";
 import Loading from "../Loading";
 // import GalleryCarousel from "./GalleryCarousel";
@@ -36,7 +38,12 @@ interface Props {
 const Gallery: React.FC<Props> = ({ className, entry, gallery, dialogTrigger_buttonIconProps }) => {
 	const t = msgs("Gallery");
 
+	const { session } = useAppContext();
 	const [isOpen, setIsOpen] = useState(false);
+
+	if (!gallery?.length && !session) {
+		return null;
+	}
 
 	const buttonIconPropsFinal = {
 		className: "px-0.5 bg-transparent icon_accent_secondary",

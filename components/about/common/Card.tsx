@@ -5,32 +5,26 @@ import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { enUS as en } from "date-fns/locale";
 
-import Link from "next/link";
-
+import styles from "@/app/(styles)/card-info.module.scss";
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 import Gallery from "@/components/fragments/Gallery";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
+import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileData, FileListItem } from "@/interfaces/File";
-import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
-import { Route } from "@/routes";
-
-import styles from "@/app/(styles)/card-info.module.scss";
-
-import DisplayResourceUrlAsIcon from "../../common/DisplayResourceUrlAsIcon";
-import DeleteProject from "../Actions/Delete";
-import UpdateProject from "../Actions/Update";
+import DeleteAboutEntry from "../admin/Actions/Delete";
+import UpdateAboutEntry from "../admin/Actions/Update";
 
 interface Props {
 	className?: string;
-	project: ProjectData;
+	entry: AboutEntryData;
 	files?: FileListItem[] | null | undefined;
 	tags?: TagData[] | null | undefined;
 	displayActions?: boolean;
@@ -38,39 +32,40 @@ interface Props {
 	displayGalleryInline?: boolean;
 }
 
-const ProjectAdminCard: React.FC<Props> = ({
-	project,
+const AboutEntryCard: React.FC<Props> = ({
+	entry,
 	className,
 	files,
 	tags,
-	displayActions = true,
+	displayActions = false,
 	displayTagsInline = true,
-	displayGalleryInline = true,
+	displayGalleryInline = false,
 }) => {
-	const tTime = msgs("Projects_Form");
-	const tCommon = msgs("Projects");
+	const tTime = msgs("AboutEntries_Form");
+	const tCommon = msgs("AboutEntries");
 
-	const { dateFrom, dateTo } = project;
+	const { dateFrom, dateTo } = entry;
 	const dtFrom = new Date(dateFrom);
 	const dtTo = dateTo ? new Date(dateTo) : undefined;
-	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`entry_${project?._id.toString()}`);
-	const descriptionArr = project.html.description.split(splitDescriptionKeyword).map((str) => {
+	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`entry_${entry?._id.toString()}`);
+	const descriptionArr = entry.html.description.split(splitDescriptionKeyword).map((str) => {
 		return str.replace(commentsMatcher, "");
 	});
 
-	let gallery = project?.gallery
+	const attachmentAddress =
+		entry.html.attachment?.metadata.html?.fileUri ||
+		entry.html.attachment?.metadata.html?.fileUrl ||
+		"";
+
+	const getGallery = entry.gallery
 		?.map((file) => file.metadata.html)
 		?.sort((a, b) => a.filename.localeCompare(b.filename));
 
-	gallery =
-		project?.html?.attachment && gallery
-			? [project?.html?.attachment.metadata.html].concat(gallery)
-			: gallery;
+	let gallery = getGallery ?? [];
 
-	// This is disabled because the "icon" usually is SVG with a transparent background
-	// and looks ugly within the container which have the site logo oas background
-	// gallery =
-	// 	project?.html?.icon && gallery ? [project?.html?.icon.metadata.html].concat(gallery) : gallery;
+	gallery = entry.html.attachment?.metadata.html
+		? [...gallery, entry.html.attachment?.metadata.html]
+		: gallery;
 
 	const haveGallery = gallery && gallery.length > 0;
 
@@ -101,43 +96,20 @@ const ProjectAdminCard: React.FC<Props> = ({
 							<span className={styles.lightPrimaryText}>{tTime("dateTo_now_current")}</span>
 						)}
 					</div>
-
-					{project.slug && (
-						<div className={`${styles.slug} ${styles.lightSecondaryText}`}>
-							<Link href={`${Route.public.PORTFOLIO.uri}/${project.slug}`}>/{project.slug}</Link>
-						</div>
-					)}
-
-					<div className={styles.projectLinks}>
-						<div className={styles.iconWrapper}>
-							<DisplayResourceUrlAsIcon size={23} type="home" url={project.urlHome} />
-						</div>
-						<div className={styles.iconWrapper}>
-							<DisplayResourceUrlAsIcon size={28} type="repo" url={project.urlRepo} />
-						</div>
+					<div className={styles.divider}>❘</div>
+					<div className={`${styles.lightPrimaryText} ${styles.location}`}>
+						{(tTime("city_list") as unknown as Record<string, string>)[entry.city]},{" "}
+						{(tTime("country_list") as unknown as Record<string, string>)[entry.country]}
 					</div>
 				</div>
 				<div className={styles.header}>
-					<div
-						className={`${styles.buttons} ${displayActions ? "w-44" : haveGallery ? "w-16" : "w-8"}`}
-					>
+					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							{displayActions ? (
-								<>
-									<DeleteProject project={project} />
-									<FileAddressHandle
-										address={
-											project.html.attachment?.metadata?.html?.fileUri ||
-											project.html.attachment?.metadata?.html?.fileUrl ||
-											""
-										}
-									/>
-									<Gallery entry={project} gallery={gallery} />
-									<UpdateProject files={files} project={project} tags={tags} />
-								</>
-							) : (
-								<>{haveGallery && <Gallery entry={project} gallery={gallery} />}</>
-							)}
+							<DeleteAboutEntry entry={entry} />
+							<FileAddressHandle address={attachmentAddress} />
+							<Gallery entry={entry} gallery={gallery} />
+							<UpdateAboutEntry entry={entry} files={files} tags={tags} />
+
 							<ToggleCollapsible
 								tooltip
 								className="icon_accent_primary"
@@ -147,29 +119,27 @@ const ProjectAdminCard: React.FC<Props> = ({
 							/>
 						</div>
 					</div>
-					<div dangerouslySetInnerHTML={{ __html: project.html.title }} className={styles.title} />
+					<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />
 				</div>
 				<div className={`${styles.description} md-processed-to-html`}>
-					<div className="prose max-w-none">
-						{descriptionArr.map((description, index, arr) => (
-							<div
-								dangerouslySetInnerHTML={{ __html: description }}
-								key={index}
-								className={
-									index === 0
-										? arr.length > 1
-											? "card-item-static font-semibold admin-projects-card"
-											: "card-single-item font-semibold"
-										: "card-item-collapsible"
-								}
-							/>
-						))}
-					</div>
+					{descriptionArr.map((description, index, arr) => (
+						<div
+							dangerouslySetInnerHTML={{ __html: description }}
+							key={index}
+							className={
+								index === 0
+									? arr.length > 1
+										? "card-item-static"
+										: "card-single-item"
+									: "card-item-collapsible"
+							}
+						/>
+					))}
 
 					{displayTagsInline && (
-						<div className="card-item-collapsible--disabled mt-4">
+						<div className="card-item-collapsible">
 							<div className="about-entry-tags">
-								{project.tags
+								{entry.tags
 									?.sort((a, b) =>
 										a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
 									)
@@ -184,8 +154,8 @@ const ProjectAdminCard: React.FC<Props> = ({
 						</div>
 					)}
 
-					{displayGalleryInline && gallery && gallery.length > 0 && (
-						<div className="card-item-collapsible--disabled">
+					{displayGalleryInline && haveGallery && (
+						<div className="card-item-collapsible">
 							<div className="flex gap-2 flex-wrap p-0 mt-4">
 								{gallery.map((image, index) => (
 									<DisplayFileImage
@@ -214,4 +184,4 @@ const ProjectAdminCard: React.FC<Props> = ({
 	);
 };
 
-export default ProjectAdminCard;
+export default AboutEntryCard;

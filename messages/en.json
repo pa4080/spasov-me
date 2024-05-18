@@ -595,5 +595,11 @@
 		"button_call_to_action": "Details",
 		"tooltip_gallery": "View project gallery",
 		"tooltip_update": "Edit the project"
+	},
+	"Search": {
+		"title": "Search the site",
+		"input_placeholder": "Word or phrase...",
+		"input_label": "Search",
+		"tags_label": "Filter by a tag"
 	}
 }

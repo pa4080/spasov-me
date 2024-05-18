@@ -48,12 +48,14 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 				className="about-cards-section list-section scroll-m-8"
 				displayTags={true}
 				entries={entriesHyphenated}
+				tags={tags}
 				type="employment"
 			/>
 			<TimeLine
 				className="about-cards-section list-section scroll-m-8"
 				displayTags={false}
 				entries={entriesHyphenated}
+				tags={tags}
 				type="education"
 				visibleItems={2}
 			/>

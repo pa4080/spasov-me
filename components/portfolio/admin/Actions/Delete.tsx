@@ -21,6 +21,8 @@ import { ProjectData } from "@/interfaces/Project";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import { useAppContext } from "@/contexts/AppContext";
+
 import { deleteProject } from "../../_portfolio.actions";
 
 export interface Props {
@@ -34,9 +36,14 @@ const DeleteProject: React.FC<Props> = ({ className, project }) => {
 		msgs("Projects_Form")("project_type_list") as unknown as Record<string, string>
 	)[project.projectType];
 
+	const { session } = useAppContext();
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
+
+	if (!session) {
+		return null;
+	}
 
 	const handleDeleteProject = async () => {
 		setSubmitting(true);

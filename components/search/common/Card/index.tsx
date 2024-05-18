@@ -5,10 +5,10 @@ import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { enUS as en } from "date-fns/locale";
 
+import styles from "@/app/(styles)/card-info.module.scss";
+
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
-import FileAddressHandle from "@/components/fragments/FileAddressHandle";
-import Gallery from "@/components/fragments/Gallery";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileData, FileListItem } from "@/interfaces/File";
@@ -17,10 +17,6 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
-
-import DeleteAboutEntry from "../../admin/Actions/Delete";
-import UpdateAboutEntry from "../../admin/Actions/Update";
-import styles from "./_about-card.module.scss";
 
 interface Props {
 	className?: string;
@@ -107,16 +103,6 @@ const AboutEntryCard: React.FC<Props> = ({
 						className={`${styles.buttons} ${displayActions ? "w-44" : haveGallery ? "w-16" : "w-8"}`}
 					>
 						<div className={styles.buttonsContainer}>
-							{displayActions ? (
-								<>
-									<DeleteAboutEntry entry={entry} />
-									<FileAddressHandle address={attachmentAddress} />
-									<Gallery entry={entry} gallery={gallery} />
-									<UpdateAboutEntry entry={entry} files={files} tags={tags} />
-								</>
-							) : (
-								<>{haveGallery && <Gallery entry={entry} gallery={gallery} />}</>
-							)}
 							<ToggleCollapsible
 								tooltip
 								className="icon_accent_primary"

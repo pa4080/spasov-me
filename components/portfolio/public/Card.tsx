@@ -12,7 +12,7 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import ProjectLinks from "../../common/ProjectLinks";
+import ProjectLinks from "../common/ProjectLinks";
 
 interface Props {
 	className?: string;

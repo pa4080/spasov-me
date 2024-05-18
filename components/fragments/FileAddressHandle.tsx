@@ -2,6 +2,7 @@
 import React from "react";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
+import { useAppContext } from "@/contexts/AppContext";
 
 interface Props {
 	className?: string;
@@ -10,6 +11,12 @@ interface Props {
 }
 
 const FileAddressHandle: React.FC<Props> = ({ className, address, download }) => {
+	const { session } = useAppContext();
+
+	if (!session) {
+		return null;
+	}
+
 	return (
 		<ButtonIcon
 			className={`pl-[2.8px] bg-transparent icon_accent_secondary ${className}`}

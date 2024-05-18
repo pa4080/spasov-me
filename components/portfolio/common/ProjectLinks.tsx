@@ -7,8 +7,8 @@ import { msgs } from "@/messages";
 
 import { cn } from "@/lib/cn-utils";
 
-import UpdateProject from "../../admin/Actions/Update";
-import DisplayResourceUrlAsIcon from "../DisplayResourceUrlAsIcon";
+import UpdateProject from "../admin/Actions/Update";
+import DisplayResourceUrlAsIcon from "./DisplayResourceUrlAsIcon";
 
 interface Props {
 	project: ProjectData;
@@ -34,6 +34,7 @@ const ProjectLinks: React.FC<Props> = ({ project }) => {
 			<div className={iconWrapper}>
 				<DisplayResourceUrlAsIcon size={23} type="home" url={project.urlHome} />
 			</div>
+
 			<div className={iconWrapper}>
 				<TooltipWrapper
 					className="w-full h-full flex items-center fill-inherit"
@@ -57,9 +58,11 @@ const ProjectLinks: React.FC<Props> = ({ project }) => {
 					/>
 				</TooltipWrapper>
 			</div>
+
 			<div className={iconWrapper}>
 				<DisplayResourceUrlAsIcon size={28} type="repo" url={project.urlRepo} />
 			</div>
+
 			<div
 				className={cn(
 					iconWrapper,

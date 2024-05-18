@@ -57,6 +57,10 @@ const UpdateProject: React.FC<Props> = ({
 	const tagsInUse = tags ?? tagsContext;
 	const filesInUse = files ?? fileListContext;
 
+	if (!tagsInUse || !session) {
+		return null;
+	}
+
 	const handleUpdateProject = async (data: Project_FormSchema) => {
 		setSubmitting(true);
 		try {
@@ -86,10 +90,6 @@ const UpdateProject: React.FC<Props> = ({
 			setIsOpen(false);
 		}
 	};
-
-	if (!tagsInUse || !session) {
-		return null;
-	}
 
 	const buttonIconPropsFinal = {
 		className: "pl-1 bg-transparent icon_accent_secondary",
