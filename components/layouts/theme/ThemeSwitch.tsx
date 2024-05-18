@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import { Moon, Sun, SunMoon } from "lucide-react";
 import { useTheme } from "next-themes";
 
 import { msgs } from "@/messages";
 
+import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -14,12 +14,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-interface Props {
-	classNameBtn?: string;
-	strokeWidth?: number;
-}
-
-const ThemeSwitch: React.FC<Props> = ({ classNameBtn, strokeWidth }) => {
+const ThemeSwitch: React.FC = () => {
 	const t = msgs("Theme");
 	const [mounted, setMounted] = useState(false);
 	const { theme, setTheme } = useTheme();
@@ -38,34 +33,22 @@ const ThemeSwitch: React.FC<Props> = ({ classNameBtn, strokeWidth }) => {
 			<DropdownMenuTrigger asChild>
 				<Button
 					aria-label={t("themeSelector")}
-					className={`hover:text-backgrounds grayscale hover:grayscale-0 !bg-accent/20 hover:!bg-accent/80 relative group transition-colors duration-200 border-none ${classNameBtn}`}
+					className="h-8 w-9 -ml-1 flex items-center justify-center rounded-md grayscale hover:grayscale-0 hover:bg-accent-secondary/20 bg-accent-secondary/20 hover:brightness-110 active:brightness-75 transition-all duration-300"
 					name={t("themeSelector")}
 					size="icon"
-					variant="outline"
+					variant="ghost"
 				>
-					<Sun
-						className={`size-8 group-hover:text-background transition-colors duration-200 ${
-							theme && theme === "light" ? "block" : "hidden"
-						}`}
-						strokeWidth={strokeWidth}
+					<IconEmbedSvg
+						className={`${theme && (theme === "light" || theme === "light-brown") ? "block" : "hidden"}`}
+						type="sun"
 					/>
-					<Sun
-						className={`size-8 group-hover:text-background transition-colors duration-200 ${
-							theme && theme === "light-brown" ? "block" : "hidden"
-						}`}
-						strokeWidth={strokeWidth}
+					<IconEmbedSvg
+						className={`${theme && theme === "dark" ? "block" : "hidden"}`}
+						type="moon"
 					/>
-					<Moon
-						className={`size-8 group-hover:text-background transition-colors duration-200 ${
-							theme && theme === "dark" ? "block" : "hidden"
-						}`}
-						strokeWidth={strokeWidth}
-					/>
-					<SunMoon
-						className={`size-8 group-hover:text-background transition-colors duration-200 ${
-							theme && theme === "system" ? "block" : "hidden"
-						}`}
-						strokeWidth={strokeWidth}
+					<IconEmbedSvg
+						className={`${theme && theme === "system" ? "block" : "hidden"}`}
+						type="moon-over-sun"
 					/>
 				</Button>
 			</DropdownMenuTrigger>

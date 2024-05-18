@@ -44,10 +44,10 @@ export const Route = {
 		},
 		SEARCH: {
 			inFeed: true,
-			inNavbar: true,
+			inNavbar: false,
 			name: "search",
 			uri: "/search",
-			visible: false,
+			visible: true,
 		},
 	},
 	admin: {

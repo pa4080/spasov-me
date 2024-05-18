@@ -77,8 +77,8 @@
 
 	.dark {
 		--background: 0 0% 20%;
-		--foreground: 0 0% 90%;
-		--foreground-secondary: 0 0% 85%;
+		--foreground: 0 0% 85%;
+		--foreground-secondary: 0 0% 75%;
 		--foreground-tertiary: 0 0% 65%;
 		--foreground-quaternary: 0 0% 45%;
 
@@ -316,7 +316,7 @@ main {
 }
 
 .margin_vh_bottom {
-	margin-bottom: vh(7);
+	margin-bottom: vh(5);
 }
 
 /* Switch IconEmbedSvg colors */

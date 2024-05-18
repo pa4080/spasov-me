@@ -55,6 +55,8 @@
 		"signInWith": "Sign In with { provider }",
 		"loggedInUserMenu": "Logged in as user menu",
 
+		"searchButton": "Search the site",
+
 		"altUserProfile": "User Profile",
 		"altMenuButton": "Menu Button",
 

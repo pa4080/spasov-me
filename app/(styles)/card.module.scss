@@ -8,6 +8,7 @@
 		box-shadow 0.5s,
 		border-color 0.5s;
 
+	&:target,
 	&:hover {
 		@apply bg-popover/[80%] border-muted/60;
 

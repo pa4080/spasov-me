@@ -82,7 +82,7 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
 				</NavigationMenuList>
 			</NavigationMenu>
 
-			<RevalidatePaths className="scale-75 -mr-3 ml-1" />
+			<RevalidatePaths className="scale-[85%] -mr-2 ml-1 " />
 		</div>
 	);
 };

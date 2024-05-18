@@ -32,7 +32,7 @@ const ProjectPublic_Card: React.FC<Props> = ({ project, className }) => {
 	});
 
 	return (
-		<div className={`${styles.card} ${className}`}>
+		<div className={`${styles.card} scroll-m-8 ${className}`} id={`project_${project._id}`}>
 			<div className="flex gap-2 items-center justify-start w-full">
 				<div className="rounded-full p-1 overflow-clip bg-primary/80 min-w-[3rem]">
 					<Image
