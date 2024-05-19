@@ -75,8 +75,6 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 		? [...gallery, entry.html.attachment?.metadata.html]
 		: gallery;
 
-	const isAboutEntry = entry.city && entry.country;
-
 	return (
 		<div className={`card-border-wrapper ${className}`} id={toggle_target_id}>
 			<div className={styles.card}>
@@ -136,12 +134,12 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 									<RedirectIcon />
 								</Link>
 							) : (
-								<a
+								<Link
 									aria-label={tCommon("item_link")}
 									href={`${Route.public.ABOUT.uri}?id=entry_${entry._id}`}
 								>
 									<RedirectIcon />
-								</a>
+								</Link>
 							)}
 						</div>
 					</div>
