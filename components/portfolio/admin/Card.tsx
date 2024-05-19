@@ -26,9 +26,9 @@ import styles from "@/app/(styles)/card-info.module.scss";
 
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 
-import DisplayResourceUrlAsIcon from "../../common/DisplayResourceUrlAsIcon";
-import DeleteProject from "../Actions/Delete";
-import UpdateProject from "../Actions/Update";
+import DisplayResourceUrlAsIcon from "../common/DisplayResourceUrlAsIcon";
+import DeleteProject from "./Actions/Delete";
+import UpdateProject from "./Actions/Update";
 
 interface Props {
 	className?: string;
