@@ -1,14 +1,13 @@
 import React from "react";
 
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
+// const SearchPublic = dynamic(() => import("@/components/search/public"));
 
 import { getEntries } from "@/components/about/_about.actions";
 import { getProjects } from "@/components/portfolio/_portfolio.actions";
-// import SearchPublic from "@/components/search/public";
+import SearchPublic from "@/components/search/public";
 import { getTags } from "@/components/tags/_tags.actions";
 import { msgs } from "@/messages";
-
-const SearchPublic = dynamic(() => import("@/components/search/public"));
 
 const Portfolio: React.FC = async () => {
 	const t = msgs("Search");
