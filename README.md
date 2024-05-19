@@ -11,6 +11,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Todo
 
 - [ ] **Search by content and filter by tag**
+  - [ ] use searchParams to store the search query in the URL
+  - [ ] use searchParams to store the selected tag in the URL
 
 - [x] Process AttachedTo files in a different way
 
