@@ -61,9 +61,6 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 				<div className={styles.info}>
 					<div className={styles.date}>
 						<span>
-							{/* <span className={styles.lightSecondaryText}>
-							{format(dtFrom, "MM/", { locale: en })}
-						</span> */}
 							<span className={styles.lightPrimaryText}>
 								{format(dtFrom, "yyyy", { locale: en })}
 							</span>
@@ -71,9 +68,6 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 						<span className={styles.lightPrimaryText}>{" - "}</span>
 						{dtTo ? (
 							<span>
-								{/* <span className={styles.lightSecondaryText}>
-								{format(dtTo, "MM/", { locale: en })}
-							</span> */}
 								<span className={styles.lightPrimaryText}>
 									{format(dtTo, "yyyy", { locale: en })}
 								</span>
@@ -102,26 +96,28 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 								className="icon_accent_primary"
 								target_id={toggle_target_id}
 								text={[tCommon("btnMore"), tCommon("btnLess")]}
-								type={descriptionArr[1] ? "card" : "card-single-item"}
+								type={descriptionArr[1] ? "card" : "card-item-single"}
 							/>
 						</div>
 					</div>
 					<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />
 				</div>
 				<div className={`${styles.description} md-processed-to-html`}>
-					{descriptionArr.map((description, index, arr) => (
-						<div
-							dangerouslySetInnerHTML={{ __html: description }}
-							key={index}
-							className={
-								index === 0
-									? arr.length > 1
-										? "card-item-static"
-										: "card-single-item"
-									: "card-item-collapsible"
-							}
-						/>
-					))}
+					<div className="prose max-w-none">
+						{descriptionArr.map((description, index, arr) => (
+							<div
+								dangerouslySetInnerHTML={{ __html: description }}
+								key={index}
+								className={
+									index === 0
+										? arr.length > 1
+											? "card-item-static"
+											: "card-item-single"
+										: "card-item-collapsible"
+								}
+							/>
+						))}
+					</div>
 
 					{displayTagsInline && (
 						<div className="card-item-collapsible">

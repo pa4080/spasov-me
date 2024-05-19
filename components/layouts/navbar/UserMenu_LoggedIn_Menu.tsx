@@ -33,7 +33,7 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
 		<div className="flex flex-row">
 			<NavigationMenu
 				className={`${styles.loggedInMenu} ${className}`}
-				viewportPosition="-right-16"
+				viewportPosition="-right-20"
 			>
 				<NavigationMenuList>
 					<NavigationMenuItem>

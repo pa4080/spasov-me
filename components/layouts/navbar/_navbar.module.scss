@@ -44,6 +44,6 @@
 	}
 
 	.navItemCommon {
-		@apply h-full transition-colors duration-100 hover:text-accent active:text-ring-secondary hover:transition-colors hover:duration-200 font-unicephalon tracking-wide sa:tracking-widest;
+		@apply h-full transition-colors duration-100 hover:text-accent active:text-ring-secondary hover:transition-colors hover:duration-200 font-unicephalon tracking-wide mp:tracking-widest;
 	}
 }

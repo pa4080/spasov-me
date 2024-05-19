@@ -601,6 +601,16 @@
 		"input_placeholder": "Word or phrase...",
 		"input_label": "Search",
 		"tags_label": "Filter by a tag",
+
+		"title_spokenLanguages": "Languages",
+		"title_businessCard": "Business card",
+		"title_resume": "Resume",
+		"title_employment": "Employment history",
+		"title_education": "Education",
+		"title_skills": "Skills",
+		"title_techTags": "Technologies",
+		"title_informationTechnologies": "IT Projects",
+
 		"btnMore": "Read more",
 		"btnLess": "Show less",
 		"btnAll": "Show all"

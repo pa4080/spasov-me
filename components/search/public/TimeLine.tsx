@@ -24,7 +24,7 @@ interface Props {
  * In the format of: `title_${type}`, i.e. "title_employment"
  */
 const TimeLine: React.FC<Props> = ({ type, visibleItems = 3, entries, displayTags }) => {
-	const t = msgs("AboutEntries");
+	const t = msgs("Search");
 
 	type tType = Parameters<typeof t>[0];
 
@@ -38,16 +38,15 @@ const TimeLine: React.FC<Props> = ({ type, visibleItems = 3, entries, displayTag
 	return (
 		entriesByType &&
 		entriesByType.length > 0 && (
-			<div className="list-section" id={toggle_target_id}>
+			<div className="list-section scroll-m-8" id={toggle_target_id}>
 				<SectionHeader className="pop-header h-12" title={section_title}>
-					{entriesByType && entriesByType?.length > visibleItems && (
-						<ToggleCollapsible
-							tooltip
-							target_id={toggle_target_id}
-							text={[t("btnAll"), t("btnLess")]}
-							type="section"
-						/>
-					)}
+					<ToggleCollapsible
+						tooltip
+						disabled={entriesByType && entriesByType?.length <= visibleItems}
+						target_id={toggle_target_id}
+						text={[t("btnAll"), t("btnLess")]}
+						type="section"
+					/>
 				</SectionHeader>
 				<div className="about-cards-section-items space-y-14">
 					{entriesByType?.map((entry, index) => (

@@ -116,26 +116,28 @@ const AboutEntryCard: React.FC<Props> = ({
 								className="icon_accent_primary"
 								target_id={toggle_target_id}
 								text={[tCommon("btnMore"), tCommon("btnLess")]}
-								type={descriptionArr[1] ? "card" : "card-single-item"}
+								type={descriptionArr[1] ? "card" : "card-item-single"}
 							/>
 						</div>
 					</div>
 					<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />
 				</div>
 				<div className={`${styles.description} md-processed-to-html`}>
-					{descriptionArr.map((description, index, arr) => (
-						<div
-							dangerouslySetInnerHTML={{ __html: description }}
-							key={index}
-							className={
-								index === 0
-									? arr.length > 1
-										? "card-item-static"
-										: "card-single-item"
-									: "card-item-collapsible"
-							}
-						/>
-					))}
+					<div className="prose max-w-none">
+						{descriptionArr.map((description, index, arr) => (
+							<div
+								dangerouslySetInnerHTML={{ __html: description }}
+								key={index}
+								className={
+									index === 0
+										? arr.length > 1
+											? "card-item-static"
+											: "card-item-single"
+										: "card-item-collapsible"
+								}
+							/>
+						))}
+					</div>
 
 					{displayTagsInline && (
 						<div className="card-item-collapsible">

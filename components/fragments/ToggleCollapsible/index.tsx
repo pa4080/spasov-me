@@ -10,7 +10,8 @@ interface Props {
 	target_id: string; // the Id of the container
 	text: [string, string];
 	tooltip?: boolean;
-	type: "section" | "card" | "card-single-item";
+	disabled?: boolean;
+	type: "section" | "card" | "card-item-single";
 }
 
 /**
@@ -34,6 +35,7 @@ const ToggleCollapsible: React.FC<Props> = ({
 	target_id,
 	text = ["More", "Less"],
 	tooltip,
+	disabled, // Only for tooltip
 	type,
 }) => {
 	const id = `#${target_id}`;
@@ -52,7 +54,7 @@ const ToggleCollapsible: React.FC<Props> = ({
 		"-ml-8 2xs:ml-2 mt-1 2xs:-mt-0.5 -mb-4 2xs:mb-0";
 
 	const otherCardsActions = () => {
-		if (type === "card" || type === "card-single-item") {
+		if (type === "card" || type === "card-item-single") {
 			const parentSection = targetContainer?.closest(".list-section");
 
 			if (parentSection) {
@@ -108,19 +110,24 @@ const ToggleCollapsible: React.FC<Props> = ({
 		// Always highlight the last manipulated card
 		if (type === "card") {
 			targetContainer?.classList.add("expand-collapsed-current");
-		} else if (type === "card-single-item") {
+		} else if (type === "card-item-single") {
 			targetContainer?.classList.add("expand-collapsed-current");
 			targetContainer?.classList.add("icon_accent_secondary");
 		}
 	};
 
 	switch (type) {
-		case "card-single-item":
+		case "card-item-single":
 			return (
 				<div className={className}>
 					{tooltip ? (
-						<button className={classToggleIcon} onClick={handleClick}>
-							<IconEmbedSvg type="angles-up-down" viewBoxHeight={16} viewBoxWidth={14} />
+						<button className={classToggleIcon} disabled={disabled} onClick={handleClick}>
+							<IconEmbedSvg
+								className={disabled ? "grayscale" : ""}
+								type="angles-up-down"
+								viewBoxHeight={16}
+								viewBoxWidth={14}
+							/>
 						</button>
 					) : (
 						<div className={classToggleText} onClick={handleClick}>
@@ -134,26 +141,37 @@ const ToggleCollapsible: React.FC<Props> = ({
 			return (
 				<div className={className}>
 					{tooltip ? (
-						<TooltipProvider>
-							<Tooltip>
-								<TooltipTrigger className={classToggleIcon} onClick={handleClick}>
-									<IconEmbedSvg
-										className={isContentShown ? "hidden" : ""}
-										type="angles-up-down"
-										viewBoxHeight={16}
-										viewBoxWidth={14}
-									/>
+						disabled ? (
+							<div className={`${classToggleIcon} cursor-not-allowed grayscale`}>
+								<IconEmbedSvg
+									cursor="not-allowed"
+									type="angles-up-down"
+									viewBoxHeight={16}
+									viewBoxWidth={14}
+								/>
+							</div>
+						) : (
+							<TooltipProvider>
+								<Tooltip>
+									<TooltipTrigger className={classToggleIcon} onClick={handleClick}>
+										<IconEmbedSvg
+											className={isContentShown ? "hidden" : ""}
+											type="angles-up-down"
+											viewBoxHeight={16}
+											viewBoxWidth={14}
+										/>
 
-									<IconEmbedSvg
-										className={isContentShown ? "" : "hidden"}
-										type="angles-up-up"
-										viewBoxHeight={16}
-										viewBoxWidth={14}
-									/>
-								</TooltipTrigger>
-								<TooltipContent>{isContentShown ? text[1] : text[0]}</TooltipContent>
-							</Tooltip>
-						</TooltipProvider>
+										<IconEmbedSvg
+											className={isContentShown ? "" : "hidden"}
+											type="angles-up-up"
+											viewBoxHeight={16}
+											viewBoxWidth={14}
+										/>
+									</TooltipTrigger>
+									<TooltipContent>{isContentShown ? text[1] : text[0]}</TooltipContent>
+								</Tooltip>
+							</TooltipProvider>
+						)
 					) : (
 						<div className={classToggleText} onClick={handleClick}>
 							{isContentShown ? text[1] : text[0]}

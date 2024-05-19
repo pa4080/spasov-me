@@ -135,7 +135,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 								className="icon_accent_primary"
 								target_id={toggle_target_id}
 								text={[tCommon("btnMore"), tCommon("btnLess")]}
-								type={descriptionArr[1] ? "card" : "card-single-item"}
+								type={descriptionArr[1] ? "card" : "card-item-single"}
 							/>
 						</div>
 					</div>
@@ -151,7 +151,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 									index === 0
 										? arr.length > 1
 											? "card-item-static font-semibold admin-projects-card"
-											: "card-single-item font-semibold"
+											: "card-item-single font-semibold"
 										: "card-item-collapsible"
 								}
 							/>

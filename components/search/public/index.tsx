@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,7 +23,7 @@ interface Props {
 }
 
 const SearchPublic: React.FC<Props> = ({ className }) => {
-	const { tags, aboutEntries } = useAppContext();
+	const { tags, aboutEntries, projects } = useAppContext();
 	const [selectedTag, setSelectedTag] = useState<SelectedTag | null>(null);
 	const t = msgs("Search");
 
@@ -40,15 +40,12 @@ const SearchPublic: React.FC<Props> = ({ className }) => {
 		});
 	};
 
-	useEffect(() => {
-		if (selectedTag) {
-			// eslint-disable-next-line no-console
-			console.log("selectedTag", selectedTag);
-		}
-	}, [selectedTag]);
-
-	const aboutEntriesFiltered = aboutEntries.filter(
+	const aboutEntries_filtered = aboutEntries.filter(
 		({ _id }) => selectedTag && selectedTag.aboutEntryIds.includes(_id)
+	);
+
+	const projects_filtered = projects.filter(
+		({ _id }) => selectedTag && selectedTag.projectIds.includes(_id)
 	);
 
 	return (
@@ -71,8 +68,9 @@ const SearchPublic: React.FC<Props> = ({ className }) => {
 			</div>
 
 			{/* Results */}
-			<TimeLine displayTags={true} entries={aboutEntriesFiltered} type="employment" />
-			<TimeLine displayTags={true} entries={aboutEntriesFiltered} type="education" />
+			<TimeLine displayTags={true} entries={projects_filtered} type="informationTechnologies" />
+			<TimeLine displayTags={true} entries={aboutEntries_filtered} type="employment" />
+			<TimeLine displayTags={true} entries={aboutEntries_filtered} type="education" />
 		</div>
 	);
 };

@@ -47,13 +47,15 @@ const Resume: React.FC<Props> = ({ entries, className, type }) => {
 
 				<div className={`section_resume-public-text ${cardStyles.card}`}>
 					<div className={`${cardStyles.description} md-processed-to-html`}>
-						{descriptionArr.map((description, index) => (
-							<div
-								dangerouslySetInnerHTML={{ __html: description }}
-								key={index}
-								className={index === 0 ? "section-card-static" : "mt-4 section-card-collapsible"}
-							/>
-						))}
+						<div className="prose max-w-none">
+							{descriptionArr.map((description, index) => (
+								<div
+									dangerouslySetInnerHTML={{ __html: description }}
+									key={index}
+									className={index === 0 ? "section-card-static" : "mt-4 section-card-collapsible"}
+								/>
+							))}
+						</div>
 					</div>
 				</div>
 			</div>
