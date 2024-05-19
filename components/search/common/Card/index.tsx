@@ -7,11 +7,11 @@ import { enUS as en } from "date-fns/locale";
 
 import styles from "@/app/(styles)/card-info.module.scss";
 
-import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
+import Gallery from "@/components/fragments/Gallery";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-import { FileData, FileListItem } from "@/interfaces/File";
+import { FileListItem } from "@/interfaces/File";
 import { TagData } from "@/interfaces/Tag";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
@@ -23,20 +23,11 @@ interface Props {
 	entry: AboutEntryData;
 	files?: FileListItem[] | null | undefined;
 	tags?: TagData[] | null | undefined;
-	displayActions?: boolean;
 	displayTagsInline?: boolean;
 	displayGalleryInline?: boolean;
 }
 
-const AboutEntryCard: React.FC<Props> = ({
-	entry,
-	className,
-	files,
-	tags,
-	displayActions = false,
-	displayTagsInline = true,
-	displayGalleryInline = false,
-}) => {
+const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline = true }) => {
 	const tTime = msgs("AboutEntries_Form");
 	const tCommon = msgs("AboutEntries");
 
@@ -48,11 +39,6 @@ const AboutEntryCard: React.FC<Props> = ({
 		return str.replace(commentsMatcher, "");
 	});
 
-	const attachmentAddress =
-		entry.html.attachment?.metadata.html?.fileUri ||
-		entry.html.attachment?.metadata.html?.fileUrl ||
-		"";
-
 	const getGallery = entry.gallery
 		?.map((file) => file.metadata.html)
 		?.sort((a, b) => a.filename.localeCompare(b.filename));
@@ -62,8 +48,6 @@ const AboutEntryCard: React.FC<Props> = ({
 	gallery = entry.html.attachment?.metadata.html
 		? [...gallery, entry.html.attachment?.metadata.html]
 		: gallery;
-
-	const haveGallery = gallery && gallery.length > 0;
 
 	return (
 		<div className={`card-border-wrapper ${className}`} id={toggle_target_id}>
@@ -99,10 +83,10 @@ const AboutEntryCard: React.FC<Props> = ({
 					</div>
 				</div>
 				<div className={styles.header}>
-					<div
-						className={`${styles.buttons} ${displayActions ? "w-44" : haveGallery ? "w-16" : "w-8"}`}
-					>
+					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
+							<Gallery entry={entry} gallery={gallery} />
+
 							<ToggleCollapsible
 								tooltip
 								className="icon_accent_primary"
@@ -143,31 +127,6 @@ const AboutEntryCard: React.FC<Props> = ({
 											icon={iconsMap[tag.icon as IconsMapItem]}
 										/>
 									))}
-							</div>
-						</div>
-					)}
-
-					{displayGalleryInline && haveGallery && (
-						<div className="card-item-collapsible">
-							<div className="flex gap-2 flex-wrap p-0 mt-4">
-								{gallery.map((image, index) => (
-									<DisplayFileImage
-										key={index}
-										className={`w-8 h-8 rounded-sm`}
-										description={image.filename}
-										file={
-											{
-												filename: image.filename,
-												metadata: {
-													html: {
-														fileUri: image?.fileUri || image?.fileUrl,
-													},
-												},
-											} as FileData
-										}
-										sizes={["32px", "32px"]}
-									/>
-								))}
 							</div>
 						</div>
 					)}

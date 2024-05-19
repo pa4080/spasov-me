@@ -5,9 +5,7 @@ import Link from "next/link";
 
 import styles from "@/app/(styles)/card.module.scss";
 import { Button } from "@/components/ui/button";
-import { FileListItem } from "@/interfaces/File";
 import { ProjectData } from "@/interfaces/Project";
-import { TagData } from "@/interfaces/Tag";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
@@ -17,11 +15,6 @@ import ProjectLinks from "../common/ProjectLinks";
 interface Props {
 	className?: string;
 	project: ProjectData;
-	files?: FileListItem[] | null | undefined;
-	tags?: TagData[] | null | undefined;
-	displayActions?: boolean;
-	displayTagsInline?: boolean;
-	displayGalleryInline?: boolean;
 }
 
 const ProjectPublic_Card: React.FC<Props> = ({ project, className }) => {

@@ -61,7 +61,6 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 				{entriesByType?.map((entry, index) => (
 					<AboutEntryCard
 						key={index}
-						displayActions
 						displayGalleryInline
 						className={visibleItems > index ? "" : "section-card-collapsible"}
 						entry={entry}

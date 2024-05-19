@@ -23,11 +23,10 @@ import DeleteAboutEntry from "../admin/Actions/Delete";
 import UpdateAboutEntry from "../admin/Actions/Update";
 
 interface Props {
-	className?: string;
 	entry: AboutEntryData;
+	className?: string;
 	files?: FileListItem[] | null | undefined;
 	tags?: TagData[] | null | undefined;
-	displayActions?: boolean;
 	displayTagsInline?: boolean;
 	displayGalleryInline?: boolean;
 }
@@ -37,7 +36,6 @@ const AboutEntryCard: React.FC<Props> = ({
 	className,
 	files,
 	tags,
-	displayActions = false,
 	displayTagsInline = true,
 	displayGalleryInline = false,
 }) => {

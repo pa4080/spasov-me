@@ -33,7 +33,6 @@ interface Props {
 	project: ProjectData;
 	files?: FileListItem[] | null | undefined;
 	tags?: TagData[] | null | undefined;
-	displayActions?: boolean;
 	displayTagsInline?: boolean;
 	displayGalleryInline?: boolean;
 }
@@ -43,7 +42,6 @@ const ProjectAdminCard: React.FC<Props> = ({
 	className,
 	files,
 	tags,
-	displayActions = true,
 	displayTagsInline = true,
 	displayGalleryInline = true,
 }) => {
@@ -71,8 +69,6 @@ const ProjectAdminCard: React.FC<Props> = ({
 	// and looks ugly within the container which have the site logo oas background
 	// gallery =
 	// 	project?.html?.icon && gallery ? [project?.html?.icon.metadata.html].concat(gallery) : gallery;
-
-	const haveGallery = gallery && gallery.length > 0;
 
 	return (
 		<div className={`card-border-wrapper ${className}`} id={toggle_target_id}>
@@ -118,26 +114,19 @@ const ProjectAdminCard: React.FC<Props> = ({
 					</div>
 				</div>
 				<div className={styles.header}>
-					<div
-						className={`${styles.buttons} ${displayActions ? "w-44" : haveGallery ? "w-16" : "w-8"}`}
-					>
+					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							{displayActions ? (
-								<>
-									<DeleteProject project={project} />
-									<FileAddressHandle
-										address={
-											project.html.attachment?.metadata?.html?.fileUri ||
-											project.html.attachment?.metadata?.html?.fileUrl ||
-											""
-										}
-									/>
-									<Gallery entry={project} gallery={gallery} />
-									<UpdateProject files={files} project={project} tags={tags} />
-								</>
-							) : (
-								<>{haveGallery && <Gallery entry={project} gallery={gallery} />}</>
-							)}
+							<DeleteProject project={project} />
+							<FileAddressHandle
+								address={
+									project.html.attachment?.metadata?.html?.fileUri ||
+									project.html.attachment?.metadata?.html?.fileUrl ||
+									""
+								}
+							/>
+							<Gallery entry={project} gallery={gallery} />
+							<UpdateProject files={files} project={project} tags={tags} />
+
 							<ToggleCollapsible
 								tooltip
 								className="icon_accent_primary"

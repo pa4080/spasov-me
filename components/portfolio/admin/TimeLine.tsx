@@ -67,7 +67,6 @@ const TimeLine: React.FC<Props> = ({
 				{projectsByType?.map((project, index) => (
 					<ProjectAdminCard
 						key={index}
-						displayActions
 						className={visibleItems > index ? "" : "section-card-collapsible"}
 						files={files}
 						project={project}

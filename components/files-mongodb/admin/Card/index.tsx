@@ -34,8 +34,6 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common" }) =
 	const tCommon = msgs("Files");
 	const t = msgs("Files_Display");
 
-	const displayActions = true;
-
 	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`file_${file?._id}_${section_id}`);
 
 	const descriptionArr = file.metadata.html.description
@@ -57,22 +55,19 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common" }) =
 					<DisplayFileImage className={`${styles.imageLarge} card-item-collapsible`} file={file} />
 				</div>
 				<div className={styles.header}>
-					<div className={`${styles.buttons} ${displayActions ? "w-72" : "w-8"}`}>
+					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							{displayActions && (
-								<>
-									<CopyFileAddress address={fileAddress} />
-									<VisibilitySwitchDisplay
-										disabled
-										checked={file.metadata.visibility}
-										className="mt-0.5"
-									/>
-									<DeleteFile file={file} />
-									<FileAddressHandle address={fileAddress} />
-									<FileAddressHandle download address={fileAddress} />
-									<UpdateFile file={file} />
-								</>
-							)}
+							<CopyFileAddress address={fileAddress} />
+							<VisibilitySwitchDisplay
+								disabled
+								checked={file.metadata.visibility}
+								className="mt-0.5"
+							/>
+							<DeleteFile file={file} />
+							<FileAddressHandle address={fileAddress} />
+							<FileAddressHandle download address={fileAddress} />
+							<UpdateFile file={file} />
+
 							<ToggleCollapsible
 								tooltip
 								className="icon_accent_primary"
