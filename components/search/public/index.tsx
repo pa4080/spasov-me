@@ -48,7 +48,7 @@ const SearchPublic: React.FC<Props> = ({ className }) => {
 	}, [aboutEntries, projects]);
 
 	const onTagClick = (tag: TagData) => {
-		setLoading(true);
+		!loading && setLoading(true);
 
 		setSelectedTag({
 			tag,
@@ -115,13 +115,14 @@ const SearchPublic: React.FC<Props> = ({ className }) => {
 										searchInputRef.current.focus();
 									}
 
-									setLoading(true);
+									!loading && setLoading(true);
 									setSearchValue("");
 								}}
 							>
 								<IconEmbedSvg height={16} type="broom" width={16} />
 							</button>
 						</Label>
+
 						<Input
 							ref={searchInputRef}
 							className="ring-offset-secondary focus-visible:ring-offset-secondary focus:ring-offset-secondary"
@@ -146,13 +147,14 @@ const SearchPublic: React.FC<Props> = ({ className }) => {
 								}
 								role="button"
 								onClick={() => {
-									setLoading(true);
+									!loading && setLoading(true);
 									setSelectedTag(null);
 								}}
 							>
 								<IconEmbedSvg height={16} type="broom" width={16} />
 							</button>
 						</Label>
+
 						<TagFilter selectedTag={selectedTag?.tag || null} tags={tags} onTagClick={onTagClick} />
 					</div>
 				</div>

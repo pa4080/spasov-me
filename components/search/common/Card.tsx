@@ -9,6 +9,7 @@ import styles from "@/app/(styles)/card-info.module.scss";
 
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 import Gallery from "@/components/fragments/Gallery";
+import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileListItem } from "@/interfaces/File";
@@ -18,15 +19,20 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
+import { Route } from "@/routes";
 
 interface ProjectDataExtended extends ProjectData {
 	city?: string;
 	country?: string;
 }
 
+interface AboutEntryDataExtended extends AboutEntryData {
+	slug?: string;
+}
+
 interface Props {
 	className?: string;
-	entry: AboutEntryData | ProjectDataExtended;
+	entry: AboutEntryDataExtended | ProjectDataExtended;
 	files?: FileListItem[] | null | undefined;
 	tags?: TagData[] | null | undefined;
 	displayTagsInline?: boolean;
@@ -45,6 +51,11 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 		return str.replace(commentsMatcher, "");
 	});
 
+	const classToggleIcon =
+		"cursor-pointer uppercase font-unicephalon w-10 h-10 rounded-full flex items-center " +
+		"justify-center text-foreground-secondary bg-primary hover:bg-background " +
+		"transition-colors duration-300 border-primary border-4";
+
 	const getGallery = entry.gallery
 		?.map((file) => file.metadata.html)
 		?.sort((a, b) => a.filename.localeCompare(b.filename));
@@ -54,6 +65,8 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 	gallery = entry.html.attachment?.metadata.html
 		? [...gallery, entry.html.attachment?.metadata.html]
 		: gallery;
+
+	const isAboutEntry = entry.city && entry.country;
 
 	return (
 		<div className={`card-border-wrapper ${className}`} id={toggle_target_id}>
@@ -98,6 +111,33 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 								text={[tCommon("btnMore"), tCommon("btnLess")]}
 								type={descriptionArr[1] ? "card" : "card-item-single"}
 							/>
+
+							{/*
+							 * We need to have property entryType within the AboutEntryData/Project/Post...
+							 * Another strategy is to have a switch() based on @/interfaces/_common-data-types.ts/..Tuples
+							 */}
+							{/* /about?id=entry_65991ea62c5656013d1eae06 */}
+							{/* /portfolio?id=project_65db8c233e7b3ef74e682f9b */}
+							{/* /portfolio/promptopia-mlt */}
+							<a
+								aria-label={tCommon("item_link")}
+								href={
+									isAboutEntry
+										? `${Route.public.ABOUT.uri}?id=entry_${entry._id}`
+										: entry?.slug
+											? `${Route.public.PORTFOLIO.uri}/${entry.slug}`
+											: `${Route.public.PORTFOLIO.uri}?id=project_${entry._id}`
+								}
+							>
+								<div className={`${classToggleIcon} group grayscale hover:grayscale-0`}>
+									<IconEmbedSvg className="group-hover:hidden" cursor="pointer" type="rocket" />
+									<IconEmbedSvg
+										className="hidden group-hover:block"
+										cursor="pointer"
+										type="rocket-launch"
+									/>
+								</div>
+							</a>
 						</div>
 					</div>
 					<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />

@@ -601,6 +601,7 @@
 		"input_placeholder": "Word or phrase...",
 		"input_label": "Search",
 		"tags_label": "Filter by a tag",
+		"item_link": "Link to the search item",
 		"loading": "Loading...",
 		"noResults": "No results",
 
