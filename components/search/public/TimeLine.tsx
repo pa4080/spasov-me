@@ -2,20 +2,18 @@ import React from "react";
 
 import SectionHeader from "@/components/fragments/SectionHeader";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
-import { AboutEntryData } from "@/interfaces/AboutEntry";
-import { AboutEntryType, ProjectType } from "@/interfaces/_common-data-types";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
-import { ProjectData } from "@/interfaces/Project";
-
 import AboutEntryCard from "../common/Card";
+
+import { UnitedEntryType } from ".";
 
 interface Props {
 	className?: string;
-	type: AboutEntryType | ProjectType;
+	type: UnitedEntryType["entryType"];
 	visibleItems?: number;
-	entries: AboutEntryData[] | ProjectData[] | null;
+	entries: UnitedEntryType[] | null;
 	displayTags: boolean;
 }
 

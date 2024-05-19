@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,13 +9,18 @@ import { msgs } from "@/messages";
 
 import { TagData } from "@/interfaces/Tag";
 
+import { AboutEntryData } from "@/interfaces/AboutEntry";
+
+import { ProjectData } from "@/interfaces/Project";
+
 import TagFilter from "./TagFilter";
 import TimeLine from "./TimeLine";
 
+export type UnitedEntryType = ProjectData | AboutEntryData;
+
 interface SelectedTag {
 	tag: TagData;
-	aboutEntryIds: string[];
-	projectIds: string[];
+	attachedToIds: string[];
 }
 
 interface Props {
@@ -23,30 +28,67 @@ interface Props {
 }
 
 const SearchPublic: React.FC<Props> = ({ className }) => {
-	const { tags, aboutEntries, projects } = useAppContext();
-	const [selectedTag, setSelectedTag] = useState<SelectedTag | null>(null);
 	const t = msgs("Search");
+	const { tags, aboutEntries, projects } = useAppContext();
+
+	const [selectedTag, setSelectedTag] = useState<SelectedTag | null>(null);
+
+	const [searchValue, setSearchValue] = useState("");
+	const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout>();
+	const [searchResults, setSearchResults] = useState<UnitedEntryType[]>([
+		...aboutEntries,
+		...projects,
+	]);
+
+	useEffect(() => {
+		setSearchResults([...aboutEntries, ...projects]);
+	}, [aboutEntries, projects]);
 
 	const onTagClick = (tag: TagData) => {
 		setSelectedTag({
 			tag,
-			aboutEntryIds:
-				tag.attachedTo
-					?.filter(({ modelType }) => modelType === "AboutEntry")
-					.map(({ _id }) => _id) || [],
-			projectIds:
-				tag.attachedTo?.filter(({ modelType }) => modelType === "Project").map(({ _id }) => _id) ||
-				[],
+			attachedToIds: tag?.attachedTo?.map(({ _id }) => _id) || [],
 		});
 	};
 
-	const aboutEntries_filtered = aboutEntries.filter(
-		({ _id }) => selectedTag && selectedTag.aboutEntryIds.includes(_id)
-	);
+	const filterItems = (searchValue: string) => {
+		const dataList = [...aboutEntries, ...projects];
 
-	const projects_filtered = projects.filter(
-		({ _id }) => selectedTag && selectedTag.projectIds.includes(_id)
-	);
+		if (!searchValue) {
+			return dataList;
+		}
+
+		const regEx = new RegExp(`\\b${searchValue.toLowerCase().replace(/\s+/g, ".*")}`, "i");
+
+		return dataList.filter(
+			(dataItem) =>
+				dataItem.title.toLowerCase().match(regEx) || dataItem.description.toLowerCase().match(regEx)
+		);
+	};
+
+	useEffect(() => {
+		clearTimeout(searchTimeout);
+
+		setSearchTimeout(
+			setTimeout(
+				() => {
+					const results_value_filter = filterItems(searchValue);
+					const results_tag_filter = results_value_filter?.filter(
+						({ _id }) => selectedTag && selectedTag.attachedToIds.includes(_id)
+					);
+
+					const results =
+						results_tag_filter && results_tag_filter.length > 0
+							? results_tag_filter
+							: results_value_filter;
+
+					setSearchResults(results);
+				},
+				searchValue ? 500 : 0
+			)
+		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [searchValue, selectedTag]);
 
 	return (
 		<div className={cn("space-y-20", cn(className))}>
@@ -58,6 +100,8 @@ const SearchPublic: React.FC<Props> = ({ className }) => {
 						<Input
 							className="ring-offset-secondary focus-visible:ring-offset-secondary focus:ring-offset-secondary"
 							placeholder={t("input_placeholder")}
+							value={searchValue}
+							onChange={(e) => setSearchValue(e.target.value)}
 						/>
 					</div>
 					<div className="space-y-2">
@@ -68,9 +112,24 @@ const SearchPublic: React.FC<Props> = ({ className }) => {
 			</div>
 
 			{/* Results */}
-			<TimeLine displayTags={true} entries={projects_filtered} type="informationTechnologies" />
-			<TimeLine displayTags={true} entries={aboutEntries_filtered} type="employment" />
-			<TimeLine displayTags={true} entries={aboutEntries_filtered} type="education" />
+			{(searchValue || selectedTag) &&
+				searchResults &&
+				searchResults
+					.reduce(
+						(acc: string[], { entryType }) =>
+							acc.indexOf(entryType) === -1 ? acc.concat(entryType) : acc,
+						[]
+					)
+					.sort()
+					.reverse()
+					.map((entryType) => (
+						<TimeLine
+							key={entryType}
+							displayTags={true}
+							entries={searchResults}
+							type={entryType as UnitedEntryType["entryType"]}
+						/>
+					))}
 		</div>
 	);
 };
