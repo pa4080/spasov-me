@@ -24,6 +24,8 @@ import { Route } from "@/routes";
 
 import styles from "@/app/(styles)/card-info.module.scss";
 
+import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
+
 import DisplayResourceUrlAsIcon from "../../common/DisplayResourceUrlAsIcon";
 import DeleteProject from "../Actions/Delete";
 import UpdateProject from "../Actions/Update";
@@ -117,6 +119,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
 							<DeleteProject project={project} />
+							<VisibilitySwitchDisplay disabled checked={project.visibility} className="mt-0.5" />
 							<FileAddressHandle
 								address={
 									project.html.attachment?.metadata?.html?.fileUri ||

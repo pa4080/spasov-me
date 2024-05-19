@@ -19,6 +19,8 @@ import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
+import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
+
 import DeleteAboutEntry from "../admin/Actions/Delete";
 import UpdateAboutEntry from "../admin/Actions/Update";
 
@@ -104,6 +106,7 @@ const AboutEntryCard: React.FC<Props> = ({
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
 							<DeleteAboutEntry entry={entry} />
+							<VisibilitySwitchDisplay disabled checked={entry.visibility} className="mt-0.5" />
 							<FileAddressHandle address={attachmentAddress} />
 							<Gallery entry={entry} gallery={gallery} />
 							<UpdateAboutEntry entry={entry} files={files} tags={tags} />
