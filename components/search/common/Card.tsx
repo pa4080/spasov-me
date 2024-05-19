@@ -5,6 +5,8 @@ import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { enUS as en } from "date-fns/locale";
 
+import Link from "next/link";
+
 import styles from "@/app/(styles)/card-info.module.scss";
 
 import DisplayIcon from "@/components/fragments/DisplayIcon";
@@ -55,6 +57,13 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 		"cursor-pointer uppercase font-unicephalon w-10 h-10 rounded-full flex items-center " +
 		"justify-center text-foreground-secondary bg-primary hover:bg-background " +
 		"transition-colors duration-300 border-primary border-4";
+
+	const RedirectIcon = () => (
+		<div className={`${classToggleIcon} group grayscale hover:grayscale-0`}>
+			<IconEmbedSvg className="group-hover:hidden" cursor="pointer" type="rocket" />
+			<IconEmbedSvg className="hidden group-hover:block" cursor="pointer" type="rocket-launch" />
+		</div>
+	);
 
 	const getGallery = entry.gallery
 		?.map((file) => file.metadata.html)
@@ -119,25 +128,21 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 							{/* /about?id=entry_65991ea62c5656013d1eae06 */}
 							{/* /portfolio?id=project_65db8c233e7b3ef74e682f9b */}
 							{/* /portfolio/promptopia-mlt */}
-							<a
-								aria-label={tCommon("item_link")}
-								href={
-									isAboutEntry
-										? `${Route.public.ABOUT.uri}?id=entry_${entry._id}`
-										: entry?.slug
-											? `${Route.public.PORTFOLIO.uri}/${entry.slug}`
-											: `${Route.public.PORTFOLIO.uri}?id=project_${entry._id}`
-								}
-							>
-								<div className={`${classToggleIcon} group grayscale hover:grayscale-0`}>
-									<IconEmbedSvg className="group-hover:hidden" cursor="pointer" type="rocket" />
-									<IconEmbedSvg
-										className="hidden group-hover:block"
-										cursor="pointer"
-										type="rocket-launch"
-									/>
-								</div>
-							</a>
+							{entry?.slug ? (
+								<Link
+									aria-label={tCommon("item_link")}
+									href={`${Route.public.PORTFOLIO.uri}/${entry.slug}`}
+								>
+									<RedirectIcon />
+								</Link>
+							) : (
+								<a
+									aria-label={tCommon("item_link")}
+									href={`${Route.public.ABOUT.uri}?id=entry_${entry._id}`}
+								>
+									<RedirectIcon />
+								</a>
+							)}
 						</div>
 					</div>
 					<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />

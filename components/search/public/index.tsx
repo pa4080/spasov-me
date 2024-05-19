@@ -7,15 +7,11 @@ import { useAppContext } from "@/contexts/AppContext";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
-import { TagData } from "@/interfaces/Tag";
-
-import { AboutEntryData } from "@/interfaces/AboutEntry";
-
-import { ProjectData } from "@/interfaces/Project";
-
-import SectionHeader from "@/components/fragments/SectionHeader";
-
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import SectionHeader from "@/components/fragments/SectionHeader";
+import { AboutEntryData } from "@/interfaces/AboutEntry";
+import { ProjectData } from "@/interfaces/Project";
+import { TagData } from "@/interfaces/Tag";
 
 import TagFilter from "./TagFilter";
 import TimeLine from "./TimeLine";
@@ -33,7 +29,7 @@ interface Props {
 
 const SearchPublic: React.FC<Props> = ({ className }) => {
 	const t = msgs("Search");
-	const { tags, aboutEntries, projects } = useAppContext();
+	const { tags, aboutEntries, projects, setEntriesData } = useAppContext();
 
 	const [selectedTag, setSelectedTag] = useState<SelectedTag | null>(null);
 
@@ -42,6 +38,24 @@ const SearchPublic: React.FC<Props> = ({ className }) => {
 	const [searchValue, setSearchValue] = useState("");
 	const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout>();
 	const [searchResults, setSearchResults] = useState<UnitedEntryType[] | null>(null);
+
+	useEffect(() => {
+		if (
+			!tags ||
+			tags.length === 0 ||
+			!aboutEntries ||
+			aboutEntries.length === 0 ||
+			!projects ||
+			projects.length === 0
+		) {
+			setEntriesData();
+		}
+
+		return () => {
+			window.shouldAutoScroll = true;
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	useEffect(() => {
 		setSearchResults([...aboutEntries, ...projects]);
@@ -70,6 +84,9 @@ const SearchPublic: React.FC<Props> = ({ className }) => {
 				dataItem.title.toLowerCase().match(regEx) || dataItem.description.toLowerCase().match(regEx)
 		);
 	};
+
+	const clearButtonClasses =
+		"h-6 w-7 flex items-center justify-center rounded-md grayscale hover:grayscale-0 hover:brightness-110 active:brightness-75 transition-colors duration-300 hover:bg-primary-foreground/20"; // bg-accent-secondary/20
 
 	useEffect(() => {
 		clearTimeout(searchTimeout);
@@ -105,9 +122,7 @@ const SearchPublic: React.FC<Props> = ({ className }) => {
 						<Label className="text-lg flex gap-2 w-fit">
 							<span>{t("input_label")}</span>
 							<button
-								className={
-									"h-6 w-7 flex items-center justify-center rounded-md grayscale hover:grayscale-0 hover:bg-accent-secondary/20 bg-accent-secondary/20 hover:brightness-110 active:brightness-75 transition-colors duration-300"
-								}
+								className={clearButtonClasses}
 								role="button"
 								onClick={() => {
 									if (searchInputRef.current) {
@@ -142,9 +157,7 @@ const SearchPublic: React.FC<Props> = ({ className }) => {
 						<Label className="text-lg flex gap-2 w-fit">
 							<span>{t("tags_label")}</span>
 							<button
-								className={
-									"h-6 w-7 flex items-center justify-center rounded-md grayscale hover:grayscale-0 hover:bg-accent-secondary/20 bg-accent-secondary/20 hover:brightness-110 active:brightness-75 transition-colors duration-300"
-								}
+								className={clearButtonClasses}
 								role="button"
 								onClick={() => {
 									!loading && setLoading(true);
