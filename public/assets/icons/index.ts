@@ -1379,6 +1379,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	"me_ascon-kompas": {
+		name: "me_ascon-kompas",
+		uri: {
+			light: "/assets/icons/me/ascon-kompas.svg",
+			dark: "/assets/icons/me/ascon-kompas.svg",
+		},
+		info: {
+			height: 64,
+			width: 64,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	"me_auto-lisp-scripting-language": {
 		name: "me_auto-lisp-scripting-language",
 		uri: {

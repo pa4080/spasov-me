@@ -71,8 +71,8 @@ const SearchPublic: React.FC<Props> = ({ className }) => {
 			</div>
 
 			{/* Results */}
-			<TimeLine displayTags={false} entries={aboutEntriesFiltered} type="employment" />
-			<TimeLine displayTags={false} entries={aboutEntriesFiltered} type="education" />
+			<TimeLine displayTags={true} entries={aboutEntriesFiltered} type="employment" />
+			<TimeLine displayTags={true} entries={aboutEntriesFiltered} type="education" />
 		</div>
 	);
 };

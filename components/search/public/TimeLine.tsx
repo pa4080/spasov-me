@@ -3,7 +3,7 @@ import React from "react";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-import { AboutEntryType } from "@/interfaces/_common-data-types";
+import { AboutEntryType, ProjectType } from "@/interfaces/_common-data-types";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
@@ -11,8 +11,9 @@ import AboutEntryCard from "../common/Card";
 
 interface Props {
 	className?: string;
-	type: AboutEntryType;
+	type: AboutEntryType | ProjectType;
 	visibleItems?: number;
+	// entries: AboutEntryData[] | ProjectData[] | null;
 	entries: AboutEntryData[] | null;
 	displayTags: boolean;
 }
