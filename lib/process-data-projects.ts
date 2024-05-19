@@ -27,7 +27,7 @@ export async function projectDocuments_toData({
 	const files = await getFilesR2();
 
 	return projectsFiltered
-		.filter(({ projectType }) => (typeList && typeList.includes(projectType)) ?? true)
+		.filter(({ entryType }) => (typeList && typeList.includes(entryType)) ?? true)
 		.map((project) => ({
 			_id: project._id.toString(),
 			html: {
@@ -50,7 +50,7 @@ export async function projectDocuments_toData({
 			urlRepo: project.urlRepo,
 			dateFrom: project.dateFrom as Date,
 			dateTo: project.dateTo as Date | undefined,
-			projectType: project.projectType,
+			entryType: project.entryType,
 			visibility: project.visibility as boolean,
 			icon: project.icon,
 			attachment: project.attachment,
@@ -72,7 +72,7 @@ export function projectFormData_toNewProjectData({
 		slug: data.get("slug") as string,
 		urlHome: data.get("urlHome") as string,
 		urlRepo: data.get("urlRepo") as string,
-		projectType: data.get("projectType") as ProjectType,
+		entryType: data.get("entryType") as ProjectType,
 		dateFrom: data.get("dateFrom") as string,
 		dateTo: data.get("dateTo") as string,
 		visibility: data.get("visibility") as string,

@@ -564,7 +564,7 @@
 		"btnAll": "Show all"
 	},
 	"Projects_Create": {
-		"dialog_title": "Create a new { projectType } project",
+		"dialog_title": "Create a new { entryType } project",
 		"dialog_description": "",
 		"dialog_btn_add": "Add a new project",
 		"dialog_btn_add_submitting": "Submitting...",
@@ -573,7 +573,7 @@
 		"toast_error": "Something went wrong. Please try again."
 	},
 	"Projects_Update": {
-		"dialog_title": "Update an existing { projectType } project",
+		"dialog_title": "Update an existing { entryType } project",
 		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
 		"dialog_btn_add": "Update the project",
 		"dialog_btn_add_submitting": "Submitting...",
@@ -582,7 +582,7 @@
 		"toast_error": "Something went wrong. Please try again."
 	},
 	"Projects_Delete": {
-		"dialog_title": "Delete a project of type { projectType } ",
+		"dialog_title": "Delete a project of type { entryType } ",
 		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
 		"dialog_btn_delete": "Delete the project",
 		"dialog_btn_delete_submitting": "Deleting...",
@@ -600,6 +600,9 @@
 		"title": "Search the site",
 		"input_placeholder": "Word or phrase...",
 		"input_label": "Search",
-		"tags_label": "Filter by a tag"
+		"tags_label": "Filter by a tag",
+		"btnMore": "Read more",
+		"btnLess": "Show less",
+		"btnAll": "Show all"
 	}
 }

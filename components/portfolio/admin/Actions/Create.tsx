@@ -38,7 +38,7 @@ interface Props {
 
 const CreateProject: React.FC<Props> = ({ className, type, files, tags }) => {
 	const t = msgs("Projects_Create");
-	const projectTypeLabel = (
+	const entryTypeLabel = (
 		msgs("Projects_Form")("project_type_list") as unknown as Record<string, string>
 	)[type];
 
@@ -102,7 +102,7 @@ const CreateProject: React.FC<Props> = ({ className, type, files, tags }) => {
 					closeOnOverlayClick={false}
 				>
 					<DialogHeader>
-						<DialogTitle>{t("dialog_title", { projectType: projectTypeLabel })}</DialogTitle>
+						<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
 						{t("dialog_description") && (
 							<DialogDescription
 								dangerouslySetInnerHTML={{
@@ -114,8 +114,8 @@ const CreateProject: React.FC<Props> = ({ className, type, files, tags }) => {
 
 					<ProjectForm
 						className="mt-1"
+						entryType={type}
 						files={files}
-						projectType={type}
 						submitting={submitting}
 						tags={tags}
 						onSubmit={handleCreateProject}

@@ -12,15 +12,21 @@ import Gallery from "@/components/fragments/Gallery";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileListItem } from "@/interfaces/File";
+import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
+interface ProjectDataExtended extends ProjectData {
+	city?: string;
+	country?: string;
+}
+
 interface Props {
 	className?: string;
-	entry: AboutEntryData;
+	entry: AboutEntryData | ProjectDataExtended;
 	files?: FileListItem[] | null | undefined;
 	tags?: TagData[] | null | undefined;
 	displayTagsInline?: boolean;
@@ -29,7 +35,7 @@ interface Props {
 
 const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline = true }) => {
 	const tTime = msgs("AboutEntries_Form");
-	const tCommon = msgs("AboutEntries");
+	const tCommon = msgs("Search");
 
 	const { dateFrom, dateTo } = entry;
 	const dtFrom = new Date(dateFrom);
@@ -78,8 +84,12 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 					</div>
 					<div className={styles.divider}>❘</div>
 					<div className={`${styles.lightPrimaryText} ${styles.location}`}>
-						{(tTime("city_list") as unknown as Record<string, string>)[entry.city]},{" "}
-						{(tTime("country_list") as unknown as Record<string, string>)[entry.country]}
+						{entry.city && entry.country && (
+							<>
+								{(tTime("city_list") as unknown as Record<string, string>)[entry.city]},{" "}
+								{(tTime("country_list") as unknown as Record<string, string>)[entry.country]}
+							</>
+						)}
 					</div>
 				</div>
 				<div className={styles.header}>

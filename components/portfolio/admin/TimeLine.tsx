@@ -47,7 +47,7 @@ const TimeLine: React.FC<Props> = ({
 
 	// Filter the items by their type - i.e. ["informationTechnologies", "education", ...]
 	const projectsByType = projects
-		?.filter(({ projectType }) => projectType === type)
+		?.filter(({ entryType }) => entryType === type)
 		.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
 	return (

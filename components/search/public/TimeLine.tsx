@@ -7,14 +7,15 @@ import { AboutEntryType, ProjectType } from "@/interfaces/_common-data-types";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
+import { ProjectData } from "@/interfaces/Project";
+
 import AboutEntryCard from "../common/Card";
 
 interface Props {
 	className?: string;
 	type: AboutEntryType | ProjectType;
 	visibleItems?: number;
-	// entries: AboutEntryData[] | ProjectData[] | null;
-	entries: AboutEntryData[] | null;
+	entries: AboutEntryData[] | ProjectData[] | null;
 	displayTags: boolean;
 }
 

@@ -12,7 +12,7 @@ export const Project_FormSchemaGenerator = (messages?: string[]) =>
 		}),
 		urlHome: z.string().optional(),
 		urlRepo: z.string().optional(),
-		projectType: z.enum(projectTuple, {
+		entryType: z.enum(projectTuple, {
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			errorMap: (issue, _ctx) => {
 				switch (issue.code) {
