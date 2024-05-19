@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import { cn } from "@/lib/cn-utils";
 
 interface Props {
 	className?: string;
@@ -42,16 +43,20 @@ const ToggleCollapsible: React.FC<Props> = ({
 	const [isContentShown, setIsContentShown] = useState(false);
 	const [targetContainer, setTargetContainer] = useState<Element | null>(null);
 
-	const classToggleIcon =
-		"cursor-pointer uppercase font-unicephalon w-10 h-10 rounded-full flex items-center " +
-		"justify-center text-foreground-secondary bg-primary hover:bg-background " +
-		"transition-colors duration-300 border-primary border-4";
+	const classToggleIcon = cn(
+		"uppercase font-unicephalon w-10 h-10 rounded-full flex items-center",
+		"justify-center text-foreground-secondary bg-primary hover:bg-background",
+		"transition-colors duration-300 border-primary border-4",
+		disabled ? "cursor-not-allowed grayscale" : "cursor-pointer"
+	);
 
-	const classToggleText =
-		"cursor-pointer uppercase font-unicephalon tracking-wider py-2 px-5 " +
-		"rounded-full text-foreground-secondary bg-primary transition-colors duration-300 " +
-		"hover:bg-foreground-secondary hover:text-background whitespace-nowrap " +
-		"-ml-8 2xs:ml-2 mt-1 2xs:-mt-0.5 -mb-4 2xs:mb-0";
+	const classToggleText = cn(
+		" uppercase font-unicephalon tracking-wider py-2 px-5",
+		"rounded-full text-foreground-secondary bg-primary transition-colors duration-300",
+		"hover:bg-foreground-secondary hover:text-background whitespace-nowrap",
+		"-ml-8 2xs:ml-2 mt-1 2xs:-mt-0.5 -mb-4 2xs:mb-0",
+		disabled ? "cursor-not-allowed grayscale" : "cursor-pointer"
+	);
 
 	const otherCardsActions = () => {
 		if (type === "card" || type === "card-item-single") {
@@ -142,7 +147,7 @@ const ToggleCollapsible: React.FC<Props> = ({
 				<div className={className}>
 					{tooltip ? (
 						disabled ? (
-							<div className={`${classToggleIcon} cursor-not-allowed grayscale`}>
+							<div className={classToggleIcon}>
 								<IconEmbedSvg
 									cursor="not-allowed"
 									type="angles-up-down"

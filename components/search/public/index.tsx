@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useAppContext } from "@/contexts/AppContext";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
@@ -25,37 +24,23 @@ interface SelectedTag {
 
 interface Props {
 	className?: string;
+	tags: TagData[];
+	aboutEntries: AboutEntryData[];
+	projects: ProjectData[];
 }
 
-const SearchPublic: React.FC<Props> = ({ className }) => {
+const SearchPublic: React.FC<Props> = ({ className, tags, aboutEntries, projects }) => {
 	const t = msgs("Search");
-	const { tags, aboutEntries, projects, setEntriesData } = useAppContext();
-
 	const [selectedTag, setSelectedTag] = useState<SelectedTag | null>(null);
 
 	const [loading, setLoading] = useState(false);
 	const searchInputRef = useRef<HTMLInputElement>(null);
 	const [searchValue, setSearchValue] = useState("");
 	const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout>();
-	const [searchResults, setSearchResults] = useState<UnitedEntryType[] | null>(null);
-
-	useEffect(() => {
-		if (
-			!tags ||
-			tags.length === 0 ||
-			!aboutEntries ||
-			aboutEntries.length === 0 ||
-			!projects ||
-			projects.length === 0
-		) {
-			setEntriesData();
-		}
-
-		return () => {
-			window.shouldAutoScroll = true;
-		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	const [searchResults, setSearchResults] = useState<UnitedEntryType[] | null>([
+		...aboutEntries,
+		...projects,
+	]);
 
 	useEffect(() => {
 		setSearchResults([...aboutEntries, ...projects]);
