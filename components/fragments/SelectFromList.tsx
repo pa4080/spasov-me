@@ -56,7 +56,7 @@ export default function SelectFromList<T extends FieldValues>({
 					{messages.label && <FormLabel>{messages.label}</FormLabel>}
 					<Select defaultValue={field.value} onValueChange={field.onChange}>
 						<FormControl>
-							<SelectTrigger>
+							<SelectTrigger className="text-left">
 								<SelectValue
 									placeholder={
 										itemsList?.find((item) => item?.value === field?.value)?.label ??

@@ -19,7 +19,7 @@ const ProjectSchema = new Schema({
 		required: [true, "The slug is required!"],
 		match: [/^[a-z][a-z0-9-]*$/, "The slug must be in kebab case!"],
 	},
-	projectType: {
+	entryType: {
 		type: String,
 		enum: projectTuple,
 		default: projectTuple[0],

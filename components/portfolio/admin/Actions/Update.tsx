@@ -44,9 +44,9 @@ const UpdateProject: React.FC<Props> = ({
 	dialogTrigger_buttonIconProps,
 }) => {
 	const t = msgs("Projects_Update");
-	const projectTypeLabel = (
+	const entryTypeLabel = (
 		msgs("Projects_Form")("project_type_list") as unknown as Record<string, string>
-	)[project.projectType];
+	)[project.entryType];
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
@@ -56,6 +56,10 @@ const UpdateProject: React.FC<Props> = ({
 
 	const tagsInUse = tags ?? tagsContext;
 	const filesInUse = files ?? fileListContext;
+
+	if (!tagsInUse || !session) {
+		return null;
+	}
 
 	const handleUpdateProject = async (data: Project_FormSchema) => {
 		setSubmitting(true);
@@ -87,10 +91,6 @@ const UpdateProject: React.FC<Props> = ({
 		}
 	};
 
-	if (!tagsInUse || !session) {
-		return null;
-	}
-
 	const buttonIconPropsFinal = {
 		className: "pl-1 bg-transparent icon_accent_secondary",
 		disabled: !session,
@@ -111,7 +111,7 @@ const UpdateProject: React.FC<Props> = ({
 				closeOnOverlayClick={false}
 			>
 				<DialogHeader>
-					<DialogTitle>{t("dialog_title", { projectType: projectTypeLabel })}</DialogTitle>
+					<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
 					{t("dialog_description") && (
 						<DialogDescription
 							dangerouslySetInnerHTML={{
@@ -123,9 +123,9 @@ const UpdateProject: React.FC<Props> = ({
 
 				<ProjectForm
 					className={t("dialog_description") ? "mt-0" : "mt-1"}
+					entryType={project.entryType}
 					files={filesInUse}
 					formData={project}
-					projectType={project.projectType}
 					submitting={submitting}
 					tags={tagsInUse}
 					onSubmit={handleUpdateProject}

@@ -92,6 +92,19 @@ const iconsMap = {
 			ratio: 0.87,
 		},
 	},
+	it_axios: {
+		name: "it_axios",
+		uri: {
+			light: "/assets/icons/it/axios.svg",
+			dark: "/assets/icons/it/axios.svg",
+		},
+		info: {
+			height: 128,
+			width: 128,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	it_babel2: {
 		name: "it_babel2",
 		uri: {
@@ -1362,6 +1375,19 @@ const iconsMap = {
 		info: {
 			height: 1080,
 			width: 1080,
+			type: "svg",
+			ratio: 1,
+		},
+	},
+	"me_ascon-kompas": {
+		name: "me_ascon-kompas",
+		uri: {
+			light: "/assets/icons/me/ascon-kompas.svg",
+			dark: "/assets/icons/me/ascon-kompas.svg",
+		},
+		info: {
+			height: 64,
+			width: 64,
 			type: "svg",
 			ratio: 1,
 		},

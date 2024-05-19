@@ -17,10 +17,6 @@ interface Props {
 }
 
 const BusinessCard: React.FC<Props> = ({ entries, className, type }) => {
-	// const t = msgs("AboutEntries");
-	// type tType = Parameters<typeof t>[0];
-	// const section_title = t(`title_${type}` as tType);
-
 	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_${type}`);
 
 	const entry =

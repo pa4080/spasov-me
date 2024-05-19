@@ -8,8 +8,7 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
-import styles from "../_about.module.scss";
-import cardStyles from "../common/Card/_about-card.module.scss";
+import cardStyles from "@/app/(styles)/card-info.module.scss";
 
 interface Props {
 	entries: AboutEntryData[] | null;
@@ -37,7 +36,7 @@ const Resume: React.FC<Props> = ({ entries, className, type }) => {
 	return (
 		entry &&
 		descriptionArr && (
-			<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
+			<div className={className} id={toggle_target_id}>
 				<SectionHeader className="pop-header" title={section_title}>
 					<ToggleCollapsible
 						target_id={toggle_target_id}
@@ -48,13 +47,15 @@ const Resume: React.FC<Props> = ({ entries, className, type }) => {
 
 				<div className={`section_resume-public-text ${cardStyles.card}`}>
 					<div className={`${cardStyles.description} md-processed-to-html`}>
-						{descriptionArr.map((description, index) => (
-							<div
-								dangerouslySetInnerHTML={{ __html: description }}
-								key={index}
-								className={index === 0 ? "section-card-static" : "mt-4 section-card-collapsible"}
-							/>
-						))}
+						<div className="prose max-w-none">
+							{descriptionArr.map((description, index) => (
+								<div
+									dangerouslySetInnerHTML={{ __html: description }}
+									key={index}
+									className={index === 0 ? "section-card-static" : "mt-4 section-card-collapsible"}
+								/>
+							))}
+						</div>
 					</div>
 				</div>
 			</div>

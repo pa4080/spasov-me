@@ -5,9 +5,10 @@ import TooltipWrapper from "@/components/fragments/TooltipWrapper";
 import { ProjectData } from "@/interfaces/Project";
 import { msgs } from "@/messages";
 
-import UpdateProject from "../../admin/Actions/Update";
-import DisplayResourceUrlAsIcon from "../DisplayResourceUrlAsIcon";
-import styles from "./_project-links.module.scss";
+import { cn } from "@/lib/cn-utils";
+
+import UpdateProject from "../admin/Actions/Update";
+import DisplayResourceUrlAsIcon from "./DisplayResourceUrlAsIcon";
 
 interface Props {
 	project: ProjectData;
@@ -25,12 +26,16 @@ const ProjectLinks: React.FC<Props> = ({ project }) => {
 			? [project?.html?.attachment.metadata.html].concat(gallery)
 			: gallery;
 
+	const iconWrapper =
+		"fill-foreground-tertiary hover:fill-ring-secondary flex items-center justify-center h-full";
+
 	return (
-		<div className={styles.projectLinks}>
-			<div className={styles.iconWrapper}>
+		<div className="pt-1 m-0 flex gap-2 transition-all duration-300 items-center justify-start max-h-7">
+			<div className={iconWrapper}>
 				<DisplayResourceUrlAsIcon size={23} type="home" url={project.urlHome} />
 			</div>
-			<div className={styles.iconWrapper}>
+
+			<div className={iconWrapper}>
 				<TooltipWrapper
 					className="w-full h-full flex items-center fill-inherit"
 					tooltipText={t("tooltip_gallery")}
@@ -53,11 +58,16 @@ const ProjectLinks: React.FC<Props> = ({ project }) => {
 					/>
 				</TooltipWrapper>
 			</div>
-			<div className={styles.iconWrapper}>
+
+			<div className={iconWrapper}>
 				<DisplayResourceUrlAsIcon size={28} type="repo" url={project.urlRepo} />
 			</div>
+
 			<div
-				className={`${styles.iconWrapper} overflow-hidden rounded-[3px] bg-foreground-secondary hover:bg-ring-secondary -ml-1`}
+				className={cn(
+					iconWrapper,
+					"overflow-hidden rounded-[3px] bg-foreground-tertiary hover:bg-ring-secondary -ml-1"
+				)}
 			>
 				<TooltipWrapper
 					className="w-full h-full flex items-center fill-inherit"
@@ -67,7 +77,7 @@ const ProjectLinks: React.FC<Props> = ({ project }) => {
 						className="h-6 w-6 flex items-center justify-center"
 						dialogTrigger_buttonIconProps={{
 							className:
-								"p-0 bg-transparent hover:bg-transparent m-0 mt-0.5  fill-inherit grayscale-0",
+								"p-0 bg-transparent hover:bg-transparent m-0 mt-0.5 fill-inherit grayscale-0",
 							widthOffset: 0,
 							heightOffset: 0,
 							width: 15,
@@ -76,7 +86,7 @@ const ProjectLinks: React.FC<Props> = ({ project }) => {
 								className_Path1: "fill-card/60",
 								className_Path2: "fill-card ",
 								viewBoxHeight: 512,
-								viewBoxWidth: 400,
+								viewBoxWidth: 380,
 							},
 						}}
 						project={project}

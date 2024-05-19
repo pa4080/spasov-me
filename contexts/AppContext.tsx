@@ -4,6 +4,7 @@ import React, {
 	Dispatch,
 	SetStateAction,
 	createContext,
+	useCallback,
 	useContext,
 	useEffect,
 	useState,
@@ -39,6 +40,8 @@ interface AppContextProps {
 	setTags: Dispatch<SetStateAction<TagData[]>>;
 	projects: ProjectData[];
 	setProjects: Dispatch<SetStateAction<ProjectData[]>>;
+	setFilesData: () => Promise<void>;
+	setEntriesData: () => Promise<void>;
 }
 
 const AppContext = createContext<AppContextProps>({} as AppContextProps);
@@ -58,17 +61,45 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 
 	const { data: session } = useSession();
 
+	const setFilesData = useCallback(async () => {
+		const data = await Promise.all([
+			getFilesR2({ hyphen: true, public: true }),
+			getFileList(),
+		]).then(([files, fileList]) => ({
+			files: files ?? [],
+			fileList: fileList ?? [],
+		}));
+
+		setFiles(data.files);
+		setFileList(data.fileList);
+	}, []);
+
+	const setEntriesData = useCallback(async () => {
+		const data = await Promise.all([
+			getEntries({ hyphen: true, public: true }),
+			getPageCards({ hyphen: true, public: true }),
+			getTags({ hyphen: true, public: true }),
+			getProjects({ hyphen: true, public: true }),
+		]).then(([aboutEntries, pages, tags, projects]) => ({
+			aboutEntries: aboutEntries ?? [],
+			pages: pages ?? [],
+			tags: tags ?? [],
+			projects: projects ?? [],
+		}));
+
+		setAboutEntries(data.aboutEntries);
+		setPages(data.pages);
+		setTags(data.tags);
+		setProjects(data.projects);
+	}, []);
+
 	useEffect(() => {
 		(async () => {
 			setAuthProviders(await getProviders());
-
-			setAboutEntries((await getEntries({ hyphen: true, public: true })) ?? []);
-			setFiles((await getFilesR2({ hyphen: true, public: true })) ?? []);
-			setFileList((await getFileList()) ?? []);
-			setPages((await getPageCards({ hyphen: true, public: true })) ?? []);
-			setTags((await getTags({ hyphen: true, public: true })) ?? []);
-			setProjects((await getProjects({ hyphen: true, public: true })) ?? []);
 		})();
+
+		setFilesData();
+		setEntriesData();
 
 		return () => {};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -91,6 +122,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 				setTags,
 				projects,
 				setProjects,
+				setFilesData,
+				setEntriesData,
 			}}
 		>
 			{children}

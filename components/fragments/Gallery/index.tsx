@@ -17,6 +17,8 @@ import { ProjectData } from "@/interfaces/Project";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
+import { useAppContext } from "@/contexts/AppContext";
+
 import { IconEmbSvgPathType } from "../IconEmbedSvg";
 import Loading from "../Loading";
 // import GalleryCarousel from "./GalleryCarousel";
@@ -36,7 +38,12 @@ interface Props {
 const Gallery: React.FC<Props> = ({ className, entry, gallery, dialogTrigger_buttonIconProps }) => {
 	const t = msgs("Gallery");
 
+	const { session } = useAppContext();
 	const [isOpen, setIsOpen] = useState(false);
+
+	if (!gallery?.length && !session) {
+		return null;
+	}
 
 	const buttonIconPropsFinal = {
 		className: "px-0.5 bg-transparent icon_accent_secondary",
@@ -56,7 +63,7 @@ const Gallery: React.FC<Props> = ({ className, entry, gallery, dialogTrigger_but
 			<DialogContent
 				hideClose
 				className={cn(
-					"sm:max-w-full sm:max-h-full sm:rounded-none sa:max-w-lg h-full sa:max-h-[calc((var(--vh,1vh)_*_90))] sa:rounded-lg min-w-[320px] sa:min-w-[calc(100vw-6rem)] min-h-[calc(100vh-4rem)] flex flex-col justify-normal gap-0 bg-background sa:border-border overflow-x-scroll 6xs:overflow-x-hidden",
+					"sm:max-w-full sa:max-w-lg md:!max-w-fit sm:max-h-full sm:rounded-none h-full sa:max-h-[calc((var(--vh,1vh)_*_90))] sa:rounded-lg min-w-[320px] sa:min-w-[calc(100vw-6rem)] min-h-[calc(100vh-4rem)] flex flex-col justify-normal gap-0 bg-background sa:border-border overflow-x-scroll 6xs:overflow-x-hidden",
 					className
 				)}
 				closeOnOverlayClick={false}

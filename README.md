@@ -10,7 +10,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- [ ] Process AttachedTo files in a different way
+- [ ] **Search by content and filter by tag**
+
+- [x] Process AttachedTo files in a different way
 
 - [x] Projects Admin? > Form design
 - [x] Projects public
@@ -24,9 +26,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [ ] Blog feed public
 - [ ] Blog post public
 
-- [ ] **Search by content and filter by tag**
-
 - [ ] Gallery: display .PDF, .XLS, .XLSX, .DOC, .DOCX, .PPTX, .PPT
+
+- About page finish:
+  - [ ] Section for IT Certificates?? --> This goes in to the gallery for "Career Break and Retraining"
+  - [ ] Action Buttons (+logged-in) for About entries on public
+  - [ ] Gallery for About Entries
 
 ## Next.js features to learn
 

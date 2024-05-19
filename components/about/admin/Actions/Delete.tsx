@@ -18,6 +18,7 @@ import {
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
+import { useAppContext } from "@/contexts/AppContext";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
@@ -33,9 +34,14 @@ const DeleteAboutEntry: React.FC<Props> = ({ className, entry }) => {
 		msgs("AboutEntries_Form")("aboutEntry_type_list") as unknown as Record<string, string>
 	)[entry.entryType];
 
+	const { session } = useAppContext();
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
+
+	if (!session) {
+		return null;
+	}
 
 	const handleDeleteEntry = async () => {
 		setSubmitting(true);

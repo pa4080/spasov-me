@@ -16,7 +16,8 @@ type ViewportPosition =
 	| "-right-8"
 	| "-right-10"
 	| "-right-12"
-	| "-right-16";
+	| "-right-16"
+	| "-right-20";
 
 const NavigationMenu = React.forwardRef<
 	React.ElementRef<typeof NavigationMenuPrimitive.Root>,

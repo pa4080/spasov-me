@@ -6,8 +6,6 @@ import { AboutEntryType } from "@/interfaces/_common-data-types";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
-import styles from "../_about.module.scss";
-
 interface Props {
 	className?: string;
 	type: AboutEntryType;
@@ -59,7 +57,7 @@ const SpokenLanguages: React.FC<Props> = ({ className, type, entries }) => {
 	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_${type}`);
 
 	return (
-		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
+		<div className={className} id={toggle_target_id}>
 			<SectionHeader className="pop-header" title={section_title} />
 
 			<div className="space-y-4">

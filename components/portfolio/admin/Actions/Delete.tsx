@@ -21,6 +21,8 @@ import { ProjectData } from "@/interfaces/Project";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import { useAppContext } from "@/contexts/AppContext";
+
 import { deleteProject } from "../../_portfolio.actions";
 
 export interface Props {
@@ -30,13 +32,18 @@ export interface Props {
 
 const DeleteProject: React.FC<Props> = ({ className, project }) => {
 	const t = msgs("Projects_Delete");
-	const projectTypeLabel = (
+	const entryTypeLabel = (
 		msgs("Projects_Form")("project_type_list") as unknown as Record<string, string>
-	)[project.projectType];
+	)[project.entryType];
 
+	const { session } = useAppContext();
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
+
+	if (!session) {
+		return null;
+	}
 
 	const handleDeleteProject = async () => {
 		setSubmitting(true);
@@ -78,7 +85,7 @@ const DeleteProject: React.FC<Props> = ({ className, project }) => {
 				<AlertDialogContent>
 					<AlertDialogHeader>
 						<AlertDialogTitle className="text-ring-secondary">
-							{t("dialog_title", { projectType: projectTypeLabel })}
+							{t("dialog_title", { entryType: entryTypeLabel })}
 						</AlertDialogTitle>
 						{t("dialog_description") && (
 							<AlertDialogDescription

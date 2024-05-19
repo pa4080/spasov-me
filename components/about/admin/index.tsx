@@ -3,8 +3,9 @@ import React from "react";
 import { getFileList } from "@/components/files-cloudflare/_files.actions";
 import { getTags } from "@/components/tags/_tags.actions";
 
+import { cn } from "@/lib/cn-utils";
+
 import { getEntries } from "../_about.actions";
-import styles from "../_about.module.scss";
 import TimeLine from "./TimeLine";
 
 interface Props {
@@ -17,7 +18,7 @@ const AboutAdmin: React.FC<Props> = async ({ className }) => {
 	const fileList = await getFileList();
 
 	return (
-		<div className={`${styles.about} ${className}`}>
+		<div className={cn("space-y-20 scroll-m-8", className)}>
 			<TimeLine
 				entries={entries}
 				files={fileList}

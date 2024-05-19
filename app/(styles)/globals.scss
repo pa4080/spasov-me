@@ -78,8 +78,8 @@
 	.dark {
 		--background: 0 0% 20%;
 		--foreground: 0 0% 85%;
-		--foreground-secondary: 0 0% 65%;
-		--foreground-tertiary: 0 0% 55%;
+		--foreground-secondary: 0 0% 75%;
+		--foreground-tertiary: 0 0% 65%;
 		--foreground-quaternary: 0 0% 45%;
 
 		--primary: 0 0% 24%;
@@ -316,7 +316,7 @@ main {
 }
 
 .margin_vh_bottom {
-	margin-bottom: vh(7);
+	margin-bottom: vh(5);
 }
 
 /* Switch IconEmbedSvg colors */
@@ -411,9 +411,13 @@ body textarea.w-md-editor-text-input:focus {
 	font-variation-settings: unset !important;
 }
 
-/* Markdown Processed to HTML */
+/**
+ * Markdown Processed to HTML
+ * Note: The content of div.md-processed-to-html is wrapped with div.prose
+ *       .prose is a Tailwind CSS class, see -- tailwind.config.ts
+ */
 .md-processed-to-html {
-	@apply text-foreground-secondary hyphens-auto xa:text-justify sa:text-[1.06rem] sa:leading-[1.5em];
+	@apply text-foreground-secondary hyphens-auto xa:text-justify sa:text-[1.05rem] sa:leading-[1.75em] tracking-wide;
 
 	a,
 	a:visited {
@@ -567,39 +571,34 @@ body textarea.w-md-editor-text-input:focus {
 		}
 	}
 
+	&:target,
 	&.expand-collapsed-current {
 		&::before {
 			outline: 4px solid theme("colors.primary.DEFAULT/60%");
 		}
 	}
 
-	.card-single-item {
-		@apply mt-1;
-	}
-
+	.card-item-single,
 	.card-item-static {
-		@apply line-clamp-3 mt-1;
+		@apply line-clamp-3;
 
 		transition: margin-top 0.2s ease-out 0.05s;
 
-		&.admin-projects-card {
-			@apply -mt-3;
-		}
-
 		> p {
-			@apply mb-0;
+			@apply mb-0 mt-[0.375rem];
 
 			transition: margin-top 0.2s ease-out 0.05s;
 		}
 	}
 
+	&.expand-collapsed .card-item-single,
 	&.expand-collapsed .card-item-static {
-		@apply mt-4 line-clamp-none;
+		@apply line-clamp-none mt-0;
 
 		transition: margin-top 0.05s ease-in;
 
 		> p {
-			@apply mb-4;
+			@apply mt-[revert] mb-[revert];
 
 			transition: margin-top 0.05s ease-in;
 		}
@@ -613,10 +612,6 @@ body textarea.w-md-editor-text-input:focus {
 		> :global(.about-entry-tags) {
 			@apply mt-4;
 		}
-	}
-
-	.card-item-static + .card-item-collapsible {
-		@apply mt-4;
 	}
 
 	&.expand-collapsed .card-item-collapsible {

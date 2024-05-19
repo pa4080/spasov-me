@@ -5,6 +5,7 @@ import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { enUS as en } from "date-fns/locale";
 
+import styles from "@/app/(styles)/card-info.module.scss";
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 import FileAddressHandle from "@/components/fragments/FileAddressHandle";
@@ -18,16 +19,16 @@ import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
-import DeleteAboutEntry from "../../admin/Actions/Delete";
-import UpdateAboutEntry from "../../admin/Actions/Update";
-import styles from "./_about-card.module.scss";
+import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
+
+import DeleteAboutEntry from "../admin/Actions/Delete";
+import UpdateAboutEntry from "../admin/Actions/Update";
 
 interface Props {
-	className?: string;
 	entry: AboutEntryData;
+	className?: string;
 	files?: FileListItem[] | null | undefined;
 	tags?: TagData[] | null | undefined;
-	displayActions?: boolean;
 	displayTagsInline?: boolean;
 	displayGalleryInline?: boolean;
 }
@@ -37,7 +38,6 @@ const AboutEntryCard: React.FC<Props> = ({
 	className,
 	files,
 	tags,
-	displayActions = false,
 	displayTagsInline = true,
 	displayGalleryInline = false,
 }) => {
@@ -103,45 +103,41 @@ const AboutEntryCard: React.FC<Props> = ({
 					</div>
 				</div>
 				<div className={styles.header}>
-					<div
-						className={`${styles.buttons} ${displayActions ? "w-44" : haveGallery ? "w-16" : "w-8"}`}
-					>
+					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							{displayActions ? (
-								<>
-									<DeleteAboutEntry entry={entry} />
-									<FileAddressHandle address={attachmentAddress} />
-									<Gallery entry={entry} gallery={gallery} />
-									<UpdateAboutEntry entry={entry} files={files} tags={tags} />
-								</>
-							) : (
-								<>{haveGallery && <Gallery entry={entry} gallery={gallery} />}</>
-							)}
+							<DeleteAboutEntry entry={entry} />
+							<VisibilitySwitchDisplay disabled checked={entry.visibility} className="mt-0.5" />
+							<FileAddressHandle address={attachmentAddress} />
+							<Gallery entry={entry} gallery={gallery} />
+							<UpdateAboutEntry entry={entry} files={files} tags={tags} />
+
 							<ToggleCollapsible
 								tooltip
 								className="icon_accent_primary"
 								target_id={toggle_target_id}
 								text={[tCommon("btnMore"), tCommon("btnLess")]}
-								type={descriptionArr[1] ? "card" : "card-single-item"}
+								type={descriptionArr[1] ? "card" : "card-item-single"}
 							/>
 						</div>
 					</div>
 					<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />
 				</div>
 				<div className={`${styles.description} md-processed-to-html`}>
-					{descriptionArr.map((description, index, arr) => (
-						<div
-							dangerouslySetInnerHTML={{ __html: description }}
-							key={index}
-							className={
-								index === 0
-									? arr.length > 1
-										? "card-item-static"
-										: "card-single-item"
-									: "card-item-collapsible"
-							}
-						/>
-					))}
+					<div className="prose max-w-none">
+						{descriptionArr.map((description, index, arr) => (
+							<div
+								dangerouslySetInnerHTML={{ __html: description }}
+								key={index}
+								className={
+									index === 0
+										? arr.length > 1
+											? "card-item-static"
+											: "card-item-single"
+										: "card-item-collapsible"
+								}
+							/>
+						))}
+					</div>
 
 					{displayTagsInline && (
 						<div className="card-item-collapsible">

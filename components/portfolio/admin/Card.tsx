@@ -22,17 +22,19 @@ import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
 import { Route } from "@/routes";
 
-import DisplayResourceUrlAsIcon from "../../common/DisplayResourceUrlAsIcon";
-import DeleteProject from "../Actions/Delete";
-import UpdateProject from "../Actions/Update";
-import styles from "./_card.module.scss";
+import styles from "@/app/(styles)/card-info.module.scss";
+
+import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
+
+import DisplayResourceUrlAsIcon from "../common/DisplayResourceUrlAsIcon";
+import DeleteProject from "./Actions/Delete";
+import UpdateProject from "./Actions/Update";
 
 interface Props {
 	className?: string;
 	project: ProjectData;
 	files?: FileListItem[] | null | undefined;
 	tags?: TagData[] | null | undefined;
-	displayActions?: boolean;
 	displayTagsInline?: boolean;
 	displayGalleryInline?: boolean;
 }
@@ -42,7 +44,6 @@ const ProjectAdminCard: React.FC<Props> = ({
 	className,
 	files,
 	tags,
-	displayActions = true,
 	displayTagsInline = true,
 	displayGalleryInline = true,
 }) => {
@@ -66,10 +67,10 @@ const ProjectAdminCard: React.FC<Props> = ({
 			? [project?.html?.attachment.metadata.html].concat(gallery)
 			: gallery;
 
-	gallery =
-		project?.html?.icon && gallery ? [project?.html?.icon.metadata.html].concat(gallery) : gallery;
-
-	const haveGallery = gallery && gallery.length > 0;
+	// This is disabled because the "icon" usually is SVG with a transparent background
+	// and looks ugly within the container which have the site logo oas background
+	// gallery =
+	// 	project?.html?.icon && gallery ? [project?.html?.icon.metadata.html].concat(gallery) : gallery;
 
 	return (
 		<div className={`card-border-wrapper ${className}`} id={toggle_target_id}>
@@ -115,32 +116,26 @@ const ProjectAdminCard: React.FC<Props> = ({
 					</div>
 				</div>
 				<div className={styles.header}>
-					<div
-						className={`${styles.buttons} ${displayActions ? "w-44" : haveGallery ? "w-16" : "w-8"}`}
-					>
+					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							{displayActions ? (
-								<>
-									<DeleteProject project={project} />
-									<FileAddressHandle
-										address={
-											project.html.attachment?.metadata?.html?.fileUri ||
-											project.html.attachment?.metadata?.html?.fileUrl ||
-											""
-										}
-									/>
-									<Gallery entry={project} gallery={gallery} />
-									<UpdateProject files={files} project={project} tags={tags} />
-								</>
-							) : (
-								<>{haveGallery && <Gallery entry={project} gallery={gallery} />}</>
-							)}
+							<DeleteProject project={project} />
+							<VisibilitySwitchDisplay disabled checked={project.visibility} className="mt-0.5" />
+							<FileAddressHandle
+								address={
+									project.html.attachment?.metadata?.html?.fileUri ||
+									project.html.attachment?.metadata?.html?.fileUrl ||
+									""
+								}
+							/>
+							<Gallery entry={project} gallery={gallery} />
+							<UpdateProject files={files} project={project} tags={tags} />
+
 							<ToggleCollapsible
 								tooltip
 								className="icon_accent_primary"
 								target_id={toggle_target_id}
 								text={[tCommon("btnMore"), tCommon("btnLess")]}
-								type={descriptionArr[1] ? "card" : "card-single-item"}
+								type={descriptionArr[1] ? "card" : "card-item-single"}
 							/>
 						</div>
 					</div>
@@ -156,7 +151,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 									index === 0
 										? arr.length > 1
 											? "card-item-static font-semibold admin-projects-card"
-											: "card-single-item font-semibold"
+											: "card-item-single font-semibold"
 										: "card-item-collapsible"
 								}
 							/>

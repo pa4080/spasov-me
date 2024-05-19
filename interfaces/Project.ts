@@ -14,7 +14,7 @@ export interface ProjectDoc {
 	slug: string;
 	urlHome: string;
 	urlRepo: string;
-	projectType: ProjectType;
+	entryType: ProjectType;
 	dateFrom: Date | string;
 	dateTo: Date | string | undefined;
 	visibility: boolean | string;

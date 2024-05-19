@@ -33,7 +33,7 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
 		<div className="flex flex-row">
 			<NavigationMenu
 				className={`${styles.loggedInMenu} ${className}`}
-				viewportPosition="-right-16"
+				viewportPosition="-right-20"
 			>
 				<NavigationMenuList>
 					<NavigationMenuItem>
@@ -82,7 +82,7 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
 				</NavigationMenuList>
 			</NavigationMenu>
 
-			<RevalidatePaths className="scale-75 -mr-3 ml-1" />
+			<RevalidatePaths className="scale-[85%] -mr-2 ml-1 " />
 		</div>
 	);
 };

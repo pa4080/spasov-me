@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 
 import slugify from "slugify";
 
-import CreateFile from "@/components/files-mongodb/admin/Actions/CreateFile";
+import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
 import Combobox from "@/components/fragments/Combobox";
 import DatePicker from "@/components/fragments/DatePicker";
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
@@ -39,7 +39,7 @@ import { Project_FormSchema, Project_FormSchemaGenerator } from "./schema";
 interface Props {
 	className?: string;
 	formData?: ProjectData;
-	projectType: ProjectType;
+	entryType: ProjectType;
 	onSubmit: (data: Project_FormSchema) => void;
 	submitting?: boolean;
 	files?: FileListItem[] | null;
@@ -48,7 +48,7 @@ interface Props {
 
 const ProjectForm: React.FC<Props> = ({
 	className,
-	projectType: entryType = projectTuple[0],
+	entryType: entryType = projectTuple[0],
 	formData,
 	onSubmit,
 	submitting,
@@ -82,7 +82,7 @@ const ProjectForm: React.FC<Props> = ({
 			urlRepo: "",
 			dateFrom: undefined,
 			dateTo: undefined,
-			projectType: entryType,
+			entryType: entryType,
 			visibility: true,
 			attachment: undefined,
 			icon: undefined,
@@ -282,7 +282,7 @@ const ProjectForm: React.FC<Props> = ({
 							<SelectFromList
 								className="flex-1"
 								control={form.control}
-								error={form.formState.errors.projectType}
+								error={form.formState.errors.entryType}
 								itemsList={projectTuple.map((item) => ({
 									value: item,
 									label: (t("project_type_list") as unknown as Record<string, string>)[item],
@@ -292,7 +292,7 @@ const ProjectForm: React.FC<Props> = ({
 									description: t("type_description"),
 									placeholder: t("type_placeholder"),
 								}}
-								name="projectType"
+								name="entryType"
 							/>
 						</div>
 
@@ -445,6 +445,7 @@ const ProjectForm: React.FC<Props> = ({
 					{/* Gallery - full grid */}
 					<MultiSelectFromList
 						Icon={Paperclip}
+						autoClearInput={false}
 						className="w-full ma:col-span-7"
 						control={form.control}
 						displayType="gallery_image"

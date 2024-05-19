@@ -24,9 +24,10 @@ import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import { useAppContext } from "@/contexts/AppContext";
+
 import { Entry_FormSchema } from "../Form/schema";
 
-// import AboutEntryForm from "../Form";
 const AboutEntryForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
 
 interface Props {
@@ -42,9 +43,14 @@ const UpdateAboutEntry: React.FC<Props> = ({ className, entry, files, tags }) =>
 		msgs("AboutEntries_Form")("aboutEntry_type_list") as unknown as Record<string, string>
 	)[entry.entryType];
 
+	const { session } = useAppContext();
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
+
+	if (!tags || !session) {
+		return null;
+	}
 
 	const handleUpdateEntry = async (data: Entry_FormSchema) => {
 		setSubmitting(true);
@@ -75,10 +81,6 @@ const UpdateAboutEntry: React.FC<Props> = ({ className, entry, files, tags }) =>
 			setIsOpen(false);
 		}
 	};
-
-	if (!tags) {
-		return null;
-	}
 
 	return (
 		<div className={className}>

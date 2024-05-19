@@ -3,8 +3,9 @@
 import React from "react";
 
 import { useAppContext } from "@/contexts/AppContext";
-
 import { useClearHyphens } from "@/hooks/useClearHyphens";
+
+import { useScrollToAboutEntry } from "@/hooks/useScrollToEntry";
 
 import LogIn_Button from "./UserMenu_LogIn_Button";
 import LoggedIn_Menu from "./UserMenu_LoggedIn_Menu";
@@ -18,6 +19,7 @@ const UserMenu: React.FC<Props> = ({ className }) => {
 	const { authProviders, session } = useAppContext();
 
 	useClearHyphens();
+	useScrollToAboutEntry();
 
 	return (
 		<div className={`${styles.userMenu} ${className}`}>
