@@ -36,6 +36,8 @@ import {
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
+
 import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
 
 interface Props {
@@ -382,9 +384,12 @@ const AboutEntryForm: React.FC<Props> = ({
 				</div>
 
 				{/* Submit button */}
-				<Button disabled={submitting} type="submit">
-					{submitting ? t("btn_submitting") : t("btn_submit")}
-				</Button>
+				<div className="flex gap-3 w-full justify-between items-center">
+					<Button disabled={submitting} type="submit">
+						{submitting ? t("btn_submitting") : t("btn_submit")}
+					</Button>
+					<CreateFile />
+				</div>
 			</form>
 		</Form>
 	);
