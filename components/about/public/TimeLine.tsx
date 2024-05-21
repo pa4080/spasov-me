@@ -8,6 +8,8 @@ import { AboutEntryType } from "@/interfaces/_common-data-types";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
+import { FileListItem } from "@/interfaces/File";
+
 import AboutEntryCard from "../common/Card";
 
 interface Props {
@@ -17,6 +19,7 @@ interface Props {
 	entries: AboutEntryData[] | null;
 	displayTags: boolean;
 	tags?: TagData[] | null | undefined;
+	files?: FileListItem[] | null;
 }
 
 /**
@@ -30,6 +33,7 @@ const TimeLine: React.FC<Props> = ({
 	entries,
 	displayTags,
 	tags,
+	files,
 }) => {
 	const t = msgs("AboutEntries");
 
@@ -58,6 +62,7 @@ const TimeLine: React.FC<Props> = ({
 						className={visibleItems > index ? "pop-item" : "section-card-collapsible pop-item"}
 						displayTagsInline={displayTags}
 						entry={entry}
+						files={files}
 						tags={tags}
 					/>
 				))}

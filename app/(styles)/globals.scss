@@ -520,6 +520,10 @@ body textarea.w-md-editor-text-input:focus {
 			animation-range-end: calc($footer-height * 1.6);
 		}
 
+		.section_resume-public-text .section-card-static > p:first-child {
+			margin-top: 0;
+		}
+
 		.pop-header {
 			animation: fade-in-pop-item ease-out forwards;
 			animation-timeline: view();
