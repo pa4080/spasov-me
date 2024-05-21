@@ -209,6 +209,19 @@ const iconsMap = {
 			ratio: 1.08,
 		},
 	},
+	"it_coolify-transparent": {
+		name: "it_coolify-transparent",
+		uri: {
+			light: "/assets/icons/it/coolify-transparent.svg",
+			dark: "/assets/icons/it/coolify-transparent.svg",
+		},
+		info: {
+			height: 500,
+			width: 500,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	it_css: {
 		name: "it_css",
 		uri: {

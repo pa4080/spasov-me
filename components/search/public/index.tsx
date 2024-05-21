@@ -138,6 +138,7 @@ const SearchPublic: React.FC<Props> = ({ className, tags, aboutEntries, projects
 							}}
 						/>
 					</div>
+
 					<div className="space-y-[0.625em]">
 						<Label className="text-lg flex gap-2 w-fit">
 							<span>{t("tags_label")}</span>

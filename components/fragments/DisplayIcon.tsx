@@ -14,6 +14,7 @@ interface Props {
 	icon: IconMap[string];
 	size?: number;
 	description?: string;
+	unoptimized?: boolean;
 	onClick?: () => void;
 }
 
@@ -23,6 +24,7 @@ const DisplayIcon: React.FC<Props> = ({
 	icon,
 	size = 30,
 	description,
+	unoptimized = true,
 	onClick,
 }) => {
 	const { theme } = useTheme();
@@ -46,6 +48,7 @@ const DisplayIcon: React.FC<Props> = ({
 					: icon?.uri?.light || "/assets/icons/placeholder.svg"
 			}
 			style={{ width, height, minWidth: height }}
+			unoptimized={unoptimized}
 			width={width}
 		/>
 	);
