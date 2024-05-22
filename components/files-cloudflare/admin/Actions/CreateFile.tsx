@@ -79,14 +79,16 @@ const CreateFile: React.FC<Props> = ({ className }) => {
 					closeOnOverlayClick={false}
 				>
 					<DialogHeader>
-						<DialogTitle>{t("dialog_title")}</DialogTitle>
-						{t("dialog_description") && (
-							<DialogDescription
-								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: "new id" }),
-								}}
-							/>
-						)}
+						<div className="flex flex-col gap-1">
+							<DialogTitle>{t("dialog_title")}</DialogTitle>
+							{t("dialog_description") && (
+								<DialogDescription
+									dangerouslySetInnerHTML={{
+										__html: t("dialog_description", { id: "new id" }),
+									}}
+								/>
+							)}
+						</div>
 					</DialogHeader>
 
 					<FileForm

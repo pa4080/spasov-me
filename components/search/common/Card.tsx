@@ -59,7 +59,8 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 		"transition-colors duration-300 border-primary border-4";
 
 	const RedirectIcon = () => (
-		<div className={`${classToggleIcon} group grayscale hover:grayscale-0`}>
+		<div className={`${classToggleIcon} group`}>
+			{/* className="group-hover:hidden grayscale" */}
 			<IconEmbedSvg className="group-hover:hidden" cursor="pointer" type="rocket" />
 			<IconEmbedSvg className="hidden group-hover:block" cursor="pointer" type="rocket-launch" />
 		</div>

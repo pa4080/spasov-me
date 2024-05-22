@@ -89,14 +89,16 @@ const UpdateTag: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 					closeOnOverlayClick={false}
 				>
 					<DialogHeader>
-						<DialogTitle>{t("dialog_title", { tagType: tagTypeLabel })}</DialogTitle>
-						{t("dialog_description") && (
-							<DialogDescription
-								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: tag._id }),
-								}}
-							/>
-						)}
+						<div className="flex flex-col gap-1">
+							<DialogTitle>{t("dialog_title", { tagType: tagTypeLabel })}</DialogTitle>
+							{t("dialog_description") && (
+								<DialogDescription
+									dangerouslySetInnerHTML={{
+										__html: t("dialog_description", { id: tag._id }),
+									}}
+								/>
+							)}
+						</div>
 					</DialogHeader>
 
 					<TagForm

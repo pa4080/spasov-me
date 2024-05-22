@@ -40,7 +40,7 @@ const PortfolioPublicProject: React.FC<Props> = async ({ className, project }) =
 			: gallery;
 
 	return (
-		<div className={cn("w-full pt-8 sa:pt-6 xl:pt-3 1xl:pt-1", className)}>
+		<div className={cn("w-full pt-8 sa:pt-6 lg:pt-1", className)}>
 			<GalleryCarousel
 				gallery={gallery}
 				navPosition="bottom"

@@ -82,7 +82,7 @@ const GalleryCarousel: React.FC<Props> = ({
 	return (
 		<Carousel
 			className={cn(
-				"flex-grow w-full flex flex-col items-center justify-center",
+				"flex-grow w-full flex flex-col items-center justify-center flex-grow",
 				navType === "default" && "drop-shadow-2xl",
 				className
 			)}
@@ -99,9 +99,11 @@ const GalleryCarousel: React.FC<Props> = ({
 		>
 			{navPosition === "top" && <Nav />}
 			<CarouselContent
-				className="w-full items-center h-full ml-0 sa:-ml-2"
+				className="w-full items-center ml-0 sa:-ml-2 flex-grow"
 				container_className={
-					navType === "inProject" ? "w-[1280px] max-w-[92vw] drop-shadow-2xl" : ""
+					navType === "inProject"
+						? "w-[1280px] max-w-[92vw] drop-shadow-2xl"
+						: "h-auto flex-grow flex"
 				}
 			>
 				{/* -ml-0.5 sa:-ml-4 */}
@@ -109,36 +111,38 @@ const GalleryCarousel: React.FC<Props> = ({
 					return (
 						<CarouselItem
 							key={index}
-							className="w-full h-auto flex items-center justify-center pl-0.5 sa:pl-4 select-none max-h-[74vh]"
+							className="w-full flex items-center justify-center pl-0.5 sa:pl-4 select-none"
 						>
-							<div className="relative w-full pb-[56.25%]">
-								<div
-									className="absolute left-0 top-0 right-0 bottom-0 flex items-center justify-center"
-									style={{
-										backgroundImage: `url(${Route.assets.LOGO_SVG})`,
-										backgroundRepeat: "no-repeat",
-										backgroundPosition: "center",
-										backgroundSize: "30%",
-									}}
-								>
-									<DisplayFileImage
-										className="rounded-md w-auto mx-auto max-h-[74vh] h-auto"
-										file={
-											{
-												filename: item.filename,
-												metadata: {
-													html: item,
-												},
-											} as FileData
-										}
-										sizes={[
-											"360px",
-											"(max-width: 520px) 480px, (max-width: 640px) 560px, (max-width: 720px) 640px, (max-width: 920px) 820px, (max-width: 1024px) 940px, 1280px",
-										]}
-										// sizes={["360px", "1920px"]}
-									/>
-								</div>
+							{/* <div className="relative w-full pb-[56.25%] h-0"> */}
+							<div
+								// className="absolute left-0 top-0 right-0 bottom-0 flex items-center justify-center"
+								className="w-full h-full"
+								style={{
+									backgroundImage: `url(${Route.assets.LOGO_SVG})`,
+									backgroundRepeat: "no-repeat",
+									backgroundPosition: "center",
+									backgroundSize: "40vh",
+									height: "100%",
+								}}
+							>
+								<DisplayFileImage
+									className="rounded-md w-auto mx-auto h-auto max-h-[74vh]"
+									file={
+										{
+											filename: item.filename,
+											metadata: {
+												html: item,
+											},
+										} as FileData
+									}
+									sizes={[
+										"360px",
+										"(max-width: 520px) 480px, (max-width: 640px) 560px, (max-width: 720px) 640px, (max-width: 920px) 820px, (max-width: 1024px) 940px, 1280px",
+									]}
+									// sizes={["360px", "1920px"]}
+								/>
 							</div>
+							{/* </div> */}
 						</CarouselItem>
 					);
 				})}
