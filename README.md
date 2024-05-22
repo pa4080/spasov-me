@@ -35,6 +35,29 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] Action Buttons (+logged-in) for About entries on public
   - [ ] Gallery for About Entries
 
+## Vercel CLI
+
+Link the project to Vercel for local development
+
+```bash
+npx vercel link
+npx vercel env pull
+```
+
+Get the environment variables from Vercel, while the project is not linked to it.
+
+- <https://vercel.com/docs/cli/global-options#token>
+- <https://vercel.com/account/tokens>
+
+```bash
+export VERCEL_ENV_PULL_TOKEN=m1t...
+export VERCEL_ORG_ID=team_...
+export VERCEL_PROJECT_ID=prj_...
+
+npx --yes -- vercel env pull --environment=production --yes --token $VERCEL_ENV_PULL_TOKEN .env.local
+pnpm dlx vercel env pull --environment=production --yes --token $VERCEL_ENV_PULL_TOKEN .env.local
+```
+
 ## Next.js features to learn
 
 - `{ unstable_noStore } from next/cache` - <https://youtu.be/RBM03RihZVs?si=TrzTyxvnXPqB0sLy&t=733>
@@ -94,10 +117,3 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 [**_How do I use a Cloudflare domain with Vercel?_**](https://vercel.com/guides/using-cloudflare-with-vercel)
-
-## Vercel CLI
-
-```bash
-npx vercel link
-npx vercel env pull
-```

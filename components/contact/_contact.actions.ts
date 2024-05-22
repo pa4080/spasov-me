@@ -10,10 +10,10 @@ import EmailTemplate_Admin from "./Templates/EmailTemplate_Admin";
 import EmailTemplate_Client from "./Templates/EmailTemplate_Client";
 
 const reCaptcha = {
-	url: String(process.env.GOOGLE_reCAPTCHA_URL),
-	secretKey: String(process.env.GOOGLE_reCAPTCHA_V3e_SECRET_KEY),
-	siteKey: String(process.env.NEXT_PUBLIC_GOOGLE_reCAPTCHA_V3e_SITE_KEY),
-	scoreLimit: Number(process.env.GOOGLE_reCAPTCHA_SCORE_LIMIT),
+	url: String(process.env.GOOGLE_RECAPTCHA_URL),
+	secretKey: String(process.env.GOOGLE_RECAPTCHA_V3E_SECRET_KEY),
+	siteKey: String(process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_V3E_SITE_KEY),
+	scoreLimit: Number(process.env.GOOGLE_RECAPTCHA_SCORE_LIMIT),
 };
 
 export type ReCaptchaRes = {
