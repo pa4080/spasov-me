@@ -469,7 +469,7 @@
 		"counter": "Slide { current } of { count }"
 	},
 	"TechTags": {
-		"title": "Technologies"
+		"title": "Technology Tags"
 	},
 	"Projects_Form": {
 		"schema_title": "The project title must be at least 4 characters.",
@@ -600,7 +600,7 @@
 		"title": "Search the site",
 		"input_placeholder": "Word or phrase...",
 		"input_label": "Search",
-		"tags_label": "Filter by a tag",
+		"tags_label": "Filter by a technology tag",
 		"item_link": "Link to the search item",
 		"loading": "Loading...",
 		"noResults": "No results",
