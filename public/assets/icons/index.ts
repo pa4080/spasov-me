@@ -1210,6 +1210,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	it_resend: {
+		name: "it_resend",
+		uri: {
+			light: "/assets/icons/it/resend.png",
+			dark: "/assets/icons/it/resend.png",
+		},
+		info: {
+			height: 60,
+			width: 60,
+			type: "png",
+			ratio: 1,
+		},
+	},
 	it_sass: {
 		name: "it_sass",
 		uri: {

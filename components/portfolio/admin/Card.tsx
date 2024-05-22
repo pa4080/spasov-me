@@ -179,24 +179,26 @@ const ProjectAdminCard: React.FC<Props> = ({
 					{displayGalleryInline && gallery && gallery.length > 0 && (
 						<div className="card-item-collapsible--disabled">
 							<div className="flex gap-2 flex-wrap p-0 mt-4">
-								{gallery.map((image, index) => (
-									<DisplayFileImage
-										key={index}
-										className={`w-8 h-8 rounded-sm`}
-										description={image.filename}
-										file={
-											{
-												filename: image.filename,
-												metadata: {
-													html: {
-														fileUri: image?.fileUri || image?.fileUrl,
+								{[project?.html?.icon && project?.html?.icon?.metadata?.html, ...gallery].map(
+									(image, index) => (
+										<DisplayFileImage
+											key={index}
+											className={`w-8 h-8 rounded-sm`}
+											description={image?.filename}
+											file={
+												{
+													filename: image?.filename,
+													metadata: {
+														html: {
+															fileUri: image?.fileUri || image?.fileUrl,
+														},
 													},
-												},
-											} as FileData
-										}
-										sizes={["32px", "32px"]}
-									/>
-								))}
+												} as FileData
+											}
+											sizes={["32px", "32px"]}
+										/>
+									)
+								)}
 							</div>
 						</div>
 					)}
