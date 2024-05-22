@@ -17,7 +17,7 @@ const RecaptchaContextProvider: React.FC<Props> = ({ children }) => {
 					theme: "dark",
 				},
 			}}
-			reCaptchaKey={String(process.env.NEXT_PUBLIC_GOOGLE_reCAPTCHA_V3e_SITE_KEY)}
+			reCaptchaKey={String(process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_V3E_SITE_KEY)}
 			scriptProps={{
 				async: true,
 				defer: false,

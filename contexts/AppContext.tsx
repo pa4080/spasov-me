@@ -98,12 +98,15 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 			setAuthProviders(await getProviders());
 		})();
 
-		setFilesData();
-		setEntriesData();
-
 		return () => {};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	useEffect(() => {
+		if (session) {
+			setFilesData();
+			setEntriesData();
+		}
+	}, [session, setEntriesData, setFilesData]);
 
 	return (
 		<AppContext.Provider

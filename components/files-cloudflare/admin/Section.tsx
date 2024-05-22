@@ -84,7 +84,7 @@ const Section: React.FC<Props> = ({
 					.sort()
 					.map((attachedToDocument, index) => (
 						<div
-							key={index}
+							key={attachedToDocument}
 							className={`${styles.feed} scroll-m-8 mt-12 list-sub-section ${sortByAttachedToVisibleItems > index ? "" : "sub-section-collapsible"}`}
 							id={`${toggle_target_id}_${index}`}
 						>
@@ -102,10 +102,16 @@ const Section: React.FC<Props> = ({
 							</div>
 
 							{attachedToDocuments[attachedToDocument]
-								?.sort((b, a) => a.uploadDate.getTime() - b.uploadDate.getTime())
+								?.sort((file_b, file_a) =>
+									type === "common"
+										? file_a.uploadDate.getTime() - file_b.uploadDate.getTime()
+										: file_a._id.match(/logo/)
+											? 1
+											: file_a._id.localeCompare(file_b._id)
+								)
 								?.map((file, index) => (
 									<FileCard
-										key={index}
+										key={file._id}
 										className={visibleItems > index ? "" : "section-card-collapsible"}
 										file={file}
 										section_id={`${toggle_target_id}_${type}_${attachedToDocument.replace(/ /g, "_")}`}

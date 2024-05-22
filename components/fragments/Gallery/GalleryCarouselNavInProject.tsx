@@ -115,7 +115,7 @@ const GalleryCarouselNavInProject: React.FC<Props> = ({
 						<TooltipProvider>
 							<Tooltip>
 								<TooltipTrigger className="w-full">
-									<p
+									<div
 										dangerouslySetInnerHTML={{
 											__html: gallery[current_carouselItem - 1]?.description,
 										}}

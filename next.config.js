@@ -73,7 +73,7 @@ const nextConfig = {
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, import/order
 // const withBundleAnalyzer = require("@next/bundle-analyzer")({
-// 	enabled: process.env.BundleAnalyzer === "true",
+// 	enabled: process.env.NEXT_WITH_BUILDER_ANALYZER === "true",
 // });
 // module.exports = withBundleAnalyzer(nextConfig);
 

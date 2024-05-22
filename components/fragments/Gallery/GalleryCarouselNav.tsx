@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { FileHtmlProps } from "@/interfaces/File";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
@@ -79,10 +80,28 @@ const Navigation: React.FC<Props> = ({
 			{/* Description and Counter */}
 			<div className="flex-grow h-full flex items-center justify-center flex-col prose prose-p:m-0 prose-p:-mt-1 max-w-none">
 				{descriptionDisplay && gallery && current_carouselItem > 0 && (
-					<p
-						dangerouslySetInnerHTML={{ __html: gallery[current_carouselItem - 1]?.description }}
-						className="w-full sa:line-clamp-1 text-center"
-					/>
+					<div className="w-full h-full">
+						<TooltipProvider>
+							<Tooltip>
+								<TooltipTrigger className="w-full">
+									<div
+										dangerouslySetInnerHTML={{
+											__html: gallery[current_carouselItem - 1]?.description,
+										}}
+										className="w-full sa:line-clamp-1 text-center"
+									/>
+								</TooltipTrigger>
+								<TooltipContent className="border-2 border-muted-secondary dark:border-primary text-lg max-w-lg">
+									<p
+										dangerouslySetInnerHTML={{
+											__html: gallery[current_carouselItem - 1]?.description,
+										}}
+										className="w-full text-center"
+									/>
+								</TooltipContent>
+							</Tooltip>
+						</TooltipProvider>
+					</div>
 				)}
 
 				<Counter className="hidden sa:flex" />
