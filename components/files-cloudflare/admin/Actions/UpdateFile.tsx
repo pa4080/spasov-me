@@ -78,14 +78,16 @@ const UpdateFile: React.FC<Props> = ({ className, file }) => {
 					closeOnOverlayClick={false}
 				>
 					<DialogHeader>
-						<DialogTitle>{t("dialog_title")}</DialogTitle>
-						{t("dialog_description") && (
-							<DialogDescription
-								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { filename: file.filename, id: file._id }),
-								}}
-							/>
-						)}
+						<div className="flex flex-col gap-1">
+							<DialogTitle>{t("dialog_title")}</DialogTitle>
+							{t("dialog_description") && (
+								<DialogDescription
+									dangerouslySetInnerHTML={{
+										__html: t("dialog_description", { filename: file.filename, id: file._id }),
+									}}
+								/>
+							)}
+						</div>
 					</DialogHeader>
 
 					<FileForm

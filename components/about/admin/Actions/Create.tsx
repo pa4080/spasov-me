@@ -104,14 +104,16 @@ const CreateAboutEntry: React.FC<Props> = ({ className, type, files, tags }) => 
 					closeOnOverlayClick={false}
 				>
 					<DialogHeader>
-						<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
-						{t("dialog_description") && (
-							<DialogDescription
-								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: "new id" }),
-								}}
-							/>
-						)}
+						<div className="flex flex-col gap-1">
+							<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
+							{t("dialog_description") && (
+								<DialogDescription
+									dangerouslySetInnerHTML={{
+										__html: t("dialog_description", { id: "new id" }),
+									}}
+								/>
+							)}
+						</div>
 					</DialogHeader>
 
 					<AboutEntryForm

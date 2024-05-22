@@ -111,14 +111,16 @@ const UpdateProject: React.FC<Props> = ({
 				closeOnOverlayClick={false}
 			>
 				<DialogHeader>
-					<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
-					{t("dialog_description") && (
-						<DialogDescription
-							dangerouslySetInnerHTML={{
-								__html: t("dialog_description", { id: project._id }),
-							}}
-						/>
-					)}
+					<div className="flex flex-col gap-1">
+						<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
+						{t("dialog_description") && (
+							<DialogDescription
+								dangerouslySetInnerHTML={{
+									__html: t("dialog_description", { id: project._id }),
+								}}
+							/>
+						)}
+					</div>
 				</DialogHeader>
 
 				<ProjectForm

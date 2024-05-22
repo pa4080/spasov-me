@@ -82,14 +82,16 @@ const UpdatePage: React.FC<Props> = ({ className, page, files, icons }) => {
 					closeOnOverlayClick={false}
 				>
 					<DialogHeader>
-						<DialogTitle>{t("dialog_title")}</DialogTitle>
-						{t("dialog_description") && (
-							<DialogDescription
-								dangerouslySetInnerHTML={{
-									__html: t("dialog_description", { id: page._id }),
-								}}
-							/>
-						)}
+						<div className="flex flex-col gap-1">
+							<DialogTitle>{t("dialog_title")}</DialogTitle>
+							{t("dialog_description") && (
+								<DialogDescription
+									dangerouslySetInnerHTML={{
+										__html: t("dialog_description", { id: page._id }),
+									}}
+								/>
+							)}
+						</div>
 					</DialogHeader>
 
 					<PageForm

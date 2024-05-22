@@ -360,6 +360,7 @@ const AboutEntryForm: React.FC<Props> = ({
 					{/* Gallery - full grid */}
 					<MultiSelectFromList
 						Icon={Paperclip}
+						autoClearInput={false}
 						className="w-full ma:col-span-7"
 						control={form.control}
 						displayType="gallery_image"
