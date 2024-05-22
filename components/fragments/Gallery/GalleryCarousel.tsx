@@ -82,8 +82,8 @@ const GalleryCarousel: React.FC<Props> = ({
 	return (
 		<Carousel
 			className={cn(
-				"flex-grow w-full flex flex-col items-center justify-center flex-grow",
-				navType === "default" && "drop-shadow-2xl",
+				"flex-grow w-full flex flex-col items-center justify-center",
+				// navType === "default" && "drop-shadow-2xl",
 				className
 			)}
 			opts={{
@@ -99,11 +99,17 @@ const GalleryCarousel: React.FC<Props> = ({
 		>
 			{navPosition === "top" && <Nav />}
 			<CarouselContent
-				className="w-full items-center ml-0 sa:-ml-2 flex-grow"
+				className={cn("w-full items-center ml-0 sa:-ml-2 flex-grow")}
 				container_className={
 					navType === "inProject"
 						? "w-[1280px] max-w-[92vw] drop-shadow-2xl"
-						: "h-auto flex-grow flex"
+						: "h-auto flex-grow flex drop-shadow-2xl"
+				}
+				container_style={
+					{
+						"--tw-drop-shadow":
+							"drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2)) drop-shadow(0 3px 5px rgba(0, 0, 0, 0.12))",
+					} as React.CSSProperties
 				}
 			>
 				{/* -ml-0.5 sa:-ml-4 */}
