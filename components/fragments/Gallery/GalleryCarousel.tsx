@@ -129,9 +129,17 @@ const GalleryCarousel: React.FC<Props> = ({
 									height: "100%",
 								}}
 							>
-								<div className="relative w-full pb-[56.25%] h-0">
+								<div
+									className={cn(
+										"relative w-full",
+										navType === "inProject" ? "pb-[56.25%] h-0" : "h-full"
+									)}
+								>
 									<DisplayFileImage
-										className="rounded-md w-auto mx-auto h-auto"
+										className={cn(
+											"rounded-md w-auto mx-auto h-auto",
+											navType === "inProject" ? "" : "min-h-[74vh]"
+										)}
 										file={
 											{
 												filename: item.filename,
