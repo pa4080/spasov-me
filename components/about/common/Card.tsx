@@ -61,11 +61,12 @@ const AboutEntryCard: React.FC<Props> = ({
 		?.map((file) => file.metadata.html)
 		?.sort((a, b) => a.filename.localeCompare(b.filename));
 
-	let gallery = getGallery ?? [];
+	const gallery = getGallery ?? [];
 
-	gallery = entry.html.attachment?.metadata.html
-		? [...gallery, entry.html.attachment?.metadata.html]
-		: gallery;
+	// Here want different functionality as from the projects...
+	// gallery = entry.html.attachment?.metadata.html
+	// 	? [...gallery, entry.html.attachment?.metadata.html]
+	// 	: gallery;
 
 	const haveGallery = gallery && gallery.length > 0;
 

@@ -31,7 +31,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [ ] Gallery: display .PDF, .XLS, .XLSX, .DOC, .DOCX, .PPTX, .PPT
 
 - About page finish:
-  - [ ] Section for IT Certificates?? --> This goes in to the gallery for "Career Break and Retraining"
+  - [x] Section for IT Certificates?? --> This goes in to the gallery for "Career Break and Retraining" -->
   - [x] Action Buttons (+logged-in) for About entries on public
   - [x] Gallery for About Entries
 
