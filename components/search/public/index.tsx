@@ -1,5 +1,7 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -22,42 +24,99 @@ interface SelectedTag {
 	attachedToIds: string[];
 }
 
+interface QueryFilter {
+	searchValue_manual?: string | null;
+	selectedTag_manual?: string | null;
+}
+
 interface Props {
 	className?: string;
 	tags: TagData[];
-	aboutEntries: AboutEntryData[];
-	projects: ProjectData[];
+	dataList: UnitedEntryType[];
 }
 
-const SearchPublic: React.FC<Props> = ({ className, tags, aboutEntries, projects }) => {
+const SearchPublic: React.FC<Props> = ({ className, tags, dataList }) => {
 	const t = msgs("Search");
+	const router = useRouter();
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
+
 	const [selectedTag, setSelectedTag] = useState<SelectedTag | null>(null);
 
 	const [loading, setLoading] = useState(false);
 	const searchInputRef = useRef<HTMLInputElement>(null);
-	const [searchValue, setSearchValue] = useState("");
 	const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout>();
-	const [searchResults, setSearchResults] = useState<UnitedEntryType[] | null>([
-		...aboutEntries,
-		...projects,
-	]);
+	const [searchResults, setSearchResults] = useState<UnitedEntryType[] | null>(dataList);
 
-	useEffect(() => {
-		setSearchResults([...aboutEntries, ...projects]);
-	}, [aboutEntries, projects]);
+	const setSearchParams = useCallback(
+		({ searchValue_manual, selectedTag_manual }: QueryFilter = {}) => {
+			const params = new URLSearchParams(searchParams);
 
-	const onTagClick = (tag: TagData) => {
+			if (searchValue_manual) {
+				params.set("value", searchValue_manual);
+			} else if (searchValue) {
+				params.set("value", searchValue);
+			} else {
+				params.delete("value");
+			}
+
+			if (selectedTag_manual) {
+				params.set("tag", selectedTag_manual);
+			} else if (selectedTag) {
+				params.set("tag", selectedTag.tag._id);
+			} else {
+				params.delete("tag");
+			}
+
+			const newQuery = params.toString();
+
+			router.replace(pathname + "?" + newQuery, {
+				scroll: false,
+			});
+		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[]
+	);
+
+	const setTag = (tag: TagData | null) => {
 		!loading && setLoading(true);
 
-		setSelectedTag({
-			tag,
-			attachedToIds: tag?.attachedTo?.map(({ _id }) => _id) || [],
-		});
+		setSearchParams({ selectedTag_manual: tag?._id || null, searchValue_manual: searchValue });
+
+		setSelectedTag(
+			tag
+				? {
+						tag,
+						attachedToIds: tag?.attachedTo?.map(({ _id }) => _id) || [],
+					}
+				: null
+		);
 	};
 
-	const filterItems = () => {
-		const dataList = [...aboutEntries, ...projects];
+	const searchValue = searchParams.get("value");
+	const setSearchValue = (value: string) => {
+		setSearchParams({ searchValue_manual: value, selectedTag_manual: selectedTag?.tag?._id });
+	};
 
+	useEffect(() => {
+		if (searchValue && searchInputRef?.current) {
+			searchInputRef.current.value = searchValue;
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const selectedTagSearch = searchParams.get("tag");
+
+	useEffect(() => {
+		if (selectedTagSearch) {
+			const tag = tags.find(({ _id }) => _id === selectedTagSearch);
+
+			tag && setTag(tag);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectedTagSearch]);
+
+	const filterItems = () => {
 		if (!searchValue) {
 			return dataList;
 		}
@@ -70,33 +129,29 @@ const SearchPublic: React.FC<Props> = ({ className, tags, aboutEntries, projects
 		);
 	};
 
-	const clearButtonClasses =
-		"h-6 w-7 flex items-center justify-center rounded-md grayscale hover:grayscale-0 hover:brightness-110 active:brightness-75 transition-colors duration-300 hover:bg-primary-foreground/20"; // bg-accent-secondary/20
-
 	useEffect(() => {
 		clearTimeout(searchTimeout);
 
-		setSearchTimeout(
-			setTimeout(() => {
-				const results_value_filter = filterItems();
-				const results_tag_filter = results_value_filter?.filter(
-					({ _id }) => selectedTag && selectedTag.attachedToIds.includes(_id)
-				);
-
-				const results =
-					results_tag_filter && results_tag_filter.length > 0
-						? results_tag_filter
-						: selectedTag && results_tag_filter.length === 0
-							? results_tag_filter
-							: results_value_filter;
-
-				setLoading(false);
-				setSearchResults(results);
-			}, 500)
+		const results_value_filter = filterItems();
+		const results_tag_filter = results_value_filter?.filter(
+			({ _id }) => selectedTag && selectedTag.attachedToIds.includes(_id)
 		);
 
+		const results =
+			results_tag_filter && results_tag_filter.length > 0
+				? results_tag_filter
+				: selectedTag && results_tag_filter.length === 0
+					? results_tag_filter
+					: results_value_filter;
+
+		setLoading(false);
+		setSearchResults(results);
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [searchValue, selectedTag, tags, aboutEntries, projects]);
+	}, [searchValue, selectedTag, tags, dataList]);
+
+	const clearButtonClasses =
+		"h-6 w-7 flex items-center justify-center rounded-md grayscale hover:grayscale-0 hover:brightness-110 active:brightness-75 transition-colors duration-300 hover:bg-primary-foreground/20"; // bg-accent-secondary/20
 
 	return (
 		<div className={cn("space-y-20", cn(className))}>
@@ -133,7 +188,7 @@ const SearchPublic: React.FC<Props> = ({ className, tags, aboutEntries, projects
 								setSearchTimeout(
 									setTimeout(() => {
 										setSearchValue(e.target.value);
-									}, 2500)
+									}, 1000)
 								);
 							}}
 						/>
@@ -146,15 +201,15 @@ const SearchPublic: React.FC<Props> = ({ className, tags, aboutEntries, projects
 								className={clearButtonClasses}
 								role="button"
 								onClick={() => {
-									!loading && setLoading(true);
-									setSelectedTag(null);
+									// !loading && setLoading(true);
+									setTag(null);
 								}}
 							>
 								<IconEmbedSvg height={16} type="broom" width={16} />
 							</button>
 						</Label>
 
-						<TagFilter selectedTag={selectedTag?.tag || null} tags={tags} onTagClick={onTagClick} />
+						<TagFilter selectedTag={selectedTag?.tag || null} tags={tags} onTagClick={setTag} />
 					</div>
 				</div>
 			</div>
