@@ -119,36 +119,43 @@ const GalleryCarousel: React.FC<Props> = ({
 							key={index}
 							className="w-full flex items-center justify-center pl-0.5 sa:pl-4 select-none"
 						>
-							{/* <div className="relative w-full pb-[56.25%] h-0"> */}
 							<div
-								// className="absolute left-0 top-0 right-0 bottom-0 flex items-center justify-center"
-								className="w-full h-full"
+								className="relative w-full mx-auto max-w-[1146px]"
 								style={{
 									backgroundImage: `url(${Route.assets.LOGO_SVG})`,
 									backgroundRepeat: "no-repeat",
 									backgroundPosition: "center",
-									backgroundSize: "40vh",
+									backgroundSize: "200px",
 									height: "100%",
 								}}
 							>
-								<DisplayFileImage
-									className="rounded-md w-auto mx-auto h-auto max-h-[74vh]"
-									file={
-										{
-											filename: item.filename,
-											metadata: {
-												html: item,
-											},
-										} as FileData
-									}
-									sizes={[
-										"360px",
-										"(max-width: 520px) 480px, (max-width: 640px) 560px, (max-width: 720px) 640px, (max-width: 920px) 820px, (max-width: 1024px) 940px, 1280px",
-									]}
-									// sizes={["360px", "1920px"]}
-								/>
+								<div
+									className={cn(
+										"relative w-full",
+										navType === "inProject" ? "pb-[56.25%] h-0" : "h-full"
+									)}
+								>
+									<DisplayFileImage
+										className={cn(
+											"rounded-md w-auto mx-auto h-auto",
+											navType === "inProject" ? "" : "min-h-[74vh]"
+										)}
+										file={
+											{
+												filename: item.filename,
+												metadata: {
+													html: item,
+												},
+											} as FileData
+										}
+										sizes={[
+											"360px",
+											"(max-width: 520px) 480px, (max-width: 640px) 560px, (max-width: 720px) 640px, (max-width: 920px) 820px, (max-width: 1024px) 940px, 1280px",
+										]}
+										// sizes={["360px", "1920px"]}
+									/>
+								</div>
 							</div>
-							{/* </div> */}
 						</CarouselItem>
 					);
 				})}

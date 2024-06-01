@@ -10,9 +10,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- [ ] **Search by content and filter by tag**
-  - [ ] use searchParams to store the search query in the URL
-  - [ ] use searchParams to store the selected tag in the URL
+- [x] **Search by content and filter by tag**
+  - [x] use searchParams to store the search query in the URL
+  - [x] use searchParams to store the selected tag in the URL
 
 - [x] Process AttachedTo files in a different way
 
@@ -31,9 +31,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [ ] Gallery: display .PDF, .XLS, .XLSX, .DOC, .DOCX, .PPTX, .PPT
 
 - About page finish:
-  - [ ] Section for IT Certificates?? --> This goes in to the gallery for "Career Break and Retraining"
-  - [ ] Action Buttons (+logged-in) for About entries on public
-  - [ ] Gallery for About Entries
+  - [x] Section for IT Certificates?? --> This goes in to the gallery for "Career Break and Retraining" -->
+  - [x] Action Buttons (+logged-in) for About entries on public
+  - [x] Gallery for About Entries
 
 ## Vercel CLI
 

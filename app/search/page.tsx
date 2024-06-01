@@ -17,9 +17,8 @@ const Portfolio: React.FC = async () => {
 		getTags({ hyphen: true, public: true }),
 		getProjects({ hyphen: true, public: true }),
 	]).then(([aboutEntries, tags, projects]) => ({
-		aboutEntries: aboutEntries ?? [],
 		tags: tags ?? [],
-		projects: projects ?? [],
+		dataList: [...(aboutEntries ?? []), ...(projects ?? [])],
 	}));
 
 	return (

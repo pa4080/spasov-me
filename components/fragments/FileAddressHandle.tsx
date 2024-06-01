@@ -13,7 +13,7 @@ interface Props {
 const FileAddressHandle: React.FC<Props> = ({ className, address, download }) => {
 	const { session } = useAppContext();
 
-	if (!session) {
+	if (!session && !address) {
 		return null;
 	}
 

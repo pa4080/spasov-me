@@ -87,9 +87,9 @@ const Section: React.FC<Props> = ({
 						id={`${toggle_target_id}_${index}`}
 					>
 						<div className="flex flex-row w-full justify-between gap-4 items-center border-4 h-10 border-primary bg-primary rounded-full">
-							<h2 className="text-xl font-semibold tracking-wide flex-grow pl-5 flex items-center rounded-full">
-								{attachedToDocument}
-							</h2>
+							<div className="text-xl font-semibold tracking-wide flex-grow pl-5 flex items-center rounded-full">
+								<h2 className="line-clamp-1">{attachedToDocument}</h2>
+							</div>
 							<ToggleCollapsible
 								tooltip
 								className="-mr-1"
