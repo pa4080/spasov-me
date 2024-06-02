@@ -37,6 +37,7 @@ const appTwConfig: import("tailwindcss").Config = {
 				xl: "1280px",
 				"1xl": "1366px",
 				"2xl": "1536px",
+				"3xl": "1720px",
 			},
 			fontFamily: {
 				// sans: ["var(--font-geist-sans)", "sans-serif"],
