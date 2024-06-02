@@ -40,6 +40,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 Link the project to Vercel for local development
 
 ```bash
+pnpm dlx vercel link
+pnpm dlx vercel env pull
+```
+
+Or with `npx`:
+
+```bash
 npx vercel link
 npx vercel env pull
 ```
