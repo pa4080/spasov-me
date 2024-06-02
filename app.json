@@ -1,0 +1,10 @@
+{
+	"name": "spasov-me",
+	"options": {
+		"allow-unauthenticated": true,
+		"memory": "1024Mi",
+		"cpu": "4",
+		"port": 3000,
+		"http2": true
+	}
+}

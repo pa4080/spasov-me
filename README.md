@@ -124,3 +124,8 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 [**_How do I use a Cloudflare domain with Vercel?_**](https://vercel.com/guides/using-cloudflare-with-vercel)
+
+## Docker
+
+- <https://nextjs.org/docs/app/building-your-application/deploying#docker-image>
+- <https://github.com/vercel/next.js/tree/canary/examples/with-docker>
