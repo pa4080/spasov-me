@@ -1,35 +1,35 @@
-{
-	"extends": [
+module.exports = {
+	extends: [
 		"plugin:react/recommended",
 		"plugin:@typescript-eslint/recommended",
 		"plugin:react-hooks/recommended",
 		"plugin:prettier/recommended",
 		"plugin:import/recommended",
 		"plugin:import/typescript",
-		"next/core-web-vitals"
+		"next/core-web-vitals",
 	],
-	"env": {
-		"es6": true,
-		"browser": true,
-		"node": true
+	env: {
+		es6: true,
+		browser: true,
+		node: true,
 	},
-	"parserOptions": {
-		"ecmaVersion": 6,
-		"sourceType": "module",
-		"ecmaFeatures": {
-			"jsx": true
-		}
+	parserOptions: {
+		ecmaVersion: 6,
+		sourceType: "module",
+		ecmaFeatures: {
+			jsx: true,
+		},
 	},
-	"plugins": ["react-refresh", "import", "react", "@typescript-eslint"],
-	"rules": {
-		"eqeqeq": ["error", "always", { "null": "ignore" }],
+	plugins: ["react-refresh", "import", "react", "@typescript-eslint"],
+	rules: {
+		eqeqeq: ["error", "always", { null: "ignore" }],
 		"template-curly-spacing": "error",
 		"rest-spread-spacing": ["error", "never"],
 		"no-debugger": "error",
 		"prettier/prettier": "error",
 		"no-duplicate-imports": "error",
-		"no-console": ["error", { "allow": ["info", "warn", "error"] }],
-		"@typescript-eslint/no-unused-vars": ["warn", { "ignoreRestSiblings": true }],
+		"no-console": ["error", { allow: ["info", "warn", "error"] }],
+		"@typescript-eslint/no-unused-vars": ["warn", { ignoreRestSiblings: true }],
 		"@typescript-eslint/no-use-before-define": "off",
 		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/no-non-null-assertion": "off",
@@ -39,28 +39,28 @@
 		"import/no-unresolved": "error",
 		"import/no-named-as-default-member": "off",
 		"import/first": "warn",
-		"import/newline-after-import": ["warn", { "count": 1 }],
+		"import/newline-after-import": ["warn", { count: 1 }],
 		"import/prefer-default-export": "off",
 		"import/group-exports": "off",
 		"import/no-named-as-default": "off",
 		"import/order": [
 			"warn",
 			{
-				"pathGroups": [
+				pathGroups: [
 					{
-						"pattern": "react",
-						"group": "external",
-						"position": "after"
+						pattern: "react",
+						group: "external",
+						position: "after",
 					},
 					{
-						"pattern": "@",
-						"group": "internal",
-						"position": "before"
-					}
+						pattern: "@",
+						group: "internal",
+						position: "before",
+					},
 				],
 				"newlines-between": "always-and-inside-groups",
-				"pathGroupsExcludedImportTypes": ["external"],
-				"groups": [
+				pathGroupsExcludedImportTypes: ["external"],
+				groups: [
 					"external",
 					"unknown",
 					"internal",
@@ -68,16 +68,16 @@
 					"builtin",
 					"index",
 					"object",
-					"type"
-				]
-			}
+					"type",
+				],
+			},
 		],
-		"curly": "error",
+		curly: "error",
 		"padding-line-between-statements": [
 			"error",
 			{
-				"blankLine": "always",
-				"prev": [
+				blankLine: "always",
+				prev: [
 					"block",
 					"block-like",
 					"class",
@@ -99,34 +99,34 @@
 					"try",
 					"var",
 					"while",
-					"with"
+					"with",
 				],
-				"next": "*"
+				next: "*",
 			},
 			{
-				"blankLine": "any",
-				"prev": ["const", "let", "var", "import", "export"],
-				"next": ["const", "let", "var", "import", "export"]
+				blankLine: "any",
+				prev: ["const", "let", "var", "import", "export"],
+				next: ["const", "let", "var", "import", "export"],
 			},
 			{
-				"blankLine": "always",
-				"prev": ["*"],
-				"next": ["return"]
-			}
+				blankLine: "always",
+				prev: ["*"],
+				next: ["return"],
+			},
 		],
 		"react/jsx-sort-props": [
 			"warn",
 			{
-				"ignoreCase": false,
-				"callbacksLast": true,
-				"shorthandFirst": true,
-				"reservedFirst": true
-			}
+				ignoreCase: false,
+				callbacksLast: true,
+				shorthandFirst: true,
+				reservedFirst: true,
+			},
 		],
 		"react/react-in-jsx-scope": "off",
-		"react/no-unknown-property": ["error", { "ignore": ["jsx"] }]
+		"react/no-unknown-property": ["error", { ignore: ["jsx"] }],
 	},
-	"ignorePatterns": [
+	ignorePatterns: [
 		"node_modules/",
 		"build/",
 		"ios/**/*",
@@ -136,17 +136,17 @@
 		"src/generated/",
 		"**/*.d.ts",
 		".next/",
-		".vercel/"
+		".vercel/",
 	],
-	"settings": {
-		"react": {
-			"version": "detect"
+	settings: {
+		react: {
+			version: "detect",
 		},
 		"import/parsers": {
-			"@typescript-eslint/parser": [".ts", ".tsx"]
+			"@typescript-eslint/parser": [".ts", ".tsx"],
 		},
 		"import/resolver": {
-			"typescript": {}
-		}
-	}
-}
+			typescript: {},
+		},
+	},
+};

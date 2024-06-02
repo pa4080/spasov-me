@@ -1,0 +1,23 @@
+services:
+  next-app:
+    container_name: spasov-me
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DOPPLER_TOKEN: ${DOPPLER_TOKEN}
+    environment:
+        DOPPLER_TOKEN: ${DOPPLER_TOKEN}
+    restart: always
+    ports:
+      - 43000:3000
+    #networks:
+    #  - my_network
+
+  # Add more containers below (nginx, postgres, etc.)
+
+# Define a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+#networks:
+#  my_network:
+#    external: true
