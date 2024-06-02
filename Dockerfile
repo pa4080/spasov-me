@@ -86,7 +86,5 @@ RUN export DOPPLER_TOKEN=${DOPPLER_TOKEN}
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
 CMD HOSTNAME="0.0.0.0" doppler run -- node server.js
-# CMD ls -la ./public
-
 # Note: Don't expose ports here, Compose will handle that for us
 #CMD ["doppler", "run", "--", "node", "server.js"]
