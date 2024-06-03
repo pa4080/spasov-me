@@ -61,6 +61,7 @@ $font-poppins: var(--font-poppins), "sans-serif";
 $navbar-height: var(--navbar-height);
 $footer-height: var(--footer-height);
 $content-height: var(--content-height);
+$project-image-max-width: var(--project-image-max-width);
 
 :export {
 	// Colors
@@ -112,4 +113,5 @@ $content-height: var(--content-height);
 	navbarHeight: $navbar-height;
 	footerHeight: $footer-height;
 	contentHeight: $content-height;
+	projectImageMaxWidth: $project-image-max-width;
 }

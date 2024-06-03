@@ -102,7 +102,7 @@ const GalleryCarousel: React.FC<Props> = ({
 				className={cn("w-full items-center ml-0 sa:-ml-2 flex-grow")}
 				container_className={
 					navType === "inProject"
-						? "w-[1280px] max-w-[92vw] drop-shadow-2xl"
+						? "w-[100vw] max-w-[92vw] drop-shadow-2xl" // ? "w-[1280px] max-w-[92vw] drop-shadow-2xl"
 						: "h-auto flex-grow flex drop-shadow-2xl"
 				}
 				container_style={
@@ -112,7 +112,6 @@ const GalleryCarousel: React.FC<Props> = ({
 					} as React.CSSProperties
 				}
 			>
-				{/* -ml-0.5 sa:-ml-4 */}
 				{gallery?.map((item, index) => {
 					return (
 						<CarouselItem
@@ -121,8 +120,9 @@ const GalleryCarousel: React.FC<Props> = ({
 						>
 							<div
 								className={cn(
-									"relative w-full mx-auto",
-									navType === "inProject" ? "max-w-[1146px]" : "max-w-[92vw]"
+									"this-container relative w-full mx-auto",
+									navType === "inProject" ? "max-w-projectImageMaxWidth" : "max-w-[92vw]"
+									// navType === "inProject" ? "max-w-[1248px]" : "max-w-[92vw]"
 								)}
 								style={{
 									backgroundImage: `url(${Route.assets.LOGO_SVG})`,
