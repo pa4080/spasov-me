@@ -105,7 +105,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 				}
 			);
 
-			if (!filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif|jfif)$/)) {
+			if (!filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|csv|docx|gif|jfif)$/)) {
 				form.setError("file", {
 					type: "manual",
 					message: t("fileInput_placeholder"),
@@ -123,7 +123,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 				// Then set new "src" attribute
 				if (filename.match(/\.(png|jpg|jpeg|svg|webp|gif)$/)) {
 					displayImageRef.current?.setAttribute("src", URL.createObjectURL(file));
-				} else if (filename.match(/\.(pdf|pptx|xlsx|docx)$/)) {
+				} else if (filename.match(/\.(pdf|pptx|xlsx|csv|docx)$/)) {
 					displayImageRef.current?.setAttribute(
 						"src",
 						`${Route.assets.MIME_TYPE}/${filename.split(".").pop()}.png`
@@ -166,7 +166,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 	};
 
 	const fileUri = formData
-		? formData.filename.match(/\.(pdf|pptx|xlsx|docx)$/)
+		? formData.filename.match(/\.(pdf|pptx|xlsx|csv|docx)$/)
 			? `${Route.assets.MIME_TYPE}/${formData.filename.split(".").pop()}.png`
 			: `https://${process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DOMAIN}/${formData?.filename}?v=${new Date(formData?.uploadDate).getTime()}`
 		: Route.assets.IMAGE_PLACEHOLDER;
@@ -223,7 +223,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 										<Input
 											id="file-input"
 											{...form.register("file")}
-											accept="image/*, .pdf, .pptx, .xlsx, .docx"
+											accept="image/*, .pdf, .pptx, .xls, .csv, .docx"
 											className={styles.fileInput}
 											placeholder={t("fileInput_placeholder")}
 											type="file"

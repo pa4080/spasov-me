@@ -445,7 +445,7 @@
 		"schema_file": "The file is absolutely required. It cannot start with a special character or a number.",
 
 		"fileInput_label": "",
-		"fileInput_placeholder": "The allowed formats are: png, jpg, jpeg, svg, webp, jfif, pdf, pptx, xlsx, docx.",
+		"fileInput_placeholder": "The allowed formats are: png, jpg, jpeg, svg, webp, jfif, pdf, pptx, xlsx, csv, docx.",
 		"fileInput_description": "",
 
 		"filename_label": "",

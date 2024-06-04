@@ -28,7 +28,7 @@ const DisplayFileImage: React.FC<Props> = ({
 		return null;
 	}
 
-	const TheImage = file.filename.match(/\.(pdf|pptx|xlsx|docx)$/) ? (
+	const TheImage = file.filename.match(/\.(pdf|pptx|xlsx|csv|docx)$/) ? (
 		<Image
 			priority
 			alt={file.filename}
