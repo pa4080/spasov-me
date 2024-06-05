@@ -54,7 +54,7 @@ export const getFileList = async ({ images }: { images?: boolean } = {}): Promis
 
 	if (images) {
 		filteredFiles = files.filter((file) =>
-			file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|csv|docx|gif)$/)
+			file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|csv|txt|docx|gif)$/)
 		);
 	}
 

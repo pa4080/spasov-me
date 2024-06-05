@@ -37,7 +37,7 @@ const DisplayFileImageWithSuspense: React.FC<Props> = ({
 	src,
 	...props
 }) => {
-	const isDocument = file?.filename.match(/\.(pdf|pptx|xlsx|csv|docx)$/);
+	const isDocument = file?.filename.match(/\.(pdf|pptx|xlsx|csv|txt|docx)$/);
 	const thisSrc = file
 		? isDocument
 			? `${Route.assets.MIME_TYPE}/${file.filename.split(".").pop()}.png`

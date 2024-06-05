@@ -8,18 +8,16 @@ interface Props {
 	className?: string;
 }
 
-const EmbedPdfDoc: React.FC<Props> = ({
+const EmbedTxtDoc: React.FC<Props> = ({
 	sourceUrl,
 	style = { width: "100%", height: "100%" },
 	className,
 }) => {
-	const srcUrl = sourceUrl;
-
 	return (
-		<div style={style} className={`embed-pdf-doc-container ${className}`}>
-			<iframe height="100%" width="100%" src={srcUrl} />
+		<div style={style} className={`embed-mso-doc-container ${className}`}>
+			<object height="100%" width="100%" data={sourceUrl} />
 		</div>
 	);
 };
 
-export default EmbedPdfDoc;
+export default EmbedTxtDoc;

@@ -21,7 +21,7 @@ export const File_FormSchemaGenerator = (messages?: string[], isFileOptional = f
 			.regex(/^[a-zA-Z0-9][.a-zA-Z0-9-_]+$/, {
 				message: messages?.[2],
 			})
-			.regex(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|csv|docx|gif|jfif)$/, {
+			.regex(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|csv|txt|docx|gif|jfif)$/, {
 				message: messages?.[3],
 			}),
 		description: z.string().optional(),
