@@ -15,7 +15,7 @@ import { ProjectData } from "@/interfaces/Project";
 
 import { Route } from "@/routes";
 
-import DisplayFileImage from "../DisplayFileImage";
+import DisplayFileImageOrEmbed from "../DisplayFileImageOrEmbed";
 import Navigation from "./GalleryCarouselNav";
 import GalleryCarouselNavInProject from "./GalleryCarouselNavInProject";
 
@@ -144,7 +144,7 @@ const GalleryCarousel: React.FC<Props> = ({
 											navType === "inProject" ? "absolute top-0 left-0" : ""
 										)}
 									>
-										<DisplayFileImage
+										<DisplayFileImageOrEmbed
 											className={cn(
 												"rounded-md w-auto mx-auto h-auto",
 												navType === "inProject" ? "" : "h-full max-h-[74vh]"
