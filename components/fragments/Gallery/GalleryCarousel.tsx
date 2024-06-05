@@ -95,7 +95,7 @@ const GalleryCarousel: React.FC<Props> = ({
 		>
 			{navPosition === "top" && <Nav />}
 			<CarouselContent
-				className={cn("w-full items-center ml-0 sa:-ml-2 flex-grow")}
+				className={cn("w-full h-full items-center ml-0 sa:-ml-2 flex-grow")}
 				container_className={"w-[100vw] max-w-[92vw] drop-shadow-2xl"}
 				container_style={
 					{

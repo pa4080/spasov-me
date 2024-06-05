@@ -62,7 +62,7 @@ const Gallery: React.FC<Props> = ({ className, entry, gallery, dialogTrigger_but
 			</DialogTrigger>
 			<DialogContent
 				className={cn(
-					"sm:max-w-full md:!max-w-fit sa:max-w-lg sa:min-w-[calc(100vw-6rem)] 3xl:min-w-[calc(1720px-6rem)] sm:max-h-full sm:rounded-none h-full sa:max-h-[calc((var(--vh,1vh)_*_90))] sa:rounded-lg max-sa-min-w-[320px] min-h-[calc(100vh-4rem)] flex flex-col justify-normal gap-0 bg-background sa:border-border overflow-x-scroll 6xs:overflow-x-hidden w-full",
+					"sm:max-w-full md:!max-w-fit sa:max-w-lg sa:msx-2xl:min-w-[calc(100vw-6rem)] 2xl:w-[1320px] sm:max-h-full sm:rounded-none h-full sa:max-h-[calc((var(--vh,1vh)_*_90))] sa:rounded-lg max-sa-min-w-[320px] min-h-[calc(100vh-4rem)] flex flex-col justify-normal gap-0 bg-background sa:border-border overflow-x-scroll 6xs:overflow-x-hidden w-full",
 					className
 				)}
 				closeOnOverlayClick={false}
