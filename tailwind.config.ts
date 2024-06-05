@@ -177,11 +177,15 @@ const appTwConfig: import("tailwindcss").Config = {
 				navbar: "var(--navbar-height)",
 				footer: "var(--footer-height)",
 				content: "var(--content-height)",
+				projectImageMaxWidth: "var(--project-image-max-width)",
+				galleryImageMaxWidth: "var(--gallery-image-max-width)",
 			},
 			height: {
 				navbar: "var(--navbar-height)",
 				footer: "var(--footer-height)",
 				content: "var(--content-height)",
+				projectImageMaxWidth: "var(--project-image-max-width)",
+				galleryImageMaxWidth: "var(--gallery-image-max-width)",
 			},
 			typography: {
 				DEFAULT: {

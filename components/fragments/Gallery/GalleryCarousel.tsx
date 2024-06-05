@@ -15,7 +15,7 @@ import { ProjectData } from "@/interfaces/Project";
 
 import { Route } from "@/routes";
 
-import DisplayFileImage from "../DisplayFileImage";
+import DisplayFileImageOrEmbed from "../DisplayFileImageOrEmbed";
 import Navigation from "./GalleryCarouselNav";
 import GalleryCarouselNavInProject from "./GalleryCarouselNavInProject";
 
@@ -81,11 +81,7 @@ const GalleryCarousel: React.FC<Props> = ({
 
 	return (
 		<Carousel
-			className={cn(
-				"flex-grow w-full flex flex-col items-center justify-center",
-				// navType === "default" && "drop-shadow-2xl",
-				className
-			)}
+			className={cn("flex-grow w-full flex flex-col items-center justify-center", className)}
 			opts={{
 				align: "start",
 				loop: true,
@@ -100,11 +96,7 @@ const GalleryCarousel: React.FC<Props> = ({
 			{navPosition === "top" && <Nav />}
 			<CarouselContent
 				className={cn("w-full items-center ml-0 sa:-ml-2 flex-grow")}
-				container_className={
-					navType === "inProject"
-						? "w-[1280px] max-w-[92vw] drop-shadow-2xl"
-						: "h-auto flex-grow flex drop-shadow-2xl"
-				}
+				container_className={"w-[100vw] max-w-[92vw] drop-shadow-2xl"}
 				container_style={
 					{
 						"--tw-drop-shadow":
@@ -112,7 +104,6 @@ const GalleryCarousel: React.FC<Props> = ({
 					} as React.CSSProperties
 				}
 			>
-				{/* -ml-0.5 sa:-ml-4 */}
 				{gallery?.map((item, index) => {
 					return (
 						<CarouselItem
@@ -121,8 +112,10 @@ const GalleryCarousel: React.FC<Props> = ({
 						>
 							<div
 								className={cn(
-									"relative w-full mx-auto",
-									navType === "inProject" ? "max-w-[1146px]" : "max-w-[92vw]"
+									"this-container relative w-full mx-auto",
+									navType === "inProject"
+										? "max-w-projectImageMaxWidth"
+										: "max-w-galleryImageMaxWidth"
 								)}
 								style={{
 									backgroundImage: `url(${Route.assets.LOGO_SVG})`,
@@ -132,23 +125,15 @@ const GalleryCarousel: React.FC<Props> = ({
 									height: "100%",
 								}}
 							>
-								<div
-									className={cn(
-										"relative w-full",
-										navType === "inProject" ? "pb-[56.25%] h-0" : "h-full"
-									)}
-								>
+								<div className={cn("relative w-full", "pb-[56.25%] h-0")}>
 									<div
 										className={cn(
 											"w-full h-full flex items-center justify-center",
-											navType === "inProject" ? "absolute top-0 left-0" : ""
+											"absolute top-0 left-0"
 										)}
 									>
-										<DisplayFileImage
-											className={cn(
-												"rounded-md w-auto mx-auto h-auto",
-												navType === "inProject" ? "" : "h-full max-h-[74vh]"
-											)}
+										<DisplayFileImageOrEmbed
+											className={cn("rounded-md w-auto mx-auto h-auto")}
 											file={
 												{
 													filename: item.filename,
@@ -161,7 +146,6 @@ const GalleryCarousel: React.FC<Props> = ({
 												"360px",
 												"(max-width: 520px) 480px, (max-width: 640px) 560px, (max-width: 720px) 640px, (max-width: 920px) 820px, (max-width: 1024px) 940px, 1560px",
 											]}
-											// sizes={["360px", "1920px"]}
 										/>
 									</div>
 								</div>

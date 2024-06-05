@@ -109,7 +109,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 				}
 			);
 
-			if (!filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|docx|gif|jfif)$/)) {
+			if (!filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|csv|txt|docx|gif|jfif)$/)) {
 				form.setError("file", {
 					type: "manual",
 					message: t("fileInput_placeholder"),
@@ -127,7 +127,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 				// Then set new "src" attribute
 				if (filename.match(/\.(png|jpg|jpeg|svg|webp|gif)$/)) {
 					displayImageRef.current?.setAttribute("src", URL.createObjectURL(file));
-				} else if (filename.match(/\.(pdf|pptx|xlsx|docx)$/)) {
+				} else if (filename.match(/\.(pdf|pptx|xlsx|csv|txt|docx)$/)) {
 					displayImageRef.current?.setAttribute(
 						"src",
 						`${Route.assets.MIME_TYPE}/${filename.split(".").pop()}.png`
@@ -170,7 +170,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 	};
 
 	const fileUri = formData
-		? formData.filename.match(/\.(pdf|pptx|xlsx|docx)$/)
+		? formData.filename.match(/\.(pdf|pptx|xlsx|csv|txt|docx)$/)
 			? `${Route.assets.MIME_TYPE}/${formData.filename.split(".").pop()}.png`
 			: formData.filename.match(/\.(svg)$/)
 				? `${Route.api.FILES_MONGODB}/${formData?._id.toString()}/${formData?.filename}`
@@ -231,7 +231,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 										<Input
 											id="file-input"
 											{...form.register("file")}
-											accept="image/*, .pdf, .pptx, .xlsx, .docx"
+											accept="image/*, .pdf, .pptx, .xlsx, .csv, .txt, .docx"
 											className={styles.fileInput}
 											placeholder={t("fileInput_placeholder")}
 											type="file"

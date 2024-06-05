@@ -52,6 +52,8 @@
 		--navbar-height: 3.875rem;
 		--footer-height: 3.625rem;
 		--content-height: calc((var(--vh, 1vh) * 99.5) - var(--navbar-height) - var(--footer-height));
+		--project-image-max-width: calc((var(--content-height) - (var(--vh, 1vh) * 12)) / 0.5625);
+		--gallery-image-max-width: calc((var(--content-height) - (var(--vh, 1vh) * 8)) / 0.5625);
 	}
 
 	.light-brown {

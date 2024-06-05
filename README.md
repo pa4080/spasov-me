@@ -10,30 +10,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- [x] **Search by content and filter by tag**
-  - [x] use searchParams to store the search query in the URL
-  - [x] use searchParams to store the selected tag in the URL
-
-- [x] Process AttachedTo files in a different way
-
-- [x] Projects Admin? > Form design
-- [x] Projects public
-- [x] Single project + gallery > design
-  - Desktop: Gallery on the left, Title and description on the right
-  - Mobile: Gallery on the top, Title and description on the bottom
-  - When click on the gallery display it on full screen
-  - Use the Shad-cn/ui slider for the gallery
+- [x] Gallery: display .PDF, .XLSX, .CSV, .DOC, .PX
 
 - [ ] Blog post admin
 - [ ] Blog feed public
 - [ ] Blog post public
-
-- [ ] Gallery: display .PDF, .XLS, .XLSX, .DOC, .DOCX, .PPTX, .PPT
-
-- About page finish:
-  - [x] Section for IT Certificates?? --> This goes in to the gallery for "Career Break and Retraining" -->
-  - [x] Action Buttons (+logged-in) for About entries on public
-  - [x] Gallery for About Entries
 
 ## Vercel CLI
 
