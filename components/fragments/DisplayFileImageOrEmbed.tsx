@@ -88,7 +88,7 @@ const DisplayFileImageOrEmbed: React.FC<Props> = ({
 				}}
 			/>
 		</div>
-	) : (
+	) : file.filename.match(/\.(svg|png|jpg|jpeg|webp|jfif|bmp)$/) ? (
 		<Image
 			priority
 			alt={file.filename}
@@ -100,6 +100,17 @@ const DisplayFileImageOrEmbed: React.FC<Props> = ({
 			}
 			style={style}
 			unoptimized={file.filename?.match(/\.svg$/) ? true : false}
+			width="0"
+		/>
+	) : (
+		<Image
+			priority
+			alt={file.filename}
+			className={cn("h-auto w-full", className)}
+			height="0"
+			sizes={sizes?.[0] || "160px"}
+			src={`${Route.assets.MIME_TYPE}/${file.filename.split(".").pop()}.png`}
+			style={style}
 			width="0"
 		/>
 	);

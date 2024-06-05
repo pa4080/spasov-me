@@ -101,7 +101,8 @@ const GalleryCarousel: React.FC<Props> = ({
 			<CarouselContent
 				className={cn("w-full items-center ml-0 sa:-ml-2 flex-grow")}
 				container_className={
-					navType === "inProject"
+					// true <== navType === "inProject" <== the condition should be removed if everything is fine
+					true
 						? "w-[100vw] max-w-[92vw] drop-shadow-2xl" // ? "w-[1280px] max-w-[92vw] drop-shadow-2xl"
 						: "h-auto flex-grow flex drop-shadow-2xl"
 				}
@@ -121,8 +122,8 @@ const GalleryCarousel: React.FC<Props> = ({
 							<div
 								className={cn(
 									"this-container relative w-full mx-auto",
-									navType === "inProject" ? "max-w-projectImageMaxWidth" : "max-w-[92vw]"
-									// navType === "inProject" ? "max-w-[1248px]" : "max-w-[92vw]"
+									// true <== navType === "inProject" <== the condition should be removed if everything is fine
+									true ? "max-w-projectImageMaxWidth" : "max-w-[92vw]"
 								)}
 								style={{
 									backgroundImage: `url(${Route.assets.LOGO_SVG})`,
@@ -132,22 +133,19 @@ const GalleryCarousel: React.FC<Props> = ({
 									height: "100%",
 								}}
 							>
-								<div
-									className={cn(
-										"relative w-full",
-										navType === "inProject" ? "pb-[56.25%] h-0" : "h-full"
-									)}
-								>
+								<div className={cn("relative w-full", true ? "pb-[56.25%] h-0" : "h-full")}>
 									<div
 										className={cn(
 											"w-full h-full flex items-center justify-center",
-											navType === "inProject" ? "absolute top-0 left-0" : ""
+											// true <== navType === "inProject" <== the condition should be removed if everything is fine
+											true ? "absolute top-0 left-0" : ""
 										)}
 									>
 										<DisplayFileImageOrEmbed
 											className={cn(
 												"rounded-md w-auto mx-auto h-auto",
-												navType === "inProject" ? "" : "h-full max-h-[74vh]"
+												// true <== navType === "inProject" <== the condition should be removed if everything is fine
+												true ? "" : "h-full max-h-[74vh]"
 											)}
 											file={
 												{
@@ -161,7 +159,6 @@ const GalleryCarousel: React.FC<Props> = ({
 												"360px",
 												"(max-width: 520px) 480px, (max-width: 640px) 560px, (max-width: 720px) 640px, (max-width: 920px) 820px, (max-width: 1024px) 940px, 1560px",
 											]}
-											// sizes={["360px", "1920px"]}
 										/>
 									</div>
 								</div>
