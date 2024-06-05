@@ -81,11 +81,7 @@ const GalleryCarousel: React.FC<Props> = ({
 
 	return (
 		<Carousel
-			className={cn(
-				"flex-grow w-full flex flex-col items-center justify-center",
-				// navType === "default" && "drop-shadow-2xl",
-				className
-			)}
+			className={cn("flex-grow w-full flex flex-col items-center justify-center", className)}
 			opts={{
 				align: "start",
 				loop: true,
@@ -100,12 +96,7 @@ const GalleryCarousel: React.FC<Props> = ({
 			{navPosition === "top" && <Nav />}
 			<CarouselContent
 				className={cn("w-full items-center ml-0 sa:-ml-2 flex-grow")}
-				container_className={
-					// true <== navType === "inProject" <== the condition should be removed if everything is fine
-					true
-						? "w-[100vw] max-w-[92vw] drop-shadow-2xl" // ? "w-[1280px] max-w-[92vw] drop-shadow-2xl"
-						: "h-auto flex-grow flex drop-shadow-2xl"
-				}
+				container_className={"w-[100vw] max-w-[92vw] drop-shadow-2xl"}
 				container_style={
 					{
 						"--tw-drop-shadow":
@@ -122,8 +113,9 @@ const GalleryCarousel: React.FC<Props> = ({
 							<div
 								className={cn(
 									"this-container relative w-full mx-auto",
-									// true <== navType === "inProject" <== the condition should be removed if everything is fine
-									true ? "max-w-projectImageMaxWidth" : "max-w-[92vw]"
+									navType === "inProject"
+										? "max-w-projectImageMaxWidth"
+										: "max-w-galleryImageMaxWidth"
 								)}
 								style={{
 									backgroundImage: `url(${Route.assets.LOGO_SVG})`,
@@ -133,20 +125,15 @@ const GalleryCarousel: React.FC<Props> = ({
 									height: "100%",
 								}}
 							>
-								<div className={cn("relative w-full", true ? "pb-[56.25%] h-0" : "h-full")}>
+								<div className={cn("relative w-full", "pb-[56.25%] h-0")}>
 									<div
 										className={cn(
 											"w-full h-full flex items-center justify-center",
-											// true <== navType === "inProject" <== the condition should be removed if everything is fine
-											true ? "absolute top-0 left-0" : ""
+											"absolute top-0 left-0"
 										)}
 									>
 										<DisplayFileImageOrEmbed
-											className={cn(
-												"rounded-md w-auto mx-auto h-auto",
-												// true <== navType === "inProject" <== the condition should be removed if everything is fine
-												true ? "" : "h-full max-h-[74vh]"
-											)}
+											className={cn("rounded-md w-auto mx-auto h-auto")}
 											file={
 												{
 													filename: item.filename,

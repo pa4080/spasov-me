@@ -62,6 +62,7 @@ $navbar-height: var(--navbar-height);
 $footer-height: var(--footer-height);
 $content-height: var(--content-height);
 $project-image-max-width: var(--project-image-max-width);
+$gallery-image-max-width: var(--gallery-image-max-width);
 
 :export {
 	// Colors
@@ -114,4 +115,5 @@ $project-image-max-width: var(--project-image-max-width);
 	footerHeight: $footer-height;
 	contentHeight: $content-height;
 	projectImageMaxWidth: $project-image-max-width;
+	galleryImageMaxWidth: $gallery-image-max-width;
 }
