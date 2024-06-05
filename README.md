@@ -10,7 +10,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- [ ] Gallery: display .PDF, .XLSX, .CSV, .DOC, .PPTX
+- [x] Gallery: display .PDF, .XLSX, .CSV, .DOC, .PX
 
 - [ ] Blog post admin
 - [ ] Blog feed public
