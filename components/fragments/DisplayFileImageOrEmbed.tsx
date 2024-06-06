@@ -92,7 +92,7 @@ const DisplayFileImageOrEmbed: React.FC<Props> = ({
 		<Image
 			priority
 			alt={file.filename}
-			className={cn("h-auto w-full", className)}
+			className={cn("h-auto w-full  max-h-[76vh]", className)}
 			height="0"
 			sizes={sizes?.[1] || "320px"}
 			src={
