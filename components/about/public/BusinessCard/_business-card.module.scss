@@ -11,8 +11,6 @@
 	}
 
 	.businessCardTitle {
-		@apply font-unicephalon text-2xl 6xs:text-[7.8vw] xa:text-5xl sa:text-[2.5rem] mp:text-[2.75rem] ma:text-5xl tracking-wider text-foreground-secondary flex sa:flex-col justify-center sa:justify-end items-center sa:items-start text-center sa:text-left;
-
 		@screen 6xs {
 			line-height: 1.15em;
 		}
@@ -22,28 +20,10 @@
 	}
 
 	.imageWrapper {
-		@apply rounded-full overflow-hidden p-2 3xs:p-3 sa:p-2 w-fit h-fit mx-auto select-none;
-
-		/**
-		 * For somme reason "dark:" props doesn't work here and are moves in the component...
-		 * bg-secondary drop-shadow-[1px_2px_4px_rgba(17,17,17,0.4)]
-		 * dark:bg-foreground-secondary dark:drop-shadow-[1px_2px_4px_rgba(17,17,17,1)]
-		 */
-
 		grid-area: image;
-		background-position: center;
-		background-size: 160px;
-		background-repeat: no-repeat;
-
-		.image {
-			@apply rounded-full
-						drop-shadow-[0_0_3px_rgba(85,85,85,1)] w-[186px] h-[186px] 6xs:w-[60vw] 6xs:h-[60vw] 3xs:w-[300px] 3xs:h-[300px] sa:w-[200px] sa:h-[200px];
-		}
 	}
 
 	.businessCardDescription {
-		@apply 6xs:text-lg sa:text-base ma:text-lg font-semibold tracking-widest text-foreground-tertiary text-center sa:text-left;
-
 		grid-area: description;
 	}
 }
