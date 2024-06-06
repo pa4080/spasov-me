@@ -8,6 +8,7 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { Route } from "@/routes";
 
+import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import styles from "./_business-card.module.scss";
 
 interface Props {
@@ -28,9 +29,15 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type }) => {
 		return str.replace(commentsMatcher, "");
 	});
 
+	const cvLink = entry?.gallery
+		?.find(({ filename }) => filename.match(/\.pdf$/))
+		?.metadata.html.fileUrl?.replace(/\?.*$/, "");
+
+	console.log({ cvLink });
+
 	return (
 		entry && (
-			<div className={`${styles.businessCard} ${className}`} id={toggle_target_id}>
+			<div className={`relative ${styles.businessCard} ${className}`} id={toggle_target_id}>
 				<div
 					dangerouslySetInnerHTML={{ __html: entry.html.title }}
 					className={styles.businessCardTitle}
@@ -60,6 +67,15 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type }) => {
 					dangerouslySetInnerHTML={{ __html: descriptionArr?.[0] || "" }}
 					className={styles.businessCardDescription}
 				/>
+
+				<a
+					href={cvLink}
+					target="_blank"
+					rel="noreferrer"
+					className="absolute right-4 sa:right-2 bottom-16 sa:-bottom-8 pl-[2.8px] bg-transparent grayscale opacity-45 hover:opacity-100 hover:grayscale-0 transition-all duration-200"
+				>
+					<IconEmbedSvg height={28} type={"download"} width={28} />
+				</a>
 			</div>
 		)
 	);
