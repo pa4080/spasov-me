@@ -21,7 +21,7 @@ interface Props {
  * The title of the section must exist in the messages.json file
  * In the format of: `title_${type}`, i.e. "title_employment"
  */
-const TimeLine: React.FC<Props> = ({ type, visibleItems = 3, entries, displayTags }) => {
+const TimeLine: React.FC<Props> = ({ type, visibleItems = 15, entries, displayTags }) => {
 	const t = msgs("Search");
 
 	type tType = Parameters<typeof t>[0];

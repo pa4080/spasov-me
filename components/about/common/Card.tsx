@@ -12,8 +12,7 @@ import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 import Gallery from "@/components/fragments/Gallery";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-import { FileData, FileListItem } from "@/interfaces/File";
-import { TagData } from "@/interfaces/Tag";
+import { FileData } from "@/interfaces/File";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
@@ -27,8 +26,6 @@ import UpdateAboutEntry from "../admin/Actions/Update";
 interface Props {
 	entry: AboutEntryData;
 	className?: string;
-	files?: FileListItem[] | null | undefined;
-	tags?: TagData[] | null | undefined;
 	displayTagsInline?: boolean;
 	displayGalleryInline?: boolean;
 }
@@ -36,8 +33,6 @@ interface Props {
 const AboutEntryCard: React.FC<Props> = ({
 	entry,
 	className,
-	files,
-	tags,
 	displayTagsInline = true,
 	displayGalleryInline = false,
 }) => {
@@ -110,7 +105,7 @@ const AboutEntryCard: React.FC<Props> = ({
 							<VisibilitySwitchDisplay disabled checked={entry.visibility} className="mt-0.5" />
 							<FileAddressHandle address={attachmentAddress} />
 							<Gallery entry={entry} gallery={gallery} />
-							<UpdateAboutEntry entry={entry} files={files} tags={tags} />
+							<UpdateAboutEntry entry={entry} />
 
 							<ToggleCollapsible
 								tooltip

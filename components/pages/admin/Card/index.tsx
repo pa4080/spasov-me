@@ -4,7 +4,6 @@ import Image from "next/image";
 
 import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
-import { FileListItem } from "@/interfaces/File";
 import { IconMap } from "@/interfaces/IconMap";
 import { PageCardData } from "@/interfaces/PageCard";
 import { msgs } from "@/messages";
@@ -19,11 +18,10 @@ import UpdatePage from "../Actions/UpdatePage";
 interface Props {
 	className?: string;
 	page: PageCardData;
-	files: FileListItem[] | null | undefined;
 	icons: IconMap;
 }
 
-const PageCard: React.FC<Props> = ({ className, page, files, icons }) => {
+const PageCard: React.FC<Props> = ({ className, page, icons }) => {
 	const t = msgs("PageCards");
 
 	return (
@@ -46,7 +44,7 @@ const PageCard: React.FC<Props> = ({ className, page, files, icons }) => {
 					<DeletePage page_id={page._id} page_title={page.title} />
 					<FileAddressHandle address={`/${page.uri}`} />
 					<VisibilitySwitchDisplay disabled checked={page.visibility} className="mt-1 mr-1" />
-					<UpdatePage files={files} icons={icons} page={page} />
+					<UpdatePage icons={icons} page={page} />
 				</div>
 			</div>
 			{page.attachment && page.html.attachment && (

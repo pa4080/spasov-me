@@ -21,12 +21,13 @@ import { IconMap } from "@/interfaces/IconMap";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { FileData, FileListItem } from "@/interfaces/File";
+import { FileData } from "@/interfaces/File";
 
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 
+import { useAppContext } from "@/contexts/AppContext";
 import Combobox from "../../../fragments/Combobox";
 import { Pages_FormSchema, Pages_FormSchemaGenerator } from "./schema";
 
@@ -35,7 +36,6 @@ interface Props {
 	onSubmit: (data: Pages_FormSchema) => void;
 	submitting?: boolean;
 	formData?: Pages_FormSchema;
-	files?: FileListItem[] | null;
 	icons: IconMap;
 }
 
@@ -44,10 +44,10 @@ const PageForm: React.FC<Props> = ({
 	onSubmit,
 	submitting = false,
 	formData,
-	files,
 	icons,
 }) => {
 	const t = msgs("PageCards_Form");
+	const { fileList } = useAppContext();
 
 	const FormSchema = Pages_FormSchemaGenerator([
 		t("schema_title"),
@@ -164,7 +164,7 @@ const PageForm: React.FC<Props> = ({
 						className="w-full"
 						control={form.control}
 						error={form.formState.errors.attachment}
-						list={files ?? []}
+						list={fileList}
 						messages={{
 							label: t("form_pageAttachment_label"),
 							description: t("form_pageAttachment_description"),
@@ -181,12 +181,12 @@ const PageForm: React.FC<Props> = ({
 						file={
 							{
 								filename:
-									files?.find((f) => f.value === form.watch("attachment"))?.label ??
+									fileList?.find((f) => f.value === form.watch("attachment"))?.label ??
 									Route.assets.IMAGE_PLACEHOLDER,
 								metadata: {
 									html: {
 										fileUri:
-											files?.find((f) => f.value === form.watch("attachment"))?.sourceImage ??
+											fileList?.find((f) => f.value === form.watch("attachment"))?.sourceImage ??
 											Route.assets.IMAGE_PLACEHOLDER,
 									},
 								},

@@ -15,8 +15,6 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { FileListItem } from "@/interfaces/File";
-import { TagData } from "@/interfaces/Tag";
 import { ProjectType } from "@/interfaces/_common-data-types";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
@@ -32,11 +30,9 @@ const ProjectForm = dynamic(() => import("../Form"), {
 interface Props {
 	className?: string;
 	type: ProjectType;
-	files?: FileListItem[] | null | undefined;
-	tags: TagData[] | null | undefined;
 }
 
-const CreateProject: React.FC<Props> = ({ className, type, files, tags }) => {
+const CreateProject: React.FC<Props> = ({ className, type }) => {
 	const t = msgs("Projects_Create");
 	const entryTypeLabel = (
 		msgs("Projects_Form")("project_type_list") as unknown as Record<string, string>
@@ -77,10 +73,6 @@ const CreateProject: React.FC<Props> = ({ className, type, files, tags }) => {
 		}
 	};
 
-	if (!tags) {
-		return null;
-	}
-
 	return (
 		<div className={className}>
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -117,9 +109,7 @@ const CreateProject: React.FC<Props> = ({ className, type, files, tags }) => {
 					<ProjectForm
 						className="mt-1"
 						entryType={type}
-						files={files}
 						submitting={submitting}
-						tags={tags}
 						onSubmit={handleCreateProject}
 					/>
 				</DialogContent>

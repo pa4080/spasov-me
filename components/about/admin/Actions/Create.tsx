@@ -16,8 +16,6 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { FileListItem } from "@/interfaces/File";
-import { TagData } from "@/interfaces/Tag";
 import { AboutEntryType } from "@/interfaces/_common-data-types";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
@@ -34,11 +32,9 @@ const AboutEntryForm = dynamic(() => import("../Form"), {
 interface Props {
 	className?: string;
 	type: AboutEntryType;
-	files?: FileListItem[] | null | undefined;
-	tags: TagData[] | null | undefined;
 }
 
-const CreateAboutEntry: React.FC<Props> = ({ className, type, files, tags }) => {
+const CreateAboutEntry: React.FC<Props> = ({ className, type }) => {
 	const t = msgs("AboutEntries_Create");
 	const entryTypeLabel = (
 		msgs("AboutEntries_Form")("aboutEntry_type_list") as unknown as Record<string, string>
@@ -79,10 +75,6 @@ const CreateAboutEntry: React.FC<Props> = ({ className, type, files, tags }) => 
 		}
 	};
 
-	if (!tags) {
-		return null;
-	}
-
 	return (
 		<div className={className}>
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -119,9 +111,7 @@ const CreateAboutEntry: React.FC<Props> = ({ className, type, files, tags }) => 
 					<AboutEntryForm
 						className="mt-1"
 						entryType={type}
-						files={files}
 						submitting={submitting}
-						tags={tags}
 						onSubmit={handleCreateEntry}
 					/>
 				</DialogContent>
