@@ -1,6 +1,6 @@
 {
 	"name": "spasov-me",
-	"version": "2.4.0",
+	"version": "2.5.0",
 	"private": true,
 	"scripts": {
 		"env-pull": "pnpm dlx vercel env pull",
@@ -12,6 +12,7 @@
 		"dev": "pnpm generate-icon-map && next dev",
 		"build": "pnpm generate-icon-map && next build",
 		"start": "next start",
+		"start0": "next start -p 3000 --hostname 0.0.0.0",
 		"start1": "next start -p 3001",
 		"lint": "next lint",
 		"prepare": "husky install",
