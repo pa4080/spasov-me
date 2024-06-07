@@ -98,15 +98,18 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 			setAuthProviders(await getProviders());
 		})();
 
+		setFilesData();
+		setEntriesData();
+
 		return () => {};
 	}, []);
 
-	useEffect(() => {
-		if (session) {
-			setFilesData();
-			setEntriesData();
-		}
-	}, [session, setEntriesData, setFilesData]);
+	// useEffect(() => {
+	// 	if (session) {
+	// 		setFilesData();
+	// 		setEntriesData();
+	// 	}
+	// }, [session, setEntriesData, setFilesData]);
 
 	return (
 		<AppContext.Provider
