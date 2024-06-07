@@ -64,10 +64,9 @@ RUN chown nextjs:nodejs .next
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-# COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
 
 # Doppler CLI
 RUN wget -q -t3 'https://packages.doppler.com/public/cli/rsa.8004D9FF50437357.key' -O /etc/apk/keys/cli@doppler-8004D9FF50437357.rsa.pub && \
@@ -86,13 +85,6 @@ RUN export DOPPLER_TOKEN=${DOPPLER_TOKEN}
 
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-CMD \
-  if [ -f yarn.lock ]; then HOSTNAME="0.0.0.0" doppler run -- yarn start; \
-  elif [ -f package-lock.json ]; then HOSTNAME="0.0.0.0" doppler run -- npm start; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && HOSTNAME="0.0.0.0" doppler run -- pnpm start; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+CMD HOSTNAME="0.0.0.0" doppler run -- node server.js
 # Note: Don't expose ports here, Compose will handle that for us
-# CMD HOSTNAME="0.0.0.0" doppler run -- node server.js
 #CMD ["doppler", "run", "--", "node", "server.js"]
