@@ -37,6 +37,7 @@ import { Route } from "@/routes";
 
 import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
 
+import Loading from "@/components/fragments/Loading";
 import { useAppContext } from "@/contexts/AppContext";
 import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
 
@@ -98,7 +99,7 @@ const AboutEntryForm: React.FC<Props> = ({
 			: undefined,
 	});
 
-	if (!tags || !fileList) return null;
+	if (!tags || !fileList) return <Loading />;
 
 	return (
 		<Form {...form}>

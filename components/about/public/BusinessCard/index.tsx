@@ -76,6 +76,8 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type }) => {
 					</div>
 
 					<div className="absolute right-0 xs:right-4 sa:right-2 bottom-0 xs:bottom-0 sa:-bottom-8 bg-transparent flex flex-row gap-4 justify-center items-center">
+						<UpdateAboutEntry entry={entry} />
+
 						<a
 							href={cvLink}
 							target="_blank"
@@ -84,6 +86,7 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type }) => {
 						>
 							<IconEmbedSvg height={21} type={"download"} width={21} />
 						</a>
+
 						<Gallery
 							entry={entry}
 							gallery={gallery}
@@ -94,7 +97,6 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type }) => {
 								width: 28,
 							}}
 						/>
-						<UpdateAboutEntry entry={entry} />
 					</div>
 				</div>
 

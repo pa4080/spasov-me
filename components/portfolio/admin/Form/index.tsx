@@ -33,6 +33,7 @@ import { ProjectType, projectTuple } from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import Loading from "@/components/fragments/Loading";
 import { useAppContext } from "@/contexts/AppContext";
 import { Project_FormSchema, Project_FormSchemaGenerator } from "./schema";
 
@@ -110,7 +111,7 @@ const ProjectForm: React.FC<Props> = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [form.getFieldState("title").isTouched, form.watch("title")]);
 
-	if (!tags || !fileList) return null;
+	if (!tags || !fileList) return <Loading />;
 
 	return (
 		<Form {...form}>

@@ -74,6 +74,8 @@ const UpdateAboutEntry: React.FC<Props> = ({ className, entry }) => {
 		}
 	};
 
+	if (!session) return null;
+
 	return (
 		<div className={className}>
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
