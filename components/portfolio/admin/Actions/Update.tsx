@@ -16,9 +16,7 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { useAppContext } from "@/contexts/AppContext";
-import { FileListItem } from "@/interfaces/File";
 import { ProjectData } from "@/interfaces/Project";
-import { TagData } from "@/interfaces/Tag";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
@@ -31,18 +29,10 @@ const ProjectForm = dynamic(() => import("../Form"), { ssr: false, loading: () =
 interface Props {
 	className?: string;
 	project: ProjectData;
-	files?: FileListItem[] | null | undefined;
-	tags?: TagData[] | null | undefined;
 	dialogTrigger_buttonIconProps?: ButtonIconProps;
 }
 
-const UpdateProject: React.FC<Props> = ({
-	className,
-	project,
-	files,
-	tags,
-	dialogTrigger_buttonIconProps,
-}) => {
+const UpdateProject: React.FC<Props> = ({ className, project, dialogTrigger_buttonIconProps }) => {
 	const t = msgs("Projects_Update");
 	const entryTypeLabel = (
 		msgs("Projects_Form")("project_type_list") as unknown as Record<string, string>
@@ -52,14 +42,7 @@ const UpdateProject: React.FC<Props> = ({
 	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
 
-	const { session, tags: tagsContext, fileList: fileListContext } = useAppContext();
-
-	const tagsInUse = tags ?? tagsContext;
-	const filesInUse = files ?? fileListContext;
-
-	if (!tagsInUse || !session) {
-		return null;
-	}
+	const { session } = useAppContext();
 
 	const handleUpdateProject = async (data: Project_FormSchema) => {
 		setSubmitting(true);
@@ -126,10 +109,8 @@ const UpdateProject: React.FC<Props> = ({
 				<ProjectForm
 					className={t("dialog_description") ? "mt-0" : "mt-1"}
 					entryType={project.entryType}
-					files={filesInUse}
 					formData={project}
 					submitting={submitting}
-					tags={tagsInUse}
 					onSubmit={handleUpdateProject}
 				/>
 			</DialogContent>

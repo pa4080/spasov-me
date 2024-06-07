@@ -25,8 +25,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-import { FileData, FileListItem } from "@/interfaces/File";
-import { TagData } from "@/interfaces/Tag";
+import { FileData } from "@/interfaces/File";
 import {
 	AboutEntryType,
 	aboutEntryTuple,
@@ -38,6 +37,7 @@ import { Route } from "@/routes";
 
 import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
 
+import { useAppContext } from "@/contexts/AppContext";
 import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
 
 interface Props {
@@ -46,8 +46,6 @@ interface Props {
 	entryType: AboutEntryType;
 	onSubmit: (data: Entry_FormSchema) => void;
 	submitting?: boolean;
-	files?: FileListItem[] | null;
-	tags: TagData[] | null;
 }
 
 const AboutEntryForm: React.FC<Props> = ({
@@ -56,10 +54,9 @@ const AboutEntryForm: React.FC<Props> = ({
 	formData,
 	onSubmit,
 	submitting,
-	files,
-	tags,
 }) => {
 	const t = msgs("AboutEntries_Form");
+	const { fileList, tags } = useAppContext();
 
 	const FormSchema = Entry_FormSchemaGenerator([
 		t("schema_title"),
@@ -221,7 +218,7 @@ const AboutEntryForm: React.FC<Props> = ({
 								className="w-full"
 								control={form.control}
 								error={form.formState.errors.attachment}
-								list={files ?? []}
+								list={fileList ?? []}
 								messages={{
 									label: t("attachment_label"),
 									description: t("attachment_description"),
@@ -238,13 +235,13 @@ const AboutEntryForm: React.FC<Props> = ({
 								file={
 									{
 										filename:
-											files?.find((f) => f.value === form.watch("attachment"))?.label ??
+											fileList?.find((f) => f.value === form.watch("attachment"))?.label ??
 											Route.assets.IMAGE_PLACEHOLDER,
 										metadata: {
 											html: {
 												fileUri:
-													files?.find((f) => f.value === form.watch("attachment"))?.sourceImage ??
-													Route.assets.IMAGE_PLACEHOLDER,
+													fileList?.find((f) => f.value === form.watch("attachment"))
+														?.sourceImage ?? Route.assets.IMAGE_PLACEHOLDER,
 											},
 										},
 									} as FileData
@@ -365,7 +362,7 @@ const AboutEntryForm: React.FC<Props> = ({
 						control={form.control}
 						displayType="gallery_image"
 						error={form.formState.errors.gallery}
-						itemsList={files ?? []}
+						itemsList={fileList}
 						messages={{
 							label: t("gallery_label"),
 							description: t("gallery_description"),

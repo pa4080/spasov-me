@@ -27,13 +27,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
-import { FileData, FileListItem } from "@/interfaces/File";
+import { FileData } from "@/interfaces/File";
 import { ProjectData } from "@/interfaces/Project";
-import { TagData } from "@/interfaces/Tag";
 import { ProjectType, projectTuple } from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import { useAppContext } from "@/contexts/AppContext";
 import { Project_FormSchema, Project_FormSchemaGenerator } from "./schema";
 
 interface Props {
@@ -42,8 +42,6 @@ interface Props {
 	entryType: ProjectType;
 	onSubmit: (data: Project_FormSchema) => void;
 	submitting?: boolean;
-	files?: FileListItem[] | null;
-	tags: TagData[] | null;
 }
 
 const ProjectForm: React.FC<Props> = ({
@@ -52,10 +50,9 @@ const ProjectForm: React.FC<Props> = ({
 	formData,
 	onSubmit,
 	submitting,
-	files,
-	tags,
 }) => {
 	const t = msgs("Projects_Form");
+	const { fileList, tags } = useAppContext();
 
 	const FormSchema = Project_FormSchemaGenerator([
 		t("schema_title"),
@@ -178,7 +175,7 @@ const ProjectForm: React.FC<Props> = ({
 								className="w-full"
 								control={form.control}
 								error={form.formState.errors.icon}
-								list={files?.filter(({ label }) => label?.match(/\.(png|webp|svg|jpg)$/i)) ?? []}
+								list={fileList?.filter(({ label }) => label?.match(/\.(png|webp|svg|jpg)$/i)) ?? []}
 								messages={{
 									label: t("icon_label"),
 									description: t("icon_description"),
@@ -195,12 +192,12 @@ const ProjectForm: React.FC<Props> = ({
 								file={
 									{
 										filename:
-											files?.find((f) => f.value === form.watch("icon"))?.label ??
+											fileList?.find((f) => f.value === form.watch("icon"))?.label ??
 											Route.assets.IMAGE_PLACEHOLDER,
 										metadata: {
 											html: {
 												fileUri:
-													files?.find((f) => f.value === form.watch("icon"))?.sourceImage ??
+													fileList?.find((f) => f.value === form.watch("icon"))?.sourceImage ??
 													Route.assets.IMAGE_PLACEHOLDER,
 											},
 										},
@@ -302,7 +299,7 @@ const ProjectForm: React.FC<Props> = ({
 								className="w-full"
 								control={form.control}
 								error={form.formState.errors.attachment}
-								list={files ?? []}
+								list={fileList}
 								messages={{
 									label: t("attachment_label"),
 									description: t("attachment_description"),
@@ -319,13 +316,13 @@ const ProjectForm: React.FC<Props> = ({
 								file={
 									{
 										filename:
-											files?.find((f) => f.value === form.watch("attachment"))?.label ??
+											fileList?.find((f) => f.value === form.watch("attachment"))?.label ??
 											Route.assets.IMAGE_PLACEHOLDER,
 										metadata: {
 											html: {
 												fileUri:
-													files?.find((f) => f.value === form.watch("attachment"))?.sourceImage ??
-													Route.assets.IMAGE_PLACEHOLDER,
+													fileList?.find((f) => f.value === form.watch("attachment"))
+														?.sourceImage ?? Route.assets.IMAGE_PLACEHOLDER,
 											},
 										},
 									} as FileData
@@ -450,7 +447,7 @@ const ProjectForm: React.FC<Props> = ({
 						control={form.control}
 						displayType="gallery_image"
 						error={form.formState.errors.gallery}
-						itemsList={files ?? []}
+						itemsList={fileList}
 						messages={{
 							label: t("gallery_label"),
 							description: t("gallery_description"),

@@ -4,8 +4,6 @@ import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-import { FileListItem } from "@/interfaces/File";
-import { TagData } from "@/interfaces/Tag";
 import { AboutEntryType } from "@/interfaces/_common-data-types";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
@@ -21,15 +19,13 @@ interface Props {
 	type: AboutEntryType;
 	visibleItems?: number;
 	entries: AboutEntryData[] | null;
-	files?: FileListItem[] | null;
-	tags: TagData[] | null;
 }
 
 /**
  * The title of the section must exist in the messages.json file
  * In the format of: `title_${type}`, i.e. "title_employment"
  */
-const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries, tags, files }) => {
+const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries }) => {
 	const t = msgs("AboutEntries");
 
 	type tType = Parameters<typeof t>[0];
@@ -49,7 +45,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 		>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths paths={[Route.public.ABOUT.uri]} />
-				<CreateAboutEntry files={files} tags={tags} type={type} />
+				<CreateAboutEntry type={type} />
 				<ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}
@@ -64,8 +60,6 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries,
 						displayGalleryInline
 						className={visibleItems > index ? "" : "section-card-collapsible"}
 						entry={entry}
-						files={files}
-						tags={tags}
 					/>
 				))}
 			</div>
