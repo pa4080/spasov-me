@@ -1327,6 +1327,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	it_uikit: {
+		name: "it_uikit",
+		uri: {
+			light: "/assets/icons/it/uikit.png",
+			dark: "/assets/icons/it/uikit.png",
+		},
+		info: {
+			height: 96,
+			width: 96,
+			type: "png",
+			ratio: 1,
+		},
+	},
 	"it_vercel-icon": {
 		name: "it_vercel-icon",
 		uri: {
