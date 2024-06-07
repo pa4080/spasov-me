@@ -101,9 +101,9 @@ const AboutEntryForm: React.FC<Props> = ({
 
 	if (!tags || !fileList) return <Loading />;
 	// eslint-disable-next-line no-console
-	console.log(tags);
+	console.log("tags", tags);
 	// eslint-disable-next-line no-console
-	console.log(fileList);
+	console.log("fileList", fileList);
 
 	return (
 		<Form {...form}>
