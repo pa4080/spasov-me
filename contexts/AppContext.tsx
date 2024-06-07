@@ -76,10 +76,14 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 	useEffect(() => {
 		(async () => {
 			setAuthProviders(await getProviders());
-		})();
 
-		setFilesData();
-		setEntriesData();
+			setFiles(await getFilesR2({ hyphen: true, public: true }));
+			setFileList(await getFileList());
+			setAboutEntries(await getEntries({ hyphen: true, public: true }));
+			setPages(await getPageCards({ hyphen: true, public: true }));
+			setTags(await getTags({ hyphen: true, public: true }));
+			setProjects(await getProjects({ hyphen: true, public: true }));
+		})();
 	}, []);
 
 	return (

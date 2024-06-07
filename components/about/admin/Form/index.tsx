@@ -100,6 +100,10 @@ const AboutEntryForm: React.FC<Props> = ({
 	});
 
 	if (!tags || !fileList) return <Loading />;
+	// eslint-disable-next-line no-console
+	console.log(tags);
+	// eslint-disable-next-line no-console
+	console.log(fileList);
 
 	return (
 		<Form {...form}>
@@ -365,7 +369,7 @@ const AboutEntryForm: React.FC<Props> = ({
 						control={form.control}
 						displayType="gallery_image"
 						error={form.formState.errors.gallery}
-						itemsList={fileList}
+						itemsList={fileList ?? []}
 						messages={{
 							label: t("gallery_label"),
 							description: t("gallery_description"),
