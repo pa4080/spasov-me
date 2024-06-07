@@ -10,9 +10,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- [x] Gallery: display .PDF, .XLSX, .CSV, .DOC, .PX
-- [x] Add visible attachment to `components/about/public/BusinessCard` - CV as PDF, manually attached.
-
 - [ ] Blog post admin
 - [ ] Blog feed public
 - [ ] Blog post public
