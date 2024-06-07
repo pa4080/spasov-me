@@ -110,6 +110,8 @@ const ProjectForm: React.FC<Props> = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [form.getFieldState("title").isTouched, form.watch("title")]);
 
+	if (!tags || !fileList) return null;
+
 	return (
 		<Form {...form}>
 			<form

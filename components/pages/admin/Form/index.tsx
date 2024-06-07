@@ -95,6 +95,8 @@ const PageForm: React.FC<Props> = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [form.watch]);
 
+	if (!fileList) return null;
+
 	return (
 		<Form {...form}>
 			<form

@@ -98,6 +98,8 @@ const AboutEntryForm: React.FC<Props> = ({
 			: undefined,
 	});
 
+	if (!tags || !fileList) return null;
+
 	return (
 		<Form {...form}>
 			<form
