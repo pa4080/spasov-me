@@ -69,9 +69,13 @@ export default function Combobox<T extends FieldValues>({
 }: Props<T>) {
 	const regExp = new RegExp(`^(.{${labelMaxLength}}).*$`);
 
+	if (!list) return null;
+	// eslint-disable-next-line no-console
+	console.log(list);
+
 	const label = (field: ControllerRenderProps<T, Path<T>>) => {
 		const label = field.value
-			? list.find((item) => item.value === field.value)?.label
+			? list?.find((item) => item.value === field.value)?.label
 			: messages.pleaseSelect;
 
 		return label && label.length > labelMaxLength ? label.replace(regExp, "$1...") : label;
@@ -114,7 +118,7 @@ export default function Combobox<T extends FieldValues>({
 										<PopoverClose className="w-full flex items-center justify-start">
 											<Check
 												className={`mr-2 h-4 w-4 ${
-													undefined === field.value ? "opacity-100" : "opacity-0"
+													field.value === undefined ? "opacity-100" : "opacity-0"
 												}`}
 												strokeWidth={3}
 											/>
@@ -123,7 +127,7 @@ export default function Combobox<T extends FieldValues>({
 										</PopoverClose>
 									</CommandItem>
 
-									{list.map((item) => (
+									{list?.map((item) => (
 										<CommandItem
 											key={item.value}
 											value={item.value}
