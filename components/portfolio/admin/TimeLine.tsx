@@ -4,9 +4,7 @@ import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
-import { FileListItem } from "@/interfaces/File";
 import { ProjectData } from "@/interfaces/Project";
-import { TagData } from "@/interfaces/Tag";
 import { ProjectType } from "@/interfaces/_common-data-types";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
@@ -22,22 +20,13 @@ interface Props {
 	type: ProjectType;
 	visibleItems?: number;
 	projects: ProjectData[] | null;
-	files?: FileListItem[] | null;
-	tags: TagData[] | null;
 }
 
 /**
  * The title of the section must exist in the messages.json file
  * In the format of: `title_${type}`, i.e. "title_employment"
  */
-const TimeLine: React.FC<Props> = ({
-	className,
-	type,
-	visibleItems = 3,
-	projects,
-	tags,
-	files,
-}) => {
+const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, projects }) => {
 	const t = msgs("Projects");
 
 	type tType = Parameters<typeof t>[0];
@@ -55,7 +44,7 @@ const TimeLine: React.FC<Props> = ({
 			<SectionHeader title={section_title}>
 				<CreateFile />
 				<RevalidatePaths paths={[Route.public.PORTFOLIO.uri]} />
-				<CreateProject files={files} tags={tags} type={type} />
+				<CreateProject type={type} />
 				<ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}
@@ -68,9 +57,7 @@ const TimeLine: React.FC<Props> = ({
 					<ProjectAdminCard
 						key={index}
 						className={visibleItems > index ? "" : "section-card-collapsible"}
-						files={files}
 						project={project}
-						tags={tags}
 					/>
 				))}
 			</div>

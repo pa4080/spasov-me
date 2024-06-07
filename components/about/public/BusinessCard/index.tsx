@@ -10,6 +10,7 @@ import { Route } from "@/routes";
 
 import Gallery from "@/components/fragments/Gallery";
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import UpdateAboutEntry from "../../admin/Actions/Update";
 import styles from "./_business-card.module.scss";
 
 interface Props {
@@ -93,6 +94,7 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type }) => {
 								width: 28,
 							}}
 						/>
+						<UpdateAboutEntry entry={entry} />
 					</div>
 				</div>
 
