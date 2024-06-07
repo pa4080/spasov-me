@@ -9,6 +9,7 @@ import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName
 import { msgs } from "@/messages";
 
 import cardStyles from "@/app/(styles)/card-info.module.scss";
+import UpdateAboutEntry from "../admin/Actions/Update";
 
 interface Props {
 	entries: AboutEntryData[] | null;
@@ -38,6 +39,7 @@ const Resume: React.FC<Props> = ({ entries, className, type }) => {
 		descriptionArr && (
 			<div className={className} id={toggle_target_id}>
 				<SectionHeader className="pop-header" title={section_title}>
+					<UpdateAboutEntry entry={entry} />
 					<ToggleCollapsible
 						target_id={toggle_target_id}
 						text={[t("btnMore"), t("btnLess")]}

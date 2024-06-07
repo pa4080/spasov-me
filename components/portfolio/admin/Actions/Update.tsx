@@ -84,6 +84,8 @@ const UpdateProject: React.FC<Props> = ({ className, project, dialogTrigger_butt
 		...dialogTrigger_buttonIconProps,
 	};
 
+	if (!session) return null;
+
 	return (
 		<Dialog open={isOpen} onOpenChange={setIsOpen}>
 			<DialogTrigger className={className} disabled={submitting}>

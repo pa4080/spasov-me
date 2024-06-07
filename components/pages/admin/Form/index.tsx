@@ -27,6 +27,7 @@ import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 
+import Loading from "@/components/fragments/Loading";
 import { useAppContext } from "@/contexts/AppContext";
 import Combobox from "../../../fragments/Combobox";
 import { Pages_FormSchema, Pages_FormSchemaGenerator } from "./schema";
@@ -94,6 +95,8 @@ const PageForm: React.FC<Props> = ({
 		return () => subscription.unsubscribe();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [form.watch]);
+
+	if (!fileList) return <Loading />;
 
 	return (
 		<Form {...form}>
