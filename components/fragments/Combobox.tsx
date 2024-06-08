@@ -71,7 +71,7 @@ export default function Combobox<T extends FieldValues>({
 
 	if (!list) return null;
 	// eslint-disable-next-line no-console
-	console.log(list);
+	console.log(messages?.label, list);
 
 	const label = (field: ControllerRenderProps<T, Path<T>>) => {
 		const label = field.value
@@ -129,8 +129,8 @@ export default function Combobox<T extends FieldValues>({
 
 									{list?.map((item) => (
 										<CommandItem
-											key={item.value}
-											value={item.value}
+											key={item?.value}
+											value={item?.value}
 											onSelect={() => {
 												setValue(name, item.value);
 											}}
@@ -138,11 +138,11 @@ export default function Combobox<T extends FieldValues>({
 											<PopoverClose className="w-full flex items-center justify-start">
 												<Check
 													className={`mr-2 h-4 w-4 ${
-														item.value === field.value ? "opacity-100" : "opacity-0"
+														item?.value === field?.value ? "opacity-100" : "opacity-0"
 													}`}
 													strokeWidth={3}
 												/>
-												<div className="line-clamp-1 text-left">{item.label}</div>
+												<div className="line-clamp-1 text-left">{item?.label}</div>
 											</PopoverClose>
 										</CommandItem>
 									))}

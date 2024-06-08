@@ -356,7 +356,7 @@ const AboutEntryForm: React.FC<Props> = ({
 						selected={form.watch("tags") || []}
 						onSelect={(items: string[] | undefined) =>
 							items
-								? form.setValue("tags", items, { shouldValidate: items.length > 0 })
+								? form.setValue("tags", items, { shouldValidate: items?.length > 0 })
 								: form.resetField("tags")
 						}
 					/>
