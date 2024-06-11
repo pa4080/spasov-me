@@ -5,8 +5,8 @@ const path = require("path");
 
 const nextConfig = {
 	reactStrictMode: true,
+	output: "standalone",
 	// trailingSlash: true,
-	// output: "standalone",
 	images: {
 		// unoptimized: true,
 		dangerouslyAllowSVG: true,

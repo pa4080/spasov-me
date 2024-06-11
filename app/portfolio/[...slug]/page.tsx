@@ -6,8 +6,10 @@ import React from "react";
 
 import { notFound } from "next/navigation";
 
+import { getFileList } from "@/components/files-cloudflare/_files.actions";
 import { getProjects } from "@/components/portfolio/_portfolio.actions";
 import PortfolioPublicProject from "@/components/portfolio/public/Project";
+import { getTags } from "@/components/tags/_tags.actions";
 
 interface Props {
 	params: { slug: string[] };
@@ -30,6 +32,9 @@ const Project: React.FC<Props> = async ({ params }) => {
 
 	const projectIdSlug = params.slug[0];
 
+	const fileList = await getFileList();
+	const tags = await getTags();
+
 	const projectsHyphenated = await getProjects({
 		hyphen: true,
 		public: true,
@@ -45,7 +50,7 @@ const Project: React.FC<Props> = async ({ params }) => {
 
 	return (
 		<div className="mt-2 sa:mt-6 mb-24 scroll-m-40">
-			<PortfolioPublicProject project={project} />
+			<PortfolioPublicProject project={project} fileList={fileList} tags={tags} />
 		</div>
 	);
 };

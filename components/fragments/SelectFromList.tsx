@@ -1,6 +1,14 @@
 "use client";
 
-import { Control, FieldError, FieldValues, Path, PathValue } from "react-hook-form";
+import {
+	Control,
+	FieldError,
+	FieldErrorsImpl,
+	FieldValues,
+	Merge,
+	Path,
+	PathValue,
+} from "react-hook-form";
 
 import {
 	FormControl,
@@ -35,7 +43,7 @@ interface Props<T extends FieldValues> {
 		description?: string;
 		placeholder?: string;
 	};
-	error?: FieldError | undefined;
+	error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
 	className?: string;
 }
 

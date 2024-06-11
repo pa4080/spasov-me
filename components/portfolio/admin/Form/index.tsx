@@ -27,14 +27,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
-import { FileData } from "@/interfaces/File";
+import { FileData, FileListItem } from "@/interfaces/File";
 import { ProjectData } from "@/interfaces/Project";
 import { ProjectType, projectTuple } from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
 import Loading from "@/components/fragments/Loading";
-import { useAppContext } from "@/contexts/AppContext";
+import { TagData } from "@/interfaces/Tag";
 import { Project_FormSchema, Project_FormSchemaGenerator } from "./schema";
 
 interface Props {
@@ -43,6 +43,8 @@ interface Props {
 	entryType: ProjectType;
 	onSubmit: (data: Project_FormSchema) => void;
 	submitting?: boolean;
+	fileList: FileListItem[] | null;
+	tags: TagData[] | null;
 }
 
 const ProjectForm: React.FC<Props> = ({
@@ -51,9 +53,10 @@ const ProjectForm: React.FC<Props> = ({
 	formData,
 	onSubmit,
 	submitting,
+	fileList,
+	tags,
 }) => {
 	const t = msgs("Projects_Form");
-	const { fileList, tags } = useAppContext();
 
 	const FormSchema = Project_FormSchemaGenerator([
 		t("schema_title"),

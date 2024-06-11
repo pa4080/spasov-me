@@ -1,3 +1,8 @@
+/**
+ * Bug fix:
+ * https://stackoverflow.com/questions/78308674/shadcn-combobox-disabled-even-thougyh-i-have-not-intentionally-doing-it
+ */
+
 "use client";
 
 import { type DialogProps } from "@radix-ui/react-dialog";
@@ -115,7 +120,7 @@ const CommandItem = React.forwardRef<
 	<CommandPrimitive.Item
 		ref={ref}
 		className={cn(
-			"relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+			"relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50",
 			className
 		)}
 		{...props}

@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import { bg } from "date-fns/locale";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Control, FieldError, FieldValues, Path } from "react-hook-form";
+import { Control, FieldError, FieldErrorsImpl, FieldValues, Merge, Path } from "react-hook-form";
 
 import { CalendarIcon } from "lucide-react";
 
@@ -35,7 +35,7 @@ interface Props<T extends FieldValues> {
 		placeholder?: string;
 		button?: string;
 	};
-	error?: FieldError | undefined;
+	error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
 	className?: string;
 }
 

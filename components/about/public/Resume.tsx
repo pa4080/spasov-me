@@ -9,15 +9,19 @@ import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName
 import { msgs } from "@/messages";
 
 import cardStyles from "@/app/(styles)/card-info.module.scss";
+import { FileListItem } from "@/interfaces/File";
+import { TagData } from "@/interfaces/Tag";
 import UpdateAboutEntry from "../admin/Actions/Update";
 
 interface Props {
 	entries: AboutEntryData[] | null;
 	className?: string;
 	type: AboutEntryType;
+	fileList: FileListItem[] | null;
+	tags: TagData[] | null;
 }
 
-const Resume: React.FC<Props> = ({ entries, className, type }) => {
+const Resume: React.FC<Props> = ({ entries, className, type, fileList, tags }) => {
 	const t = msgs("AboutEntries");
 
 	type tType = Parameters<typeof t>[0];
@@ -39,7 +43,7 @@ const Resume: React.FC<Props> = ({ entries, className, type }) => {
 		descriptionArr && (
 			<div className={className} id={toggle_target_id}>
 				<SectionHeader className="pop-header" title={section_title}>
-					<UpdateAboutEntry entry={entry} />
+					<UpdateAboutEntry entry={entry} fileList={fileList} tags={tags} />
 					<ToggleCollapsible
 						target_id={toggle_target_id}
 						text={[t("btnMore"), t("btnLess")]}
