@@ -10,6 +10,8 @@ import { Route } from "@/routes";
 
 import Gallery from "@/components/fragments/Gallery";
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import { FileListItem } from "@/interfaces/File";
+import { TagData } from "@/interfaces/Tag";
 import UpdateAboutEntry from "../../admin/Actions/Update";
 import styles from "./_business-card.module.scss";
 
@@ -17,9 +19,11 @@ interface Props {
 	entries: AboutEntryData[] | null;
 	className?: string;
 	type: AboutEntryType;
+	fileList: FileListItem[] | null;
+	tags: TagData[] | null;
 }
 
-const BusinessCard: React.FC<Props> = ({ entries, className, type }) => {
+const BusinessCard: React.FC<Props> = ({ entries, className, type, fileList, tags }) => {
 	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_${type}`);
 
 	const entry =
@@ -76,7 +80,7 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type }) => {
 					</div>
 
 					<div className="absolute right-0 xs:right-4 sa:right-2 bottom-0 xs:bottom-0 sa:-bottom-8 bg-transparent flex flex-row gap-4 justify-center items-center">
-						<UpdateAboutEntry entry={entry} />
+						<UpdateAboutEntry entry={entry} fileList={fileList} tags={tags} />
 
 						<a
 							href={cvLink}
