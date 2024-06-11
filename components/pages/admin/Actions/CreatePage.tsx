@@ -19,6 +19,7 @@ import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import { FileListItem } from "@/interfaces/File";
 import { createPageCard } from "../../_pages.actions";
 import PageForm from "../Form";
 import { Pages_FormSchema } from "../Form/schema";
@@ -26,9 +27,10 @@ import { Pages_FormSchema } from "../Form/schema";
 interface Props {
 	className?: string;
 	icons: IconMap;
+	fileList: FileListItem[] | null;
 }
 
-const CreatePage: React.FC<Props> = ({ className, icons }) => {
+const CreatePage: React.FC<Props> = ({ className, icons, fileList }) => {
 	const t = msgs("PageCards_Create");
 
 	const [submitting, setSubmitting] = useState(false);
@@ -93,6 +95,7 @@ const CreatePage: React.FC<Props> = ({ className, icons }) => {
 					</DialogHeader>
 
 					<PageForm
+						fileList={fileList}
 						className="mt-1"
 						icons={icons}
 						submitting={submitting}

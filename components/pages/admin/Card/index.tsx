@@ -11,6 +11,7 @@ import { Route } from "@/routes";
 
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 
+import { FileListItem } from "@/interfaces/File";
 import styles from "../../_pages.module.scss";
 import DeletePage from "../Actions/DeletePage";
 import UpdatePage from "../Actions/UpdatePage";
@@ -19,9 +20,10 @@ interface Props {
 	className?: string;
 	page: PageCardData;
 	icons: IconMap;
+	fileList: FileListItem[] | null;
 }
 
-const PageCard: React.FC<Props> = ({ className, page, icons }) => {
+const PageCard: React.FC<Props> = ({ className, page, icons, fileList }) => {
 	const t = msgs("PageCards");
 
 	return (
@@ -44,7 +46,7 @@ const PageCard: React.FC<Props> = ({ className, page, icons }) => {
 					<DeletePage page_id={page._id} page_title={page.title} />
 					<FileAddressHandle address={`/${page.uri}`} />
 					<VisibilitySwitchDisplay disabled checked={page.visibility} className="mt-1 mr-1" />
-					<UpdatePage icons={icons} page={page} />
+					<UpdatePage icons={icons} page={page} fileList={fileList} />
 				</div>
 			</div>
 			{page.attachment && page.html.attachment && (

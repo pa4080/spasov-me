@@ -21,6 +21,7 @@ import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import { FileListItem } from "@/interfaces/File";
 import { updatePageCard } from "../../_pages.actions";
 import PageForm from "../Form";
 import { Pages_FormSchema } from "../Form/schema";
@@ -29,9 +30,10 @@ interface Props {
 	className?: string;
 	page: PageCardData;
 	icons: IconMap;
+	fileList: FileListItem[] | null;
 }
 
-const UpdatePage: React.FC<Props> = ({ className, page, icons }) => {
+const UpdatePage: React.FC<Props> = ({ className, page, icons, fileList }) => {
 	const t = msgs("PageCards_Update");
 
 	const [submitting, setSubmitting] = useState(false);
@@ -93,6 +95,7 @@ const UpdatePage: React.FC<Props> = ({ className, page, icons }) => {
 					</DialogHeader>
 
 					<PageForm
+						fileList={fileList}
 						className={t("dialog_description") ? "mt-0" : "mt-1"}
 						formData={page}
 						icons={icons}
