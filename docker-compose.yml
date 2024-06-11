@@ -11,6 +11,6 @@ services:
         DOPPLER_TOKEN: ${DOPPLER_TOKEN}
     restart: always
     ports:
-      - 3037:3000
-      # - 43000:3000
+      # - 3037:3000
+      - 43000:3000
 
