@@ -21,6 +21,8 @@ import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import { FileListItem } from "@/interfaces/File";
+import { TagData } from "@/interfaces/Tag";
 import { Entry_FormSchema } from "../Form/schema";
 
 // import AboutEntryForm from "../Form";
@@ -32,9 +34,11 @@ const AboutEntryForm = dynamic(() => import("../Form"), {
 interface Props {
 	className?: string;
 	type: AboutEntryType;
+	fileList: FileListItem[] | null;
+	tags: TagData[] | null;
 }
 
-const CreateAboutEntry: React.FC<Props> = ({ className, type }) => {
+const CreateAboutEntry: React.FC<Props> = ({ className, type, fileList, tags }) => {
 	const t = msgs("AboutEntries_Create");
 	const entryTypeLabel = (
 		msgs("AboutEntries_Form")("aboutEntry_type_list") as unknown as Record<string, string>
@@ -113,6 +117,8 @@ const CreateAboutEntry: React.FC<Props> = ({ className, type }) => {
 						entryType={type}
 						submitting={submitting}
 						onSubmit={handleCreateEntry}
+						fileList={fileList}
+						tags={tags}
 					/>
 				</DialogContent>
 			</Dialog>

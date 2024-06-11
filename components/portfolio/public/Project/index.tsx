@@ -2,7 +2,6 @@ import React from "react";
 
 import dynamic from "next/dynamic";
 
-// import GalleryCarousel from "@/components/fragments/Gallery/GalleryCarousel";
 import Loading from "@/components/fragments/Loading";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import TechTags from "@/components/fragments/TechTags";
@@ -11,6 +10,8 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 
 import { cn } from "@/lib/cn-utils";
 
+import { FileListItem } from "@/interfaces/File";
+import { TagData } from "@/interfaces/Tag";
 import ProjectLinks from "../../common/ProjectLinks";
 
 const GalleryCarousel = dynamic(() => import("@/components/fragments/Gallery/GalleryCarousel"), {
@@ -23,9 +24,11 @@ const GalleryCarousel = dynamic(() => import("@/components/fragments/Gallery/Gal
 interface Props {
 	className?: string;
 	project: ProjectData;
+	fileList: FileListItem[] | null;
+	tags: TagData[] | null;
 }
 
-const PortfolioPublicProject: React.FC<Props> = async ({ className, project }) => {
+const PortfolioPublicProject: React.FC<Props> = async ({ className, project, fileList, tags }) => {
 	const descriptionArr = project.html.description.split(splitDescriptionKeyword).map((str) => {
 		return str.replace(commentsMatcher, "");
 	});
@@ -48,7 +51,7 @@ const PortfolioPublicProject: React.FC<Props> = async ({ className, project }) =
 				projectData={project}
 			/>
 			<SectionHeader className="pop-header mt-6 sa:mt-8" title={project.html.title}>
-				<ProjectLinks project={project} />
+				<ProjectLinks project={project} fileList={fileList} tags={tags} />
 			</SectionHeader>
 
 			{/* @see https://github.com/tailwindlabs/tailwindcss-typography */}

@@ -22,6 +22,7 @@ import {
 	CommandGroup,
 	CommandInput,
 	CommandItem,
+	CommandList,
 } from "@/components/ui/command";
 import { FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -54,7 +55,7 @@ interface Props<T extends FieldValues> {
 		add?: string;
 		notFound?: string;
 	};
-	error?: Merge<FieldError, (FieldError | undefined)[]>;
+	error?: Merge<FieldError, (FieldError | undefined)[]> | undefined;
 	className?: string;
 	onSelect: (items: string[] | undefined) => void;
 	selected: string[] | undefined;
@@ -253,28 +254,30 @@ export default function MultiSelectFromList<T extends FieldValues>({
 									value={inputValue}
 									onValueChange={setInputValue}
 								/>
-								<CommandEmpty className="py-0 px-2 text-center">{messages.notFound}</CommandEmpty>
+								<CommandList>
+									<CommandEmpty className="py-0 px-2 text-center">{messages.notFound}</CommandEmpty>
 
-								<CommandGroup className="max-h-52 overflow-y-scroll">
-									{itemsList
-										.filter((itemAvailable) => !selected?.includes(itemAvailable.value))
-										.map((item) => (
-											<CommandItem
-												key={item.value}
-												className={"cursor-pointer"}
-												onMouseDown={(e) => {
-													e.preventDefault();
-													e.stopPropagation();
-												}}
-												onSelect={() => {
-													autoClearInput && setInputValue("");
-													onSelect(selected ? [...selected, item.value] : [item.value]);
-												}}
-											>
-												{item.label}
-											</CommandItem>
-										))}
-								</CommandGroup>
+									<CommandGroup className="max-h-52 overflow-y-scroll">
+										{itemsList
+											.filter((itemAvailable) => !selected?.includes(itemAvailable.value))
+											.map((item) => (
+												<CommandItem
+													key={item.value}
+													className={"cursor-pointer"}
+													onMouseDown={(e) => {
+														e.preventDefault();
+														e.stopPropagation();
+													}}
+													onSelect={() => {
+														autoClearInput && setInputValue("");
+														onSelect(selected ? [...selected, item.value] : [item.value]);
+													}}
+												>
+													{item.label}
+												</CommandItem>
+											))}
+									</CommandGroup>
+								</CommandList>
 							</Command>
 						</PopoverContent>
 					</Popover>

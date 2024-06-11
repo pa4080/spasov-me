@@ -21,14 +21,13 @@ import { IconMap } from "@/interfaces/IconMap";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { FileData } from "@/interfaces/File";
+import { FileData, FileListItem } from "@/interfaces/File";
 
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 
 import Loading from "@/components/fragments/Loading";
-import { useAppContext } from "@/contexts/AppContext";
 import Combobox from "../../../fragments/Combobox";
 import { Pages_FormSchema, Pages_FormSchemaGenerator } from "./schema";
 
@@ -38,6 +37,7 @@ interface Props {
 	submitting?: boolean;
 	formData?: Pages_FormSchema;
 	icons: IconMap;
+	fileList: FileListItem[] | null;
 }
 
 const PageForm: React.FC<Props> = ({
@@ -46,9 +46,9 @@ const PageForm: React.FC<Props> = ({
 	submitting = false,
 	formData,
 	icons,
+	fileList,
 }) => {
 	const t = msgs("PageCards_Form");
-	const { fileList } = useAppContext();
 
 	const FormSchema = Pages_FormSchemaGenerator([
 		t("schema_title"),

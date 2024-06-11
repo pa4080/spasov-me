@@ -20,6 +20,8 @@ import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import { FileListItem } from "@/interfaces/File";
+import { TagData } from "@/interfaces/Tag";
 import { Project_FormSchema } from "../Form/schema";
 // import ProjectForm from "../Form";
 const ProjectForm = dynamic(() => import("../Form"), {
@@ -30,9 +32,11 @@ const ProjectForm = dynamic(() => import("../Form"), {
 interface Props {
 	className?: string;
 	type: ProjectType;
+	fileList: FileListItem[] | null;
+	tags: TagData[] | null;
 }
 
-const CreateProject: React.FC<Props> = ({ className, type }) => {
+const CreateProject: React.FC<Props> = ({ className, type, fileList, tags }) => {
 	const t = msgs("Projects_Create");
 	const entryTypeLabel = (
 		msgs("Projects_Form")("project_type_list") as unknown as Record<string, string>
@@ -107,6 +111,8 @@ const CreateProject: React.FC<Props> = ({ className, type }) => {
 					</DialogHeader>
 
 					<ProjectForm
+						fileList={fileList}
+						tags={tags}
 						className="mt-1"
 						entryType={type}
 						submitting={submitting}

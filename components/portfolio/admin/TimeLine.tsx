@@ -12,6 +12,8 @@ import { Route } from "@/routes";
 
 import { cn } from "@/lib/cn-utils";
 
+import { FileListItem } from "@/interfaces/File";
+import { TagData } from "@/interfaces/Tag";
 import CreateProject from "./Actions/Create";
 import ProjectAdminCard from "./Card";
 
@@ -20,13 +22,22 @@ interface Props {
 	type: ProjectType;
 	visibleItems?: number;
 	projects: ProjectData[] | null;
+	fileList: FileListItem[] | null;
+	tags: TagData[] | null;
 }
 
 /**
  * The title of the section must exist in the messages.json file
  * In the format of: `title_${type}`, i.e. "title_employment"
  */
-const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, projects }) => {
+const TimeLine: React.FC<Props> = ({
+	className,
+	type,
+	visibleItems = 3,
+	projects,
+	fileList,
+	tags,
+}) => {
 	const t = msgs("Projects");
 
 	type tType = Parameters<typeof t>[0];
@@ -44,7 +55,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, projects
 			<SectionHeader title={section_title}>
 				<CreateFile />
 				<RevalidatePaths paths={[Route.public.PORTFOLIO.uri]} />
-				<CreateProject type={type} />
+				<CreateProject type={type} tags={tags} fileList={fileList} />
 				<ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}
@@ -55,6 +66,8 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, projects
 			<div className="space-y-10">
 				{projectsByType?.map((project, index) => (
 					<ProjectAdminCard
+						fileList={fileList}
+						tags={tags}
 						key={index}
 						className={visibleItems > index ? "" : "section-card-collapsible"}
 						project={project}

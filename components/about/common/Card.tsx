@@ -12,7 +12,7 @@ import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 import Gallery from "@/components/fragments/Gallery";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-import { FileData } from "@/interfaces/File";
+import { FileData, FileListItem } from "@/interfaces/File";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
@@ -20,6 +20,7 @@ import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 
+import { TagData } from "@/interfaces/Tag";
 import DeleteAboutEntry from "../admin/Actions/Delete";
 import UpdateAboutEntry from "../admin/Actions/Update";
 
@@ -28,6 +29,8 @@ interface Props {
 	className?: string;
 	displayTagsInline?: boolean;
 	displayGalleryInline?: boolean;
+	fileList: FileListItem[] | null;
+	tags: TagData[] | null;
 }
 
 const AboutEntryCard: React.FC<Props> = ({
@@ -35,6 +38,8 @@ const AboutEntryCard: React.FC<Props> = ({
 	className,
 	displayTagsInline = true,
 	displayGalleryInline = false,
+	fileList,
+	tags,
 }) => {
 	const tTime = msgs("AboutEntries_Form");
 	const tCommon = msgs("AboutEntries");
@@ -105,7 +110,7 @@ const AboutEntryCard: React.FC<Props> = ({
 							<VisibilitySwitchDisplay disabled checked={entry.visibility} className="mt-0.5" />
 							<FileAddressHandle address={attachmentAddress} />
 							<Gallery entry={entry} gallery={gallery} />
-							<UpdateAboutEntry entry={entry} />
+							<UpdateAboutEntry entry={entry} fileList={fileList} tags={tags} />
 
 							<ToggleCollapsible
 								tooltip

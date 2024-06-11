@@ -12,7 +12,7 @@ import DisplayIcon from "@/components/fragments/DisplayIcon";
 import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 import Gallery from "@/components/fragments/Gallery";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
-import { FileData } from "@/interfaces/File";
+import { FileData, FileListItem } from "@/interfaces/File";
 import { ProjectData } from "@/interfaces/Project";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
@@ -25,6 +25,7 @@ import styles from "@/app/(styles)/card-info.module.scss";
 
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 
+import { TagData } from "@/interfaces/Tag";
 import DisplayResourceUrlAsIcon from "../common/DisplayResourceUrlAsIcon";
 import DeleteProject from "./Actions/Delete";
 import UpdateProject from "./Actions/Update";
@@ -34,6 +35,8 @@ interface Props {
 	project: ProjectData;
 	displayTagsInline?: boolean;
 	displayGalleryInline?: boolean;
+	fileList: FileListItem[] | null;
+	tags: TagData[] | null;
 }
 
 const ProjectAdminCard: React.FC<Props> = ({
@@ -41,6 +44,8 @@ const ProjectAdminCard: React.FC<Props> = ({
 	className,
 	displayTagsInline = true,
 	displayGalleryInline = true,
+	fileList,
+	tags,
 }) => {
 	const tTime = msgs("Projects_Form");
 	const tCommon = msgs("Projects");
@@ -123,7 +128,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 								}
 							/>
 							<Gallery entry={project} gallery={gallery} />
-							<UpdateProject project={project} />
+							<UpdateProject project={project} fileList={fileList} tags={tags} />
 
 							<ToggleCollapsible
 								tooltip

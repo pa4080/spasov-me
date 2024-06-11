@@ -7,14 +7,18 @@ import { msgs } from "@/messages";
 
 import { cn } from "@/lib/cn-utils";
 
+import { FileListItem } from "@/interfaces/File";
+import { TagData } from "@/interfaces/Tag";
 import UpdateProject from "../admin/Actions/Update";
 import DisplayResourceUrlAsIcon from "./DisplayResourceUrlAsIcon";
 
 interface Props {
 	project: ProjectData;
+	fileList: FileListItem[] | null;
+	tags: TagData[] | null;
 }
 
-const ProjectLinks: React.FC<Props> = ({ project }) => {
+const ProjectLinks: React.FC<Props> = ({ project, fileList, tags }) => {
 	const t = msgs("Projects_CardPublic");
 
 	let gallery = project?.gallery
@@ -74,6 +78,8 @@ const ProjectLinks: React.FC<Props> = ({ project }) => {
 					tooltipText={t("tooltip_update")}
 				>
 					<UpdateProject
+						fileList={fileList}
+						tags={tags}
 						className="h-6 w-6 flex items-center justify-center"
 						dialogTrigger_buttonIconProps={dialogTrigger_Type2}
 						project={project}

@@ -28,18 +28,18 @@ import { AuthProviders } from "@/types/next-auth-providers";
 interface AppContextProps {
 	session: Session | null;
 	authProviders: AuthProviders;
-	aboutEntries: AboutEntryData[];
-	setAboutEntries: Dispatch<SetStateAction<AboutEntryData[]>>;
-	files: FileData[];
-	setFiles: Dispatch<SetStateAction<FileData[]>>;
-	fileList: FileListItem[];
-	setFileList: Dispatch<SetStateAction<FileListItem[]>>;
-	pages: PageCardData[];
-	setPages: Dispatch<SetStateAction<PageCardData[]>>;
-	tags: TagData[];
-	setTags: Dispatch<SetStateAction<TagData[]>>;
-	projects: ProjectData[];
-	setProjects: Dispatch<SetStateAction<ProjectData[]>>;
+	setAboutEntries: Dispatch<SetStateAction<AboutEntryData[] | null>>;
+	aboutEntries: AboutEntryData[] | null;
+	files: FileData[] | null;
+	setFiles: Dispatch<SetStateAction<FileData[] | null>>;
+	fileList: FileListItem[] | null;
+	setFileList: Dispatch<SetStateAction<FileListItem[] | null>>;
+	pages: PageCardData[] | null;
+	setPages: Dispatch<SetStateAction<PageCardData[] | null>>;
+	tags: TagData[] | null;
+	setTags: Dispatch<SetStateAction<TagData[] | null>>;
+	projects: ProjectData[] | null;
+	setProjects: Dispatch<SetStateAction<ProjectData[] | null>>;
 	setFilesData: () => Promise<void>;
 	setEntriesData: () => Promise<void>;
 }
@@ -52,64 +52,39 @@ interface AppContextProviderProps {
 
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
 	const [authProviders, setAuthProviders] = useState<AuthProviders>(null);
-	const [aboutEntries, setAboutEntries] = useState<AboutEntryData[]>([]);
-	const [files, setFiles] = useState<FileData[]>([]);
-	const [fileList, setFileList] = useState<FileListItem[]>([]);
-	const [pages, setPages] = useState<PageCardData[]>([]);
-	const [tags, setTags] = useState<TagData[]>([]);
-	const [projects, setProjects] = useState<ProjectData[]>([]);
+	const [aboutEntries, setAboutEntries] = useState<AboutEntryData[] | null>(null);
+	const [files, setFiles] = useState<FileData[] | null>(null);
+	const [fileList, setFileList] = useState<FileListItem[] | null>(null);
+	const [pages, setPages] = useState<PageCardData[] | null>(null);
+	const [tags, setTags] = useState<TagData[] | null>(null);
+	const [projects, setProjects] = useState<ProjectData[] | null>(null);
 
 	const { data: session } = useSession();
 
 	const setFilesData = useCallback(async () => {
-		const data = await Promise.all([
-			getFilesR2({ hyphen: true, public: true }),
-			getFileList(),
-		]).then(([files, fileList]) => ({
-			files: files ?? [],
-			fileList: fileList ?? [],
-		}));
-
-		setFiles(data.files);
-		setFileList(data.fileList);
+		setFiles(await getFilesR2({ hyphen: true, public: true }));
+		setFileList(await getFileList());
 	}, []);
 
 	const setEntriesData = useCallback(async () => {
-		const data = await Promise.all([
-			getEntries({ hyphen: true, public: true }),
-			getPageCards({ hyphen: true, public: true }),
-			getTags({ hyphen: true, public: true }),
-			getProjects({ hyphen: true, public: true }),
-		]).then(([aboutEntries, pages, tags, projects]) => ({
-			aboutEntries: aboutEntries ?? [],
-			pages: pages ?? [],
-			tags: tags ?? [],
-			projects: projects ?? [],
-		}));
-
-		setAboutEntries(data.aboutEntries);
-		setPages(data.pages);
-		setTags(data.tags);
-		setProjects(data.projects);
+		setAboutEntries(await getEntries({ hyphen: true, public: true }));
+		setPages(await getPageCards({ hyphen: true, public: true }));
+		setTags(await getTags({ hyphen: true, public: true }));
+		setProjects(await getProjects({ hyphen: true, public: true }));
 	}, []);
 
 	useEffect(() => {
 		(async () => {
 			setAuthProviders(await getProviders());
+
+			setFiles(await getFilesR2({ hyphen: true, public: true }));
+			setFileList(await getFileList());
+			setAboutEntries(await getEntries({ hyphen: true, public: true }));
+			setPages(await getPageCards({ hyphen: true, public: true }));
+			setTags(await getTags({ hyphen: true, public: true }));
+			setProjects(await getProjects({ hyphen: true, public: true }));
 		})();
-
-		setFilesData();
-		setEntriesData();
-
-		return () => {};
 	}, []);
-
-	// useEffect(() => {
-	// 	if (session) {
-	// 		setFilesData();
-	// 		setEntriesData();
-	// 	}
-	// }, [session, setEntriesData, setFilesData]);
 
 	return (
 		<AppContext.Provider

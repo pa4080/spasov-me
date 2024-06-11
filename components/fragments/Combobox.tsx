@@ -4,7 +4,9 @@ import {
 	Control,
 	ControllerRenderProps,
 	FieldError,
+	FieldErrorsImpl,
 	FieldValues,
+	Merge,
 	Path,
 	PathValue,
 	UseFormSetValue,
@@ -27,6 +29,7 @@ import {
 	CommandGroup,
 	CommandInput,
 	CommandItem,
+	CommandList,
 } from "@/components/ui/command";
 
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -54,7 +57,7 @@ interface Props<T extends FieldValues> {
 		notFound: string;
 		selectNone: string;
 	};
-	error: FieldError | undefined;
+	error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
 }
 
 export default function Combobox<T extends FieldValues>({
@@ -70,15 +73,13 @@ export default function Combobox<T extends FieldValues>({
 	const regExp = new RegExp(`^(.{${labelMaxLength}}).*$`);
 
 	if (!list) return null;
-	// eslint-disable-next-line no-console
-	console.log(list);
 
 	const label = (field: ControllerRenderProps<T, Path<T>>) => {
-		const label = field.value
-			? list?.find((item) => item.value === field.value)?.label
-			: messages.pleaseSelect;
+		const label = field?.value
+			? list?.find((item) => item?.value === field?.value)?.label
+			: messages?.pleaseSelect;
 
-		return label && label.length > labelMaxLength ? label.replace(regExp, "$1...") : label;
+		return label && label?.length > labelMaxLength ? label?.replace(regExp, "$1...") : label;
 	};
 
 	return (
@@ -87,13 +88,13 @@ export default function Combobox<T extends FieldValues>({
 			name={name}
 			render={({ field }) => (
 				<FormItem className={cn("flex flex-col", className)}>
-					{messages.label && <FormLabel>{messages.label}</FormLabel>}
+					{messages?.label && <FormLabel>{messages?.label}</FormLabel>}
 					<Popover>
 						<PopoverTrigger asChild>
 							<FormControl>
 								<Button
 									className={`w-full justify-between bg-primary text-sm ${
-										!field.value && "text-muted-foreground"
+										!field?.value && "text-muted-foreground"
 									}`}
 									role="combobox"
 									variant="outline"
@@ -105,48 +106,50 @@ export default function Combobox<T extends FieldValues>({
 						</PopoverTrigger>
 						<PopoverContent className="w-full max-w-full p-0 pb-2">
 							<Command>
-								<CommandInput placeholder={messages.placeholder} />
-								<CommandEmpty>{messages.notFound}</CommandEmpty>
+								<CommandInput placeholder={messages?.placeholder} />
+								<CommandList>
+									<CommandEmpty>{messages?.notFound}</CommandEmpty>
 
-								<CommandGroup className="max-h-52 overflow-y-scroll mt-1">
-									<CommandItem
-										value={undefined}
-										onSelect={() => {
-											setValue(name, undefined as PathValue<T, Path<T>>);
-										}}
-									>
-										<PopoverClose className="w-full flex items-center justify-start">
-											<Check
-												className={`mr-2 h-4 w-4 ${
-													field.value === undefined ? "opacity-100" : "opacity-0"
-												}`}
-												strokeWidth={3}
-											/>
-
-											<div className="line-clamp-1 text-left">{messages.selectNone}</div>
-										</PopoverClose>
-									</CommandItem>
-
-									{list?.map((item) => (
+									<CommandGroup className="max-h-52 overflow-y-scroll mt-1">
 										<CommandItem
-											key={item.value}
-											value={item.value}
+											value={undefined}
 											onSelect={() => {
-												setValue(name, item.value);
+												setValue(name, undefined as PathValue<T, Path<T>>);
 											}}
 										>
 											<PopoverClose className="w-full flex items-center justify-start">
 												<Check
 													className={`mr-2 h-4 w-4 ${
-														item.value === field.value ? "opacity-100" : "opacity-0"
+														field?.value === undefined ? "opacity-100" : "opacity-0"
 													}`}
 													strokeWidth={3}
 												/>
-												<div className="line-clamp-1 text-left">{item.label}</div>
+
+												<div className="line-clamp-1 text-left">{messages?.selectNone}</div>
 											</PopoverClose>
 										</CommandItem>
-									))}
-								</CommandGroup>
+
+										{list?.map((item) => (
+											<CommandItem
+												key={item?.value}
+												value={item?.value}
+												onSelect={() => {
+													setValue(name, item?.value);
+												}}
+											>
+												<PopoverClose className="w-full flex items-center justify-start">
+													<Check
+														className={`mr-2 h-4 w-4 ${
+															item?.value === field?.value ? "opacity-100" : "opacity-0"
+														}`}
+														strokeWidth={3}
+													/>
+													<div className="line-clamp-1 text-left">{item?.label}</div>
+												</PopoverClose>
+											</CommandItem>
+										))}
+									</CommandGroup>
+								</CommandList>
 							</Command>
 						</PopoverContent>
 					</Popover>
@@ -154,7 +157,7 @@ export default function Combobox<T extends FieldValues>({
 					{error ? (
 						<FormMessage className="!mt-1" />
 					) : (
-						messages.description && <FormDescription>{messages.description}</FormDescription>
+						messages?.description && <FormDescription>{messages?.description}</FormDescription>
 					)}
 				</FormItem>
 			)}

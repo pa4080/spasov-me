@@ -21,18 +21,27 @@ import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import { FileListItem } from "@/interfaces/File";
+import { TagData } from "@/interfaces/Tag";
 import { updateProject } from "../../_portfolio.actions";
 import { Project_FormSchema } from "../Form/schema";
-// import ProjectForm from "../Form";
 const ProjectForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
 
 interface Props {
 	className?: string;
 	project: ProjectData;
 	dialogTrigger_buttonIconProps?: ButtonIconProps;
+	fileList: FileListItem[] | null;
+	tags: TagData[] | null;
 }
 
-const UpdateProject: React.FC<Props> = ({ className, project, dialogTrigger_buttonIconProps }) => {
+const UpdateProject: React.FC<Props> = ({
+	className,
+	project,
+	dialogTrigger_buttonIconProps,
+	fileList,
+	tags,
+}) => {
 	const t = msgs("Projects_Update");
 	const entryTypeLabel = (
 		msgs("Projects_Form")("project_type_list") as unknown as Record<string, string>
@@ -109,6 +118,8 @@ const UpdateProject: React.FC<Props> = ({ className, project, dialogTrigger_butt
 				</DialogHeader>
 
 				<ProjectForm
+					fileList={fileList}
+					tags={tags}
 					className={t("dialog_description") ? "mt-0" : "mt-1"}
 					entryType={project.entryType}
 					formData={project}
