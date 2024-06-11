@@ -1,0 +1,16 @@
+services:
+  next-app:
+    container_name: spasov-me
+    build:
+      context: .
+      # dockerfile: Dockerfile.next-app
+      dockerfile: Dockerfile.standalone
+      args:
+        DOPPLER_TOKEN: ${DOPPLER_TOKEN}
+    environment:
+        DOPPLER_TOKEN: ${DOPPLER_TOKEN}
+    restart: always
+    ports:
+      - 3037:3000
+      # - 43000:3000
+

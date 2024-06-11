@@ -61,8 +61,8 @@ USER nextjs
 
 # CMD ls -la ./
 CMD \
-  if [ -f yarn.lock ]; then doppler run -- yarn start0; \
-  elif [ -f package-lock.json ]; then doppler run -- npm start0; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && doppler run -- pnpm start0; \
+  if [ -f yarn.lock ]; then doppler run -- yarn start1; \
+  elif [ -f package-lock.json ]; then doppler run -- npm start1; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && doppler run -- pnpm start1; \
   else echo "Lockfile not found." && exit 1; \
   fi
