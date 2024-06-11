@@ -10,14 +10,18 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import { FileListItem } from "@/interfaces/File";
+import { TagData } from "@/interfaces/Tag";
 import ProjectLinks from "../common/ProjectLinks";
 
 interface Props {
 	className?: string;
 	project: ProjectData;
+	fileList: FileListItem[] | null;
+	tags: TagData[] | null;
 }
 
-const ProjectPublic_Card: React.FC<Props> = ({ project, className }) => {
+const ProjectPublic_Card: React.FC<Props> = ({ project, className, fileList, tags }) => {
 	const t = msgs("Projects_CardPublic");
 
 	const descriptionArr = project.html.description.split(splitDescriptionKeyword).map((str) => {
@@ -59,7 +63,7 @@ const ProjectPublic_Card: React.FC<Props> = ({ project, className }) => {
 			/>
 
 			<div className="flex flex-row items-center justify-between gap-2 w-full">
-				<ProjectLinks project={project} />
+				<ProjectLinks project={project} fileList={fileList} tags={tags} />
 				<Link
 					area-label="Link to the Project's page"
 					href={`${Route.public.PORTFOLIO.uri}/${project.slug}`}

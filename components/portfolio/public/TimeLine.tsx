@@ -5,12 +5,16 @@ import { ProjectType } from "@/interfaces/_common-data-types";
 
 import { cn } from "@/lib/cn-utils";
 
+import { FileListItem } from "@/interfaces/File";
+import { TagData } from "@/interfaces/Tag";
 import ProjectPublic_Card from "./Card";
 
 interface Props {
 	className?: string;
 	type?: ProjectType;
 	projects: ProjectData[] | null;
+	fileList: FileListItem[] | null;
+	tags: TagData[] | null;
 }
 
 /**
@@ -20,14 +24,20 @@ interface Props {
  * We won't filter the projects by type because we want to show all projects,
  * ordered by date... probably we need may indicate the type by a icon?(!?)
  */
-const TimeLine: React.FC<Props> = ({ className, projects }) => {
+const TimeLine: React.FC<Props> = ({ className, projects, fileList, tags }) => {
 	const projectsByType = projects?.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
 	return (
 		<div className={cn("portfolio-cards-section scroll-m-8", className)}>
 			<div className="grid grid-cols-1 md:grid-cols-2 grid-flow-row gap-12 md:gap-10 lg:gap-14">
 				{projectsByType?.map((project, index) => (
-					<ProjectPublic_Card key={index} className="" project={project} />
+					<ProjectPublic_Card
+						key={index}
+						className=""
+						project={project}
+						fileList={fileList}
+						tags={tags}
+					/>
 				))}
 			</div>
 		</div>
