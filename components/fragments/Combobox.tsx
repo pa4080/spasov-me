@@ -73,8 +73,6 @@ export default function Combobox<T extends FieldValues>({
 	const regExp = new RegExp(`^(.{${labelMaxLength}}).*$`);
 
 	if (!list) return null;
-	// eslint-disable-next-line no-console
-	console.log(messages?.label, list);
 
 	const label = (field: ControllerRenderProps<T, Path<T>>) => {
 		const label = field?.value
