@@ -25,7 +25,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-import { FileData } from "@/interfaces/File";
+import { FileData, FileListItem } from "@/interfaces/File";
 import {
 	AboutEntryType,
 	aboutEntryTuple,
@@ -38,7 +38,7 @@ import { Route } from "@/routes";
 import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
 
 import Loading from "@/components/fragments/Loading";
-import { useAppContext } from "@/contexts/AppContext";
+import { TagData } from "@/interfaces/Tag";
 import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
 
 interface Props {
@@ -47,6 +47,8 @@ interface Props {
 	entryType: AboutEntryType;
 	onSubmit: (data: Entry_FormSchema) => void;
 	submitting?: boolean;
+	fileList: FileListItem[] | null;
+	tags: TagData[] | null;
 }
 
 const AboutEntryForm: React.FC<Props> = ({
@@ -55,9 +57,10 @@ const AboutEntryForm: React.FC<Props> = ({
 	formData,
 	onSubmit,
 	submitting,
+	fileList,
+	tags,
 }) => {
 	const t = msgs("AboutEntries_Form");
-	const { fileList, tags } = useAppContext();
 
 	const FormSchema = Entry_FormSchemaGenerator([
 		t("schema_title"),

@@ -11,6 +11,8 @@ import { Route } from "@/routes";
 
 import { cn } from "@/lib/cn-utils";
 
+import { FileListItem } from "@/interfaces/File";
+import { TagData } from "@/interfaces/Tag";
 import AboutEntryCard from "../common/Card";
 import CreateAboutEntry from "./Actions/Create";
 
@@ -19,13 +21,22 @@ interface Props {
 	type: AboutEntryType;
 	visibleItems?: number;
 	entries: AboutEntryData[] | null;
+	fileList: FileListItem[] | null;
+	tags: TagData[] | null;
 }
 
 /**
  * The title of the section must exist in the messages.json file
  * In the format of: `title_${type}`, i.e. "title_employment"
  */
-const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries }) => {
+const TimeLine: React.FC<Props> = ({
+	className,
+	type,
+	visibleItems = 3,
+	entries,
+	fileList,
+	tags,
+}) => {
 	const t = msgs("AboutEntries");
 
 	type tType = Parameters<typeof t>[0];
@@ -45,7 +56,7 @@ const TimeLine: React.FC<Props> = ({ className, type, visibleItems = 3, entries 
 		>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths paths={[Route.public.ABOUT.uri]} />
-				<CreateAboutEntry type={type} />
+				<CreateAboutEntry type={type} fileList={fileList} tags={tags} />
 				<ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}

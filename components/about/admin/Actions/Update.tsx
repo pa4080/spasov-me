@@ -24,6 +24,8 @@ import { Route } from "@/routes";
 
 import { useAppContext } from "@/contexts/AppContext";
 
+import { FileListItem } from "@/interfaces/File";
+import { TagData } from "@/interfaces/Tag";
 import { Entry_FormSchema } from "../Form/schema";
 
 const AboutEntryForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
@@ -31,9 +33,11 @@ const AboutEntryForm = dynamic(() => import("../Form"), { ssr: false, loading: (
 interface Props {
 	className?: string;
 	entry: AboutEntryData;
+	fileList: FileListItem[] | null;
+	tags: TagData[] | null;
 }
 
-const UpdateAboutEntry: React.FC<Props> = ({ className, entry }) => {
+const UpdateAboutEntry: React.FC<Props> = ({ className, entry, fileList, tags }) => {
 	const t = msgs("AboutEntries_Update");
 	const entryTypeLabel = (
 		msgs("AboutEntries_Form")("aboutEntry_type_list") as unknown as Record<string, string>
@@ -111,6 +115,8 @@ const UpdateAboutEntry: React.FC<Props> = ({ className, entry }) => {
 						formData={entry}
 						submitting={submitting}
 						onSubmit={handleUpdateEntry}
+						fileList={fileList}
+						tags={tags}
 					/>
 				</DialogContent>
 			</Dialog>
