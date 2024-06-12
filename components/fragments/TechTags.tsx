@@ -7,6 +7,8 @@ import SectionHeader from "@/components/fragments/SectionHeader";
 import { TagData } from "@/interfaces/Tag";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
+import { Route } from "@/routes";
+import Link from "next/link";
 
 interface Props {
 	className?: string;
@@ -25,12 +27,13 @@ const TechTags: React.FC<Props> = ({ className, tags }) => {
 
 			<div className="flex flex-wrap gap-2 items-center justify-start pop-item">
 				{tags?.map((tag) => (
-					<DisplayIcon
-						key={tag._id}
-						className_TooltipTrigger="!mt-0"
-						description={tag.html.description}
-						icon={iconsMap[tag.icon as IconsMapItem]}
-					/>
+					<Link key={tag._id} href={`${Route.public.SEARCH.uri}?tag=${tag._id}`}>
+						<DisplayIcon
+							className_TooltipTrigger="!mt-0"
+							description={tag.html.description}
+							icon={iconsMap[tag.icon as IconsMapItem]}
+						/>
+					</Link>
 				))}
 			</div>
 		</div>

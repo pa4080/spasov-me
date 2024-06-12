@@ -202,9 +202,6 @@ export const process_relations = async ({
 
 	const updateGallery = !galleryEqual;
 
-	// console.log(galleryEqual, galleryDiff_remove, galleryDiff_add);
-	// console.log(updateGallery, document_prev?.gallery, document_new?.gallery);
-
 	// Deal with the previous state of the document
 	if (document_prev) {
 		// Deal with the "attachment"
