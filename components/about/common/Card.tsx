@@ -21,6 +21,8 @@ import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 
 import { TagData } from "@/interfaces/Tag";
+import { Route } from "@/routes";
+import Link from "next/link";
 import DeleteAboutEntry from "../admin/Actions/Delete";
 import UpdateAboutEntry from "../admin/Actions/Update";
 
@@ -148,11 +150,13 @@ const AboutEntryCard: React.FC<Props> = ({
 										a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
 									)
 									.map((tag) => (
-										<DisplayIcon
-											key={tag._id}
-											description={tag.html.description}
-											icon={iconsMap[tag.icon as IconsMapItem]}
-										/>
+										<Link key={tag._id} href={`${Route.public.SEARCH.uri}?tag=${tag._id}`}>
+											<DisplayIcon
+												key={tag._id}
+												description={tag.html.description}
+												icon={iconsMap[tag.icon as IconsMapItem]}
+											/>
+										</Link>
 									))}
 							</div>
 						</div>
