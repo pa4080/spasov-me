@@ -12,6 +12,7 @@ import Gallery from "@/components/fragments/Gallery";
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import { FileListItem } from "@/interfaces/File";
 import { TagData } from "@/interfaces/Tag";
+import { cn } from "@/lib/cn-utils";
 import UpdateAboutEntry from "../../admin/Actions/Update";
 import styles from "./_business-card.module.scss";
 
@@ -80,8 +81,6 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type, fileList, tag
 					</div>
 
 					<div className="absolute right-0 xs:right-4 sa:right-2 bottom-0 xs:bottom-0 sa:-bottom-8 bg-transparent flex flex-row gap-4 justify-center items-center">
-						<UpdateAboutEntry entry={entry} fileList={fileList} tags={tags} />
-
 						<a
 							href={cvLink}
 							target="_blank"
@@ -95,12 +94,18 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type, fileList, tag
 							entry={entry}
 							gallery={gallery}
 							dialogTrigger_buttonIconProps={{
-								className:
-									"bg-transparent hover:bg-transparent p-0 grayscale opacity-45 hover:opacity-100 hover:grayscale-0 transition-all duration-200 max-xs:hidden",
+								className: cn(
+									"bg-transparent hover:bg-transparent p-0 opacity-45 transition-all duration-200 max-xs:hidden",
+									!gallery?.length
+										? "grayscale hover:grayscale"
+										: "grayscale-[0.8] hover:grayscale-0 hover:opacity-100"
+								),
 								height: 24,
 								width: 28,
 							}}
 						/>
+
+						<UpdateAboutEntry entry={entry} fileList={fileList} tags={tags} />
 					</div>
 				</div>
 

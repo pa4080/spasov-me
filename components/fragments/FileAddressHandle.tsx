@@ -3,6 +3,7 @@ import React from "react";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { useAppContext } from "@/contexts/AppContext";
+import { cn } from "@/lib/cn-utils";
 
 interface Props {
 	className?: string;
@@ -19,7 +20,7 @@ const FileAddressHandle: React.FC<Props> = ({ className, address, download }) =>
 
 	return (
 		<ButtonIcon
-			className={`pl-[2.8px] bg-transparent icon_accent_secondary ${className}`}
+			className={cn("pl-[2.8px] bg-transparent hover:bg-transparent", className)}
 			disabled={!address}
 			height={22}
 			type={download ? "download" : "up-right-from-square"}

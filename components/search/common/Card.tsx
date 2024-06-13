@@ -17,6 +17,7 @@ import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileListItem } from "@/interfaces/File";
 import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
+import { cn } from "@/lib/cn-utils";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
@@ -110,7 +111,20 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 				<div className={styles.header}>
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							<Gallery entry={entry} gallery={gallery} />
+							<Gallery
+								entry={entry}
+								gallery={gallery}
+								dialogTrigger_buttonIconProps={{
+									className: cn(
+										"bg-transparent hover:bg-transparent p-0 opacity-45 transition-all duration-200 max-xs:hidden",
+										!gallery?.length
+											? "grayscale hover:grayscale"
+											: "grayscale-[0.8] hover:grayscale-0 hover:opacity-100"
+									),
+									height: 24,
+									width: 28,
+								}}
+							/>
 
 							<ToggleCollapsible
 								tooltip
@@ -171,11 +185,13 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 										a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
 									)
 									.map((tag) => (
-										<DisplayIcon
-											key={tag._id}
-											description={tag.html.description}
-											icon={iconsMap[tag.icon as IconsMapItem]}
-										/>
+										<Link key={tag._id} href={`${Route.public.SEARCH.uri}?tag=${tag._id}`}>
+											<DisplayIcon
+												key={tag._id}
+												description={tag.html.description}
+												icon={iconsMap[tag.icon as IconsMapItem]}
+											/>
+										</Link>
 									))}
 							</div>
 						</div>
