@@ -21,6 +21,7 @@ import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 
 import { TagData } from "@/interfaces/Tag";
+import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
 import Link from "next/link";
 import DeleteAboutEntry from "../admin/Actions/Delete";
@@ -108,12 +109,24 @@ const AboutEntryCard: React.FC<Props> = ({
 				<div className={styles.header}>
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
+							<Gallery
+								entry={entry}
+								gallery={gallery}
+								dialogTrigger_buttonIconProps={{
+									className: cn(
+										"bg-transparent hover:bg-transparent p-0 opacity-45 transition-all duration-200",
+										!gallery?.length
+											? "grayscale hover:grayscale"
+											: "grayscale-[0.8] hover:grayscale-0 hover:opacity-100"
+									),
+									height: 24,
+									width: 28,
+								}}
+							/>
+							<FileAddressHandle address={attachmentAddress} />
 							<DeleteAboutEntry entry={entry} />
 							<VisibilitySwitchDisplay disabled checked={entry.visibility} className="mt-0.5" />
-							<FileAddressHandle address={attachmentAddress} />
-							<Gallery entry={entry} gallery={gallery} />
 							<UpdateAboutEntry entry={entry} fileList={fileList} tags={tags} />
-
 							<ToggleCollapsible
 								tooltip
 								className="icon_accent_primary"
