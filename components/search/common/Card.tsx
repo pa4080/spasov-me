@@ -171,11 +171,13 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 										a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
 									)
 									.map((tag) => (
-										<DisplayIcon
-											key={tag._id}
-											description={tag.html.description}
-											icon={iconsMap[tag.icon as IconsMapItem]}
-										/>
+										<Link key={tag._id} href={`${Route.public.SEARCH.uri}?tag=${tag._id}`}>
+											<DisplayIcon
+												key={tag._id}
+												description={tag.html.description}
+												icon={iconsMap[tag.icon as IconsMapItem]}
+											/>
+										</Link>
 									))}
 							</div>
 						</div>
