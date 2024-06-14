@@ -24,6 +24,7 @@ import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
 import Link from "next/link";
+import CopyEntryUri from "../admin/Actions/CopyEntryUri";
 import DeleteAboutEntry from "../admin/Actions/Delete";
 import UpdateAboutEntry from "../admin/Actions/Update";
 
@@ -124,6 +125,7 @@ const AboutEntryCard: React.FC<Props> = ({
 								}}
 							/>
 							<FileAddressHandle address={attachmentAddress} />
+							<CopyEntryUri entry_id={entry._id} />
 							<DeleteAboutEntry entry={entry} />
 							<VisibilitySwitchDisplay disabled checked={entry.visibility} className="mt-0.5" />
 							<UpdateAboutEntry entry={entry} fileList={fileList} tags={tags} />

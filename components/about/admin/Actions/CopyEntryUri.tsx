@@ -2,25 +2,26 @@
 import React, { useState } from "react";
 
 import ButtonIcon from "@/components/fragments/ButtonIcon";
+import { useAppContext } from "@/contexts/AppContext";
+import { Route } from "@/routes";
 
 export interface Props {
 	className?: string;
-	address: string;
+	entry_id: string;
 }
 
-const CopyFileAddress: React.FC<Props> = ({ className, address }) => {
+const CopyEntryUri: React.FC<Props> = ({ className, entry_id }) => {
 	const [submitting, setSubmitting] = useState(false);
+	const { session } = useAppContext();
 
-	if (!address) {
+	if (!entry_id || !session) {
 		return null;
 	}
-
-	const addressNoVersion = address?.split("?")[0];
 
 	const handleCopyFileAddress = () => {
 		setSubmitting(true);
 
-		navigator.clipboard.writeText(`${addressNoVersion}`);
+		navigator.clipboard.writeText(`${Route.public.ABOUT.uri}?id=entry_${entry_id}`);
 
 		setTimeout(() => {
 			setSubmitting(false);
@@ -40,4 +41,4 @@ const CopyFileAddress: React.FC<Props> = ({ className, address }) => {
 	);
 };
 
-export default CopyFileAddress;
+export default CopyEntryUri;
