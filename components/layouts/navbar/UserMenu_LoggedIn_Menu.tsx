@@ -1,6 +1,7 @@
 import React from "react";
 
 import { signOut, useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import {
@@ -26,6 +27,7 @@ interface Props {
 const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
 	const t = msgs("Navigation");
 	const { data: session } = useSession();
+	const pathname = usePathname();
 
 	type tType = Parameters<typeof t>[0];
 
@@ -50,7 +52,7 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
 								{Object.keys(Route.admin).map((key) => (
 									<NavigationMenu_NextLink_Styled
 										key={key}
-										className={styles.userMenuItem}
+										className={`${styles.userMenuItem} ${pathname === Route.admin[key as keyof typeof Route.admin] ? "bg-accent/30 hover:!bg-accent/55" : ""}`}
 										desc={t(`${key}_DESC` as tType)}
 										href={Route.admin[key as keyof typeof Route.admin]}
 										title={t(key as tType)}

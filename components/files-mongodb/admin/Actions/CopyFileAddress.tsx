@@ -11,10 +11,16 @@ export interface Props {
 const CopyFileAddress: React.FC<Props> = ({ className, address }) => {
 	const [submitting, setSubmitting] = useState(false);
 
+	if (!address) {
+		return null;
+	}
+
+	const addressNoVersion = address?.split("?")[0];
+
 	const handleCopyFileAddress = () => {
 		setSubmitting(true);
 
-		navigator.clipboard.writeText(`${address}`);
+		navigator.clipboard.writeText(`${addressNoVersion}`);
 
 		setTimeout(() => {
 			setSubmitting(false);
