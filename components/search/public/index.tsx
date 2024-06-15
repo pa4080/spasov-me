@@ -1,7 +1,7 @@
 "use client";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-
+import { hyphenateSync as hyphenate } from "hyphen/en";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -56,6 +56,8 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList }) => {
 				params.set("value", searchValue_manual);
 			} else if (searchValue) {
 				params.set("value", searchValue);
+			} else if (searchValue_manual === "") {
+				params.delete("value");
 			} else {
 				params.delete("value");
 			}
@@ -120,13 +122,30 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList }) => {
 		if (!searchValue) {
 			return dataList;
 		}
+		const searchValueSanitized = searchValue.trim();
+		const searchValuePrepared = searchValueSanitized.replace(/\s+/g, ".*?");
+		const searchValueHyphenated = hyphenate(searchValueSanitized).replace(/\s+/g, ".*?");
 
-		const regEx = new RegExp(`\\b${searchValue.toLowerCase().replace(/\s+/g, ".*")}`, "i");
+		const regExpSearch = new RegExp(`(\\b(${searchValuePrepared})\\b)`, "i");
+		const regExpHighligh = new RegExp(`(\\b(${searchValueHyphenated})\\b)`, "i");
 
-		return dataList.filter(
-			(dataItem) =>
-				dataItem.title.toLowerCase().match(regEx) || dataItem.description.toLowerCase().match(regEx)
-		);
+		return dataList
+			.filter(
+				(dataItem) => dataItem.title.match(regExpSearch) || dataItem.description.match(regExpSearch)
+			)
+			.map((dataItem) => ({
+				...dataItem,
+				html: {
+					title: dataItem.html.title.replace(
+						regExpHighligh,
+						"<span class='search-result-match'>$1</span>"
+					),
+					description: dataItem.html.description.replace(
+						regExpHighligh,
+						"<span class='search-result-match'>$1</span>"
+					),
+				},
+			}));
 	};
 
 	useEffect(() => {
@@ -170,8 +189,8 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList }) => {
 										searchInputRef.current.focus();
 									}
 
-									!loading && setLoading(true);
 									setSearchValue("");
+									!loading && setLoading(true);
 								}}
 							>
 								<IconEmbedSvg height={16} type="broom" width={16} />
