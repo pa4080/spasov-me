@@ -456,6 +456,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	it_husky: {
+		name: "it_husky",
+		uri: {
+			light: "/assets/icons/it/husky.svg",
+			dark: "/assets/icons/it/husky.svg",
+		},
+		info: {
+			height: 32,
+			width: 32,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	it_javascript: {
 		name: "it_javascript",
 		uri: {
@@ -2521,6 +2534,19 @@ const iconsMap = {
 			width: 123,
 			type: "svg",
 			ratio: 1.54,
+		},
+	},
+	"generic-icon": {
+		name: "generic-icon",
+		uri: {
+			light: "/assets/icons/generic-icon.svg",
+			dark: "/assets/icons/generic-icon.svg",
+		},
+		info: {
+			height: 121,
+			width: 123,
+			type: "svg",
+			ratio: 1.02,
 		},
 	},
 	"placeholder-old": {
