@@ -6,7 +6,7 @@ import { new_tab_target } from "@/lib/process-markdown";
 
 interface Props {
 	url: string | undefined;
-	type: "home" | "repo";
+	type: "URL 1" | "URL 2";
 	size?: number;
 	icon_className_Path1?: string;
 	icon_className_Path2?: string;
@@ -22,15 +22,6 @@ const DisplayResourceUrlAsIcon: React.FC<Props> = ({
 	if (!url) {
 		return null;
 	}
-
-	const icon =
-		type === "home"
-			? "globe-pointer-mono"
-			: url.match(/github/i)
-				? "square-github-mono"
-				: url.match(/gitlab/i)
-					? "square-gitlab-mono"
-					: "git-alt-mono";
 
 	const handleOnClick = () => {
 		window.open(url, new_tab_target);
@@ -48,7 +39,7 @@ const DisplayResourceUrlAsIcon: React.FC<Props> = ({
 						className_Path1={icon_className_Path1}
 						className_Path2={icon_className_Path2}
 						height={size}
-						type={icon}
+						type={"up-right-from-square"}
 						width={size}
 					/>
 				</TooltipTrigger>

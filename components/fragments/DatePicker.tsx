@@ -37,6 +37,7 @@ interface Props<T extends FieldValues> {
 	};
 	error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
 	className?: string;
+	dateFormat?: string;
 }
 
 export default function DatePicker<T extends FieldValues>({
@@ -45,6 +46,7 @@ export default function DatePicker<T extends FieldValues>({
 	messages = { button: "OK" },
 	error,
 	className,
+	dateFormat = "MM/yy",
 }: Props<T>) {
 	return (
 		<FormField
@@ -64,7 +66,7 @@ export default function DatePicker<T extends FieldValues>({
 								>
 									<CalendarIcon className="mr-2 h-4 w-4" />
 									{field.value ? (
-										format(field.value, "MM/yy", { locale: bg })
+										format(field.value, dateFormat, { locale: bg })
 									) : (
 										<span>{messages.placeholder}</span>
 									)}

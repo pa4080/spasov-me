@@ -628,3 +628,9 @@ body textarea.w-md-editor-text-input:focus {
 		@apply flex gap-1 flex-wrap p-0;
 	}
 }
+
+.search-result-match {
+	padding: 0 2px;
+	border-radius: 4px;
+	background-color: hsl(var(--accent) / 40%);
+}
