@@ -9,6 +9,7 @@ import {
 } from "@/components/files-cloudflare/_files.actions";
 import { tagAttachment_add, tagAttachment_remove } from "@/components/tags/_tags.actions";
 import { AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
+import { NewPostData, PostDoc } from "@/interfaces/Post";
 import { NewProjectData, ProjectDoc } from "@/interfaces/Project";
 import { AttachedToDocument, ModelType } from "@/interfaces/_common-data-types";
 import { arraysEqual } from "@/lib/arrays-equal";
@@ -180,9 +181,9 @@ export const process_relations = async ({
 	document_prev,
 	modelType,
 }: {
-	documentData_new?: NewAboutEntryData | NewProjectData;
-	document_new?: AboutEntryDoc | ProjectDoc;
-	document_prev?: AboutEntryDoc | ProjectDoc;
+	documentData_new?: NewAboutEntryData | NewProjectData | NewPostData;
+	document_new?: AboutEntryDoc | ProjectDoc | PostDoc;
+	document_prev?: AboutEntryDoc | ProjectDoc | PostDoc;
 	modelType: ModelType;
 }) => {
 	const updateAttachment = !arraysEqual(

@@ -19,6 +19,7 @@ import { msgs } from "@/messages";
 
 import { useAppContext } from "@/contexts/AppContext";
 
+import { PostData } from "@/interfaces/Post";
 import { IconEmbSvgPathType } from "../IconEmbedSvg";
 import Loading from "../Loading";
 // import GalleryCarousel from "./GalleryCarousel";
@@ -30,7 +31,7 @@ const GalleryCarousel = dynamic(() => import("./GalleryCarousel"), {
 
 interface Props {
 	className?: string;
-	entry: AboutEntryData | ProjectData;
+	entry: AboutEntryData | ProjectData | PostData;
 	gallery: FileHtmlProps[] | undefined;
 	dialogTrigger_buttonIconProps?: ButtonIconProps;
 }

@@ -14,7 +14,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] FilesR2
 
 - Blog
-  - [ ] Blog post admin
+  - [x] Blog post admin
   - [ ] Blog feed public
   - [ ] Blog post public
 
