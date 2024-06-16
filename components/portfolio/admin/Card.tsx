@@ -106,7 +106,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 						</div>
 					)}
 
-					<div className={styles.projectLinks}>
+					<div className={styles.linksProjectPost}>
 						<div className={styles.iconWrapper}>
 							<DisplayResourceUrlAsIcon size={23} type="home" url={project.urlHome} />
 						</div>

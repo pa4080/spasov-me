@@ -40,7 +40,7 @@ const DisplayResourceUrlAsIcon: React.FC<Props> = ({
 		<TooltipProvider>
 			<Tooltip>
 				<TooltipTrigger
-					aria-label="Open the Project's repository"
+					aria-label={`Open the Project's ${type}`}
 					className="!mt-0"
 					onClick={handleOnClick}
 				>
