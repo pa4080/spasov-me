@@ -10,9 +10,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- [ ] Blog post admin
-- [ ] Blog feed public
-- [ ] Blog post public
+- Redis
+  - [ ] FilesR2
+
+- Blog
+  - [x] Blog post admin
+  - [ ] Blog feed public
+  - [ ] Blog post public
 
 ## Vercel CLI
 

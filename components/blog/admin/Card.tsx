@@ -7,70 +7,66 @@ import { enUS as en } from "date-fns/locale";
 
 import Link from "next/link";
 
+import styles from "@/app/(styles)/card-info.module.scss";
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 import Gallery from "@/components/fragments/Gallery";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
+import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 import { FileData, FileListItem } from "@/interfaces/File";
-import { ProjectData } from "@/interfaces/Project";
+import { PostData } from "@/interfaces/Post";
+import { TagData } from "@/interfaces/Tag";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
-
 import { Route } from "@/routes";
-
-import styles from "@/app/(styles)/card-info.module.scss";
-
-import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
-
-import { TagData } from "@/interfaces/Tag";
 import DisplayResourceUrlAsIcon from "../common/DisplayResourceUrlAsIcon";
-import DeleteProject from "./Actions/Delete";
-import UpdateProject from "./Actions/Update";
+import DeletePost from "./Actions/Delete";
+import UpdatePost from "./Actions/Update";
 
 interface Props {
 	className?: string;
-	project: ProjectData;
+	post: PostData;
 	displayTagsInline?: boolean;
 	displayGalleryInline?: boolean;
 	fileList: FileListItem[] | null;
 	tags: TagData[] | null;
 }
 
-const ProjectAdminCard: React.FC<Props> = ({
-	project,
+const PostAdminCard: React.FC<Props> = ({
+	post,
 	className,
 	displayTagsInline = true,
 	displayGalleryInline = true,
 	fileList,
 	tags,
 }) => {
-	const tTime = msgs("Projects_Form");
-	const tCommon = msgs("Projects");
+	const tTime = msgs("Posts_Form");
+	const tCommon = msgs("Posts");
 
-	const { dateFrom, dateTo } = project;
+	const { dateFrom, dateTo } = post;
 	const dtFrom = new Date(dateFrom);
 	const dtTo = dateTo ? new Date(dateTo) : undefined;
-	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`entry_${project?._id.toString()}`);
-	const descriptionArr = project.html.description.split(splitDescriptionKeyword).map((str) => {
+	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`entry_${post?._id.toString()}`);
+	const descriptionArr = post.html.description.split(splitDescriptionKeyword).map((str) => {
 		return str.replace(commentsMatcher, "");
 	});
 
-	let gallery = project?.gallery
+	let gallery = post?.gallery
 		?.map((file) => file.metadata.html)
 		?.sort((a, b) => a.filename.localeCompare(b.filename));
 
 	gallery =
-		project?.html?.attachment && gallery
-			? [project?.html?.attachment.metadata.html].concat(gallery)
+		post?.html?.attachment && gallery
+			? [post?.html?.attachment.metadata.html].concat(gallery)
 			: gallery;
 
 	// This is disabled because the "icon" usually is SVG with a transparent background
 	// and looks ugly within the container which have the site logo oas background
 	// gallery =
-	// 	project?.html?.icon && gallery ? [project?.html?.icon.metadata.html].concat(gallery) : gallery;
+	// 	post?.html?.icon && gallery ? [post?.html?.icon.metadata.html].concat(gallery) : gallery;
 
 	return (
 		<div className={`card-border-wrapper ${className}`} id={toggle_target_id}>
@@ -100,35 +96,35 @@ const ProjectAdminCard: React.FC<Props> = ({
 						)}
 					</div>
 
-					{project.slug && (
+					{post.slug && (
 						<div className={`${styles.slug} ${styles.lightSecondaryText}`}>
-							<Link href={`${Route.public.PORTFOLIO.uri}/${project.slug}`}>/{project.slug}</Link>
+							<Link href={`${Route.public.PORTFOLIO.uri}/${post.slug}`}>/{post.slug}</Link>
 						</div>
 					)}
 
 					<div className={styles.linksProjectPost}>
 						<div className={styles.iconWrapper}>
-							<DisplayResourceUrlAsIcon size={23} type="home" url={project.urlHome} />
+							<DisplayResourceUrlAsIcon size={23} type="URL 1" url={post.url1} />
 						</div>
 						<div className={styles.iconWrapper}>
-							<DisplayResourceUrlAsIcon size={28} type="repo" url={project.urlRepo} />
+							<DisplayResourceUrlAsIcon size={28} type="URL 2" url={post.url2} />
 						</div>
 					</div>
 				</div>
 				<div className={styles.header}>
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							<DeleteProject project={project} />
-							<VisibilitySwitchDisplay disabled checked={project.visibility} className="mt-0.5" />
+							<DeletePost post={post} />
+							<VisibilitySwitchDisplay disabled checked={post.visibility} className="mt-0.5" />
 							<FileAddressHandle
 								address={
-									project.html.attachment?.metadata?.html?.fileUri ||
-									project.html.attachment?.metadata?.html?.fileUrl ||
+									post.html.attachment?.metadata?.html?.fileUri ||
+									post.html.attachment?.metadata?.html?.fileUrl ||
 									""
 								}
 							/>
-							<Gallery entry={project} gallery={gallery} />
-							<UpdateProject project={project} fileList={fileList} tags={tags} />
+							<Gallery entry={post} gallery={gallery} />
+							<UpdatePost post={post} fileList={fileList} tags={tags} />
 
 							<ToggleCollapsible
 								tooltip
@@ -139,13 +135,16 @@ const ProjectAdminCard: React.FC<Props> = ({
 							/>
 						</div>
 					</div>
-					<div dangerouslySetInnerHTML={{ __html: project.html.title }} className={styles.title} />
+					<div
+						dangerouslySetInnerHTML={{ __html: post?.html?.title || "" }}
+						className={styles.title}
+					/>
 				</div>
 				<div className={`${styles.description} md-processed-to-html`}>
 					<div className="prose max-w-none">
 						{descriptionArr.map((description, index, arr) => (
 							<div
-								dangerouslySetInnerHTML={{ __html: description }}
+								dangerouslySetInnerHTML={{ __html: description || "" }}
 								key={index}
 								className={
 									index === 0
@@ -161,7 +160,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 					{displayTagsInline && (
 						<div className="card-item-collapsible--disabled mt-4">
 							<div className="about-entry-tags">
-								{project.tags
+								{post.tags
 									?.sort((a, b) =>
 										a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
 									)
@@ -179,7 +178,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 					{displayGalleryInline && gallery && gallery.length > 0 && (
 						<div className="card-item-collapsible--disabled">
 							<div className="flex gap-2 flex-wrap p-0 mt-4">
-								{[project?.html?.icon && project?.html?.icon?.metadata?.html, ...gallery].map(
+								{[post?.html?.icon && post?.html?.icon?.metadata?.html, ...gallery].map(
 									(image, index) => (
 										<DisplayFileImage
 											key={index}
@@ -208,4 +207,4 @@ const ProjectAdminCard: React.FC<Props> = ({
 	);
 };
 
-export default ProjectAdminCard;
+export default PostAdminCard;

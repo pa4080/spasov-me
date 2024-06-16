@@ -1,23 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import { FileData, FileHtmlProps } from "@/interfaces/File";
-
 import {
 	Carousel,
 	CarouselContent,
 	CarouselItem,
 	type CarouselApi,
 } from "@/components/ui/carousel";
-import { cn } from "@/lib/cn-utils";
-
+import { FileData, FileHtmlProps } from "@/interfaces/File";
+import { PostData } from "@/interfaces/Post";
 import { ProjectData } from "@/interfaces/Project";
-
+import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
-
 import DisplayFileImageOrEmbed from "../DisplayFileImageOrEmbed";
 import Navigation from "./GalleryCarouselNav";
-import GalleryCarouselNavInProject from "./GalleryCarouselNavInProject";
+import GalleryCarouselNavEmbedded from "./GalleryCarouselNavEmbedded";
 
 interface Props {
 	className?: string;
@@ -26,8 +23,8 @@ interface Props {
 	counterAsText?: boolean;
 	descriptionDisplay?: boolean;
 	navPosition?: "top" | "bottom";
-	navType?: "inProject" | "default";
-	projectData?: ProjectData;
+	navType?: "embedded" | "default";
+	entryData?: ProjectData | PostData;
 }
 
 const GalleryCarousel: React.FC<Props> = ({
@@ -38,7 +35,7 @@ const GalleryCarousel: React.FC<Props> = ({
 	descriptionDisplay,
 	navPosition = "bottom",
 	navType = "default",
-	projectData,
+	entryData,
 }) => {
 	const [api, setApi] = useState<CarouselApi>();
 	const [current_carouselItem, setCurrent] = useState(0);
@@ -58,14 +55,14 @@ const GalleryCarousel: React.FC<Props> = ({
 	}, [api]);
 
 	const Nav: React.FC = () => {
-		return navType === "inProject" && projectData ? (
-			<GalleryCarouselNavInProject
+		return navType === "embedded" && entryData ? (
+			<GalleryCarouselNavEmbedded
 				carouselItems_count={carouselItems_count}
 				counterAsText={counterAsText}
 				current_carouselItem={current_carouselItem}
 				descriptionDisplay={descriptionDisplay}
 				gallery={gallery}
-				projectData={projectData}
+				entryData={entryData}
 			/>
 		) : (
 			<Navigation
@@ -113,7 +110,7 @@ const GalleryCarousel: React.FC<Props> = ({
 							<div
 								className={cn(
 									"this-container relative w-full mx-auto",
-									navType === "inProject"
+									navType === "embedded"
 										? "max-w-projectImageMaxWidth"
 										: "max-w-galleryImageMaxWidth"
 								)}

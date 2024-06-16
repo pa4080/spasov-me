@@ -181,7 +181,8 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 						<div className="card-item-collapsible">
 							<div className="about-entry-tags">
 								{entry.tags
-									?.sort((a, b) =>
+									?.filter(({ tagType }) => tagType !== "system")
+									.sort((a, b) =>
 										a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
 									)
 									.map((tag) => (

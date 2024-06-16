@@ -593,8 +593,134 @@
 	},
 	"Projects_CardPublic": {
 		"button_call_to_action": "Details",
-		"tooltip_gallery": "View project gallery",
-		"tooltip_update": "Edit the project"
+		"tooltip_gallery": "View project's gallery",
+		"tooltip_update": "Edit the project",
+		"area_label_card_link": "Link to the Project's page"
+	},
+	"Posts_Form": {
+		"schema_title": "The post title must be at least 4 characters.",
+		"schema_description": "The description must be at least 10 characters.",
+		"schema_date": "Select a date.",
+		"schema_type": "Select a type.",
+		"schema_visibility": "The default visibility value is \"true\".",
+		"schema_tags": "Select at least one tag.",
+		"schema_gallery": "Select multiple attachments.",
+		"schema_slug_length": "The slug must be at least 4 characters.",
+		"schema_slug_schema": "Slug must be in-kebab-case.",
+
+		"title_label": "",
+		"title_placeholder": "Title of the post",
+		"title_description": "",
+
+		"description_label": "",
+		"description_placeholder": "Description of the post",
+		"description_description": "",
+
+		"url1_label": "",
+		"url1_placeholder": "URL 1 related to the post",
+		"url1_description": "",
+
+		"url2_label": "",
+		"url2_placeholder": "URL 2 related to the post",
+		"url2_description": "",
+
+		"slug_label": "",
+		"slug_placeholder": "Slug of the post",
+		"slug_description": "",
+
+		"type_label": "",
+		"type_placeholder": "Select Type",
+		"type_description": "",
+		"post_type_list": {
+			"blog": "Blog",
+			"reference": "Reference",
+			"manual": "Manual",
+			"note": "Note"
+		},
+
+		"dateFrom_label": "From",
+		"dateTo_label": "To",
+		"date_button": "OK",
+
+		"visibility_title": "Is public?",
+		"visibility_description": "",
+
+		"attachment_label": "",
+		"attachment_description": "",
+		"attachment_search": "Search for an attachment...",
+		"attachment_select": "Attachment...",
+		"attachment_searchNotFound": "Not found.",
+		"attachment_selectNone": "< None! >",
+
+		"icon_label": "",
+		"icon_description": "",
+		"icon_search": "Search for an icon...",
+		"icon_select": "Icon...",
+		"icon_searchNotFound": "Not found.",
+		"icon_selectNone": "< None! >",
+
+		"tags_label": "",
+		"tags_description": "",
+		"tags_search": "Search for a tag...",
+		"tags_add": "Add tags",
+		"tags_searchNotFound": "Not found...",
+		"tags_selectNone": "< None! >",
+
+		"gallery_label": "",
+		"gallery_description": "",
+		"gallery_search": "Search for a file...",
+		"gallery_add": "Add gallery items",
+		"gallery_searchNotFound": "Not found...",
+		"gallery_selectNone": "< None! >",
+
+		"btn_submit": "Submit",
+		"btn_submitting": "Submitting...",
+
+		"dateTo_now_current": "Now"
+	},
+	"Posts": {
+		"title_blog": "Blog",
+		"title_reference": "Reference",
+		"title_manual": "Manual",
+		"title_note": "Note",
+
+		"btnMore": "Read more",
+		"btnLess": "Show less",
+		"btnAll": "Show all"
+	},
+	"Posts_Create": {
+		"dialog_title": "Create a new { entryType } post",
+		"dialog_description": "",
+		"dialog_btn_add": "Add a new post",
+		"dialog_btn_add_submitting": "Submitting...",
+		"toast_submitted": "The post was successfully created.",
+		"toast_success": "The post was successfully created.",
+		"toast_error": "Something went wrong. Please try again."
+	},
+	"Posts_Update": {
+		"dialog_title": "Update an existing { entryType } post",
+		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+		"dialog_btn_add": "Update the post",
+		"dialog_btn_add_submitting": "Submitting...",
+		"toast_submitted": "The post was successfully updated.",
+		"toast_success": "The post was successfully updated.",
+		"toast_error": "Something went wrong. Please try again."
+	},
+	"Posts_Delete": {
+		"dialog_title": "Delete a post of type { entryType } ",
+		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+		"dialog_btn_delete": "Delete the post",
+		"dialog_btn_delete_submitting": "Deleting...",
+		"dialog_btn_cancel": "Cancel",
+		"toast_deleted": "The post was successfully deleted!",
+		"toast_success": "The post was successfully deleted!",
+		"toast_error": "Something went wrong. Please try again."
+	},
+	"Posts_CardPublic": {
+		"button_call_to_action": "Details",
+		"tooltip_gallery": "View post's gallery",
+		"tooltip_update": "Edit the post",
+		"area_label_card_link": "Link to the Post's page"
 	},
 	"Search": {
 		"title": "Search the site",

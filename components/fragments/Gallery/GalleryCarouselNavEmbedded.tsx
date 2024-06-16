@@ -14,12 +14,13 @@ import { Route } from "@/routes";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
+import { PostData } from "@/interfaces/Post";
 import TooltipWrapper from "../TooltipWrapper";
 
 interface Props {
 	className?: string;
 	gallery: FileHtmlProps[] | undefined;
-	projectData: ProjectData;
+	entryData: ProjectData | PostData;
 	current_carouselItem: number;
 	carouselItems_count: number;
 	counterAsText?: boolean;
@@ -27,10 +28,10 @@ interface Props {
 	buttons_className?: string;
 }
 
-const GalleryCarouselNavInProject: React.FC<Props> = ({
+const GalleryCarouselNavEmbedded: React.FC<Props> = ({
 	className,
 	gallery,
-	projectData: project,
+	entryData,
 	current_carouselItem,
 	carouselItems_count,
 	counterAsText = false,
@@ -74,7 +75,7 @@ const GalleryCarouselNavInProject: React.FC<Props> = ({
 			)}
 		>
 			{/* Logo */}
-			<TooltipWrapper tooltipText={project.html.title}>
+			<TooltipWrapper tooltipText={entryData.html.title}>
 				<div
 					className="rounded-full overflow-clip bg-primary/80 min-w-[3.8rem] min-h-[3.8rem] flex items-center justify-center drop-shadow-2xl z-10"
 					style={
@@ -84,22 +85,22 @@ const GalleryCarouselNavInProject: React.FC<Props> = ({
 					}
 				>
 					<Image
-						alt={project.title}
+						alt={entryData.title}
 						className="size-12"
 						height={44}
 						src={
-							project.html.icon?.metadata.html.fileUrl ||
-							project.html.icon?.metadata.html.fileUri ||
+							entryData.html.icon?.metadata.html.fileUrl ||
+							entryData.html.icon?.metadata.html.fileUri ||
 							Route.assets.LOGO_SVG
 						}
 						style={{
 							filter:
-								!project.html.icon?.metadata.html.fileUrl &&
-								!project.html.icon?.metadata.html.fileUri
+								!entryData.html.icon?.metadata.html.fileUrl &&
+								!entryData.html.icon?.metadata.html.fileUri
 									? "grayscale(1)"
 									: "",
 						}}
-						unoptimized={project.html.icon?.filename.match(/\.svg$/) ? true : false}
+						unoptimized={entryData.html.icon?.filename.match(/\.svg$/) ? true : false}
 						width={44}
 					/>
 				</div>
@@ -167,4 +168,4 @@ const GalleryCarouselNavInProject: React.FC<Props> = ({
 	);
 };
 
-export default GalleryCarouselNavInProject;
+export default GalleryCarouselNavEmbedded;

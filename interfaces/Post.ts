@@ -1,58 +1,69 @@
-import { GridFSFile } from "mongodb";
+import { ObjectId } from "mongodb";
 
-import { UserObject } from "@/interfaces/User";
+import { FileData } from "./File";
+import { TagData, TagDoc } from "./Tag";
+import { UserObject } from "./User";
+import { PostType } from "./_common-data-types";
 
-export interface PostType {
-	prompt: string;
-	tags: string; // tags: string[] | string;
-	link: string;
-	aiCategory: AiCategories;
-}
-
-// Omit: https://stackoverflow.com/a/51507473/6543935
-export interface PostTypeFromDb extends Omit<PostType, "tags"> {
-	_id: string;
-	tags: string[];
+export interface PostDoc {
+	_id: ObjectId;
 	creator: UserObject;
-	image: GridFSFile;
+
+	title: string;
+	description: string;
+	slug: string;
+	entryType: PostType;
+	url1: string;
+	url2: string;
+	dateFrom: Date | string;
+	dateTo: Date | string | undefined;
+	visibility: boolean | string;
+	attachment?: string | undefined;
+	icon?: string | undefined;
+	gallery: string[] | undefined;
+	tags: ObjectId[] | undefined;
 }
 
-export enum AiCategories {
-	CHAT = "chat",
-	IMAGE = "image",
+export interface PostDocPopulated extends Omit<PostDoc, "tags"> {
+	tags: TagDoc[];
 }
 
-export enum SearchTypes {
-	AUTHOR = "author",
-	TAGS = "tags",
-	PROMPT = "prompt",
+export interface NewPostData
+	extends Omit<PostDoc, "_id" | "attachment" | "creator" | "tags" | "gallery" | "icon"> {
+	creator: string;
+	attachment?: string;
+	icon?: string;
+	tags: string[];
+	gallery?: string[];
 }
 
-export const postInit: PostType = {
-	prompt: "",
-	tags: "",
-	aiCategory: AiCategories.CHAT,
-	link: "",
-};
+export interface PostHtmlProps {
+	title: string;
+	description: string;
+	attachment?: FileData;
+	icon?: FileData;
+}
 
-export const postFromDbInit: PostTypeFromDb = {
-	prompt: "Prompt placeholder...",
-	tags: ["tag1", "tag2"],
-	aiCategory: AiCategories.CHAT,
-	link: "",
-	_id: "",
-	creator: {} as UserObject,
-	image: {} as GridFSFile,
-};
-
-export type PostErrorsType = {
-	// [key: string]: {}
-	[key in keyof PostTypeFromDb]: {
-		kind?: string; // "regexp", "required", etc.
-		message?: string; // the actual error message
-		name?: string; // ValidatorError
-		path?: string; // image, link, etc.
-		properties?: {}; // contains the same information as the other fields
-		value?: string; // the actual value that caused the error
-	};
-};
+export interface PostData
+	extends Omit<
+		PostDoc,
+		| "_id"
+		| "attachment"
+		| "creator"
+		| "tags"
+		| "dateTo"
+		| "dateFrom"
+		| "visibility"
+		| "gallery"
+		| "icon"
+	> {
+	_id: string;
+	html: PostHtmlProps;
+	dateFrom: Date;
+	dateTo: Date | undefined;
+	visibility: boolean;
+	attachment?: string;
+	icon?: string;
+	tags: TagData[];
+	gallery?: FileData[];
+}

@@ -1,38 +1,70 @@
-/**
- * @see https://youtu.be/wm5gMKuwSYk?t=7575
- */
 import { Schema, model, models } from "mongoose";
 
-import FileGFS from "./file";
+import { postTuple } from "@/interfaces/_common-data-types";
+
+import Tag from "./tag";
 import User from "./user";
 
 const PostSchema = new Schema({
+	title: {
+		type: String,
+		required: [true, "Title is required!"],
+	},
+	description: {
+		type: String,
+		required: [true, "Description is required!"],
+	},
+	slug: {
+		type: String,
+		required: [true, "The slug is required!"],
+		match: [/^[a-z][a-z0-9-]*$/, "The slug must be in kebab case!"],
+	},
+	entryType: {
+		type: String,
+		enum: postTuple,
+		default: postTuple[0],
+		required: [true, "Type is required!"],
+	},
+	url1: {
+		type: String,
+		required: [false, "Reference URL 1 - not required!"],
+	},
+	url2: {
+		type: String,
+		required: [false, "Reference URL 2 - not required!"],
+	},
+	dateFrom: {
+		type: Date,
+		required: [true, "Date 'from' is required!"],
+	},
+	dateTo: {
+		type: Date, // it is not required, so when it is not defined the frontend will display "Now"
+	},
+	visibility: {
+		type: Boolean,
+		required: [true, "Visibility is required!"],
+	},
+	attachment: {
+		type: String,
+	},
+	icon: {
+		type: String,
+	},
+	gallery: [
+		{
+			type: String,
+		},
+	],
+	tags: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: Tag,
+			required: [true, "At least one Tag is required!"],
+		},
+	],
 	creator: {
-		// This is the database ObjectId
-		// of the user who created the prompt,
-		// it should be the same as the userId.
 		type: Schema.Types.ObjectId,
 		ref: User,
-	},
-	prompt: {
-		type: String,
-		required: [true, "Prompt is required!"],
-	},
-	tags: {
-		type: Array,
-		required: [true, "At least one Tag is required!"],
-	},
-	aiCategory: {
-		type: String, // actually it is a value of AiCategories
-		required: [true, "AI category type is required!"],
-	},
-	link: {
-		type: String,
-		match: [/^https:\/\//, "You need to use https:// for the Link!"],
-	},
-	image: {
-		type: Schema.Types.ObjectId,
-		ref: FileGFS,
 	},
 });
 
