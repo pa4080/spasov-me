@@ -10,6 +10,7 @@ import ThemesProvider from "@/contexts/ThemesProvider";
 import manifest from "@/public/manifest.json";
 
 import "./(styles)/globals.scss";
+import "./(styles)/syntax-highlight.scss";
 
 import type { Metadata, Viewport } from "next";
 

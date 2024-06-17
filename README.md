@@ -17,6 +17,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [x] Blog post admin
   - [ ] Blog feed public
   - [ ] Blog post public
+  - [ ] Syntax highlighting and images
+    - <https://www.tybarho.com/articles/adding-a-copy-button-mdx-code-snippets>
+    - <https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#using-plugins>
 
 ## Vercel CLI
 

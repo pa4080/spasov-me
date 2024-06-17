@@ -419,7 +419,7 @@ body textarea.w-md-editor-text-input:focus {
  *       .prose is a Tailwind CSS class, see -- tailwind.config.ts
  */
 .md-processed-to-html {
-	@apply text-foreground-secondary hyphens-auto xa:text-justify sa:text-[1.05rem] sa:leading-[1.75em] tracking-wide;
+	@apply text-foreground-secondary hyphens-auto xa:text-justify sa:text-[1.05rem] sa:leading-[1.75em] tracking-wide max-w-full overflow-x-hidden;
 
 	a,
 	a:visited {
@@ -440,6 +440,11 @@ body textarea.w-md-editor-text-input:focus {
 
 	p:last-of-type {
 		@apply mb-0;
+	}
+
+	pre {
+		overflow-x: auto;
+		max-height: 480px;
 	}
 }
 

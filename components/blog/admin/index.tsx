@@ -21,7 +21,14 @@ const BlogAdmin: React.FC<Props> = async ({ className }) => {
 	return (
 		<div className={cn("space-y-20", className)}>
 			{postTypes.map((type) => (
-				<TimeLine posts={posts} visibleItems={25} fileList={fileList} tags={tags} type={type} />
+				<TimeLine
+					key={type}
+					posts={posts}
+					visibleItems={25}
+					fileList={fileList}
+					tags={tags}
+					type={type}
+				/>
 			))}
 		</div>
 	);
