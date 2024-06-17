@@ -1,4 +1,12 @@
 "use server";
+
+import { Redis } from "@upstash/redis";
+
+const redis = new Redis({
+	url: process.env.UPSTASH_REDIS_REST_URL,
+	token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
+
 import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
@@ -32,6 +40,9 @@ export const revalidatePaths = async <T extends string>({
 		paths.forEach((path) => {
 			revalidatePath(path);
 		});
+
+		// Delete the "files" array from Redis in order to be updated on the next request
+		await redis.del("files");
 
 		return paths;
 	} catch (error) {

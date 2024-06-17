@@ -122,7 +122,14 @@ const Section: React.FC<Props> = ({
 			) : (
 				<div className={styles.feed}>
 					{files
-						?.sort((b, a) => a.uploadDate.getTime() - b.uploadDate.getTime())
+						?.sort((b, a) =>
+							a?.uploadDate &&
+							typeof a?.uploadDate?.getTime === "function" &&
+							b?.uploadDate &&
+							typeof b?.uploadDate?.getTime === "function"
+								? a?.uploadDate?.getTime() - b?.uploadDate?.getTime()
+								: 1
+						)
 						?.map((file, index) => (
 							<FileCard
 								key={index}

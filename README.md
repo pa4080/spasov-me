@@ -11,7 +11,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Todo
 
 - Redis
-  - [ ] FilesR2
+  - [x] FilesR2
 
 - Blog
   - [x] Blog post admin
