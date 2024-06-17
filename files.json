@@ -1,0 +1,891 @@
+[
+  {
+    "Key": "Spas_Zdravkov_Spasov_CV_2024_EN.pdf",
+    "LastModified": "2024-06-06T08:43:08.156Z",
+    "ETag": "\"a84293c6d3fe018790749757dfc943b9\"",
+    "Size": 151699,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "animated-portfolio-mlt-01.webp",
+    "LastModified": "2024-06-16T04:48:24.944Z",
+    "ETag": "\"1c054a15a8fcf41e8c4c541621f6e0cd\"",
+    "Size": 54984,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "animated-portfolio-mlt-02.webp",
+    "LastModified": "2024-06-02T14:16:03.286Z",
+    "ETag": "\"bacc7f7946acf718a25be590be8ef271\"",
+    "Size": 40922,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "animated-portfolio-mlt-03.webp",
+    "LastModified": "2024-06-16T04:48:22.942Z",
+    "ETag": "\"3a45a79d90a46662d9d3bd6b001ea139\"",
+    "Size": 52204,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "animated-portfolio-mlt-04.webp",
+    "LastModified": "2024-06-02T14:15:41.805Z",
+    "ETag": "\"303567858bd1528e0776793aa69d7a7c\"",
+    "Size": 38910,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "animated-portfolio-mlt-cover-01.webp",
+    "LastModified": "2024-06-02T14:15:26.695Z",
+    "ETag": "\"2514f3a04ca686f4603a9b857ab77a3f\"",
+    "Size": 73578,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "animated-portfolio-mlt-cover-02.webp",
+    "LastModified": "2024-06-02T13:56:40.721Z",
+    "ETag": "\"7d0a70860fa3e2eb016577fc704b1464\"",
+    "Size": 55004,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "animated-portfolio.logo.svg",
+    "LastModified": "2024-05-22T12:02:37.447Z",
+    "ETag": "\"06cacad3dc0b90283733efff7786619a\"",
+    "Size": 5679,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "appstimate-00-cover.webp",
+    "LastModified": "2024-05-13T17:49:02.047Z",
+    "ETag": "\"474c1469cc9845587ac0f4558065e4b7\"",
+    "Size": 73440,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "appstimate-01.webp",
+    "LastModified": "2024-05-13T17:52:12.821Z",
+    "ETag": "\"f39975a949cffba2b23b06c07efb5f28\"",
+    "Size": 34332,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "appstimate-02.webp",
+    "LastModified": "2024-05-13T17:53:08.632Z",
+    "ETag": "\"a65f923edd6032e484925fa2df7c160c\"",
+    "Size": 34902,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "appstimate-03.webp",
+    "LastModified": "2024-05-13T17:54:42.128Z",
+    "ETag": "\"750981964047c3aa182ded2b228267a0\"",
+    "Size": 40176,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "appstimate-04.webp",
+    "LastModified": "2024-05-13T17:57:02.515Z",
+    "ETag": "\"66163ee54f090700bff91d635365bf22\"",
+    "Size": 42752,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "appstimate-spasov-me-logo.svg",
+    "LastModified": "2024-05-17T08:41:02.748Z",
+    "ETag": "\"7a951ceecec41d60a4a1747e2fa48ab4\"",
+    "Size": 4737,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "builder-io-00.webp",
+    "LastModified": "2024-06-15T17:17:18.535Z",
+    "ETag": "\"400567725d30681d0057f98c31efc31a\"",
+    "Size": 151724,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "builder-io-01.webp",
+    "LastModified": "2024-06-15T17:21:38.330Z",
+    "ETag": "\"258552bcc73deb1b2d813a5846129916\"",
+    "Size": 93204,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "builder-io-02.webp",
+    "LastModified": "2024-06-15T17:21:39.583Z",
+    "ETag": "\"bf491d298fa9fb2dd9bb9c87e818e6cd\"",
+    "Size": 97692,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "builder-io-03.webp",
+    "LastModified": "2024-06-15T17:21:33.030Z",
+    "ETag": "\"09f328a0af8daf9c34bc3aafcc8f3a42\"",
+    "Size": 43534,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "builder-io-04.webp",
+    "LastModified": "2024-06-15T17:21:31.431Z",
+    "ETag": "\"f9dfa6fe471017d2ed311cd23f44c523\"",
+    "Size": 33424,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "builder-io-05.webp",
+    "LastModified": "2024-06-15T17:21:37.888Z",
+    "ETag": "\"38fd308c9802e7247fb81b782a3a4bf9\"",
+    "Size": 74912,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "builder-io-06.webp",
+    "LastModified": "2024-06-15T17:21:32.692Z",
+    "ETag": "\"af72893cd4c86fa338230112a3922e42\"",
+    "Size": 149342,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "builder-io-07.webp",
+    "LastModified": "2024-06-15T17:21:54.769Z",
+    "ETag": "\"e4c76bef84907b964499c86e53727ad4\"",
+    "Size": 110370,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "builder-io.logo.svg",
+    "LastModified": "2024-06-15T17:05:58.743Z",
+    "ETag": "\"dead42038a54d34f141df10dbd72bf70\"",
+    "Size": 2249,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "game-hub-mlt-00.webp",
+    "LastModified": "2024-05-17T10:58:25.302Z",
+    "ETag": "\"e1fde53bb22d110141b554e09c99a8cb\"",
+    "Size": 117432,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "game-hub-mlt-01.webp",
+    "LastModified": "2024-05-17T10:58:34.422Z",
+    "ETag": "\"c886e1bccbd2ae5b455696f2b3c1c5ef\"",
+    "Size": 114906,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "game-hub-mlt-02.webp",
+    "LastModified": "2024-05-17T10:58:30.371Z",
+    "ETag": "\"b0c8a314410c7f03815bb87b5d8f98c6\"",
+    "Size": 116424,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "game-hub-mlt-03.webp",
+    "LastModified": "2024-05-17T10:58:33.910Z",
+    "ETag": "\"20be6530b69480f361fe4a00e01b96e4\"",
+    "Size": 113946,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "game-hub-mlt-04.webp",
+    "LastModified": "2024-05-17T10:58:30.778Z",
+    "ETag": "\"add5c68b6da33884b357c91e0aecea31\"",
+    "Size": 88946,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "game-hub-mlt-05.webp",
+    "LastModified": "2024-05-17T11:34:01.299Z",
+    "ETag": "\"5085c21454e93a7c6858f524d87f3703\"",
+    "Size": 116942,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "game-hub-mlt-logo.svg",
+    "LastModified": "2024-05-17T10:17:18.899Z",
+    "ETag": "\"7cc40a094987b820eb91e5fc16c6eea0\"",
+    "Size": 3845,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "homelab-proxmox-ve-01.webp",
+    "LastModified": "2024-06-02T13:55:17.829Z",
+    "ETag": "\"3ad8367d0317aa5f02ea9490a79a04cd\"",
+    "Size": 94462,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "homelab-proxmox-ve-02.webp",
+    "LastModified": "2024-06-02T13:55:08.821Z",
+    "ETag": "\"6ffee53698c0d5c62d24afa4c81b46c5\"",
+    "Size": 94254,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "homelab-proxmox-ve-03.webp",
+    "LastModified": "2024-06-02T13:54:58.811Z",
+    "ETag": "\"32327860697f4f2951067ce45746aee5\"",
+    "Size": 78902,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "homelab-proxmox-ve-04.webp",
+    "LastModified": "2024-06-02T13:54:48.855Z",
+    "ETag": "\"371801bfea7e82ce3f6efbd90d9847cf\"",
+    "Size": 114760,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "homelab-proxmox-ve-05.webp",
+    "LastModified": "2024-06-02T13:53:36.817Z",
+    "ETag": "\"192c495404681919ba070c6b11a20261\"",
+    "Size": 75574,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "homelab-proxmox-ve-06.webp",
+    "LastModified": "2024-06-02T13:53:27.015Z",
+    "ETag": "\"bd38206cd73e4d5d2308d27784218c72\"",
+    "Size": 67082,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "homelab-proxmox-ve-07.webp",
+    "LastModified": "2024-06-02T13:54:36.405Z",
+    "ETag": "\"ba7ffff8bef5be010ef83e9ffdf0e6fd\"",
+    "Size": 70106,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "homelab-proxmox-ve-08.webp",
+    "LastModified": "2024-06-02T13:53:04.997Z",
+    "ETag": "\"189f824cb7ae9e6d17e84c2ebc1236b4\"",
+    "Size": 75020,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "homelab-proxmox-ve-09.webp",
+    "LastModified": "2024-06-02T13:52:53.639Z",
+    "ETag": "\"4d8c5de36edbd578663df1abb35ee91b\"",
+    "Size": 53452,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "homelab-proxmox-ve-10.webp",
+    "LastModified": "2024-06-02T13:52:40.930Z",
+    "ETag": "\"65164229c4c9df67d64be5b727cf9571\"",
+    "Size": 91736,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "homelab-proxmox-ve-cover.webp",
+    "LastModified": "2024-06-02T13:52:31.934Z",
+    "ETag": "\"73a8dbfd869b27c8a18e90070cd82eef\"",
+    "Size": 116946,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "hyperzon-refactoring-00.webp",
+    "LastModified": "2024-05-15T10:16:58.351Z",
+    "ETag": "\"24db50316e9897e7222b6dfec324cd6b\"",
+    "Size": 187334,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "hyperzon-refactoring-01.webp",
+    "LastModified": "2024-05-15T10:36:25.430Z",
+    "ETag": "\"0ac20a7bf3d9ae2e7d46871891a71397\"",
+    "Size": 87602,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "hyperzon-refactoring-02.webp",
+    "LastModified": "2024-05-15T10:36:26.950Z",
+    "ETag": "\"9ae64fa3a7a138260d4412d82ffd07b7\"",
+    "Size": 82156,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "hyperzon-refactoring-03.webp",
+    "LastModified": "2024-05-15T10:36:27.457Z",
+    "ETag": "\"0bd0b1b3e463f2656c3147b8019c743b\"",
+    "Size": 94830,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "hyperzon-refactoring-04.webp",
+    "LastModified": "2024-05-15T10:36:27.204Z",
+    "ETag": "\"affcb94c43dae215b0934cf1ab67dc67\"",
+    "Size": 109452,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "hyperzon-refactoring-logo.svg",
+    "LastModified": "2024-05-15T09:40:23.535Z",
+    "ETag": "\"e97fbe0b5a09a460d82bd8a6623508d4\"",
+    "Size": 1808,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-00-mlt.webp",
+    "LastModified": "2024-05-21T17:35:40.686Z",
+    "ETag": "\"9d68c79d6c1da87b3be645f49e122ad0\"",
+    "Size": 54948,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-01-mlt.webp",
+    "LastModified": "2024-05-21T17:21:10.036Z",
+    "ETag": "\"d26251ab0a567516a73dddc48b147cc0\"",
+    "Size": 68776,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-02-mlt.webp",
+    "LastModified": "2024-05-21T17:21:39.513Z",
+    "ETag": "\"d7f316fb8e48fa9829a2ad685dcfe56c\"",
+    "Size": 62680,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-03-mlt.webp",
+    "LastModified": "2024-05-21T17:21:52.088Z",
+    "ETag": "\"afef26971bb39825765e2c63c0cf5f75\"",
+    "Size": 58460,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-04-mlt.webp",
+    "LastModified": "2024-05-21T17:22:02.879Z",
+    "ETag": "\"705ce24aa2e810ef5c961f4f0c0f2db3\"",
+    "Size": 93956,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-05-mlt.webp",
+    "LastModified": "2024-05-21T17:22:14.951Z",
+    "ETag": "\"b344a322b2a24d018e880ef4ea1fdab9\"",
+    "Size": 93048,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-06-mlt.webp",
+    "LastModified": "2024-05-21T17:22:26.148Z",
+    "ETag": "\"c3a2c167d109ee89736f657a5cfe5994\"",
+    "Size": 112850,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-07-mlt.webp",
+    "LastModified": "2024-05-21T17:22:38.907Z",
+    "ETag": "\"485f5cbee73bea623388f0285d8bd5a1\"",
+    "Size": 107570,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-08-mlt.webp",
+    "LastModified": "2024-05-21T17:22:49.157Z",
+    "ETag": "\"3144e10509d11c52e2b7748a3f09fa52\"",
+    "Size": 157710,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-09-mlt.webp",
+    "LastModified": "2024-05-21T17:31:00.770Z",
+    "ETag": "\"08256d128c21a6a38cb036b244f0260e\"",
+    "Size": 116344,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-10-mlt.webp",
+    "LastModified": "2024-05-21T17:31:08.637Z",
+    "ETag": "\"55c7f87cd99c87cb830edcfcb7cf247e\"",
+    "Size": 155040,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-11-mlt.webp",
+    "LastModified": "2024-05-21T17:30:56.457Z",
+    "ETag": "\"a2a9e57e5a24ca58ab8a079566b10651\"",
+    "Size": 93340,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-12-trivictoria.webp",
+    "LastModified": "2024-05-21T17:39:30.271Z",
+    "ETag": "\"e7263a4d4889e9e76470639c60b069eb\"",
+    "Size": 65478,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-13-trivictoria.webp",
+    "LastModified": "2024-05-21T17:38:31.504Z",
+    "ETag": "\"0e9c626539d9961b61bd6d55d42dc6bb\"",
+    "Size": 160446,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-14-trivictoria.webp",
+    "LastModified": "2024-05-21T17:38:31.028Z",
+    "ETag": "\"d684058b67ba88b430427f0f3122861e\"",
+    "Size": 150796,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-15-szs.webp",
+    "LastModified": "2024-05-21T17:40:35.680Z",
+    "ETag": "\"f8e707dca70884a574302a77d0f73865\"",
+    "Size": 94094,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "mediawiki-16-szs.webp",
+    "LastModified": "2024-05-21T17:40:36.053Z",
+    "ETag": "\"7516316a2e21a24e1fac084e7f39c2db\"",
+    "Size": 69812,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "promptopia.mlt-01.webp",
+    "LastModified": "2024-06-02T13:50:17.409Z",
+    "ETag": "\"d694a585fe0820f0a60a325631444c63\"",
+    "Size": 40950,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "promptopia.mlt-02.webp",
+    "LastModified": "2024-06-02T13:50:32.320Z",
+    "ETag": "\"073f07e6d288d45a2b671f19b8dfd030\"",
+    "Size": 76392,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "promptopia.mlt-03.webp",
+    "LastModified": "2024-06-02T13:50:50.468Z",
+    "ETag": "\"459045a27d3cf44529d7bb820bc5d025\"",
+    "Size": 101286,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "promptopia.mlt-04.webp",
+    "LastModified": "2024-06-02T13:51:32.260Z",
+    "ETag": "\"e553da4816510d35d56a63c4b197e164\"",
+    "Size": 39134,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "promptopia.mlt-05.webp",
+    "LastModified": "2024-06-02T13:51:44.821Z",
+    "ETag": "\"b8798f174835ea3f4d58799fb12c3674\"",
+    "Size": 77706,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "promptopia.mlt-cover.webp",
+    "LastModified": "2024-06-02T13:49:18.546Z",
+    "ETag": "\"d2b3cd3a7c46ef8208f696ec1c0d853b\"",
+    "Size": 52404,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "promptopia.mlt.logo.svg",
+    "LastModified": "2024-05-22T11:50:20.431Z",
+    "ETag": "\"12dec4ec5f14e7a0bbe95b3abd54dcb3\"",
+    "Size": 4214,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "proxmox-logo.png",
+    "LastModified": "2024-05-12T11:18:35.392Z",
+    "ETag": "\"f9606655f99d3736f51cd3ab3f550bb4\"",
+    "Size": 8363,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "rose.webp",
+    "LastModified": "2024-04-23T15:19:47.920Z",
+    "ETag": "\"a75573badf87625222d7d317cdc7fcf3\"",
+    "Size": 98294,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spas-z-spasov-2015-dr-eng-sc-diploma.webp",
+    "LastModified": "2024-06-07T19:52:41.388Z",
+    "ETag": "\"5704b7ad5d735c07b438f8c8220ca3fc\"",
+    "Size": 250418,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spas-z-spasov-2015-thesis-abstract-full.pdf",
+    "LastModified": "2024-06-07T19:52:42.490Z",
+    "ETag": "\"c817e8dee07e07085f85991fff46288a\"",
+    "Size": 5636297,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spas-z-spasov-2015-thesis-abstract.pdf",
+    "LastModified": "2024-06-07T19:52:35.099Z",
+    "ETag": "\"830000d97544200d7d0197c8783656d5\"",
+    "Size": 5540578,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spas-z-spasov-2015-thesis.pdf",
+    "LastModified": "2024-06-07T19:52:42.023Z",
+    "ETag": "\"f451367959c5275d52ba8257d384c9ee\"",
+    "Size": 57307631,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spas-z-spasov-7-photo.square.small.jpg",
+    "LastModified": "2024-04-21T17:24:49.976Z",
+    "ETag": "\"00fedb339c9d063e31de3ab3bdad9513\"",
+    "Size": 17926,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spasov-me-00.webp",
+    "LastModified": "2024-05-22T11:58:37.125Z",
+    "ETag": "\"0d5278fb89f520ac29e172331b946873\"",
+    "Size": 95378,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spasov-me-01.webp",
+    "LastModified": "2024-05-22T12:23:10.270Z",
+    "ETag": "\"a23b93ea3fbeab38be3c2ba93512dc71\"",
+    "Size": 70864,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spasov-me-02.webp",
+    "LastModified": "2024-05-22T12:15:08.100Z",
+    "ETag": "\"1a7489b1ba71405af5c5b04f70ffb0ec\"",
+    "Size": 69460,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spasov-me-03.webp",
+    "LastModified": "2024-05-22T12:14:18.877Z",
+    "ETag": "\"e20ae2bfb519b7bfd2b92d012aa5500e\"",
+    "Size": 60944,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spasov-me-04.webp",
+    "LastModified": "2024-05-22T13:02:10.298Z",
+    "ETag": "\"e742c9a5d91354a48b211259bc8a55da\"",
+    "Size": 72852,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spasov-me-05.webp",
+    "LastModified": "2024-05-22T12:14:18.947Z",
+    "ETag": "\"484caf87c17037241095a87893a6feff\"",
+    "Size": 52390,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spasov-me-06.webp",
+    "LastModified": "2024-05-22T12:14:35.755Z",
+    "ETag": "\"18f1e7d56fcc8aa9ecdb19fea5736d2d\"",
+    "Size": 48064,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spasov-me-07.webp",
+    "LastModified": "2024-05-22T12:14:20.638Z",
+    "ETag": "\"290c1f6be439b6ccf1bc6a1d1bbb68a9\"",
+    "Size": 56988,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spasov-me-08.webp",
+    "LastModified": "2024-05-22T12:16:12.865Z",
+    "ETag": "\"ee3db5e4ef4901c235f0488ba1c485a3\"",
+    "Size": 62944,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spasov-me-performance-01.webp",
+    "LastModified": "2024-05-22T12:21:21.716Z",
+    "ETag": "\"87904cdabf3a93af65d9b807493d2b8f\"",
+    "Size": 72150,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spasov-me-performance-02.webp",
+    "LastModified": "2024-05-22T12:20:53.139Z",
+    "ETag": "\"41517e1cd52b5cd4fbd9f1bbec231546\"",
+    "Size": 43592,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "spasov-me.logo.svg",
+    "LastModified": "2024-05-22T11:56:38.308Z",
+    "ETag": "\"23c57bd4b6a4de7fa530f8f5b395cffe\"",
+    "Size": 4234,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "swapi-mlt-00.webp",
+    "LastModified": "2024-05-16T18:18:39.909Z",
+    "ETag": "\"1c71678751df1b16cc76ee188158a9aa\"",
+    "Size": 20460,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "swapi-mlt-01.webp",
+    "LastModified": "2024-05-16T18:18:44.537Z",
+    "ETag": "\"594380dc4da97681cfad0d4b24088bd2\"",
+    "Size": 35846,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "swapi-mlt-02.webp",
+    "LastModified": "2024-05-16T18:18:44.443Z",
+    "ETag": "\"0ab9b03608426388cecf61e5ba750aca\"",
+    "Size": 70092,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "swapi-mlt-03.webp",
+    "LastModified": "2024-05-22T11:38:56.469Z",
+    "ETag": "\"d5c16bee4da2253484ba0133d5ce142e\"",
+    "Size": 96674,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "swapi-mlt-logo.svg",
+    "LastModified": "2024-05-16T18:02:23.868Z",
+    "ETag": "\"dc74f2da56fc526f314f13e56656c7fd\"",
+    "Size": 6102,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "szs-cert-NDG-linux-essentials.webp",
+    "LastModified": "2024-05-21T20:54:28.511Z",
+    "ETag": "\"af977f33c25bce1605e86d7501b2ec9f\"",
+    "Size": 184070,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "szs-cert-NDG-linux-unhatced.webp",
+    "LastModified": "2024-05-21T20:54:26.331Z",
+    "ETag": "\"f27d3fb1129f08902a7349fa16d704e9\"",
+    "Size": 145804,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "szs-cert-linked-in-js-es-training.webp",
+    "LastModified": "2024-05-21T20:54:28.773Z",
+    "ETag": "\"1d3413db25ea564e05910e7b555134d4\"",
+    "Size": 51836,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "szs-cert-mosh-hamedani-js-basics.webp",
+    "LastModified": "2024-05-21T20:54:35.065Z",
+    "ETag": "\"fbb2e3e74373608b70e49a4274650005\"",
+    "Size": 27644,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "szs-cert-mosh-hamedani-oop-in-js.webp",
+    "LastModified": "2024-05-21T20:54:35.404Z",
+    "ETag": "\"4760de21aa5c9576c9e170715b8695b4\"",
+    "Size": 27732,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "szs-cert-mosh-hamedani-react-18.webp",
+    "LastModified": "2024-05-21T20:54:33.961Z",
+    "ETag": "\"b1e51b0af3a629cc80a7ebcc35dad1d8\"",
+    "Size": 24084,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "szs-cert-progress-bg-js-advanced.webp",
+    "LastModified": "2024-05-22T10:53:41.944Z",
+    "ETag": "\"f35ebdf67ba6d9a4ff4300dd347ef28f\"",
+    "Size": 107286,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "szs-cert-total-ts-react-ts-beginners.webp",
+    "LastModified": "2024-05-21T20:54:35.427Z",
+    "ETag": "\"1479377a0ebf4c7d55582ab579d77ab8\"",
+    "Size": 68146,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "szs-cert-total-ts-ts-beginners.webp",
+    "LastModified": "2024-05-21T20:54:26.687Z",
+    "ETag": "\"55539e99ad776ff78d2df2ff69578057\"",
+    "Size": 72450,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "test-text.txt",
+    "LastModified": "2024-06-05T13:49:43.169Z",
+    "ETag": "\"e478a7322f1224e6776b05556e9608c5\"",
+    "Size": 227,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "vercel-basic-replica-00-cover.webp",
+    "LastModified": "2024-05-12T17:28:11.313Z",
+    "ETag": "\"9daab68d50de477b8fe9c86b3ddb837f\"",
+    "Size": 58042,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "vercel-basic-replica-01.webp",
+    "LastModified": "2024-05-12T16:59:12.380Z",
+    "ETag": "\"3c22e4abdaca10c3d136e7aeeca9d60b\"",
+    "Size": 54174,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "vercel-basic-replica-02.webp",
+    "LastModified": "2024-05-12T16:59:15.026Z",
+    "ETag": "\"816b34ba33c0757b8b00709973bd4311\"",
+    "Size": 36946,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "vercel-basic-replica-03.webp",
+    "LastModified": "2024-05-12T16:59:17.090Z",
+    "ETag": "\"89cdfb5be29a04d77a532b38db8ac6a2\"",
+    "Size": 35044,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "vercel-basic-replica-04.webp",
+    "LastModified": "2024-05-12T16:59:14.964Z",
+    "ETag": "\"f07fec7de3e8a069d58c16739a60cadd\"",
+    "Size": 54754,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "vercel-basic-replica-05.webp",
+    "LastModified": "2024-05-12T16:59:15.549Z",
+    "ETag": "\"75755aee6f8ee30e204050442c3f2e6c\"",
+    "Size": 35674,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "vercel-basic-replica-06.webp",
+    "LastModified": "2024-05-12T16:59:15.027Z",
+    "ETag": "\"c672a661f899d8e2bd859f4b06c97f26\"",
+    "Size": 37804,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "vercel-basic-replica-07.webp",
+    "LastModified": "2024-05-12T16:59:12.382Z",
+    "ETag": "\"68b27e55a319d6fd781a98de0b1a326d\"",
+    "Size": 28634,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "vercel-basic-replica.logo.svg",
+    "LastModified": "2024-05-12T17:29:00.926Z",
+    "ETag": "\"6b2ef5e31ee7d74286d1041b5d4504b9\"",
+    "Size": 5087,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "weather-forecast-01.webp",
+    "LastModified": "2024-06-02T13:32:54.130Z",
+    "ETag": "\"ed69312adab385fce4f263d9566a3274\"",
+    "Size": 40830,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "weather-forecast-02.webp",
+    "LastModified": "2024-06-02T13:33:10.817Z",
+    "ETag": "\"2b6adcf17ad349d6f3380267f4eeb4dc\"",
+    "Size": 32410,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "weather-forecast-03.webp",
+    "LastModified": "2024-06-02T13:33:27.889Z",
+    "ETag": "\"813c201f458f619603f0c70f640dd499\"",
+    "Size": 32532,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "weather-forecast-04.webp",
+    "LastModified": "2024-06-02T13:33:43.120Z",
+    "ETag": "\"62c7c73868e34969002e1a89a14a83ad\"",
+    "Size": 32268,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "weather-forecast-05.webp",
+    "LastModified": "2024-06-02T13:34:01.955Z",
+    "ETag": "\"bde4e1e95de324cd77894b63a65fe223\"",
+    "Size": 36440,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "weather-forecast-06.webp",
+    "LastModified": "2024-06-02T13:36:51.902Z",
+    "ETag": "\"4a0139ab72656623b997928e7d5daffa\"",
+    "Size": 33786,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "weather-forecast-07.webp",
+    "LastModified": "2024-06-02T13:36:35.215Z",
+    "ETag": "\"8c8b0776f802262e52c35915f2a84274\"",
+    "Size": 58442,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "weather-forecast-cover.webp",
+    "LastModified": "2024-06-02T13:32:29.441Z",
+    "ETag": "\"229c11ccc30a471a1a20e4f40bf4b876\"",
+    "Size": 32212,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "weather-forecast.logo.svg",
+    "LastModified": "2024-04-23T15:56:21.028Z",
+    "ETag": "\"b10907cb5a12f6829e826d0e411299c3\"",
+    "Size": 5474,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "wiki-metalevel-tech-logo.svg",
+    "LastModified": "2024-05-21T15:15:46.393Z",
+    "ETag": "\"3b9e89bd590cde5779e68f0e423c5427\"",
+    "Size": 3806,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "z-embed-docs-demo-process-control.pptx",
+    "LastModified": "2024-06-05T14:57:09.967Z",
+    "ETag": "\"54d95b43e36d3585961c629e9a6b7a20\"",
+    "Size": 1497355,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "z-embed-docs-demo-spas-z-spasov-cv-jobs-bg-2024-05-30.pdf",
+    "LastModified": "2024-06-05T14:57:12.654Z",
+    "ETag": "\"831677d1574056750b303543dea8c1d2\"",
+    "Size": 60609,
+    "StorageClass": "STANDARD"
+  },
+  {
+    "Key": "z-embed-docs-demo-template-time-price-estimation.xlsx",
+    "LastModified": "2024-06-05T14:57:13.743Z",
+    "ETag": "\"a90416ba7b6000b9a0048b98016069b1\"",
+    "Size": 155872,
+    "StorageClass": "STANDARD"
+  }
+]

@@ -1,10 +1,15 @@
 "use server";
 
+import { Redis } from "@upstash/redis";
+
+const redis = new Redis({
+	url: process.env.UPSTASH_REDIS_REST_URL,
+	token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
+
 import { FileData, FileListItem, FileMetadata } from "@/interfaces/File";
-import { msgs } from "@/messages";
-
 import { AttachedToDocument } from "@/interfaces/_common-data-types";
-
+import { fileObject_toData } from "@/lib/process-data-files-cloudflare";
 import {
 	getObject,
 	getObjectListAndDelete,
@@ -12,9 +17,7 @@ import {
 	updateObject,
 	uploadObject,
 } from "@/lib/r2s3utils";
-
-import { fileObject_toData } from "@/lib/process-data-files-cloudflare";
-
+import { msgs } from "@/messages";
 import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "./../_common.actions";
 
 export const getFilesR2 = async ({
@@ -25,6 +28,13 @@ export const getFilesR2 = async ({
 	public?: boolean;
 } = {}): Promise<FileData[] | null> => {
 	try {
+		// Check if the "files" array is already cached in Redis
+		const cachedFiles: FileData[] | null = await redis.get("files");
+
+		if (cachedFiles) {
+			return cachedFiles;
+		}
+
 		const filesRawR2List = await listObjects();
 
 		if (filesRawR2List?.length === 0) {
@@ -32,6 +42,11 @@ export const getFilesR2 = async ({
 		}
 
 		const files = await fileObject_toData({ files: filesRawR2List, hyphen, visible });
+
+		if (!cachedFiles) {
+			// Set the "files" array in Redis
+			await redis.set("files", JSON.stringify(files));
+		}
 
 		return files;
 	} catch (error) {
@@ -82,6 +97,9 @@ export const createFile = async (data: FormData, paths: string[]): Promise<boole
 		const visibility = data.get("visibility") as string;
 
 		const user_id = session?.user.id as string;
+
+		// Delete the "files" array from Redis in order to be updated on the next request
+		await redis.del("files");
 
 		const metadata = {
 			description,
@@ -151,6 +169,9 @@ export const updateFile = async (
 			target_id: file_id,
 		});
 
+		// Delete the "files" array from Redis in order to be updated on the next request
+		await redis.del("files");
+
 		if (file && typeof file === "object") {
 			// If a new file is provided, delete the old file and upload the new one
 			const metadata = {
@@ -217,6 +238,9 @@ export const deleteFile = async (file_id: string, paths: string[]): Promise<bool
 		if (!(await getSession())?.user) {
 			throw new Error(msgs("Errors")("invalidUser"));
 		}
+
+		// Delete the "files" array from Redis in order to be updated on the next request
+		await redis.del("files");
 
 		// Do the actual remove
 		return await getObjectListAndDelete({ prefix: file_id.replace(/^Id:/, "") });

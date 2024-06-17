@@ -43,6 +43,7 @@
 		"@radix-ui/react-toast": "^1.1.5",
 		"@radix-ui/react-tooltip": "^1.0.7",
 		"@uiw/react-md-editor": "^4.0.4",
+		"@upstash/redis": "^1.31.5",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
 		"cmdk": "^1.0.0",
