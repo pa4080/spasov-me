@@ -18,6 +18,7 @@ import {
 	uploadObject,
 } from "@/lib/r2s3utils";
 import { msgs } from "@/messages";
+import { redisGetSSR } from "../../lib/redis-get";
 import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "./../_common.actions";
 
 export const getFilesR2 = async ({
@@ -27,14 +28,14 @@ export const getFilesR2 = async ({
 	hyphen?: boolean;
 	public?: boolean;
 } = {}): Promise<FileData[] | null> => {
+	// Check if the "files" array is already cached in Redis
+	const cachedFiles: FileData[] | null = await redisGetSSR("files");
+
+	if (cachedFiles) {
+		return cachedFiles;
+	}
+
 	try {
-		// Check if the "files" array is already cached in Redis
-		const cachedFiles: FileData[] | null = await redis.get("files");
-
-		if (cachedFiles) {
-			return cachedFiles;
-		}
-
 		const filesRawR2List = await listObjects();
 
 		if (filesRawR2List?.length === 0) {
