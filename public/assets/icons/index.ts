@@ -1353,6 +1353,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	it_upstash: {
+		name: "it_upstash",
+		uri: {
+			light: "/assets/icons/it/upstash.svg",
+			dark: "/assets/icons/it/upstash.svg",
+		},
+		info: {
+			height: 360,
+			width: 361,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	"it_vercel-icon": {
 		name: "it_vercel-icon",
 		uri: {
