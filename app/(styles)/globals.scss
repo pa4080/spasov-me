@@ -371,8 +371,11 @@ main {
 
 /* Markdown Editor */
 body .w-md-editor {
-	border-radius: theme("borderRadius.md");
 	box-shadow: none !important;
+}
+
+body .w-md-editor:not(.w-md-editor-fullscreen) {
+	border-radius: theme("borderRadius.md");
 }
 
 body .w-md-editor-toolbar {
@@ -438,7 +441,8 @@ body textarea.w-md-editor-text-input:focus {
 		}
 	}
 
-	p:last-of-type {
+	/* p:last-of-type */
+	p:last-child {
 		@apply mb-0;
 	}
 

@@ -24,7 +24,7 @@ export const processMarkdown = ({ markdown, hyphen }: { markdown: string; hyphen
 		.use(rehypeFormat)
 		.use(rehypeExternalLinks, { rel: ["nofollow"], target: new_tab_target })
 		.use(rehypeStringify, { allowDangerousHtml: true })
-		.use(rehypePrism, { showLineNumbers: true })
+		.use(rehypePrism, { showLineNumbers: false, ignoreMissing: true })
 		.processSync(markdown);
 
 	const resultStr = result.value.toString();
