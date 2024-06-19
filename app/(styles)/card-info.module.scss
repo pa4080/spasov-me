@@ -16,7 +16,7 @@
 		"content-description";
 
 	.info {
-		@apply flex items-center sa:items-start flex-row-reverse justify-end sa:justify-start sa:flex-col gap-2 sa:gap-0.5 sa:mt-0.5 sa:w-[8rem];
+		@apply flex items-center sa:items-start flex-row-reverse justify-end sa:justify-start sa:flex-col gap-2 sa:gap-0.5 sa:mt-0.5 sa:w-[7rem];
 
 		grid-area: meta-info;
 
@@ -24,12 +24,20 @@
 			@apply flex gap-1 text-sm sa:text-base;
 		}
 
+		.dateProject {
+			@apply flex gap-1 text-sm sa:text-base flex-row sa:flex-col;
+		}
+
+		.dividerProject {
+			@apply text-sm sa:hidden;
+		}
+
 		.divider {
 			@apply text-sm sa:hidden text-muted-foreground;
 		}
 
 		.location {
-			@apply line-clamp-1 text-sm;
+			@apply line-clamp-2 text-sm;
 		}
 
 		.linksProjectPost {

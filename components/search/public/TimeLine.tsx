@@ -5,7 +5,7 @@ import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
-import AboutEntryCard from "../common/Card";
+import SearchResultEntryCard from "../common/Card";
 
 import { UnitedEntryType } from ".";
 
@@ -48,7 +48,7 @@ const TimeLine: React.FC<Props> = ({ type, visibleItems = 15, entries, displayTa
 				</SectionHeader>
 				<div className="about-cards-section-items space-y-14">
 					{entriesByType?.map((entry, index) => (
-						<AboutEntryCard
+						<SearchResultEntryCard
 							key={index}
 							className={visibleItems > index ? "pop-item" : "section-card-collapsible pop-item"}
 							displayTagsInline={displayTags}
