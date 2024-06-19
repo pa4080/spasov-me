@@ -2146,6 +2146,19 @@ const iconsMap = {
 			ratio: 0.98,
 		},
 	},
+	"ss_clipboard-3-bullets-orange": {
+		name: "ss_clipboard-3-bullets-orange",
+		uri: {
+			light: "/assets/icons/ss/clipboard-3-bullets-orange-dark.svg",
+			dark: "/assets/icons/ss/clipboard-3-bullets-orange-dark.svg",
+		},
+		info: {
+			height: 592,
+			width: 581,
+			type: "svg",
+			ratio: 0.98,
+		},
+	},
 	"ss_clipboard-4-tick-black": {
 		name: "ss_clipboard-4-tick-black",
 		uri: {
