@@ -82,7 +82,7 @@ const PostAdminCard: React.FC<Props> = ({
 
 					{post.slug && (
 						<div className={`${styles.slug} ${styles.lightSecondaryText}`}>
-							<Link href={`${Route.public.PORTFOLIO.uri}/${post.slug}`}>/{post.slug}</Link>
+							<Link href={`${Route.public.BLOG.uri}/${post.slug}`}>/{post.slug}</Link>
 						</div>
 					)}
 

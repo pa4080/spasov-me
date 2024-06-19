@@ -11,7 +11,7 @@ interface Props {
 	className?: string;
 }
 
-const PortfolioPublic: React.FC<Props> = async ({ className }) => {
+const BlogPublic: React.FC<Props> = async ({ className }) => {
 	const postHyphenated = await getPosts({
 		hyphen: true,
 		public: true,
@@ -26,4 +26,4 @@ const PortfolioPublic: React.FC<Props> = async ({ className }) => {
 	);
 };
 
-export default PortfolioPublic;
+export default BlogPublic;

@@ -6,16 +6,20 @@ interface Props {
 	className?: string;
 	children?: React.ReactNode;
 	title: string;
+	label?: string;
 }
 
 /**
  * The { children } prop is expected to mb the section action buttons.
  */
-const SectionHeader: React.FC<Props> = ({ className, children, title }) => {
+const SectionHeader: React.FC<Props> = ({ className, children, title, label }) => {
 	return (
 		<div className={`${styles.sectionHeader} ${className}`}>
 			<div className={styles.sectionActions}>{children}</div>
-			<h1 dangerouslySetInnerHTML={{ __html: title }} className={styles.sectionTitle} />
+			<div>
+				<h1 dangerouslySetInnerHTML={{ __html: title }} className={styles.sectionTitle} />
+				{label && <p className="pl-1 text-secondary-foreground">{label}</p>}
+			</div>
 		</div>
 	);
 };

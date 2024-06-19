@@ -27,11 +27,18 @@ const FilesAdmin_CloudFlare: React.FC<Props> = async ({ className }) => {
 			file.metadata.attachedTo.find(({ modelType }) => modelType === "Project")
 	);
 
+	const filesBlog = files?.filter(
+		(file) =>
+			file.metadata.attachedTo &&
+			file.metadata.attachedTo.find(({ modelType }) => modelType === "Post")
+	);
+
 	return (
 		<div className={`${styles.files} ${className}`}>
 			<Section files={filesCommon} type="common" visibleItems={25} />
 			<Section files={filesAbout} type="AboutEntry" />
 			<Section sortByAttachedTo files={filesPortfolio} type="Project" visibleItems={1} />
+			<Section files={filesBlog} type="Post" />
 		</div>
 	);
 };

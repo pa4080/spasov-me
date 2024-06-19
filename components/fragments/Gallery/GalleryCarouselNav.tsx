@@ -8,6 +8,7 @@ import { CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { FileHtmlProps } from "@/interfaces/File";
 import { cn } from "@/lib/cn-utils";
+import { commentsMatcher } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 
 interface Props {
@@ -33,6 +34,13 @@ const Navigation: React.FC<Props> = ({
 }) => {
 	const t = msgs("Gallery");
 
+	const description = gallery?.[current_carouselItem - 1]?.description?.replace(
+		commentsMatcher,
+		""
+	);
+
+	const haveDescription = description && description !== "";
+
 	const Counter: React.FC<{ className?: string }> = ({ className }) =>
 		counterAsText ? (
 			<div
@@ -43,7 +51,7 @@ const Navigation: React.FC<Props> = ({
 		) : (
 			<div
 				className={cn(
-					"flex gap-2 xs:gap-3 justify-center sa:translate-y-2 flex-grow flex-wrap",
+					"flex gap-2 xs:gap-3 justify-center sa:translate-y-2 flex-grow flex-wrap items-center",
 					className
 				)}
 			>
@@ -54,7 +62,7 @@ const Navigation: React.FC<Props> = ({
 							"bg-foreground": index + 1 === current_carouselItem,
 							"bg-secondary": index + 1 !== current_carouselItem,
 						})}
-					></div>
+					/>
 				))}
 			</div>
 		);
@@ -79,7 +87,7 @@ const Navigation: React.FC<Props> = ({
 
 			{/* Description and Counter */}
 			<div className="flex-grow h-full flex items-center justify-center flex-col prose prose-p:m-0 prose-p:-mt-1 max-w-none">
-				{descriptionDisplay && gallery && current_carouselItem > 0 && (
+				{descriptionDisplay && gallery && current_carouselItem > 0 && haveDescription && (
 					<div className="w-full h-full">
 						<TooltipProvider>
 							<Tooltip>
@@ -94,7 +102,7 @@ const Navigation: React.FC<Props> = ({
 								<TooltipContent className="border-2 border-muted-secondary dark:border-primary text-lg max-w-lg">
 									<p
 										dangerouslySetInnerHTML={{
-											__html: gallery[current_carouselItem - 1]?.description,
+											__html: description,
 										}}
 										className="w-full text-center"
 									/>

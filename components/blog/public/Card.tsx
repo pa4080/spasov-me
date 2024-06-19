@@ -62,10 +62,7 @@ const BlogPublic_Card: React.FC<Props> = ({ post, className, fileList, tags }) =
 
 			<div className="flex flex-row items-center justify-between gap-2 w-full">
 				<PostLinks post={post} fileList={fileList} tags={tags} />
-				<Link
-					area-label={t("area_label_card_link")}
-					href={`${Route.public.PORTFOLIO.uri}/${post.slug}`}
-				>
+				<Link area-label={t("area_label_card_link")} href={`${Route.public.BLOG.uri}/${post.slug}`}>
 					<Button
 						className="transition-colors duration-300 hover:duration-150"
 						size="sm"

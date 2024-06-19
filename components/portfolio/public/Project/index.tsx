@@ -61,7 +61,7 @@ const PortfolioPublicProject: React.FC<Props> = async ({ className, project, fil
 					className="font-semibold tracking-wide text-xl"
 				/>
 				{descriptionArr.length > 1 && (
-					<div dangerouslySetInnerHTML={{ __html: descriptionArr[1] }} />
+					<div className="project-body" dangerouslySetInnerHTML={{ __html: descriptionArr[1] }} />
 				)}
 			</article>
 

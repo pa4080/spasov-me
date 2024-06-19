@@ -15,6 +15,7 @@ import { Route } from "@/routes";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 import { PostData } from "@/interfaces/Post";
+import { commentsMatcher } from "@/lib/process-markdown";
 import TooltipWrapper from "../TooltipWrapper";
 
 interface Props {
@@ -41,6 +42,13 @@ const GalleryCarouselNavEmbedded: React.FC<Props> = ({
 	const t = msgs("Gallery");
 	const collisionBoundaryRef = useRef<HTMLDivElement>(null);
 
+	const description = gallery?.[current_carouselItem - 1]?.description?.replace(
+		commentsMatcher,
+		""
+	);
+
+	const haveDescription = description && description !== "";
+
 	const Counter: React.FC<{ className?: string }> = ({ className }) =>
 		counterAsText ? (
 			<div
@@ -51,7 +59,7 @@ const GalleryCarouselNavEmbedded: React.FC<Props> = ({
 		) : (
 			<div
 				className={cn(
-					"flex gap-2 xs:gap-3 justify-center sa:translate-y-2 flex-grow flex-wrap",
+					"flex gap-2 xs:gap-3 justify-center sa:translate-y-2 flex-grow flex-wrap items-center",
 					className
 				)}
 			>
@@ -111,14 +119,14 @@ const GalleryCarouselNavEmbedded: React.FC<Props> = ({
 				ref={collisionBoundaryRef}
 				className="flex-grow h-full flex items-center justify-start flex-col prose prose-p:m-0 max-w-none"
 			>
-				{descriptionDisplay && gallery && current_carouselItem > 0 && (
+				{descriptionDisplay && gallery && current_carouselItem > 0 && haveDescription && (
 					<div className="w-full h-full sa:-mt-2">
 						<TooltipProvider>
 							<Tooltip>
 								<TooltipTrigger className="w-full">
 									<div
 										dangerouslySetInnerHTML={{
-											__html: gallery[current_carouselItem - 1]?.description,
+											__html: description,
 										}}
 										className="w-full sa:line-clamp-1 text-center"
 									/>

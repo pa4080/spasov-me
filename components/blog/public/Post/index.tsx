@@ -1,17 +1,19 @@
 import React from "react";
 
 import dynamic from "next/dynamic";
+// eslint-disable-next-line import/no-duplicates
+import { format } from "date-fns";
+// eslint-disable-next-line import/no-duplicates
+import { enUS as en } from "date-fns/locale";
 
 import Loading from "@/components/fragments/Loading";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import TechTags from "@/components/fragments/TechTags";
-import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
-
-import { cn } from "@/lib/cn-utils";
-
 import { FileListItem } from "@/interfaces/File";
 import { PostData } from "@/interfaces/Post";
 import { TagData } from "@/interfaces/Tag";
+import { cn } from "@/lib/cn-utils";
+import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import PostLinks from "../../common/PostLinks";
 
 const GalleryCarousel = dynamic(() => import("@/components/fragments/Gallery/GalleryCarousel"), {
@@ -42,10 +44,13 @@ const PortfolioPublicPost: React.FC<Props> = async ({ className, post, fileList,
 			? [post?.html?.attachment.metadata.html].concat(gallery)
 			: gallery;
 
+	const dtFrom = new Date(post.dateFrom);
+	const dateLabel = format(dtFrom, "dd MMM yyyy", { locale: en });
+
 	return (
 		<div className={cn("w-full pt-8 sa:pt-6 lg:pt-1", className)}>
 			<GalleryCarousel gallery={gallery} navPosition="bottom" navType="embedded" entryData={post} />
-			<SectionHeader className="pop-header mt-6 sa:mt-8" title={post.html.title}>
+			<SectionHeader className="pop-header mt-6 sa:mt-8" title={post.html.title} label={dateLabel}>
 				<PostLinks post={post} fileList={fileList} tags={tags} />
 			</SectionHeader>
 
@@ -56,7 +61,7 @@ const PortfolioPublicPost: React.FC<Props> = async ({ className, post, fileList,
 					className="font-semibold tracking-wide text-xl"
 				/>
 				{descriptionArr.length > 1 && (
-					<div dangerouslySetInnerHTML={{ __html: descriptionArr[1] }} />
+					<div className="post-body" dangerouslySetInnerHTML={{ __html: descriptionArr[1] }} />
 				)}
 			</article>
 

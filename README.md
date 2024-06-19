@@ -15,10 +15,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 - Blog
   - [x] Blog post admin
-  - [ ] Blog feed public
-  - [ ] Blog post public
-  - [ ] Syntax highlighting and images
+  - [x] Blog feed public
+  - [ ] Blog feed public Improved
+  - [x] Blog post public
+  - [x] MD Syntax highlighting
     - <https://www.tybarho.com/articles/adding-a-copy-button-mdx-code-snippets>
+  - [ ] MD Images
     - <https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#using-plugins>
 
 ## Vercel CLI
