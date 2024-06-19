@@ -15,8 +15,17 @@ import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileListItem } from "@/interfaces/File";
+import { PostData } from "@/interfaces/Post";
 import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
+import {
+	AboutEntryType,
+	PostType,
+	ProjectType,
+	aboutEntryTuple,
+	postTuple,
+	projectTuple,
+} from "@/interfaces/_common-data-types";
 import { cn } from "@/lib/cn-utils";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
@@ -29,20 +38,25 @@ interface ProjectDataExtended extends ProjectData {
 	country?: string;
 }
 
+interface PostDataExtended extends PostData {
+	city?: string;
+	country?: string;
+}
+
 interface AboutEntryDataExtended extends AboutEntryData {
 	slug?: string;
 }
 
 interface Props {
 	className?: string;
-	entry: AboutEntryDataExtended | ProjectDataExtended;
+	entry: AboutEntryDataExtended | ProjectDataExtended | PostDataExtended;
 	files?: FileListItem[] | null | undefined;
 	tags?: TagData[] | null | undefined;
 	displayTagsInline?: boolean;
 	displayGalleryInline?: boolean;
 }
 
-const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline = true }) => {
+const SearchResultEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline = true }) => {
 	const tTime = msgs("AboutEntries_Form");
 	const tCommon = msgs("Search");
 
@@ -74,12 +88,48 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 	let gallery = getGallery ?? [];
 
 	gallery = entry.html.attachment?.metadata.html
-		? [...gallery, entry.html.attachment?.metadata.html]
+		? [entry.html.attachment?.metadata.html, ...gallery]
 		: gallery;
 
-	return (
-		<div className={`card-border-wrapper ${className}`} id={toggle_target_id}>
-			<div className={styles.card}>
+	const isPost = postTuple.includes(entry.entryType as PostType);
+	const isProject = projectTuple.includes(entry.entryType as ProjectType);
+	const isAbout = aboutEntryTuple.includes(entry.entryType as AboutEntryType);
+
+	const InfoSection = () => {
+		if (isPost)
+			return (
+				<div className={styles.info}>
+					<div className={styles.date}>
+						<span>
+							<span className={styles.lightPrimaryText}>
+								{format(dtFrom, "dd MMM yyyy", { locale: en })}
+							</span>
+						</span>
+					</div>
+				</div>
+			);
+
+		if (isProject)
+			return (
+				<div className={styles.info}>
+					<div className={styles.dateProject}>
+						<span className={styles.lightPrimaryText}>
+							{format(dtFrom, "dd MMM yyyy", { locale: en })}
+						</span>
+						<span className={styles.dividerProject}>{" - "}</span>
+						{dtTo ? (
+							<span className={styles.lightPrimaryText}>
+								{format(dtTo, "dd MMM yyyy", { locale: en })}
+							</span>
+						) : (
+							<span className={styles.lightPrimaryText}>{tTime("dateTo_now_current")}</span>
+						)}
+					</div>
+				</div>
+			);
+
+		if (isAbout)
+			return (
 				<div className={styles.info}>
 					<div className={styles.date}>
 						<span>
@@ -108,6 +158,42 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 						)}
 					</div>
 				</div>
+			);
+	};
+
+	const LinkToTheEntry = () => {
+		if (isPost)
+			return (
+				<Link aria-label={tCommon("item_link")} href={`${Route.public.BLOG.uri}/${entry.slug}`}>
+					<RedirectIcon />
+				</Link>
+			);
+		if (isProject)
+			return (
+				<Link
+					aria-label={tCommon("item_link")}
+					href={`${Route.public.PORTFOLIO.uri}/${entry.slug}`}
+				>
+					<RedirectIcon />
+				</Link>
+			);
+
+		if (isAbout)
+			return (
+				<Link
+					aria-label={tCommon("item_link")}
+					href={`${Route.public.ABOUT.uri}?id=entry_${entry._id}`}
+				>
+					<RedirectIcon />
+				</Link>
+			);
+	};
+
+	return (
+		<div className={`card-border-wrapper ${className}`} id={toggle_target_id}>
+			<div className={styles.card}>
+				<InfoSection />
+
 				<div className={styles.header}>
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
@@ -134,32 +220,12 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 								type={descriptionArr[1] ? "card" : "card-item-single"}
 							/>
 
-							{/*
-							 * We need to have property entryType within the AboutEntryData/Project/Post...
-							 * Another strategy is to have a switch() based on @/interfaces/_common-data-types.ts/..Tuples
-							 */}
-							{/* /about?id=entry_65991ea62c5656013d1eae06 */}
-							{/* /portfolio?id=project_65db8c233e7b3ef74e682f9b */}
-							{/* /portfolio/promptopia-mlt */}
-							{entry?.slug ? (
-								<Link
-									aria-label={tCommon("item_link")}
-									href={`${Route.public.PORTFOLIO.uri}/${entry.slug}`}
-								>
-									<RedirectIcon />
-								</Link>
-							) : (
-								<Link
-									aria-label={tCommon("item_link")}
-									href={`${Route.public.ABOUT.uri}?id=entry_${entry._id}`}
-								>
-									<RedirectIcon />
-								</Link>
-							)}
+							<LinkToTheEntry />
 						</div>
 					</div>
 					<div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />
 				</div>
+
 				<div className={`${styles.description} md-processed-to-html`}>
 					<div className="prose max-w-none">
 						{descriptionArr.map((description, index, arr) => (
@@ -203,4 +269,4 @@ const AboutEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline =
 	);
 };
 
-export default AboutEntryCard;
+export default SearchResultEntryCard;

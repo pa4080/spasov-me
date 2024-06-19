@@ -1353,6 +1353,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	it_upstash: {
+		name: "it_upstash",
+		uri: {
+			light: "/assets/icons/it/upstash.svg",
+			dark: "/assets/icons/it/upstash.svg",
+		},
+		info: {
+			height: 360,
+			width: 361,
+			type: "svg",
+			ratio: 1,
+		},
+	},
 	"it_vercel-icon": {
 		name: "it_vercel-icon",
 		uri: {
@@ -2125,6 +2138,19 @@ const iconsMap = {
 		uri: {
 			light: "/assets/icons/ss/clipboard-3-bullets-black.svg",
 			dark: "/assets/icons/ss/clipboard-3-bullets-black.svg",
+		},
+		info: {
+			height: 592,
+			width: 581,
+			type: "svg",
+			ratio: 0.98,
+		},
+	},
+	"ss_clipboard-3-bullets-orange": {
+		name: "ss_clipboard-3-bullets-orange",
+		uri: {
+			light: "/assets/icons/ss/clipboard-3-bullets-orange-dark.svg",
+			dark: "/assets/icons/ss/clipboard-3-bullets-orange-dark.svg",
 		},
 		info: {
 			height: 592,

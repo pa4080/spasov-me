@@ -1,4 +1,4 @@
-"server-only";
+import "server-only";
 
 /**
  * This is workaround solution for the SSR build error:
@@ -18,12 +18,13 @@
  *	 	const response = await redis.get(key);
  */
 
-export async function redisGetSSR<T>(key: string): Promise<T> {
+export async function redisGetSSR<T>(key: string): Promise<T | null> {
 	const response = await fetch(`${process.env.UPSTASH_REDIS_REST_URL}/get/${key}`, {
 		headers: {
 			Authorization: `Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`,
 		},
 	});
+
 	const data = await response.json();
-	return JSON.parse(data.result) as T;
+	return (JSON.parse(data.result) as T) || null;
 }

@@ -14,10 +14,12 @@ import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
 
+import { PostData } from "@/interfaces/Post";
+import { postTuple, projectTuple } from "@/interfaces/_common-data-types";
 import TagFilter from "./TagFilter";
 import TimeLine from "./TimeLine";
 
-export type UnitedEntryType = ProjectData | AboutEntryData;
+export type UnitedEntryType = ProjectData | AboutEntryData | PostData;
 
 interface SelectedTag {
 	tag: TagData;
@@ -242,7 +244,7 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList }) => {
 				loading ? (
 					<SectionHeader className="h-12" title={t("loading")} />
 				) : (
-					["informationTechnologies", "employment", "education", "resume"].map((entryType) => (
+					[...postTuple, ...projectTuple, "employment", "education", "resume"].map((entryType) => (
 						<TimeLine
 							key={entryType}
 							displayTags={true}

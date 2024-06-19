@@ -7,6 +7,7 @@
 import { hyphenateSync as hyphenate } from "hyphen/en";
 import rehypeExternalLinks, { Target } from "rehype-external-links";
 import rehypeFormat from "rehype-format";
+import rehypePrism from "rehype-prism-plus";
 import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
@@ -23,6 +24,7 @@ export const processMarkdown = ({ markdown, hyphen }: { markdown: string; hyphen
 		.use(rehypeFormat)
 		.use(rehypeExternalLinks, { rel: ["nofollow"], target: new_tab_target })
 		.use(rehypeStringify, { allowDangerousHtml: true })
+		.use(rehypePrism, { showLineNumbers: false, ignoreMissing: true })
 		.processSync(markdown);
 
 	const resultStr = result.value.toString();

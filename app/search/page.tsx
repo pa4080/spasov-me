@@ -4,6 +4,7 @@ import React from "react";
 // const SearchPublic = dynamic(() => import("@/components/search/public"));
 
 import { getEntries } from "@/components/about/_about.actions";
+import { getPosts } from "@/components/blog/_blog.actions";
 import { getProjects } from "@/components/portfolio/_portfolio.actions";
 import SearchPublic from "@/components/search/public";
 import { getTags } from "@/components/tags/_tags.actions";
@@ -16,9 +17,10 @@ const Portfolio: React.FC = async () => {
 		getEntries({ hyphen: true, public: true }),
 		getTags({ hyphen: true, public: true }),
 		getProjects({ hyphen: true, public: true }),
-	]).then(([aboutEntries, tags, projects]) => ({
+		getPosts({ hyphen: true, public: true }),
+	]).then(([aboutEntries, tags, projects, posts]) => ({
 		tags: tags ?? [],
-		dataList: [...(aboutEntries ?? []), ...(projects ?? [])],
+		dataList: [...(aboutEntries ?? []), ...(projects ?? []), ...(posts ?? [])],
 	}));
 
 	return (

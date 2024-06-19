@@ -74,31 +74,15 @@ const PostAdminCard: React.FC<Props> = ({
 				<div className={styles.info}>
 					<div className={styles.date}>
 						<span>
-							{/* <span className={styles.lightSecondaryText}>
-							{format(dtFrom, "MM/", { locale: en })}
-						</span> */}
 							<span className={styles.lightPrimaryText}>
-								{format(dtFrom, "yyyy", { locale: en })}
+								{format(dtFrom, "dd.MM.yyyy", { locale: en })}
 							</span>
 						</span>
-						<span className={styles.lightPrimaryText}>{" - "}</span>
-						{dtTo ? (
-							<span>
-								{/* <span className={styles.lightSecondaryText}>
-								{format(dtTo, "MM/", { locale: en })}
-							</span> */}
-								<span className={styles.lightPrimaryText}>
-									{format(dtTo, "yyyy", { locale: en })}
-								</span>
-							</span>
-						) : (
-							<span className={styles.lightPrimaryText}>{tTime("dateTo_now_current")}</span>
-						)}
 					</div>
 
 					{post.slug && (
 						<div className={`${styles.slug} ${styles.lightSecondaryText}`}>
-							<Link href={`${Route.public.PORTFOLIO.uri}/${post.slug}`}>/{post.slug}</Link>
+							<Link href={`${Route.public.BLOG.uri}/${post.slug}`}>/{post.slug}</Link>
 						</div>
 					)}
 

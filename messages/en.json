@@ -509,7 +509,7 @@
 			"informationTechnologies": "Information Technologies",
 			"mechanicalEngineering": "Mechanical Engineering",
 			"managementConsultancy": "Management Consultancy",
-			"education": "Education",
+			"education_prj": "Education",
 			"officeApplications": "Office Applications"
 		},
 
@@ -557,7 +557,7 @@
 		"title_informationTechnologies": "Information Technologies",
 		"title_mechanicalEngineering": "Mechanical Engineering",
 		"title_managementConsultancy": "Management Consultancy",
-		"title_education": "Education",
+		"title_education_prj": "Education",
 		"title_officeApplications": "Office Applications",
 		"btnMore": "Read more",
 		"btnLess": "Show less",
@@ -737,7 +737,17 @@
 		"title_employment": "Employment history",
 		"title_education": "Education",
 		"title_skills": "Skills",
+
 		"title_informationTechnologies": "IT Projects",
+		"title_mechanicalEngineering": "Engineering Projects",
+		"title_managementConsultancy": "Consultancy Projects",
+		"title_education_prj": "Education Projects",
+		"title_officeApplications": "Office Applications Projects",
+
+		"title_blog": "Blog posts",
+		"title_reference": "Blog references",
+		"title_manual": "Blog manuals",
+		"title_note": "Blog notes",
 
 		"btnMore": "Read more",
 		"btnLess": "Show less",
