@@ -10,18 +10,19 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
+- [ ] In the search choose nase data category type - i.e.: Search in []CV []Blog []Portfolio
 - Redis
   - [x] FilesR2
 
 - Blog
   - [x] Blog post admin
   - [x] Blog feed public
-  - [ ] Blog feed public Improved
   - [x] Blog post public
   - [x] MD Syntax highlighting
     - <https://www.tybarho.com/articles/adding-a-copy-button-mdx-code-snippets>
   - [ ] MD Images
     - <https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#using-plugins>
+  - [ ] Blog feed public Improved
 
 ## Vercel CLI
 
