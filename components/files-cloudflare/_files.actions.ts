@@ -97,7 +97,6 @@ export const createFile = async (data: FormData, paths: string[]): Promise<boole
 
 		const user_id = session?.user.id as string;
 
-		// Delete the "files" array from Redis in order to be updated on the next request
 		await redis.del("files");
 
 		const metadata = {
@@ -168,7 +167,6 @@ export const updateFile = async (
 			target_id: file_id,
 		});
 
-		// Delete the "files" array from Redis in order to be updated on the next request
 		await redis.del("files");
 
 		if (file && typeof file === "object") {
@@ -238,7 +236,6 @@ export const deleteFile = async (file_id: string, paths: string[]): Promise<bool
 			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
-		// Delete the "files" array from Redis in order to be updated on the next request
 		await redis.del("files");
 
 		// Do the actual remove

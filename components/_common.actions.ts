@@ -37,12 +37,13 @@ export const revalidatePaths = async <T extends string>({
 	redirectTo?: T;
 }): Promise<T[] | null | void> => {
 	try {
+		// Delete the "files" array from Redis
+		// in order to be updated on the next request
+		await redis.del("files");
+
 		paths.forEach((path) => {
 			revalidatePath(path);
 		});
-
-		// Delete the "files" array from Redis in order to be updated on the next request
-		await redis.del("files");
 
 		return paths;
 	} catch (error) {
