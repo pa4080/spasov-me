@@ -74,10 +74,10 @@ pnpm dlx vercel env pull --environment=production --yes --token $VERCEL_ENV_PULL
 - Next-themes
 - MongoDB
 - Mongoose
-- [Auth.js v.4](https://authjs.dev/reference/nextjs)\* [Auth.js v.5](https://authjs.dev/guides/upgrade-to-v5)
+- [Auth.js v.4](https://authjs.dev/reference/nextjs) | [Auth.js v.5](https://authjs.dev/guides/upgrade-to-v5)
 - [Resend](https://resend.com/docs/send-with-nextjs)
 - [Google reCaptcha](https://www.google.com/recaptcha/admin) @[react-google-recaptcha-v3](https://www.npmjs.com/package/react-google-recaptcha-v3)
-- unified, remark, rehype, hyphen.
+- Unified, remark, rehype, hyphen.
 
 ## Getting Started
 
@@ -118,3 +118,13 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 - <https://nextjs.org/docs/app/building-your-application/deploying#docker-image>
 - <https://github.com/vercel/next.js/tree/canary/examples/with-docker>
+
+## Unified/Remark/Rehype
+
+References:
+
+- Unified Readme.md: <https://github.com/unifiedjs/unified> | [#processorProcessSyncFile](https://github.com/unifiedjs/unified#processorprocesssyncfile)
+- Syntax Highlighting in use: <https://www.tybarho.com/articles/adding-a-copy-button-mdx-code-snippets>
+- Plugins list: <https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#using-plugins>
+- Custom plugin [easy]: <https://unifiedjs.com/explore/package/remark-directive/>
+- Rehype video: <https://unifiedjs.com/explore/package/rehype-video/> | <https://github.com/jaywcjlove/rehype-video/tree/main>

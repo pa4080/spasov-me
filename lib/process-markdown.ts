@@ -1,8 +1,9 @@
 /**
  * For video embedding see:
+ * +> https://github.com/unifiedjs/unified#processorprocesssyncfile
+ * +> https://unifiedjs.com/explore/package/remark-directive/
  * -> https://unifiedjs.com/explore/package/rehype-video/
  * -> https://github.com/jaywcjlove/rehype-video/tree/main
- * +> https://unifiedjs.com/explore/package/remark-directive/
  */
 import { hyphenateSync as hyphenate } from "hyphen/en";
 import rehypeExternalLinks, { Target } from "rehype-external-links";
@@ -16,8 +17,6 @@ import { unified } from "unified";
 export const new_tab_target = "spasov-me-tab" as Target;
 
 export const processMarkdown = ({ markdown, hyphen }: { markdown: string; hyphen?: boolean }) => {
-	// https://github.com/unifiedjs/unified
-	// https://github.com/unifiedjs/unified#processorprocesssyncfile
 	const result = unified()
 		.use(remarkParse)
 		.use(remarkRehype, { allowDangerousHtml: true })
