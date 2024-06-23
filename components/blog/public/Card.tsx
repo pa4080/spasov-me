@@ -4,10 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 import styles from "@/app/(styles)/card.module.scss";
+import DisplayFileImageOrEmbed from "@/components/fragments/DisplayFileImageOrEmbed";
 import { Button } from "@/components/ui/button";
 import { FileListItem } from "@/interfaces/File";
 import { PostData } from "@/interfaces/Post";
 import { TagData } from "@/interfaces/Tag";
+import { cn } from "@/lib/cn-utils";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
@@ -28,7 +30,21 @@ const BlogPublic_Card: React.FC<Props> = ({ post, className, fileList, tags }) =
 	});
 
 	return (
-		<div className={`${styles.card} scroll-m-8 ${className}`} id={`post_${post._id}`}>
+		<div className={`${styles.card} group scroll-m-8 ${className}`} id={`post_${post._id}`}>
+			{/* Header image */}
+			<div className="w-full h-0 pt-[56.25%] relative">
+				<div className="w-full absolute inset-0 rounded-md overflow-hidden group-hover:shadow-lg">
+					{post.html.attachment && (
+						<DisplayFileImageOrEmbed
+							className={cn("w-auto mx-auto h-auto")}
+							file={post.html.attachment}
+							sizes={["360px", "600px"]}
+						/>
+					)}
+				</div>
+			</div>
+
+			{/* Logo and Title */}
 			<div className="flex gap-2 items-center justify-start w-full">
 				<div className="rounded-full p-1 overflow-clip bg-primary/80 min-w-[3rem]">
 					<Image
@@ -52,14 +68,17 @@ const BlogPublic_Card: React.FC<Props> = ({ post, className, fileList, tags }) =
 				</div>
 				<div
 					dangerouslySetInnerHTML={{ __html: post.html.title }}
-					className="text-lg font-semibold line-clamp-1 flex-shrink"
+					className="text-lg font-semibold line-clamp-2 flex-shrink leading-5"
 				/>
 			</div>
+
+			{/* Description */}
 			<div
 				dangerouslySetInnerHTML={{ __html: descriptionArr[0] }}
 				className="flex-grow line-clamp-2 pl-2"
 			/>
 
+			{/* Footer buttons */}
 			<div className="flex flex-row items-center justify-between gap-2 w-full">
 				<PostLinks post={post} fileList={fileList} tags={tags} />
 				<Link area-label={t("area_label_card_link")} href={`${Route.public.BLOG.uri}/${post.slug}`}>

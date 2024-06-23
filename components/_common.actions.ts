@@ -39,7 +39,8 @@ export const revalidatePaths = async <T extends string>({
 	try {
 		// Delete the "files" array from Redis
 		// in order to be updated on the next request
-		await redis.del("files");
+		// await redis.del("files");
+		redis.del("files");
 
 		paths.forEach((path) => {
 			revalidatePath(path);
