@@ -10,18 +10,32 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
+- Search page
+  - [ ] Choose the base data category type to be searched - i.e.: Search in [x]CV [x]Blog [x]Portfolio
+
 - Redis
   - [x] FilesR2
 
 - Blog
   - [x] Blog post admin
   - [x] Blog feed public
-  - [ ] Blog feed public Improved
   - [x] Blog post public
   - [x] MD Syntax highlighting
-    - <https://www.tybarho.com/articles/adding-a-copy-button-mdx-code-snippets>
-  - [ ] MD Images
-    - <https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#using-plugins>
+  - [ ] MD Images with captions
+  - [ ] Blog feed public Improved
+  - [ ] Post page
+    - [ ] remove the slider buttons, thus the title will be visible under the cover image
+    - [ ] add the logo/icon in front of the post name (like in the card)?
+    - [ ] create the logo trigger for the gallery and remove the gallery button from the right side
+    - [ ] Within the "edit form" - make the images of the file thumbs clickable - and copy the file URL to the clipboard...
+  - [ ] YT videos in the blog - Unified plugin
+  - [ ] Blog posts icon - to be icon of the base category - blog, reference, etc.
+
+- Tag Icons
+  - [ ] Upload to R2
+  - [ ] Create Tag Icons upload page/form
+  - [ ] Make them available to the components that select the files from list
+  - [ ] Keep tag index generation for the tags their-self
 
 ## Vercel CLI
 
@@ -73,10 +87,10 @@ pnpm dlx vercel env pull --environment=production --yes --token $VERCEL_ENV_PULL
 - Next-themes
 - MongoDB
 - Mongoose
-- [Auth.js v.4](https://authjs.dev/reference/nextjs)\* [Auth.js v.5](https://authjs.dev/guides/upgrade-to-v5)
+- [Auth.js v.4](https://authjs.dev/reference/nextjs) | [Auth.js v.5](https://authjs.dev/guides/upgrade-to-v5)
 - [Resend](https://resend.com/docs/send-with-nextjs)
 - [Google reCaptcha](https://www.google.com/recaptcha/admin) @[react-google-recaptcha-v3](https://www.npmjs.com/package/react-google-recaptcha-v3)
-- unified, remark, rehype, hyphen.
+- Unified, remark, rehype, hyphen.
 
 ## Getting Started
 
@@ -115,5 +129,23 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Docker
 
+Rebuild and run the app with `docker compose`.
+
+```bash
+docker compose build && docker compose up -d
+```
+
+References:
+
 - <https://nextjs.org/docs/app/building-your-application/deploying#docker-image>
 - <https://github.com/vercel/next.js/tree/canary/examples/with-docker>
+
+## Unified/Remark/Rehype
+
+References:
+
+- Unified Readme.md: <https://github.com/unifiedjs/unified> | [#processorProcessSyncFile](https://github.com/unifiedjs/unified#processorprocesssyncfile)
+- Syntax Highlighting in use: <https://www.tybarho.com/articles/adding-a-copy-button-mdx-code-snippets>
+- Plugins list: <https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#using-plugins>
+- Custom plugin [easy]: <https://unifiedjs.com/explore/package/remark-directive/>
+- Rehype video: <https://unifiedjs.com/explore/package/rehype-video/> | <https://github.com/jaywcjlove/rehype-video/tree/main>

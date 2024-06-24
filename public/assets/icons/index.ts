@@ -1184,6 +1184,19 @@ const iconsMap = {
 			ratio: 1,
 		},
 	},
+	"it_react-original": {
+		name: "it_react-original",
+		uri: {
+			light: "/assets/icons/it/react-original.svg",
+			dark: "/assets/icons/it/react-original.svg",
+		},
+		info: {
+			height: 32,
+			width: 36,
+			type: "svg",
+			ratio: 1.13,
+		},
+	},
 	"it_recharts-logo-big-r": {
 		name: "it_recharts-logo-big-r",
 		uri: {
@@ -1221,6 +1234,19 @@ const iconsMap = {
 			width: 2500,
 			type: "svg",
 			ratio: 1,
+		},
+	},
+	it_redux: {
+		name: "it_redux",
+		uri: {
+			light: "/assets/icons/it/redux.svg",
+			dark: "/assets/icons/it/redux.svg",
+		},
+		info: {
+			height: 2383,
+			width: 2500,
+			type: "svg",
+			ratio: 1.05,
 		},
 	},
 	it_resend: {
@@ -1399,10 +1425,10 @@ const iconsMap = {
 			dark: "/assets/icons/it/vite.svg",
 		},
 		info: {
-			height: 404,
-			width: 410,
+			height: 32,
+			width: 32,
 			type: "svg",
-			ratio: 1.01,
+			ratio: 1,
 		},
 	},
 	"it_wordpress-blue-logo": {
@@ -1441,6 +1467,19 @@ const iconsMap = {
 			height: 1080,
 			width: 1080,
 			type: "svg",
+			ratio: 1,
+		},
+	},
+	it_zustand: {
+		name: "it_zustand",
+		uri: {
+			light: "/assets/icons/it/zustand.webp",
+			dark: "/assets/icons/it/zustand.webp",
+		},
+		info: {
+			height: 64,
+			width: 64,
+			type: "webp",
 			ratio: 1,
 		},
 	},

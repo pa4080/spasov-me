@@ -210,11 +210,16 @@ const appTwConfig: import("tailwindcss").Config = {
 						},
 						code: {
 							color: "hsl(var(--background))",
-							// border: "1px solid hsl(var(--accent-secondary))",
 							padding: "3px 4px 1px 4px",
 							marginTop: "-2px",
 							borderRadius: "4px",
 							backgroundColor: "hsl(var(--ring) / 90%)",
+						},
+						ul: {
+							listStyleType: "square",
+							"--tw-prose-bullets": "hsl(var(--ring-secondary) / 80%)",
+							// Search for ".md-processed-to-html" in globals.scss
+							// in order to override the color by theme
 						},
 					},
 				},
