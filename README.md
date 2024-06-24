@@ -10,7 +10,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- [ ] In the search choose nase data category type - i.e.: Search in []CV []Blog []Portfolio
+- Search page
+  - [ ] Choose the base data category type to be searched - i.e.: Search in [x]CV [x]Blog [x]Portfolio
+
 - Redis
   - [x] FilesR2
 
@@ -19,10 +21,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [x] Blog feed public
   - [x] Blog post public
   - [x] MD Syntax highlighting
-    - <https://www.tybarho.com/articles/adding-a-copy-button-mdx-code-snippets>
-  - [ ] MD Images
-    - <https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#using-plugins>
+  - [x] MD Images
   - [ ] Blog feed public Improved
+  - [ ] YT videos in the blog - Unified plugin
+  - [ ] Blog posts icon - to be icon of the base category - blog, reference, etc.
+
+- Tag Icons
+  - [ ] Upload to R2
+  - [ ] Make them available to the components that select the files from list
+  - [ ] Keep tag index generation for the tags their-self
 
 ## Vercel CLI
 
@@ -115,6 +122,14 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 [**_How do I use a Cloudflare domain with Vercel?_**](https://vercel.com/guides/using-cloudflare-with-vercel)
 
 ## Docker
+
+Rebuild and run the app with `docker compose`.
+
+```bash
+docker compose build && docker compose up -d
+```
+
+References:
 
 - <https://nextjs.org/docs/app/building-your-application/deploying#docker-image>
 - <https://github.com/vercel/next.js/tree/canary/examples/with-docker>

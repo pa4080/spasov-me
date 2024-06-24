@@ -653,3 +653,27 @@ body textarea.w-md-editor-text-input:focus {
 	border-radius: 4px;
 	background-color: hsl(var(--accent) / 40%);
 }
+
+/** You tube embed @/lib/process-markdown-plugins.ts **/
+.youtube-embed {
+	.youtube-embed-wrapper {
+		padding-top: 56.25%;
+		position: relative;
+		width: 100%;
+		height: 0;
+
+		.youtube-embed-container {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			overflow: hidden;
+			inset: 0;
+
+			@apply rounded-md shadow-xl;
+		}
+	}
+
+	.youtube-embed-caption {
+		@apply text-foreground-secondary text-sm text-center mt-2;
+	}
+}

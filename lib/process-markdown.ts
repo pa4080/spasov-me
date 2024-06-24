@@ -10,15 +10,19 @@ import rehypeExternalLinks, { Target } from "rehype-external-links";
 import rehypeFormat from "rehype-format";
 import rehypePrism from "rehype-prism-plus";
 import rehypeStringify from "rehype-stringify";
+import remarkDirective from "remark-directive";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
+import { myRemarkPlugin_YouTube } from "./process-markdown-plugins";
 
 export const new_tab_target = "spasov-me-tab" as Target;
 
 export const processMarkdown = ({ markdown, hyphen }: { markdown: string; hyphen?: boolean }) => {
 	const result = unified()
 		.use(remarkParse)
+		.use(remarkDirective)
+		.use(myRemarkPlugin_YouTube)
 		.use(remarkRehype, { allowDangerousHtml: true })
 		.use(rehypeFormat)
 		.use(rehypeExternalLinks, { rel: ["nofollow"], target: new_tab_target })
