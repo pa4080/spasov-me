@@ -6,6 +6,7 @@ import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { enUS as en } from "date-fns/locale";
 
+import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
 import Loading from "@/components/fragments/Loading";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import TechTags from "@/components/fragments/TechTags";
@@ -51,10 +52,19 @@ const PortfolioPublicPost: React.FC<Props> = async ({ className, post, fileList,
 		<div className={cn("w-full pt-8 sa:pt-6 lg:pt-1", className)}>
 			<GalleryCarousel gallery={gallery} navPosition="bottom" navType="none" entryData={post} />
 			<SectionHeader
-				className="pop-header mt-6 sa:mt-8 relative 2xs:flex 2xs:flex-row"
-				className_Actions="absolute right-0 -bottom-3 scale-50 2xs:scale-75"
+				className="pop-header mt-6 sa:mt-8 relative justify-end"
+				className_Actions="absolute right-0 -bottom-3 scale-75 2xs:scale-75"
 				title={post.html.title}
 				label={dateLabel}
+				iconComponent={
+					<IconCircleWrapper
+						className="w-[3.8rem] min-h-[3.8rem] drop-shadow-2xl"
+						className_Image="size-12"
+						alt={post.title}
+						src={post.html.icon?.metadata.html.fileUrl || post.html.icon?.metadata.html.fileUri}
+						unoptimized={post.html.icon?.filename.match(/\.svg$/) ? true : false}
+					/>
+				}
 			>
 				<PostLinks post={post} fileList={fileList} tags={tags} />
 			</SectionHeader>

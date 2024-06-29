@@ -6,6 +6,7 @@ interface Props {
 	className?: string;
 	className_Actions?: string;
 	children?: React.ReactNode;
+	iconComponent?: React.ReactNode;
 	title: string;
 	label?: string;
 }
@@ -19,6 +20,7 @@ const SectionHeader: React.FC<Props> = ({
 	children,
 	title,
 	label,
+	iconComponent,
 }) => {
 	return (
 		<div
@@ -42,6 +44,8 @@ const SectionHeader: React.FC<Props> = ({
 				/>
 				{label && <p className="pl-1 text-secondary-foreground">{label}</p>}
 			</div>
+
+			{iconComponent}
 		</div>
 	);
 };
