@@ -26,6 +26,7 @@ import { authOptions } from "@/lib/auth-options";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import AboutEntry from "@/models/about-entry";
 import PageCard from "@/models/page-card";
+import Post from "@/models/post";
 import Project from "@/models/project";
 
 export const revalidatePaths = async <T extends string>({
@@ -136,6 +137,11 @@ export const attachedTo_detachFromTarget = async ({
 
 					case "Project": {
 						document = await Project.findOne({ _id });
+						break;
+					}
+
+					case "Post": {
+						document = await Post.findOne({ _id });
 						break;
 					}
 

@@ -22,13 +22,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [x] Blog post public
   - [x] MD Syntax highlighting
   - [ ] MD Images with captions
-  - [x] Blog feed public Improved
-  - [x] Post page
-    - [x] remove the slider buttons, thus the title will be visible under the cover image
-    - [x] add the logo/icon in front of the post name (like in the card)?
-    - [x] create the logo trigger for the gallery and remove the gallery button from the right side
-    - [x] Within the "edit form" - make the images of the file thumbs clickable - and copy the file URL to the clipboard...
-  - [x] YT videos in the blog - Unified plugin
   - [ ] Blog posts icon - to be icon of the base category - blog, reference, etc.
   - [ ] Copy button for the post's code snippets
 

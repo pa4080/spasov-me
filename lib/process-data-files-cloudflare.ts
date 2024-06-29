@@ -24,10 +24,12 @@ export async function fileObject_toData({
 	files,
 	hyphen = true,
 	visible,
+	prefix = "",
 }: {
 	files: _Object[];
 	hyphen?: boolean;
 	visible?: boolean;
+	prefix?: string;
 }): Promise<FileData[]> {
 	const filesAcc: FileData[] = [];
 
@@ -39,7 +41,8 @@ export async function fileObject_toData({
 			const length = file?.ContentLength || 0;
 			const description = getMetadataValue(file?.Metadata, "description", "");
 
-			const filename = file_raw.Key!;
+			// Replace: 1) remove the path (i.e: files/); 2) remove the extension (i.e: .webp)
+			const filename = file_raw.Key?.replace(/^.*?\//g, "")!;
 			const _id = "Id:" + filename.replace(/\.[^.]*$/, "");
 
 			const f: FileData = {
@@ -59,7 +62,7 @@ export async function fileObject_toData({
 						filename: filename,
 						title: processMarkdown({ markdown: filename, hyphen: true }),
 						description: processMarkdown({ markdown: description, hyphen }),
-						fileUrl: `https://${r2BucketDomain}/${filename}?v=${new Date(uploadDate).getTime()}`,
+						fileUrl: `https://${r2BucketDomain}${prefix ? "/" + prefix : ""}/${filename}?v=${new Date(uploadDate).getTime()}`,
 					},
 				},
 			};

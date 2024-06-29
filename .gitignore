@@ -3,6 +3,7 @@
 # tmp directopries
 tmp*
 scripts/dbbackup/**
+scripts/object-storage-dump/**
 /analyze
 
 # dependencies

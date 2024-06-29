@@ -18,18 +18,20 @@ export const getObject = async ({
 	bucket,
 	log = false,
 	partNumber,
+	prefix,
 }: {
 	objectKey: string;
 	bucket?: string;
 	log?: boolean;
 	partNumber?: number;
+	prefix?: string;
 }) => {
 	const s3client = new S3(config) || new S3Client(config);
 
 	try {
 		const command = new GetObjectCommand({
 			Bucket: bucket || r2BucketName,
-			Key: objectKey,
+			Key: prefix ? `${prefix}/${objectKey}` : objectKey,
 			PartNumber: partNumber,
 		});
 

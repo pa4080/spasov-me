@@ -68,7 +68,7 @@ export const getObjectListAndDelete = async ({
 
 	for (const batch of slicedObjects) {
 		// The length of the array for delete must be between 1 and 1000
-		res = await deleteObjectList({ objects: batch.map((o) => ({ Key: o.Key })), log });
+		res = await deleteObjectList({ objects: batch.map((object) => ({ Key: object.Key })), log });
 	}
 
 	return res;
