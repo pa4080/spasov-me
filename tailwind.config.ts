@@ -217,9 +217,24 @@ const appTwConfig: import("tailwindcss").Config = {
 						},
 						ul: {
 							listStyleType: "square",
-							"--tw-prose-bullets": "hsl(var(--ring-secondary) / 80%)",
+							"--tw-prose-bullets": "hsl(var(--ring) / 80%)",
 							// Search for ".md-processed-to-html" in globals.scss
 							// in order to override the color by theme
+						},
+						h2: {
+							color: "hsl(var(--foreground-secondary))",
+						},
+						h3: {
+							color: "hsl(var(--foreground-secondary))",
+						},
+						h4: {
+							color: "hsl(var(--foreground-secondary))",
+						},
+						h5: {
+							color: "hsl(var(--foreground-secondary))",
+						},
+						h6: {
+							color: "hsl(var(--foreground-secondary))",
 						},
 					},
 				},
