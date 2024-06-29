@@ -18,7 +18,7 @@ import "server-only";
  *	 	const response = await redis.get(key);
  */
 
-export async function redisGetSSR<T>(key: string): Promise<T | null> {
+export async function redisGet_SSR_Solution<T>(key: string): Promise<T | null> {
 	const response = await fetch(`${process.env.UPSTASH_REDIS_REST_URL}/get/${key}`, {
 		headers: {
 			Authorization: `Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`,

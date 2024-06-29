@@ -11,13 +11,15 @@ import { config } from "./index";
 const r2BucketName = process.env.CLOUDFLARE_R2_BUCKET_NAME;
 
 export const updateObject = async ({
-	filename,
+	objectKey,
 	metadata,
 	bucket,
+	prefix,
 }: {
-	filename: string;
+	objectKey: string;
 	metadata: FileMetadata;
 	bucket?: string;
+	prefix?: string;
 }) => {
 	const s3client = new S3(config) || new S3Client(config);
 
@@ -28,10 +30,12 @@ export const updateObject = async ({
 			metadataRecord[key] = JSON.stringify(value);
 		});
 
+		const theKey = prefix ? `${prefix}/${objectKey}` : objectKey;
+
 		const command = new CopyObjectCommand({
-			CopySource: `/${bucket || r2BucketName}/${filename}`,
+			CopySource: `/${bucket || r2BucketName}/${theKey}`,
 			Bucket: bucket || r2BucketName,
-			Key: filename,
+			Key: theKey,
 			ContentType: metadata.contentType,
 			Metadata: metadataRecord,
 			MetadataDirective: "REPLACE",

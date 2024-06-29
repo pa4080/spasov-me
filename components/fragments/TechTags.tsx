@@ -5,6 +5,7 @@ import { msgs } from "@/messages";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import { TagData } from "@/interfaces/Tag";
+import { cn } from "@/lib/cn-utils";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 import { Route } from "@/routes";
@@ -22,7 +23,7 @@ const TechTags: React.FC<Props> = ({ className, tags }) => {
 	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_techTags`);
 
 	return (
-		<div className={`scroll-m-8 list-section ${className}`} id={toggle_target_id}>
+		<div className={cn("scroll-m-8 list-section", className)} id={toggle_target_id}>
 			<SectionHeader className="pop-header" title={section_title} />
 
 			<div className="flex flex-wrap gap-2 items-center justify-start pop-item">

@@ -9,7 +9,6 @@ import { useForm } from "react-hook-form";
 
 import Combobox from "@/components/fragments/Combobox";
 import DatePicker from "@/components/fragments/DatePicker";
-import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import MultiSelectFromList from "@/components/fragments/MultiSelectFromList";
 import SelectFromList from "@/components/fragments/SelectFromList";
 import { Button } from "@/components/ui/button";
@@ -25,7 +24,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-import { FileData, FileListItem } from "@/interfaces/File";
+import { FileListItem } from "@/interfaces/File";
 import {
 	AboutEntryType,
 	aboutEntryTuple,
@@ -33,10 +32,10 @@ import {
 	countryTuple,
 } from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
-import { Route } from "@/routes";
 
 import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
 
+import DisplayEntryAttachmentInTheEditForm from "@/components/fragments/DisplayEntryAttachmentInTheEditForm";
 import Loading from "@/components/fragments/Loading";
 import { TagData } from "@/interfaces/Tag";
 import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
@@ -236,23 +235,9 @@ const AboutEntryForm: React.FC<Props> = ({
 								name="attachment"
 								setValue={form.setValue}
 							/>
-							<DisplayFileImage
-								className={`rounded-md object-cover w-10 h-10 min-w-10 border ${form.watch("attachment") ? "opacity-90" : "opacity-25"}`}
-								file={
-									{
-										filename:
-											fileList?.find((f) => f.value === form.watch("attachment"))?.label ??
-											Route.assets.IMAGE_PLACEHOLDER,
-										metadata: {
-											html: {
-												fileUri:
-													fileList?.find((f) => f.value === form.watch("attachment"))
-														?.sourceImage ?? Route.assets.IMAGE_PLACEHOLDER,
-											},
-										},
-									} as FileData
-								}
-								sizes={["40px", "40px"]}
+							<DisplayEntryAttachmentInTheEditForm
+								fileList={fileList}
+								currentValue={form.watch("attachment")}
 							/>
 						</div>
 					</div>

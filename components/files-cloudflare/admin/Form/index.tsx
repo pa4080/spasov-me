@@ -33,6 +33,9 @@ import { Route } from "@/routes";
 import styles from "./_files-form.module.scss";
 import { File_FormSchema, File_FormSchemaGenerator } from "./schema";
 
+const r2BucketDomain = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DOMAIN;
+const files_prefix = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES;
+
 interface Props {
 	className?: string;
 	onSubmit: (data: File_FormSchema) => void;
@@ -168,7 +171,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 	const fileUri = formData
 		? formData.filename.match(/\.(pdf|pptx|xlsx|csv|txt|docx)$/)
 			? `${Route.assets.MIME_TYPE}/${formData.filename.split(".").pop()}.png`
-			: `https://${process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DOMAIN}/${formData?.filename}?v=${new Date(formData?.uploadDate).getTime()}`
+			: `https://${r2BucketDomain}/${files_prefix}/${formData?.filename}?v=${new Date(formData?.uploadDate).getTime()}`
 		: Route.assets.IMAGE_PLACEHOLDER;
 
 	return (

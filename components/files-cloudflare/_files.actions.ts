@@ -17,9 +17,11 @@ import {
 	updateObject,
 	uploadObject,
 } from "@/lib/r2s3utils";
-import { redisGetSSR } from "@/lib/redis-get";
+import { redisGet_SSR_Solution } from "@/lib/redis-get";
 import { msgs } from "@/messages";
 import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "./../_common.actions";
+
+const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
 
 export const getFilesR2 = async ({
 	hyphen = true,
@@ -30,19 +32,24 @@ export const getFilesR2 = async ({
 } = {}): Promise<FileData[] | null> => {
 	try {
 		// Check if the "files" array is already cached in Redis
-		const cachedFiles = await redisGetSSR<FileData[]>("files");
+		const cachedFiles = await redisGet_SSR_Solution<FileData[]>(files_prefix);
 
 		if (cachedFiles) {
 			return cachedFiles;
 		}
 
-		const filesRawR2List = await listObjects();
+		const filesRawR2List = await listObjects({ prefix: files_prefix });
 
 		if (filesRawR2List?.length === 0) {
 			return null;
 		}
 
-		const files = await fileObject_toData({ files: filesRawR2List, hyphen, visible });
+		const files = await fileObject_toData({
+			files: filesRawR2List,
+			hyphen,
+			visible,
+			prefix: files_prefix,
+		});
 
 		// Set the "files" array in Redis
 		await redis.set("files", JSON.stringify(files));
@@ -117,9 +124,10 @@ export const createFile = async (data: FormData, paths: string[]): Promise<boole
 			const buffer = Buffer.from(await file.arrayBuffer());
 
 			return await uploadObject({
-				filename,
+				objectKey: filename,
 				metadata,
-				fileBody: buffer,
+				objectBody: buffer,
+				prefix: files_prefix,
 			});
 		} else {
 			console.error(msgs("Errors")("invalidFile"));
@@ -157,7 +165,7 @@ export const updateFile = async (
 		const user_id = session?.user.id as string;
 
 		// If no new file is provided, just update the metadata
-		const fileOld = await getObject({ objectKey: file_name, partNumber: 1 });
+		const fileOld = await getObject({ objectKey: file_name, partNumber: 1, prefix: files_prefix });
 		const attachedToOld = JSON.parse(fileOld?.Metadata?.attachedto || "[]");
 
 		// Process the "attachedTo" array first -- await attachedTo_detachFromTarget()
@@ -186,16 +194,17 @@ export const updateFile = async (
 			const filename = file_name || file.name;
 
 			// Delete the old file. Note: file_id is the filename without extension!
-			await getObjectListAndDelete({ prefix: file_id.replace(/^Id:/, "") });
+			await getObjectListAndDelete({ prefix: `${files_prefix}/${file_id.replace(/^Id:/, "")}` });
 
 			// Convert the blob to buffer
 			const buffer = Buffer.from(await file.arrayBuffer());
 
 			// Upload the new file
 			return await uploadObject({
-				filename,
+				objectKey: filename,
 				metadata,
-				fileBody: buffer,
+				objectBody: buffer,
+				prefix: files_prefix,
 			});
 		} else {
 			if (!fileOld || !fileOld.Metadata) {
@@ -219,7 +228,7 @@ export const updateFile = async (
 				creator: user_id,
 			};
 
-			return await updateObject({ filename, metadata });
+			return await updateObject({ objectKey: filename, metadata, prefix: files_prefix });
 		}
 	} catch (error) {
 		console.error(error);
@@ -239,7 +248,9 @@ export const deleteFile = async (file_id: string, paths: string[]): Promise<bool
 		await redis.del("files");
 
 		// Do the actual remove
-		return await getObjectListAndDelete({ prefix: file_id.replace(/^Id:/, "") });
+		return await getObjectListAndDelete({
+			prefix: `${files_prefix}/${file_id.replace(/^Id:/, "")}`,
+		});
 	} catch (error) {
 		console.error(error);
 
@@ -295,7 +306,11 @@ export const fileAttachment_add = async ({
 			attachedTo: attachedToNew,
 		};
 
-		return await updateObject({ filename: targetFileObj.filename, metadata });
+		return await updateObject({
+			objectKey: targetFileObj.filename,
+			metadata,
+			prefix: files_prefix,
+		});
 	} catch (error) {
 		console.error("Unable to add attached document to a File: ", error);
 
@@ -326,6 +341,7 @@ export const fileAttachment_remove = async ({
 		const attachedToNew = targetFileObj?.metadata.attachedTo?.filter(
 			({ _id }: { _id: string }) => _id !== attachedDocument_id
 		);
+
 		const session = await getSession();
 		const creator = session?.user.id as string;
 		const visibility = targetFileObj.metadata.visibility ? "true" : "false";
@@ -341,7 +357,11 @@ export const fileAttachment_remove = async ({
 			attachedTo: attachedToNew,
 		};
 
-		return await updateObject({ filename: targetFileObj.filename, metadata });
+		return await updateObject({
+			objectKey: targetFileObj.filename,
+			metadata,
+			prefix: files_prefix,
+		});
 	} catch (error) {
 		console.error("Unable to remove attached document from a File: ", error);
 

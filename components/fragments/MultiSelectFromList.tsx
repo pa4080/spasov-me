@@ -29,6 +29,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { FileData } from "@/interfaces/File";
 import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
+import CopyFileAddressToClipboard from "./CopyFileAddressToClipboard";
 import DisplayFileImage from "./DisplayFileImage";
 
 export interface Item<T> {
@@ -178,12 +179,17 @@ export default function MultiSelectFromList<T extends FieldValues>({
 																className="h-fit text-sm font-normal tracking-wider text-foreground py-0.5 px-1 rounded-md"
 																variant="secondary"
 															>
-																<DisplayFileImage
-																	className={`w-8 h-8 rounded-sm`}
-																	description={item.sourceDescription}
-																	file={itemToFile}
-																	sizes={["32px", "32px"]}
-																/>
+																<CopyFileAddressToClipboard
+																	address={itemToFile.metadata.html.fileUri ?? "none"}
+																	className="w-8 h-8 rounded-sm"
+																>
+																	<DisplayFileImage
+																		className="w-8 h-8 rounded-sm"
+																		description={item.sourceDescription}
+																		file={itemToFile}
+																		sizes={["32px", "32px"]}
+																	/>
+																</CopyFileAddressToClipboard>
 																<SelectedItemRemoveBtn item={item} />
 															</Badge>
 														);

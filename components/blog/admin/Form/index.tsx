@@ -12,6 +12,7 @@ import slugify from "slugify";
 import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
 import Combobox from "@/components/fragments/Combobox";
 import DatePicker from "@/components/fragments/DatePicker";
+import DisplayEntryAttachmentInTheEditForm from "@/components/fragments/DisplayEntryAttachmentInTheEditForm";
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import Loading from "@/components/fragments/Loading";
 import MultiSelectFromList from "@/components/fragments/MultiSelectFromList";
@@ -317,23 +318,9 @@ const PostForm: React.FC<Props> = ({
 								name="attachment"
 								setValue={form.setValue}
 							/>
-							<DisplayFileImage
-								className={`rounded-md object-cover w-10 h-10 min-w-10 border ${form.watch("attachment") ? "opacity-90" : "opacity-25"}`}
-								file={
-									{
-										filename:
-											fileList?.find((f) => f.value === form.watch("attachment"))?.label ??
-											Route.assets.IMAGE_PLACEHOLDER,
-										metadata: {
-											html: {
-												fileUri:
-													fileList?.find((f) => f.value === form.watch("attachment"))
-														?.sourceImage ?? Route.assets.IMAGE_PLACEHOLDER,
-											},
-										},
-									} as FileData
-								}
-								sizes={["40px", "40px"]}
+							<DisplayEntryAttachmentInTheEditForm
+								fileList={fileList}
+								currentValue={form.watch("attachment")}
 							/>
 						</div>
 					</div>

@@ -3,19 +3,17 @@ import React, { useRef } from "react";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import Image from "next/image";
-
 import { CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { FileHtmlProps } from "@/interfaces/File";
 import { ProjectData } from "@/interfaces/Project";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
-import { Route } from "@/routes";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 import { PostData } from "@/interfaces/Post";
 import { commentsMatcher } from "@/lib/process-markdown";
+import IconCircleWrapper from "../IconCircleWrapper";
 import TooltipWrapper from "../TooltipWrapper";
 
 interface Props {
@@ -84,34 +82,15 @@ const GalleryCarouselNavEmbedded: React.FC<Props> = ({
 		>
 			{/* Logo */}
 			<TooltipWrapper tooltipText={entryData.html.title}>
-				<div
-					className="rounded-full overflow-clip bg-primary/80 min-w-[3.8rem] min-h-[3.8rem] flex items-center justify-center drop-shadow-2xl z-10"
-					style={
-						{
-							"--tw-drop-shadow": "drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2))",
-						} as React.CSSProperties
+				<IconCircleWrapper
+					className="min-w-[3.8rem] min-h-[3.8rem] drop-shadow-2xl"
+					className_Image="size-12"
+					alt={entryData.title}
+					src={
+						entryData.html.icon?.metadata.html.fileUrl || entryData.html.icon?.metadata.html.fileUri
 					}
-				>
-					<Image
-						alt={entryData.title}
-						className="size-12"
-						height={44}
-						src={
-							entryData.html.icon?.metadata.html.fileUrl ||
-							entryData.html.icon?.metadata.html.fileUri ||
-							Route.assets.LOGO_SVG
-						}
-						style={{
-							filter:
-								!entryData.html.icon?.metadata.html.fileUrl &&
-								!entryData.html.icon?.metadata.html.fileUri
-									? "grayscale(1)"
-									: "",
-						}}
-						unoptimized={entryData.html.icon?.filename.match(/\.svg$/) ? true : false}
-						width={44}
-					/>
-				</div>
+					unoptimized={entryData.html.icon?.filename.match(/\.svg$/) ? true : false}
+				/>
 			</TooltipWrapper>
 
 			{/* Description and Counter */}

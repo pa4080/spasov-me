@@ -65,7 +65,7 @@ const PortfolioPublicProject: React.FC<Props> = async ({ className, project, fil
 				)}
 			</article>
 
-			<TechTags className="mt-14" tags={project.tags} />
+			<TechTags className="mt-20" tags={project.tags} />
 		</div>
 	);
 };

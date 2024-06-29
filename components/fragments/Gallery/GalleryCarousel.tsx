@@ -23,7 +23,7 @@ interface Props {
 	counterAsText?: boolean;
 	descriptionDisplay?: boolean;
 	navPosition?: "top" | "bottom";
-	navType?: "embedded" | "default";
+	navType?: "embedded" | "default" | "none";
 	entryData?: ProjectData | PostData;
 }
 
@@ -55,25 +55,35 @@ const GalleryCarousel: React.FC<Props> = ({
 	}, [api]);
 
 	const Nav: React.FC = () => {
-		return navType === "embedded" && entryData ? (
-			<GalleryCarouselNavEmbedded
-				carouselItems_count={carouselItems_count}
-				counterAsText={counterAsText}
-				current_carouselItem={current_carouselItem}
-				descriptionDisplay={descriptionDisplay}
-				gallery={gallery}
-				entryData={entryData}
-			/>
-		) : (
-			<Navigation
-				carouselItems_count={carouselItems_count}
-				counterAsText={counterAsText}
-				current_carouselItem={current_carouselItem}
-				descriptionDisplay={descriptionDisplay}
-				gallery={gallery}
-				setIsOpen={setIsOpen}
-			/>
-		);
+		switch (navType) {
+			case "embedded":
+				if (!entryData) return null;
+				return (
+					<GalleryCarouselNavEmbedded
+						carouselItems_count={carouselItems_count}
+						counterAsText={counterAsText}
+						current_carouselItem={current_carouselItem}
+						descriptionDisplay={descriptionDisplay}
+						gallery={gallery}
+						entryData={entryData}
+					/>
+				);
+			case "default":
+				return (
+					<Navigation
+						carouselItems_count={carouselItems_count}
+						counterAsText={counterAsText}
+						current_carouselItem={current_carouselItem}
+						descriptionDisplay={descriptionDisplay}
+						gallery={gallery}
+						setIsOpen={setIsOpen}
+					/>
+				);
+			case "none":
+				return null;
+			default:
+				return null;
+		}
 	};
 
 	return (

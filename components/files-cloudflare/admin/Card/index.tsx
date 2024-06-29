@@ -21,7 +21,7 @@ import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 
 import { roundTo } from "@/lib/round";
 
-import CopyFileAddress from "../Actions/CopyFileAddress";
+import CopyFileAddressToClipboard from "../../../fragments/CopyFileAddressToClipboard";
 import DeleteFile from "../Actions/DeleteFile";
 import UpdateFile from "../Actions/UpdateFile";
 import styles from "./_file-card.module.scss";
@@ -59,7 +59,7 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common" }) =
 				<div className={styles.header}>
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							<CopyFileAddress address={fileAddress} />
+							<CopyFileAddressToClipboard address={fileAddress} />
 							<VisibilitySwitchDisplay
 								disabled
 								checked={file.metadata.visibility}

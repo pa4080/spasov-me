@@ -7,15 +7,17 @@ import { config } from "./index";
 const r2BucketName = process.env.CLOUDFLARE_R2_BUCKET_NAME;
 
 export const uploadObject = async ({
-	filename,
-	fileBody,
+	objectKey,
+	objectBody,
 	metadata,
 	bucket,
+	prefix,
 }: {
-	filename: string;
-	fileBody: PutObjectCommandInput["Body"];
+	objectKey: string;
+	objectBody: PutObjectCommandInput["Body"];
 	metadata: FileMetadata;
 	bucket?: string;
+	prefix?: string;
 }) => {
 	const s3client = new S3(config) || new S3Client(config);
 
@@ -26,10 +28,12 @@ export const uploadObject = async ({
 			metadataRecord[key] = JSON.stringify(value);
 		});
 
+		console.log(prefix ? `${prefix}/${objectKey}` : objectKey);
+
 		const command = new PutObjectCommand({
-			Body: fileBody,
+			Body: objectBody,
 			Bucket: bucket || r2BucketName,
-			Key: filename,
+			Key: prefix ? `${prefix}/${objectKey}` : objectKey,
 			ContentType: metadata.contentType,
 			Metadata: metadataRecord,
 		});
