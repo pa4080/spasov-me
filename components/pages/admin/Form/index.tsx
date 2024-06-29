@@ -21,12 +21,11 @@ import { IconMap } from "@/interfaces/IconMap";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { FileData, FileListItem } from "@/interfaces/File";
-
-import DisplayFileImage from "@/components/fragments/DisplayFileImage";
+import { FileListItem } from "@/interfaces/File";
 
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 
+import DisplayEntryAttachmentInTheEditForm from "@/components/fragments/DisplayEntryAttachmentInTheEditForm";
 import Loading from "@/components/fragments/Loading";
 import Combobox from "../../../fragments/Combobox";
 import { Pages_FormSchema, Pages_FormSchemaGenerator } from "./schema";
@@ -179,23 +178,10 @@ const PageForm: React.FC<Props> = ({
 						name="attachment"
 						setValue={form.setValue}
 					/>
-					<DisplayFileImage
-						className={`rounded-md object-cover max-h-full w-10 h-10 min-w-10 border -mt-2 ${form.watch("attachment") ? "opacity-90" : "opacity-25"}`}
-						file={
-							{
-								filename:
-									fileList?.find((f) => f.value === form.watch("attachment"))?.label ??
-									Route.assets.IMAGE_PLACEHOLDER,
-								metadata: {
-									html: {
-										fileUri:
-											fileList?.find((f) => f.value === form.watch("attachment"))?.sourceImage ??
-											Route.assets.IMAGE_PLACEHOLDER,
-									},
-								},
-							} as FileData
-						}
-						sizes={["90px", "90px"]}
+					<DisplayEntryAttachmentInTheEditForm
+						fileList={fileList}
+						currentValue={form.watch("attachment")}
+						className="-mt-2"
 					/>
 				</div>
 

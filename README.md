@@ -22,20 +22,25 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [x] Blog post public
   - [x] MD Syntax highlighting
   - [ ] MD Images with captions
-  - [ ] Blog feed public Improved
-  - [ ] Post page
+  - [x] Blog feed public Improved
+  - [x] Post page
     - [x] remove the slider buttons, thus the title will be visible under the cover image
     - [x] add the logo/icon in front of the post name (like in the card)?
     - [x] create the logo trigger for the gallery and remove the gallery button from the right side
-    - [ ] Within the "edit form" - make the images of the file thumbs clickable - and copy the file URL to the clipboard...
+    - [x] Within the "edit form" - make the images of the file thumbs clickable - and copy the file URL to the clipboard...
   - [x] YT videos in the blog - Unified plugin
   - [ ] Blog posts icon - to be icon of the base category - blog, reference, etc.
+  - [ ] Copy button for the post's code snippets
 
 - Tag Icons
   - [ ] Upload to R2
   - [ ] Create Tag Icons upload page/form
   - [ ] Make them available to the components that select the files from list
   - [ ] Keep tag index generation for the tags their-self
+
+- [ ] Backup scripts
+  - [ ] Migration script from R2 to MinIO
+  - [ ] Migration script from MongoDB/Atlas to MongoDB/Local
 
 ## Vercel CLI
 
