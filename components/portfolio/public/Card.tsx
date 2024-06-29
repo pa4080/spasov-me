@@ -1,6 +1,5 @@
 import React from "react";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import styles from "@/app/(styles)/card.module.scss";
@@ -10,6 +9,7 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
 import { FileListItem } from "@/interfaces/File";
 import { TagData } from "@/interfaces/Tag";
 import ProjectLinks from "../common/ProjectLinks";
@@ -31,32 +31,18 @@ const ProjectPublic_Card: React.FC<Props> = ({ project, className, fileList, tag
 	return (
 		<div className={`${styles.card} scroll-m-8 ${className}`} id={`project_${project._id}`}>
 			<div className="flex gap-2 items-center justify-start w-full">
-				<div className="rounded-full p-1 overflow-clip bg-primary/80 min-w-[3rem]">
-					<Image
-						alt={project.title}
-						className="size-10"
-						height={44}
-						src={
-							project.html.icon?.metadata.html.fileUrl ||
-							project.html.icon?.metadata.html.fileUri ||
-							Route.assets.LOGO_SVG
-						}
-						style={{
-							filter:
-								!project.html.icon?.metadata.html.fileUrl &&
-								!project.html.icon?.metadata.html.fileUri
-									? "grayscale(1)"
-									: "",
-						}}
-						unoptimized={project.html.icon?.filename.match(/\.svg$/) ? true : false}
-						width={44}
-					/>
-				</div>
+				<IconCircleWrapper
+					alt={project.title}
+					src={project.html.icon?.metadata.html.fileUrl || project.html.icon?.metadata.html.fileUri}
+					unoptimized={project.html.icon?.filename.match(/\.svg$/) ? true : false}
+				/>
+
 				<div
 					dangerouslySetInnerHTML={{ __html: project.html.title }}
 					className="text-lg font-semibold line-clamp-1 flex-shrink"
 				/>
 			</div>
+
 			<div
 				dangerouslySetInnerHTML={{ __html: descriptionArr[0] }}
 				className="flex-grow line-clamp-2 pl-2"
@@ -64,6 +50,7 @@ const ProjectPublic_Card: React.FC<Props> = ({ project, className, fileList, tag
 
 			<div className="flex flex-row items-center justify-between gap-2 w-full">
 				<ProjectLinks project={project} fileList={fileList} tags={tags} />
+
 				<Link
 					area-label={t("area_label_card_link")}
 					href={`${Route.public.PORTFOLIO.uri}/${project.slug}`}

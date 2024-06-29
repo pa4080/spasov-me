@@ -1,10 +1,10 @@
 import React from "react";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import styles from "@/app/(styles)/card.module.scss";
 import DisplayFileImageOrEmbed from "@/components/fragments/DisplayFileImageOrEmbed";
+import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
 import { Button } from "@/components/ui/button";
 import { FileListItem } from "@/interfaces/File";
 import { PostData } from "@/interfaces/Post";
@@ -46,26 +46,12 @@ const BlogPublic_Card: React.FC<Props> = ({ post, className, fileList, tags }) =
 
 			{/* Logo and Title */}
 			<div className="flex gap-2 items-center justify-start w-full">
-				<div className="rounded-full p-1 overflow-clip bg-primary/80 min-w-[3rem]">
-					<Image
-						alt={post.title}
-						className="size-10"
-						height={44}
-						src={
-							post.html.icon?.metadata.html.fileUrl ||
-							post.html.icon?.metadata.html.fileUri ||
-							Route.assets.LOGO_SVG
-						}
-						style={{
-							filter:
-								!post.html.icon?.metadata.html.fileUrl && !post.html.icon?.metadata.html.fileUri
-									? "grayscale(1)"
-									: "",
-						}}
-						unoptimized={post.html.icon?.filename.match(/\.svg$/) ? true : false}
-						width={44}
-					/>
-				</div>
+				<IconCircleWrapper
+					alt={post.title}
+					src={post.html.icon?.metadata.html.fileUrl || post.html.icon?.metadata.html.fileUri}
+					unoptimized={post.html.icon?.filename.match(/\.svg$/) ? true : false}
+				/>
+
 				<div
 					dangerouslySetInnerHTML={{ __html: post.html.title }}
 					className="text-lg font-semibold line-clamp-2 flex-shrink leading-5"

@@ -49,8 +49,13 @@ const PortfolioPublicPost: React.FC<Props> = async ({ className, post, fileList,
 
 	return (
 		<div className={cn("w-full pt-8 sa:pt-6 lg:pt-1", className)}>
-			<GalleryCarousel gallery={gallery} navPosition="bottom" navType="embedded" entryData={post} />
-			<SectionHeader className="pop-header mt-6 sa:mt-8" title={post.html.title} label={dateLabel}>
+			<GalleryCarousel gallery={gallery} navPosition="bottom" navType="none" entryData={post} />
+			<SectionHeader
+				className="pop-header mt-6 sa:mt-8 relative 2xs:flex 2xs:flex-row"
+				className_Actions="absolute right-0 -bottom-3 scale-50 2xs:scale-75"
+				title={post.html.title}
+				label={dateLabel}
+			>
 				<PostLinks post={post} fileList={fileList} tags={tags} />
 			</SectionHeader>
 
