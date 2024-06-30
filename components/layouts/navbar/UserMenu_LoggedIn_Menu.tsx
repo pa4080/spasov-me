@@ -4,6 +4,7 @@ import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 import {
 	NavigationMenu,
 	NavigationMenuContent,
@@ -12,12 +13,8 @@ import {
 	NavigationMenuTrigger,
 	NavigationMenu_NextLink_Styled,
 } from "@/components/ui/navigation-menu";
-import { Route } from "@/routes";
-
 import { msgs } from "@/messages";
-
-import RevalidatePaths from "@/components/fragments/RevalidatePaths";
-
+import { Route } from "@/routes";
 import styles from "./_navbar.module.scss";
 
 interface Props {
@@ -47,7 +44,7 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
 							<IconEmbedSvg type="sidebar-flip" />
 						</NavigationMenuTrigger>
 
-						<NavigationMenuContent className="w-64 3xs:w-[22rem] 2xs:w-96">
+						<NavigationMenuContent className="w-64 3xs:w-[22rem] 2xs:w-[26rem]">
 							<div className="3xs:columns-2 border-b-2 border-b-primary pb-1 mb-1">
 								{Object.keys(Route.admin).map((key) => (
 									<NavigationMenu_NextLink_Styled

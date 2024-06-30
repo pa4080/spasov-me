@@ -42,6 +42,9 @@
 		"FILES_CFR2": "Files CloudFlare",
 		"FILES_CFR2_DESC": "Manage files on Cloudflare R2 Bucket",
 
+		"ICONS_CFR2": "Icons CloudFlare",
+		"ICONS_CFR2_DESC": "Manage icons on Cloudflare R2 Bucket",
+
 		"FILES_VERCEL": "Files Vercel",
 		"FILES_VERCEL_DESC": "Manage files on Vercel Blob Storage",
 
