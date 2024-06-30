@@ -2,7 +2,7 @@ import { S3ClientConfig } from "@aws-sdk/client-s3";
 
 export const config: S3ClientConfig = {
 	credentials: {
-		accessKeyId: process.env.CLOUDFLARE_API_ACCESS_KEY_ID,
+		accessKeyId: process.env.CLOUDFLARE_API_ACCESS_KEY_ID!,
 		secretAccessKey: process.env.CLOUDFLARE_API_ACCESS_KEY_SECRET!,
 	},
 	region: process.env.CLOUDFLARE_R2_BUCKET_REGION!,

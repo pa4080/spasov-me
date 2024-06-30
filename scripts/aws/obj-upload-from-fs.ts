@@ -2,22 +2,12 @@ import { PutObjectCommand, S3, S3Client, S3ClientConfig } from "@aws-sdk/client-
 import fs from "fs";
 
 import { FileMetadata } from "../../interfaces/File";
-import { FileMapFs } from "./local-files-map";
-
-export const config: S3ClientConfig = {
-	credentials: {
-		accessKeyId: process.env.CLOUDFLARE_API_ACCESS_KEY_ID!,
-		secretAccessKey: process.env.CLOUDFLARE_API_ACCESS_KEY_SECRET!,
-	},
-	region: process.env.CLOUDFLARE_R2_BUCKET_REGION!,
-	endpoint: process.env.CLOUDFLARE_API_ENDPOINT!,
-};
-
-const r2BucketName = process.env.CLOUDFLARE_R2_BUCKET_NAME!;
+import { FileMapFs } from "./types";
+import { chunkArray } from "./utils";
 
 /**
- * @param fileName The name of the file incl. the relative path: tmp/prjId/subPath/file.name
- * @param localFsFilePath The absolute path to the file: /home/user/workDir/tmp/prjId/subPath/file.name
+ * @param objectKey The name of the fil
+ * @param fsSourceFile The absolute path to the file: /home/user/workDir/tmp/prjId/subPath/file.name
  */
 export const uploadObject = async ({
 	objectKey,
@@ -25,16 +15,20 @@ export const uploadObject = async ({
 	metadata,
 	bucket,
 	prefix,
+	config,
 }: {
 	objectKey: string;
 	fsSourceFile: string;
 	metadata: FileMetadata;
-	bucket?: string;
+	bucket: string;
 	prefix?: string;
+	config: S3ClientConfig;
 }) => {
 	const s3client = new S3(config) || new S3Client(config);
+
 	try {
 		const fileContent = fs.readFileSync(fsSourceFile);
+
 		const metadataRecord: Record<string, string> = {};
 		Object.entries(metadata).forEach(([key, value]) => {
 			metadataRecord[key] = JSON.stringify(value);
@@ -42,7 +36,7 @@ export const uploadObject = async ({
 
 		const command = new PutObjectCommand({
 			Body: fileContent,
-			Bucket: bucket || r2BucketName,
+			Bucket: bucket,
 			Key: prefix ? `${prefix}/${objectKey}` : objectKey,
 			ContentType: metadata.contentType || "application/octet-stream",
 			Metadata: metadataRecord,
@@ -56,16 +50,20 @@ export const uploadObject = async ({
 
 export const uploadObjectList = async ({
 	fileList,
+	batchSize = 10,
 	prefix,
-	batchSize = 20,
+	bucket,
+	config,
 }: {
 	fileList: FileMapFs[];
 	prefix?: string;
 	batchSize?: number;
+	bucket: string;
+	config: S3ClientConfig;
 }) => {
 	try {
 		console.log(
-			`\nThere are ${fileList.length} files to upload to ${r2BucketName}${prefix ? `/${prefix}/` : "/"}\n`
+			`\nThere are ${fileList.length} files to be upload to ${bucket}${prefix ? `/${prefix}/` : "/"}\n`
 		);
 
 		const fileListBatches = chunkArray(fileList, batchSize);
@@ -78,25 +76,18 @@ export const uploadObjectList = async ({
 
 			await Promise.all(
 				fileListBatch.map(async (file) => {
-					console.log(`Uploading ${file.fsSourceFile} to ${r2BucketName}`);
+					console.log(`Uploading ${file.fsSourceFile} to ${bucket}`);
 
 					await uploadObject({
-						objectKey: file.filename_objectKey,
-						bucket: r2BucketName,
+						objectKey: file.Key,
 						metadata: file.metadata,
 						fsSourceFile: file.fsSourceFile,
+						bucket,
 						prefix,
+						config,
 					});
 				})
 			);
-		}
-
-		function chunkArray(array: FileMapFs[], size: number): FileMapFs[][] {
-			const result = [];
-			for (let i = 0; i < array.length; i += size) {
-				result.push(array.slice(i, i + size));
-			}
-			return result;
 		}
 	} catch (err) {
 		console.error("Upload objects error: ", err);

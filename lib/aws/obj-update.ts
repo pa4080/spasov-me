@@ -4,7 +4,7 @@
  */
 import { CopyObjectCommand, S3, S3Client } from "@aws-sdk/client-s3";
 
-import { FileMetadata } from "@/interfaces/File";
+import { FileMetadata } from "../../interfaces/File";
 
 import { config } from "./index";
 

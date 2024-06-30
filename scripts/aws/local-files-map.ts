@@ -1,22 +1,8 @@
 import fs from "fs";
 import mime from "mime-types";
 import path from "path";
-import { FileMetadata } from "../../interfaces/File";
 import { roundTo } from "../../lib/round";
-
-interface GenerateFileMapInput {
-	dir: string;
-	date: Date;
-	creatorId: string;
-	locale?: string;
-	filename_trim_prefix?: string;
-}
-
-export interface FileMapFs {
-	fsSourceFile: string;
-	filename_objectKey: string;
-	metadata: FileMetadata;
-}
+import { FileMapFs, GenerateFileMapInput } from "./types";
 
 const generateFileMap = ({
 	dir,
@@ -47,7 +33,7 @@ const generateFileMap = ({
 
 			return {
 				fsSourceFile,
-				filename_objectKey,
+				Key: filename_objectKey,
 				metadata: {
 					description,
 					contentType,
