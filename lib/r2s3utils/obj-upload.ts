@@ -28,8 +28,6 @@ export const uploadObject = async ({
 			metadataRecord[key] = JSON.stringify(value);
 		});
 
-		console.log(prefix ? `${prefix}/${objectKey}` : objectKey);
-
 		const command = new PutObjectCommand({
 			Body: objectBody,
 			Bucket: bucket || r2BucketName,
