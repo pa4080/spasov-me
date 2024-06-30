@@ -9,14 +9,14 @@ const redis = new Redis({
 
 import { FileData, FileListItem, FileMetadata } from "@/interfaces/File";
 import { AttachedToDocument } from "@/interfaces/_common-data-types";
-import { fileObject_toData } from "@/lib/process-data-files-cloudflare";
 import {
 	getObject,
 	getObjectListAndDelete,
 	listObjects,
 	updateObject,
 	uploadObject,
-} from "@/lib/r2s3utils";
+} from "@/lib/aws";
+import { fileObject_toData } from "@/lib/process-data-files-cloudflare";
 import { redisGet_SSR_Solution } from "@/lib/redis-get";
 import { msgs } from "@/messages";
 import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "./../_common.actions";
