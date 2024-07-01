@@ -19,7 +19,7 @@ export const minIoConfig: S3ClientConfig = {
 		secretAccessKey: process.env.MINIO_API_ACCESS_KEY_SECRET!,
 	},
 	endpoint: process.env.MINIO_API_ENDPOINT!,
-	region: process.env.MINIO_R2_BUCKET_REGION!,
+	region: process.env.MINIO_BUCKET_REGION!,
 	forcePathStyle: true,
 	// https://github.com/astaxie/cookbook/blob/master/docs/aws-sdk-for-javascript-with-minio.md
 };

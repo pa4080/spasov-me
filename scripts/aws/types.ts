@@ -18,6 +18,7 @@ export interface FileMapFs {
 export interface FileMapUpload {
 	Key: string;
 	prefix?: string;
-	fileData: GetObjectCommandOutput;
+	fileData?: GetObjectCommandOutput;
 	fsSourceFile: string;
+	metadata?: FileMetadata;
 }

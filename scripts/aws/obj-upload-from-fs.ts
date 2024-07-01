@@ -2,7 +2,7 @@ import { PutObjectCommand, S3, S3Client, S3ClientConfig } from "@aws-sdk/client-
 import fs from "fs";
 
 import { FileMetadata } from "../../interfaces/File";
-import { FileMapFs } from "./types";
+import { FileMapUpload } from "./types";
 import { chunkArray } from "./utils";
 
 /**
@@ -55,7 +55,7 @@ export const uploadObjectList = async ({
 	bucket,
 	config,
 }: {
-	fileList: FileMapFs[];
+	fileList: FileMapUpload[]; //(FileMapFs | _Object)[];
 	prefix?: string;
 	batchSize?: number;
 	bucket: string;
@@ -76,11 +76,15 @@ export const uploadObjectList = async ({
 
 			await Promise.all(
 				fileListBatch.map(async (file) => {
+					if (!file.Key) return null;
+
 					console.log(`Uploading ${file.fsSourceFile} to ${bucket}`);
 
 					await uploadObject({
 						objectKey: file.Key,
-						metadata: file.metadata,
+						metadata: file?.metadata
+							? file.metadata
+							: ((file.fileData?.Metadata || {}) as unknown as FileMetadata),
 						fsSourceFile: file.fsSourceFile,
 						bucket,
 						prefix,
