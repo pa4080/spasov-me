@@ -3,7 +3,7 @@
  * on the base of a file list generated from the content of a local directory.
  *
  * From the root directory of the project:
- * > doppler run -- pnpm exec ts-node --skip-project scripts/upload-from-fs-to-r2/index.ts
+ * > doppler run -- pnpm exec ts-node --skip-project scripts/aws/index-download-on-local-base.ts
  */
 import { r2BucketIconsPath, r2BucketName, r2cfConfig } from "./config";
 import generateFileMapRecursive from "./local-files-map";
@@ -21,7 +21,7 @@ import { downloadObjectList } from "./obj-download-to-fs";
 	console.log(iconMap);
 
 	// Download the files (note the batches must be small enough)
-	const fileMapUpload = await downloadObjectList({
+	const fileMapDownloaded = await downloadObjectList({
 		fileList: iconMap,
 		prefix: r2BucketIconsPath,
 		bucket: r2BucketName,
@@ -29,5 +29,5 @@ import { downloadObjectList } from "./obj-download-to-fs";
 		downloadDirFs: "public/tmp",
 		batchSize: 5,
 	});
-	console.log(fileMapUpload);
+	console.log(fileMapDownloaded);
 })();

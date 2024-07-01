@@ -1,5 +1,6 @@
 import { S3ClientConfig } from "@aws-sdk/client-s3";
 
+export const r2BucketFilesPath = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES!;
 export const r2BucketIconsPath = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS!;
 export const r2BucketName = process.env.CLOUDFLARE_R2_BUCKET_NAME!;
 

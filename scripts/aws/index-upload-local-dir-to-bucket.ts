@@ -2,7 +2,7 @@
  * Uploads a local directory to object storage (CloudflareR2 or MinIo bucket).
  *
  * From the root directory of the project:
- * > doppler run -- pnpm exec ts-node --skip-project scripts/upload-from-fs-to-r2/index.ts
+ * > doppler run -- pnpm exec ts-node --skip-project scripts/aws/index-upload-local-dir-to-bucket.ts
  */
 import { r2BucketIconsPath, r2BucketName, r2cfConfig } from "./config";
 import generateFileMapRecursive from "./local-files-map";

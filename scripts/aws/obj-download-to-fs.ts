@@ -17,12 +17,14 @@ export const downloadObject = async ({
 	prefix,
 	config,
 	fsFilePath,
+	fsFileName,
 }: {
 	objectKey: string;
 	bucket: string;
 	prefix?: string;
 	config: S3ClientConfig;
 	fsFilePath: string;
+	fsFileName: string;
 }) => {
 	const s3client = new S3(config) || new S3Client(config);
 
@@ -33,7 +35,7 @@ export const downloadObject = async ({
 		});
 		const responseObject = await s3client.send(command);
 
-		const fsFilePathAndName = path.join(fsFilePath, objectKey);
+		const fsFilePathAndName = path.join(fsFilePath, fsFileName);
 
 		const writeStream = fs
 			.createWriteStream(fsFilePathAndName)
@@ -84,19 +86,29 @@ export const downloadObjectList = async ({
 					if (!file.Key) return null;
 
 					const baseDir = process.cwd();
-					const fsFilePathAndName = path.join(baseDir, downloadDirFs, prefix ?? "", file.Key);
-					const fsFilePath = path.dirname(fsFilePathAndName);
+					const projectDir = path.join(baseDir, downloadDirFs, prefix ?? "");
+					const fsFilePathAndName = path.join(projectDir, file.Key);
+					// const fsFilePath = path.dirname(fsFilePathAndName);
+					const fsFilePath = fsFilePathAndName.split("/").slice(0, -1).join("/");
+					const fsFileName = fsFilePathAndName.split("/").at(-1) as string;
+
+					console.log("---");
+					console.log(file.Key);
+					console.log(baseDir);
+					console.log(fsFilePathAndName);
+					console.log(fsFilePath);
 
 					if (!fs.existsSync(fsFilePath)) {
 						fs.mkdirSync(fsFilePath, { recursive: true });
 					}
 
 					// It is possible to have sub prefixes
-					const [subPrefix, Key] = file.Key.includes("/")
-						? file.Key.replace(/^(.*)\/(.*)$/, "$1%%$2").split("%%")
-						: [null, file.Key];
+					// const [subPrefix, Key] =
+					// 	file.Key.includes("/") && !isS3ObjectList
+					// 		? file.Key.replace(/^(.*)\/(.*)$/, "$1%%$2").split("%%")
+					// 		: [null, file.Key];
 
-					console.log(`Downloading ${Key} to ${fsFilePath}`);
+					console.log(`Downloading Key: ${file.Key}; name: ${fsFileName}; path: ${fsFilePath}`);
 
 					if (isS3ObjectList) {
 						const fileData = await getObject({ objectKey: file.Key, partNumber: 1 });
@@ -104,7 +116,8 @@ export const downloadObjectList = async ({
 						if (fileData) {
 							returnArray.push({
 								Key: file.Key,
-								prefix: subPrefix ? `${prefix}/${subPrefix}` : prefix,
+								// prefix: subPrefix ? `${prefix}/${subPrefix}` : prefix,
+								prefix,
 								fileData,
 								fsSourceFile: fsFilePathAndName,
 							});
@@ -112,11 +125,13 @@ export const downloadObjectList = async ({
 					}
 
 					await downloadObject({
-						objectKey: Key,
+						objectKey: file.Key,
 						bucket,
-						prefix: subPrefix ? `${prefix}/${subPrefix}` : prefix,
+						// prefix: subPrefix ? `${prefix}/${subPrefix}` : prefix,
+						prefix,
 						config,
 						fsFilePath,
+						fsFileName,
 					});
 				})
 			);
