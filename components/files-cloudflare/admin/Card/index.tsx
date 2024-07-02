@@ -36,7 +36,9 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common" }) =
 	const tCommon = msgs("Files");
 	const t = msgs("Files_Display");
 
-	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`file_${file?._id}_${section_id}`);
+	const toggle_target_id = sanitizeHtmlTagIdOrClassName(
+		`file_${file?._id}_${section_id}`.replace(/[^0-9a-zA-Z]/g, "-")
+	);
 
 	const descriptionArr = file.metadata.html.description
 		.split(splitDescriptionKeyword)

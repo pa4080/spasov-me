@@ -33,6 +33,10 @@ const Section: React.FC<Props> = ({
 	sortByAttachedTo = true,
 	sortByAttachedToVisibleItems = 25,
 }) => {
+	if (!files || files.length === 0) {
+		return null;
+	}
+
 	const t = msgs("Files");
 
 	type tType = Parameters<typeof t>[0];
@@ -43,7 +47,7 @@ const Section: React.FC<Props> = ({
 		.replace(/^_/g, "");
 
 	const section_title = hyphenateString(t(`section_title_${typeToSnakeCase}` as tType));
-	const toggle_target_id = `section_${typeToSnakeCase}`;
+	const toggle_target_id = `section_${typeToSnakeCase}`.replace(/[^0-9a-zA-Z]/g, "-");
 
 	const attachedToDocuments = sortByAttachedTo
 		? files?.reduce(
@@ -103,11 +107,7 @@ const Section: React.FC<Props> = ({
 
 							{attachedToDocuments[attachedToDocument]
 								?.sort((file_b, file_a) =>
-									type === "common"
-										? file_a.uploadDate.getTime() - file_b.uploadDate.getTime()
-										: file_a._id.match(/logo/)
-											? 1
-											: file_a._id.localeCompare(file_b._id)
+									file_a._id.match(/logo/) ? 1 : file_a._id.localeCompare(file_b._id)
 								)
 								?.map((file, index) => (
 									<FileCard
@@ -122,14 +122,7 @@ const Section: React.FC<Props> = ({
 			) : (
 				<div className={styles.feed}>
 					{files
-						?.sort((b, a) =>
-							a?.uploadDate &&
-							typeof a?.uploadDate?.getTime === "function" &&
-							b?.uploadDate &&
-							typeof b?.uploadDate?.getTime === "function"
-								? a?.uploadDate?.getTime() - b?.uploadDate?.getTime()
-								: 1
-						)
+						?.sort((file_b, file_a) => file_a._id.localeCompare(file_b._id))
 						?.map((file, index) => (
 							<FileCard
 								key={index}

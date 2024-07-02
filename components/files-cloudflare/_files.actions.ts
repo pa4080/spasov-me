@@ -26,19 +26,21 @@ const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || 
 export const getFilesR2 = async ({
 	hyphen = true,
 	public: visible = false,
+	prefix = files_prefix,
 }: {
 	hyphen?: boolean;
 	public?: boolean;
+	prefix?: string;
 } = {}): Promise<FileData[] | null> => {
 	try {
 		// Check if the "files" array is already cached in Redis
-		const cachedFiles = await redisGet_SSR_Solution<FileData[]>(files_prefix);
+		const cachedFiles = await redisGet_SSR_Solution<FileData[]>(prefix);
 
 		if (cachedFiles) {
 			return cachedFiles;
 		}
 
-		const filesRawR2List = await listObjects({ prefix: files_prefix });
+		const filesRawR2List = await listObjects({ prefix: prefix });
 
 		if (filesRawR2List?.length === 0) {
 			return null;
@@ -48,11 +50,11 @@ export const getFilesR2 = async ({
 			files: filesRawR2List,
 			hyphen,
 			visible,
-			prefix: files_prefix,
+			prefix: prefix,
 		});
 
-		// Set the "files" array in Redis
-		await redis.set("files", JSON.stringify(files));
+		// Set the "files"/"icons" array in Redis
+		await redis.set(prefix, JSON.stringify(files));
 
 		return files;
 	} catch (error) {

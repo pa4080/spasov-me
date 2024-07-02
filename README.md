@@ -26,13 +26,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] Copy button for the post's code snippets
 
 - Tag Icons
-  - [ ] Upload to R2
+  - [x] Upload to R2
   - [ ] Create Tag Icons upload page/form
   - [ ] Make them available to the components that select the files from list
   - [ ] Keep tag index generation for the tags their-self
 
-- [ ] Backup scripts
-  - [ ] Migration script from R2 to MinIO
+- Backup scripts
+  - [x] Migration script from R2 to MinIO
   - [ ] Migration script from MongoDB/Atlas to MongoDB/Local
 
 ## Vercel CLI
