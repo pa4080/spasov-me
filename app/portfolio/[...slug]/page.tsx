@@ -11,6 +11,9 @@ import { getProjects } from "@/components/portfolio/_portfolio.actions";
 import PortfolioPublicProject from "@/components/portfolio/public/Project";
 import { getTags } from "@/components/tags/_tags.actions";
 
+const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
+const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
+
 interface Props {
 	params: { slug: string[] };
 }
@@ -32,7 +35,8 @@ const Project: React.FC<Props> = async ({ params }) => {
 
 	const projectIdSlug = params.slug[0];
 
-	const fileList = await getFileList();
+	const fileList = await getFileList({ prefix: files_prefix });
+	const iconList = await getFileList({ prefix: icons_prefix });
 	const tags = await getTags();
 
 	const projectsHyphenated = await getProjects({
@@ -50,7 +54,12 @@ const Project: React.FC<Props> = async ({ params }) => {
 
 	return (
 		<div className="mt-2 sa:mt-6 mb-24 scroll-m-40">
-			<PortfolioPublicProject project={project} fileList={fileList} tags={tags} />
+			<PortfolioPublicProject
+				project={project}
+				fileList={fileList}
+				iconList={iconList}
+				tags={tags}
+			/>
 		</div>
 	);
 };

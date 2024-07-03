@@ -85,7 +85,9 @@ const CreateFile: React.FC<Props> = ({ className, files_prefix }) => {
 				>
 					<DialogHeader>
 						<div className="flex flex-col gap-1">
-							<DialogTitle>{t("dialog_title")}</DialogTitle>
+							<DialogTitle>
+								{t("dialog_title", { fileType: files_prefix.toUpperCase() })}
+							</DialogTitle>
 							{t("dialog_description") && (
 								<DialogDescription
 									dangerouslySetInnerHTML={{

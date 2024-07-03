@@ -45,6 +45,7 @@ interface Props {
 	onSubmit: (data: Project_FormSchema) => void;
 	submitting?: boolean;
 	fileList: FileListItem[] | null;
+	iconList: FileListItem[] | null;
 	tags: TagData[] | null;
 }
 
@@ -55,6 +56,7 @@ const ProjectForm: React.FC<Props> = ({
 	onSubmit,
 	submitting,
 	fileList,
+	iconList,
 	tags,
 }) => {
 	const t = msgs("Projects_Form");
@@ -115,7 +117,9 @@ const ProjectForm: React.FC<Props> = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [form.getFieldState("title").isTouched, form.watch("title")]);
 
-	if (!tags || !fileList) return <Loading />;
+	if (!tags || !fileList || !iconList) return <Loading />;
+
+	const unitedFileList = [...fileList, ...iconList];
 
 	return (
 		<Form {...form}>
@@ -182,7 +186,10 @@ const ProjectForm: React.FC<Props> = ({
 								className="w-full"
 								control={form.control}
 								error={form.formState.errors.icon}
-								list={fileList?.filter(({ label }) => label?.match(/\.(png|webp|svg|jpg)$/i)) ?? []}
+								list={
+									unitedFileList?.filter(({ label }) => label?.match(/\.(png|webp|svg|jpg)$/i)) ??
+									[]
+								}
 								messages={{
 									label: t("icon_label"),
 									description: t("icon_description"),
@@ -199,13 +206,13 @@ const ProjectForm: React.FC<Props> = ({
 								file={
 									{
 										filename:
-											fileList?.find((f) => f.value === form.watch("icon"))?.label ??
+											unitedFileList?.find((f) => f.value === form.watch("icon"))?.label ??
 											Route.assets.IMAGE_PLACEHOLDER,
 										metadata: {
 											html: {
 												fileUri:
-													fileList?.find((f) => f.value === form.watch("icon"))?.sourceImage ??
-													Route.assets.IMAGE_PLACEHOLDER,
+													unitedFileList?.find((f) => f.value === form.watch("icon"))
+														?.sourceImage ?? Route.assets.IMAGE_PLACEHOLDER,
 											},
 										},
 									} as FileData
@@ -464,7 +471,7 @@ const ProjectForm: React.FC<Props> = ({
 					<Button disabled={submitting} type="submit">
 						{submitting ? t("btn_submitting") : t("btn_submit")}
 					</Button>
-					<CreateFile />
+					<CreateFile files_prefix="files" />
 				</div>
 			</form>
 		</Form>

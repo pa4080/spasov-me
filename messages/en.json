@@ -417,7 +417,7 @@
 		"index_id": "[index { index }]: { id }"
 	},
 	"Files_Create": {
-		"dialog_title": "Create (upload) a new file",
+		"dialog_title": "Create (upload) a new file of type \"{ fileType }\"",
 		"dialog_description": "",
 		"dialog_btn_add": "Add a new file",
 		"dialog_btn_add_submitting": "Submitting...",

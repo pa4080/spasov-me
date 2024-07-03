@@ -22,7 +22,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [x] Blog post public
   - [x] MD Syntax highlighting
   - [ ] MD Images with captions
-  - [ ] Blog posts icon - to be icon of the base category - blog, reference, etc.
   - [ ] Copy button for the post's code snippets
 
 - Tag Icons
@@ -36,7 +35,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     - the files are correctly uploaded to prefix "files";
     - the sub prefix of the icons should be a part of the name within the upload form...
     - !!!Note: in the current implementation the "files" prefix is hardcoded in the form right now!!!
-  - [ ] Make them available to the components that select the files from list
+  - [x] Make them available to the components that select the files from list
+    - Right now only for Portfolio and blog posts icons
   - [ ] Keep tag index generation for the tags their-self
 
 - Backup scripts

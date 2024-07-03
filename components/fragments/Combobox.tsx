@@ -129,9 +129,9 @@ export default function Combobox<T extends FieldValues>({
 											</PopoverClose>
 										</CommandItem>
 
-										{list?.map((item) => (
+										{list?.map((item, index) => (
 											<CommandItem
-												key={item?.value}
+												key={`${item?.value}_${index}`.replace(/\//g, "-")}
 												value={item?.value}
 												onSelect={() => {
 													setValue(name, item?.value);

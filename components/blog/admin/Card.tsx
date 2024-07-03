@@ -32,6 +32,7 @@ interface Props {
 	displayTagsInline?: boolean;
 	displayGalleryInline?: boolean;
 	fileList: FileListItem[] | null;
+	iconList: FileListItem[] | null;
 	tags: TagData[] | null;
 }
 
@@ -41,6 +42,7 @@ const PostAdminCard: React.FC<Props> = ({
 	displayTagsInline = true,
 	displayGalleryInline = true,
 	fileList,
+	iconList,
 	tags,
 }) => {
 	const tTime = msgs("Posts_Form");
@@ -108,7 +110,7 @@ const PostAdminCard: React.FC<Props> = ({
 								}
 							/>
 							<Gallery entry={post} gallery={gallery} />
-							<UpdatePost post={post} fileList={fileList} tags={tags} />
+							<UpdatePost post={post} fileList={fileList} iconList={iconList} tags={tags} />
 
 							<ToggleCollapsible
 								tooltip

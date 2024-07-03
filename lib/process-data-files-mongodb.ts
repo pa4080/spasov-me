@@ -24,6 +24,7 @@ export function fileDocuments_toData({
 		length: file.length,
 		chunkSize: file.chunkSize,
 		uploadDate: file.uploadDate,
+		objectKey: file.filename,
 		metadata: {
 			description: file.metadata?.description,
 			size: file.metadata?.size,

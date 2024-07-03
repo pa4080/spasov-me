@@ -235,6 +235,7 @@ export const process_relations = async ({
 				await fileAttachment_remove({
 					attachedDocument_id: document_prev._id.toString(),
 					target_file_id: document_prev.attachment,
+					prefix: "all_prefixes",
 				});
 			}
 		}
@@ -245,6 +246,7 @@ export const process_relations = async ({
 				await fileAttachment_remove({
 					attachedDocument_id: document_prev._id.toString(),
 					target_file_id: document_prev.icon,
+					prefix: "all_prefixes",
 				});
 			}
 		}
@@ -257,6 +259,7 @@ export const process_relations = async ({
 						await fileAttachment_remove({
 							attachedDocument_id: document_prev._id.toString(),
 							target_file_id: file_id,
+							prefix: "all_prefixes",
 						});
 					})
 				);
@@ -288,6 +291,7 @@ export const process_relations = async ({
 						modelType: modelType,
 					},
 					target_file_id: documentData_new.attachment,
+					prefix: "all_prefixes",
 				});
 			} else {
 				document_new.attachment = undefined;
@@ -308,6 +312,7 @@ export const process_relations = async ({
 						modelType: modelType,
 					},
 					target_file_id: documentData_new.icon,
+					prefix: "all_prefixes",
 				});
 			} else {
 				(document_new as ProjectDoc).icon = undefined;
@@ -326,6 +331,7 @@ export const process_relations = async ({
 								modelType: modelType,
 							},
 							target_file_id: file_id,
+							prefix: "all_prefixes",
 						});
 					})
 				);

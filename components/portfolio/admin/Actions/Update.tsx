@@ -32,6 +32,7 @@ interface Props {
 	project: ProjectData;
 	dialogTrigger_buttonIconProps?: ButtonIconProps;
 	fileList: FileListItem[] | null;
+	iconList: FileListItem[] | null;
 	tags: TagData[] | null;
 }
 
@@ -40,6 +41,7 @@ const UpdateProject: React.FC<Props> = ({
 	project,
 	dialogTrigger_buttonIconProps,
 	fileList,
+	iconList,
 	tags,
 }) => {
 	const t = msgs("Projects_Update");
@@ -119,6 +121,7 @@ const UpdateProject: React.FC<Props> = ({
 
 				<ProjectForm
 					fileList={fileList}
+					iconList={iconList}
 					tags={tags}
 					className={t("dialog_description") ? "mt-0" : "mt-1"}
 					entryType={project.entryType}

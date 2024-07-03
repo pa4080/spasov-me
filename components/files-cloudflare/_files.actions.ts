@@ -22,6 +22,7 @@ import { msgs } from "@/messages";
 import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "./../_common.actions";
 
 const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
+const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
 
 export const getFilesR2 = async ({
 	hyphen = true,
@@ -64,10 +65,11 @@ export const getFilesR2 = async ({
 	}
 };
 
-export const getFileList = async ({ images }: { images?: boolean } = {}): Promise<
-	FileListItem[] | null
-> => {
-	const files = await getFilesR2();
+export const getFileList = async ({
+	images,
+	prefix,
+}: { images?: boolean; prefix?: string } = {}): Promise<FileListItem[] | null> => {
+	const files = await getFilesR2({ prefix });
 
 	if (!files || files?.length === 0) {
 		return null;
@@ -300,7 +302,16 @@ export const fileAttachment_add = async ({
 	prefix: string;
 }): Promise<boolean | null> => {
 	try {
-		const files = await getFilesR2();
+		let files: FileData[] | null;
+
+		if (prefix === "all_prefixes") {
+			const getFiles = (await getFilesR2({ prefix: files_prefix })) || [];
+			const getIcons = (await getFilesR2({ prefix: icons_prefix })) || [];
+			files = [...getFiles, ...getIcons];
+		} else {
+			files = await getFilesR2({ prefix });
+		}
+
 		const targetFileObj = files?.find(({ _id }: { _id: string }) => _id === target_file_id);
 
 		if (!targetFileObj) {
@@ -334,9 +345,9 @@ export const fileAttachment_add = async ({
 		};
 
 		return await updateObject({
-			objectKey: targetFileObj.filename,
+			objectKey: targetFileObj.objectKey,
 			metadata,
-			prefix,
+			prefix: prefix === "all_prefixes" ? undefined : prefix,
 		});
 	} catch (error) {
 		console.error("Unable to add attached document to a File: ", error);
@@ -360,7 +371,16 @@ export const fileAttachment_remove = async ({
 	prefix: string;
 }): Promise<boolean | null> => {
 	try {
-		const files = await getFilesR2();
+		let files: FileData[] | null;
+
+		if (prefix === "all_prefixes") {
+			const getFiles = (await getFilesR2({ prefix: files_prefix })) || [];
+			const getIcons = (await getFilesR2({ prefix: icons_prefix })) || [];
+			files = [...getFiles, ...getIcons];
+		} else {
+			files = await getFilesR2({ prefix });
+		}
+
 		const targetFileObj = files?.find(({ _id }: { _id: string }) => _id === target_file_id);
 
 		if (!targetFileObj) {
@@ -387,9 +407,9 @@ export const fileAttachment_remove = async ({
 		};
 
 		return await updateObject({
-			objectKey: targetFileObj.filename,
+			objectKey: targetFileObj.objectKey,
 			metadata,
-			prefix,
+			prefix: prefix === "all_prefixes" ? undefined : prefix,
 		});
 	} catch (error) {
 		console.error("Unable to remove attached document from a File: ", error);

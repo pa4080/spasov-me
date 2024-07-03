@@ -33,10 +33,11 @@ interface Props {
 	className?: string;
 	type?: PostType;
 	fileList: FileListItem[] | null;
+	iconList: FileListItem[] | null;
 	tags: TagData[] | null;
 }
 
-const CreatePost: React.FC<Props> = ({ className, type = "blog", fileList, tags }) => {
+const CreatePost: React.FC<Props> = ({ className, type = "blog", fileList, iconList, tags }) => {
 	const t = msgs("Posts_Create");
 	const entryTypeLabel = (
 		msgs("Posts_Form")("post_type_list") as unknown as Record<string, string>
@@ -112,6 +113,7 @@ const CreatePost: React.FC<Props> = ({ className, type = "blog", fileList, tags 
 
 					<PostForm
 						fileList={fileList}
+						iconList={iconList}
 						tags={tags}
 						className="mt-1"
 						entryType={type}

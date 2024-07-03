@@ -49,5 +49,6 @@ export interface FileHtmlProps {
 
 export interface FileData extends Omit<FileDoc, "_id" | "creator" | "metadata" | "chunkSize"> {
 	_id: string;
+	objectKey: string;
 	metadata: Omit<FileMetadata, "creator"> & { html: FileHtmlProps };
 }

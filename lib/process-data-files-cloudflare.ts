@@ -35,7 +35,8 @@ export async function fileObject_toData({
 
 	await Promise.all(
 		files.map(async (file_raw) => {
-			const file = await getObject({ objectKey: file_raw.Key!, partNumber: 1 });
+			const objectKey = file_raw.Key!;
+			const file = await getObject({ objectKey, partNumber: 1 });
 
 			const uploadDate = file?.LastModified || new Date();
 			const length = file?.ContentLength || 0;
@@ -50,6 +51,7 @@ export async function fileObject_toData({
 				filename,
 				uploadDate,
 				length,
+				objectKey,
 				metadata: {
 					description: description,
 					size: getMetadataValue(file?.Metadata, "size", ""),

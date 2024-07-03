@@ -27,11 +27,12 @@ const GalleryCarousel = dynamic(() => import("@/components/fragments/Gallery/Gal
 interface Props {
 	className?: string;
 	post: PostData;
-	fileList: FileListItem[] | null;
 	tags: TagData[] | null;
+	fileList: FileListItem[] | null;
+	iconList: FileListItem[] | null;
 }
 
-const PortfolioPublicPost: React.FC<Props> = async ({ className, post, fileList, tags }) => {
+const BlogPublicPost: React.FC<Props> = async ({ className, post, tags, fileList, iconList }) => {
 	const descriptionArr = post.html.description.split(splitDescriptionKeyword).map((str) => {
 		return str.replace(commentsMatcher, "");
 	});
@@ -66,7 +67,7 @@ const PortfolioPublicPost: React.FC<Props> = async ({ className, post, fileList,
 					/>
 				}
 			>
-				<PostLinks post={post} fileList={fileList} tags={tags} />
+				<PostLinks post={post} fileList={fileList} tags={tags} iconList={iconList} />
 			</SectionHeader>
 
 			{/* @see https://github.com/tailwindlabs/tailwindcss-typography */}
@@ -85,4 +86,4 @@ const PortfolioPublicPost: React.FC<Props> = async ({ className, post, fileList,
 	);
 };
 
-export default PortfolioPublicPost;
+export default BlogPublicPost;

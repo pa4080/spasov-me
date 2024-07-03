@@ -32,6 +32,7 @@ interface Props {
 	post: PostData;
 	dialogTrigger_buttonIconProps?: ButtonIconProps;
 	fileList: FileListItem[] | null;
+	iconList: FileListItem[] | null;
 	tags: TagData[] | null;
 }
 
@@ -40,6 +41,7 @@ const UpdatePost: React.FC<Props> = ({
 	post,
 	dialogTrigger_buttonIconProps,
 	fileList,
+	iconList,
 	tags,
 }) => {
 	const t = msgs("Posts_Update");
@@ -119,6 +121,7 @@ const UpdatePost: React.FC<Props> = ({
 
 				<PostForm
 					fileList={fileList}
+					iconList={iconList}
 					tags={tags}
 					className={t("dialog_description") ? "mt-0" : "mt-1"}
 					entryType={post.entryType}
