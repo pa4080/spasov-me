@@ -14,6 +14,7 @@ interface Props {
 	type?: ProjectType;
 	projects: ProjectData[] | null;
 	fileList: FileListItem[] | null;
+	iconList: FileListItem[] | null;
 	tags: TagData[] | null;
 }
 
@@ -24,7 +25,7 @@ interface Props {
  * We won't filter the projects by type because we want to show all projects,
  * ordered by date... probably we need may indicate the type by a icon?(!?)
  */
-const TimeLine: React.FC<Props> = ({ className, projects, fileList, tags }) => {
+const TimeLine: React.FC<Props> = ({ className, projects, fileList, iconList, tags }) => {
 	const projectsByType = projects?.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
 	return (
@@ -36,6 +37,7 @@ const TimeLine: React.FC<Props> = ({ className, projects, fileList, tags }) => {
 						className=""
 						project={project}
 						fileList={fileList}
+						iconList={iconList}
 						tags={tags}
 					/>
 				))}

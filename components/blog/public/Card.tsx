@@ -19,10 +19,11 @@ interface Props {
 	className?: string;
 	post: PostData;
 	fileList: FileListItem[] | null;
+	iconList: FileListItem[] | null;
 	tags: TagData[] | null;
 }
 
-const BlogPublic_Card: React.FC<Props> = ({ post, className, fileList, tags }) => {
+const BlogPublic_Card: React.FC<Props> = ({ post, className, fileList, iconList, tags }) => {
 	const t = msgs("Posts_CardPublic");
 
 	const descriptionArr = post.html.description.split(splitDescriptionKeyword).map((str) => {
@@ -66,7 +67,7 @@ const BlogPublic_Card: React.FC<Props> = ({ post, className, fileList, tags }) =
 
 			{/* Footer buttons */}
 			<div className="flex flex-row items-center justify-between gap-2 w-full">
-				<PostLinks post={post} fileList={fileList} tags={tags} />
+				<PostLinks post={post} fileList={fileList} iconList={iconList} tags={tags} />
 				<Link area-label={t("area_label_card_link")} href={`${Route.public.BLOG.uri}/${post.slug}`}>
 					<Button
 						className="transition-colors duration-300 hover:duration-150"

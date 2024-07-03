@@ -31,17 +31,22 @@ import Project from "@/models/project";
 
 export const revalidatePaths = async <T extends string>({
 	paths,
+	files_prefixes = ["files", "icons"],
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	redirectTo,
 }: {
 	paths: T[];
 	redirectTo?: T;
+	files_prefixes?: string[] | null;
 }): Promise<T[] | null | void> => {
 	try {
-		// Delete the "files" array from Redis
-		// in order to be updated on the next request
-		// await redis.del("files");
-		redis.del("files");
+		// Delete the "files"/"icons" array from Redis in order to be updated on the next request
+		if (files_prefixes && files_prefixes.length > 0) {
+			files_prefixes.forEach((prefix) => {
+				// await redis.del(prefix);
+				redis.del(prefix);
+			});
+		}
 
 		paths.forEach((path) => {
 			revalidatePath(path);
@@ -230,6 +235,7 @@ export const process_relations = async ({
 				await fileAttachment_remove({
 					attachedDocument_id: document_prev._id.toString(),
 					target_file_id: document_prev.attachment,
+					prefix: "all_prefixes",
 				});
 			}
 		}
@@ -240,6 +246,7 @@ export const process_relations = async ({
 				await fileAttachment_remove({
 					attachedDocument_id: document_prev._id.toString(),
 					target_file_id: document_prev.icon,
+					prefix: "all_prefixes",
 				});
 			}
 		}
@@ -252,6 +259,7 @@ export const process_relations = async ({
 						await fileAttachment_remove({
 							attachedDocument_id: document_prev._id.toString(),
 							target_file_id: file_id,
+							prefix: "all_prefixes",
 						});
 					})
 				);
@@ -283,6 +291,7 @@ export const process_relations = async ({
 						modelType: modelType,
 					},
 					target_file_id: documentData_new.attachment,
+					prefix: "all_prefixes",
 				});
 			} else {
 				document_new.attachment = undefined;
@@ -303,6 +312,7 @@ export const process_relations = async ({
 						modelType: modelType,
 					},
 					target_file_id: documentData_new.icon,
+					prefix: "all_prefixes",
 				});
 			} else {
 				(document_new as ProjectDoc).icon = undefined;
@@ -321,6 +331,7 @@ export const process_relations = async ({
 								modelType: modelType,
 							},
 							target_file_id: file_id,
+							prefix: "all_prefixes",
 						});
 					})
 				);

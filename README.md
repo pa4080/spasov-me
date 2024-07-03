@@ -22,17 +22,25 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [x] Blog post public
   - [x] MD Syntax highlighting
   - [ ] MD Images with captions
-  - [ ] Blog posts icon - to be icon of the base category - blog, reference, etc.
   - [ ] Copy button for the post's code snippets
 
 - Tag Icons
-  - [ ] Upload to R2
-  - [ ] Create Tag Icons upload page/form
-  - [ ] Make them available to the components that select the files from list
+  - [x] Upload to R2
+  - [x] Display at /admin/files/cloudflare/icons
+  - [x] Cache to Upstash/Redis
+  - [x] Clear the cache on refresh... pass somehow the cache prefix "files"/"icons"
+    - !!!CURRENTLY CLEAR ALL CACHE
+  - [x] Create Tag Icons upload page/form...
+    - make sure the icons are correctly uploaded to prefix "icons" and
+    - the files are correctly uploaded to prefix "files";
+    - the sub prefix of the icons should be a part of the name within the upload form...
+    - !!!Note: in the current implementation the "files" prefix is hardcoded in the form right now!!!
+  - [x] Make them available to the components that select the files from list
+    - Right now only for Portfolio and blog posts icons
   - [ ] Keep tag index generation for the tags their-self
 
-- [ ] Backup scripts
-  - [ ] Migration script from R2 to MinIO
+- Backup scripts
+  - [x] Migration script from R2 to MinIO
   - [ ] Migration script from MongoDB/Atlas to MongoDB/Local
 
 ## Vercel CLI

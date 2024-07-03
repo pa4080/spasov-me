@@ -15,10 +15,11 @@ import DisplayResourceUrlAsIcon from "./DisplayResourceUrlAsIcon";
 interface Props {
 	project: ProjectData;
 	fileList: FileListItem[] | null;
+	iconList: FileListItem[] | null;
 	tags: TagData[] | null;
 }
 
-const ProjectLinks: React.FC<Props> = ({ project, fileList, tags }) => {
+const ProjectLinks: React.FC<Props> = ({ project, fileList, iconList, tags }) => {
 	const t = msgs("Projects_CardPublic");
 
 	let gallery = project?.gallery
@@ -79,6 +80,7 @@ const ProjectLinks: React.FC<Props> = ({ project, fileList, tags }) => {
 				>
 					<UpdateProject
 						fileList={fileList}
+						iconList={iconList}
 						tags={tags}
 						className="h-6 w-6 flex items-center justify-center"
 						dialogTrigger_buttonIconProps={dialogTrigger_Type2}

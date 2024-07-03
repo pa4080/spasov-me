@@ -18,10 +18,11 @@ interface Props {
 	className?: string;
 	project: ProjectData;
 	fileList: FileListItem[] | null;
+	iconList: FileListItem[] | null;
 	tags: TagData[] | null;
 }
 
-const ProjectPublic_Card: React.FC<Props> = ({ project, className, fileList, tags }) => {
+const ProjectPublic_Card: React.FC<Props> = ({ project, className, fileList, iconList, tags }) => {
 	const t = msgs("Projects_CardPublic");
 
 	const descriptionArr = project.html.description.split(splitDescriptionKeyword).map((str) => {
@@ -49,7 +50,7 @@ const ProjectPublic_Card: React.FC<Props> = ({ project, className, fileList, tag
 			/>
 
 			<div className="flex flex-row items-center justify-between gap-2 w-full">
-				<ProjectLinks project={project} fileList={fileList} tags={tags} />
+				<ProjectLinks project={project} fileList={fileList} iconList={iconList} tags={tags} />
 
 				<Link
 					area-label={t("area_label_card_link")}

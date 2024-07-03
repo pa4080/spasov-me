@@ -36,6 +36,7 @@ interface Props {
 	displayTagsInline?: boolean;
 	displayGalleryInline?: boolean;
 	fileList: FileListItem[] | null;
+	iconList: FileListItem[] | null;
 	tags: TagData[] | null;
 }
 
@@ -45,6 +46,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 	displayTagsInline = true,
 	displayGalleryInline = true,
 	fileList,
+	iconList,
 	tags,
 }) => {
 	const tTime = msgs("Projects_Form");
@@ -128,7 +130,12 @@ const ProjectAdminCard: React.FC<Props> = ({
 								}
 							/>
 							<Gallery entry={project} gallery={gallery} />
-							<UpdateProject project={project} fileList={fileList} tags={tags} />
+							<UpdateProject
+								project={project}
+								fileList={fileList}
+								iconList={iconList}
+								tags={tags}
+							/>
 
 							<ToggleCollapsible
 								tooltip

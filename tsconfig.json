@@ -22,13 +22,6 @@
 			"@/*": ["./*"]
 		}
 	},
-	"include": [
-		"next-env.d.ts",
-		"**/*.ts",
-		"**/*.tsx",
-		".next/types/**/*.ts",
-		"**/*.svg",
-		"lib/r2s3utils/obj-upload-fs.mts"
-	],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "**/*.svg"],
 	"exclude": ["node_modules", "tmp"]
 }

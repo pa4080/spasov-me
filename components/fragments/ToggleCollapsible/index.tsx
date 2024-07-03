@@ -76,7 +76,7 @@ const ToggleCollapsible: React.FC<Props> = ({
 	};
 
 	useEffect(() => {
-		const thisTargetContainer = targetContainer ?? document.querySelector(id);
+		const thisTargetContainer = targetContainer ?? document?.querySelector(id);
 
 		if (thisTargetContainer?.classList.contains("expand-collapsed")) {
 			setIsContentShown(true);

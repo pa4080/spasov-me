@@ -15,10 +15,11 @@ import DisplayResourceUrlAsIcon from "./DisplayResourceUrlAsIcon";
 interface Props {
 	post: PostData;
 	fileList: FileListItem[] | null;
+	iconList: FileListItem[] | null;
 	tags: TagData[] | null;
 }
 
-const PostLinks: React.FC<Props> = ({ post, fileList, tags }) => {
+const PostLinks: React.FC<Props> = ({ post, fileList, iconList, tags }) => {
 	const t = msgs("Posts_CardPublic");
 
 	let gallery = post?.gallery
@@ -79,6 +80,7 @@ const PostLinks: React.FC<Props> = ({ post, fileList, tags }) => {
 				>
 					<UpdatePost
 						fileList={fileList}
+						iconList={iconList}
 						tags={tags}
 						className="h-6 w-6 flex items-center justify-center"
 						dialogTrigger_buttonIconProps={dialogTrigger_Type2}

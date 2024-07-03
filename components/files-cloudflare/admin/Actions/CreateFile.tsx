@@ -26,9 +26,10 @@ const FileForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <
 
 interface Props {
 	className?: string;
+	files_prefix: string;
 }
 
-const CreateFile: React.FC<Props> = ({ className }) => {
+const CreateFile: React.FC<Props> = ({ className, files_prefix }) => {
 	const t = msgs("Files_Create");
 	const { setFilesData } = useAppContext();
 
@@ -40,7 +41,11 @@ const CreateFile: React.FC<Props> = ({ className }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await createFile(generateFormDataFromObject(data), [pathname]);
+			const response = await createFile({
+				data: generateFormDataFromObject(data),
+				paths: [pathname],
+				prefix: files_prefix,
+			});
 
 			serverActionResponseToastAndLocationReload({
 				trigger: !!response,
@@ -80,7 +85,9 @@ const CreateFile: React.FC<Props> = ({ className }) => {
 				>
 					<DialogHeader>
 						<div className="flex flex-col gap-1">
-							<DialogTitle>{t("dialog_title")}</DialogTitle>
+							<DialogTitle>
+								{t("dialog_title", { fileType: files_prefix.toUpperCase() })}
+							</DialogTitle>
 							{t("dialog_description") && (
 								<DialogDescription
 									dangerouslySetInnerHTML={{
@@ -96,6 +103,7 @@ const CreateFile: React.FC<Props> = ({ className }) => {
 						isContainerDialogOpen={isOpen}
 						submitting={submitting}
 						onSubmit={handleCreateFile}
+						files_prefix={files_prefix}
 					/>
 				</DialogContent>
 			</Dialog>

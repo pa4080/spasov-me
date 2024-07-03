@@ -7,9 +7,12 @@ import React from "react";
 import { notFound } from "next/navigation";
 
 import { getPosts } from "@/components/blog/_blog.actions";
-import PortfolioPublicPost from "@/components/blog/public/Post";
+import BlogPublicPost from "@/components/blog/public/Post";
 import { getFileList } from "@/components/files-cloudflare/_files.actions";
 import { getTags } from "@/components/tags/_tags.actions";
+
+const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
+const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
 
 interface Props {
 	params: { slug: string[] };
@@ -32,7 +35,8 @@ const Post: React.FC<Props> = async ({ params }) => {
 
 	const postIdSlug = params.slug[0];
 
-	const fileList = await getFileList();
+	const fileList = await getFileList({ prefix: files_prefix });
+	const iconList = await getFileList({ prefix: icons_prefix });
 	const tags = await getTags();
 
 	const postsHyphenated = await getPosts({
@@ -48,7 +52,7 @@ const Post: React.FC<Props> = async ({ params }) => {
 
 	return (
 		<div className="mt-2 sa:mt-6 mb-24 scroll-m-40">
-			<PortfolioPublicPost post={post} fileList={fileList} tags={tags} />
+			<BlogPublicPost post={post} fileList={fileList} iconList={iconList} tags={tags} />
 		</div>
 	);
 };

@@ -1,20 +1,22 @@
-import { PutObjectCommand, PutObjectCommandInput, S3, S3Client } from "@aws-sdk/client-s3";
+/**
+ * @see https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/s3/command/CopyObjectCommand/
+ * @see https://stackoverflow.com/questions/72959475/how-can-i-modify-metadata-for-an-existing-cloudflare-r2-object
+ */
+import { CopyObjectCommand, S3, S3Client } from "@aws-sdk/client-s3";
 
-import { FileMetadata } from "@/interfaces/File";
+import { FileMetadata } from "../../interfaces/File";
 
 import { config } from "./index";
 
 const r2BucketName = process.env.CLOUDFLARE_R2_BUCKET_NAME;
 
-export const uploadObject = async ({
+export const updateObject = async ({
 	objectKey,
-	objectBody,
 	metadata,
 	bucket,
 	prefix,
 }: {
 	objectKey: string;
-	objectBody: PutObjectCommandInput["Body"];
 	metadata: FileMetadata;
 	bucket?: string;
 	prefix?: string;
@@ -28,14 +30,15 @@ export const uploadObject = async ({
 			metadataRecord[key] = JSON.stringify(value);
 		});
 
-		console.log(prefix ? `${prefix}/${objectKey}` : objectKey);
+		const theKey = prefix ? `${prefix}/${objectKey}` : objectKey;
 
-		const command = new PutObjectCommand({
-			Body: objectBody,
+		const command = new CopyObjectCommand({
+			CopySource: `/${bucket || r2BucketName}/${theKey}`,
 			Bucket: bucket || r2BucketName,
-			Key: prefix ? `${prefix}/${objectKey}` : objectKey,
+			Key: theKey,
 			ContentType: metadata.contentType,
 			Metadata: metadataRecord,
+			MetadataDirective: "REPLACE",
 		});
 
 		const responseObject = await s3client.send(command);

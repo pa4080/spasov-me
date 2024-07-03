@@ -377,7 +377,7 @@ const AboutEntryForm: React.FC<Props> = ({
 					<Button disabled={submitting} type="submit">
 						{submitting ? t("btn_submitting") : t("btn_submit")}
 					</Button>
-					<CreateFile />
+					<CreateFile files_prefix="files" />
 				</div>
 			</form>
 		</Form>

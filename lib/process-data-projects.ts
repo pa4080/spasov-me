@@ -7,6 +7,9 @@ import { getFilesR2 } from "@/components/files-cloudflare/_files.actions";
 import { tagDocuments_toData } from "./process-data-tags";
 import { processMarkdown } from "./process-markdown";
 
+const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
+const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
+
 export async function projectDocuments_toData({
 	projects,
 	hyphen,
@@ -24,7 +27,8 @@ export async function projectDocuments_toData({
 		projectsFiltered = projects.filter((entry) => entry.visibility);
 	}
 
-	const files = await getFilesR2();
+	const files = await getFilesR2({ prefix: files_prefix });
+	const icons = await getFilesR2({ prefix: icons_prefix });
 
 	return projectsFiltered
 		.filter(({ entryType }) => (typeList && typeList.includes(entryType)) ?? true)
@@ -41,7 +45,9 @@ export async function projectDocuments_toData({
 					hyphen,
 				}),
 				attachment: files?.find((file) => file?._id === project?.attachment),
-				icon: files?.find((file) => file?._id === project?.icon),
+				icon:
+					files?.find((file) => file?._id === project?.icon) ||
+					icons?.find((icon) => icon?._id === project?.icon),
 			},
 			title: project.title,
 			description: project.description,

@@ -33,10 +33,11 @@ interface Props {
 	className?: string;
 	type: ProjectType;
 	fileList: FileListItem[] | null;
+	iconList: FileListItem[] | null;
 	tags: TagData[] | null;
 }
 
-const CreateProject: React.FC<Props> = ({ className, type, fileList, tags }) => {
+const CreateProject: React.FC<Props> = ({ className, type, fileList, iconList, tags }) => {
 	const t = msgs("Projects_Create");
 	const entryTypeLabel = (
 		msgs("Projects_Form")("project_type_list") as unknown as Record<string, string>
@@ -112,6 +113,7 @@ const CreateProject: React.FC<Props> = ({ className, type, fileList, tags }) => 
 
 					<ProjectForm
 						fileList={fileList}
+						iconList={iconList}
 						tags={tags}
 						className="mt-1"
 						entryType={type}

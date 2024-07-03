@@ -17,12 +17,15 @@ import { TagData } from "@/interfaces/Tag";
 import CreateProject from "./Actions/Create";
 import ProjectAdminCard from "./Card";
 
+const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
+
 interface Props {
 	className?: string;
 	type: ProjectType;
 	visibleItems?: number;
 	projects: ProjectData[] | null;
 	fileList: FileListItem[] | null;
+	iconList: FileListItem[] | null;
 	tags: TagData[] | null;
 }
 
@@ -36,6 +39,7 @@ const TimeLine: React.FC<Props> = ({
 	visibleItems = 3,
 	projects,
 	fileList,
+	iconList,
 	tags,
 }) => {
 	const t = msgs("Projects");
@@ -53,9 +57,9 @@ const TimeLine: React.FC<Props> = ({
 	return (
 		<div className={cn("portfolio-admin-section list-section scroll-m-8", className)}>
 			<SectionHeader title={section_title}>
-				<CreateFile />
+				<CreateFile files_prefix={files_prefix} />
 				<RevalidatePaths paths={[Route.public.PORTFOLIO.uri]} />
-				<CreateProject type={type} tags={tags} fileList={fileList} />
+				<CreateProject type={type} tags={tags} fileList={fileList} iconList={iconList} />
 				<ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}
@@ -67,6 +71,7 @@ const TimeLine: React.FC<Props> = ({
 				{projectsByType?.map((project, index) => (
 					<ProjectAdminCard
 						fileList={fileList}
+						iconList={iconList}
 						tags={tags}
 						key={index}
 						className={visibleItems > index ? "" : "section-card-collapsible"}

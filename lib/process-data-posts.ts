@@ -6,6 +6,9 @@ import { NewPostData, PostData, PostDocPopulated } from "@/interfaces/Post";
 import { tagDocuments_toData } from "./process-data-tags";
 import { processMarkdown } from "./process-markdown";
 
+const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
+const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
+
 export async function postDocuments_toData({
 	posts,
 	hyphen,
@@ -23,7 +26,8 @@ export async function postDocuments_toData({
 		postsFiltered = posts.filter((entry) => entry.visibility);
 	}
 
-	const files = await getFilesR2();
+	const files = await getFilesR2({ prefix: files_prefix });
+	const icons = await getFilesR2({ prefix: icons_prefix });
 
 	return postsFiltered
 		.filter(({ entryType }) => (typeList && typeList.includes(entryType)) ?? true)
@@ -40,7 +44,9 @@ export async function postDocuments_toData({
 					hyphen,
 				}),
 				attachment: files?.find((file) => file?._id === post?.attachment),
-				icon: files?.find((file) => file?._id === post?.icon),
+				icon:
+					files?.find((file) => file?._id === post?.icon) ||
+					icons?.find((icon) => icon?._id === post?.icon),
 			},
 			title: post.title,
 			description: post.description,

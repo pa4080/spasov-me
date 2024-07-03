@@ -15,12 +15,15 @@ import { Route } from "@/routes";
 import CreatePost from "./Actions/Create";
 import PostAdminCard from "./Card";
 
+const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
+
 interface Props {
 	className?: string;
 	type?: PostType;
 	visibleItems?: number;
 	posts: PostData[] | null;
 	fileList: FileListItem[] | null;
+	iconList: FileListItem[] | null;
 	tags: TagData[] | null;
 }
 
@@ -34,6 +37,7 @@ const TimeLine: React.FC<Props> = ({
 	visibleItems = 3,
 	posts,
 	fileList,
+	iconList,
 	tags,
 }) => {
 	const t = msgs("Posts");
@@ -51,9 +55,9 @@ const TimeLine: React.FC<Props> = ({
 	return (
 		<div className={cn("portfolio-admin-section list-section scroll-m-8", className)}>
 			<SectionHeader title={section_title}>
-				<CreateFile />
+				<CreateFile files_prefix={files_prefix} />
 				<RevalidatePaths paths={[Route.public.PORTFOLIO.uri]} />
-				<CreatePost type={type} tags={tags} fileList={fileList} />
+				<CreatePost type={type} tags={tags} fileList={fileList} iconList={iconList} />
 				<ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}
@@ -65,6 +69,7 @@ const TimeLine: React.FC<Props> = ({
 				{postsByType?.map((project, index) => (
 					<PostAdminCard
 						fileList={fileList}
+						iconList={iconList}
 						tags={tags}
 						key={index}
 						className={visibleItems > index ? "" : "section-card-collapsible"}

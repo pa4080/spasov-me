@@ -13,8 +13,6 @@ import { PageCardDocuments_toData, pageFormData_toNewEntryData } from "@/lib/pro
 import { msgs } from "@/messages";
 import PageCard from "@/models/page-card";
 
-0;
-
 export const getPageCards = async ({
 	public: visible,
 	hyphen = false,
@@ -65,6 +63,7 @@ export const createPageCard = async (data: FormData, paths: string[]): Promise<b
 					modelType: "PageCard",
 				},
 				target_file_id: documentData_new.attachment,
+				prefix: "all_prefixes",
 			});
 		}
 
@@ -110,6 +109,7 @@ export const updatePageCard = async (
 			await fileAttachment_remove({
 				attachedDocument_id: document_prev._id.toString(),
 				target_file_id: document_prev.attachment.toString(),
+				prefix: "all_prefixes",
 			});
 		}
 
@@ -122,6 +122,7 @@ export const updatePageCard = async (
 					modelType: "PageCard",
 				},
 				target_file_id: documentData_new.attachment,
+				prefix: "all_prefixes",
 			});
 		} else {
 			document_new.attachment = undefined;
@@ -155,6 +156,7 @@ export const deletePageCard = async (page_id: string, paths: string[]): Promise<
 			await fileAttachment_remove({
 				attachedDocument_id: document_deleted._id.toString(),
 				target_file_id: document_deleted.attachment.toString(),
+				prefix: "all_prefixes",
 			});
 		}
 

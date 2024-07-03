@@ -24,9 +24,10 @@ import { msgs } from "@/messages";
 export interface Props {
 	className?: string;
 	file: FileData;
+	files_prefix: string;
 }
 
-const DeleteFile: React.FC<Props> = ({ className, file }) => {
+const DeleteFile: React.FC<Props> = ({ className, file, files_prefix }) => {
 	const t = msgs("Files_Delete");
 
 	const [submitting, setSubmitting] = useState(false);
@@ -37,7 +38,11 @@ const DeleteFile: React.FC<Props> = ({ className, file }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await deleteFile(file._id, [pathname]);
+			const response = await deleteFile({
+				file_id: file._id,
+				paths: [pathname],
+				prefix: files_prefix,
+			});
 
 			serverActionResponseToastAndLocationReload({
 				trigger: !!response,

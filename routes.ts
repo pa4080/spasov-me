@@ -59,6 +59,7 @@ export const Route = {
 		THEME: "/admin/theme",
 		FILES_MONGODB: "/admin/files/mongodb",
 		FILES_CFR2: "/admin/files/cloudflare",
+		ICONS_CFR2: "/admin/files/cloudflare/icons",
 		FILES_VERCEL: "/admin/files/vercel",
 	},
 	api: {
