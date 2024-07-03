@@ -27,9 +27,10 @@ const FileForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <
 interface Props {
 	className?: string;
 	file: FileData;
+	files_prefix: string;
 }
 
-const UpdateFile: React.FC<Props> = ({ className, file }) => {
+const UpdateFile: React.FC<Props> = ({ className, file, files_prefix }) => {
 	const t = msgs("Files_Update");
 
 	const [submitting, setSubmitting] = useState(false);
@@ -40,12 +41,13 @@ const UpdateFile: React.FC<Props> = ({ className, file }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await updateFile(generateFormDataFromObject(data), file.filename, file._id, [
-				pathname,
-				Route.admin.ABOUT,
-				Route.admin.PORTFOLIO,
-				Route.admin.PAGES,
-			]);
+			const response = await updateFile({
+				data: generateFormDataFromObject(data),
+				filename: file.filename,
+				file_id: file._id,
+				paths: [pathname, Route.admin.ABOUT, Route.admin.PORTFOLIO, Route.admin.PAGES],
+				prefix: files_prefix,
+			});
 
 			serverActionResponseToastAndLocationReload({
 				trigger: !!response,
@@ -96,6 +98,7 @@ const UpdateFile: React.FC<Props> = ({ className, file }) => {
 						isContainerDialogOpen={isOpen}
 						submitting={submitting}
 						onSubmit={handleUpdateFile}
+						files_prefix={files_prefix}
 					/>
 				</DialogContent>
 			</Dialog>

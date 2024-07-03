@@ -40,7 +40,7 @@ export const getFilesR2 = async ({
 			return cachedFiles;
 		}
 
-		const filesRawR2List = await listObjects({ prefix: prefix });
+		const filesRawR2List = await listObjects({ prefix });
 
 		if (filesRawR2List?.length === 0) {
 			return null;
@@ -50,7 +50,7 @@ export const getFilesR2 = async ({
 			files: filesRawR2List,
 			hyphen,
 			visible,
-			prefix: prefix,
+			prefix,
 		});
 
 		// Set the "files"/"icons" array in Redis
@@ -91,7 +91,15 @@ export const getFileList = async ({ images }: { images?: boolean } = {}): Promis
 		.sort(({ label: a }, { label: b }) => a.localeCompare(b));
 };
 
-export const createFile = async (data: FormData, paths: string[]): Promise<boolean | null> => {
+export const createFile = async ({
+	data,
+	paths,
+	prefix,
+}: {
+	data: FormData;
+	paths: string[];
+	prefix: string;
+}): Promise<boolean | null> => {
 	try {
 		const session = await getSession();
 
@@ -129,7 +137,7 @@ export const createFile = async (data: FormData, paths: string[]): Promise<boole
 				objectKey: filename,
 				metadata,
 				objectBody: buffer,
-				prefix: files_prefix,
+				prefix,
 			});
 		} else {
 			console.error(msgs("Errors")("invalidFile"));
@@ -145,12 +153,19 @@ export const createFile = async (data: FormData, paths: string[]): Promise<boole
 	}
 };
 
-export const updateFile = async (
-	data: FormData,
-	filename: string,
-	file_id: string,
-	paths: string[]
-): Promise<boolean | null> => {
+export const updateFile = async ({
+	data,
+	filename,
+	file_id,
+	paths,
+	prefix,
+}: {
+	data: FormData;
+	filename: string;
+	file_id: string;
+	paths: string[];
+	prefix: string;
+}): Promise<boolean | null> => {
 	try {
 		const session = await getSession();
 
@@ -167,7 +182,7 @@ export const updateFile = async (
 		const user_id = session?.user.id as string;
 
 		// If no new file is provided, just update the metadata
-		const fileOld = await getObject({ objectKey: file_name, partNumber: 1, prefix: files_prefix });
+		const fileOld = await getObject({ objectKey: file_name, partNumber: 1, prefix });
 		const attachedToOld = JSON.parse(fileOld?.Metadata?.attachedto || "[]");
 
 		// Process the "attachedTo" array first -- await attachedTo_detachFromTarget()
@@ -196,7 +211,7 @@ export const updateFile = async (
 			const filename = file_name || file.name;
 
 			// Delete the old file. Note: file_id is the filename without extension!
-			await getObjectListAndDelete({ prefix: `${files_prefix}/${file_id.replace(/^Id:/, "")}` });
+			await getObjectListAndDelete({ prefix: `${prefix}/${file_id.replace(/^Id:/, "")}` });
 
 			// Convert the blob to buffer
 			const buffer = Buffer.from(await file.arrayBuffer());
@@ -206,7 +221,7 @@ export const updateFile = async (
 				objectKey: filename,
 				metadata,
 				objectBody: buffer,
-				prefix: files_prefix,
+				prefix,
 			});
 		} else {
 			if (!fileOld || !fileOld.Metadata) {
@@ -230,7 +245,7 @@ export const updateFile = async (
 				creator: user_id,
 			};
 
-			return await updateObject({ objectKey: filename, metadata, prefix: files_prefix });
+			return await updateObject({ objectKey: filename, metadata, prefix });
 		}
 	} catch (error) {
 		console.error(error);
@@ -241,7 +256,15 @@ export const updateFile = async (
 	}
 };
 
-export const deleteFile = async (file_id: string, paths: string[]): Promise<boolean | null> => {
+export const deleteFile = async ({
+	file_id,
+	paths,
+	prefix,
+}: {
+	file_id: string;
+	paths: string[];
+	prefix: string;
+}): Promise<boolean | null> => {
 	try {
 		if (!(await getSession())?.user) {
 			throw new Error(msgs("Errors")("invalidUser"));
@@ -251,7 +274,7 @@ export const deleteFile = async (file_id: string, paths: string[]): Promise<bool
 
 		// Do the actual remove
 		return await getObjectListAndDelete({
-			prefix: `${files_prefix}/${file_id.replace(/^Id:/, "")}`,
+			prefix: `${prefix}/${file_id.replace(/^Id:/, "")}`,
 		});
 	} catch (error) {
 		console.error(error);
@@ -270,9 +293,11 @@ export const deleteFile = async (file_id: string, paths: string[]): Promise<bool
 export const fileAttachment_add = async ({
 	documentToAttach,
 	target_file_id,
+	prefix,
 }: {
 	documentToAttach: AttachedToDocument;
 	target_file_id: string;
+	prefix: string;
 }): Promise<boolean | null> => {
 	try {
 		const files = await getFilesR2();
@@ -311,7 +336,7 @@ export const fileAttachment_add = async ({
 		return await updateObject({
 			objectKey: targetFileObj.filename,
 			metadata,
-			prefix: files_prefix,
+			prefix,
 		});
 	} catch (error) {
 		console.error("Unable to add attached document to a File: ", error);
@@ -328,9 +353,11 @@ export const fileAttachment_add = async ({
 export const fileAttachment_remove = async ({
 	attachedDocument_id,
 	target_file_id,
+	prefix,
 }: {
 	attachedDocument_id: string;
 	target_file_id: string;
+	prefix: string;
 }): Promise<boolean | null> => {
 	try {
 		const files = await getFilesR2();
@@ -362,7 +389,7 @@ export const fileAttachment_remove = async ({
 		return await updateObject({
 			objectKey: targetFileObj.filename,
 			metadata,
-			prefix: files_prefix,
+			prefix,
 		});
 	} catch (error) {
 		console.error("Unable to remove attached document from a File: ", error);

@@ -23,6 +23,7 @@ interface Props {
 	visibleItems?: number;
 	sortByAttachedTo?: boolean;
 	sortByAttachedToVisibleItems?: number;
+	files_prefix: string;
 }
 
 const Section: React.FC<Props> = ({
@@ -32,6 +33,7 @@ const Section: React.FC<Props> = ({
 	visibleItems = 2,
 	sortByAttachedTo = true,
 	sortByAttachedToVisibleItems = 25,
+	files_prefix,
 }) => {
 	if (!files || files.length === 0) {
 		return null;
@@ -74,7 +76,7 @@ const Section: React.FC<Props> = ({
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths />
-				<CreateFile />
+				<CreateFile files_prefix={files_prefix} />
 				<ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}
@@ -83,6 +85,7 @@ const Section: React.FC<Props> = ({
 				/>
 			</SectionHeader>
 
+			{/* Generate sub section - i.e. Projects/Certain project */}
 			{attachedToDocuments && Object.keys(attachedToDocuments).length > 0 ? (
 				Object.keys(attachedToDocuments)
 					.sort()
@@ -92,6 +95,7 @@ const Section: React.FC<Props> = ({
 							className={`${styles.feed} scroll-m-8 mt-12 list-sub-section ${sortByAttachedToVisibleItems > index ? "" : "sub-section-collapsible"}`}
 							id={`${toggle_target_id}_${index}`}
 						>
+							{/* This is the sub section title - i.e. Projects/Certain project */}
 							<div className="flex flex-row w-full justify-between gap-4 items-center border-4 h-10 border-primary bg-primary rounded-full">
 								<div className="text-xl font-semibold tracking-wide flex-grow pl-5 flex items-center rounded-full">
 									<h2 className="line-clamp-1">{attachedToDocument}</h2>
@@ -105,6 +109,7 @@ const Section: React.FC<Props> = ({
 								/>
 							</div>
 
+							{/* List the files in the sub section - i.e. Projects/Certain project - files... */}
 							{attachedToDocuments[attachedToDocument]
 								?.sort((file_b, file_a) =>
 									file_a._id.match(/logo/) ? 1 : file_a._id.localeCompare(file_b._id)
@@ -115,20 +120,23 @@ const Section: React.FC<Props> = ({
 										className={visibleItems > index ? "" : "section-card-collapsible"}
 										file={file}
 										section_id={`${toggle_target_id}_${type}_${attachedToDocument.replace(/ /g, "_")}`}
+										files_prefix={files_prefix}
 									/>
 								))}
 						</div>
 					))
 			) : (
+				// Generate a section without sub sections - i.e. "common" section
 				<div className={styles.feed}>
 					{files
 						?.sort((file_b, file_a) => file_a._id.localeCompare(file_b._id))
 						?.map((file, index) => (
 							<FileCard
-								key={index}
+								key={file._id}
 								className={visibleItems > index ? "" : "section-card-collapsible"}
 								file={file}
 								section_id={`${toggle_target_id}_${type}`}
+								files_prefix={files_prefix}
 							/>
 						))}
 				</div>

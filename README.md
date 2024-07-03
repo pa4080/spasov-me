@@ -29,11 +29,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [x] Upload to R2
   - [x] Display at /admin/files/cloudflare/icons
   - [x] Cache to Upstash/Redis
-  - [ ] Clear the cache on refresh... pass somehow the cache prefix "files"/"icons"
-  - [ ] Create Tag Icons upload page/form...
+  - [x] Clear the cache on refresh... pass somehow the cache prefix "files"/"icons"
+    - !!!CURRENTLY CLEAR ALL CACHE
+  - [x] Create Tag Icons upload page/form...
     - make sure the icons are correctly uploaded to prefix "icons" and
     - the files are correctly uploaded to prefix "files";
     - the sub prefix of the icons should be a part of the name within the upload form...
+    - !!!Note: in the current implementation the "files" prefix is hardcoded in the form right now!!!
   - [ ] Make them available to the components that select the files from list
   - [ ] Keep tag index generation for the tags their-self
 

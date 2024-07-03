@@ -34,7 +34,6 @@ import styles from "./_files-form.module.scss";
 import { File_FormSchema, File_FormSchemaGenerator } from "./schema";
 
 const r2BucketDomain = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DOMAIN;
-const files_prefix = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES;
 
 interface Props {
 	className?: string;
@@ -42,9 +41,16 @@ interface Props {
 	submitting?: boolean;
 	isContainerDialogOpen?: boolean;
 	formData?: FileData;
+	files_prefix: string;
 }
 
-const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, formData }) => {
+const FileForm: React.FC<Props> = ({
+	className,
+	onSubmit,
+	submitting = false,
+	formData,
+	files_prefix,
+}) => {
 	const t = msgs("Files_Form");
 	const tCard = msgs("Files_Display");
 	const locale = "en";

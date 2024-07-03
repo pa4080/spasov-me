@@ -30,9 +30,10 @@ interface Props {
 	className?: string;
 	file: FileData;
 	section_id?: string;
+	files_prefix: string;
 }
 
-const FileCard: React.FC<Props> = ({ className, file, section_id = "common" }) => {
+const FileCard: React.FC<Props> = ({ className, file, section_id = "common", files_prefix }) => {
 	const tCommon = msgs("Files");
 	const t = msgs("Files_Display");
 
@@ -67,10 +68,10 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common" }) =
 								checked={file.metadata.visibility}
 								className="mt-0.5"
 							/>
-							<DeleteFile file={file} />
+							<DeleteFile file={file} files_prefix={files_prefix} />
 							<FileAddressHandle address={fileAddress} />
 							<FileAddressHandle download address={fileAddress} />
-							<UpdateFile file={file} />
+							<UpdateFile file={file} files_prefix={files_prefix} />
 
 							<ToggleCollapsible
 								tooltip

@@ -1,21 +1,23 @@
 import React from "react";
 
-import { FileData } from "@/interfaces/File";
 import { ModelType } from "@/interfaces/_common-data-types";
+import { getFilesR2 } from "../_files.actions";
 import styles from "../_files.module.scss";
 import Section from "./Section";
 
 interface Props {
 	className?: string;
-	files: FileData[] | null;
+	files_prefix: string;
 	visibleItemsCommon?: number;
 }
 
 const FilesAdmin_CloudFlare: React.FC<Props> = async ({
 	className,
-	files,
+	files_prefix,
 	visibleItemsCommon = 25,
 }) => {
+	const files = await getFilesR2({ prefix: files_prefix });
+
 	const sections = [
 		{
 			type: "common",
@@ -66,6 +68,7 @@ const FilesAdmin_CloudFlare: React.FC<Props> = async ({
 					files={files}
 					type={type as ModelType | "common"}
 					visibleItems={visibleItems}
+					files_prefix={files_prefix}
 				/>
 			))}
 		</div>

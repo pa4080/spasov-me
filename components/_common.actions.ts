@@ -31,17 +31,22 @@ import Project from "@/models/project";
 
 export const revalidatePaths = async <T extends string>({
 	paths,
+	files_prefixes = ["files", "icons"],
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	redirectTo,
 }: {
 	paths: T[];
 	redirectTo?: T;
+	files_prefixes?: string[] | null;
 }): Promise<T[] | null | void> => {
 	try {
-		// Delete the "files" array from Redis
-		// in order to be updated on the next request
-		// await redis.del("files");
-		redis.del("files");
+		// Delete the "files"/"icons" array from Redis in order to be updated on the next request
+		if (files_prefixes && files_prefixes.length > 0) {
+			files_prefixes.forEach((prefix) => {
+				// await redis.del(prefix);
+				redis.del(prefix);
+			});
+		}
 
 		paths.forEach((path) => {
 			revalidatePath(path);
