@@ -28,6 +28,7 @@ export function fileDocuments_toData({
 		metadata: {
 			description: file.metadata?.description,
 			size: file.metadata?.size,
+			info: { height: 0, width: 0, type: "not-provided", ratio: 0 }, // we do not provide this for MongoDb for now
 			contentType: file.metadata?.contentType,
 			lastModified: file.metadata?.lastModified,
 			originalName: file.metadata?.originalName,
