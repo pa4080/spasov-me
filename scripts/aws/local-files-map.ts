@@ -1,6 +1,8 @@
 import fs from "fs";
+import sizeOf from "image-size";
 import mime from "mime-types";
 import path from "path";
+import { FileMetadata } from "../../interfaces/File";
 import { roundTo } from "../../lib/round";
 import { FileMapFs, GenerateFileMapInput } from "./types";
 
@@ -23,6 +25,9 @@ const generateFileMap = ({
 			const stats = fs.statSync(path.join(directoryPath, file));
 			const fileSizeInBytes = stats.size;
 
+			const info = sizeOf(path.join(directoryPath, file)) as FileMetadata["info"];
+			info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
+
 			const modifiedDate = date.toLocaleString(locale);
 			const fileSizeKb = roundTo(fileSizeInBytes / 1000, 1);
 			const description = `${modifiedDate} ~${fileSizeKb}Kb`;
@@ -39,9 +44,10 @@ const generateFileMap = ({
 					contentType,
 					creator: creatorId,
 					size: fileSizeInBytes.toString(),
+					info,
 					lastModified: date,
 					originalName: file,
-					visibility: true,
+					visibility: "true",
 				},
 			};
 		});

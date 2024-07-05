@@ -55,6 +55,7 @@ export async function fileObject_toData({
 				metadata: {
 					description: description,
 					size: getMetadataValue(file?.Metadata, "size", ""),
+					info: getMetadataValue(file?.Metadata, "info", ""),
 					contentType: getMetadataValue(file?.Metadata, "contenttype", ""),
 					lastModified: getMetadataValue(file?.Metadata, "lastmodified", new Date()),
 					originalName: getMetadataValue(file?.Metadata, "originalname", ""),
