@@ -1,13 +1,7 @@
 "use server";
 
-import { Redis } from "@upstash/redis";
-
-const redis = new Redis({
-	url: process.env.UPSTASH_REDIS_REST_URL,
-	token: process.env.UPSTASH_REDIS_REST_TOKEN,
-});
-
 import { FileData, FileListItem, FileMetadata } from "@/interfaces/File";
+import { IconMap } from "@/interfaces/IconMap";
 import { AttachedToDocument } from "@/interfaces/_common-data-types";
 import {
 	getObject,
@@ -19,10 +13,17 @@ import {
 import { fileObject_toData } from "@/lib/process-data-files-cloudflare";
 import { redisGet_SSR_Solution } from "@/lib/redis-get";
 import { msgs } from "@/messages";
+import { Redis } from "@upstash/redis";
+import sizeOf from "image-size";
 import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "./../_common.actions";
 
 const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
 const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
+
+const redis = new Redis({
+	url: process.env.UPSTASH_REDIS_REST_URL,
+	token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
 
 export const getFilesR2 = async ({
 	hyphen = true,
@@ -93,6 +94,53 @@ export const getFileList = async ({
 		.sort(({ label: a }, { label: b }) => a.localeCompare(b));
 };
 
+export const generateIconIndex = async (): Promise<IconMap | null> => {
+	const icons = await getFileList({ prefix: icons_prefix });
+
+	const iconMap = icons?.reduce((acc: IconMap, fileName): IconMap => {
+		/*
+		const info = sizeOf(path.join(directoryPath, fileName)) as IconMap[string]["info"];
+
+		info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
+S
+		const filePath = path.join(dir, fileName).replace(/^public/, "");
+
+		const baseName = path
+			.parse(fileName)
+			.name.replace(/-light|-dark$/, "")
+			.replace(/\s+/g, ""); // .replace(/(\s+|_|-)/g, "");
+
+		const iconName = directoryPath === iconsDirPath ? baseName : baseDirName + "_" + baseName;
+
+		if (!acc[iconName]) {
+			acc[iconName] = {
+				name: iconName,
+				uri: { light: null, dark: null },
+				info,
+			} as unknown as IconMap[string];
+		}
+
+		if (fileName.includes("-light")) {
+			acc[iconName].uri.light = filePath;
+		} else {
+			acc[iconName].uri.dark = filePath;
+		}
+
+		if (!acc[iconName].uri.light) {
+			acc[iconName].uri.light = filePath;
+		}
+
+		if (!acc[iconName].uri.dark) {
+			acc[iconName].uri.dark = filePath;
+		}
+		*/
+
+		return acc;
+	}, {});
+
+	return iconMap ?? null;
+};
+
 export const createFile = async ({
 	data,
 	paths,
@@ -118,7 +166,7 @@ export const createFile = async ({
 
 		await redis.del("files");
 
-		const metadata = {
+		const metadataPart: Omit<FileMetadata, "info"> = {
 			description,
 			creator: user_id,
 			size: file.size.toString(),
@@ -135,9 +183,12 @@ export const createFile = async ({
 			// Convert the blob to buffer
 			const buffer = Buffer.from(await file.arrayBuffer());
 
+			const info = sizeOf(buffer) as FileMetadata["info"];
+			info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
+
 			return await uploadObject({
 				objectKey: filename,
-				metadata,
+				metadata: { ...metadataPart, info },
 				objectBody: buffer,
 				prefix,
 			});
@@ -198,7 +249,7 @@ export const updateFile = async ({
 
 		if (file && typeof file === "object") {
 			// If a new file is provided, delete the old file and upload the new one
-			const metadata = {
+			const metadataPart: Omit<FileMetadata, "info"> = {
 				description,
 				attachedTo,
 				visibility,
@@ -218,10 +269,13 @@ export const updateFile = async ({
 			// Convert the blob to buffer
 			const buffer = Buffer.from(await file.arrayBuffer());
 
+			const info = sizeOf(buffer) as FileMetadata["info"];
+			info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
+
 			// Upload the new file
 			return await uploadObject({
 				objectKey: filename,
-				metadata,
+				metadata: { ...metadataPart, info },
 				objectBody: buffer,
 				prefix,
 			});
@@ -236,7 +290,7 @@ export const updateFile = async ({
 				metadataParse[key] = JSON.parse(value);
 			});
 
-			const metadata = {
+			const metadata: FileMetadata = {
 				description,
 				attachedTo,
 				visibility,
@@ -245,6 +299,7 @@ export const updateFile = async ({
 				lastModified: new Date(),
 				contentType: fileOld.ContentType || metadataParse.contenttype || "application/octet-stream",
 				creator: user_id,
+				info: (metadataParse.info || {}) as FileMetadata["info"],
 			};
 
 			return await updateObject({ objectKey: filename, metadata, prefix });
@@ -336,6 +391,7 @@ export const fileAttachment_add = async ({
 		const metadata: FileMetadata = {
 			description: targetFileObj.metadata.description,
 			size: targetFileObj.metadata.size,
+			info: targetFileObj.metadata.info,
 			contentType: targetFileObj.metadata.contentType,
 			lastModified: targetFileObj.metadata.lastModified,
 			originalName: targetFileObj.metadata.originalName,
@@ -398,6 +454,7 @@ export const fileAttachment_remove = async ({
 		const metadata: FileMetadata = {
 			description: targetFileObj.metadata.description,
 			size: targetFileObj.metadata.size,
+			info: targetFileObj.metadata.info,
 			contentType: targetFileObj.metadata.contentType,
 			lastModified: targetFileObj.metadata.lastModified,
 			originalName: targetFileObj.metadata.originalName,

@@ -54,7 +54,7 @@ const BlogPublicPost: React.FC<Props> = async ({ className, post, tags, fileList
 			<GalleryCarousel gallery={gallery} navPosition="bottom" navType="none" entryData={post} />
 			<SectionHeader
 				className="pop-header mt-6 1xl:mt-[1.15rem] relative justify-end"
-				className_Actions="absolute right-0 -bottom-3 scale-75 2xs:scale-85"
+				className_Actions="absolute right-0 -bottom-2 scale-75 2xs:scale-85"
 				title={post.html.title}
 				label={dateLabel}
 				iconComponent={

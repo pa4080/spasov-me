@@ -7,12 +7,13 @@ import { AttachedToDocument } from "./_common-data-types";
 export interface FileMetadata {
 	description: string;
 	creator: UserObject | string;
-	size: string;
 	contentType: string;
 	lastModified: Date | string | number;
 	originalName: string;
 	attachedTo?: AttachedToDocument[];
 	visibility: boolean | string;
+	size: string;
+	info: { height: number; width: number; ratio: number; type: string };
 }
 
 export interface FileDoc extends Omit<GridFSFile, "metadata"> {

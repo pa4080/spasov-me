@@ -15,6 +15,17 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 - Redis
   - [x] FilesR2
+  - [ ] Create event loop by using Upstash/Redis queue - object like:
+
+    ```js
+    {
+      objectKey: string,
+      metadata: FileMetadata,
+      objectBody?: buffer,
+      prefix: string,
+      action: "create" | "update" | "update-metadata" | "delete",
+    }
+    ```
 
 - Blog
   - [x] Blog post admin

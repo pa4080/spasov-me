@@ -120,7 +120,7 @@ const GalleryCarousel: React.FC<Props> = ({
 							<div
 								className={cn(
 									"this-container relative w-full mx-auto",
-									navType === "embedded"
+									navType === "embedded" || navType === "none"
 										? "max-w-projectImageMaxWidth"
 										: "max-w-galleryImageMaxWidth"
 								)}
