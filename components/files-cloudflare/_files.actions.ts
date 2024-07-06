@@ -95,48 +95,41 @@ export const getFileList = async ({
 };
 
 export const generateIconIndex = async (): Promise<IconMap | null> => {
-	const icons = await getFileList({ prefix: icons_prefix });
+	const icons = await getFilesR2({ prefix: icons_prefix });
 
-	const iconMap = icons?.reduce((acc: IconMap, fileName): IconMap => {
-		/*
-		const info = sizeOf(path.join(directoryPath, fileName)) as IconMap[string]["info"];
+	const iconMap = icons
+		?.sort((a, b) => a.filename.localeCompare(b.filename))
+		.reduce((acc: IconMap, fileListItem): IconMap => {
+			const fileName = fileListItem.filename;
+			const iconBaseName = fileName.replace(/(-light|-dark)(\..+)$/, "").replace(/\s+/g, "");
+			const iconName = iconBaseName.replace(/\//g, "_").replace(/\..*?$/g, "");
 
-		info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
-S
-		const filePath = path.join(dir, fileName).replace(/^public/, "");
+			console.log(iconName);
 
-		const baseName = path
-			.parse(fileName)
-			.name.replace(/-light|-dark$/, "")
-			.replace(/\s+/g, ""); // .replace(/(\s+|_|-)/g, "");
+			if (!acc[iconName]) {
+				acc[iconName] = {
+					name: iconName,
+					uri: { light: null, dark: null },
+					info: fileListItem.metadata.info,
+				} as unknown as IconMap[string];
+			}
 
-		const iconName = directoryPath === iconsDirPath ? baseName : baseDirName + "_" + baseName;
+			if (fileName.includes("-light")) {
+				acc[iconName].uri.light = fileListItem.metadata.html.fileUrl ?? null;
+			} else {
+				acc[iconName].uri.dark = fileListItem.metadata.html.fileUrl ?? null;
+			}
 
-		if (!acc[iconName]) {
-			acc[iconName] = {
-				name: iconName,
-				uri: { light: null, dark: null },
-				info,
-			} as unknown as IconMap[string];
-		}
+			if (!acc[iconName].uri.light) {
+				acc[iconName].uri.light = fileListItem.metadata.html.fileUrl ?? fileName;
+			}
 
-		if (fileName.includes("-light")) {
-			acc[iconName].uri.light = filePath;
-		} else {
-			acc[iconName].uri.dark = filePath;
-		}
+			if (!acc[iconName].uri.dark) {
+				acc[iconName].uri.dark = fileListItem.metadata.html.fileUrl ?? fileName;
+			}
 
-		if (!acc[iconName].uri.light) {
-			acc[iconName].uri.light = filePath;
-		}
-
-		if (!acc[iconName].uri.dark) {
-			acc[iconName].uri.dark = filePath;
-		}
-		*/
-
-		return acc;
-	}, {});
+			return acc;
+		}, {});
 
 	return iconMap ?? null;
 };
