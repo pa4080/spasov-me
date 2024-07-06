@@ -11,6 +11,7 @@ import { Route } from "@/routes";
 import Gallery from "@/components/fragments/Gallery";
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
 import UpdateAboutEntry from "../../admin/Actions/Update";
@@ -22,9 +23,10 @@ interface Props {
 	type: AboutEntryType;
 	fileList: FileListItem[] | null;
 	tags: TagData[] | null;
+	iconsMap: IconsMap;
 }
 
-const BusinessCard: React.FC<Props> = ({ entries, className, type, fileList, tags }) => {
+const BusinessCard: React.FC<Props> = ({ entries, className, type, fileList, tags, iconsMap }) => {
 	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_${type}`);
 
 	const entry =
@@ -105,7 +107,7 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type, fileList, tag
 							}}
 						/>
 
-						<UpdateAboutEntry entry={entry} fileList={fileList} tags={tags} />
+						<UpdateAboutEntry entry={entry} fileList={fileList} tags={tags} iconsMap={iconsMap} />
 					</div>
 				</div>
 

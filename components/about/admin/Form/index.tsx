@@ -37,6 +37,7 @@ import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
 
 import DisplayEntryAttachmentInTheEditForm from "@/components/fragments/DisplayEntryAttachmentInTheEditForm";
 import Loading from "@/components/fragments/Loading";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
 
@@ -47,6 +48,7 @@ interface Props {
 	onSubmit: (data: Entry_FormSchema) => void;
 	submitting?: boolean;
 	fileList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
@@ -57,6 +59,7 @@ const AboutEntryForm: React.FC<Props> = ({
 	onSubmit,
 	submitting,
 	fileList,
+	iconsMap,
 	tags,
 }) => {
 	const t = msgs("AboutEntries_Form");
@@ -315,6 +318,7 @@ const AboutEntryForm: React.FC<Props> = ({
 						className="w-full ma:col-span-7"
 						control={form.control}
 						displayType="tag_icon"
+						iconsMap={iconsMap}
 						error={form.formState.errors.tags}
 						itemsList={
 							tags
@@ -352,6 +356,7 @@ const AboutEntryForm: React.FC<Props> = ({
 						className="w-full ma:col-span-7"
 						control={form.control}
 						displayType="gallery_image"
+						iconsMap={null}
 						error={form.formState.errors.gallery}
 						itemsList={fileList ?? []}
 						messages={{

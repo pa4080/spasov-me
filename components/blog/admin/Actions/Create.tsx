@@ -20,6 +20,7 @@ import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { createPost } from "../../_blog.actions";
 import { Post_FormSchema } from "../Form/schema";
@@ -34,10 +35,18 @@ interface Props {
 	type?: PostType;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
-const CreatePost: React.FC<Props> = ({ className, type = "blog", fileList, iconList, tags }) => {
+const CreatePost: React.FC<Props> = ({
+	className,
+	type = "blog",
+	fileList,
+	iconList,
+	tags,
+	iconsMap,
+}) => {
 	const t = msgs("Posts_Create");
 	const entryTypeLabel = (
 		msgs("Posts_Form")("post_type_list") as unknown as Record<string, string>
@@ -119,6 +128,7 @@ const CreatePost: React.FC<Props> = ({ className, type = "blog", fileList, iconL
 						entryType={type}
 						submitting={submitting}
 						onSubmit={handleCreatePost}
+						iconsMap={iconsMap}
 					/>
 				</DialogContent>
 			</Dialog>

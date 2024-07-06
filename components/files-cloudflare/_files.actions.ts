@@ -104,8 +104,6 @@ export const generateIconsMap = async (): Promise<IconsMap | null> => {
 			const iconBaseName = fileName.replace(/(-light|-dark)(\..+)$/, "").replace(/\s+/g, "");
 			const iconName = iconBaseName.replace(/\//g, "_").replace(/\..*?$/g, "");
 
-			console.log(iconName);
-
 			if (!acc[iconName]) {
 				acc[iconName] = {
 					name: iconName,
@@ -115,16 +113,16 @@ export const generateIconsMap = async (): Promise<IconsMap | null> => {
 			}
 
 			if (fileName.includes("-light")) {
-				acc[iconName].uri.light = fileListItem.metadata.html.fileUrl ?? null;
+				acc[iconName].uri.light = fileListItem.metadata.html.fileUrl ?? "";
 			} else {
-				acc[iconName].uri.dark = fileListItem.metadata.html.fileUrl ?? null;
+				acc[iconName].uri.dark = fileListItem.metadata.html.fileUrl ?? "";
 			}
 
-			if (!acc[iconName].uri.light) {
+			if (!acc[iconName].uri.light || acc[iconName].uri.light === "") {
 				acc[iconName].uri.light = fileListItem.metadata.html.fileUrl ?? fileName;
 			}
 
-			if (!acc[iconName].uri.dark) {
+			if (!acc[iconName].uri.dark || acc[iconName].uri.dark === "") {
 				acc[iconName].uri.dark = fileListItem.metadata.html.fileUrl ?? fileName;
 			}
 
@@ -132,6 +130,26 @@ export const generateIconsMap = async (): Promise<IconsMap | null> => {
 		}, {});
 
 	return iconMap ?? null;
+};
+
+export const getIconsMap = async ({
+	prefix = "iconsMap",
+}: {
+	prefix?: string;
+} = {}): Promise<IconsMap> => {
+	const cachedIconsMap = await redisGet_SSR_Solution<IconsMap>(prefix);
+	if (cachedIconsMap) {
+		return cachedIconsMap;
+	}
+
+	const iconsMap = await generateIconsMap();
+	if (!iconsMap) {
+		return {} as IconsMap;
+	}
+
+	await redis.set(prefix, JSON.stringify(iconsMap));
+
+	return iconsMap;
 };
 
 export const createFile = async ({

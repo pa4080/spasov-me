@@ -2,7 +2,7 @@ import React from "react";
 
 import { cn } from "@/lib/cn-utils";
 
-import { getFileList } from "@/components/files-cloudflare/_files.actions";
+import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
 import { getTags } from "@/components/tags/_tags.actions";
 import { getProjects } from "../_portfolio.actions";
 import TimeLine from "./TimeLine";
@@ -15,18 +15,23 @@ interface Props {
 }
 
 const PortfolioPublic: React.FC<Props> = async ({ className }) => {
-	const projectsHyphenated = await getProjects({
-		hyphen: true,
-		public: true,
-	});
-	const fileList = await getFileList({ prefix: files_prefix });
-	const iconList = await getFileList({ prefix: icons_prefix });
-
-	const tags = await getTags();
+	const data = await Promise.all([
+		getProjects({ hyphen: true, public: true }),
+		getFileList({ prefix: files_prefix }),
+		getFileList({ prefix: icons_prefix }),
+		getIconsMap(),
+		getTags(),
+	]).then(([projectsHyphenated, fileList, iconList, iconsMap, tags]) => ({
+		projects: projectsHyphenated,
+		fileList,
+		iconList,
+		iconsMap,
+		tags,
+	}));
 
 	return (
 		<div className={cn("space-y-20", className)}>
-			<TimeLine projects={projectsHyphenated} fileList={fileList} iconList={iconList} tags={tags} />
+			<TimeLine {...data} />
 		</div>
 	);
 };

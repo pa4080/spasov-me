@@ -35,6 +35,7 @@ import { Route } from "@/routes";
 
 import DisplayEntryAttachmentInTheEditForm from "@/components/fragments/DisplayEntryAttachmentInTheEditForm";
 import Loading from "@/components/fragments/Loading";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { Project_FormSchema, Project_FormSchemaGenerator } from "./schema";
 
@@ -46,6 +47,7 @@ interface Props {
 	submitting?: boolean;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
@@ -57,6 +59,7 @@ const ProjectForm: React.FC<Props> = ({
 	submitting,
 	fileList,
 	iconList,
+	iconsMap,
 	tags,
 }) => {
 	const t = msgs("Projects_Form");
@@ -409,6 +412,7 @@ const ProjectForm: React.FC<Props> = ({
 						className="w-full ma:col-span-7"
 						control={form.control}
 						displayType="tag_icon"
+						iconsMap={iconsMap}
 						error={form.formState.errors.tags}
 						itemsList={
 							tags
@@ -448,6 +452,7 @@ const ProjectForm: React.FC<Props> = ({
 						displayType="gallery_image"
 						error={form.formState.errors.gallery}
 						itemsList={fileList}
+						iconsMap={null}
 						messages={{
 							label: t("gallery_label"),
 							description: t("gallery_description"),

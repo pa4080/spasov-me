@@ -2,7 +2,7 @@ import React from "react";
 
 import { cn } from "@/lib/cn-utils";
 
-import { getFileList } from "@/components/files-cloudflare/_files.actions";
+import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
 import { getTags } from "@/components/tags/_tags.actions";
 import { getPosts } from "../_blog.actions";
 import TimeLine from "./TimeLine";
@@ -15,17 +15,26 @@ interface Props {
 }
 
 const BlogPublic: React.FC<Props> = async ({ className }) => {
-	const postHyphenated = await getPosts({
-		hyphen: true,
-		public: true,
-	});
-	const tags = await getTags();
-	const fileList = await getFileList({ prefix: files_prefix });
-	const iconList = await getFileList({ prefix: icons_prefix });
+	const data = await Promise.all([
+		getPosts({
+			hyphen: true,
+			public: true,
+		}),
+		getFileList({ prefix: files_prefix }),
+		getFileList({ prefix: icons_prefix }),
+		getIconsMap(),
+		getTags(),
+	]).then(([postHyphenated, fileList, iconList, iconsMap, tags]) => ({
+		posts: postHyphenated,
+		fileList,
+		iconList,
+		iconsMap,
+		tags,
+	}));
 
 	return (
 		<div className={cn("space-y-20", className)}>
-			<TimeLine posts={postHyphenated} fileList={fileList} iconList={iconList} tags={tags} />
+			<TimeLine {...data} />
 		</div>
 	);
 };

@@ -12,6 +12,7 @@ import { Route } from "@/routes";
 import { cn } from "@/lib/cn-utils";
 
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import AboutEntryCard from "../common/Card";
 import CreateAboutEntry from "./Actions/Create";
@@ -22,6 +23,7 @@ interface Props {
 	visibleItems?: number;
 	entries: AboutEntryData[] | null;
 	fileList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
@@ -35,6 +37,7 @@ const TimeLine: React.FC<Props> = ({
 	visibleItems = 3,
 	entries,
 	fileList,
+	iconsMap,
 	tags,
 }) => {
 	const t = msgs("AboutEntries");
@@ -56,7 +59,7 @@ const TimeLine: React.FC<Props> = ({
 		>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths paths={[Route.public.ABOUT.uri]} />
-				<CreateAboutEntry type={type} fileList={fileList} tags={tags} />
+				<CreateAboutEntry type={type} fileList={fileList} tags={tags} iconsMap={iconsMap} />
 				<ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}
@@ -69,6 +72,7 @@ const TimeLine: React.FC<Props> = ({
 					<AboutEntryCard
 						fileList={fileList}
 						tags={tags}
+						iconsMap={iconsMap}
 						key={index}
 						displayGalleryInline
 						className={visibleItems > index ? "" : "section-card-collapsible"}

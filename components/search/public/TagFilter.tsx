@@ -2,16 +2,17 @@ import React from "react";
 
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 import { Skeleton } from "@/components/ui/skeleton";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
-import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
 interface Props {
 	tags: TagData[];
 	onTagClick: (tag: TagData) => void;
 	selectedTag: TagData | null;
+	iconsMap: IconsMap;
 }
 
-const TagFilter: React.FC<Props> = ({ tags, onTagClick, selectedTag }) => {
+const TagFilter: React.FC<Props> = ({ tags, onTagClick, selectedTag, iconsMap }) => {
 	return (
 		<div className="flex flex-wrap gap-2 items-center justify-start">
 			{tags?.length > 0
@@ -21,7 +22,7 @@ const TagFilter: React.FC<Props> = ({ tags, onTagClick, selectedTag }) => {
 							className={`${tag._id === selectedTag?._id ? "ring-2 ring-accent" : ""}`}
 							className_TooltipTrigger="!mt-0"
 							description={tag.html.description}
-							icon={iconsMap[tag.icon as IconsMapItem]}
+							icon={iconsMap[tag.icon]}
 							onClick={() => onTagClick(tag)}
 						/>
 					))

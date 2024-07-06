@@ -8,6 +8,7 @@ import { msgs } from "@/messages";
 import { cn } from "@/lib/cn-utils";
 
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import UpdateProject from "../admin/Actions/Update";
 import DisplayResourceUrlAsIcon from "./DisplayResourceUrlAsIcon";
@@ -16,10 +17,11 @@ interface Props {
 	project: ProjectData;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
-const ProjectLinks: React.FC<Props> = ({ project, fileList, iconList, tags }) => {
+const ProjectLinks: React.FC<Props> = ({ project, fileList, iconList, iconsMap, tags }) => {
 	const t = msgs("Projects_CardPublic");
 
 	let gallery = project?.gallery
@@ -81,6 +83,7 @@ const ProjectLinks: React.FC<Props> = ({ project, fileList, iconList, tags }) =>
 					<UpdateProject
 						fileList={fileList}
 						iconList={iconList}
+						iconsMap={iconsMap}
 						tags={tags}
 						className="h-6 w-6 flex items-center justify-center"
 						dialogTrigger_buttonIconProps={dialogTrigger_Type2}

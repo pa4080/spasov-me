@@ -48,7 +48,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     - !!!Note: in the current implementation the "files" prefix is hardcoded in the form right now!!!
   - [x] Make them available to the components that select the files from list
     - Right now only for Portfolio and blog posts icons
-  - [ ] Keep tag index generation for the tags their-self
+  - [x] Keep tag index generation for the tags their-self
 
 - Backup scripts
   - [x] Migration script from R2 to MinIO

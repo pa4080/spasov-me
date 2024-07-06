@@ -15,12 +15,12 @@ import Gallery from "@/components/fragments/Gallery";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 import { FileData, FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { PostData } from "@/interfaces/Post";
 import { TagData } from "@/interfaces/Tag";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
-import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 import { Route } from "@/routes";
 import DisplayResourceUrlAsIcon from "../common/DisplayResourceUrlAsIcon";
 import DeletePost from "./Actions/Delete";
@@ -33,6 +33,7 @@ interface Props {
 	displayGalleryInline?: boolean;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
@@ -43,9 +44,10 @@ const PostAdminCard: React.FC<Props> = ({
 	displayGalleryInline = true,
 	fileList,
 	iconList,
+	iconsMap,
 	tags,
 }) => {
-	const tTime = msgs("Posts_Form");
+	// const tTime = msgs("Posts_Form");
 	const tCommon = msgs("Posts");
 
 	const { dateFrom, dateTo } = post;
@@ -110,7 +112,13 @@ const PostAdminCard: React.FC<Props> = ({
 								}
 							/>
 							<Gallery entry={post} gallery={gallery} />
-							<UpdatePost post={post} fileList={fileList} iconList={iconList} tags={tags} />
+							<UpdatePost
+								post={post}
+								fileList={fileList}
+								iconList={iconList}
+								tags={tags}
+								iconsMap={iconsMap}
+							/>
 
 							<ToggleCollapsible
 								tooltip
@@ -154,7 +162,7 @@ const PostAdminCard: React.FC<Props> = ({
 										<DisplayIcon
 											key={tag._id}
 											description={tag.html.description}
-											icon={iconsMap[tag.icon as IconsMapItem]}
+											icon={iconsMap[tag.icon]}
 										/>
 									))}
 							</div>

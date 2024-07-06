@@ -15,6 +15,7 @@ import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { PostData } from "@/interfaces/Post";
 import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
@@ -30,7 +31,6 @@ import { cn } from "@/lib/cn-utils";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
-import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 import { Route } from "@/routes";
 
 interface ProjectDataExtended extends ProjectData {
@@ -54,9 +54,15 @@ interface Props {
 	tags?: TagData[] | null | undefined;
 	displayTagsInline?: boolean;
 	displayGalleryInline?: boolean;
+	iconsMap: IconsMap;
 }
 
-const SearchResultEntryCard: React.FC<Props> = ({ entry, className, displayTagsInline = true }) => {
+const SearchResultEntryCard: React.FC<Props> = ({
+	entry,
+	className,
+	displayTagsInline = true,
+	iconsMap,
+}) => {
 	const tTime = msgs("AboutEntries_Form");
 	const tCommon = msgs("Search");
 
@@ -256,7 +262,7 @@ const SearchResultEntryCard: React.FC<Props> = ({ entry, className, displayTagsI
 											<DisplayIcon
 												key={tag._id}
 												description={tag.html.description}
-												icon={iconsMap[tag.icon as IconsMapItem]}
+												icon={iconsMap[tag.icon]}
 											/>
 										</Link>
 									))}

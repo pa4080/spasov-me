@@ -7,6 +7,7 @@ import DisplayFileImageOrEmbed from "@/components/fragments/DisplayFileImageOrEm
 import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
 import { Button } from "@/components/ui/button";
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { PostData } from "@/interfaces/Post";
 import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
@@ -20,10 +21,18 @@ interface Props {
 	post: PostData;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
-const BlogPublic_Card: React.FC<Props> = ({ post, className, fileList, iconList, tags }) => {
+const BlogPublic_Card: React.FC<Props> = ({
+	post,
+	className,
+	fileList,
+	iconList,
+	tags,
+	iconsMap,
+}) => {
 	const t = msgs("Posts_CardPublic");
 
 	const descriptionArr = post.html.description.split(splitDescriptionKeyword).map((str) => {
@@ -67,7 +76,13 @@ const BlogPublic_Card: React.FC<Props> = ({ post, className, fileList, iconList,
 
 			{/* Footer buttons */}
 			<div className="flex flex-row items-center justify-between gap-2 w-full">
-				<PostLinks post={post} fileList={fileList} iconList={iconList} tags={tags} />
+				<PostLinks
+					post={post}
+					fileList={fileList}
+					iconList={iconList}
+					tags={tags}
+					iconsMap={iconsMap}
+				/>
 				<Link area-label={t("area_label_card_link")} href={`${Route.public.BLOG.uri}/${post.slug}`}>
 					<Button
 						className="transition-colors duration-300 hover:duration-150"

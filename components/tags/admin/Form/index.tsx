@@ -33,7 +33,7 @@ interface Props {
 	tagType: TagType;
 	onSubmit: (data: Tag_FormSchema) => void;
 	submitting?: boolean;
-	icons: IconsMap;
+	iconsMap: IconsMap;
 }
 
 const TagForm: React.FC<Props> = ({
@@ -42,7 +42,7 @@ const TagForm: React.FC<Props> = ({
 	formData,
 	onSubmit,
 	submitting,
-	icons,
+	iconsMap,
 }) => {
 	const t = msgs("Tags_Form");
 	const tCard = msgs("Tags_Display");
@@ -139,7 +139,7 @@ const TagForm: React.FC<Props> = ({
 								className="w-full"
 								control={form.control}
 								error={form.formState.errors.icon}
-								list={Object.keys(icons).map((icon) => ({
+								list={Object.keys(iconsMap).map((icon) => ({
 									value: icon,
 									label: icon,
 								}))}
@@ -158,7 +158,7 @@ const TagForm: React.FC<Props> = ({
 							<div className="max-h-full h-full min-w-fit border rounded-md bg-primary flex items-center justify-center p-1">
 								<DisplayIcon
 									className="hover:bg-transparent dark:hover:bg-transparent"
-									icon={icons[form.watch("icon") ?? "placeholder"]}
+									icon={iconsMap[form.watch("icon") ?? "placeholder"]}
 								/>
 							</div>
 						</div>

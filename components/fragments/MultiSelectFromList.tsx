@@ -7,8 +7,6 @@
  * > https://ui.shadcn.com/docs/components/dropdown-menu#examples
  */
 
-"use client";
-
 import { LucideIcon, X } from "lucide-react";
 import React, { KeyboardEvent, useCallback, useRef, useState } from "react";
 import { Control, FieldError, FieldValues, Merge, Path, PathValue } from "react-hook-form";
@@ -27,8 +25,8 @@ import {
 import { FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { FileData } from "@/interfaces/File";
-import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
+import { IconsMap } from "@/interfaces/IconsMap";
 import CopyFileAddressToClipboard from "./CopyFileAddressToClipboard";
 import DisplayFileImage from "./DisplayFileImage";
 
@@ -48,6 +46,7 @@ interface Props<T extends FieldValues> {
 	Icon: LucideIcon;
 	labelMaxLength?: number;
 	displayType?: "label" | "tag_icon" | "gallery_image";
+	iconsMap: IconsMap | null;
 	messages: {
 		label?: string;
 		description?: string;
@@ -57,8 +56,8 @@ interface Props<T extends FieldValues> {
 		notFound?: string;
 	};
 	error?: Merge<FieldError, (FieldError | undefined)[]> | undefined;
-	className?: string;
 	onSelect: (items: string[] | undefined) => void;
+	className?: string;
 	selected: string[] | undefined;
 	autoClearInput?: boolean;
 }
@@ -71,6 +70,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
 	itemsList,
 	className,
 	onSelect,
+	iconsMap,
 	selected,
 	Icon,
 	labelMaxLength = 5,
@@ -204,14 +204,18 @@ export default function MultiSelectFromList<T extends FieldValues>({
 																className="h-fit text-sm font-normal tracking-wider text-foreground py-[6px] px-1 rounded-md"
 																variant="secondary"
 															>
-																<DisplayIcon
-																	key={item.value}
-																	className="p-0 hover:bg-transparent dark:hover:bg-transparent"
-																	className_TooltipTrigger="!mt-0"
-																	description={item.sourceDescription}
-																	icon={iconsMap[item.sourceImage as IconsMapItem]}
-																	size={24}
-																/>
+																{iconsMap ? (
+																	<DisplayIcon
+																		key={item.value}
+																		className="p-0 hover:bg-transparent dark:hover:bg-transparent"
+																		className_TooltipTrigger="!mt-0"
+																		description={item.sourceDescription}
+																		icon={iconsMap[item.sourceImage]}
+																		size={24}
+																	/>
+																) : (
+																	"W: IconsMap is not provided!"
+																)}
 																<SelectedItemRemoveBtn item={item} />
 															</Badge>
 														);

@@ -33,10 +33,10 @@ import { Tag_FormSchema } from "../Form/schema";
 interface Props {
 	className?: string;
 	tagType: TagType;
-	icons: IconsMap;
+	iconsMap: IconsMap;
 }
 
-const CreateTag: React.FC<Props> = ({ className, tagType, icons }) => {
+const CreateTag: React.FC<Props> = ({ className, tagType, iconsMap }) => {
 	const t = msgs("Tags_Create");
 	const tagTypeLabel = (msgs("Tags_Form")("tag_type_list") as unknown as Record<string, string>)[
 		tagType
@@ -103,7 +103,7 @@ const CreateTag: React.FC<Props> = ({ className, tagType, icons }) => {
 
 					<TagForm
 						className="mt-1"
-						icons={icons}
+						iconsMap={iconsMap}
 						submitting={submitting}
 						tagType={tagType}
 						onSubmit={handleCreateTag}

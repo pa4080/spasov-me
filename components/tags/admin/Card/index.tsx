@@ -17,12 +17,12 @@ import UpdateTag from "../Actions/UpdateTag";
 export interface GenericActionProps {
 	className?: string;
 	tag: TagData;
-	icons: IconsMap;
+	iconsMap: IconsMap;
 }
 
 interface Props extends Omit<GenericActionProps, "tagType" | "tag_id"> {}
 
-const TagCard: React.FC<Props> = ({ tag, className, icons }) => {
+const TagCard: React.FC<Props> = ({ tag, className, iconsMap }) => {
 	const {
 		name,
 		html: { description },
@@ -39,7 +39,7 @@ const TagCard: React.FC<Props> = ({ tag, className, icons }) => {
 			<div className={styles.card}>
 				<div className={styles.buttons}>
 					<DeleteTag tag={tag} />
-					<UpdateTag icons={icons} tag={tag} tagType={tag.tagType} />
+					<UpdateTag iconsMap={iconsMap} tag={tag} tagType={tag.tagType} />
 				</div>
 
 				<div className={styles.cardRow}>
@@ -63,7 +63,7 @@ const TagCard: React.FC<Props> = ({ tag, className, icons }) => {
 				<div className={styles.cardRow}>
 					<div className={styles.leftCol}>{t("icon")}:</div>
 					<div className={styles.rightCol}>
-						<DisplayIcon icon={icons[icon]} />
+						<DisplayIcon icon={iconsMap[icon]} />
 					</div>
 				</div>
 			</div>

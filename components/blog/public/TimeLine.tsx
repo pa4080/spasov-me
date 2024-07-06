@@ -1,6 +1,7 @@
 import React from "react";
 
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { PostData } from "@/interfaces/Post";
 import { TagData } from "@/interfaces/Tag";
 import { PostType } from "@/interfaces/_common-data-types";
@@ -14,6 +15,7 @@ interface Props {
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
 	tags: TagData[] | null;
+	iconsMap: IconsMap;
 }
 
 /**
@@ -23,7 +25,7 @@ interface Props {
  * We won't filter the posts by type because we want to show all posts,
  * ordered by date... probably we need may indicate the type by a icon?(!?)
  */
-const TimeLine: React.FC<Props> = ({ className, posts, fileList, iconList, tags }) => {
+const TimeLine: React.FC<Props> = ({ className, posts, fileList, iconList, tags, iconsMap }) => {
 	const postsByType = posts?.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
 	return (
@@ -31,6 +33,7 @@ const TimeLine: React.FC<Props> = ({ className, posts, fileList, iconList, tags 
 			<div className="grid grid-cols-1 md:grid-cols-2 grid-flow-row gap-12 md:gap-10 lg:gap-14">
 				{postsByType?.map((post, index) => (
 					<BlogPublic_Card
+						iconsMap={iconsMap}
 						key={index}
 						className=""
 						post={post}

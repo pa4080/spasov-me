@@ -8,8 +8,8 @@ import { TagType } from "@/interfaces/_common-data-types";
 import { hyphenateString } from "@/lib/process-text";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
-import iconsMap from "@/public/assets/icons";
 
+import { IconsMap } from "@/interfaces/IconsMap";
 import styles from "../_tags.module.scss";
 import CreateTag from "./Actions/CreateTag";
 import TagCard from "./Card";
@@ -19,9 +19,10 @@ interface Props {
 	tags: TagData[] | null;
 	type: TagType;
 	visibleItems?: number;
+	iconsMap: IconsMap;
 }
 
-const Section: React.FC<Props> = ({ className, tags, type, visibleItems = 2 }) => {
+const Section: React.FC<Props> = ({ className, tags, type, visibleItems = 2, iconsMap }) => {
 	const t = msgs("Tags");
 
 	type tType = Parameters<typeof t>[0];
@@ -33,7 +34,7 @@ const Section: React.FC<Props> = ({ className, tags, type, visibleItems = 2 }) =
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths />
-				<CreateTag icons={iconsMap} tagType={type} />
+				<CreateTag iconsMap={iconsMap} tagType={type} />
 				<ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}
@@ -50,7 +51,7 @@ const Section: React.FC<Props> = ({ className, tags, type, visibleItems = 2 }) =
 						<TagCard
 							key={index}
 							className={visibleItems > index ? "" : "section-card-collapsible"}
-							icons={iconsMap}
+							iconsMap={iconsMap}
 							tag={tag}
 						/>
 					))}

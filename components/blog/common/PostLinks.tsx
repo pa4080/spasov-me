@@ -7,6 +7,7 @@ import { msgs } from "@/messages";
 import { cn } from "@/lib/cn-utils";
 
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { PostData } from "@/interfaces/Post";
 import { TagData } from "@/interfaces/Tag";
 import UpdatePost from "../admin/Actions/Update";
@@ -16,10 +17,11 @@ interface Props {
 	post: PostData;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
-const PostLinks: React.FC<Props> = ({ post, fileList, iconList, tags }) => {
+const PostLinks: React.FC<Props> = ({ post, fileList, iconList, tags, iconsMap }) => {
 	const t = msgs("Posts_CardPublic");
 
 	let gallery = post?.gallery
@@ -85,6 +87,7 @@ const PostLinks: React.FC<Props> = ({ post, fileList, iconList, tags }) => {
 						className="h-6 w-6 flex items-center justify-center"
 						dialogTrigger_buttonIconProps={dialogTrigger_Type2}
 						post={post}
+						iconsMap={iconsMap}
 					/>
 				</TooltipWrapper>
 			</div>

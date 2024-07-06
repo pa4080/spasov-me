@@ -6,6 +6,7 @@ import Loading from "@/components/fragments/Loading";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import TechTags from "@/components/fragments/TechTags";
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
@@ -25,6 +26,7 @@ interface Props {
 	tags: TagData[] | null;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 }
 
 const PortfolioPublicProject: React.FC<Props> = async ({
@@ -33,6 +35,7 @@ const PortfolioPublicProject: React.FC<Props> = async ({
 	tags,
 	fileList,
 	iconList,
+	iconsMap,
 }) => {
 	const descriptionArr = project.html.description.split(splitDescriptionKeyword).map((str) => {
 		return str.replace(commentsMatcher, "");
@@ -56,7 +59,13 @@ const PortfolioPublicProject: React.FC<Props> = async ({
 				entryData={project}
 			/>
 			<SectionHeader className="pop-header mt-6 sa:mt-8" title={project.html.title}>
-				<ProjectLinks project={project} fileList={fileList} iconList={iconList} tags={tags} />
+				<ProjectLinks
+					project={project}
+					fileList={fileList}
+					iconList={iconList}
+					tags={tags}
+					iconsMap={iconsMap}
+				/>
 			</SectionHeader>
 
 			{/* @see https://github.com/tailwindlabs/tailwindcss-typography */}
@@ -70,7 +79,7 @@ const PortfolioPublicProject: React.FC<Props> = async ({
 				)}
 			</article>
 
-			<TechTags className="mt-20" tags={project.tags} />
+			<TechTags className="mt-20" tags={project.tags} iconsMap={iconsMap} />
 		</div>
 	);
 };
