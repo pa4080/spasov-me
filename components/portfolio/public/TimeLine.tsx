@@ -6,6 +6,7 @@ import { ProjectType } from "@/interfaces/_common-data-types";
 import { cn } from "@/lib/cn-utils";
 
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import ProjectPublic_Card from "./Card";
 
@@ -15,6 +16,7 @@ interface Props {
 	projects: ProjectData[] | null;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
@@ -25,7 +27,7 @@ interface Props {
  * We won't filter the projects by type because we want to show all projects,
  * ordered by date... probably we need may indicate the type by a icon?(!?)
  */
-const TimeLine: React.FC<Props> = ({ className, projects, fileList, iconList, tags }) => {
+const TimeLine: React.FC<Props> = ({ className, projects, fileList, iconList, iconsMap, tags }) => {
 	const projectsByType = projects?.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
 	return (
@@ -34,10 +36,10 @@ const TimeLine: React.FC<Props> = ({ className, projects, fileList, iconList, ta
 				{projectsByType?.map((project, index) => (
 					<ProjectPublic_Card
 						key={index}
-						className=""
 						project={project}
 						fileList={fileList}
 						iconList={iconList}
+						iconsMap={iconsMap}
 						tags={tags}
 					/>
 				))}

@@ -21,6 +21,7 @@ import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { PostData } from "@/interfaces/Post";
 import { TagData } from "@/interfaces/Tag";
 import { updatePost } from "../../_blog.actions";
@@ -33,6 +34,7 @@ interface Props {
 	dialogTrigger_buttonIconProps?: ButtonIconProps;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
@@ -42,6 +44,7 @@ const UpdatePost: React.FC<Props> = ({
 	dialogTrigger_buttonIconProps,
 	fileList,
 	iconList,
+	iconsMap,
 	tags,
 }) => {
 	const t = msgs("Posts_Update");
@@ -128,6 +131,7 @@ const UpdatePost: React.FC<Props> = ({
 					formData={post}
 					submitting={submitting}
 					onSubmit={handleUpdatePost}
+					iconsMap={iconsMap}
 				/>
 			</DialogContent>
 		</Dialog>

@@ -5,13 +5,13 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { IconMap } from "@/interfaces/IconMap";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { cn } from "@/lib/cn-utils";
 
 interface Props {
 	className?: string;
 	className_TooltipTrigger?: string;
-	icon: IconMap[string];
+	icon: IconsMap[string];
 	size?: number;
 	description?: string;
 	unoptimized?: boolean;

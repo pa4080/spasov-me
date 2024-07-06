@@ -7,25 +7,21 @@ import { enUS as en } from "date-fns/locale";
 
 import Link from "next/link";
 
+import styles from "@/app/(styles)/card-info.module.scss";
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 import Gallery from "@/components/fragments/Gallery";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
+import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 import { FileData, FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { ProjectData } from "@/interfaces/Project";
+import { TagData } from "@/interfaces/Tag";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
-import iconsMap, { IconsMapItem } from "@/public/assets/icons";
-
 import { Route } from "@/routes";
-
-import styles from "@/app/(styles)/card-info.module.scss";
-
-import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
-
-import { TagData } from "@/interfaces/Tag";
 import DisplayResourceUrlAsIcon from "../common/DisplayResourceUrlAsIcon";
 import DeleteProject from "./Actions/Delete";
 import UpdateProject from "./Actions/Update";
@@ -37,6 +33,7 @@ interface Props {
 	displayGalleryInline?: boolean;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
@@ -47,6 +44,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 	displayGalleryInline = true,
 	fileList,
 	iconList,
+	iconsMap,
 	tags,
 }) => {
 	const tTime = msgs("Projects_Form");
@@ -134,6 +132,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 								project={project}
 								fileList={fileList}
 								iconList={iconList}
+								iconsMap={iconsMap}
 								tags={tags}
 							/>
 
@@ -176,7 +175,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 										<DisplayIcon
 											key={tag._id}
 											description={tag.html.description}
-											icon={iconsMap[tag.icon as IconsMapItem]}
+											icon={iconsMap[tag.icon]}
 										/>
 									))}
 							</div>

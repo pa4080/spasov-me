@@ -10,6 +10,7 @@ import { msgs } from "@/messages";
 
 import cardStyles from "@/app/(styles)/card-info.module.scss";
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import UpdateAboutEntry from "../admin/Actions/Update";
 
@@ -19,9 +20,10 @@ interface Props {
 	type: AboutEntryType;
 	fileList: FileListItem[] | null;
 	tags: TagData[] | null;
+	iconsMap: IconsMap;
 }
 
-const Resume: React.FC<Props> = ({ entries, className, type, fileList, tags }) => {
+const Resume: React.FC<Props> = ({ entries, className, type, fileList, tags, iconsMap }) => {
 	const t = msgs("AboutEntries");
 
 	type tType = Parameters<typeof t>[0];
@@ -43,7 +45,7 @@ const Resume: React.FC<Props> = ({ entries, className, type, fileList, tags }) =
 		descriptionArr && (
 			<div className={className} id={toggle_target_id}>
 				<SectionHeader className="pop-header" title={section_title}>
-					<UpdateAboutEntry entry={entry} fileList={fileList} tags={tags} />
+					<UpdateAboutEntry entry={entry} fileList={fileList} tags={tags} iconsMap={iconsMap} />
 					<ToggleCollapsible
 						target_id={toggle_target_id}
 						text={[t("btnMore"), t("btnLess")]}

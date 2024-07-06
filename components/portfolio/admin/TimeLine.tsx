@@ -13,6 +13,7 @@ import { Route } from "@/routes";
 import { cn } from "@/lib/cn-utils";
 
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import CreateProject from "./Actions/Create";
 import ProjectAdminCard from "./Card";
@@ -26,6 +27,7 @@ interface Props {
 	projects: ProjectData[] | null;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
@@ -40,6 +42,7 @@ const TimeLine: React.FC<Props> = ({
 	projects,
 	fileList,
 	iconList,
+	iconsMap,
 	tags,
 }) => {
 	const t = msgs("Projects");
@@ -54,12 +57,22 @@ const TimeLine: React.FC<Props> = ({
 		?.filter(({ entryType }) => entryType === type)
 		.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
+	if (!projectsByType || projectsByType.length === 0) {
+		return null;
+	}
+
 	return (
 		<div className={cn("portfolio-admin-section list-section scroll-m-8", className)}>
 			<SectionHeader title={section_title}>
 				<CreateFile files_prefix={files_prefix} />
 				<RevalidatePaths paths={[Route.public.PORTFOLIO.uri]} />
-				<CreateProject type={type} tags={tags} fileList={fileList} iconList={iconList} />
+				<CreateProject
+					type={type}
+					tags={tags}
+					fileList={fileList}
+					iconList={iconList}
+					iconsMap={iconsMap}
+				/>
 				<ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}
@@ -70,10 +83,11 @@ const TimeLine: React.FC<Props> = ({
 			<div className="space-y-10">
 				{projectsByType?.map((project, index) => (
 					<ProjectAdminCard
+						key={index}
 						fileList={fileList}
 						iconList={iconList}
+						iconsMap={iconsMap}
 						tags={tags}
-						key={index}
 						className={visibleItems > index ? "" : "section-card-collapsible"}
 						project={project}
 					/>

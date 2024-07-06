@@ -11,6 +11,7 @@ import Loading from "@/components/fragments/Loading";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import TechTags from "@/components/fragments/TechTags";
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { PostData } from "@/interfaces/Post";
 import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
@@ -30,9 +31,17 @@ interface Props {
 	tags: TagData[] | null;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 }
 
-const BlogPublicPost: React.FC<Props> = async ({ className, post, tags, fileList, iconList }) => {
+const BlogPublicPost: React.FC<Props> = async ({
+	className,
+	post,
+	tags,
+	fileList,
+	iconList,
+	iconsMap,
+}) => {
 	const descriptionArr = post.html.description.split(splitDescriptionKeyword).map((str) => {
 		return str.replace(commentsMatcher, "");
 	});
@@ -67,7 +76,13 @@ const BlogPublicPost: React.FC<Props> = async ({ className, post, tags, fileList
 					/>
 				}
 			>
-				<PostLinks post={post} fileList={fileList} tags={tags} iconList={iconList} />
+				<PostLinks
+					post={post}
+					fileList={fileList}
+					tags={tags}
+					iconList={iconList}
+					iconsMap={iconsMap}
+				/>
 			</SectionHeader>
 
 			{/* @see https://github.com/tailwindlabs/tailwindcss-typography */}
@@ -81,7 +96,7 @@ const BlogPublicPost: React.FC<Props> = async ({ className, post, tags, fileList
 				)}
 			</article>
 
-			<TechTags className="mt-20" tags={post.tags} />
+			<TechTags className="mt-20" tags={post.tags} iconsMap={iconsMap} />
 		</div>
 	);
 };

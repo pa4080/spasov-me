@@ -4,19 +4,20 @@ import { msgs } from "@/messages";
 
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 import SectionHeader from "@/components/fragments/SectionHeader";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
-import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 import { Route } from "@/routes";
 import Link from "next/link";
 
 interface Props {
 	className?: string;
 	tags: TagData[] | null;
+	iconsMap: IconsMap;
 }
 
-const TechTags: React.FC<Props> = ({ className, tags }) => {
+const TechTags: React.FC<Props> = ({ className, tags, iconsMap }) => {
 	const t = msgs("TechTags");
 
 	const section_title = t(`title`);
@@ -32,7 +33,7 @@ const TechTags: React.FC<Props> = ({ className, tags }) => {
 						<DisplayIcon
 							className_TooltipTrigger="!mt-0"
 							description={tag.html.description}
-							icon={iconsMap[tag.icon as IconsMapItem]}
+							icon={iconsMap[tag.icon]}
 						/>
 					</Link>
 				))}

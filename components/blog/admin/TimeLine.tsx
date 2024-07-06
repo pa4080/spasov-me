@@ -5,6 +5,7 @@ import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { PostData } from "@/interfaces/Post";
 import { TagData } from "@/interfaces/Tag";
 import { PostType } from "@/interfaces/_common-data-types";
@@ -24,6 +25,7 @@ interface Props {
 	posts: PostData[] | null;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
@@ -38,6 +40,7 @@ const TimeLine: React.FC<Props> = ({
 	posts,
 	fileList,
 	iconList,
+	iconsMap,
 	tags,
 }) => {
 	const t = msgs("Posts");
@@ -57,7 +60,13 @@ const TimeLine: React.FC<Props> = ({
 			<SectionHeader title={section_title}>
 				<CreateFile files_prefix={files_prefix} />
 				<RevalidatePaths paths={[Route.public.PORTFOLIO.uri]} />
-				<CreatePost type={type} tags={tags} fileList={fileList} iconList={iconList} />
+				<CreatePost
+					type={type}
+					tags={tags}
+					fileList={fileList}
+					iconList={iconList}
+					iconsMap={iconsMap}
+				/>
 				<ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}
@@ -70,6 +79,7 @@ const TimeLine: React.FC<Props> = ({
 					<PostAdminCard
 						fileList={fileList}
 						iconList={iconList}
+						iconsMap={iconsMap}
 						tags={tags}
 						key={index}
 						className={visibleItems > index ? "" : "section-card-collapsible"}

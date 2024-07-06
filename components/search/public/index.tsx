@@ -14,6 +14,7 @@ import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
 
+import { IconsMap } from "@/interfaces/IconsMap";
 import { PostData } from "@/interfaces/Post";
 import { postTuple, projectTuple } from "@/interfaces/_common-data-types";
 import TagFilter from "./TagFilter";
@@ -35,9 +36,10 @@ interface Props {
 	className?: string;
 	tags: TagData[];
 	dataList: UnitedEntryType[];
+	iconsMap: IconsMap;
 }
 
-const SearchPublic: React.FC<Props> = ({ className, tags, dataList }) => {
+const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) => {
 	const t = msgs("Search");
 	const router = useRouter();
 	const pathname = usePathname();
@@ -230,7 +232,12 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList }) => {
 							</button>
 						</Label>
 
-						<TagFilter selectedTag={selectedTag?.tag || null} tags={tags} onTagClick={setTag} />
+						<TagFilter
+							selectedTag={selectedTag?.tag || null}
+							tags={tags}
+							onTagClick={setTag}
+							iconsMap={iconsMap}
+						/>
 					</div>
 				</div>
 			</div>
@@ -250,6 +257,7 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList }) => {
 							displayTags={true}
 							entries={searchResults}
 							type={entryType as UnitedEntryType["entryType"]}
+							iconsMap={iconsMap}
 						/>
 					))
 				)

@@ -25,6 +25,7 @@ import { Route } from "@/routes";
 import { useAppContext } from "@/contexts/AppContext";
 
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { Entry_FormSchema } from "../Form/schema";
 
@@ -35,9 +36,10 @@ interface Props {
 	entry: AboutEntryData;
 	fileList: FileListItem[] | null;
 	tags: TagData[] | null;
+	iconsMap: IconsMap;
 }
 
-const UpdateAboutEntry: React.FC<Props> = ({ className, entry, fileList, tags }) => {
+const UpdateAboutEntry: React.FC<Props> = ({ className, entry, fileList, tags, iconsMap }) => {
 	const t = msgs("AboutEntries_Update");
 	const entryTypeLabel = (
 		msgs("AboutEntries_Form")("aboutEntry_type_list") as unknown as Record<string, string>
@@ -117,6 +119,7 @@ const UpdateAboutEntry: React.FC<Props> = ({ className, entry, fileList, tags })
 						onSubmit={handleUpdateEntry}
 						fileList={fileList}
 						tags={tags}
+						iconsMap={iconsMap}
 					/>
 				</DialogContent>
 			</Dialog>

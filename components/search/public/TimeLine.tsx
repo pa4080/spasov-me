@@ -7,6 +7,7 @@ import { msgs } from "@/messages";
 
 import SearchResultEntryCard from "../common/Card";
 
+import { IconsMap } from "@/interfaces/IconsMap";
 import { UnitedEntryType } from ".";
 
 interface Props {
@@ -15,13 +16,14 @@ interface Props {
 	visibleItems?: number;
 	entries: UnitedEntryType[] | null;
 	displayTags: boolean;
+	iconsMap: IconsMap;
 }
 
 /**
  * The title of the section must exist in the messages.json file
  * In the format of: `title_${type}`, i.e. "title_employment"
  */
-const TimeLine: React.FC<Props> = ({ type, visibleItems = 15, entries, displayTags }) => {
+const TimeLine: React.FC<Props> = ({ type, visibleItems = 15, entries, displayTags, iconsMap }) => {
 	const t = msgs("Search");
 
 	type tType = Parameters<typeof t>[0];
@@ -50,6 +52,7 @@ const TimeLine: React.FC<Props> = ({ type, visibleItems = 15, entries, displayTa
 					{entriesByType?.map((entry, index) => (
 						<SearchResultEntryCard
 							key={index}
+							iconsMap={iconsMap}
 							className={visibleItems > index ? "pop-item" : "section-card-collapsible pop-item"}
 							displayTagsInline={displayTags}
 							entry={entry}

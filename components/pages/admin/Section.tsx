@@ -6,10 +6,10 @@ import { PageCardData } from "@/interfaces/PageCard";
 import { hyphenateString } from "@/lib/process-text";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
-import iconsMap from "@/public/assets/icons";
 import { Route } from "@/routes";
 
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import styles from "../_pages.module.scss";
 import CreatePage from "./Actions/CreatePage";
 import PageCard from "./Card";
@@ -19,9 +19,10 @@ interface Props {
 	pages: PageCardData[] | null;
 	type?: "common";
 	fileList: FileListItem[] | null;
+	iconsMap: IconsMap;
 }
 
-const Section: React.FC<Props> = ({ className, pages, type = "common", fileList }) => {
+const Section: React.FC<Props> = ({ className, pages, type = "common", fileList, iconsMap }) => {
 	const t = msgs("PageCards");
 
 	type tType = Parameters<typeof t>[0];
@@ -44,7 +45,7 @@ const Section: React.FC<Props> = ({ className, pages, type = "common", fileList 
 
 			<div className={styles.feed}>
 				{pages?.map((page, index) => (
-					<PageCard fileList={fileList} key={index} icons={iconsMap} page={page} />
+					<PageCard fileList={fileList} key={index} iconsMap={iconsMap} page={page} />
 				))}
 			</div>
 		</div>

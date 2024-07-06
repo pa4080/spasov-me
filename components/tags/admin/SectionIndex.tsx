@@ -7,8 +7,8 @@ import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import { TagData } from "@/interfaces/Tag";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
-import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
+import { IconsMap } from "@/interfaces/IconsMap";
 import styles from "../_tags.module.scss";
 import CreateTag from "./Actions/CreateTag";
 
@@ -16,9 +16,10 @@ interface Props {
 	className?: string;
 	tags: TagData[] | null;
 	type?: string;
+	iconsMap: IconsMap;
 }
 
-const SectionIndex: React.FC<Props> = ({ className, tags, type = "tagIndex" }) => {
+const SectionIndex: React.FC<Props> = ({ className, tags, type = "tagIndex", iconsMap }) => {
 	const t = msgs("Tags");
 
 	type tType = Parameters<typeof t>[0];
@@ -30,7 +31,7 @@ const SectionIndex: React.FC<Props> = ({ className, tags, type = "tagIndex" }) =
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths />
-				<CreateTag icons={iconsMap} tagType={"informationTechnologies"} />
+				<CreateTag iconsMap={iconsMap} tagType={"informationTechnologies"} />
 			</SectionHeader>
 
 			<div className="flex flex-wrap gap-2 items-center justify-start">
@@ -39,7 +40,7 @@ const SectionIndex: React.FC<Props> = ({ className, tags, type = "tagIndex" }) =
 						<DisplayIcon
 							className_TooltipTrigger="!mt-0"
 							description={tag.html.description}
-							icon={iconsMap[tag.icon as IconsMapItem]}
+							icon={iconsMap[tag.icon]}
 						/>
 					</a>
 				))}

@@ -14,7 +14,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { IconMap } from "@/interfaces/IconMap";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
@@ -26,7 +26,7 @@ import { Pages_FormSchema } from "../Form/schema";
 
 interface Props {
 	className?: string;
-	icons: IconMap;
+	icons: IconsMap;
 	fileList: FileListItem[] | null;
 }
 

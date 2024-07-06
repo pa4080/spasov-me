@@ -16,10 +16,10 @@ import { FileData, FileListItem } from "@/interfaces/File";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
-import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
@@ -34,6 +34,7 @@ interface Props {
 	displayTagsInline?: boolean;
 	displayGalleryInline?: boolean;
 	fileList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
@@ -43,6 +44,7 @@ const AboutEntryCard: React.FC<Props> = ({
 	displayTagsInline = true,
 	displayGalleryInline = false,
 	fileList,
+	iconsMap,
 	tags,
 }) => {
 	const tTime = msgs("AboutEntries_Form");
@@ -128,7 +130,7 @@ const AboutEntryCard: React.FC<Props> = ({
 							<CopyEntryUri entry_id={entry._id} />
 							<DeleteAboutEntry entry={entry} />
 							<VisibilitySwitchDisplay disabled checked={entry.visibility} className="mt-0.5" />
-							<UpdateAboutEntry entry={entry} fileList={fileList} tags={tags} />
+							<UpdateAboutEntry entry={entry} fileList={fileList} tags={tags} iconsMap={iconsMap} />
 							<ToggleCollapsible
 								tooltip
 								className="icon_accent_primary"
@@ -169,7 +171,7 @@ const AboutEntryCard: React.FC<Props> = ({
 											<DisplayIcon
 												key={tag._id}
 												description={tag.html.description}
-												icon={iconsMap[tag.icon as IconsMapItem]}
+												icon={iconsMap[tag.icon]}
 											/>
 										</Link>
 									))}

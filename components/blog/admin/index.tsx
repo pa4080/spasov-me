@@ -2,7 +2,7 @@ import React from "react";
 
 import { cn } from "@/lib/cn-utils";
 
-import { getFileList } from "@/components/files-cloudflare/_files.actions";
+import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
 import { getTags } from "@/components/tags/_tags.actions";
 import { postTuple } from "@/interfaces/_common-data-types";
 import { getPosts } from "../_blog.actions";
@@ -20,6 +20,7 @@ const BlogAdmin: React.FC<Props> = async ({ className }) => {
 	const tags = await getTags();
 	const fileList = await getFileList({ prefix: files_prefix });
 	const iconList = await getFileList({ prefix: icons_prefix });
+	const iconsMap = await getIconsMap();
 
 	return (
 		<div className={cn("space-y-20", className)}>
@@ -30,6 +31,7 @@ const BlogAdmin: React.FC<Props> = async ({ className }) => {
 					visibleItems={25}
 					fileList={fileList}
 					iconList={iconList}
+					iconsMap={iconsMap}
 					tags={tags}
 					type={type}
 				/>

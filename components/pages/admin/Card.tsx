@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
-import { IconMap } from "@/interfaces/IconMap";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { PageCardData } from "@/interfaces/PageCard";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
@@ -12,18 +12,18 @@ import { Route } from "@/routes";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 
 import { FileListItem } from "@/interfaces/File";
-import styles from "../../_pages.module.scss";
-import DeletePage from "../Actions/DeletePage";
-import UpdatePage from "../Actions/UpdatePage";
+import styles from "../_pages.module.scss";
+import DeletePage from "./Actions/DeletePage";
+import UpdatePage from "./Actions/UpdatePage";
 
 interface Props {
 	className?: string;
 	page: PageCardData;
-	icons: IconMap;
+	iconsMap: IconsMap;
 	fileList: FileListItem[] | null;
 }
 
-const PageCard: React.FC<Props> = ({ className, page, icons, fileList }) => {
+const PageCard: React.FC<Props> = ({ className, page, iconsMap, fileList }) => {
 	const t = msgs("PageCards");
 
 	return (
@@ -37,7 +37,7 @@ const PageCard: React.FC<Props> = ({ className, page, icons, fileList }) => {
 				>
 					<DisplayIcon
 						className="hover:bg-transparent dark:hover:bg-transparent"
-						icon={icons[page?.icon || "ss_spasov.me.logo"]}
+						icon={iconsMap[page?.icon || "ss_spasov.me.logo"]}
 						size={40}
 					/>
 				</div>
@@ -46,7 +46,7 @@ const PageCard: React.FC<Props> = ({ className, page, icons, fileList }) => {
 					<DeletePage page_id={page._id} page_title={page.title} />
 					<FileAddressHandle address={`/${page.uri}`} />
 					<VisibilitySwitchDisplay disabled checked={page.visibility} className="mt-1 mr-1" />
-					<UpdatePage icons={icons} page={page} fileList={fileList} />
+					<UpdatePage icons={iconsMap} page={page} fileList={fileList} />
 				</div>
 			</div>
 			{page.attachment && page.html.attachment && (

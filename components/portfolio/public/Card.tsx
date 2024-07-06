@@ -11,6 +11,7 @@ import { Route } from "@/routes";
 
 import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import ProjectLinks from "../common/ProjectLinks";
 
@@ -19,10 +20,18 @@ interface Props {
 	project: ProjectData;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
-const ProjectPublic_Card: React.FC<Props> = ({ project, className, fileList, iconList, tags }) => {
+const ProjectPublic_Card: React.FC<Props> = ({
+	project,
+	className,
+	fileList,
+	iconList,
+	iconsMap,
+	tags,
+}) => {
 	const t = msgs("Projects_CardPublic");
 
 	const descriptionArr = project.html.description.split(splitDescriptionKeyword).map((str) => {
@@ -50,7 +59,13 @@ const ProjectPublic_Card: React.FC<Props> = ({ project, className, fileList, ico
 			/>
 
 			<div className="flex flex-row items-center justify-between gap-2 w-full">
-				<ProjectLinks project={project} fileList={fileList} iconList={iconList} tags={tags} />
+				<ProjectLinks
+					project={project}
+					fileList={fileList}
+					iconList={iconList}
+					iconsMap={iconsMap}
+					tags={tags}
+				/>
 
 				<Link
 					area-label={t("area_label_card_link")}

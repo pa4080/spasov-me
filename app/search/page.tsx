@@ -5,6 +5,7 @@ import React from "react";
 
 import { getEntries } from "@/components/about/_about.actions";
 import { getPosts } from "@/components/blog/_blog.actions";
+import { getIconsMap } from "@/components/files-cloudflare/_files.actions";
 import { getProjects } from "@/components/portfolio/_portfolio.actions";
 import SearchPublic from "@/components/search/public";
 import { getTags } from "@/components/tags/_tags.actions";
@@ -18,9 +19,11 @@ const Portfolio: React.FC = async () => {
 		getTags({ hyphen: true, public: true }),
 		getProjects({ hyphen: true, public: true }),
 		getPosts({ hyphen: true, public: true }),
-	]).then(([aboutEntries, tags, projects, posts]) => ({
+		getIconsMap(),
+	]).then(([aboutEntries, tags, projects, posts, iconsMap]) => ({
 		tags: tags ?? [],
 		dataList: [...(aboutEntries ?? []), ...(projects ?? []), ...(posts ?? [])],
+		iconsMap,
 	}));
 
 	return (

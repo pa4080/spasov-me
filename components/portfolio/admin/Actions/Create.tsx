@@ -21,6 +21,7 @@ import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { Project_FormSchema } from "../Form/schema";
 // import ProjectForm from "../Form";
@@ -34,10 +35,18 @@ interface Props {
 	type: ProjectType;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
-const CreateProject: React.FC<Props> = ({ className, type, fileList, iconList, tags }) => {
+const CreateProject: React.FC<Props> = ({
+	className,
+	type,
+	fileList,
+	iconList,
+	iconsMap,
+	tags,
+}) => {
 	const t = msgs("Projects_Create");
 	const entryTypeLabel = (
 		msgs("Projects_Form")("project_type_list") as unknown as Record<string, string>
@@ -114,6 +123,7 @@ const CreateProject: React.FC<Props> = ({ className, type, fileList, iconList, t
 					<ProjectForm
 						fileList={fileList}
 						iconList={iconList}
+						iconsMap={iconsMap}
 						tags={tags}
 						className="mt-1"
 						entryType={type}

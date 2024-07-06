@@ -22,6 +22,7 @@ import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { updateProject } from "../../_portfolio.actions";
 import { Project_FormSchema } from "../Form/schema";
@@ -33,6 +34,7 @@ interface Props {
 	dialogTrigger_buttonIconProps?: ButtonIconProps;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
@@ -42,6 +44,7 @@ const UpdateProject: React.FC<Props> = ({
 	dialogTrigger_buttonIconProps,
 	fileList,
 	iconList,
+	iconsMap,
 	tags,
 }) => {
 	const t = msgs("Projects_Update");
@@ -122,6 +125,7 @@ const UpdateProject: React.FC<Props> = ({
 				<ProjectForm
 					fileList={fileList}
 					iconList={iconList}
+					iconsMap={iconsMap}
 					tags={tags}
 					className={t("dialog_description") ? "mt-0" : "mt-1"}
 					entryType={project.entryType}

@@ -1,7 +1,7 @@
 "use server";
 
 import { FileData, FileListItem, FileMetadata } from "@/interfaces/File";
-import { IconMap } from "@/interfaces/IconMap";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { AttachedToDocument } from "@/interfaces/_common-data-types";
 import {
 	getObject,
@@ -94,51 +94,62 @@ export const getFileList = async ({
 		.sort(({ label: a }, { label: b }) => a.localeCompare(b));
 };
 
-export const generateIconIndex = async (): Promise<IconMap | null> => {
-	const icons = await getFileList({ prefix: icons_prefix });
+export const generateIconsMap = async (): Promise<IconsMap | null> => {
+	const icons = await getFilesR2({ prefix: icons_prefix });
 
-	const iconMap = icons?.reduce((acc: IconMap, fileName): IconMap => {
-		/*
-		const info = sizeOf(path.join(directoryPath, fileName)) as IconMap[string]["info"];
+	const iconMap = icons
+		?.sort((a, b) => a.filename.localeCompare(b.filename))
+		.reduce((acc: IconsMap, fileListItem): IconsMap => {
+			const fileName = fileListItem.filename;
+			const iconBaseName = fileName.replace(/(-light|-dark)(\..+)$/, "").replace(/\s+/g, "");
+			const iconName = iconBaseName.replace(/\//g, "_").replace(/\..*?$/g, "");
 
-		info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
-S
-		const filePath = path.join(dir, fileName).replace(/^public/, "");
+			if (!acc[iconName]) {
+				acc[iconName] = {
+					name: iconName,
+					uri: { light: null, dark: null },
+					info: fileListItem.metadata.info,
+				} as unknown as IconsMap[string];
+			}
 
-		const baseName = path
-			.parse(fileName)
-			.name.replace(/-light|-dark$/, "")
-			.replace(/\s+/g, ""); // .replace(/(\s+|_|-)/g, "");
+			if (fileName.includes("-light")) {
+				acc[iconName].uri.light = fileListItem.metadata.html.fileUrl ?? "";
+			} else {
+				acc[iconName].uri.dark = fileListItem.metadata.html.fileUrl ?? "";
+			}
 
-		const iconName = directoryPath === iconsDirPath ? baseName : baseDirName + "_" + baseName;
+			if (!acc[iconName].uri.light || acc[iconName].uri.light === "") {
+				acc[iconName].uri.light = fileListItem.metadata.html.fileUrl ?? fileName;
+			}
 
-		if (!acc[iconName]) {
-			acc[iconName] = {
-				name: iconName,
-				uri: { light: null, dark: null },
-				info,
-			} as unknown as IconMap[string];
-		}
+			if (!acc[iconName].uri.dark || acc[iconName].uri.dark === "") {
+				acc[iconName].uri.dark = fileListItem.metadata.html.fileUrl ?? fileName;
+			}
 
-		if (fileName.includes("-light")) {
-			acc[iconName].uri.light = filePath;
-		} else {
-			acc[iconName].uri.dark = filePath;
-		}
-
-		if (!acc[iconName].uri.light) {
-			acc[iconName].uri.light = filePath;
-		}
-
-		if (!acc[iconName].uri.dark) {
-			acc[iconName].uri.dark = filePath;
-		}
-		*/
-
-		return acc;
-	}, {});
+			return acc;
+		}, {});
 
 	return iconMap ?? null;
+};
+
+export const getIconsMap = async ({
+	prefix = "iconsMap",
+}: {
+	prefix?: string;
+} = {}): Promise<IconsMap> => {
+	const cachedIconsMap = await redisGet_SSR_Solution<IconsMap>(prefix);
+	if (cachedIconsMap) {
+		return cachedIconsMap;
+	}
+
+	const iconsMap = await generateIconsMap();
+	if (!iconsMap) {
+		return {} as IconsMap;
+	}
+
+	await redis.set(prefix, JSON.stringify(iconsMap));
+
+	return iconsMap;
 };
 
 export const createFile = async ({
@@ -164,7 +175,7 @@ export const createFile = async ({
 
 		const user_id = session?.user.id as string;
 
-		await redis.del("files");
+		// await redis.del(prefix);
 
 		const metadataPart: Omit<FileMetadata, "info"> = {
 			description,
@@ -245,7 +256,7 @@ export const updateFile = async ({
 			target_id: file_id,
 		});
 
-		await redis.del("files");
+		// await redis.del(prefix);
 
 		if (file && typeof file === "object") {
 			// If a new file is provided, delete the old file and upload the new one
@@ -327,7 +338,7 @@ export const deleteFile = async ({
 			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
-		await redis.del("files");
+		// await redis.del(prefix);
 
 		// Do the actual remove
 		return await getObjectListAndDelete({

@@ -8,6 +8,7 @@ import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName
 import { msgs } from "@/messages";
 
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import AboutEntryCard from "../common/Card";
 
@@ -18,6 +19,7 @@ interface Props {
 	entries: AboutEntryData[] | null;
 	displayTags: boolean;
 	fileList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
@@ -32,6 +34,7 @@ const TimeLine: React.FC<Props> = ({
 	entries,
 	displayTags,
 	fileList,
+	iconsMap,
 	tags,
 }) => {
 	const t = msgs("AboutEntries");
@@ -59,6 +62,7 @@ const TimeLine: React.FC<Props> = ({
 					<AboutEntryCard
 						fileList={fileList}
 						tags={tags}
+						iconsMap={iconsMap}
 						key={index}
 						className={visibleItems > index ? "pop-item" : "section-card-collapsible pop-item"}
 						displayTagsInline={displayTags}

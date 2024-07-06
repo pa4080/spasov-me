@@ -1,4 +1,4 @@
-export interface IconMap {
+export interface IconsMap {
 	[key: string]: {
 		name: string;
 		uri: {

@@ -12,7 +12,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { IconMap } from "@/interfaces/IconMap";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { TagType } from "@/interfaces/_common-data-types";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
@@ -29,10 +29,10 @@ interface Props {
 	className?: string;
 	tag: TagData;
 	tagType: TagType;
-	icons: IconMap;
+	iconsMap: IconsMap;
 }
 
-const UpdateTag: React.FC<Props> = ({ className, tagType, tag, icons }) => {
+const UpdateTag: React.FC<Props> = ({ className, tagType, tag, iconsMap }) => {
 	const t = msgs("Tags_Update");
 	const tagTypeLabel = (msgs("Tags_Form")("tag_type_list") as unknown as Record<string, string>)[
 		tagType
@@ -104,7 +104,7 @@ const UpdateTag: React.FC<Props> = ({ className, tagType, tag, icons }) => {
 					<TagForm
 						className={t("dialog_description") ? "mt-0" : "mt-1"}
 						formData={tag}
-						icons={icons}
+						iconsMap={iconsMap}
 						submitting={submitting}
 						tagType={tagType}
 						onSubmit={handleUpdateEntry}

@@ -30,6 +30,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { FileData, FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { PostData } from "@/interfaces/Post";
 import { TagData } from "@/interfaces/Tag";
 import { PostType, postTuple } from "@/interfaces/_common-data-types";
@@ -45,6 +46,7 @@ interface Props {
 	submitting?: boolean;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
+	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
@@ -56,6 +58,7 @@ const PostForm: React.FC<Props> = ({
 	submitting,
 	fileList,
 	iconList,
+	iconsMap,
 	tags,
 }) => {
 	const t = msgs("Posts_Form");
@@ -409,6 +412,7 @@ const PostForm: React.FC<Props> = ({
 						className="w-full ma:col-span-7"
 						control={form.control}
 						displayType="tag_icon"
+						iconsMap={iconsMap}
 						error={form.formState.errors.tags}
 						itemsList={
 							tags
@@ -446,6 +450,7 @@ const PostForm: React.FC<Props> = ({
 						className="w-full ma:col-span-7"
 						control={form.control}
 						displayType="gallery_image"
+						iconsMap={null}
 						error={form.formState.errors.gallery}
 						itemsList={fileList}
 						messages={{

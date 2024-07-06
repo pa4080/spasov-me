@@ -3,15 +3,16 @@ import React from "react";
 
 import styles from "@/app/(styles)/card.module.scss";
 import DisplayIconLight from "@/components/fragments/DisplayIconLight";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { PageCardData } from "@/interfaces/PageCard";
-import iconsMap, { IconsMapItem } from "@/public/assets/icons";
 
 interface Props {
 	className?: string;
 	page: PageCardData;
+	iconsMap: IconsMap;
 }
 
-const PagesPublic_Card: React.FC<Props> = async ({ className, page }) => {
+const PagesPublic_Card: React.FC<Props> = async ({ className, page, iconsMap }) => {
 	return (
 		<Link href={`/${page.uri}`}>
 			<div className={`${styles.card} ${className}`}>
@@ -26,7 +27,7 @@ const PagesPublic_Card: React.FC<Props> = async ({ className, page }) => {
 							filter: page?.icon ? "" : "grayscale(1)",
 						}}
 					>
-						<DisplayIconLight height={48} icon={iconsMap[page?.icon as IconsMapItem]} width={48} />
+						<DisplayIconLight height={48} icon={iconsMap[page?.icon]} width={48} />
 					</div>
 				</div>
 				<p>{page.description}</p>
