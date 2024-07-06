@@ -17,7 +17,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Switch } from "@/components/ui/switch";
-import { IconMap } from "@/interfaces/IconMap";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
@@ -35,7 +35,7 @@ interface Props {
 	onSubmit: (data: Pages_FormSchema) => void;
 	submitting?: boolean;
 	formData?: Pages_FormSchema;
-	icons: IconMap;
+	icons: IconsMap;
 	fileList: FileListItem[] | null;
 }
 

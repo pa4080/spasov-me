@@ -6,7 +6,7 @@ import React from "react";
 import { msgs } from "@/messages";
 
 import DisplayIcon from "@/components/fragments/DisplayIcon";
-import { IconMap } from "@/interfaces/IconMap";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 
 import styles from "./_tag-card.module.scss";
@@ -17,7 +17,7 @@ import UpdateTag from "../Actions/UpdateTag";
 export interface GenericActionProps {
 	className?: string;
 	tag: TagData;
-	icons: IconMap;
+	icons: IconsMap;
 }
 
 interface Props extends Omit<GenericActionProps, "tagType" | "tag_id"> {}

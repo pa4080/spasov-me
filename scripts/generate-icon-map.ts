@@ -4,7 +4,7 @@
 
 import sizeOf from "image-size";
 
-import { IconMap } from "../interfaces/IconMap";
+import { IconsMap } from "../interfaces/IconsMap";
 
 import fs from "fs";
 import path from "path";
@@ -16,7 +16,7 @@ const iconsSubDirs = iconsDirContent
 	.filter((item) => fs.statSync(path.join(iconsDirPath, item)).isDirectory())
 	.map((item) => path.join(iconsDir, item));
 
-const generateIconsMap = (dir: string): IconMap => {
+const generateIconsMap = (dir: string): IconsMap => {
 	const directoryPath = path.join(process.cwd(), dir);
 	const baseDirName = path.basename(directoryPath);
 
@@ -24,8 +24,8 @@ const generateIconsMap = (dir: string): IconMap => {
 		.readdirSync(directoryPath)
 		.filter((file) => file.endsWith(".svg") || file.endsWith(".png") || file.endsWith(".webp"));
 
-	const icons = files.reduce((acc: IconMap, fileName): IconMap => {
-		const info = sizeOf(path.join(directoryPath, fileName)) as IconMap[string]["info"];
+	const icons = files.reduce((acc: IconsMap, fileName): IconsMap => {
+		const info = sizeOf(path.join(directoryPath, fileName)) as IconsMap[string]["info"];
 
 		info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
 
@@ -43,7 +43,7 @@ const generateIconsMap = (dir: string): IconMap => {
 				name: iconName,
 				uri: { light: null, dark: null },
 				info,
-			} as unknown as IconMap[string];
+			} as unknown as IconsMap[string];
 		}
 
 		if (fileName.includes("-light")) {
@@ -66,7 +66,7 @@ const generateIconsMap = (dir: string): IconMap => {
 	return icons;
 };
 
-const iconMap = [...iconsSubDirs, iconsDir].reduce((acc: IconMap, dir) => {
+const iconMap = [...iconsSubDirs, iconsDir].reduce((acc: IconsMap, dir) => {
 	return { ...acc, ...generateIconsMap(dir) };
 }, {});
 

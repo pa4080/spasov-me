@@ -3,11 +3,11 @@ import React from "react";
 
 import Image from "next/image";
 
-import { IconMap } from "@/interfaces/IconMap";
+import { IconsMap } from "@/interfaces/IconsMap";
 
 interface Props {
 	className?: string;
-	icon: IconMap[string];
+	icon: IconsMap[string];
 	width?: number;
 	height?: number;
 	theme?: "light" | "dark";

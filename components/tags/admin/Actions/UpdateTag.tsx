@@ -12,7 +12,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { IconMap } from "@/interfaces/IconMap";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { TagType } from "@/interfaces/_common-data-types";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
@@ -29,7 +29,7 @@ interface Props {
 	className?: string;
 	tag: TagData;
 	tagType: TagType;
-	icons: IconMap;
+	icons: IconsMap;
 }
 
 const UpdateTag: React.FC<Props> = ({ className, tagType, tag, icons }) => {

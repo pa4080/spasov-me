@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
-import { IconMap } from "@/interfaces/IconMap";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { PageCardData } from "@/interfaces/PageCard";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
@@ -19,7 +19,7 @@ import UpdatePage from "../Actions/UpdatePage";
 interface Props {
 	className?: string;
 	page: PageCardData;
-	icons: IconMap;
+	icons: IconsMap;
 	fileList: FileListItem[] | null;
 }
 

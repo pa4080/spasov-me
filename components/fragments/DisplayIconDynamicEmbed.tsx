@@ -8,10 +8,10 @@ import React, { ComponentProps } from "react";
 
 import dynamic from "next/dynamic";
 
-import { IconMap } from "@/interfaces/IconMap";
+import { IconsMap } from "@/interfaces/IconsMap";
 
 interface Props extends ComponentProps<"svg"> {
-	icon: IconMap[string];
+	icon: IconsMap[string];
 	size?: number;
 	theme?: "light" | "dark";
 }

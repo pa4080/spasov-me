@@ -20,7 +20,7 @@ import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 
 import { TagType } from "@/interfaces/_common-data-types";
 
-import { IconMap } from "@/interfaces/IconMap";
+import { IconsMap } from "@/interfaces/IconsMap";
 
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 
@@ -33,7 +33,7 @@ import { Tag_FormSchema } from "../Form/schema";
 interface Props {
 	className?: string;
 	tagType: TagType;
-	icons: IconMap;
+	icons: IconsMap;
 }
 
 const CreateTag: React.FC<Props> = ({ className, tagType, icons }) => {

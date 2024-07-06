@@ -20,7 +20,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { IconMap } from "@/interfaces/IconMap";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { AttachedToDocument, TagType, tagTuple } from "@/interfaces/_common-data-types";
 import { capitalize } from "@/lib/capitalize";
 import { msgs } from "@/messages";
@@ -33,7 +33,7 @@ interface Props {
 	tagType: TagType;
 	onSubmit: (data: Tag_FormSchema) => void;
 	submitting?: boolean;
-	icons: IconMap;
+	icons: IconsMap;
 }
 
 const TagForm: React.FC<Props> = ({

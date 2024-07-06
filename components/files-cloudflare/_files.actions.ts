@@ -1,7 +1,7 @@
 "use server";
 
 import { FileData, FileListItem, FileMetadata } from "@/interfaces/File";
-import { IconMap } from "@/interfaces/IconMap";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { AttachedToDocument } from "@/interfaces/_common-data-types";
 import {
 	getObject,
@@ -94,12 +94,12 @@ export const getFileList = async ({
 		.sort(({ label: a }, { label: b }) => a.localeCompare(b));
 };
 
-export const generateIconIndex = async (): Promise<IconMap | null> => {
+export const generateIconsMap = async (): Promise<IconsMap | null> => {
 	const icons = await getFilesR2({ prefix: icons_prefix });
 
 	const iconMap = icons
 		?.sort((a, b) => a.filename.localeCompare(b.filename))
-		.reduce((acc: IconMap, fileListItem): IconMap => {
+		.reduce((acc: IconsMap, fileListItem): IconsMap => {
 			const fileName = fileListItem.filename;
 			const iconBaseName = fileName.replace(/(-light|-dark)(\..+)$/, "").replace(/\s+/g, "");
 			const iconName = iconBaseName.replace(/\//g, "_").replace(/\..*?$/g, "");
@@ -111,7 +111,7 @@ export const generateIconIndex = async (): Promise<IconMap | null> => {
 					name: iconName,
 					uri: { light: null, dark: null },
 					info: fileListItem.metadata.info,
-				} as unknown as IconMap[string];
+				} as unknown as IconsMap[string];
 			}
 
 			if (fileName.includes("-light")) {
