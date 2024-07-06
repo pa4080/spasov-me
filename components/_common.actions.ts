@@ -31,7 +31,7 @@ import Project from "@/models/project";
 
 export const revalidatePaths = async <T extends string>({
 	paths,
-	files_prefixes = ["files", "icons"],
+	files_prefixes = ["files", "icons", "iconsMap"],
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	redirectTo,
 }: {

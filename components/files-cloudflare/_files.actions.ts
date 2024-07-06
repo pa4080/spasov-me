@@ -175,7 +175,7 @@ export const createFile = async ({
 
 		const user_id = session?.user.id as string;
 
-		await redis.del("files");
+		// await redis.del(prefix);
 
 		const metadataPart: Omit<FileMetadata, "info"> = {
 			description,
@@ -256,7 +256,7 @@ export const updateFile = async ({
 			target_id: file_id,
 		});
 
-		await redis.del("files");
+		// await redis.del(prefix);
 
 		if (file && typeof file === "object") {
 			// If a new file is provided, delete the old file and upload the new one
@@ -338,7 +338,7 @@ export const deleteFile = async ({
 			throw new Error(msgs("Errors")("invalidUser"));
 		}
 
-		await redis.del("files");
+		// await redis.del(prefix);
 
 		// Do the actual remove
 		return await getObjectListAndDelete({
