@@ -10,22 +10,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
+- Backup scripts
+  - [x] Migration script from R2 to MinIO
+  - [ ] Migration script from MongoDB/Atlas to MongoDB/Local
+
 - Search page
   - [ ] Choose the base data category type to be searched - i.e.: Search in [x]CV [x]Blog [x]Portfolio
-
-- Redis
-  - [x] FilesR2
-  - [ ] Create event loop by using Upstash/Redis queue - object like:
-
-    ```js
-    {
-      objectKey: string,
-      metadata: FileMetadata,
-      objectBody?: buffer,
-      prefix: string,
-      action: "create" | "update" | "update-metadata" | "delete",
-    }
-    ```
 
 - Blog
   - [x] Blog post admin
@@ -35,24 +25,19 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] MD Images with captions
   - [ ] Copy button for the post's code snippets
 
-- Tag Icons
-  - [x] Upload to R2
-  - [x] Display at /admin/files/cloudflare/icons
-  - [x] Cache to Upstash/Redis
-  - [x] Clear the cache on refresh... pass somehow the cache prefix "files"/"icons"
-    - !!!CURRENTLY CLEAR ALL CACHE
-  - [x] Create Tag Icons upload page/form...
-    - make sure the icons are correctly uploaded to prefix "icons" and
-    - the files are correctly uploaded to prefix "files";
-    - the sub prefix of the icons should be a part of the name within the upload form...
-    - !!!Note: in the current implementation the "files" prefix is hardcoded in the form right now!!!
-  - [x] Make them available to the components that select the files from list
-    - Right now only for Portfolio and blog posts icons
-  - [x] Keep tag index generation for the tags their-self
+- Redis
+  - [x] FilesR2 index to Cache
+  - [ ] Create event loop by using Upstash/Redis queue - object like:
 
-- Backup scripts
-  - [x] Migration script from R2 to MinIO
-  - [ ] Migration script from MongoDB/Atlas to MongoDB/Local
+    ```js
+    {
+      objectKey: string,
+      metadata: FileMetadata,
+      objectBody?: buffer, // this should become a temp file
+      prefix: string,
+      action: "create" | "update" | "update-metadata" | "delete",
+    }
+    ```
 
 ## Vercel CLI
 

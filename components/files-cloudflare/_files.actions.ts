@@ -1,5 +1,9 @@
 "use server";
 
+import { Redis } from "@upstash/redis";
+
+import sizeOf from "image-size";
+
 import { FileData, FileListItem, FileMetadata } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { AttachedToDocument } from "@/interfaces/_common-data-types";
@@ -13,8 +17,7 @@ import {
 import { fileObject_toData } from "@/lib/process-data-files-cloudflare";
 import { redisGet_SSR_Solution } from "@/lib/redis-get";
 import { msgs } from "@/messages";
-import { Redis } from "@upstash/redis";
-import sizeOf from "image-size";
+
 import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "./../_common.actions";
 
 const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
@@ -138,11 +141,13 @@ export const getIconsMap = async ({
 	prefix?: string;
 } = {}): Promise<IconsMap> => {
 	const cachedIconsMap = await redisGet_SSR_Solution<IconsMap>(prefix);
+
 	if (cachedIconsMap) {
 		return cachedIconsMap;
 	}
 
 	const iconsMap = await generateIconsMap();
+
 	if (!iconsMap) {
 		return {} as IconsMap;
 	}
@@ -194,7 +199,9 @@ export const createFile = async ({
 			// Convert the blob to buffer
 			const buffer = Buffer.from(await file.arrayBuffer());
 
+			// Get info of the file }
 			const info = sizeOf(buffer) as FileMetadata["info"];
+
 			info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
 
 			return await uploadObject({
@@ -281,6 +288,7 @@ export const updateFile = async ({
 			const buffer = Buffer.from(await file.arrayBuffer());
 
 			const info = sizeOf(buffer) as FileMetadata["info"];
+
 			info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
 
 			// Upload the new file
@@ -373,6 +381,7 @@ export const fileAttachment_add = async ({
 		if (prefix === "all_prefixes") {
 			const getFiles = (await getFilesR2({ prefix: files_prefix })) || [];
 			const getIcons = (await getFilesR2({ prefix: icons_prefix })) || [];
+
 			files = [...getFiles, ...getIcons];
 		} else {
 			files = await getFilesR2({ prefix });
@@ -443,6 +452,7 @@ export const fileAttachment_remove = async ({
 		if (prefix === "all_prefixes") {
 			const getFiles = (await getFilesR2({ prefix: files_prefix })) || [];
 			const getIcons = (await getFilesR2({ prefix: icons_prefix })) || [];
+
 			files = [...getFiles, ...getIcons];
 		} else {
 			files = await getFilesR2({ prefix });
