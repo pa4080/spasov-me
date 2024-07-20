@@ -24,8 +24,10 @@ import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { PostData } from "@/interfaces/Post";
 import { TagData } from "@/interfaces/Tag";
+
 import { updatePost } from "../../_blog.actions";
 import { Post_FormSchema } from "../Form/schema";
+
 const PostForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
 
 interface Props {
@@ -98,7 +100,9 @@ const UpdatePost: React.FC<Props> = ({
 		...dialogTrigger_buttonIconProps,
 	};
 
-	if (!session) return null;
+	if (!session) {
+		return null;
+	}
 
 	return (
 		<Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -123,15 +127,15 @@ const UpdatePost: React.FC<Props> = ({
 				</DialogHeader>
 
 				<PostForm
-					fileList={fileList}
-					iconList={iconList}
-					tags={tags}
 					className={t("dialog_description") ? "mt-0" : "mt-1"}
 					entryType={post.entryType}
+					fileList={fileList}
 					formData={post}
-					submitting={submitting}
-					onSubmit={handleUpdatePost}
+					iconList={iconList}
 					iconsMap={iconsMap}
+					submitting={submitting}
+					tags={tags}
+					onSubmit={handleUpdatePost}
 				/>
 			</DialogContent>
 		</Dialog>

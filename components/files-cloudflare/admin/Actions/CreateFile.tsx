@@ -100,10 +100,10 @@ const CreateFile: React.FC<Props> = ({ className, files_prefix }) => {
 
 					<FileForm
 						className="mt-1"
+						files_prefix={files_prefix}
 						isContainerDialogOpen={isOpen}
 						submitting={submitting}
 						onSubmit={handleCreateFile}
-						files_prefix={files_prefix}
 					/>
 				</DialogContent>
 			</Dialog>

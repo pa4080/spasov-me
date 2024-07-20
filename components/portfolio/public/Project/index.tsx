@@ -11,6 +11,7 @@ import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+
 import ProjectLinks from "../../common/ProjectLinks";
 
 const GalleryCarousel = dynamic(() => import("@/components/fragments/Gallery/GalleryCarousel"), {
@@ -53,18 +54,18 @@ const PortfolioPublicProject: React.FC<Props> = async ({
 	return (
 		<div className={cn("w-full pt-8 sa:pt-6 lg:pt-1", className)}>
 			<GalleryCarousel
+				entryData={project}
 				gallery={gallery}
 				navPosition="bottom"
 				navType="embedded"
-				entryData={project}
 			/>
 			<SectionHeader className="pop-header mt-6 sa:mt-8" title={project.html.title}>
 				<ProjectLinks
-					project={project}
 					fileList={fileList}
 					iconList={iconList}
-					tags={tags}
 					iconsMap={iconsMap}
+					project={project}
+					tags={tags}
 				/>
 			</SectionHeader>
 
@@ -75,11 +76,11 @@ const PortfolioPublicProject: React.FC<Props> = async ({
 					className="font-semibold tracking-wide text-xl"
 				/>
 				{descriptionArr.length > 1 && (
-					<div className="project-body" dangerouslySetInnerHTML={{ __html: descriptionArr[1] }} />
+					<div dangerouslySetInnerHTML={{ __html: descriptionArr[1] }} className="project-body" />
 				)}
 			</article>
 
-			<TechTags className="mt-20" tags={project.tags} iconsMap={iconsMap} />
+			<TechTags className="mt-20" iconsMap={iconsMap} tags={project.tags} />
 		</div>
 	);
 };

@@ -102,7 +102,7 @@ const SearchResultEntryCard: React.FC<Props> = ({
 	const isAbout = aboutEntryTuple.includes(entry.entryType as AboutEntryType);
 
 	const InfoSection = () => {
-		if (isPost)
+		if (isPost) {
 			return (
 				<div className={styles.info}>
 					<div className={styles.date}>
@@ -114,8 +114,9 @@ const SearchResultEntryCard: React.FC<Props> = ({
 					</div>
 				</div>
 			);
+		}
 
-		if (isProject)
+		if (isProject) {
 			return (
 				<div className={styles.info}>
 					<div className={styles.dateProject}>
@@ -133,8 +134,9 @@ const SearchResultEntryCard: React.FC<Props> = ({
 					</div>
 				</div>
 			);
+		}
 
-		if (isAbout)
+		if (isAbout) {
 			return (
 				<div className={styles.info}>
 					<div className={styles.date}>
@@ -165,16 +167,19 @@ const SearchResultEntryCard: React.FC<Props> = ({
 					</div>
 				</div>
 			);
+		}
 	};
 
 	const LinkToTheEntry = () => {
-		if (isPost)
+		if (isPost) {
 			return (
 				<Link aria-label={tCommon("item_link")} href={`${Route.public.BLOG.uri}/${entry.slug}`}>
 					<RedirectIcon />
 				</Link>
 			);
-		if (isProject)
+		}
+
+		if (isProject) {
 			return (
 				<Link
 					aria-label={tCommon("item_link")}
@@ -183,8 +188,9 @@ const SearchResultEntryCard: React.FC<Props> = ({
 					<RedirectIcon />
 				</Link>
 			);
+		}
 
-		if (isAbout)
+		if (isAbout) {
 			return (
 				<Link
 					aria-label={tCommon("item_link")}
@@ -193,6 +199,7 @@ const SearchResultEntryCard: React.FC<Props> = ({
 					<RedirectIcon />
 				</Link>
 			);
+		}
 	};
 
 	return (
@@ -204,8 +211,6 @@ const SearchResultEntryCard: React.FC<Props> = ({
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
 							<Gallery
-								entry={entry}
-								gallery={gallery}
 								dialogTrigger_buttonIconProps={{
 									className: cn(
 										"bg-transparent hover:bg-transparent p-0 opacity-45 transition-all duration-200 max-xs:hidden",
@@ -216,6 +221,8 @@ const SearchResultEntryCard: React.FC<Props> = ({
 									height: 24,
 									width: 28,
 								}}
+								entry={entry}
+								gallery={gallery}
 							/>
 
 							<ToggleCollapsible

@@ -13,6 +13,7 @@ import { cn } from "@/lib/cn-utils";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
+
 import CreatePost from "./Actions/Create";
 import PostAdminCard from "./Card";
 
@@ -61,11 +62,11 @@ const TimeLine: React.FC<Props> = ({
 				<CreateFile files_prefix={files_prefix} />
 				<RevalidatePaths paths={[Route.public.PORTFOLIO.uri]} />
 				<CreatePost
-					type={type}
-					tags={tags}
 					fileList={fileList}
 					iconList={iconList}
 					iconsMap={iconsMap}
+					tags={tags}
+					type={type}
 				/>
 				<ToggleCollapsible
 					tooltip
@@ -77,13 +78,13 @@ const TimeLine: React.FC<Props> = ({
 			<div className="space-y-10">
 				{postsByType?.map((project, index) => (
 					<PostAdminCard
+						key={index}
+						className={visibleItems > index ? "" : "section-card-collapsible"}
 						fileList={fileList}
 						iconList={iconList}
 						iconsMap={iconsMap}
-						tags={tags}
-						key={index}
-						className={visibleItems > index ? "" : "section-card-collapsible"}
 						post={project}
+						tags={tags}
 					/>
 				))}
 			</div>

@@ -22,6 +22,7 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
+
 import DisplayResourceUrlAsIcon from "../common/DisplayResourceUrlAsIcon";
 import DeleteProject from "./Actions/Delete";
 import UpdateProject from "./Actions/Update";
@@ -129,10 +130,10 @@ const ProjectAdminCard: React.FC<Props> = ({
 							/>
 							<Gallery entry={project} gallery={gallery} />
 							<UpdateProject
-								project={project}
 								fileList={fileList}
 								iconList={iconList}
 								iconsMap={iconsMap}
+								project={project}
 								tags={tags}
 							/>
 

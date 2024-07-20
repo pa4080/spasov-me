@@ -9,6 +9,7 @@ import { TagData } from "@/interfaces/Tag";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 
 import { IconsMap } from "@/interfaces/IconsMap";
+
 import styles from "../_tags.module.scss";
 import CreateTag from "./Actions/CreateTag";
 

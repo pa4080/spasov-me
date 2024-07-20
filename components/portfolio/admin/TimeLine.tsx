@@ -15,6 +15,7 @@ import { cn } from "@/lib/cn-utils";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
+
 import CreateProject from "./Actions/Create";
 import ProjectAdminCard from "./Card";
 
@@ -67,11 +68,11 @@ const TimeLine: React.FC<Props> = ({
 				<CreateFile files_prefix={files_prefix} />
 				<RevalidatePaths paths={[Route.public.PORTFOLIO.uri]} />
 				<CreateProject
-					type={type}
-					tags={tags}
 					fileList={fileList}
 					iconList={iconList}
 					iconsMap={iconsMap}
+					tags={tags}
+					type={type}
 				/>
 				<ToggleCollapsible
 					tooltip
@@ -84,12 +85,12 @@ const TimeLine: React.FC<Props> = ({
 				{projectsByType?.map((project, index) => (
 					<ProjectAdminCard
 						key={index}
+						className={visibleItems > index ? "" : "section-card-collapsible"}
 						fileList={fileList}
 						iconList={iconList}
 						iconsMap={iconsMap}
-						tags={tags}
-						className={visibleItems > index ? "" : "section-card-collapsible"}
 						project={project}
+						tags={tags}
 					/>
 				))}
 			</div>

@@ -6,6 +6,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { FileData } from "@/interfaces/File";
 import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
+
 import EmbedMsoDoc from "./embed/EmbedMsoDoc";
 import EmbedPdfDoc from "./embed/EmbedPdfDoc";
 import EmbedTxtDoc from "./embed/EmbedTxtDoc";
@@ -33,8 +34,8 @@ const DisplayFileImageOrEmbed: React.FC<Props> = ({
 
 	const TheImage = file.filename.match(/\.(pdf)$/) ? (
 		<div
-			style={{ width: "100%", height: "100%" }}
 			className="rounded-lg overflow-hidden border-4 border-foreground-quaternary"
+			style={{ width: "100%", height: "100%" }}
 		>
 			<EmbedPdfDoc
 				sourceUrl={
@@ -52,8 +53,8 @@ const DisplayFileImageOrEmbed: React.FC<Props> = ({
 		</div>
 	) : file.filename.match(/\.(txt|csv)$/) ? (
 		<div
-			style={{ width: "100%", height: "100%" }}
 			className="rounded-lg overflow-hidden border-4 border-foreground-quaternary"
+			style={{ width: "100%", height: "100%" }}
 		>
 			<EmbedTxtDoc
 				sourceUrl={
@@ -71,8 +72,8 @@ const DisplayFileImageOrEmbed: React.FC<Props> = ({
 		</div>
 	) : file.filename.match(/\.(pptx|xlsx|docx)$/) ? (
 		<div
-			style={{ width: "100%", height: "100%" }}
 			className="rounded-lg overflow-hidden border-4 border-foreground-quaternary"
+			style={{ width: "100%", height: "100%" }}
 		>
 			<EmbedMsoDoc
 				sourceUrl={

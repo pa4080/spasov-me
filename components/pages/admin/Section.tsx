@@ -10,6 +10,7 @@ import { Route } from "@/routes";
 
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
+
 import styles from "../_pages.module.scss";
 import CreatePage from "./Actions/CreatePage";
 import PageCard from "./Card";
@@ -34,7 +35,7 @@ const Section: React.FC<Props> = ({ className, pages, type = "common", fileList,
 		<div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths paths={[Route.public.HOME.uri]} />
-				<CreatePage icons={iconsMap} fileList={fileList} />
+				<CreatePage fileList={fileList} icons={iconsMap} />
 				{/* <ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}
@@ -45,7 +46,7 @@ const Section: React.FC<Props> = ({ className, pages, type = "common", fileList,
 
 			<div className={styles.feed}>
 				{pages?.map((page, index) => (
-					<PageCard fileList={fileList} key={index} iconsMap={iconsMap} page={page} />
+					<PageCard key={index} fileList={fileList} iconsMap={iconsMap} page={page} />
 				))}
 			</div>
 		</div>

@@ -4,8 +4,6 @@ import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
 
-import { PageCardData } from "@/interfaces/PageCard";
-
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
@@ -17,11 +15,13 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { IconsMap } from "@/interfaces/IconsMap";
+import { PageCardData } from "@/interfaces/PageCard";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
 import { FileListItem } from "@/interfaces/File";
+
 import { updatePageCard } from "../../_pages.actions";
 import PageForm from "../Form";
 import { Pages_FormSchema } from "../Form/schema";
@@ -95,8 +95,8 @@ const UpdatePage: React.FC<Props> = ({ className, page, icons, fileList }) => {
 					</DialogHeader>
 
 					<PageForm
-						fileList={fileList}
 						className={t("dialog_description") ? "mt-0" : "mt-1"}
+						fileList={fileList}
 						formData={page}
 						icons={icons}
 						submitting={submitting}

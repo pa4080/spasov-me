@@ -8,6 +8,7 @@ import { cn } from "@/lib/cn-utils";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
+
 import ProjectPublic_Card from "./Card";
 
 interface Props {
@@ -36,10 +37,10 @@ const TimeLine: React.FC<Props> = ({ className, projects, fileList, iconList, ic
 				{projectsByType?.map((project, index) => (
 					<ProjectPublic_Card
 						key={index}
-						project={project}
 						fileList={fileList}
 						iconList={iconList}
 						iconsMap={iconsMap}
+						project={project}
 						tags={tags}
 					/>
 				))}

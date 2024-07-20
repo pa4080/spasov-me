@@ -2,15 +2,12 @@ import React from "react";
 
 import { msgs } from "@/messages";
 
+import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 import SectionHeader from "@/components/fragments/SectionHeader";
+import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
+import { ModelType } from "@/interfaces/_common-data-types";
 import { FileData } from "@/interfaces/File";
 import { hyphenateString } from "@/lib/process-text";
-
-import RevalidatePaths from "@/components/fragments/RevalidatePaths";
-
-import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
-
-import { ModelType } from "@/interfaces/_common-data-types";
 
 import styles from "../_files.module.scss";
 import CreateFile from "./Actions/CreateFile";
@@ -119,8 +116,8 @@ const Section: React.FC<Props> = ({
 										key={file._id}
 										className={visibleItems > index ? "" : "section-card-collapsible"}
 										file={file}
-										section_id={`${toggle_target_id}_${type}_${attachedToDocument.replace(/ /g, "_")}`}
 										files_prefix={files_prefix}
+										section_id={`${toggle_target_id}_${type}_${attachedToDocument.replace(/ /g, "_")}`}
 									/>
 								))}
 						</div>
@@ -135,8 +132,8 @@ const Section: React.FC<Props> = ({
 								key={file._id}
 								className={visibleItems > index ? "" : "section-card-collapsible"}
 								file={file}
-								section_id={`${toggle_target_id}_${type}`}
 								files_prefix={files_prefix}
+								section_id={`${toggle_target_id}_${type}`}
 							/>
 						))}
 				</div>

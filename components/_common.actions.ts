@@ -2,11 +2,6 @@
 
 import { Redis } from "@upstash/redis";
 
-const redis = new Redis({
-	url: process.env.UPSTASH_REDIS_REST_URL,
-	token: process.env.UPSTASH_REDIS_REST_TOKEN,
-});
-
 import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
@@ -28,6 +23,11 @@ import AboutEntry from "@/models/about-entry";
 import PageCard from "@/models/page-card";
 import Post from "@/models/post";
 import Project from "@/models/project";
+
+const redis = new Redis({
+	url: process.env.UPSTASH_REDIS_REST_URL,
+	token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
 
 export const revalidatePaths = async <T extends string>({
 	paths,

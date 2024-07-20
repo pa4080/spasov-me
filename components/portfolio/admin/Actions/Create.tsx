@@ -23,6 +23,7 @@ import { Route } from "@/routes";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
+
 import { Project_FormSchema } from "../Form/schema";
 // import ProjectForm from "../Form";
 const ProjectForm = dynamic(() => import("../Form"), {
@@ -121,13 +122,13 @@ const CreateProject: React.FC<Props> = ({
 					</DialogHeader>
 
 					<ProjectForm
+						className="mt-1"
+						entryType={type}
 						fileList={fileList}
 						iconList={iconList}
 						iconsMap={iconsMap}
-						tags={tags}
-						className="mt-1"
-						entryType={type}
 						submitting={submitting}
+						tags={tags}
 						onSubmit={handleCreateProject}
 					/>
 				</DialogContent>

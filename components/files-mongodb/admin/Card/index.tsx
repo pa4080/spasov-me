@@ -10,6 +10,7 @@ import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import { FileData } from "@/interfaces/File";
 
 import AttachedToBadge from "@/components/fragments/AttachedToBadge";
+import CopyFileAddressToClipboard from "@/components/fragments/CopyFileAddressToClipboard";
 import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
@@ -19,7 +20,6 @@ import { roundTo } from "@/lib/round";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
-import CopyFileAddressToClipboard from "@/components/fragments/CopyFileAddressToClipboard";
 import DeleteFile from "../Actions/DeleteFile";
 import UpdateFile from "../Actions/UpdateFile";
 import styles from "./_file-card.module.scss";

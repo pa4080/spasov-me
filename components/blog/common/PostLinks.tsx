@@ -10,6 +10,7 @@ import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { PostData } from "@/interfaces/Post";
 import { TagData } from "@/interfaces/Tag";
+
 import UpdatePost from "../admin/Actions/Update";
 import DisplayResourceUrlAsIcon from "./DisplayResourceUrlAsIcon";
 
@@ -81,13 +82,13 @@ const PostLinks: React.FC<Props> = ({ post, fileList, iconList, tags, iconsMap }
 					tooltipText={t("tooltip_update")}
 				>
 					<UpdatePost
-						fileList={fileList}
-						iconList={iconList}
-						tags={tags}
 						className="h-6 w-6 flex items-center justify-center"
 						dialogTrigger_buttonIconProps={dialogTrigger_Type2}
-						post={post}
+						fileList={fileList}
+						iconList={iconList}
 						iconsMap={iconsMap}
+						post={post}
+						tags={tags}
 					/>
 				</TooltipWrapper>
 			</div>

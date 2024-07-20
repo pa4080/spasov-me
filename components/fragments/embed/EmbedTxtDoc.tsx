@@ -1,7 +1,5 @@
 import React from "react";
 
-const baseUrl: string = "https://view.officeapps.live.com/op/";
-
 interface Props {
 	sourceUrl: string;
 	style?: React.CSSProperties;
@@ -14,8 +12,8 @@ const EmbedTxtDoc: React.FC<Props> = ({
 	className,
 }) => {
 	return (
-		<div style={style} className={`embed-mso-doc-container ${className}`}>
-			<object height="100%" width="100%" data={sourceUrl} />
+		<div className={`embed-mso-doc-container ${className}`} style={style}>
+			<object data={sourceUrl} height="100%" width="100%" />
 		</div>
 	);
 };

@@ -27,6 +27,7 @@ import { useAppContext } from "@/contexts/AppContext";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
+
 import { Entry_FormSchema } from "../Form/schema";
 
 const AboutEntryForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
@@ -80,7 +81,9 @@ const UpdateAboutEntry: React.FC<Props> = ({ className, entry, fileList, tags, i
 		}
 	};
 
-	if (!session) return null;
+	if (!session) {
+		return null;
+	}
 
 	return (
 		<div className={className}>
@@ -114,12 +117,12 @@ const UpdateAboutEntry: React.FC<Props> = ({ className, entry, fileList, tags, i
 					<AboutEntryForm
 						className={t("dialog_description") ? "mt-0" : "mt-1"}
 						entryType={entry.entryType}
-						formData={entry}
-						submitting={submitting}
-						onSubmit={handleUpdateEntry}
 						fileList={fileList}
-						tags={tags}
+						formData={entry}
 						iconsMap={iconsMap}
+						submitting={submitting}
+						tags={tags}
+						onSubmit={handleUpdateEntry}
 					/>
 				</DialogContent>
 			</Dialog>

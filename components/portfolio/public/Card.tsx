@@ -13,6 +13,7 @@ import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
+
 import ProjectLinks from "../common/ProjectLinks";
 
 interface Props {
@@ -60,10 +61,10 @@ const ProjectPublic_Card: React.FC<Props> = ({
 
 			<div className="flex flex-row items-center justify-between gap-2 w-full">
 				<ProjectLinks
-					project={project}
 					fileList={fileList}
 					iconList={iconList}
 					iconsMap={iconsMap}
+					project={project}
 					tags={tags}
 				/>
 

@@ -18,8 +18,8 @@ const EmbedMsoDoc: React.FC<Props> = ({
 	const srcUrl = baseUrl + action + ".aspx?src=" + sourceUrl;
 
 	return (
-		<div style={style} className={`embed-mso-doc-container ${className}`}>
-			<iframe height="100%" width="100%" src={srcUrl} />
+		<div className={`embed-mso-doc-container ${className}`} style={style}>
+			<iframe height="100%" src={srcUrl} width="100%" />
 		</div>
 	);
 };

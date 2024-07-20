@@ -14,6 +14,7 @@ import { cn } from "@/lib/cn-utils";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
+
 import PostLinks from "../common/PostLinks";
 
 interface Props {
@@ -77,11 +78,11 @@ const BlogPublic_Card: React.FC<Props> = ({
 			{/* Footer buttons */}
 			<div className="flex flex-row items-center justify-between gap-2 w-full">
 				<PostLinks
-					post={post}
 					fileList={fileList}
 					iconList={iconList}
-					tags={tags}
 					iconsMap={iconsMap}
+					post={post}
+					tags={tags}
 				/>
 				<Link area-label={t("area_label_card_link")} href={`${Route.public.BLOG.uri}/${post.slug}`}>
 					<Button

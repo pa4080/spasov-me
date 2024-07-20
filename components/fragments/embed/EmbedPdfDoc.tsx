@@ -1,7 +1,5 @@
 import React from "react";
 
-const baseUrl: string = "https://view.officeapps.live.com/op/";
-
 interface Props {
 	sourceUrl: string;
 	style?: React.CSSProperties;
@@ -16,8 +14,8 @@ const EmbedPdfDoc: React.FC<Props> = ({
 	const srcUrl = sourceUrl;
 
 	return (
-		<div style={style} className={`embed-pdf-doc-container ${className}`}>
-			<iframe height="100%" width="100%" src={srcUrl} />
+		<div className={`embed-pdf-doc-container ${className}`} style={style}>
+			<iframe height="100%" src={srcUrl} width="100%" />
 		</div>
 	);
 };

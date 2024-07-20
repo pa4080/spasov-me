@@ -5,6 +5,8 @@ import { format } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { enUS as en } from "date-fns/locale";
 
+import Link from "next/link";
+
 import styles from "@/app/(styles)/card-info.module.scss";
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
@@ -23,7 +25,7 @@ import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
-import Link from "next/link";
+
 import CopyEntryUri from "../admin/Actions/CopyEntryUri";
 import DeleteAboutEntry from "../admin/Actions/Delete";
 import UpdateAboutEntry from "../admin/Actions/Update";
@@ -113,8 +115,6 @@ const AboutEntryCard: React.FC<Props> = ({
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
 							<Gallery
-								entry={entry}
-								gallery={gallery}
 								dialogTrigger_buttonIconProps={{
 									className: cn(
 										"bg-transparent hover:bg-transparent p-0 opacity-45 transition-all duration-200",
@@ -125,12 +125,14 @@ const AboutEntryCard: React.FC<Props> = ({
 									height: 24,
 									width: 28,
 								}}
+								entry={entry}
+								gallery={gallery}
 							/>
 							<FileAddressHandle address={attachmentAddress} />
 							<CopyEntryUri entry_id={entry._id} />
 							<DeleteAboutEntry entry={entry} />
 							<VisibilitySwitchDisplay disabled checked={entry.visibility} className="mt-0.5" />
-							<UpdateAboutEntry entry={entry} fileList={fileList} tags={tags} iconsMap={iconsMap} />
+							<UpdateAboutEntry entry={entry} fileList={fileList} iconsMap={iconsMap} tags={tags} />
 							<ToggleCollapsible
 								tooltip
 								className="icon_accent_primary"
