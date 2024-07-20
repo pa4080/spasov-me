@@ -1,6 +1,6 @@
 import React from "react";
 
-import { msgs } from "@/messages";
+import Link from "next/link";
 
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 import SectionHeader from "@/components/fragments/SectionHeader";
@@ -8,8 +8,8 @@ import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
+import { msgs } from "@/messages";
 import { Route } from "@/routes";
-import Link from "next/link";
 
 interface Props {
 	className?: string;

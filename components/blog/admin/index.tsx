@@ -5,6 +5,7 @@ import { cn } from "@/lib/cn-utils";
 import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
 import { getTags } from "@/components/tags/_tags.actions";
 import { postTuple } from "@/interfaces/_common-data-types";
+
 import { getPosts } from "../_blog.actions";
 import TimeLine from "./TimeLine";
 
@@ -27,13 +28,13 @@ const BlogAdmin: React.FC<Props> = async ({ className }) => {
 			{postTuple.map((type) => (
 				<TimeLine
 					key={type}
-					posts={posts}
-					visibleItems={25}
 					fileList={fileList}
 					iconList={iconList}
 					iconsMap={iconsMap}
+					posts={posts}
 					tags={tags}
 					type={type}
+					visibleItems={25}
 				/>
 			))}
 		</div>

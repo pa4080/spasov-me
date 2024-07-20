@@ -5,6 +5,7 @@ import { cn } from "@/lib/cn-utils";
 import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
 import { getTags } from "@/components/tags/_tags.actions";
 import { projectTuple } from "@/interfaces/_common-data-types";
+
 import { getProjects } from "../_portfolio.actions";
 import TimeLine from "./TimeLine";
 
@@ -33,7 +34,7 @@ const PortfolioAdmin: React.FC<Props> = async ({ className }) => {
 	return (
 		<div className={cn("space-y-20", className)}>
 			{projectTuple.map((type) => (
-				<TimeLine type={type} key={type} visibleItems={25} {...data} />
+				<TimeLine key={type} type={type} visibleItems={25} {...data} />
 			))}
 		</div>
 	);

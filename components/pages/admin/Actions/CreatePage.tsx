@@ -14,12 +14,12 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { FileListItem } from "@/interfaces/File";
 import { createPageCard } from "../../_pages.actions";
 import PageForm from "../Form";
 import { Pages_FormSchema } from "../Form/schema";
@@ -95,8 +95,8 @@ const CreatePage: React.FC<Props> = ({ className, icons, fileList }) => {
 					</DialogHeader>
 
 					<PageForm
-						fileList={fileList}
 						className="mt-1"
+						fileList={fileList}
 						icons={icons}
 						submitting={submitting}
 						onSubmit={handleCreatePage}

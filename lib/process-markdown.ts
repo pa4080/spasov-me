@@ -47,7 +47,8 @@ export const splitDescriptionKeyword = /<!--\s*more\s*-->/;
 // by unified().use(remarkRehype), because we are
 // using some of them as special tags, i.e. <!--more-->
 
-export const commentsMatcher = new RegExp("<!--.*?-->", "gs") as unknown;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const commentsMatcher = new RegExp("<!--.*?-->", "gs");
 
 // export const commentsMatcher = /<!--.*?-->/gs;
 // The above throws unresolvable error with TS 5.5.2

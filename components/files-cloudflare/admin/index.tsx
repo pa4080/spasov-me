@@ -1,6 +1,7 @@
 import React from "react";
 
 import { ModelType } from "@/interfaces/_common-data-types";
+
 import { getFilesR2 } from "../_files.actions";
 import styles from "../_files.module.scss";
 import Section from "./Section";
@@ -64,11 +65,11 @@ const FilesAdmin_CloudFlare: React.FC<Props> = async ({
 			{sections.map(({ type, visibleItems, sortByAttachedTo, files }) => (
 				<Section
 					key={type}
-					sortByAttachedTo={sortByAttachedTo}
 					files={files}
+					files_prefix={files_prefix}
+					sortByAttachedTo={sortByAttachedTo}
 					type={type as ModelType | "common"}
 					visibleItems={visibleItems}
-					files_prefix={files_prefix}
 				/>
 			))}
 		</div>

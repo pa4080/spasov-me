@@ -22,6 +22,7 @@ import { Route } from "@/routes";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
+
 import { createPost } from "../../_blog.actions";
 import { Post_FormSchema } from "../Form/schema";
 // import PostForm from "../Form";
@@ -121,14 +122,14 @@ const CreatePost: React.FC<Props> = ({
 					</DialogHeader>
 
 					<PostForm
-						fileList={fileList}
-						iconList={iconList}
-						tags={tags}
 						className="mt-1"
 						entryType={type}
-						submitting={submitting}
-						onSubmit={handleCreatePost}
+						fileList={fileList}
+						iconList={iconList}
 						iconsMap={iconsMap}
+						submitting={submitting}
+						tags={tags}
+						onSubmit={handleCreatePost}
 					/>
 				</DialogContent>
 			</Dialog>

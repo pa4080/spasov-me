@@ -36,6 +36,7 @@ import { TagData } from "@/interfaces/Tag";
 import { PostType, postTuple } from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
+
 import { Post_FormSchema, Post_FormSchemaGenerator } from "./schema";
 
 interface Props {
@@ -119,7 +120,9 @@ const PostForm: React.FC<Props> = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [form.getFieldState("title").isTouched, form.watch("title")]);
 
-	if (!tags || !fileList || !iconList) return <Loading />;
+	if (!tags || !fileList || !iconList) {
+		return <Loading />;
+	}
 
 	const unitedFileList = [...fileList, ...iconList];
 
@@ -139,13 +142,13 @@ const PostForm: React.FC<Props> = ({
 							<DatePicker
 								className="flex-1"
 								control={form.control}
+								dateFormat="dd/MM/yyyy"
 								error={form.formState.errors.dateFrom}
 								messages={{
 									placeholder: t("dateFrom_label"),
 									button: t("date_button"),
 								}}
 								name="dateFrom"
-								dateFormat="dd/MM/yyyy"
 							/>
 
 							{/* Date To -- the property exists in the model but is not used for now */}
@@ -329,8 +332,8 @@ const PostForm: React.FC<Props> = ({
 								setValue={form.setValue}
 							/>
 							<DisplayEntryAttachmentInTheEditForm
-								fileList={fileList}
 								currentValue={form.watch("attachment")}
+								fileList={fileList}
 							/>
 						</div>
 					</div>
@@ -412,8 +415,8 @@ const PostForm: React.FC<Props> = ({
 						className="w-full ma:col-span-7"
 						control={form.control}
 						displayType="tag_icon"
-						iconsMap={iconsMap}
 						error={form.formState.errors.tags}
+						iconsMap={iconsMap}
 						itemsList={
 							tags
 								?.sort((a, b) =>
@@ -450,8 +453,8 @@ const PostForm: React.FC<Props> = ({
 						className="w-full ma:col-span-7"
 						control={form.control}
 						displayType="gallery_image"
-						iconsMap={null}
 						error={form.formState.errors.gallery}
+						iconsMap={null}
 						itemsList={fileList}
 						messages={{
 							label: t("gallery_label"),

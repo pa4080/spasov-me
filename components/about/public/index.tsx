@@ -6,11 +6,12 @@ import TechTags from "@/components/fragments/TechTags";
 
 import { cn } from "@/lib/cn-utils";
 
+import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
+
 import { getEntries } from "../_about.actions";
 import SpokenLanguages from "./Languages";
 import Resume from "./Resume";
 
-import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
 import BusinessCard from "./BusinessCard";
 import TimeLine from "./TimeLine";
 
@@ -49,37 +50,37 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 	return (
 		<div className={cn("space-y-20 scroll-m-8", className)}>
 			<BusinessCard
-				iconsMap={iconsMap}
-				fileList={fileList}
-				tags={tags}
 				className="about-cards-section list-section scroll-m-8"
 				entries={entriesClear}
+				fileList={fileList}
+				iconsMap={iconsMap}
+				tags={tags}
 				type="businessCard"
 			/>
 			<Resume
-				fileList={fileList}
-				tags={tags}
-				iconsMap={iconsMap}
 				className="about-cards-section list-section scroll-m-8"
 				entries={entriesHyphenated}
+				fileList={fileList}
+				iconsMap={iconsMap}
+				tags={tags}
 				type="resume"
 			/>
 			<TimeLine
-				fileList={fileList}
-				tags={tags}
-				iconsMap={iconsMap}
 				className="about-cards-section list-section scroll-m-8"
 				displayTags={true}
 				entries={entriesHyphenated}
+				fileList={fileList}
+				iconsMap={iconsMap}
+				tags={tags}
 				type="employment"
 			/>
 			<TimeLine
-				fileList={fileList}
-				tags={tags}
-				iconsMap={iconsMap}
 				className="about-cards-section list-section scroll-m-8"
 				displayTags={false}
 				entries={entriesHyphenated}
+				fileList={fileList}
+				iconsMap={iconsMap}
+				tags={tags}
 				type="education"
 				visibleItems={2}
 			/>
@@ -90,8 +91,8 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 			/>
 			<TechTags
 				className="about-cards-section list-section scroll-m-8"
-				tags={tags}
 				iconsMap={iconsMap}
+				tags={tags}
 			/>
 		</div>
 	);

@@ -12,6 +12,7 @@ import { PostData } from "@/interfaces/Post";
 import { ProjectData } from "@/interfaces/Project";
 import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
+
 import DisplayFileImageOrEmbed from "../DisplayFileImageOrEmbed";
 import Navigation from "./GalleryCarouselNav";
 import GalleryCarouselNavEmbedded from "./GalleryCarouselNavEmbedded";
@@ -57,15 +58,18 @@ const GalleryCarousel: React.FC<Props> = ({
 	const Nav: React.FC = () => {
 		switch (navType) {
 			case "embedded":
-				if (!entryData) return null;
+				if (!entryData) {
+					return null;
+				}
+
 				return (
 					<GalleryCarouselNavEmbedded
 						carouselItems_count={carouselItems_count}
 						counterAsText={counterAsText}
 						current_carouselItem={current_carouselItem}
 						descriptionDisplay={descriptionDisplay}
-						gallery={gallery}
 						entryData={entryData}
+						gallery={gallery}
 					/>
 				);
 			case "default":

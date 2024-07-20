@@ -10,6 +10,7 @@ import { cn } from "@/lib/cn-utils";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
+
 import UpdateProject from "../admin/Actions/Update";
 import DisplayResourceUrlAsIcon from "./DisplayResourceUrlAsIcon";
 
@@ -81,13 +82,13 @@ const ProjectLinks: React.FC<Props> = ({ project, fileList, iconList, iconsMap, 
 					tooltipText={t("tooltip_update")}
 				>
 					<UpdateProject
+						className="h-6 w-6 flex items-center justify-center"
+						dialogTrigger_buttonIconProps={dialogTrigger_Type2}
 						fileList={fileList}
 						iconList={iconList}
 						iconsMap={iconsMap}
-						tags={tags}
-						className="h-6 w-6 flex items-center justify-center"
-						dialogTrigger_buttonIconProps={dialogTrigger_Type2}
 						project={project}
+						tags={tags}
 					/>
 				</TooltipWrapper>
 			</div>

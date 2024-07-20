@@ -1,6 +1,7 @@
 import React from "react";
 
 import { getIconsMap } from "@/components/files-cloudflare/_files.actions";
+
 import { getTags } from "../_tags.actions";
 import styles from "../_tags.module.scss";
 import Section from "./Section";

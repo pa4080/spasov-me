@@ -14,6 +14,7 @@ import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
+
 import UpdateAboutEntry from "../../admin/Actions/Update";
 import styles from "./_business-card.module.scss";
 
@@ -84,17 +85,15 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type, fileList, tag
 
 					<div className="absolute right-0 xs:right-4 sa:right-2 bottom-0 xs:bottom-0 sa:-bottom-8 bg-transparent flex flex-row gap-4 justify-center items-center">
 						<a
-							href={cvLink}
-							target="_blank"
-							rel="noreferrer"
 							className="grayscale opacity-45 hover:opacity-100 hover:grayscale-0 transition-all duration-200"
+							href={cvLink}
+							rel="noreferrer"
+							target="_blank"
 						>
 							<IconEmbedSvg height={21} type={"download"} width={21} />
 						</a>
 
 						<Gallery
-							entry={entry}
-							gallery={gallery}
 							dialogTrigger_buttonIconProps={{
 								className: cn(
 									"bg-transparent hover:bg-transparent p-0 opacity-45 transition-all duration-200 max-xs:hidden",
@@ -105,9 +104,11 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type, fileList, tag
 								height: 24,
 								width: 28,
 							}}
+							entry={entry}
+							gallery={gallery}
 						/>
 
-						<UpdateAboutEntry entry={entry} fileList={fileList} tags={tags} iconsMap={iconsMap} />
+						<UpdateAboutEntry entry={entry} fileList={fileList} iconsMap={iconsMap} tags={tags} />
 					</div>
 				</div>
 

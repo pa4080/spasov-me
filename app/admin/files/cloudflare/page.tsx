@@ -8,8 +8,8 @@ const Files: React.FC = () => {
 	return (
 		<FilesAdmin_CloudFlare
 			className="margin_vh_top margin_vh_bottom scroll-m-40"
-			visibleItemsCommon={500}
 			files_prefix={files_prefix}
+			visibleItemsCommon={500}
 		/>
 	);
 };

@@ -11,12 +11,12 @@ import { msgs } from "@/messages";
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
-import { ProjectData } from "@/interfaces/Project";
-import { TagData } from "@/interfaces/Tag";
-
 import { IconsMap } from "@/interfaces/IconsMap";
 import { PostData } from "@/interfaces/Post";
+import { ProjectData } from "@/interfaces/Project";
+import { TagData } from "@/interfaces/Tag";
 import { postTuple, projectTuple } from "@/interfaces/_common-data-types";
+
 import TagFilter from "./TagFilter";
 import TimeLine from "./TimeLine";
 
@@ -126,6 +126,7 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 		if (!searchValue) {
 			return dataList;
 		}
+
 		const searchValueSanitized = searchValue.trim();
 		const searchValuePrepared = searchValueSanitized.replace(/\s+/g, ".*?");
 		const searchValueHyphenated = hyphenate(searchValueSanitized).replace(/\s+/g, ".*?");
@@ -233,10 +234,10 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 						</Label>
 
 						<TagFilter
+							iconsMap={iconsMap}
 							selectedTag={selectedTag?.tag || null}
 							tags={tags}
 							onTagClick={setTag}
-							iconsMap={iconsMap}
 						/>
 					</div>
 				</div>
@@ -256,8 +257,8 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 							key={entryType}
 							displayTags={true}
 							entries={searchResults}
-							type={entryType as UnitedEntryType["entryType"]}
 							iconsMap={iconsMap}
+							type={entryType as UnitedEntryType["entryType"]}
 						/>
 					))
 				)

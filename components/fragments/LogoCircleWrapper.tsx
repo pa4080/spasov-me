@@ -1,6 +1,7 @@
+import Image from "next/image";
+
 import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
-import Image from "next/image";
 
 interface Props {
 	className?: string;

@@ -37,6 +37,7 @@ import DisplayEntryAttachmentInTheEditForm from "@/components/fragments/DisplayE
 import Loading from "@/components/fragments/Loading";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
+
 import { Project_FormSchema, Project_FormSchemaGenerator } from "./schema";
 
 interface Props {
@@ -120,7 +121,9 @@ const ProjectForm: React.FC<Props> = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [form.getFieldState("title").isTouched, form.watch("title")]);
 
-	if (!tags || !fileList || !iconList) return <Loading />;
+	if (!tags || !fileList || !iconList) {
+		return <Loading />;
+	}
 
 	const unitedFileList = [...fileList, ...iconList];
 
@@ -329,8 +332,8 @@ const ProjectForm: React.FC<Props> = ({
 								setValue={form.setValue}
 							/>
 							<DisplayEntryAttachmentInTheEditForm
-								fileList={fileList}
 								currentValue={form.watch("attachment")}
+								fileList={fileList}
 							/>
 						</div>
 					</div>
@@ -412,8 +415,8 @@ const ProjectForm: React.FC<Props> = ({
 						className="w-full ma:col-span-7"
 						control={form.control}
 						displayType="tag_icon"
-						iconsMap={iconsMap}
 						error={form.formState.errors.tags}
+						iconsMap={iconsMap}
 						itemsList={
 							tags
 								?.sort((a, b) =>
@@ -451,8 +454,8 @@ const ProjectForm: React.FC<Props> = ({
 						control={form.control}
 						displayType="gallery_image"
 						error={form.formState.errors.gallery}
-						itemsList={fileList}
 						iconsMap={null}
+						itemsList={fileList}
 						messages={{
 							label: t("gallery_label"),
 							description: t("gallery_description"),

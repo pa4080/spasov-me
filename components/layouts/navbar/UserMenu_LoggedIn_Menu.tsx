@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
+
 import styles from "./_navbar.module.scss";
 
 interface Props {

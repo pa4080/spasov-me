@@ -7,8 +7,11 @@ import { Paperclip, Tag } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useForm } from "react-hook-form";
 
+import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
 import Combobox from "@/components/fragments/Combobox";
 import DatePicker from "@/components/fragments/DatePicker";
+import DisplayEntryAttachmentInTheEditForm from "@/components/fragments/DisplayEntryAttachmentInTheEditForm";
+import Loading from "@/components/fragments/Loading";
 import MultiSelectFromList from "@/components/fragments/MultiSelectFromList";
 import SelectFromList from "@/components/fragments/SelectFromList";
 import { Button } from "@/components/ui/button";
@@ -25,6 +28,8 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
+import { TagData } from "@/interfaces/Tag";
 import {
 	AboutEntryType,
 	aboutEntryTuple,
@@ -33,12 +38,6 @@ import {
 } from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
 
-import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
-
-import DisplayEntryAttachmentInTheEditForm from "@/components/fragments/DisplayEntryAttachmentInTheEditForm";
-import Loading from "@/components/fragments/Loading";
-import { IconsMap } from "@/interfaces/IconsMap";
-import { TagData } from "@/interfaces/Tag";
 import { Entry_FormSchema, Entry_FormSchemaGenerator } from "./schema";
 
 interface Props {
@@ -104,7 +103,9 @@ const AboutEntryForm: React.FC<Props> = ({
 			: undefined,
 	});
 
-	if (!tags || !fileList) return <Loading />;
+	if (!tags || !fileList) {
+		return <Loading />;
+	}
 
 	return (
 		<Form {...form}>
@@ -239,8 +240,8 @@ const AboutEntryForm: React.FC<Props> = ({
 								setValue={form.setValue}
 							/>
 							<DisplayEntryAttachmentInTheEditForm
-								fileList={fileList}
 								currentValue={form.watch("attachment")}
+								fileList={fileList}
 							/>
 						</div>
 					</div>
@@ -318,8 +319,8 @@ const AboutEntryForm: React.FC<Props> = ({
 						className="w-full ma:col-span-7"
 						control={form.control}
 						displayType="tag_icon"
-						iconsMap={iconsMap}
 						error={form.formState.errors.tags}
+						iconsMap={iconsMap}
 						itemsList={
 							tags
 								?.sort((a, b) =>
@@ -356,8 +357,8 @@ const AboutEntryForm: React.FC<Props> = ({
 						className="w-full ma:col-span-7"
 						control={form.control}
 						displayType="gallery_image"
-						iconsMap={null}
 						error={form.formState.errors.gallery}
+						iconsMap={null}
 						itemsList={fileList ?? []}
 						messages={{
 							label: t("gallery_label"),

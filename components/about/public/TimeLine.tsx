@@ -10,6 +10,7 @@ import { msgs } from "@/messages";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
+
 import AboutEntryCard from "../common/Card";
 
 interface Props {
@@ -60,13 +61,13 @@ const TimeLine: React.FC<Props> = ({
 			<div className="about-cards-section-items space-y-14">
 				{entriesByType?.map((entry, index) => (
 					<AboutEntryCard
-						fileList={fileList}
-						tags={tags}
-						iconsMap={iconsMap}
 						key={index}
 						className={visibleItems > index ? "pop-item" : "section-card-collapsible pop-item"}
 						displayTagsInline={displayTags}
 						entry={entry}
+						fileList={fileList}
+						iconsMap={iconsMap}
+						tags={tags}
 					/>
 				))}
 			</div>

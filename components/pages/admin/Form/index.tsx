@@ -4,8 +4,6 @@ import React, { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { Input } from "@/components/ui/input";
-
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -16,6 +14,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { msgs } from "@/messages";
@@ -27,6 +26,7 @@ import DisplayIcon from "@/components/fragments/DisplayIcon";
 
 import DisplayEntryAttachmentInTheEditForm from "@/components/fragments/DisplayEntryAttachmentInTheEditForm";
 import Loading from "@/components/fragments/Loading";
+
 import Combobox from "../../../fragments/Combobox";
 import { Pages_FormSchema, Pages_FormSchemaGenerator } from "./schema";
 
@@ -95,7 +95,9 @@ const PageForm: React.FC<Props> = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [form.watch]);
 
-	if (!fileList) return <Loading />;
+	if (!fileList) {
+		return <Loading />;
+	}
 
 	return (
 		<Form {...form}>
@@ -179,9 +181,9 @@ const PageForm: React.FC<Props> = ({
 						setValue={form.setValue}
 					/>
 					<DisplayEntryAttachmentInTheEditForm
-						fileList={fileList}
-						currentValue={form.watch("attachment")}
 						className="-mt-2"
+						currentValue={form.watch("attachment")}
+						fileList={fileList}
 					/>
 				</div>
 

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import "server-only";
 
 /**
@@ -26,5 +27,6 @@ export async function redisGet_SSR_Solution<T>(key: string): Promise<T | null> {
 	});
 
 	const data = await response.json();
+
 	return (JSON.parse(data.result) as T) || null;
 }

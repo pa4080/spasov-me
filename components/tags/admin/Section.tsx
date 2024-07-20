@@ -10,6 +10,7 @@ import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName
 import { msgs } from "@/messages";
 
 import { IconsMap } from "@/interfaces/IconsMap";
+
 import styles from "../_tags.module.scss";
 import CreateTag from "./Actions/CreateTag";
 import TagCard from "./Card";

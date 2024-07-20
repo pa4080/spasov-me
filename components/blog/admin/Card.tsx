@@ -22,6 +22,7 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
+
 import DisplayResourceUrlAsIcon from "../common/DisplayResourceUrlAsIcon";
 import DeletePost from "./Actions/Delete";
 import UpdatePost from "./Actions/Update";
@@ -52,6 +53,7 @@ const PostAdminCard: React.FC<Props> = ({
 
 	const { dateFrom, dateTo } = post;
 	const dtFrom = new Date(dateFrom);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const dtTo = dateTo ? new Date(dateTo) : undefined;
 	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`entry_${post?._id.toString()}`);
 	const descriptionArr = post.html.description.split(splitDescriptionKeyword).map((str) => {
@@ -113,11 +115,11 @@ const PostAdminCard: React.FC<Props> = ({
 							/>
 							<Gallery entry={post} gallery={gallery} />
 							<UpdatePost
-								post={post}
 								fileList={fileList}
 								iconList={iconList}
-								tags={tags}
 								iconsMap={iconsMap}
+								post={post}
+								tags={tags}
 							/>
 
 							<ToggleCollapsible

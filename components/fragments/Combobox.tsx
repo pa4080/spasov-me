@@ -1,5 +1,4 @@
-"use client";
-
+import { Check, ChevronsUpDown } from "lucide-react";
 import {
 	Control,
 	ControllerRenderProps,
@@ -12,17 +11,7 @@ import {
 	UseFormSetValue,
 } from "react-hook-form";
 
-import { Check, ChevronsUpDown } from "lucide-react";
-
-import {
-	FormControl,
-	FormDescription,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@/components/ui/form";
-
+import { Button } from "@/components/ui/button";
 import {
 	Command,
 	CommandEmpty,
@@ -31,10 +20,15 @@ import {
 	CommandItem,
 	CommandList,
 } from "@/components/ui/command";
-
+import {
+	FormControl,
+	FormDescription,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/components/ui/form";
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn-utils";
 
 export interface ComboBoxList<T> {
@@ -57,22 +51,25 @@ interface Props<T extends FieldValues> {
 		notFound: string;
 		selectNone: string;
 	};
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
 }
 
 export default function Combobox<T extends FieldValues>({
 	control,
 	list,
+	messages,
 	name,
 	setValue,
-	messages,
 	error,
 	className,
 	labelMaxLength = 15,
 }: Props<T>) {
 	const regExp = new RegExp(`^(.{${labelMaxLength}}).*$`);
 
-	if (!list) return null;
+	if (!list) {
+		return null;
+	}
 
 	const label = (field: ControllerRenderProps<T, Path<T>>) => {
 		const label = field?.value

@@ -16,6 +16,7 @@ import { PostData } from "@/interfaces/Post";
 import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+
 import PostLinks from "../../common/PostLinks";
 
 const GalleryCarousel = dynamic(() => import("@/components/fragments/Gallery/GalleryCarousel"), {
@@ -60,28 +61,28 @@ const BlogPublicPost: React.FC<Props> = async ({
 
 	return (
 		<div className={cn("w-full pt-8 sa:pt-6 lg:pt-1", className)}>
-			<GalleryCarousel gallery={gallery} navPosition="bottom" navType="none" entryData={post} />
+			<GalleryCarousel entryData={post} gallery={gallery} navPosition="bottom" navType="none" />
 			<SectionHeader
 				className="pop-header mt-6 1xl:mt-[1.15rem] relative justify-end"
 				className_Actions="absolute right-0 -bottom-2 scale-75 2xs:scale-85"
-				title={post.html.title}
-				label={dateLabel}
 				iconComponent={
 					<IconCircleWrapper
+						alt={post.title}
 						className="w-[3.8rem] min-h-[3.8rem] drop-shadow-2xl"
 						className_Image="size-12"
-						alt={post.title}
 						src={post.html.icon?.metadata.html.fileUrl || post.html.icon?.metadata.html.fileUri}
 						unoptimized={post.html.icon?.filename.match(/\.svg$/) ? true : false}
 					/>
 				}
+				label={dateLabel}
+				title={post.html.title}
 			>
 				<PostLinks
-					post={post}
 					fileList={fileList}
-					tags={tags}
 					iconList={iconList}
 					iconsMap={iconsMap}
+					post={post}
+					tags={tags}
 				/>
 			</SectionHeader>
 
@@ -92,11 +93,11 @@ const BlogPublicPost: React.FC<Props> = async ({
 					className="font-semibold tracking-wide text-xl"
 				/>
 				{descriptionArr.length > 1 && (
-					<div className="post-body" dangerouslySetInnerHTML={{ __html: descriptionArr[1] }} />
+					<div dangerouslySetInnerHTML={{ __html: descriptionArr[1] }} className="post-body" />
 				)}
 			</article>
 
-			<TechTags className="mt-20" tags={post.tags} iconsMap={iconsMap} />
+			<TechTags className="mt-20" iconsMap={iconsMap} tags={post.tags} />
 		</div>
 	);
 };

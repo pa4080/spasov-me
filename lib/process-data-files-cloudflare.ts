@@ -43,7 +43,7 @@ export async function fileObject_toData({
 			const description = getMetadataValue(file?.Metadata, "description", "");
 
 			// Replace: 1) remove the path (i.e: files/); 2) remove the extension (i.e: .webp)
-			const filename = file_raw.Key?.replace(/^.*?\//g, "")!;
+			const filename = objectKey.replace(/^.*?\//g, "")!;
 			const _id = "Id:" + filename.replace(/\.[^.]*$/, "");
 
 			const f: FileData = {

@@ -4,16 +4,15 @@ import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
+import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
+import { TagData } from "@/interfaces/Tag";
 import { AboutEntryType } from "@/interfaces/_common-data-types";
+import { cn } from "@/lib/cn-utils";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { cn } from "@/lib/cn-utils";
-
-import { FileListItem } from "@/interfaces/File";
-import { IconsMap } from "@/interfaces/IconsMap";
-import { TagData } from "@/interfaces/Tag";
 import AboutEntryCard from "../common/Card";
 import CreateAboutEntry from "./Actions/Create";
 
@@ -59,7 +58,7 @@ const TimeLine: React.FC<Props> = ({
 		>
 			<SectionHeader title={section_title}>
 				<RevalidatePaths paths={[Route.public.ABOUT.uri]} />
-				<CreateAboutEntry type={type} fileList={fileList} tags={tags} iconsMap={iconsMap} />
+				<CreateAboutEntry fileList={fileList} iconsMap={iconsMap} tags={tags} type={type} />
 				<ToggleCollapsible
 					tooltip
 					target_id={toggle_target_id}
@@ -70,13 +69,13 @@ const TimeLine: React.FC<Props> = ({
 			<div className="about-cards-section-items space-y-14">
 				{entriesByType?.map((entry, index) => (
 					<AboutEntryCard
-						fileList={fileList}
-						tags={tags}
-						iconsMap={iconsMap}
 						key={index}
 						displayGalleryInline
 						className={visibleItems > index ? "" : "section-card-collapsible"}
 						entry={entry}
+						fileList={fileList}
+						iconsMap={iconsMap}
+						tags={tags}
 					/>
 				))}
 			</div>

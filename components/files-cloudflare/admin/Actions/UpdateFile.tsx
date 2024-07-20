@@ -94,11 +94,11 @@ const UpdateFile: React.FC<Props> = ({ className, file, files_prefix }) => {
 
 					<FileForm
 						className={t("dialog_description") ? "mt-0" : "mt-1"}
+						files_prefix={files_prefix}
 						formData={file}
 						isContainerDialogOpen={isOpen}
 						submitting={submitting}
 						onSubmit={handleUpdateFile}
-						files_prefix={files_prefix}
 					/>
 				</DialogContent>
 			</Dialog>

@@ -27,6 +27,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { FileData } from "@/interfaces/File";
 
 import { IconsMap } from "@/interfaces/IconsMap";
+
 import CopyFileAddressToClipboard from "./CopyFileAddressToClipboard";
 import DisplayFileImage from "./DisplayFileImage";
 

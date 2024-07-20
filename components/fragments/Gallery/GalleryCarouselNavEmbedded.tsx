@@ -4,15 +4,14 @@ import React, { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { FileHtmlProps } from "@/interfaces/File";
+import { PostData } from "@/interfaces/Post";
 import { ProjectData } from "@/interfaces/Project";
 import { cn } from "@/lib/cn-utils";
+import { commentsMatcher } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-
-import { PostData } from "@/interfaces/Post";
-import { commentsMatcher } from "@/lib/process-markdown";
 import IconCircleWrapper from "../IconCircleWrapper";
 import TooltipWrapper from "../TooltipWrapper";
 
@@ -83,9 +82,9 @@ const GalleryCarouselNavEmbedded: React.FC<Props> = ({
 			{/* Logo */}
 			<TooltipWrapper tooltipText={entryData.html.title}>
 				<IconCircleWrapper
+					alt={entryData.title}
 					className="min-w-[3.8rem] min-h-[3.8rem] drop-shadow-2xl"
 					className_Image="size-12"
-					alt={entryData.title}
 					src={
 						entryData.html.icon?.metadata.html.fileUrl || entryData.html.icon?.metadata.html.fileUri
 					}

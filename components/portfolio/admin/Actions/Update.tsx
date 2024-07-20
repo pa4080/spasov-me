@@ -24,8 +24,10 @@ import { Route } from "@/routes";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
+
 import { updateProject } from "../../_portfolio.actions";
 import { Project_FormSchema } from "../Form/schema";
+
 const ProjectForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
 
 interface Props {
@@ -98,7 +100,9 @@ const UpdateProject: React.FC<Props> = ({
 		...dialogTrigger_buttonIconProps,
 	};
 
-	if (!session) return null;
+	if (!session) {
+		return null;
+	}
 
 	return (
 		<Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -123,14 +127,14 @@ const UpdateProject: React.FC<Props> = ({
 				</DialogHeader>
 
 				<ProjectForm
-					fileList={fileList}
-					iconList={iconList}
-					iconsMap={iconsMap}
-					tags={tags}
 					className={t("dialog_description") ? "mt-0" : "mt-1"}
 					entryType={project.entryType}
+					fileList={fileList}
 					formData={project}
+					iconList={iconList}
+					iconsMap={iconsMap}
 					submitting={submitting}
+					tags={tags}
 					onSubmit={handleUpdateProject}
 				/>
 			</DialogContent>

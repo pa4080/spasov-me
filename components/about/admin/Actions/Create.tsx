@@ -17,13 +17,13 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { AboutEntryType } from "@/interfaces/_common-data-types";
+import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
+import { TagData } from "@/interfaces/Tag";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { FileListItem } from "@/interfaces/File";
-import { IconsMap } from "@/interfaces/IconsMap";
-import { TagData } from "@/interfaces/Tag";
 import { Entry_FormSchema } from "../Form/schema";
 
 // import AboutEntryForm from "../Form";
@@ -117,11 +117,11 @@ const CreateAboutEntry: React.FC<Props> = ({ className, type, fileList, tags, ic
 					<AboutEntryForm
 						className="mt-1"
 						entryType={type}
-						submitting={submitting}
-						onSubmit={handleCreateEntry}
 						fileList={fileList}
-						tags={tags}
 						iconsMap={iconsMap}
+						submitting={submitting}
+						tags={tags}
+						onSubmit={handleCreateEntry}
 					/>
 				</DialogContent>
 			</Dialog>

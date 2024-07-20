@@ -43,6 +43,7 @@ interface Props<T extends FieldValues> {
 		description?: string;
 		placeholder?: string;
 	};
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
 	className?: string;
 }

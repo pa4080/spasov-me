@@ -2,12 +2,12 @@ import React from "react";
 
 import SectionHeader from "@/components/fragments/SectionHeader";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
+import { IconsMap } from "@/interfaces/IconsMap";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
 import SearchResultEntryCard from "../common/Card";
 
-import { IconsMap } from "@/interfaces/IconsMap";
 import { UnitedEntryType } from ".";
 
 interface Props {
@@ -52,10 +52,10 @@ const TimeLine: React.FC<Props> = ({ type, visibleItems = 15, entries, displayTa
 					{entriesByType?.map((entry, index) => (
 						<SearchResultEntryCard
 							key={index}
-							iconsMap={iconsMap}
 							className={visibleItems > index ? "pop-item" : "section-card-collapsible pop-item"}
 							displayTagsInline={displayTags}
 							entry={entry}
+							iconsMap={iconsMap}
 						/>
 					))}
 				</div>
