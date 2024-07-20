@@ -656,6 +656,8 @@ body textarea.w-md-editor-text-input:focus {
 
 /** You tube embed @/lib/process-markdown-plugins.ts **/
 .youtube-embed {
+	@apply mx-0 my-6;
+
 	.youtube-embed-wrapper {
 		padding-top: 56.25%;
 		position: relative;
@@ -673,7 +675,24 @@ body textarea.w-md-editor-text-input:focus {
 		}
 	}
 
+	.image-caption,
 	.youtube-embed-caption {
+		@apply text-foreground-secondary text-sm text-center mt-4;
+	}
+}
+
+.image-container {
+	@apply mx-0 my-6;
+
+	.image-wrapper {
+		@apply rounded-md shadow-xl;
+
+		img {
+			@apply rounded-md m-0;
+		}
+	}
+
+	.image-caption {
 		@apply text-foreground-secondary text-sm text-center mt-4;
 	}
 }

@@ -133,7 +133,7 @@ export function myRemarkPlugin_Image() {
 				if (image.title) {
 					caption.push({
 						type: "span",
-						children: [{ type: "text", value: `${image.title}: ` }],
+						children: [{ type: "text", value: `${image.title} ` }],
 						data: {
 							hName: "span",
 							hProperties: {
