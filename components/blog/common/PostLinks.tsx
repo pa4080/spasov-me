@@ -39,12 +39,24 @@ const PostLinks: React.FC<Props> = ({ post, fileList, iconList, tags, iconsMap }
 
 	return (
 		<div className="pt-1 m-0 flex gap-2 transition-all duration-300 items-center justify-start max-h-7">
-			<div className={iconWrapper}>
-				<DisplayResourceUrlAsIcon size={23} type="URL 1" url={post.url1} />
-			</div>
+			<div className="flex gap-0 items-center justify-start">
+				{["url1", "url2"].map((key) => {
+					if (!post[key as keyof typeof post]) {
+						return null;
+					}
 
-			<div className={iconWrapper}>
-				<DisplayResourceUrlAsIcon size={23} type="URL 2" url={post.url2} />
+					return (
+						<div key={key} className={iconWrapper}>
+							<DisplayResourceUrlAsIcon
+								height={18}
+								icon_className_Path2="fill-accent"
+								type="URL 1"
+								url={post[key as "url1" | "url2"]}
+								width={26}
+							/>
+						</div>
+					);
+				})}
 			</div>
 
 			<div className={iconWrapper}>
