@@ -656,7 +656,7 @@ body textarea.w-md-editor-text-input:focus {
 
 /** You tube embed @/lib/process-markdown-plugins.ts **/
 .youtube-embed {
-	@apply mx-0 my-6;
+	@apply mx-0 my-6 scroll-mt-8;
 
 	.youtube-embed-wrapper {
 		padding-top: 56.25%;
@@ -682,7 +682,7 @@ body textarea.w-md-editor-text-input:focus {
 }
 
 .image-container {
-	@apply mx-0 my-6;
+	@apply mx-0 my-6 scroll-mt-8;
 
 	.image-wrapper {
 		@apply rounded-md shadow-xl;

@@ -93,12 +93,23 @@ const PostAdminCard: React.FC<Props> = ({
 					)}
 
 					<div className={styles.linksProjectPost}>
-						<div className={styles.iconWrapper}>
-							<DisplayResourceUrlAsIcon size={23} type="URL 1" url={post.url1} />
-						</div>
-						<div className={styles.iconWrapper}>
-							<DisplayResourceUrlAsIcon size={28} type="URL 2" url={post.url2} />
-						</div>
+						{["url1", "url2"].map((key) => {
+							if (!post[key as keyof typeof post]) {
+								return null;
+							}
+
+							return (
+								<div key={key} className={styles.iconWrapper}>
+									<DisplayResourceUrlAsIcon
+										height={18}
+										icon_className_Path2="fill-accent"
+										type="URL 1"
+										url={post[key as "url1" | "url2"]}
+										width={26}
+									/>
+								</div>
+							);
+						})}
 					</div>
 				</div>
 				<div className={styles.header}>
