@@ -12,7 +12,7 @@ interface Props {
 	size?: number;
 }
 
-const Icon_CircleWrapper: React.FC<Props> = ({
+const Logo_CircleWrapper: React.FC<Props> = ({
 	title,
 	src,
 	unoptimized,
@@ -54,4 +54,4 @@ const Icon_CircleWrapper: React.FC<Props> = ({
 	);
 };
 
-export default Icon_CircleWrapper;
+export default Logo_CircleWrapper;

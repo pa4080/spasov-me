@@ -462,6 +462,21 @@ body textarea.w-md-editor-text-input:focus {
 	}
 }
 
+/** Remove the backticks (`) from inline code blocks */
+.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before,
+.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after {
+	content: none;
+}
+
+/** Links with code blocks */
+.prose :where(a code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+	color: theme("colors.background");
+}
+
+.prose :where(a code):not(:where([class~="not-prose"], [class~="not-prose"] *)):hover {
+	background-color: theme("colors.accent.secondary");
+}
+
 /* Icons (<i/>) */
 .icon {
 	margin: 0 0.1em;
@@ -665,13 +680,13 @@ body textarea.w-md-editor-text-input:focus {
 		height: 0;
 
 		.youtube-embed-container {
+			@apply rounded-md shadow-xl;
+
+			position: absolute;
 			width: 100%;
 			height: 100%;
-			position: absolute;
 			overflow: hidden;
 			inset: 0;
-
-			@apply rounded-md shadow-xl;
 		}
 	}
 
