@@ -68,7 +68,7 @@ const BlogPublicPost: React.FC<Props> = async ({
 				iconComponent={
 					<IconCircleWrapper
 						alt={post.title}
-						className="w-[3.8rem] min-h-[3.8rem] drop-shadow-2xl"
+						className="min-w-[3.74rem] w-[3.74rem] min-h-[3.74rem] h-[3.74rem] drop-shadow-2xl"
 						className_Image="size-12"
 						src={post.html.icon?.metadata.html.fileUrl || post.html.icon?.metadata.html.fileUri}
 						unoptimized={post.html.icon?.filename.match(/\.svg$/) ? true : false}

@@ -24,6 +24,7 @@ export async function redisGet_SSR_Solution<T>(key: string): Promise<T | null> {
 		headers: {
 			Authorization: `Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`,
 		},
+		cache: "reload",
 	});
 
 	const data = await response.json();

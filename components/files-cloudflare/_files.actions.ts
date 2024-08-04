@@ -1,6 +1,7 @@
 "use server";
 
-import { Redis } from "@upstash/redis";
+// import { Redis } from "@upstash/redis";
+import { createClient } from "@vercel/kv";
 
 import sizeOf from "image-size";
 
@@ -15,7 +16,6 @@ import {
 	uploadObject,
 } from "@/lib/aws";
 import { fileObject_toData } from "@/lib/process-data-files-cloudflare";
-import { redisGet_SSR_Solution } from "@/lib/redis-get";
 import { msgs } from "@/messages";
 
 import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "./../_common.actions";
@@ -23,7 +23,12 @@ import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "./../_
 const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
 const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
 
-const redis = new Redis({
+// const redis = new Redis({
+// 	url: process.env.UPSTASH_REDIS_REST_URL,
+// 	token: process.env.UPSTASH_REDIS_REST_TOKEN,
+// });
+
+const redis = createClient({
 	url: process.env.UPSTASH_REDIS_REST_URL,
 	token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
@@ -39,7 +44,8 @@ export const getFilesR2 = async ({
 } = {}): Promise<FileData[] | null> => {
 	try {
 		// Check if the "files" array is already cached in Redis
-		const cachedFiles = await redisGet_SSR_Solution<FileData[]>(prefix);
+		// const cachedFiles = await redisGet_SSR_Solution<FileData[]>(prefix);
+		const cachedFiles = await redis.get<FileData[]>(prefix);
 
 		if (cachedFiles) {
 			return cachedFiles;
@@ -140,7 +146,8 @@ export const getIconsMap = async ({
 }: {
 	prefix?: string;
 } = {}): Promise<IconsMap> => {
-	const cachedIconsMap = await redisGet_SSR_Solution<IconsMap>(prefix);
+	// const cachedIconsMap = await redisGet_SSR_Solution<IconsMap>(prefix);
+	const cachedIconsMap = await redis.get<IconsMap>(prefix);
 
 	if (cachedIconsMap) {
 		return cachedIconsMap;
