@@ -315,6 +315,7 @@
 	},
 	"Tags": {
 		"title_system": "System (not listed) Tags",
+		"title_blog": "Blog posts",
 		"title_informationTechnologies": "Information Technologies",
 		"title_mechanicalEngineering": "Mechanical Engineering",
 		"title_officeApplications": "Office Applications",
@@ -387,7 +388,8 @@
 			"mechanicalEngineering": "Mechanical Engineering",
 			"skills": "Skills",
 			"officeApplications": "Office  Applications",
-			"system": "System (not listed) Tags"
+			"system": "System (not listed) Tags",
+			"blog": "Blog posts"
 		},
 
 		"icon_label": "",
@@ -638,7 +640,8 @@
 			"blog": "Blog",
 			"reference": "Reference",
 			"manual": "Manual",
-			"note": "Note"
+			"note": "Note",
+			"lifestyle": "Lifestyle"
 		},
 
 		"dateFrom_label": "From",
@@ -686,6 +689,7 @@
 		"title_reference": "Reference",
 		"title_manual": "Manual",
 		"title_note": "Note",
+		"title_lifestyle": "Lifestyle",
 
 		"btnMore": "Read more",
 		"btnLess": "Show less",
@@ -751,6 +755,7 @@
 		"title_reference": "Blog references",
 		"title_manual": "Blog manuals",
 		"title_note": "Blog notes",
+		"title_lifestyle": "Blog lifestyle",
 
 		"btnMore": "Read more",
 		"btnLess": "Show less",

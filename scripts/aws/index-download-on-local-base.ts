@@ -18,6 +18,8 @@ import { downloadObjectList } from "./obj-download-to-fs";
 		locale: "en",
 		filename_trim_prefix: "icons",
 	});
+
+	// eslint-disable-next-line no-console
 	console.log(iconMap);
 
 	// Download the files (note the batches must be small enough)
@@ -29,5 +31,7 @@ import { downloadObjectList } from "./obj-download-to-fs";
 		downloadDirFs: "public/tmp",
 		batchSize: 5,
 	});
+
+	// eslint-disable-next-line no-console
 	console.log(fileMapDownloaded);
 })();

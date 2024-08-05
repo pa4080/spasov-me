@@ -6,6 +6,7 @@ export const data = {
 		"mechanicalEngineering",
 		"officeApplications",
 		"system",
+		"blog",
 		"skills",
 	],
 	about_type_list: ["employment", "businessCard", "resume", "education", "spokenLanguages"],
@@ -16,7 +17,7 @@ export const data = {
 		"education_prj",
 		"officeApplications",
 	],
-	post_type_list: ["blog", "reference", "manual", "note"],
+	post_type_list: ["blog", "reference", "manual", "note", "lifestyle"],
 } as const;
 
 export const countryTuple = data.country_name_list;
