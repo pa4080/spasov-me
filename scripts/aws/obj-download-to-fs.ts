@@ -1,11 +1,16 @@
+/* eslint-disable no-console */
 import { GetObjectCommand, S3, S3Client, S3ClientConfig, _Object } from "@aws-sdk/client-s3";
+
+import { getObject } from "../../lib/aws";
+
+import { FileMapFs, FileMapUpload } from "./types";
+
+import { chunkArray } from "./utils";
+
 import fs from "fs";
 
 import path from "path";
 import { Readable } from "stream"; // https://stackoverflow.com/a/67373050/6543935
-import { getObject } from "../../lib/aws";
-import { FileMapFs, FileMapUpload } from "./types";
-import { chunkArray } from "./utils";
 
 /**
  * @param fileName The name of the file incl. the relative path: tmp/prjId/subPath/file.name
@@ -71,6 +76,7 @@ export const downloadObjectList = async ({
 		const returnArray: FileMapUpload[] = [];
 
 		const isS3ObjectList = !Object.prototype.hasOwnProperty.call(fileList[0], "fsSourceFile");
+
 		console.log("isS3ObjectList", isS3ObjectList);
 
 		const fileListBatches = chunkArray(fileList, batchSize);
@@ -83,7 +89,9 @@ export const downloadObjectList = async ({
 
 			await Promise.all(
 				fileListBatch.map(async (file) => {
-					if (!file.Key) return null;
+					if (!file.Key) {
+						return null;
+					}
 
 					const baseDir = process.cwd();
 					const projectDir = path.join(baseDir, downloadDirFs, prefix ?? "");

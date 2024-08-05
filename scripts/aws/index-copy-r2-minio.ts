@@ -14,6 +14,7 @@ import { uploadObjectList } from "./obj-upload-from-fs";
 	// Generate the list of the files from the R2 bucket
 	const fileList = await listObjects();
 
+	// eslint-disable-next-line no-console
 	console.log(fileList);
 
 	// Download the files (note the batches must be small enough)
@@ -25,9 +26,12 @@ import { uploadObjectList } from "./obj-upload-from-fs";
 		batchSize: 5,
 	});
 
+	// eslint-disable-next-line no-console
 	console.log(fileMapDownloaded);
 
-	if (!fileMapDownloaded) return;
+	if (!fileMapDownloaded) {
+		return;
+	}
 
 	await uploadObjectList({
 		fileList: fileMapDownloaded,

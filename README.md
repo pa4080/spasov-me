@@ -17,22 +17,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - Search page
   - [ ] Choose the base data category type to be searched - i.e.: Search in [x]CV [x]Blog [x]Portfolio
 
-- [x] Debug: Server Internal Error 500, on url invalidate ?!?
-
-  ```shell
-  ⨯ Error: Page changed from static to dynamic at runtime /admin/blog, reason: no-store fetch https://primary-sloth-36695.upstash.io /
-  admin/blog
-  see more here https://nextjs.org/docs/messages/app-static-to-dynamic-error
-  at doRender (/app/node_modules/.pnpm/next@14.2.4_react-dom@18.3.1_react@18.3.1__react@18.3.1_sass@1.77.6/node_modules/next/dist/server/base-server.js:1464:29)
-  at async cacheEntry.responseCache.get.routeKind (/app/node_modules/.pnpm/next@14.2.4_react-dom@18.3.1_react@18.3.1__react@18.3.1_sass@1.77.6/node_modules/next/dist/server/base-server.js:1599:28)
-  at async /app/node_modules/.pnpm/next@14.2.4_react-dom@18.3.1_react@18.3.1__react@18.3.1_sass@1.77.6/node_modules/next/dist/server/response-cache/index.js:90:36
-  at async /app/node_modules/.pnpm/next@14.2.4_react-dom@18.3.1_react@18.3.1__react@18.3.1_sass@1.77.6/node_modules/next/dist/lib/batcher.js:45:32
-  ```
-
-  Solution: <https://admin.spasov.me/blog/uspstah-redis-and-nextjs-14-ssg>
-
-- [ ] Implement rebuild hook
-
 - Blog
   - [x] Blog post admin
   - [x] Blog feed public
@@ -40,6 +24,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [x] MD Syntax highlighting
   - [x] MD Images with captions
   - [ ] Copy button for the post's code snippets
+  - [ ] Display the post category as label on the blog card and post page
+
+- [ ] Create to do list
+- [ ] Create my resources page, where to list my labs and projects... This could be special project type, where the card redirects to the resource - bud probably it will be better to be a separate view?
 
 - Redis
   - [x] FilesR2 index to Cache

@@ -1,10 +1,12 @@
-import fs from "fs";
 import sizeOf from "image-size";
 import mime from "mime-types";
-import path from "path";
+
 import { FileMetadata } from "../../interfaces/File";
 import { roundTo } from "../../lib/round";
 import { FileMapFs, GenerateFileMapInput } from "./types";
+
+import fs from "fs";
+import path from "path";
 
 const generateFileMap = ({
 	dir,
@@ -26,6 +28,7 @@ const generateFileMap = ({
 			const fileSizeInBytes = stats.size;
 
 			const info = sizeOf(path.join(directoryPath, file)) as FileMetadata["info"];
+
 			info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
 
 			const modifiedDate = date.toLocaleString(locale);
@@ -62,6 +65,7 @@ const generateFileMapRecursive = ({
 	locale = "en",
 	filename_trim_prefix,
 }: GenerateFileMapInput): FileMapFs[] => {
+	// eslint-disable-next-line no-console
 	console.log(`\nGenerating file map for: ${dir}\n`);
 
 	const iconsDirPath = path.join(process.cwd(), dir);

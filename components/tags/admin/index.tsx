@@ -2,6 +2,8 @@ import React from "react";
 
 import { getIconsMap } from "@/components/files-cloudflare/_files.actions";
 
+import { tagTuple } from "@/interfaces/_common-data-types";
+
 import { getTags } from "../_tags.actions";
 import styles from "../_tags.module.scss";
 import Section from "./Section";
@@ -22,10 +24,9 @@ const TagsAdmin: React.FC<Props> = async ({ className }) => {
 	return (
 		<div className={`${styles.about} ${className}`}>
 			<SectionIndex {...data} />
-			<Section {...data} type="informationTechnologies" />
-			<Section {...data} type="mechanicalEngineering" />
-			<Section {...data} type="officeApplications" />
-			<Section {...data} type="system" />
+			{tagTuple.map((tagType) => (
+				<Section {...data} key={tagType} type={tagType} />
+			))}
 		</div>
 	);
 };

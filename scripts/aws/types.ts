@@ -1,5 +1,6 @@
-import { FileMetadata } from "@/interfaces/File";
 import { GetObjectCommandOutput } from "@aws-sdk/client-s3";
+
+import { FileMetadata } from "@/interfaces/File";
 
 export interface GenerateFileMapInput {
 	dir: string;

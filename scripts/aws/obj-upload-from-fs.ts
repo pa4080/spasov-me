@@ -1,9 +1,11 @@
+/* eslint-disable no-console */
 import { PutObjectCommand, S3, S3Client, S3ClientConfig } from "@aws-sdk/client-s3";
-import fs from "fs";
 
 import { FileMetadata } from "../../interfaces/File";
 import { FileMapUpload } from "./types";
 import { chunkArray } from "./utils";
+
+import fs from "fs";
 
 /**
  * @param objectKey The name of the fil
@@ -30,6 +32,7 @@ export const uploadObject = async ({
 		const fileContent = fs.readFileSync(fsSourceFile);
 
 		const metadataRecord: Record<string, string> = {};
+
 		Object.entries(metadata).forEach(([key, value]) => {
 			metadataRecord[key] = JSON.stringify(value);
 		});
@@ -42,6 +45,7 @@ export const uploadObject = async ({
 			Metadata: metadataRecord,
 		});
 
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const responseObject = await s3client.send(command);
 	} catch (error) {
 		console.error(error);
@@ -76,7 +80,9 @@ export const uploadObjectList = async ({
 
 			await Promise.all(
 				fileListBatch.map(async (file) => {
-					if (!file.Key) return null;
+					if (!file.Key) {
+						return null;
+					}
 
 					console.log(`Uploading ${file.fsSourceFile} to ${bucket}`);
 
