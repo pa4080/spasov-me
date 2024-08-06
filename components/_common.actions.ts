@@ -78,6 +78,31 @@ export const getSession = async () => {
 };
 
 /**
+ * Trigger the Vercel's rebuild hook
+ */
+export const vercelRebuildMaster = async (): Promise<null | {
+	job: { id: string; state: string; createdAt: number };
+}> => {
+	try {
+		const hookUrl = process.env.VERCEL_HOOK_REBUILD_MASTER;
+
+		if (hookUrl) {
+			const response = await fetch(hookUrl);
+
+			if (response.ok) {
+				return response.json();
+			}
+		}
+
+		return null;
+	} catch (error) {
+		console.error(error);
+
+		return null;
+	}
+};
+
+/**
  * This function is used within the File and Tag forms,
  * to DETACH (REMOVE) an "attachedTo" items.
  * So far the function is used only within

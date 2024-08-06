@@ -16,6 +16,8 @@ import {
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import RebuildMasterVercel from "@/components/fragments/RebuildMasterVercel";
+
 import styles from "./_navbar.module.scss";
 
 interface Props {
@@ -30,10 +32,13 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
 	type tType = Parameters<typeof t>[0];
 
 	return (
-		<div className="flex flex-row">
+		<div className="flex flex-row -ml-2 mr-1">
+			<RebuildMasterVercel className="scale-[85%] max-2xs:hidden mt-[1px]" />
+			<RevalidatePaths className="scale-[85%] max-2xs:hidden mt-[1px] -mr-2" />
+
 			<NavigationMenu
 				className={`${styles.loggedInMenu} ${className}`}
-				viewportPosition="-right-20"
+				viewportPosition="-right-16"
 			>
 				<NavigationMenuList>
 					<NavigationMenuItem>
@@ -81,8 +86,6 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
 					</NavigationMenuItem>
 				</NavigationMenuList>
 			</NavigationMenu>
-
-			<RevalidatePaths className="scale-[85%] -mr-2 ml-1 " />
 		</div>
 	);
 };
