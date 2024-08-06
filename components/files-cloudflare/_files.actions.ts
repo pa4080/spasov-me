@@ -206,10 +206,18 @@ export const createFile = async ({
 			// Convert the blob to buffer
 			const buffer = Buffer.from(await file.arrayBuffer());
 
-			// Get info of the file }
-			const info = sizeOf(buffer) as FileMetadata["info"];
+			// Get info of the file
+			let info = {
+				height: 0,
+				width: 0,
+				ratio: 0,
+				type: `${file.type}`,
+			} as FileMetadata["info"];
 
-			info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
+			if (filename.match(/\.(png|jpg|jpeg|svg|webp|gif)$/)) {
+				info = sizeOf(buffer) as FileMetadata["info"];
+				info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
+			}
 
 			return await uploadObject({
 				objectKey: filename,
