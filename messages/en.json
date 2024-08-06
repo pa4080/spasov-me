@@ -63,7 +63,8 @@
 		"altUserProfile": "User Profile",
 		"altMenuButton": "Menu Button",
 
-		"user": "User"
+		"user": "User",
+		"publicMenu_title": "Public Menu"
 	},
 	"Footer": {},
 	"SiteLogo": {
@@ -122,6 +123,12 @@
 		"toast_submitted": "The paths [{ paths }] were successfully revalidated.",
 		"btn_revalidate": "Revalidate paths",
 		"btn_revalidate_submitting": "Revalidating..."
+	},
+	"RebuildMasterVercel": {
+		"toast_success": "The rebuild action was successfully submitted.",
+		"toast_error": "Something went wrong. Please try again.",
+		"btn_rebuild": "Rebuild site on Vercel",
+		"btn_rebuild_submitting": "Rebuilding..."
 	},
 	"PageCards": {
 		"title_common": "Edit home page cards",

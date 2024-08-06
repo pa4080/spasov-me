@@ -2,7 +2,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
+import {
+	Sheet,
+	SheetClose,
+	SheetContent,
+	SheetDescription,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
+} from "@/components/ui/sheet";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
@@ -32,6 +40,9 @@ const PublicMenu_Sheet: React.FC<Props> = ({ className, children }) => {
 				</SheetTrigger>
 
 				<SheetContent className="flex flex-col items-start justify-start gap-10 h-full" side="left">
+					<SheetTitle className="hidden">{t("publicMenu_title")}</SheetTitle>
+					<SheetDescription className="hidden">{t("publicMenu_title")}</SheetDescription>
+
 					<SheetHeader>
 						<SheetClose>{children}</SheetClose>
 					</SheetHeader>

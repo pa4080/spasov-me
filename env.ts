@@ -63,6 +63,7 @@ const envSchema = z.object({
 	REACT_EDITOR: zStringReq(),
 	RESEND_API_KEY: zStringReq(),
 	VERCEL_ENV: zStringReq(),
+	VERCEL_HOOK_REBUILD_MASTER: zStringReq(),
 });
 
 /**
@@ -110,6 +111,7 @@ const envSchema = z.object({
  * 	REACT_EDITOR,
  * 	RESEND_API_KEY,
  * 	VERCEL_ENV,
+ * 	VERCEL_HOOK_REBUILD_MASTER,
  * } = process.env;
 
  * const parsedResults = envSchema.safeParse({
@@ -156,6 +158,7 @@ const envSchema = z.object({
  * 	REACT_EDITOR,
  * 	RESEND_API_KEY,
  * 	VERCEL_ENV,
+ * 	VERCEL_HOOK_REBUILD_MASTER,
  * });
 
  * if (!parsedResults.success) {

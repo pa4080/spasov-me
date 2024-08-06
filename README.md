@@ -28,6 +28,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 - [ ] Create to do list
 - [ ] Create my resources page, where to list my labs and projects... This could be special project type, where the card redirects to the resource - bud probably it will be better to be a separate view?
+- [ ] Allow file rename when it is not linked to a post?
 
 - Redis
   - [x] FilesR2 index to Cache
