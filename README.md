@@ -23,12 +23,16 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [x] Blog post public
   - [x] MD Syntax highlighting
   - [x] MD Images with captions
+  - [ ] PDF Embed
   - [ ] Copy button for the post's code snippets
   - [ ] Display the post category as label on the blog card and post page
+  - [ ] Display gallery switch in the post form, to display the gallery navigation or not;
+        Display gallery items caption switch too.
 
 - [ ] Create to do list
 - [ ] Create my resources page, where to list my labs and projects... This could be special project type, where the card redirects to the resource - bud probably it will be better to be a separate view?
 - [ ] Allow file rename when it is not linked to a post?
+- [ ] Back to top button, with additional features, like in GameHub.
 
 - Redis
   - [x] FilesR2 index to Cache

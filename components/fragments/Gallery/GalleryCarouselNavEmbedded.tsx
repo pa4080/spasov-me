@@ -98,7 +98,7 @@ const GalleryCarouselNavEmbedded: React.FC<Props> = ({
 				className="flex-grow h-full flex items-center justify-start flex-col prose prose-p:m-0 max-w-none"
 			>
 				{descriptionDisplay && gallery && current_carouselItem > 0 && haveDescription && (
-					<div className="w-full h-full sa:-mt-2">
+					<div className="w-full h-full sa:-mt-2 sa:-mb-2">
 						<TooltipProvider>
 							<Tooltip>
 								<TooltipTrigger className="w-full">
