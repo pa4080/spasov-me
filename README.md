@@ -23,7 +23,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [x] Blog post public
   - [x] MD Syntax highlighting
   - [x] MD Images with captions
-  - [ ] PDF Embed
+  - [ ] MD PDF Embed
   - [ ] Copy button for the post's code snippets
   - [ ] Display the post category as label on the blog card and post page
   - [ ] Display gallery switch in the post form, to display the gallery navigation or not;
