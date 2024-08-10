@@ -47,14 +47,16 @@ const BlogPublicPost: React.FC<Props> = async ({
 		return str.replace(commentsMatcher, "");
 	});
 
-	let gallery = post?.gallery
+	const gallery = post?.gallery
 		?.map((file) => file.metadata.html)
 		?.sort((a, b) => a.filename.localeCompare(b.filename));
 
-	gallery =
-		post?.html?.attachment && gallery
-			? [post?.html?.attachment.metadata.html].concat(gallery)
-			: gallery;
+	// If we need to display the attachment within the gallery we can add it there;
+	// Right now the attachment is only used for the blog post card's cover image.
+	// gallery =
+	// 	post?.html?.attachment && gallery
+	// 		? [post?.html?.attachment.metadata.html].concat(gallery)
+	// 		: gallery;
 
 	const dtFrom = new Date(post.dateFrom);
 	const dateLabel = format(dtFrom, "dd MMM yyyy", { locale: en });
