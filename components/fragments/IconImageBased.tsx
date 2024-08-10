@@ -2,11 +2,13 @@ import React, { CSSProperties } from "react";
 
 import Image from "next/image";
 
+import { FilesImagesExtensions } from "@/interfaces/_common-data-types";
+
 // import IconA from "@/public/images/icons/items/Address.svg";
 
 export interface IconInvocation {
 	name: string; // name
-	extension?: "svg" | "png" | "webp" | "jpeg" | "jpg" | "avif"; // extension
+	extension?: FilesImagesExtensions; // extension
 	location?: "assets" | "images"; // type
 	style?: CSSProperties;
 	size?: number;

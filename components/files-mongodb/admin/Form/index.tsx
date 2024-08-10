@@ -29,7 +29,11 @@ import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 import { capitalize } from "@/lib/capitalize";
 
-import { AttachedToDocument } from "@/interfaces/_common-data-types";
+import {
+	AttachedToDocument,
+	regexFilesAll,
+	regexFilesImages,
+} from "@/interfaces/_common-data-types";
 
 import { Switch } from "@/components/ui/switch";
 
@@ -109,7 +113,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 				}
 			);
 
-			if (!filename.match(/\.(png|jpg|avif|jpeg|svg|webp|pdf|pptx|xlsx|csv|txt|docx|gif|jfif)$/)) {
+			if (!filename.match(regexFilesAll)) {
 				form.setError("file", {
 					type: "manual",
 					message: t("fileInput_placeholder"),
@@ -125,7 +129,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 				displayImageRef.current?.setAttribute("srcset", "");
 
 				// Then set new "src" attribute
-				if (filename.match(/\.(png|jpg|avif|jpeg|svg|webp|gif)$/)) {
+				if (filename.match(regexFilesImages)) {
 					displayImageRef.current?.setAttribute("src", URL.createObjectURL(file));
 				} else if (filename.match(/\.(pdf|pptx|xlsx|csv|txt|docx)$/)) {
 					displayImageRef.current?.setAttribute(

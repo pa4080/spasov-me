@@ -55,7 +55,8 @@ const nextConfig = {
 				]
 			: [
 					{
-						source: "/:all*(svg|jpg|png|webp|webm|mkv|avi|mp4|eot|svg|ttf|woff|woff2)",
+						source:
+							"/:all*(png|jpg|jpeg|svg|webp|gif|jfif|avif|pdf|pptx|xlsx|csv|txt|docx|webm|mkv|avi|mp4|eot|ttf|woff|woff2)",
 						locale: false,
 						headers: [
 							{

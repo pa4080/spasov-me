@@ -45,3 +45,21 @@ export interface AttachedToDocument {
 	title: string;
 	_id: string;
 }
+
+// See @/next.config.js
+export const nextConfigCDNSource =
+	"/:all*(png|jpg|jpeg|svg|webp|gif|jfif|avif|pdf|pptx|xlsx|csv|txt|docx|webm|mkv|avi|mp4|eot|ttf|woff|woff2)";
+
+export const regexFilesAll =
+	/\.(png|jpg|jpeg|svg|webp|gif|jfif|avif|bmp|pdf|pptx|xlsx|csv|txt|docx)$/;
+export const regexFilesImages = /\.(png|jpg|jpeg|svg|webp|gif|jfif|avif|bmp)$/;
+
+export type FilesImagesExtensions =
+	| "png"
+	| "jpg"
+	| "jpeg"
+	| "svg"
+	| "webp"
+	| "gif"
+	| "jfif"
+	| "avif";
