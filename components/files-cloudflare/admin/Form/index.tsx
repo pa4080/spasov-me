@@ -114,7 +114,7 @@ const FileForm: React.FC<Props> = ({
 				}
 			);
 
-			if (!filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|csv|txt|docx|gif|jfif)$/)) {
+			if (!filename.match(/\.(png|jpg|avif|jpeg|svg|webp|pdf|pptx|xlsx|csv|txt|docx|gif|jfif)$/)) {
 				form.setError("file", {
 					type: "manual",
 					message: t("fileInput_placeholder"),
@@ -130,7 +130,7 @@ const FileForm: React.FC<Props> = ({
 				displayImageRef.current?.setAttribute("srcset", "");
 
 				// Then set new "src" attribute
-				if (filename.match(/\.(png|jpg|jpeg|svg|webp|gif)$/)) {
+				if (filename.match(/\.(png|jpg|avif|jpeg|svg|webp|gif)$/)) {
 					displayImageRef.current?.setAttribute("src", URL.createObjectURL(file));
 				} else if (filename.match(/\.(pdf|pptx|xlsx|csv|txt|docx)$/)) {
 					displayImageRef.current?.setAttribute(

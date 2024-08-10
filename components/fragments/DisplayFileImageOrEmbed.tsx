@@ -89,7 +89,7 @@ const DisplayFileImageOrEmbed: React.FC<Props> = ({
 				}}
 			/>
 		</div>
-	) : file.filename.match(/\.(svg|png|jpg|jpeg|webp|jfif|bmp)$/) ? (
+	) : file.filename.match(/\.(svg|png|jpg|avif|jpeg|webp|jfif|bmp)$/) ? (
 		<Image
 			priority
 			alt={file.filename}

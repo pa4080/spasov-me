@@ -89,7 +89,7 @@ export const getFileList = async ({
 
 	if (images) {
 		filteredFiles = files.filter((file) =>
-			file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|csv|txt|docx|gif)$/)
+			file.filename.match(/\.(png|jpg|avif|jpeg|svg|webp|pdf|pptx|xlsx|csv|txt|docx|gif)$/)
 		);
 	}
 
@@ -214,7 +214,7 @@ export const createFile = async ({
 				type: `${file.type}`,
 			} as FileMetadata["info"];
 
-			if (filename.match(/\.(png|jpg|jpeg|svg|webp|gif)$/)) {
+			if (filename.match(/\.(png|jpg|avif|jpeg|svg|webp|gif)$/)) {
 				info = sizeOf(buffer) as FileMetadata["info"];
 				info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
 			}

@@ -21,7 +21,7 @@ export const File_FormSchemaGenerator = (messages?: string[], isFileOptional = f
 			.regex(/^[a-zA-Z0-9][\/.a-zA-Z0-9-_]+$/, {
 				message: messages?.[2],
 			})
-			.regex(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|csv|txt|docx|gif|jfif)$/, {
+			.regex(/\.(png|jpg|avif|jpeg|svg|webp|pdf|pptx|xlsx|csv|txt|docx|gif|jfif)$/, {
 				message: messages?.[3],
 			}),
 		description: z.string().optional(),
@@ -30,7 +30,7 @@ export const File_FormSchemaGenerator = (messages?: string[], isFileOptional = f
 		 * @see https://stackoverflow.com/a/74028632/6543935
 		 *
 		 * image: z.union([
-		 * 			z.string().regex(/\.(png|jpg|jpeg|svg|webp)$/, {
+		 * 			z.string().regex(/\.(png|jpg|avif|jpeg|svg|webp)$/, {
 		 * 				message: messages?.shift(),
 		 * 			}),
 		 * 			z.string().length(0),

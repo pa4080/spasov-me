@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export interface IconInvocation {
 	name: string; // name
-	extension?: "svg" | "png" | "webp" | "jpeg" | "jpg"; // extension
+	extension?: "svg" | "png" | "webp" | "jpeg" | "jpg" | "avif"; // extension
 	location?: "assets" | "images"; // type
 	style?: CSSProperties;
 	size?: number;

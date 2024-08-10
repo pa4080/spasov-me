@@ -189,7 +189,7 @@
 		"schema_title": "The page title must be at least 2 characters.",
 		"schema_description": "The description must be at least 20 characters.",
 		"schema_uri": "The Page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
-		"schema_image": "The allowed formats are: png, jpg, jpeg, svg, webp.",
+		"schema_image": "The allowed formats are: png, avif, jpg, jpeg, svg, webp.",
 		"schema_icon": "These are icons from the FS, like in the Tags.",
 
 		"icon_label": "",
@@ -457,7 +457,7 @@
 		"schema_file": "The file is absolutely required. It cannot start with a special character or a number.",
 
 		"fileInput_label": "",
-		"fileInput_placeholder": "The allowed formats are: png, jpg, jpeg, svg, webp, jfif, pdf, pptx, xlsx, csv, txt, txt, docx.",
+		"fileInput_placeholder": "The allowed formats are: png, avif, jpg, jpeg, svg, webp, jfif, pdf, pptx, xlsx, csv, txt, txt, docx.",
 		"fileInput_description": "",
 
 		"filename_label": "",
