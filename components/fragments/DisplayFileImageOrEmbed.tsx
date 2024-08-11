@@ -7,6 +7,8 @@ import { FileData } from "@/interfaces/File";
 import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
 
+import { regexFilesImages } from "@/interfaces/_common-data-types";
+
 import EmbedMsoDoc from "./embed/EmbedMsoDoc";
 import EmbedPdfDoc from "./embed/EmbedPdfDoc";
 import EmbedTxtDoc from "./embed/EmbedTxtDoc";
@@ -89,7 +91,7 @@ const DisplayFileImageOrEmbed: React.FC<Props> = ({
 				}}
 			/>
 		</div>
-	) : file.filename.match(/\.(svg|png|jpg|jpeg|webp|jfif|bmp)$/) ? (
+	) : file.filename.match(regexFilesImages) ? (
 		<Image
 			priority
 			alt={file.filename}

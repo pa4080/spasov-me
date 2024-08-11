@@ -10,7 +10,7 @@ import { msgs } from "@/messages";
 import FileGFS from "@/models/file";
 import { Route } from "@/routes";
 
-import { AttachedToDocument } from "@/interfaces/_common-data-types";
+import { AttachedToDocument, regexFilesAll } from "@/interfaces/_common-data-types";
 
 import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "../_common.actions";
 
@@ -80,9 +80,7 @@ export const getFileList = async ({ images }: { images?: boolean } = {}): Promis
 	let filteredFiles = files;
 
 	if (images) {
-		filteredFiles = files.filter((file) =>
-			file.filename.match(/\.(png|jpg|jpeg|svg|webp|pdf|pptx|xlsx|csv|txt|docx|gif)$/)
-		);
+		filteredFiles = files.filter((file) => file.filename.match(regexFilesAll));
 	}
 
 	return filteredFiles.map((file) => ({

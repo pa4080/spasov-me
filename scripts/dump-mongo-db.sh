@@ -1,16 +1,21 @@
 #!/bin/bash
-# run it fron the root of the project:
-# $ tmp/dump-mongo-db.sh .env.local
+# run it fron the root of the project: tmp/dump-mongo-db.sh .env.local
+
+. "$1" # load .env provided as param
+
+source_db_cs="${MONGODB_URI}"
+destin_db_cs="${MONGODB_URI_LOCAL}"
+
+if [ -z "$source_db_cs" ] || [ -z "$destin_db_cs" ]; then
+	echo "Missing env vars: MONGODB_URI, MONGODB_URI_LOCAL"
+	exit 1
+fi
 
 dumppath="$(dirname -- "${BASH_SOURCE[0]}")"
-mkdir "${dumppath}/dbbackup"
+rm -rf "$dumppath"/dbbackup && mkdir -p "${dumppath}/dbbackup"
 
-. "$1"
+mongodump --uri "$source_db_cs" --out="$dumppath"/dbbackup
+mongorestore --uri "$destin_db_cs" "$dumppath"/dbbackup --drop --authenticationDatabase=admin
 
-migrate_from="${MONGODB_URI}"
-#migrate_to="${MONGODB_URI_LOCAl}"
-
-mongodump --uri "$migrate_from" --out="$dumppath"/dbbackup
-#mongorestore --uri "$migrate_to" "$dumppath"/dbbackup/test --drop -dcms
-#rm -rf "$dumppath"/dbbackup
+# rm -rf "$dumppath"/dbbackup
 exit

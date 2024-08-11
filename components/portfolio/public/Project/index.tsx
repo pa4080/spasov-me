@@ -70,7 +70,7 @@ const PortfolioPublicProject: React.FC<Props> = async ({
 			</SectionHeader>
 
 			{/* @see https://github.com/tailwindlabs/tailwindcss-typography */}
-			<article className="prose lg:prose-lg max-w-none">
+			<article className="prose lg:prose-lg max-w-none xa:text-justify">
 				<div
 					dangerouslySetInnerHTML={{ __html: descriptionArr[0] }}
 					className="font-semibold tracking-wide text-xl"
