@@ -61,7 +61,7 @@
 		}
 
 		.token.important {
-			background: hsl(var(--accent) / 80%);
+			border-bottom: 1px dotted hsl(var(--accent) / 40%);
 		}
 
 		/* overrides color-values for the Diff Highlight plugin
