@@ -711,3 +711,11 @@ body textarea.w-md-editor-text-input:focus {
 		@apply text-foreground-secondary text-sm text-center mt-4;
 	}
 }
+
+@media print {
+	body .body-content {
+		overflow-y: auto;
+		display: block;
+		height: fit-content;
+	}
+}

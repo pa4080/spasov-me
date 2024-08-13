@@ -10,7 +10,7 @@ import styles from "./_navbar.module.scss";
 
 const Navbar: React.FC = () => {
 	return (
-		<nav className={styles.navbar}>
+		<nav className={styles.navbar} id="top-navbar">
 			<PublicMenu_Desktop className="hidden mb:flex items-center justify-center gap-4 pb-0" />
 			<PublicMenu_Mobile className="flex mb:hidden items-center justify-center gap-4 pb-0" />
 
