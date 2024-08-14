@@ -12,6 +12,8 @@ import manifest from "@/public/manifest.json";
 import "./(styles)/globals.scss";
 import "./(styles)/syntax-highlight.scss";
 
+import BackToTop from "@/components/layouts/footer/BackToTop";
+
 import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
@@ -40,13 +42,14 @@ interface RootLayoutProps {
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
 	return (
 		<html suppressHydrationWarning lang="en">
-			<body className={`${poppins.className} ${unicephalon.variable} `}>
+			<body className={`${poppins.className} ${unicephalon.variable}`}>
 				<AuthSessionProvider>
 					<AppContextProvider>
 						{/* <RecaptchaContextProvider> */}
 						<ThemesProvider>
 							<MainLayout>{children}</MainLayout>
 							<Toaster />
+							<BackToTop />
 						</ThemesProvider>
 						{/* </RecaptchaContextProvider> */}
 					</AppContextProvider>
