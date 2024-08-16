@@ -18,42 +18,45 @@ export const data = {
 		"officeApplications",
 	],
 	post_type_list: ["blog", "reference", "manual", "note", "lifestyle"],
-	lab_entry_type_list: ["site", "service", "application", "database"],
-	lab_entry_visibility_type_list: ["private", "public"],
-	lab_entry_host_type_list: [
-		"vps",
-		"docker",
-		"vps-docker",
-		"linux-docker",
-		"pve-docker",
-		"self-hosted",
-		"self-hosted-docker",
-		"linux",
-		"pve",
-		"third-party",
-		"aws",
-		"cloudflare",
-	],
-	lab_entry_location_type_list: [
-		"lan-sf",
-		"lan-pz",
-		"vps-contabo",
-		"vps-digitalocean",
-		"cloud-hosted",
-		"cloud-hosted-vercel",
-		"cloud-hosted-aws",
-		"cloud-hosted-azure",
-		"cloud-hosted-cloudflare",
-	],
-	lab_entry_access_type_list: [
-		"lan",
-		"vps",
-		"internet",
-		"internet-lan",
-		"internet-vps",
-		"internet-self-hosted",
-		"internet-third-party",
-	],
+	lab_entry: {
+		type_list: ["site", "service", "application", "database"],
+		visibility: ["private", "public"],
+		property: ["own", "client", "shared"],
+		host: [
+			"vps",
+			"docker",
+			"vps-docker",
+			"linux-docker",
+			"pve-docker",
+			"self-hosted",
+			"self-hosted-docker",
+			"linux",
+			"pve",
+			"third-party",
+			"aws",
+			"cloudflare",
+		],
+		location: [
+			"lan-sf",
+			"lan-pz",
+			"vps-contabo",
+			"vps-digitalocean",
+			"cloud-hosted",
+			"cloud-hosted-vercel",
+			"cloud-hosted-aws",
+			"cloud-hosted-azure",
+			"cloud-hosted-cloudflare",
+		],
+		access: [
+			"lan",
+			"vps",
+			"internet",
+			"internet-lan",
+			"internet-vps",
+			"internet-self-hosted",
+			"internet-third-party",
+		],
+	},
 } as const;
 
 export const countryTuple = data.country_name_list;
@@ -63,18 +66,19 @@ export const aboutEntryTuple = data.about_type_list;
 export const projectTuple = data.project_type_list;
 export const postTuple = data.post_type_list;
 
-export const labEntryTypeTuple = data.lab_entry_type_list;
-export const labEntryVisibilityTypeTuple = data.lab_entry_visibility_type_list;
-export const labEntryHostTypeTuple = data.lab_entry_host_type_list;
-export const labEntryLocationTypeTuple = data.lab_entry_location_type_list;
-export const labEntryAccessTypeTuple = data.lab_entry_access_type_list;
+export const labEntryTuple = data.lab_entry.type_list;
+export const labEntryVisibilityTuple = data.lab_entry.visibility;
+export const labEntryPropertyTuple = data.lab_entry.property;
+export const labEntryHostTuple = data.lab_entry.host;
+export const labEntryLocationTuple = data.lab_entry.location;
+export const labEntryAccessTuple = data.lab_entry.access;
 
 export const unitedLabEntryTuple = [
-	...labEntryTypeTuple,
-	...labEntryVisibilityTypeTuple,
-	...labEntryHostTypeTuple,
-	...labEntryLocationTypeTuple,
-	...labEntryAccessTypeTuple,
+	...labEntryTuple,
+	...labEntryVisibilityTuple,
+	...labEntryHostTuple,
+	...labEntryLocationTuple,
+	...labEntryAccessTuple,
 ];
 export const unitedDataEntriesTuple = [
 	...aboutEntryTuple,

@@ -1,11 +1,12 @@
 import { Schema, model, models } from "mongoose";
 
 import {
-	labEntryAccessTypeTuple,
-	labEntryHostTypeTuple,
-	labEntryLocationTypeTuple,
-	labEntryTypeTuple,
-	labEntryVisibilityTypeTuple,
+	labEntryAccessTuple,
+	labEntryHostTuple,
+	labEntryLocationTuple,
+	labEntryPropertyTuple,
+	labEntryTuple,
+	labEntryVisibilityTuple,
 } from "@/interfaces/_common-data-types";
 
 import Tag from "./tag";
@@ -27,32 +28,38 @@ const LabEntrySchema = new Schema({
 	},
 	entryType: {
 		type: String,
-		enum: labEntryTypeTuple,
-		default: labEntryTypeTuple[0],
+		enum: labEntryTuple,
+		default: labEntryTuple[0],
 		required: [true, "Type is required!"],
 	},
 	visibilityType: {
 		type: String,
-		enum: labEntryVisibilityTypeTuple,
-		default: labEntryVisibilityTypeTuple[0],
+		enum: labEntryVisibilityTuple,
+		default: labEntryVisibilityTuple[0],
 		required: [true, "Visibility type is required!"],
+	},
+	propertyType: {
+		type: String,
+		enum: labEntryPropertyTuple,
+		default: labEntryPropertyTuple[0],
+		required: [true, "Property type is required!"],
 	},
 	hostType: {
 		type: String,
-		enum: labEntryHostTypeTuple,
-		default: labEntryHostTypeTuple[0],
+		enum: labEntryHostTuple,
+		default: labEntryHostTuple[0],
 		required: [true, "Host type is required!"],
 	},
 	locationType: {
 		type: String,
-		enum: labEntryLocationTypeTuple,
-		default: labEntryLocationTypeTuple[0],
+		enum: labEntryLocationTuple,
+		default: labEntryLocationTuple[0],
 		required: [true, "Location type is required!"],
 	},
 	accessType: {
 		type: String,
-		enum: labEntryAccessTypeTuple,
-		default: labEntryAccessTypeTuple[0],
+		enum: labEntryAccessTuple,
+		default: labEntryAccessTuple[0],
 		required: [true, "Access type is required!"],
 	},
 	urlHome: {
