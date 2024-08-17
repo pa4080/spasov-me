@@ -35,6 +35,13 @@ export const Route = {
 			uri: "/services",
 			visible: false,
 		},
+		LAB: {
+			inFeed: true,
+			inNavbar: true,
+			name: "lab",
+			uri: "/lab",
+			visible: false,
+		},
 		CONTACT: {
 			inFeed: true,
 			inNavbar: true,

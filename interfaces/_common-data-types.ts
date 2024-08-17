@@ -95,9 +95,26 @@ export type TagType = (typeof data.tag_type_list)[number];
 export type AboutEntryType = (typeof data.about_type_list)[number];
 export type ProjectType = (typeof data.project_type_list)[number];
 export type PostType = (typeof data.post_type_list)[number];
+
+export type LabEntryType = (typeof data.lab_entry.type_list)[number];
+export type LabEntryVisibilityType = (typeof data.lab_entry.visibility)[number];
+export type LabEntryPropertyType = (typeof data.lab_entry.property)[number];
+export type LabEntryHostType = (typeof data.lab_entry.host)[number];
+export type LabEntryLocationType = (typeof data.lab_entry.location)[number];
+export type LabEntryAccessType = (typeof data.lab_entry.access)[number];
+
+export type UnitedLabEntryType = (typeof unitedLabEntryTuple)[number];
 export type UnitedDataEntriesType = (typeof unitedDataEntriesTuple)[number];
 
-export type ModelType = "AboutEntry" | "PageCard" | "Post" | "Project" | "File" | "Tag" | "User";
+export type ModelType =
+	| "AboutEntry"
+	| "PageCard"
+	| "Post"
+	| "Project"
+	| "File"
+	| "Tag"
+	| "User"
+	| "LabEntry";
 
 export interface AttachedToDocument {
 	modelType: ModelType;

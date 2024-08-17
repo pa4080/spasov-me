@@ -32,6 +32,7 @@ const LabEntrySchema = new Schema({
 		default: labEntryTuple[0],
 		required: [true, "Type is required!"],
 	},
+
 	visibilityType: {
 		type: String,
 		enum: labEntryVisibilityTuple,
@@ -62,6 +63,7 @@ const LabEntrySchema = new Schema({
 		default: labEntryAccessTuple[0],
 		required: [true, "Access type is required!"],
 	},
+
 	urlHome: {
 		type: String,
 		required: [false, "The lab entry's home url is not required!"],
@@ -74,6 +76,7 @@ const LabEntrySchema = new Schema({
 		type: String,
 		required: [false, "The repository/source url is not required!"],
 	},
+
 	dateFrom: {
 		type: Date,
 		required: [true, "Date 'from' is required!"],
@@ -81,6 +84,11 @@ const LabEntrySchema = new Schema({
 	dateTo: {
 		type: Date, // it is not required, so when it is not defined the frontend will display "Now"
 	},
+	active: {
+		type: Boolean,
+		required: [true, "Active is required!"],
+	},
+
 	visibility: {
 		type: Boolean,
 		required: [true, "Visibility is required!"],
@@ -103,6 +111,7 @@ const LabEntrySchema = new Schema({
 			required: [true, "At least one Tag is required!"],
 		},
 	],
+
 	creator: {
 		type: Schema.Types.ObjectId,
 		ref: User,
