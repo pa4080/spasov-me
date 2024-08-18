@@ -5,7 +5,10 @@ import { AboutEntryData, AboutEntryDocPopulated } from "@/interfaces/AboutEntry"
 import { AboutEntryType } from "@/interfaces/_common-data-types";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
-import { aboutDocuments_toData, aboutFormData_toNewEntryData } from "@/lib/process-data-about";
+import {
+	aboutEntryDocuments_toData,
+	aboutEntryFormData_toNewEntryData,
+} from "@/lib/process-data-about-entries";
 import { msgs } from "@/messages";
 import AboutEntry from "@/models/about-entry";
 
@@ -22,7 +25,7 @@ export const getEntries = async ({
 		await connectToMongoDb();
 		const entries: AboutEntryDocPopulated[] = await AboutEntry.find({}).populate(["tags"]);
 
-		return await aboutDocuments_toData({ entries, hyphen, typeList, visible });
+		return await aboutEntryDocuments_toData({ entries, hyphen, typeList, visible });
 	} catch (error) {
 		console.error(error);
 
@@ -39,7 +42,7 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<bool
 		}
 
 		// Get the input data from the form
-		const documentData_new = aboutFormData_toNewEntryData({
+		const documentData_new = aboutEntryFormData_toNewEntryData({
 			data,
 			user_id: session?.user.id,
 		});
@@ -82,7 +85,7 @@ export const updateEntry = async (
 		}
 
 		// Get the input data from the form
-		const documentData_new = aboutFormData_toNewEntryData({
+		const documentData_new = aboutEntryFormData_toNewEntryData({
 			data,
 			user_id: session?.user.id,
 		});
