@@ -6,6 +6,7 @@
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { new_tab_target } from "@/lib/process-markdown";
+import { msgs } from "@/messages";
 
 interface Props {
 	url: string | undefined;
@@ -30,6 +31,7 @@ const DisplayResourceUrlAsIcon: React.FC<Props> = ({
 		return null;
 	}
 
+	const t = msgs("Posts_CardPublic");
 	const w = width || size;
 	const h = height || size;
 
@@ -41,7 +43,7 @@ const DisplayResourceUrlAsIcon: React.FC<Props> = ({
 		<TooltipProvider>
 			<Tooltip>
 				<TooltipTrigger
-					aria-label={`Open the Posts's ${type}`}
+					aria-label={t("tooltip_link", { linkType: type })}
 					className="!mt-0"
 					onClick={handleOnClick}
 				>

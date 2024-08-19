@@ -12,6 +12,7 @@ import {
 } from "@/components/files-cloudflare/_files.actions";
 import { tagAttachment_add, tagAttachment_remove } from "@/components/tags/_tags.actions";
 import { AboutEntryDoc, NewAboutEntryData } from "@/interfaces/AboutEntry";
+import { LabEntryDoc, NewLabEntryData } from "@/interfaces/LabEntry";
 import { NewPostData, PostDoc } from "@/interfaces/Post";
 import { NewProjectData, ProjectDoc } from "@/interfaces/Project";
 import { AttachedToDocument, ModelType } from "@/interfaces/_common-data-types";
@@ -20,6 +21,7 @@ import { arraysEqualDiff } from "@/lib/arrays-equal-diff";
 import { authOptions } from "@/lib/auth-options";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import AboutEntry from "@/models/about-entry";
+import LabEntry from "@/models/lab-entry";
 import PageCard from "@/models/page-card";
 import Post from "@/models/post";
 import Project from "@/models/project";
@@ -175,6 +177,11 @@ export const attachedTo_detachFromTarget = async ({
 						break;
 					}
 
+					case "LabEntry": {
+						document = await LabEntry.findOne({ _id });
+						break;
+					}
+
 					default: {
 						document = null;
 						break;
@@ -230,9 +237,9 @@ export const process_relations = async ({
 	document_prev,
 	modelType,
 }: {
-	documentData_new?: NewAboutEntryData | NewProjectData | NewPostData;
-	document_new?: AboutEntryDoc | ProjectDoc | PostDoc;
-	document_prev?: AboutEntryDoc | ProjectDoc | PostDoc;
+	documentData_new?: NewAboutEntryData | NewProjectData | NewPostData | NewLabEntryData;
+	document_new?: AboutEntryDoc | ProjectDoc | PostDoc | LabEntryDoc;
+	document_prev?: AboutEntryDoc | ProjectDoc | PostDoc | LabEntryDoc;
 	modelType: ModelType;
 }) => {
 	const updateAttachment = !arraysEqual(

@@ -61,6 +61,7 @@ export const Route = {
 		PAGES: "/admin/pages",
 		ABOUT: "/admin/about",
 		PORTFOLIO: "/admin/portfolio",
+		LAB: "/admin/lab",
 		BLOG: "/admin/blog",
 		TAGS: "/admin/tags",
 		THEME: "/admin/theme",

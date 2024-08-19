@@ -43,6 +43,7 @@ export const data = {
 			"vps-digitalocean",
 			"cloud-hosted",
 			"cloud-hosted-vercel",
+			"cloud-hosted-digitalocean",
 			"cloud-hosted-aws",
 			"cloud-hosted-azure",
 			"cloud-hosted-cloudflare",

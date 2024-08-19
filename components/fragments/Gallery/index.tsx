@@ -11,15 +11,14 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import { useAppContext } from "@/contexts/AppContext";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileHtmlProps } from "@/interfaces/File";
+import { LabEntryData } from "@/interfaces/LabEntry";
+import { PostData } from "@/interfaces/Post";
 import { ProjectData } from "@/interfaces/Project";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
-
-import { useAppContext } from "@/contexts/AppContext";
-
-import { PostData } from "@/interfaces/Post";
 
 import { IconEmbSvgPathType } from "../IconEmbedSvg";
 import Loading from "../Loading";
@@ -32,7 +31,7 @@ const GalleryCarousel = dynamic(() => import("./GalleryCarousel"), {
 
 interface Props {
 	className?: string;
-	entry: AboutEntryData | ProjectData | PostData;
+	entry: AboutEntryData | ProjectData | PostData | LabEntryData;
 	gallery: FileHtmlProps[] | undefined;
 	dialogTrigger_buttonIconProps?: ButtonIconProps;
 }
