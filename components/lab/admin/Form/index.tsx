@@ -32,7 +32,15 @@ import { Switch } from "@/components/ui/switch";
 import { FileData, FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
-import { labEntryTuple, LabEntryType, postTuple } from "@/interfaces/_common-data-types";
+import {
+	labEntryAccessTuple,
+	labEntryHostTuple,
+	labEntryLocationTuple,
+	labEntryPropertyTuple,
+	labEntryTuple,
+	LabEntryType,
+	labEntryVisibilityTuple,
+} from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
@@ -92,11 +100,22 @@ const LabEntryForm: React.FC<Props> = ({
 			title: "",
 			description: "",
 			slug: "",
-			url1: "",
-			url2: "",
+			entryType: entryType,
+
+			visibilityType: undefined,
+			propertyType: "own",
+			hostType: undefined,
+			locationType: undefined,
+			accessType: undefined,
+
+			urlHome: undefined,
+			urlAdmin: undefined,
+			urlSource: undefined,
+
 			dateFrom: undefined,
 			dateTo: undefined,
-			entryType: entryType,
+			active: true,
+
 			visibility: true,
 			attachment: undefined,
 			icon: undefined,
@@ -159,7 +178,7 @@ const LabEntryForm: React.FC<Props> = ({
 							/>
 
 							{/* Date To -- the property exists in the model but is not used for now */}
-							{/* <DatePicker
+							<DatePicker
 								className="flex-1"
 								control={form.control}
 								error={form.formState.errors.dateFrom}
@@ -168,7 +187,7 @@ const LabEntryForm: React.FC<Props> = ({
 									button: t("date_button"),
 								}}
 								name="dateTo"
-							/> */}
+							/>
 						</div>
 
 						{/* Slug */}
@@ -234,53 +253,88 @@ const LabEntryForm: React.FC<Props> = ({
 							/>
 						</div>
 
-						{/* Post's url 1 */}
-						<FormField
-							control={form.control}
-							name="url1"
-							render={({ field }) => (
-								<FormItem className="space-y-0">
-									{t("url1_label") && <FormLabel>{t("url1_label")}</FormLabel>}
-									<FormControl>
-										<Input className="text-sm" placeholder={t("url1_placeholder")} {...field} />
-									</FormControl>
+						<div className="flex gap-1 w-full max-w-full items-center justify-center">
+							{/* Post's urlHome */}
+							<FormField
+								control={form.control}
+								name="urlHome"
+								render={({ field }) => (
+									<FormItem className="space-y-0 flex-1">
+										{t("urlHome_label") && <FormLabel>{t("urlHome_label")}</FormLabel>}
+										<FormControl>
+											<Input
+												className="text-sm"
+												placeholder={t("urlHome_placeholder")}
+												{...field}
+											/>
+										</FormControl>
 
-									{form.formState.errors.url1 ? (
-										<FormMessage className="!mt-1" />
-									) : (
-										t("url1_description") && (
-											<FormDescription>{t("url1_description")}</FormDescription>
-										)
-									)}
-								</FormItem>
-							)}
-						/>
+										{form.formState.errors.urlHome ? (
+											<FormMessage className="!mt-1" />
+										) : (
+											t("urlHome_description") && (
+												<FormDescription>{t("urlHome_description")}</FormDescription>
+											)
+										)}
+									</FormItem>
+								)}
+							/>
 
-						{/* Post's url 2 */}
-						<FormField
-							control={form.control}
-							name="url2"
-							render={({ field }) => (
-								<FormItem className="space-y-0">
-									{t("url2_label") && <FormLabel>{t("url2_label")}</FormLabel>}
-									<FormControl>
-										<Input className="text-sm" placeholder={t("url2_placeholder")} {...field} />
-									</FormControl>
+							{/* Post's urlAdmin */}
+							<FormField
+								control={form.control}
+								name="urlAdmin"
+								render={({ field }) => (
+									<FormItem className="space-y-0 flex-1">
+										{t("urlAdmin_label") && <FormLabel>{t("urlAdmin_label")}</FormLabel>}
+										<FormControl>
+											<Input
+												className="text-sm"
+												placeholder={t("urlAdmin_placeholder")}
+												{...field}
+											/>
+										</FormControl>
 
-									{form.formState.errors.url2 ? (
-										<FormMessage className="!mt-1" />
-									) : (
-										t("url2_description") && (
-											<FormDescription>{t("url2_description")}</FormDescription>
-										)
-									)}
-								</FormItem>
-							)}
-						/>
+										{form.formState.errors.urlAdmin ? (
+											<FormMessage className="!mt-1" />
+										) : (
+											t("urlAdmin_description") && (
+												<FormDescription>{t("urlAdmin_description")}</FormDescription>
+											)
+										)}
+									</FormItem>
+								)}
+							/>
 
-						{/* Is public | Post type */}
+							{/* Post's urlSource */}
+							<FormField
+								control={form.control}
+								name="urlSource"
+								render={({ field }) => (
+									<FormItem className="space-y-0 flex-1">
+										{t("urlSource_label") && <FormLabel>{t("urlSource_label")}</FormLabel>}
+										<FormControl>
+											<Input
+												className="text-sm"
+												placeholder={t("urlSource_placeholder")}
+												{...field}
+											/>
+										</FormControl>
+
+										{form.formState.errors.urlSource ? (
+											<FormMessage className="!mt-1" />
+										) : (
+											t("urlSource_description") && (
+												<FormDescription>{t("urlSource_description")}</FormDescription>
+											)
+										)}
+									</FormItem>
+								)}
+							/>
+						</div>
+
 						<div className="flex gap-3 flex-col 3xs:flex-row ma:flex-col w-full">
-							{/* Checkbox | Is public? */}
+							{/* Is public? */}
 							<FormField
 								control={form.control}
 								name="visibility"
@@ -302,22 +356,158 @@ const LabEntryForm: React.FC<Props> = ({
 								)}
 							/>
 
-							{/* Post type ["blog", "reference"] */}
-							<SelectFromList
-								className="flex-1"
+							{/* Is active? */}
+							<FormField
 								control={form.control}
-								error={form.formState.errors.entryType}
-								itemsList={postTuple.map((item) => ({
-									value: item,
-									label: (t("post_type_list") as unknown as Record<string, string>)[item],
-								}))}
-								messages={{
-									label: t("type_label"),
-									description: t("type_description"),
-									placeholder: t("type_placeholder"),
-								}}
-								name="entryType"
+								name="active"
+								// eslint-disable-next-line @typescript-eslint/no-unused-vars
+								render={({ field }) => (
+									<FormItem className="flex-1 rounded-md border space-y-0">
+										<div className="flex items-center justify-between py-2 pl-4 pr-3">
+											<div>
+												<FormLabel>{t("active_title")}</FormLabel>
+												{t("active_description") && (
+													<FormDescription>{t("active_description")}</FormDescription>
+												)}
+											</div>
+											<FormControl>
+												<Switch checked={field.value} onCheckedChange={field.onChange} />
+											</FormControl>
+										</div>
+									</FormItem>
+								)}
 							/>
+						</div>
+
+						<div className="flex gap-3 flex-col 3xs:flex-row ma:flex-col w-full">
+							<div className="flex gap-3 ma:gap-1 w-full">
+								{/* type_list: ["site", "service", "application", "database"] */}
+								<SelectFromList
+									className="flex-1"
+									control={form.control}
+									error={form.formState.errors.entryType}
+									itemsList={labEntryTuple.map((item) => ({
+										value: item,
+										label: (t("lab_entry_type_list") as unknown as Record<string, string>)[item],
+									}))}
+									messages={{
+										label: (t("lab_entry_type_field") as unknown as Record<string, string>).label,
+										description: (t("lab_entry_type_field") as unknown as Record<string, string>)
+											.description,
+										placeholder: (t("lab_entry_type_field") as unknown as Record<string, string>)
+											.placeholder,
+									}}
+									name="entryType"
+								/>
+
+								{/* visibility: ["private", "public"] */}
+								<SelectFromList
+									className="flex-1"
+									control={form.control}
+									error={form.formState.errors.visibilityType}
+									itemsList={labEntryVisibilityTuple.map((item) => ({
+										value: item,
+										label: (t("lab_entry_visibility") as unknown as Record<string, string>)[item],
+									}))}
+									messages={{
+										label: (t("lab_entry_visibility_field") as unknown as Record<string, string>)
+											.label,
+										description: (
+											t("lab_entry_visibility_field") as unknown as Record<string, string>
+										).description,
+										placeholder: (
+											t("lab_entry_visibility_field") as unknown as Record<string, string>
+										).placeholder,
+									}}
+									name="visibilityType"
+								/>
+							</div>
+
+							<div className="flex gap-3 ma:gap-1 w-full">
+								{/* property: ["own", "client", "shared"] */}
+								<SelectFromList
+									className="flex-1"
+									control={form.control}
+									error={form.formState.errors.propertyType}
+									itemsList={labEntryPropertyTuple.map((item) => ({
+										value: item,
+										label: (t("lab_entry_property") as unknown as Record<string, string>)[item],
+									}))}
+									messages={{
+										label: (t("lab_entry_property_field") as unknown as Record<string, string>)
+											.label,
+										description: (
+											t("lab_entry_property_field") as unknown as Record<string, string>
+										).description,
+										placeholder: (
+											t("lab_entry_property_field") as unknown as Record<string, string>
+										).placeholder,
+									}}
+									name="propertyType"
+								/>
+
+								{/* host: ["vps", "docker", "linux"...], */}
+								<SelectFromList
+									className="flex-1"
+									control={form.control}
+									error={form.formState.errors.hostType}
+									itemsList={labEntryHostTuple.map((item) => ({
+										value: item,
+										label: (t("lab_entry_host") as unknown as Record<string, string>)[item],
+									}))}
+									messages={{
+										label: (t("lab_entry_host_field") as unknown as Record<string, string>).label,
+										description: (t("lab_entry_host_field") as unknown as Record<string, string>)
+											.description,
+										placeholder: (t("lab_entry_host_field") as unknown as Record<string, string>)
+											.placeholder,
+									}}
+									name="hostType"
+								/>
+							</div>
+
+							<div className="flex gap-3 ma:gap-1 w-full">
+								{/* location: ["lan-1", "lan-2", "vps-A", "vps-B"...] */}
+								<SelectFromList
+									className="flex-1"
+									control={form.control}
+									error={form.formState.errors.locationType}
+									itemsList={labEntryLocationTuple.map((item) => ({
+										value: item,
+										label: (t("lab_entry_location") as unknown as Record<string, string>)[item],
+									}))}
+									messages={{
+										label: (t("lab_entry_location_field") as unknown as Record<string, string>)
+											.label,
+										description: (
+											t("lab_entry_location_field") as unknown as Record<string, string>
+										).description,
+										placeholder: (
+											t("lab_entry_location_field") as unknown as Record<string, string>
+										).placeholder,
+									}}
+									name="locationType"
+								/>
+
+								{/* access: ["lan", "vps", "internet", "internet-lan"...] */}
+								<SelectFromList
+									className="flex-1"
+									control={form.control}
+									error={form.formState.errors.accessType}
+									itemsList={labEntryAccessTuple.map((item) => ({
+										value: item,
+										label: (t("lab_entry_access") as unknown as Record<string, string>)[item],
+									}))}
+									messages={{
+										label: (t("lab_entry_access_field") as unknown as Record<string, string>).label,
+										description: (t("lab_entry_access_field") as unknown as Record<string, string>)
+											.description,
+										placeholder: (t("lab_entry_access_field") as unknown as Record<string, string>)
+											.placeholder,
+									}}
+									name="accessType"
+								/>
+							</div>
 						</div>
 
 						{/* Attachment (image, pdf) */}

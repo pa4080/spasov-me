@@ -118,5 +118,5 @@ const LabEntrySchema = new Schema({
 	},
 });
 
-const LabEntry = models.LabEntry || model("Project", LabEntrySchema);
+const LabEntry = models.LabEntry || model("LabEntry", LabEntrySchema);
 export default LabEntry;

@@ -76,6 +76,7 @@
 		"Shadcn",
 		"Spasov",
 		"stylelint",
+		"superhosting",
 		"svgr",
 		"swapi",
 		"Tabler",
@@ -100,6 +101,8 @@
 		"session-info": "meta",
 		"app/[locale]": "home",
 		"components/services": "",
+		"components/ui": "core",
+		"components/fragments": "core",
 		"components/pages": "base",
 		"components/page-cards": "base",
 		"components/about": "base",
@@ -107,9 +110,9 @@
 		"components/portfolio": "base",
 		"components/files": "base",
 		"components/home": "base",
+		"components/lab": "base",
+		"components/blog": "base",
 		"components/theme": "base",
-		"components/ui": "core",
-		"components/fragments": "core",
 		"components/tags": "base"
 	},
 	// https://youtu.be/3_-Je5XpbqY?t=688

@@ -40,6 +40,7 @@ export async function labEntryDocuments_toData({
 		.filter(({ entryType }) => (typeList && typeList.includes(entryType)) ?? true)
 		.map((labEntry) => ({
 			_id: labEntry._id.toString(),
+
 			html: {
 				// This cannot be done in the client side
 				title: processMarkdown({
@@ -55,6 +56,7 @@ export async function labEntryDocuments_toData({
 					files?.find((file) => file?._id === labEntry?.icon) ||
 					icons?.find((icon) => icon?._id === labEntry?.icon),
 			},
+
 			title: labEntry.title,
 			description: labEntry.description,
 			slug: labEntry.slug,

@@ -25,7 +25,7 @@ import { TagData } from "@/interfaces/Tag";
 
 import { createLabEntry } from "../../_lab.actions";
 import { LabEntry_FormSchema } from "../Form/schema";
-// import PostForm from "../Form";
+// import LabEntryForm from "../Form";
 const LabEntryForm = dynamic(() => import("../Form"), {
 	ssr: false,
 	loading: () => <Loading />,
@@ -40,7 +40,7 @@ interface Props {
 	tags: TagData[] | null;
 }
 
-const CreatePost: React.FC<Props> = ({
+const CreateLabEntry: React.FC<Props> = ({
 	className,
 	type = "application",
 	fileList,
@@ -48,16 +48,16 @@ const CreatePost: React.FC<Props> = ({
 	tags,
 	iconsMap,
 }) => {
-	const t = msgs("Posts_Create");
+	const t = msgs("LabEntries_Create");
 	const entryTypeLabel = (
-		msgs("Posts_Form")("post_type_list") as unknown as Record<string, string>
+		msgs("LabEntries_Form")("lab_entry_type_list") as unknown as Record<string, string>
 	)[type];
 
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
 	const pathname = usePathname();
 
-	const handleCreatePost = async (data: LabEntry_FormSchema) => {
+	const handleCreateLabEntry = async (data: LabEntry_FormSchema) => {
 		setSubmitting(true);
 
 		try {
@@ -129,7 +129,7 @@ const CreatePost: React.FC<Props> = ({
 						iconsMap={iconsMap}
 						submitting={submitting}
 						tags={tags}
-						onSubmit={handleCreatePost}
+						onSubmit={handleCreateLabEntry}
 					/>
 				</DialogContent>
 			</Dialog>
@@ -137,4 +137,4 @@ const CreatePost: React.FC<Props> = ({
 	);
 };
 
-export default CreatePost;
+export default CreateLabEntry;

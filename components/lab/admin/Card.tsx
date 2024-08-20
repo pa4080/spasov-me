@@ -89,7 +89,7 @@ const LabEntryAdminCard: React.FC<Props> = ({
 
 					{labEntry.slug && (
 						<div className={`${styles.slug} ${styles.lightSecondaryText}`}>
-							<Link href={`${Route.public.BLOG.uri}/${labEntry.slug}`}>/{labEntry.slug}</Link>
+							<Link href={`${Route.public.LAB.uri}/${labEntry.slug}`}>/{labEntry.slug}</Link>
 						</div>
 					)}
 

@@ -24,6 +24,9 @@
 		"ABOUT": "About",
 		"ABOUT_DESC": "Edit the about (CV) page",
 
+		"LAB": "Laboratory",
+		"LAB_DESC": "Edit the lab entries",
+
 		"PORTFOLIO": "Portfolio",
 		"PORTFOLIO_DESC": "Edit the project entries",
 
@@ -780,18 +783,37 @@
 		"slug_placeholder": "Slug of the entry page",
 		"slug_description": "",
 
-		"type_label": "",
-		"type_placeholder": "Select Type",
-		"type_description": "",
+		"lab_entry_type_field": {
+			"label": "",
+			"description": "",
+			"placeholder": "Type?"
+		},
 		"lab_entry_type_list": {
 			"site": "Site",
 			"service": "Service",
 			"application": "Application",
 			"database": "Database"
 		},
+
+		"lab_entry_visibility_field": {
+			"label": "",
+			"description": "",
+			"placeholder": "Visibility?"
+		},
 		"lab_entry_visibility": { "private": "Private", "public": "Public" },
 
+		"lab_entry_property_field": {
+			"label": "",
+			"description": "",
+			"placeholder": "Property?"
+		},
 		"lab_entry_property": { "own": "Own", "client": "Client", "shared": "Shared" },
+
+		"lab_entry_host_field": {
+			"label": "",
+			"description": "",
+			"placeholder": "Host?"
+		},
 		"lab_entry_host": {
 			"vps": "VPS",
 			"docker": "Docker",
@@ -806,10 +828,17 @@
 			"aws": "AWS",
 			"cloudflare": "Cloudflare"
 		},
+
+		"lab_entry_location_field": {
+			"label": "",
+			"description": "",
+			"placeholder": "Location?"
+		},
 		"lab_entry_location": {
 			"lan-sf": "LAN Sf",
 			"lan-pz": "LAN Pz",
 			"vps-contabo": "VPS Contabo",
+			"vps-superhosting": "VPS SuperHosting.bg",
 			"vps-digitalocean": "VPS DigitalOcean",
 			"cloud-hosted": "Cloud Hosted",
 			"cloud-hosted-vercel": "Cloud Hosted Vercel",
@@ -818,12 +847,21 @@
 			"cloud-hosted-azure": "Cloud Hosted Azure",
 			"cloud-hosted-cloudflare": "Cloud Hosted Cloudflare"
 		},
+
+		"lab_entry_access_field": {
+			"label": "",
+			"description": "",
+			"placeholder": "Access?"
+		},
 		"lab_entry_access": {
 			"lan": "LAN",
 			"vps": "VPS",
+			"lan-vpn": "LAN via VPN",
+			"lan-internet": "LAN via Internet",
 			"internet": "Internet",
-			"internet-lan": "Internet LAN",
-			"internet-vps": "Internet VPS",
+			"internet-vps": "VPS via Internet",
+			"internet-ssh-tunnel": "SSH Tunnel via Internet",
+			"internet-cloudflare-tunnel": "Cloudflare Tunnel via Internet",
 			"internet-self-hosted": "Internet Self-Hosted",
 			"internet-third-party": "Internet Third-Party"
 		},
@@ -832,8 +870,11 @@
 		"dateTo_label": "To",
 		"date_button": "OK",
 
-		"visibility_title": "Is public?",
+		"visibility_title": "Is entry public?",
 		"visibility_description": "",
+
+		"active_title": "Is asset active?",
+		"active_description": "",
 
 		"attachment_label": "",
 		"attachment_description": "",
@@ -878,7 +919,15 @@
 		"btnLess": "Show less",
 		"btnAll": "Show all"
 	},
-	"LabEntries_Create": "",
+	"LabEntries_Create": {
+		"dialog_title": "Create a new { entryType } entry",
+		"dialog_description": "",
+		"dialog_btn_add": "Add a new entry",
+		"dialog_btn_add_submitting": "Submitting...",
+		"toast_submitted": "The entry was successfully created.",
+		"toast_success": "The entry was successfully created.",
+		"toast_error": "Something went wrong. Please try again."
+	},
 	"LabEntries_Update": {
 		"dialog_title": "Update an existing { entryType } entry",
 		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",

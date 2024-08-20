@@ -13,6 +13,8 @@ import { ProjectData } from "@/interfaces/Project";
 import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
 
+import { LabEntryData } from "@/interfaces/LabEntry";
+
 import DisplayFileImageOrEmbed from "../DisplayFileImageOrEmbed";
 import Navigation from "./GalleryCarouselNav";
 import GalleryCarouselNavEmbedded from "./GalleryCarouselNavEmbedded";
@@ -25,7 +27,7 @@ interface Props {
 	descriptionDisplay?: boolean;
 	navPosition?: "top" | "bottom";
 	navType?: "embedded" | "default" | "none";
-	entryData?: ProjectData | PostData;
+	entryData?: ProjectData | PostData | LabEntryData;
 }
 
 const GalleryCarousel: React.FC<Props> = ({

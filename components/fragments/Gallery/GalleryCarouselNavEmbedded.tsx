@@ -12,13 +12,15 @@ import { cn } from "@/lib/cn-utils";
 import { commentsMatcher } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 
+import { LabEntryData } from "@/interfaces/LabEntry";
+
 import IconCircleWrapper from "../IconCircleWrapper";
 import TooltipWrapper from "../TooltipWrapper";
 
 interface Props {
 	className?: string;
 	gallery: FileHtmlProps[] | undefined;
-	entryData: ProjectData | PostData;
+	entryData: ProjectData | PostData | LabEntryData;
 	current_carouselItem: number;
 	carouselItems_count: number;
 	counterAsText?: boolean;

@@ -2,14 +2,12 @@ import Link from "next/link";
 import React from "react";
 
 import styles from "@/app/(styles)/card.module.scss";
-import DisplayFileImageOrEmbed from "@/components/fragments/DisplayFileImageOrEmbed";
 import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
 import { Button } from "@/components/ui/button";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { LabEntryData } from "@/interfaces/LabEntry";
 import { TagData } from "@/interfaces/Tag";
-import { cn } from "@/lib/cn-utils";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
@@ -25,7 +23,7 @@ interface Props {
 	tags: TagData[] | null;
 }
 
-const BlogPublic_Card: React.FC<Props> = ({
+const LabEntryPublic_Card: React.FC<Props> = ({
 	labEntry,
 	className,
 	fileList,
@@ -44,7 +42,7 @@ const BlogPublic_Card: React.FC<Props> = ({
 	return (
 		<div className={`${styles.card} group scroll-m-8 ${className}`} id={`lab_${labEntry._id}`}>
 			{/* Header image */}
-			<div className="w-full h-0 pt-[56.25%] relative">
+			{/* <div className="w-full h-0 pt-[56.25%] relative">
 				<div className="w-full absolute inset-0 rounded-md overflow-hidden group-hover:shadow-lg">
 					{labEntry.html.attachment && (
 						<DisplayFileImageOrEmbed
@@ -54,7 +52,7 @@ const BlogPublic_Card: React.FC<Props> = ({
 						/>
 					)}
 				</div>
-			</div>
+			</div> */}
 
 			{/* Logo and Title */}
 			<div className="flex gap-2 items-center justify-start w-full">
@@ -89,7 +87,7 @@ const BlogPublic_Card: React.FC<Props> = ({
 				/>
 				<Link
 					area-label={t("area_label_card_link")}
-					href={`${Route.public.BLOG.uri}/${labEntry.slug}`}
+					href={`${Route.public.LAB.uri}/${labEntry.slug}`}
 				>
 					<Button
 						className="transition-colors duration-300 hover:duration-150"
@@ -104,4 +102,4 @@ const BlogPublic_Card: React.FC<Props> = ({
 	);
 };
 
-export default BlogPublic_Card;
+export default LabEntryPublic_Card;

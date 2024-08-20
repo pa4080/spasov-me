@@ -8,7 +8,7 @@ import { cn } from "@/lib/cn-utils";
 
 import { LabEntryData } from "@/interfaces/LabEntry";
 
-import BlogPublic_Card from "./Card";
+import LabEntryPublic_Card from "./Card";
 
 interface Props {
 	className?: string;
@@ -41,7 +41,7 @@ const Section: React.FC<Props> = ({
 		<div className={cn("portfolio-cards-section scroll-m-8", className)}>
 			<div className="grid grid-cols-1 md:grid-cols-2 grid-flow-row gap-12 md:gap-10 lg:gap-14">
 				{labEntriesByPropertyType?.map((labEntry, index) => (
-					<BlogPublic_Card
+					<LabEntryPublic_Card
 						key={index}
 						className=""
 						fileList={fileList}

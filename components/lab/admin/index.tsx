@@ -16,7 +16,7 @@ interface Props {
 	className?: string;
 }
 
-const BlogAdmin: React.FC<Props> = async ({ className }) => {
+const LabAdmin: React.FC<Props> = async ({ className }) => {
 	const labEntries = await getLabEntries({ hyphen: true });
 	const tags = await getTags();
 	const fileList = await getFileList({ prefix: files_prefix });
@@ -41,4 +41,4 @@ const BlogAdmin: React.FC<Props> = async ({ className }) => {
 	);
 };
 
-export default BlogAdmin;
+export default LabAdmin;

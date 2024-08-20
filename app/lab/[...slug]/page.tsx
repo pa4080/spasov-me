@@ -6,13 +6,13 @@ import React from "react";
 
 import { notFound } from "next/navigation";
 
-import { getPosts } from "@/components/blog/_blog.actions";
-import BlogPublicPost from "@/components/blog/public/Post";
 import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
+import { getLabEntries } from "@/components/lab/_lab.actions";
+import LabPublicEntry from "@/components/lab/public/Post";
 import { getTags } from "@/components/tags/_tags.actions";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
-import { PostData } from "@/interfaces/Post";
+import { LabEntryData } from "@/interfaces/LabEntry";
 import { TagData } from "@/interfaces/Tag";
 
 const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
@@ -23,57 +23,57 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-	const posts = await getPosts({
+	const labEntries = await getLabEntries({
 		hyphen: false,
 		public: true,
 	});
 
-	return posts?.map((p) => ({ slug: [p.slug] })) || [];
+	return labEntries?.map((p) => ({ slug: [p.slug] })) || [];
 }
 
-const Post: React.FC<Props> = async ({ params }) => {
+const LabEntry: React.FC<Props> = async ({ params }) => {
 	// Handle the rest of the cases /[...slug]/b/c...
 	if (!(params.slug.length === 1)) {
 		notFound();
 	}
 
-	const postId_Slug = params.slug[0];
+	const entryId_Slug = params.slug[0];
 
 	const data: {
-		postsHyphenated?: PostData[] | null;
+		labEntriesHyphenated?: LabEntryData[] | null;
 		fileList: FileListItem[] | null;
 		iconList: FileListItem[] | null;
 		tags: TagData[] | null;
 		iconsMap: IconsMap;
 	} = await Promise.all([
-		getPosts({ hyphen: true, public: true }),
+		getLabEntries({ hyphen: true, public: true }),
 		getFileList({ prefix: files_prefix }),
 		getFileList({ prefix: icons_prefix }),
 		getTags(),
 		getIconsMap(),
-	]).then(([postsHyphenated, fileList, iconList, tags, iconsMap]) => ({
-		postsHyphenated,
+	]).then(([labEntriesHyphenated, fileList, iconList, tags, iconsMap]) => ({
+		labEntriesHyphenated,
 		fileList,
 		iconList,
 		tags,
 		iconsMap,
 	}));
 
-	const post = data.postsHyphenated?.find(
-		(post) => post._id === postId_Slug || post.slug === postId_Slug
+	const labEntry = data.labEntriesHyphenated?.find(
+		(entry) => entry._id === entryId_Slug || entry.slug === entryId_Slug
 	);
 
-	if (!post) {
+	if (!labEntry) {
 		notFound();
 	}
 
-	delete data.postsHyphenated;
+	delete data.labEntriesHyphenated;
 
 	return (
 		<div className="mt-2 sa:mt-6 mb-24 scroll-m-40">
-			<BlogPublicPost post={post} {...data} />
+			<LabPublicEntry labEntry={labEntry} {...data} />
 		</div>
 	);
 };
 
-export default Post;
+export default LabEntry;

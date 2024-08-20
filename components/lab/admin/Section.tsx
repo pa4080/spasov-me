@@ -15,7 +15,7 @@ import { Route } from "@/routes";
 
 import { LabEntryData } from "@/interfaces/LabEntry";
 
-import CreatePost from "./Actions/Create";
+import CreateLabEntry from "./Actions/Create";
 import LabEntryAdminCard from "./Card";
 
 const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
@@ -62,7 +62,7 @@ const Section: React.FC<Props> = ({
 			<SectionHeader title={section_title}>
 				<CreateFile files_prefix={files_prefix} />
 				<RevalidatePaths paths={[Route.public.PORTFOLIO.uri]} />
-				<CreatePost
+				<CreateLabEntry
 					fileList={fileList}
 					iconList={iconList}
 					iconsMap={iconsMap}

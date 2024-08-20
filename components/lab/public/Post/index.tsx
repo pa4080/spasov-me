@@ -12,12 +12,11 @@ import SectionHeader from "@/components/fragments/SectionHeader";
 import TechTags from "@/components/fragments/TechTags";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
-import { PostData } from "@/interfaces/Post";
 import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 
-import PostLinks from "../../common/PostLinks";
+import { LabEntryData } from "@/interfaces/LabEntry";
 
 const GalleryCarousel = dynamic(() => import("@/components/fragments/Gallery/GalleryCarousel"), {
 	ssr: false,
@@ -28,26 +27,26 @@ const GalleryCarousel = dynamic(() => import("@/components/fragments/Gallery/Gal
 
 interface Props {
 	className?: string;
-	post: PostData;
+	labEntry: LabEntryData;
 	tags: TagData[] | null;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
 	iconsMap: IconsMap;
 }
 
-const BlogPublicPost: React.FC<Props> = async ({
+const LabPublicEntry: React.FC<Props> = async ({
 	className,
-	post,
+	labEntry,
 	tags,
 	fileList,
 	iconList,
 	iconsMap,
 }) => {
-	const descriptionArr = post.html.description.split(splitDescriptionKeyword).map((str) => {
+	const descriptionArr = labEntry.html.description.split(splitDescriptionKeyword).map((str) => {
 		return str.replace(commentsMatcher, "");
 	});
 
-	const gallery = post?.gallery
+	const gallery = labEntry?.gallery
 		?.map((file) => file.metadata.html)
 		?.sort((a, b) => a.filename.localeCompare(b.filename));
 
@@ -58,34 +57,36 @@ const BlogPublicPost: React.FC<Props> = async ({
 	// 		? [post?.html?.attachment.metadata.html].concat(gallery)
 	// 		: gallery;
 
-	const dtFrom = new Date(post.dateFrom);
+	const dtFrom = new Date(labEntry.dateFrom);
 	const dateLabel = format(dtFrom, "dd MMM yyyy", { locale: en });
 
 	return (
 		<div className={cn("w-full pt-8 sa:pt-6 lg:pt-1", className)}>
-			<GalleryCarousel entryData={post} gallery={gallery} navPosition="bottom" navType="none" />
+			<GalleryCarousel entryData={labEntry} gallery={gallery} navPosition="bottom" navType="none" />
 			<SectionHeader
 				className="pop-header mt-6 1xl:mt-[1.15rem] relative justify-end"
 				className_Actions="absolute right-0 -bottom-2 scale-75 2xs:scale-85"
 				iconComponent={
 					<IconCircleWrapper
-						alt={post.title}
+						alt={labEntry.title}
 						className="min-w-[3.74rem] w-[3.74rem] min-h-[3.74rem] h-[3.74rem] drop-shadow-2xl"
 						className_Image="size-12"
-						src={post.html.icon?.metadata.html.fileUrl || post.html.icon?.metadata.html.fileUri}
-						unoptimized={post.html.icon?.filename.match(/\.svg$/) ? true : false}
+						src={
+							labEntry.html.icon?.metadata.html.fileUrl || labEntry.html.icon?.metadata.html.fileUri
+						}
+						unoptimized={labEntry.html.icon?.filename.match(/\.svg$/) ? true : false}
 					/>
 				}
 				label={dateLabel}
-				title={post.html.title}
+				title={labEntry.html.title}
 			>
-				<PostLinks
+				{/* <PostLinks
 					fileList={fileList}
 					iconList={iconList}
 					iconsMap={iconsMap}
-					post={post}
+					post={labEntry}
 					tags={tags}
-				/>
+				/> */}
 			</SectionHeader>
 
 			{/* @see https://github.com/tailwindlabs/tailwindcss-typography */}
@@ -99,9 +100,9 @@ const BlogPublicPost: React.FC<Props> = async ({
 				)}
 			</article>
 
-			<TechTags className="mt-20" iconsMap={iconsMap} tags={post.tags} />
+			<TechTags className="mt-20" iconsMap={iconsMap} tags={labEntry.tags} />
 		</div>
 	);
 };
 
-export default BlogPublicPost;
+export default LabPublicEntry;

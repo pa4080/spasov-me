@@ -16,20 +16,18 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { useAppContext } from "@/contexts/AppContext";
+import { FileListItem } from "@/interfaces/File";
+import { IconsMap } from "@/interfaces/IconsMap";
+import { LabEntryData } from "@/interfaces/LabEntry";
+import { TagData } from "@/interfaces/Tag";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { FileListItem } from "@/interfaces/File";
-import { IconsMap } from "@/interfaces/IconsMap";
-import { TagData } from "@/interfaces/Tag";
-
-import { LabEntryData } from "@/interfaces/LabEntry";
-
 import { updateLabEntry } from "../../_lab.actions";
 import { LabEntry_FormSchema } from "../Form/schema";
 
-const PostForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
+const LabEntryForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
 
 interface Props {
 	className?: string;
@@ -126,7 +124,7 @@ const UpdateLabEntry: React.FC<Props> = ({
 					</div>
 				</DialogHeader>
 
-				<PostForm
+				<LabEntryForm
 					className={t("dialog_description") ? "mt-0" : "mt-1"}
 					entryType={labEntry.entryType}
 					fileList={fileList}
