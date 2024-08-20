@@ -160,3 +160,15 @@ References:
 - Plugins list: <https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#using-plugins>
 - Custom plugin [easy]: <https://unifiedjs.com/explore/package/remark-directive/>
 - Rehype video: <https://unifiedjs.com/explore/package/rehype-video/> | <https://github.com/jaywcjlove/rehype-video/tree/main>
+
+## Full backup
+
+Backup of the database and Cloudflare's object storage.
+
+```bash
+# scripts/dump-mongo-db.sh .env.local
+doppler run -- scripts/dump-mongo-db.sh
+doppler run -- scripts/aws-shell/objStorage-metadata-dump.sh
+doppler run -- scripts/aws-shell/objStorage-sync.sh
+doppler run -- pnpm exec ts-node --skip-project scripts/aws/index-copy-r2-minio.ts
+```
