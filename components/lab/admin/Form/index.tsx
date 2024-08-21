@@ -31,6 +31,7 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { FileData, FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
+import { LabEntryData } from "@/interfaces/LabEntry";
 import { TagData } from "@/interfaces/Tag";
 import {
 	labEntryAccessTuple,
@@ -43,8 +44,6 @@ import {
 } from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
-
-import { LabEntryData } from "@/interfaces/LabEntry";
 
 import { LabEntry_FormSchema, LabEntry_FormSchemaGenerator } from "./schema";
 
@@ -107,10 +106,6 @@ const LabEntryForm: React.FC<Props> = ({
 			hostType: undefined,
 			locationType: undefined,
 			accessType: undefined,
-
-			urlHome: undefined,
-			urlAdmin: undefined,
-			urlSource: undefined,
 
 			dateFrom: undefined,
 			dateTo: undefined,
