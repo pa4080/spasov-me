@@ -48,8 +48,10 @@ const PostLinks: React.FC<Props> = ({ post, fileList, iconList, tags, iconsMap }
 					return (
 						<div key={key} className={iconWrapper}>
 							<DisplayResourceUrlAsIcon
+								className="grayscale-[100%] hover:grayscale-[20%] -mr-0.5"
 								height={18}
-								icon_className_Path2="fill-accent"
+								icon_className_Path1="fill-accent"
+								icon_className_Path2="fill-accent-secondary"
 								type="URL 1"
 								url={post[key as "url1" | "url2"]}
 								width={26}
@@ -67,14 +69,14 @@ const PostLinks: React.FC<Props> = ({ post, fileList, iconList, tags, iconsMap }
 					<Gallery
 						dialogTrigger_buttonIconProps={{
 							className:
-								"p-0 bg-transparent hover:bg-transparent m-0 h-full fill-inherit grayscale-0",
+								"p-0 bg-transparent hover:bg-transparent m-0 h-full fill-inherit grayscale-[100%] hover:grayscale-[20%] hover:fill-transparent opacity-80",
 							widthOffset: 0,
 							heightOffset: 0,
 							width: 27,
 							height: 26,
 							iconEmbedSvgProps: {
-								className_Path1: "fill-transparent",
-								className_Path2: "fill-inherit",
+								className_Path1: "fill-inherit",
+								className_Path2: "fill-accent",
 							},
 						}}
 						entry={post}
@@ -86,7 +88,7 @@ const PostLinks: React.FC<Props> = ({ post, fileList, iconList, tags, iconsMap }
 			<div
 				className={cn(
 					iconWrapper,
-					"overflow-hidden rounded-[3px] bg-foreground-tertiary hover:bg-ring-secondary -ml-1"
+					"overflow-hidden rounded-[3px] bg-foreground-tertiary hover:bg-ring-secondary -ml-1 opacity-60"
 				)}
 			>
 				<TooltipWrapper
@@ -94,7 +96,7 @@ const PostLinks: React.FC<Props> = ({ post, fileList, iconList, tags, iconsMap }
 					tooltipText={t("tooltip_update")}
 				>
 					<UpdatePost
-						className="h-6 w-6 flex items-center justify-center"
+						className="h-6 w-6 flex items-center justify-center mr-[1px]"
 						dialogTrigger_buttonIconProps={dialogTrigger_Type2}
 						fileList={fileList}
 						iconList={iconList}

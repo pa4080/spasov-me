@@ -5,6 +5,7 @@
 
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { cn } from "@/lib/cn-utils";
 import { new_tab_target } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 
@@ -16,6 +17,7 @@ interface Props {
 	height?: number;
 	icon_className_Path1?: string;
 	icon_className_Path2?: string;
+	className?: string;
 }
 
 const DisplayResourceUrlAsIcon: React.FC<Props> = ({
@@ -26,6 +28,7 @@ const DisplayResourceUrlAsIcon: React.FC<Props> = ({
 	height = 24,
 	icon_className_Path1 = "fill-inherit",
 	icon_className_Path2 = "fill-inherit",
+	className,
 }) => {
 	if (!url) {
 		return null;
@@ -44,7 +47,7 @@ const DisplayResourceUrlAsIcon: React.FC<Props> = ({
 			<Tooltip>
 				<TooltipTrigger
 					aria-label={t("tooltip_link", { linkType: type })}
-					className="!mt-0"
+					className={cn("!mt-0", className)}
 					onClick={handleOnClick}
 				>
 					<IconEmbedSvg

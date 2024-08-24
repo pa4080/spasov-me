@@ -916,8 +916,10 @@
 		"button_call_to_action": "Details",
 		"tooltip_gallery": "View Lab entry's gallery",
 		"tooltip_update": "Edit the Lab entry",
-		"tooltip_link": "Link to the Lab entry's { linkType }",
-		"area_label_card_link": "Link to the Lab entry's page"
+		"area_label_card_link": "Link to the Lab entry's page",
+
+		"tooltip_home_link": "Link to the Lab entry's { linkType }",
+		"tooltip_home_link_private": "This resource is private."
 	},
 	"Search": {
 		"title": "Search the site",

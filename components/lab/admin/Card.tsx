@@ -24,7 +24,7 @@ import { Route } from "@/routes";
 
 import { LabEntryData } from "@/interfaces/LabEntry";
 
-import DisplayResourceUrlAsIcon from "../public/links/DisplayResourceUrlAsIcon";
+import DisplayResourceUrlAsIcon from "../public/fragments/DisplayWebLink";
 import DeleteLabEntry from "./Actions/Delete";
 import UpdateLabEntry from "./Actions/Update";
 
@@ -98,8 +98,8 @@ const LabEntryAdminCard: React.FC<Props> = ({
 							<DisplayResourceUrlAsIcon
 								height={18}
 								icon_className_Path2="fill-accent"
+								labEntry={labEntry}
 								type="Home Page"
-								url={labEntry.urlHome}
 								width={26}
 							/>
 						</div>
