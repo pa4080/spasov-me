@@ -166,6 +166,10 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 	display: inherit;
 }
 
+*::-webkit-scrollbar-button {
+	display: none !important;
+}
+
 /* Outline */
 :focus-visible,
 :focus {
