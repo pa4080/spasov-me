@@ -40,7 +40,7 @@ export async function PageCardDocuments_toData({
 		description: page.description,
 		visibility: page.visibility as boolean,
 		attachment: page.attachment,
-		icon: page.icon,
+		icon: page.icon === "undefined" ? "" : page.icon,
 	}));
 }
 

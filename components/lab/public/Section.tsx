@@ -35,7 +35,7 @@ const Section: React.FC<Props> = ({
 }) => {
 	const labEntriesByPropertyType = labEntries
 		?.filter(({ propertyType }) => propertyType === labEntryPropertyType)
-		?.sort((b, a) => a.title.localeCompare(b.title));
+		?.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
 	return (
 		<div className={cn("portfolio-cards-section scroll-m-8", className)}>

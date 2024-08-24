@@ -36,11 +36,11 @@ export const Route = {
 			visible: false,
 		},
 		LAB: {
-			inFeed: true,
+			inFeed: false,
 			inNavbar: true,
 			name: "lab",
 			uri: "/lab",
-			visible: false,
+			visible: true,
 		},
 		CONTACT: {
 			inFeed: true,

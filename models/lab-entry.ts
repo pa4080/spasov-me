@@ -1,9 +1,7 @@
 import { Schema, model, models } from "mongoose";
 
 import {
-	labEntryAccessTuple,
 	labEntryHostTuple,
-	labEntryLocationTuple,
 	labEntryPropertyTuple,
 	labEntryTuple,
 	labEntryVisibilityTuple,
@@ -51,18 +49,6 @@ const LabEntrySchema = new Schema({
 		default: labEntryHostTuple[0],
 		required: [true, "Host type is required!"],
 	},
-	locationType: {
-		type: String,
-		enum: labEntryLocationTuple,
-		default: labEntryLocationTuple[0],
-		required: [true, "Location type is required!"],
-	},
-	accessType: {
-		type: String,
-		enum: labEntryAccessTuple,
-		default: labEntryAccessTuple[0],
-		required: [true, "Access type is required!"],
-	},
 
 	urlHome: {
 		type: String,
@@ -83,10 +69,6 @@ const LabEntrySchema = new Schema({
 	},
 	dateTo: {
 		type: Date, // it is not required, so when it is not defined the frontend will display "Now"
-	},
-	active: {
-		type: Boolean,
-		required: [true, "Active is required!"],
 	},
 
 	visibility: {

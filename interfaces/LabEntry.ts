@@ -4,9 +4,7 @@ import { FileData } from "./File";
 import { TagData, TagDoc } from "./Tag";
 import { UserObject } from "./User";
 import {
-	LabEntryAccessType,
 	LabEntryHostType,
-	LabEntryLocationType,
 	LabEntryPropertyType,
 	LabEntryType,
 	LabEntryVisibilityType,
@@ -24,8 +22,6 @@ export interface LabEntryDoc {
 	visibilityType: LabEntryVisibilityType;
 	propertyType: LabEntryPropertyType;
 	hostType: LabEntryHostType;
-	locationType: LabEntryLocationType;
-	accessType: LabEntryAccessType;
 
 	urlHome?: string;
 	urlAdmin?: string;
@@ -33,7 +29,6 @@ export interface LabEntryDoc {
 
 	dateFrom: Date | string;
 	dateTo: Date | string | undefined;
-	active: boolean | string;
 
 	visibility: boolean | string;
 	attachment?: string | undefined;
@@ -76,7 +71,6 @@ export interface LabEntryData
 		| "dateTo"
 		| "dateFrom"
 		| "visibility"
-		| "active"
 		| "gallery"
 		| "icon"
 	> {
@@ -85,7 +79,6 @@ export interface LabEntryData
 	dateFrom: Date;
 	dateTo: Date | undefined;
 	visibility: boolean;
-	active: boolean;
 	attachment?: string;
 	icon?: string;
 	tags: TagData[];

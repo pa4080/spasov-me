@@ -24,42 +24,20 @@ export const data = {
 		property: ["own", "client", "shared"],
 		host: [
 			"vps",
-			"docker",
 			"vps-docker",
+			"vps-linux",
+			"vps-linux-docker",
+			"linux",
 			"linux-docker",
-			"pve-docker",
+			"docker",
 			"self-hosted",
 			"self-hosted-docker",
-			"linux",
 			"pve",
-			"third-party",
+			"pve-vm",
+			"pve-container",
 			"aws",
 			"cloudflare",
-		],
-		location: [
-			"lan-sf",
-			"lan-pz",
-			"vps-contabo",
-			"vps-digitalocean",
-			"vps-superhosting",
-			"cloud-hosted",
-			"cloud-hosted-vercel",
-			"cloud-hosted-digitalocean",
-			"cloud-hosted-aws",
-			"cloud-hosted-azure",
-			"cloud-hosted-cloudflare",
-		],
-		access: [
-			"lan",
-			"vps",
-			"lan-vpn",
-			"lan-internet",
-			"internet",
-			"internet-vps",
-			"internet-ssh-tunnel",
-			"internet-cloudflare-tunnel",
-			"internet-self-hosted",
-			"internet-third-party",
+			"third-party",
 		],
 	},
 } as const;
@@ -75,15 +53,11 @@ export const labEntryTuple = data.lab_entry.type_list;
 export const labEntryVisibilityTuple = data.lab_entry.visibility;
 export const labEntryPropertyTuple = data.lab_entry.property;
 export const labEntryHostTuple = data.lab_entry.host;
-export const labEntryLocationTuple = data.lab_entry.location;
-export const labEntryAccessTuple = data.lab_entry.access;
 
 export const unitedLabEntryTuple = [
 	...labEntryTuple,
 	...labEntryVisibilityTuple,
 	...labEntryHostTuple,
-	...labEntryLocationTuple,
-	...labEntryAccessTuple,
 ];
 export const unitedDataEntriesTuple = [
 	...aboutEntryTuple,
@@ -105,8 +79,6 @@ export type LabEntryType = (typeof data.lab_entry.type_list)[number];
 export type LabEntryVisibilityType = (typeof data.lab_entry.visibility)[number];
 export type LabEntryPropertyType = (typeof data.lab_entry.property)[number];
 export type LabEntryHostType = (typeof data.lab_entry.host)[number];
-export type LabEntryLocationType = (typeof data.lab_entry.location)[number];
-export type LabEntryAccessType = (typeof data.lab_entry.access)[number];
 
 export type UnitedLabEntryType = (typeof unitedLabEntryTuple)[number];
 export type UnitedDataEntriesType = (typeof unitedDataEntriesTuple)[number];

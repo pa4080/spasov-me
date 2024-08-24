@@ -24,8 +24,8 @@
 		"ABOUT": "About",
 		"ABOUT_DESC": "Edit the about (CV) page",
 
-		"LAB": "Laboratory",
-		"LAB_DESC": "Edit the lab entries",
+		"LAB": "Lab",
+		"LAB_DESC": "Edit the laboratory entries",
 
 		"PORTFOLIO": "Portfolio",
 		"PORTFOLIO_DESC": "Edit the project entries",
@@ -749,7 +749,6 @@
 		"schema_date": "Select a date.",
 		"schema_type": "Select a type.",
 		"schema_visibility": "The default visibility value is \"true\".",
-		"schema_active": "Does the Lab resource active?",
 		"schema_tags": "Select at least one tag.",
 		"schema_gallery": "Select multiple attachments.",
 		"schema_slug_length": "The slug must be at least 4 characters.",
@@ -758,8 +757,6 @@
 		"schema_visibility_type": "Set the asset visibility",
 		"schema_property_type": "Set the asset property type",
 		"schema_host_type": "Set the asset host type",
-		"schema_location_type": "Set the asset location type",
-		"schema_access_type": "Set the asset access type",
 
 		"title_label": "",
 		"title_placeholder": "Title of the entry",
@@ -818,54 +815,20 @@
 		},
 		"lab_entry_host": {
 			"vps": "VPS",
-			"docker": "Docker",
 			"vps-docker": "VPS Docker",
+			"vps-linux": "VPS Linux",
+			"vps-linux-docker": "VPS Linux Docker",
+			"linux": "Linux",
 			"linux-docker": "Linux Docker",
-			"pve-docker": "PVE Docker",
+			"docker": "Docker",
 			"self-hosted": "Self Hosted",
 			"self-hosted-docker": "Self Hosted Docker",
-			"linux": "Linux",
 			"pve": "PVE",
-			"third-party": "Third-Party",
+			"pve-vm": "PVE VM",
+			"pve-container": "PVE Container",
 			"aws": "AWS",
-			"cloudflare": "Cloudflare"
-		},
-
-		"lab_entry_location_field": {
-			"label": "",
-			"description": "",
-			"placeholder": "Location?"
-		},
-		"lab_entry_location": {
-			"lan-sf": "LAN Sf",
-			"lan-pz": "LAN Pz",
-			"vps-contabo": "VPS Contabo",
-			"vps-superhosting": "VPS SuperHosting.bg",
-			"vps-digitalocean": "VPS DigitalOcean",
-			"cloud-hosted": "Cloud Hosted",
-			"cloud-hosted-vercel": "Cloud Hosted Vercel",
-			"cloud-hosted-digitalocean": "Cloud Hosted DigitalOcean",
-			"cloud-hosted-aws": "Cloud Hosted AWS",
-			"cloud-hosted-azure": "Cloud Hosted Azure",
-			"cloud-hosted-cloudflare": "Cloud Hosted Cloudflare"
-		},
-
-		"lab_entry_access_field": {
-			"label": "",
-			"description": "",
-			"placeholder": "Access?"
-		},
-		"lab_entry_access": {
-			"lan": "LAN",
-			"vps": "VPS",
-			"lan-vpn": "LAN via VPN",
-			"lan-internet": "LAN via Internet",
-			"internet": "Internet",
-			"internet-vps": "VPS via Internet",
-			"internet-ssh-tunnel": "SSH Tunnel via Internet",
-			"internet-cloudflare-tunnel": "Cloudflare Tunnel via Internet",
-			"internet-self-hosted": "Internet Self-Hosted",
-			"internet-third-party": "Internet Third-Party"
+			"cloudflare": "Cloudflare",
+			"third-party": "Third-Party"
 		},
 
 		"dateFrom_label": "From",

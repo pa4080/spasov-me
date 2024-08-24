@@ -1,8 +1,6 @@
 import { getFilesR2 } from "@/components/files-cloudflare/_files.actions";
 import {
-	LabEntryAccessType,
 	LabEntryHostType,
-	LabEntryLocationType,
 	LabEntryPropertyType,
 	LabEntryType,
 	LabEntryVisibilityType,
@@ -65,16 +63,13 @@ export async function labEntryDocuments_toData({
 			visibilityType: labEntry.visibilityType,
 			propertyType: labEntry.propertyType,
 			hostType: labEntry.hostType,
-			locationType: labEntry.locationType,
-			accessType: labEntry.accessType,
 
-			urlHome: labEntry.urlHome,
-			urlAdmin: labEntry.urlAdmin,
-			urlSource: labEntry.urlSource,
+			urlHome: labEntry.urlHome && labEntry.urlHome !== "undefined" ? labEntry.urlHome : "",
+			urlAdmin: labEntry.urlAdmin && labEntry.urlAdmin !== "undefined" ? labEntry.urlAdmin : "",
+			urlSource: labEntry.urlSource && labEntry.urlSource !== "undefined" ? labEntry.urlSource : "",
 
 			dateFrom: labEntry.dateFrom as Date,
 			dateTo: labEntry.dateTo as Date | undefined,
-			active: labEntry.active as boolean,
 
 			visibility: labEntry.visibility as boolean,
 			attachment: labEntry.attachment,
@@ -100,8 +95,6 @@ export function labEntryFormData_toNewLabEntryData({
 		visibilityType: data.get("visibilityType") as LabEntryVisibilityType,
 		propertyType: data.get("propertyType") as LabEntryPropertyType,
 		hostType: data.get("hostType") as LabEntryHostType,
-		locationType: data.get("locationType") as LabEntryLocationType,
-		accessType: data.get("accessType") as LabEntryAccessType,
 
 		urlHome: data.get("urlHome") as string,
 		urlAdmin: data.get("urlAdmin") as string,
@@ -109,7 +102,6 @@ export function labEntryFormData_toNewLabEntryData({
 
 		dateFrom: data.get("dateFrom") as string,
 		dateTo: data.get("dateTo") as string,
-		active: data.get("active") as string,
 
 		visibility: data.get("visibility") as string,
 		attachment: data.get("attachment") as string,

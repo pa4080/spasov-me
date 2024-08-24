@@ -1,18 +1,15 @@
-import Link from "next/link";
 import React from "react";
 
 import styles from "@/app/(styles)/card.module.scss";
 import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
-import { Button } from "@/components/ui/button";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { LabEntryData } from "@/interfaces/LabEntry";
 import { TagData } from "@/interfaces/Tag";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
-import { msgs } from "@/messages";
-import { Route } from "@/routes";
 
-import PostLinks from "../common/PostLinks";
+import DetailsButton from "./links/DetailsButton";
+import PostLinks from "./links/PostLinks";
 
 interface Props {
 	className?: string;
@@ -31,8 +28,6 @@ const LabEntryPublic_Card: React.FC<Props> = ({
 	tags,
 	iconsMap,
 }) => {
-	const t = msgs("Posts_CardPublic");
-
 	// !!! Make sure the private part of the description doesn't goes public !!!
 	// !!! We are on the server side here !!!
 	const descriptionArr = labEntry.html.description.split(splitDescriptionKeyword).map((str) => {
@@ -85,18 +80,7 @@ const LabEntryPublic_Card: React.FC<Props> = ({
 					labEntry_urlHome={labEntry.urlHome}
 					tags={tags}
 				/>
-				<Link
-					area-label={t("area_label_card_link")}
-					href={`${Route.public.LAB.uri}/${labEntry.slug}`}
-				>
-					<Button
-						className="transition-colors duration-300 hover:duration-150"
-						size="sm"
-						variant="defaultSecondary"
-					>
-						{t("button_call_to_action")}
-					</Button>
-				</Link>
+				<DetailsButton slug={labEntry.slug} />
 			</div>
 		</div>
 	);

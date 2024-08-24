@@ -24,7 +24,7 @@ import { Route } from "@/routes";
 
 import { LabEntryData } from "@/interfaces/LabEntry";
 
-import DisplayResourceUrlAsIcon from "../common/DisplayResourceUrlAsIcon";
+import DisplayResourceUrlAsIcon from "../public/links/DisplayResourceUrlAsIcon";
 import DeleteLabEntry from "./Actions/Delete";
 import UpdateLabEntry from "./Actions/Update";
 
@@ -175,29 +175,27 @@ const LabEntryAdminCard: React.FC<Props> = ({
 						</div>
 					)}
 
-					{displayGalleryInline && gallery && gallery.length > 0 && (
+					{displayGalleryInline && ((gallery && gallery.length > 0) || labEntry?.html?.icon) && (
 						<div className="card-item-collapsible--disabled">
 							<div className="flex gap-2 flex-wrap p-0 mt-4">
-								{[labEntry?.html?.icon && labEntry?.html?.icon?.metadata?.html, ...gallery].map(
-									(image, index) => (
-										<DisplayFileImage
-											key={index}
-											className={`w-8 h-8 rounded-sm`}
-											description={image?.filename}
-											file={
-												{
-													filename: image?.filename,
-													metadata: {
-														html: {
-															fileUri: image?.fileUri || image?.fileUrl,
-														},
+								{[labEntry?.html?.icon?.metadata?.html, ...(gallery || [])].map((image, index) => (
+									<DisplayFileImage
+										key={index}
+										className={`w-8 h-8 rounded-sm`}
+										description={image?.filename}
+										file={
+											{
+												filename: image?.filename,
+												metadata: {
+													html: {
+														fileUri: image?.fileUri || image?.fileUrl,
 													},
-												} as FileData
-											}
-											sizes={["32px", "32px"]}
-										/>
-									)
-								)}
+												},
+											} as FileData
+										}
+										sizes={["32px", "32px"]}
+									/>
+								))}
 							</div>
 						</div>
 					)}

@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 
 import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
 import { getLabEntries } from "@/components/lab/_lab.actions";
-import LabPublicEntry from "@/components/lab/public/Post";
+import LabPublicEntry from "@/components/lab/Private/Post";
 import { getTags } from "@/components/tags/_tags.actions";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";

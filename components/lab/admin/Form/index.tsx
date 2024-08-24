@@ -34,9 +34,7 @@ import { IconsMap } from "@/interfaces/IconsMap";
 import { LabEntryData } from "@/interfaces/LabEntry";
 import { TagData } from "@/interfaces/Tag";
 import {
-	labEntryAccessTuple,
 	labEntryHostTuple,
-	labEntryLocationTuple,
 	labEntryPropertyTuple,
 	labEntryTuple,
 	LabEntryType,
@@ -86,9 +84,6 @@ const LabEntryForm: React.FC<Props> = ({
 		t("schema_visibility_type"), // 10
 		t("schema_property_type"), // 11
 		t("schema_host_type"), // 12
-		t("schema_location_type"), // 13
-		t("schema_access_type"), // 14
-		t("schema_active"), // 15
 	]);
 
 	const { theme } = useTheme();
@@ -104,12 +99,9 @@ const LabEntryForm: React.FC<Props> = ({
 			visibilityType: undefined,
 			propertyType: "own",
 			hostType: undefined,
-			locationType: undefined,
-			accessType: undefined,
 
 			dateFrom: undefined,
 			dateTo: undefined,
-			active: true,
 
 			visibility: true,
 			attachment: undefined,
@@ -248,13 +240,13 @@ const LabEntryForm: React.FC<Props> = ({
 							/>
 						</div>
 
-						<div className="flex gap-1 w-full max-w-full items-center justify-center">
+						<div className="flex gap-1 w-full max-w-full items-center justify-center flex-col xs:flex-row ma:flex-col">
 							{/* Post's urlHome */}
 							<FormField
 								control={form.control}
 								name="urlHome"
 								render={({ field }) => (
-									<FormItem className="space-y-0 flex-1">
+									<FormItem className="space-y-0 flex-1 w-full">
 										{t("urlHome_label") && <FormLabel>{t("urlHome_label")}</FormLabel>}
 										<FormControl>
 											<Input
@@ -280,7 +272,7 @@ const LabEntryForm: React.FC<Props> = ({
 								control={form.control}
 								name="urlAdmin"
 								render={({ field }) => (
-									<FormItem className="space-y-0 flex-1">
+									<FormItem className="space-y-0 flex-1 w-full">
 										{t("urlAdmin_label") && <FormLabel>{t("urlAdmin_label")}</FormLabel>}
 										<FormControl>
 											<Input
@@ -306,7 +298,7 @@ const LabEntryForm: React.FC<Props> = ({
 								control={form.control}
 								name="urlSource"
 								render={({ field }) => (
-									<FormItem className="space-y-0 flex-1">
+									<FormItem className="space-y-0 flex-1 w-full">
 										{t("urlSource_label") && <FormLabel>{t("urlSource_label")}</FormLabel>}
 										<FormControl>
 											<Input
@@ -341,28 +333,6 @@ const LabEntryForm: React.FC<Props> = ({
 												<FormLabel>{t("visibility_title")}</FormLabel>
 												{t("visibility_description") && (
 													<FormDescription>{t("visibility_description")}</FormDescription>
-												)}
-											</div>
-											<FormControl>
-												<Switch checked={field.value} onCheckedChange={field.onChange} />
-											</FormControl>
-										</div>
-									</FormItem>
-								)}
-							/>
-
-							{/* Is active? */}
-							<FormField
-								control={form.control}
-								name="active"
-								// eslint-disable-next-line @typescript-eslint/no-unused-vars
-								render={({ field }) => (
-									<FormItem className="flex-1 rounded-md border space-y-0">
-										<div className="flex items-center justify-between py-2 pl-4 pr-3">
-											<div>
-												<FormLabel>{t("active_title")}</FormLabel>
-												{t("active_description") && (
-													<FormDescription>{t("active_description")}</FormDescription>
 												)}
 											</div>
 											<FormControl>
@@ -458,49 +428,6 @@ const LabEntryForm: React.FC<Props> = ({
 											.placeholder,
 									}}
 									name="hostType"
-								/>
-							</div>
-
-							<div className="flex gap-3 ma:gap-1 w-full">
-								{/* location: ["lan-1", "lan-2", "vps-A", "vps-B"...] */}
-								<SelectFromList
-									className="flex-1"
-									control={form.control}
-									error={form.formState.errors.locationType}
-									itemsList={labEntryLocationTuple.map((item) => ({
-										value: item,
-										label: (t("lab_entry_location") as unknown as Record<string, string>)[item],
-									}))}
-									messages={{
-										label: (t("lab_entry_location_field") as unknown as Record<string, string>)
-											.label,
-										description: (
-											t("lab_entry_location_field") as unknown as Record<string, string>
-										).description,
-										placeholder: (
-											t("lab_entry_location_field") as unknown as Record<string, string>
-										).placeholder,
-									}}
-									name="locationType"
-								/>
-
-								{/* access: ["lan", "vps", "internet", "internet-lan"...] */}
-								<SelectFromList
-									className="flex-1"
-									control={form.control}
-									error={form.formState.errors.accessType}
-									itemsList={labEntryAccessTuple.map((item) => ({
-										value: item,
-										label: (t("lab_entry_access") as unknown as Record<string, string>)[item],
-									}))}
-									messages={{
-										label: (t("lab_entry_access_field") as unknown as Record<string, string>).label,
-										description: (t("lab_entry_access_field") as unknown as Record<string, string>)
-											.description,
-										placeholder: (t("lab_entry_access_field") as unknown as Record<string, string>)
-											.placeholder,
-									}}
-									name="accessType"
 								/>
 							</div>
 						</div>

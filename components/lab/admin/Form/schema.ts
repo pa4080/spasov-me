@@ -1,9 +1,7 @@
 import * as z from "zod";
 
 import {
-	labEntryAccessTuple,
 	labEntryHostTuple,
-	labEntryLocationTuple,
 	labEntryPropertyTuple,
 	labEntryTuple,
 	labEntryVisibilityTuple,
@@ -62,24 +60,6 @@ export const LabEntry_FormSchemaGenerator = (messages?: string[]) =>
 				}
 			},
 		}),
-		locationType: z.enum(labEntryLocationTuple, {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			errorMap: (issue, _ctx) => {
-				switch (issue.code) {
-					default:
-						return { message: String(messages?.[13]) };
-				}
-			},
-		}),
-		accessType: z.enum(labEntryAccessTuple, {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			errorMap: (issue, _ctx) => {
-				switch (issue.code) {
-					default:
-						return { message: String(messages?.[14]) };
-				}
-			},
-		}),
 
 		urlHome: z.string().optional(),
 		urlAdmin: z.string().optional(),
@@ -105,15 +85,6 @@ export const LabEntry_FormSchemaGenerator = (messages?: string[]) =>
 				},
 			})
 			.optional(),
-		active: z.boolean({
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			errorMap: (issue, _ctx) => {
-				switch (issue.code) {
-					default:
-						return { message: String(messages?.[15]) };
-				}
-			},
-		}),
 
 		visibility: z.boolean({
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
