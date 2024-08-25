@@ -27,7 +27,6 @@ import {
 	postTuple,
 	projectTuple,
 } from "@/interfaces/_common-data-types";
-import { cn } from "@/lib/cn-utils";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
@@ -210,20 +209,7 @@ const SearchResultEntryCard: React.FC<Props> = ({
 				<div className={styles.header}>
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							<Gallery
-								dialogTrigger_buttonIconProps={{
-									className: cn(
-										"bg-transparent hover:bg-transparent p-0 opacity-45 transition-all duration-200 max-xs:hidden",
-										!gallery?.length
-											? "grayscale hover:grayscale"
-											: "grayscale-[0.8] hover:grayscale-0 hover:opacity-100"
-									),
-									height: 24,
-									width: 28,
-								}}
-								entry={entry}
-								gallery={gallery}
-							/>
+							<Gallery entry={entry} gallery={gallery} />
 
 							<ToggleCollapsible
 								tooltip
