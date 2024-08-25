@@ -24,7 +24,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - Lab entry
   - [ ] Add to the search!
 
-- [ ] Create to do list
+- Fix the icons style for:
+  - [ ] Files Mongo Admin
+  - [ ] Files CloudFlare Admin
+  - [ ] Icons CloudFlare Admin
+
+- [ ] Create to do list?
 - [ ] Allow file rename when it is not linked to a post?
 - Redis
   - [ ] Create event loop by using Upstash/Redis queue - object like:

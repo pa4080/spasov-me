@@ -116,7 +116,7 @@ const LabEntryLinks: React.FC<Props> = ({ labEntry, tags, fileList, iconList, ic
 				<DisplayConditionally>
 					<>
 						<div className={iconWrapper}>
-							<Link href={`${Route.public.LAB.uri}/${labEntry.slug}?id=gallery-open-button`}>
+							<Link href={`${Route.public.LAB.uri}/${labEntry.slug}?btn_id=gallery-open-button`}>
 								<IconEmbedSvg
 									className={cn(
 										gallery?.length === 0
@@ -133,7 +133,9 @@ const LabEntryLinks: React.FC<Props> = ({ labEntry, tags, fileList, iconList, ic
 							</Link>
 						</div>
 						<div className={iconWrapper}>
-							<Link href={`${Route.public.LAB.uri}/${labEntry.slug}?id=lab-entry-update-button`}>
+							<Link
+								href={`${Route.public.LAB.uri}/${labEntry.slug}?btn_id=lab-entry-update-button`}
+							>
 								<IconEmbedSvg
 									className="grayscale-[100%] hover:grayscale-[0%]"
 									className_Path1="fill-accent-secondary"

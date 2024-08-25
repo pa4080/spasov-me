@@ -6,9 +6,11 @@ import React from "react";
 import { getEntries } from "@/components/about/_about.actions";
 import { getPosts } from "@/components/blog/_blog.actions";
 import { getIconsMap } from "@/components/files-cloudflare/_files.actions";
+import { getLabEntries } from "@/components/lab/_lab.actions";
 import { getProjects } from "@/components/portfolio/_portfolio.actions";
 import SearchPublic from "@/components/search/public";
 import { getTags } from "@/components/tags/_tags.actions";
+import { splitDescriptionKeyword } from "@/lib/process-markdown";
 import { msgs } from "@/messages";
 
 const Portfolio: React.FC = async () => {
@@ -19,10 +21,24 @@ const Portfolio: React.FC = async () => {
 		getTags({ hyphen: true, public: true }),
 		getProjects({ hyphen: true, public: true }),
 		getPosts({ hyphen: true, public: true }),
+		getLabEntries({ hyphen: true, public: true }),
 		getIconsMap(),
-	]).then(([aboutEntries, tags, projects, posts, iconsMap]) => ({
+	]).then(([aboutEntries, tags, projects, posts, labEntries, iconsMap]) => ({
 		tags: tags ?? [],
-		dataList: [...(aboutEntries ?? []), ...(projects ?? []), ...(posts ?? [])],
+		dataList: [
+			...(aboutEntries ?? []),
+			...(projects ?? []),
+			...(labEntries?.map((entry) => ({
+				...entry,
+				entryType: "lab" as const,
+				html: {
+					...entry.html,
+					description: entry.html.description.split(splitDescriptionKeyword)[0],
+				},
+				description: entry.description.split(splitDescriptionKeyword)[0],
+			})) ?? []),
+			...(posts ?? []),
+		],
 		iconsMap,
 	}));
 

@@ -17,10 +17,16 @@ import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
 import { postTuple, projectTuple } from "@/interfaces/_common-data-types";
 
+import { LabEntryData } from "@/interfaces/LabEntry";
+
 import TagFilter from "./TagFilter";
 import TimeLine from "./TimeLine";
 
-export type UnitedEntryType = ProjectData | AboutEntryData | PostData;
+export interface LabEntryCustom extends Omit<LabEntryData, "entryType"> {
+	entryType: "lab";
+}
+
+export type UnitedEntryType = ProjectData | AboutEntryData | PostData | LabEntryCustom;
 
 interface SelectedTag {
 	tag: TagData;
@@ -252,15 +258,17 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 				loading ? (
 					<SectionHeader className="h-12" title={t("loading")} />
 				) : (
-					[...postTuple, ...projectTuple, "employment", "education", "resume"].map((entryType) => (
-						<TimeLine
-							key={entryType}
-							displayTags={true}
-							entries={searchResults}
-							iconsMap={iconsMap}
-							type={entryType as UnitedEntryType["entryType"]}
-						/>
-					))
+					[...postTuple, ...projectTuple, "employment", "education", "resume", "lab"].map(
+						(entryType) => (
+							<TimeLine
+								key={entryType}
+								displayTags={true}
+								entries={searchResults}
+								iconsMap={iconsMap}
+								type={entryType as UnitedEntryType["entryType"]}
+							/>
+						)
+					)
 				)
 			) : null}
 		</div>

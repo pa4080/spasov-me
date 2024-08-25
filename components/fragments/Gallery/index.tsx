@@ -18,6 +18,8 @@ import { ProjectData } from "@/interfaces/Project";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
+import { LabEntryCustom } from "@/components/search/public";
+
 import IconEmbedSvg from "../IconEmbedSvg";
 import Loading from "../Loading";
 // import GalleryCarousel from "./GalleryCarousel";
@@ -29,7 +31,7 @@ const GalleryCarousel = dynamic(() => import("./GalleryCarousel"), {
 
 interface Props {
 	className?: string;
-	entry: AboutEntryData | ProjectData | PostData | LabEntryData;
+	entry: AboutEntryData | ProjectData | PostData | LabEntryData | LabEntryCustom;
 	gallery: FileHtmlProps[] | undefined;
 	height?: number;
 	width?: number;
