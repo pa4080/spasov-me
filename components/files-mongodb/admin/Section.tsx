@@ -100,10 +100,15 @@ const Section: React.FC<Props> = ({
 						</div>
 
 						{attachedToDocuments[attachedToDocument]
-							?.sort((b, a) => a.uploadDate.getTime() - b.uploadDate.getTime())
+							?.sort((b, a) =>
+								typeof a.uploadDate.getTime === "function" &&
+								typeof b.uploadDate.getTime === "function"
+									? a.uploadDate.getTime() - b.uploadDate.getTime()
+									: 0
+							)
 							?.map((file, index) => (
 								<FileCard
-									key={index}
+									key={file._id.toString()}
 									className={visibleItems > index ? "" : "section-card-collapsible"}
 									file={file}
 									section_id={`${toggle_target_id}_${type}_${attachedToDocument.replace(/ /g, "_")}`}
@@ -114,10 +119,15 @@ const Section: React.FC<Props> = ({
 			) : (
 				<div className={styles.feed}>
 					{files
-						?.sort((b, a) => a.uploadDate.getTime() - b.uploadDate.getTime())
+						?.sort((b, a) =>
+							typeof a.uploadDate.getTime === "function" &&
+							typeof b.uploadDate.getTime === "function"
+								? a.uploadDate.getTime() - b.uploadDate.getTime()
+								: 0
+						)
 						?.map((file, index) => (
 							<FileCard
-								key={index}
+								key={file._id.toString()}
 								className={visibleItems > index ? "" : "section-card-collapsible"}
 								file={file}
 								section_id={`${toggle_target_id}_${type}`}

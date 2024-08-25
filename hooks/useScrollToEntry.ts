@@ -33,6 +33,22 @@ export function useScrollToAboutEntry() {
 					break;
 				}
 
+				case "lab": {
+					// Portfolio projects
+					setTimeout(() => {
+						const url = new URL(window.location.href);
+
+						url.searchParams.delete("id");
+						window.history.replaceState({}, "", url.toString());
+
+						setTimeout(() => {
+							window.location.hash = id;
+						}, 50);
+					}, 100);
+
+					break;
+				}
+
 				case "post": {
 					// Blog posts
 					setTimeout(() => {

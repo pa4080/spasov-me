@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
 
-import { deleteFile } from "@/components/files-mongodb/_files.actions";
+import { deleteFile_mongo } from "@/components/files-mongodb/_files.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
@@ -37,7 +37,7 @@ const DeleteFile: React.FC<Props> = ({ className, file }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await deleteFile(file._id, [pathname]);
+			const response = await deleteFile_mongo(file._id, [pathname]);
 
 			serverActionResponseToastAndLocationReload({
 				trigger: !!response,

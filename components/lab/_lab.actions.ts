@@ -66,6 +66,8 @@ export const createLabEntry = async (data: FormData, paths: string[]): Promise<b
 			documentData_new,
 			document_new,
 			modelType: "LabEntry",
+			gallery_mongo: true,
+			attachment_mongo: true,
 		});
 
 		return true;
@@ -111,6 +113,8 @@ export const updateLabEntry = async (
 			document_new,
 			document_prev,
 			modelType: "LabEntry",
+			gallery_mongo: true,
+			attachment_mongo: true,
 		});
 
 		// Deal with the "dateTo"
@@ -144,6 +148,8 @@ export const deleteLabEntry = async (labEntry_id: string, paths: string[]): Prom
 		await process_relations({
 			document_prev: document_deleted,
 			modelType: "LabEntry",
+			gallery_mongo: true,
+			attachment_mongo: true,
 		});
 
 		return !!document_deleted;

@@ -32,6 +32,8 @@ import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import { LabEntryCustom } from "../public";
+
 interface ProjectDataExtended extends ProjectData {
 	city?: string;
 	country?: string;
@@ -46,9 +48,14 @@ interface AboutEntryDataExtended extends AboutEntryData {
 	slug?: string;
 }
 
+interface LabEntryCustomExtended extends LabEntryCustom {
+	city?: string;
+	country?: string;
+}
+
 interface Props {
 	className?: string;
-	entry: AboutEntryDataExtended | ProjectDataExtended | PostDataExtended;
+	entry: AboutEntryDataExtended | ProjectDataExtended | PostDataExtended | LabEntryCustomExtended;
 	files?: FileListItem[] | null | undefined;
 	tags?: TagData[] | null | undefined;
 	displayTagsInline?: boolean;
@@ -99,6 +106,7 @@ const SearchResultEntryCard: React.FC<Props> = ({
 	const isPost = postTuple.includes(entry.entryType as PostType);
 	const isProject = projectTuple.includes(entry.entryType as ProjectType);
 	const isAbout = aboutEntryTuple.includes(entry.entryType as AboutEntryType);
+	const isLab = ["lab"].includes(entry.entryType);
 
 	const InfoSection = () => {
 		if (isPost) {
@@ -116,6 +124,26 @@ const SearchResultEntryCard: React.FC<Props> = ({
 		}
 
 		if (isProject) {
+			return (
+				<div className={styles.info}>
+					<div className={styles.dateProject}>
+						<span className={styles.lightPrimaryText}>
+							{format(dtFrom, "dd MMM yyyy", { locale: en })}
+						</span>
+						<span className={styles.dividerProject}>{" - "}</span>
+						{dtTo ? (
+							<span className={styles.lightPrimaryText}>
+								{format(dtTo, "dd MMM yyyy", { locale: en })}
+							</span>
+						) : (
+							<span className={styles.lightPrimaryText}>{tTime("dateTo_now_current")}</span>
+						)}
+					</div>
+				</div>
+			);
+		}
+
+		if (isLab) {
 			return (
 				<div className={styles.info}>
 					<div className={styles.dateProject}>
@@ -183,6 +211,17 @@ const SearchResultEntryCard: React.FC<Props> = ({
 				<Link
 					aria-label={tCommon("item_link")}
 					href={`${Route.public.PORTFOLIO.uri}/${entry.slug}`}
+				>
+					<RedirectIcon />
+				</Link>
+			);
+		}
+
+		if (isLab) {
+			return (
+				<Link
+					aria-label={tCommon("item_link")}
+					href={`${Route.public.PORTFOLIO.uri}?id=lab_${entry._id}`}
 				>
 					<RedirectIcon />
 				</Link>

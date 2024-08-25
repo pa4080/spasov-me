@@ -7,6 +7,7 @@ import React from "react";
 import { notFound } from "next/navigation";
 
 import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
+import { getFileList_mongo } from "@/components/files-mongodb/_files.actions";
 import { getLabEntries } from "@/components/lab/_lab.actions";
 import LabPublicEntry from "@/components/lab/Private/Post";
 import { getTags } from "@/components/tags/_tags.actions";
@@ -15,7 +16,7 @@ import { IconsMap } from "@/interfaces/IconsMap";
 import { LabEntryData } from "@/interfaces/LabEntry";
 import { TagData } from "@/interfaces/Tag";
 
-const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
+// const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
 const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
 
 interface Props {
@@ -47,7 +48,7 @@ const LabEntry: React.FC<Props> = async ({ params }) => {
 		iconsMap: IconsMap;
 	} = await Promise.all([
 		getLabEntries({ hyphen: true, public: true }),
-		getFileList({ prefix: files_prefix }),
+		getFileList_mongo(),
 		getFileList({ prefix: icons_prefix }),
 		getTags(),
 		getIconsMap(),

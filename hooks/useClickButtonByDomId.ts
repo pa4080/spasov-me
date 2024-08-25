@@ -6,7 +6,7 @@ export function useClickButtonByDomId() {
 	const searchParams = useSearchParams();
 
 	useEffect(() => {
-		const id = searchParams.get("id");
+		const id = searchParams.get("btn_id");
 
 		if (!id) {
 			return;
@@ -22,7 +22,7 @@ export function useClickButtonByDomId() {
 			setTimeout(() => {
 				const url = new URL(window.location.href);
 
-				url.searchParams.delete("id");
+				url.searchParams.delete("btn_id");
 				window.history.replaceState({}, "", url.toString());
 			}, 1000);
 		}
