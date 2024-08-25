@@ -35,6 +35,13 @@ export const Route = {
 			uri: "/services",
 			visible: false,
 		},
+		LAB: {
+			inFeed: false,
+			inNavbar: false,
+			name: "lab",
+			uri: "/lab",
+			visible: true,
+		},
 		CONTACT: {
 			inFeed: true,
 			inNavbar: true,
@@ -54,6 +61,7 @@ export const Route = {
 		PAGES: "/admin/pages",
 		ABOUT: "/admin/about",
 		PORTFOLIO: "/admin/portfolio",
+		LAB: "/admin/lab",
 		BLOG: "/admin/blog",
 		TAGS: "/admin/tags",
 		THEME: "/admin/theme",

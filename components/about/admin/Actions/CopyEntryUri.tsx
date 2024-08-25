@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
+import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import { useAppContext } from "@/contexts/AppContext";
+import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
 
 export interface Props {
@@ -19,6 +20,10 @@ const CopyEntryUri: React.FC<Props> = ({ className, entry_id }) => {
 	}
 
 	const handleCopyFileAddress = () => {
+		if (submitting) {
+			return;
+		}
+
 		setSubmitting(true);
 
 		navigator.clipboard.writeText(`${Route.public.ABOUT.uri}?id=entry_${entry_id}`);
@@ -29,13 +34,17 @@ const CopyEntryUri: React.FC<Props> = ({ className, entry_id }) => {
 	};
 
 	return (
-		<div className={`transition-all duration-300 ${submitting ? "scale-120" : ""}`}>
-			<ButtonIcon
-				className={`pl-[5px] bg-transparent icon_accent_secondary ${className}`}
+		<div
+			className={`transition-all duration-300 ${submitting ? "scale-120" : ""}`}
+			onClick={handleCopyFileAddress}
+		>
+			<IconEmbedSvg
+				className={cn("grayscale-[100%] hover:grayscale-[0%] mt-0.5", className)}
+				className_Path1="fill-accent"
+				className_Path2="fill-accent-secondary"
 				height={22}
 				type={submitting ? "clipboard-check" : "clipboard"}
 				width={22}
-				onClick={handleCopyFileAddress}
 			/>
 		</div>
 	);

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# doppler run -- scripts/objStorage-r2-minio-sync.sh
+# doppler run -- scripts/aws-shell/objStorage-sync.sh
 
 DUMP_DIR="$(dirname "$0")/object-storage-dump"
 echo "${DUMP_DIR}"

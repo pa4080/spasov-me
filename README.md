@@ -10,32 +10,29 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- Backup scripts
-  - [x] Migration script from R2 to MinIO
-  - [ ] Migration script from MongoDB/Atlas to MongoDB/Local
-
 - Search page
   - [ ] Choose the base data category type to be searched - i.e.: Search in [x]CV [x]Blog [x]Portfolio
+  - [ ] Implement `useTransition()` and/or `useDeferredValue()`.
 
 - Blog
-  - [x] Blog post admin
-  - [x] Blog feed public
-  - [x] Blog post public
-  - [x] MD Syntax highlighting
-  - [x] MD Images with captions
   - [ ] MD PDF Embed
   - [ ] Copy button for the post's code snippets
   - [ ] Display the post category as label on the blog card and post page
   - [ ] Display gallery switch in the post form, to display the gallery navigation or not;
         Display gallery items caption switch too.
 
+- Lab entry
+  - [ ] Use mongo GridFS files
+  - [ ] Add to the search!
+
+- Portfolio
+  - [ ] Project ADMIN link like in the Labs
+
 - [ ] Create to do list
-- [ ] Create my resources page, where to list my labs and projects... This could be special project type, where the card redirects to the resource - bud probably it will be better to be a separate view?
+
 - [ ] Allow file rename when it is not linked to a post?
-- [x] Scroll to top button, with additional features, like in GameHub.
 
 - Redis
-  - [x] FilesR2 index to Cache
   - [ ] Create event loop by using Upstash/Redis queue - object like:
 
     ```js
@@ -160,3 +157,15 @@ References:
 - Plugins list: <https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#using-plugins>
 - Custom plugin [easy]: <https://unifiedjs.com/explore/package/remark-directive/>
 - Rehype video: <https://unifiedjs.com/explore/package/rehype-video/> | <https://github.com/jaywcjlove/rehype-video/tree/main>
+
+## Full backup
+
+Backup of the database and Cloudflare's object storage.
+
+```bash
+# scripts/dump-mongo-db.sh .env.local
+doppler run -- scripts/dump-mongo-db.sh
+doppler run -- scripts/aws-shell/objStorage-metadata-dump.sh
+doppler run -- scripts/aws-shell/objStorage-sync.sh
+doppler run -- pnpm exec ts-node --skip-project scripts/aws/index-copy-r2-minio.ts
+```

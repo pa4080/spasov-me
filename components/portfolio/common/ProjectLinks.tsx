@@ -1,18 +1,18 @@
 "use client";
 
-import Gallery, { dialogTrigger_Type2 } from "@/components/fragments/Gallery";
+import Gallery from "@/components/fragments/Gallery";
 import TooltipWrapper from "@/components/fragments/TooltipWrapper";
-import { ProjectData } from "@/interfaces/Project";
-import { msgs } from "@/messages";
-
-import { cn } from "@/lib/cn-utils";
-
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
+import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
+import { msgs } from "@/messages";
+
+import DisplayResourceUrlAsIcon from "@/components/fragments/DisplayResourceUrlAsIcon";
+
+import DisplayConditionally from "@/components/fragments/DisplayConditionally";
 
 import UpdateProject from "../admin/Actions/Update";
-import DisplayResourceUrlAsIcon from "./DisplayResourceUrlAsIcon";
 
 interface Props {
 	project: ProjectData;
@@ -35,12 +35,50 @@ const ProjectLinks: React.FC<Props> = ({ project, fileList, iconList, iconsMap, 
 			: gallery;
 
 	const iconWrapper =
-		"fill-foreground-tertiary hover:fill-ring-secondary flex items-center justify-center h-full";
+		"fill-foreground-tertiary hover:fill-accent flex items-center justify-center h-full if-empty-display-none";
 
 	return (
 		<div className="pt-1 m-0 flex gap-2 transition-all duration-300 items-center justify-start max-h-7">
 			<div className={iconWrapper}>
-				<DisplayResourceUrlAsIcon size={23} type="home" url={project.urlHome} />
+				<DisplayResourceUrlAsIcon
+					className="grayscale-[100%] hover:grayscale-[0%]"
+					iconType="globe-pointer"
+					icon_className_Path1="fill-accent-secondary"
+					icon_className_Path2="fill-accent"
+					isClickable={!!project.urlHome}
+					label={t("tooltip_link", { linkType: "Homepage" })}
+					size={23}
+					url={project.urlHome}
+				/>
+			</div>
+
+			<DisplayConditionally>
+				<div className={iconWrapper}>
+					<DisplayResourceUrlAsIcon
+						className="grayscale-[100%] hover:grayscale-[0%]"
+						iconType="user-shield"
+						icon_className_Path1="fill-accent-secondary"
+						icon_className_Path2="fill-accent"
+						isClickable={!!project.urlAdmin}
+						label={t("tooltip_link", { linkType: "Admin panel" })}
+						url={project.urlAdmin}
+						width={32}
+					/>
+				</div>
+			</DisplayConditionally>
+
+			<div className={iconWrapper}>
+				<DisplayResourceUrlAsIcon
+					className="grayscale-[100%] hover:grayscale-[0%] ml-1"
+					height={23}
+					iconType="dice-d6"
+					icon_className_Path1="fill-accent-secondary"
+					icon_className_Path2="fill-accent"
+					isClickable={!!project.urlRepo}
+					label={t("tooltip_link", { linkType: "Repository" })}
+					url={project.urlRepo}
+					width={24}
+				/>
 			</div>
 
 			<div className={iconWrapper}>
@@ -48,42 +86,16 @@ const ProjectLinks: React.FC<Props> = ({ project, fileList, iconList, iconsMap, 
 					className="w-full h-full flex items-center fill-inherit"
 					tooltipText={t("tooltip_gallery")}
 				>
-					<Gallery
-						dialogTrigger_buttonIconProps={{
-							className:
-								"p-0 bg-transparent hover:bg-transparent m-0 h-full fill-inherit grayscale-0",
-							widthOffset: 0,
-							heightOffset: 0,
-							width: 27,
-							height: 26,
-							iconEmbedSvgProps: {
-								className_Path1: "fill-transparent",
-								className_Path2: "fill-inherit",
-							},
-						}}
-						entry={project}
-						gallery={gallery}
-					/>
+					<Gallery entry={project} gallery={gallery} />
 				</TooltipWrapper>
 			</div>
 
 			<div className={iconWrapper}>
-				<DisplayResourceUrlAsIcon size={28} type="repo" url={project.urlRepo} />
-			</div>
-
-			<div
-				className={cn(
-					iconWrapper,
-					"overflow-hidden rounded-[3px] bg-foreground-tertiary hover:bg-ring-secondary -ml-1"
-				)}
-			>
 				<TooltipWrapper
-					className="w-full h-full flex items-center fill-inherit"
+					className="w-full h-full flex items-center fill-inherit ml-0.5"
 					tooltipText={t("tooltip_update")}
 				>
 					<UpdateProject
-						className="h-6 w-6 flex items-center justify-center"
-						dialogTrigger_buttonIconProps={dialogTrigger_Type2}
 						fileList={fileList}
 						iconList={iconList}
 						iconsMap={iconsMap}

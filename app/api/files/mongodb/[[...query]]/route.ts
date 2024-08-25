@@ -25,6 +25,12 @@ interface Context {
 
 export async function GET(request: NextRequest, { params }: Context) {
 	try {
+		const session = await getServerSession(authOptions);
+
+		if (!session) {
+			return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+		}
+
 		// connect to the database and get the bucket
 		const bucket = await gridFSBucket();
 

@@ -20,9 +20,11 @@ const TooltipWrapper: React.FC<Props> = ({ className = "!mt-0", children, toolti
 				<TooltipTrigger asChild className={className}>
 					<div>{children}</div>
 				</TooltipTrigger>
-				<TooltipContent className="border-2 border-muted-secondary dark:border-primary">
-					<div dangerouslySetInnerHTML={{ __html: tooltipText }} />
-				</TooltipContent>
+				{tooltipText && (
+					<TooltipContent className="border-2 border-muted-secondary dark:border-primary">
+						<div dangerouslySetInnerHTML={{ __html: tooltipText }} />
+					</TooltipContent>
+				)}
 			</Tooltip>
 		</TooltipProvider>
 	);

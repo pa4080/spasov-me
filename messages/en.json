@@ -24,6 +24,9 @@
 		"ABOUT": "About",
 		"ABOUT_DESC": "Edit the about (CV) page",
 
+		"LAB": "Lab",
+		"LAB_DESC": "Edit the laboratory entries",
+
 		"PORTFOLIO": "Portfolio",
 		"PORTFOLIO_DESC": "Edit the project entries",
 
@@ -66,7 +69,9 @@
 		"user": "User",
 		"publicMenu_title": "Public Menu"
 	},
-	"Footer": {},
+	"Footer": {
+		"btn_backToTop": "Top"
+	},
 	"SiteLogo": {
 		"altLogo": "Site Logo"
 	},
@@ -209,7 +214,8 @@
 		"title_techTags": "Technologies",
 		"btnMore": "Read more",
 		"btnLess": "Show less",
-		"btnAll": "Show all"
+		"btnAll": "Show all",
+		"tooltip_gallery": "View the attached docs"
 	},
 	"AboutEntries_Create": {
 		"dialog_title": "Create a new { entryType } entry",
@@ -506,6 +512,10 @@
 		"urlHome_placeholder": "Homepage of the project",
 		"urlHome_description": "",
 
+		"urlAdmin_label": "",
+		"urlAdmin_placeholder": "Admin page of the project",
+		"urlAdmin_description": "",
+
 		"urlRepo_label": "",
 		"urlRepo_placeholder": "Repository of the project",
 		"urlRepo_description": "",
@@ -605,8 +615,9 @@
 	},
 	"Projects_CardPublic": {
 		"button_call_to_action": "Details",
-		"tooltip_gallery": "View project's gallery",
+		"tooltip_gallery": "View the Project's gallery",
 		"tooltip_update": "Edit the project",
+		"tooltip_link": "Link to the Project's { linkType }",
 		"area_label_card_link": "Link to the Project's page"
 	},
 	"Posts_Form": {
@@ -734,7 +745,198 @@
 		"button_call_to_action": "Details",
 		"tooltip_gallery": "View post's gallery",
 		"tooltip_update": "Edit the post",
+		"tooltip_link": "Post's { linkType }",
 		"area_label_card_link": "Link to the Post's page"
+	},
+	"LabEntries_Form": {
+		"schema_title": "The entry title must be at least 4 characters.",
+		"schema_description": "The description must be at least 10 characters.",
+		"schema_date": "Select a date.",
+		"schema_type": "Select a type.",
+		"schema_visibility": "The default visibility value is \"true\".",
+		"schema_tags": "Select at least one tag.",
+		"schema_gallery": "Select multiple attachments.",
+		"schema_slug_length": "The slug must be at least 4 characters.",
+		"schema_slug_schema": "Slug must be in-kebab-case.",
+
+		"schema_visibility_type": "Set the asset visibility",
+		"schema_property_type": "Set the asset property type",
+		"schema_host_type": "Set the asset host type",
+
+		"title_label": "",
+		"title_placeholder": "Title of the entry",
+		"title_description": "",
+
+		"description_label": "",
+		"description_placeholder": "Description of the entry",
+		"description_description": "",
+
+		"urlHome_label": "",
+		"urlHome_placeholder": "Home url of the asset",
+		"urlHome_description": "",
+
+		"urlAdmin_label": "",
+		"urlAdmin_placeholder": "Admin url of the asset",
+		"urlAdmin_description": "",
+
+		"urlSource_label": "",
+		"urlSource_placeholder": "Source url of the asset",
+		"urlSource_description": "",
+
+		"slug_label": "",
+		"slug_placeholder": "Slug of the entry page",
+		"slug_description": "",
+
+		"lab_entry_type_field": {
+			"label": "",
+			"description": "",
+			"placeholder": "Type?"
+		},
+		"lab_entry_type_list": {
+			"site": "Site",
+			"service": "Service",
+			"application": "Application",
+			"database": "Database"
+		},
+
+		"lab_entry_visibility_field": {
+			"label": "",
+			"description": "",
+			"placeholder": "Visibility?"
+		},
+		"lab_entry_visibility": { "private": "Private", "public": "Public" },
+
+		"lab_entry_property_field": {
+			"label": "",
+			"description": "",
+			"placeholder": "Property?"
+		},
+		"lab_entry_property": { "own": "Own", "client": "Client", "shared": "Shared" },
+
+		"lab_entry_host_field": {
+			"label": "",
+			"description": "",
+			"placeholder": "Host?"
+		},
+		"lab_entry_host": {
+			"vps": "VPS",
+			"vps-docker": "VPS Docker",
+			"vps-linux": "VPS Linux",
+			"vps-linux-docker": "VPS Linux Docker",
+			"linux": "Linux",
+			"linux-docker": "Linux Docker",
+			"docker": "Docker",
+			"self-hosted": "Self Hosted",
+			"self-hosted-docker": "Self Hosted Docker",
+			"pve": "PVE",
+			"pve-vm": "PVE VM",
+			"pve-container": "PVE Container",
+			"aws": "AWS",
+			"cloudflare": "Cloudflare",
+			"third-party": "Third-Party"
+		},
+
+		"dateFrom_label": "From",
+		"dateTo_label": "To",
+		"date_button": "OK",
+
+		"visibility_title": "Is entry public?",
+		"visibility_description": "",
+
+		"active_title": "Is asset active?",
+		"active_description": "",
+
+		"attachment_label": "",
+		"attachment_description": "",
+		"attachment_search": "Search for an attachment...",
+		"attachment_select": "Attachment...",
+		"attachment_searchNotFound": "Not found.",
+		"attachment_selectNone": "< None! >",
+
+		"icon_label": "",
+		"icon_description": "",
+		"icon_search": "Search for an icon...",
+		"icon_select": "Icon...",
+		"icon_searchNotFound": "Not found.",
+		"icon_selectNone": "< None! >",
+
+		"tags_label": "",
+		"tags_description": "",
+		"tags_search": "Search for a tag...",
+		"tags_add": "Add tags",
+		"tags_searchNotFound": "Not found...",
+		"tags_selectNone": "< None! >",
+
+		"gallery_label": "",
+		"gallery_description": "",
+		"gallery_search": "Search for a file...",
+		"gallery_add": "Add gallery items",
+		"gallery_searchNotFound": "Not found...",
+		"gallery_selectNone": "< None! >",
+
+		"btn_submit": "Submit",
+		"btn_submitting": "Submitting...",
+
+		"dateTo_now_current": "Now"
+	},
+	"LabEntries": {
+		"title_site": "Site",
+		"title_service": "Service",
+		"title_application": "Application",
+		"title_database": "Database",
+
+		"title_by_property_own": "Own resources",
+		"title_by_property_client": "Client's resources",
+		"title_by_property_shared": "Shared resources",
+
+		"btnMore": "Read more",
+		"btnLess": "Show less",
+		"btnAll": "Show all"
+	},
+	"LabEntries_Create": {
+		"dialog_title": "Create a new { entryType } entry",
+		"dialog_description": "",
+		"dialog_btn_add": "Add a new entry",
+		"dialog_btn_add_submitting": "Submitting...",
+		"toast_submitted": "The entry was successfully created.",
+		"toast_success": "The entry was successfully created.",
+		"toast_error": "Something went wrong. Please try again."
+	},
+	"LabEntries_Update": {
+		"dialog_title": "Update an existing { entryType } entry",
+		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+		"dialog_btn_add": "Update the entry",
+		"dialog_btn_add_submitting": "Submitting...",
+		"toast_submitted": "The entry was successfully updated.",
+		"toast_success": "The entry was successfully updated.",
+		"toast_error": "Something went wrong. Please try again."
+	},
+	"LabEntries_Delete": {
+		"dialog_title": "Delete an entry of type { entryType } ",
+		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+		"dialog_btn_delete": "Delete the entry",
+		"dialog_btn_delete_submitting": "Deleting...",
+		"dialog_btn_cancel": "Cancel",
+		"toast_deleted": "The entry was successfully deleted!",
+		"toast_success": "The entry was successfully deleted!",
+		"toast_error": "Something went wrong. Please try again."
+	},
+	"LabEntries_CardPublic": {
+		"button_call_to_action": "Details",
+		"tooltip_gallery": "View Lab entry's gallery",
+		"tooltip_update": "Edit the Lab entry",
+		"area_label_card_link": "Link to the Lab entry's page",
+
+		"tooltip_home_link": "Link to the Lab entry's { linkType }",
+		"tooltip_home_link_private": "This resource is private.",
+
+		"label_by_property_own": "Own",
+		"label_by_property_client": "Client",
+		"label_by_property_shared": "Shared",
+
+		"label_tooltip_by_property_own": "Own resources",
+		"label_tooltip_by_property_client": "Client's resources",
+		"label_tooltip_by_property_shared": "Shared resources"
 	},
 	"Search": {
 		"title": "Search the site",

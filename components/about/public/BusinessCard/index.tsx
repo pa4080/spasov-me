@@ -13,7 +13,10 @@ import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
-import { cn } from "@/lib/cn-utils";
+
+import TooltipWrapper from "@/components/fragments/TooltipWrapper";
+
+import { msgs } from "@/messages";
 
 import UpdateAboutEntry from "../../admin/Actions/Update";
 import styles from "./_business-card.module.scss";
@@ -28,6 +31,7 @@ interface Props {
 }
 
 const BusinessCard: React.FC<Props> = ({ entries, className, type, fileList, tags, iconsMap }) => {
+	const tCommon = msgs("AboutEntries");
 	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_${type}`);
 
 	const entry =
@@ -85,28 +89,26 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type, fileList, tag
 
 					<div className="absolute right-0 xs:right-4 sa:right-2 bottom-0 xs:bottom-0 sa:-bottom-8 bg-transparent flex flex-row gap-4 justify-center items-center">
 						<a
-							className="grayscale opacity-45 hover:opacity-100 hover:grayscale-0 transition-all duration-200"
+							className="grayscale hover:grayscale-0 transition-all duration-200"
 							href={cvLink}
 							rel="noreferrer"
 							target="_blank"
 						>
-							<IconEmbedSvg height={21} type={"download"} width={21} />
+							<IconEmbedSvg
+								className_Path1="fill-accent-secondary"
+								className_Path2="fill-accent"
+								height={21}
+								type={"download"}
+								width={21}
+							/>
 						</a>
 
-						<Gallery
-							dialogTrigger_buttonIconProps={{
-								className: cn(
-									"bg-transparent hover:bg-transparent p-0 opacity-45 transition-all duration-200 max-xs:hidden",
-									!gallery?.length
-										? "grayscale hover:grayscale"
-										: "grayscale-[0.8] hover:grayscale-0 hover:opacity-100"
-								),
-								height: 24,
-								width: 28,
-							}}
-							entry={entry}
-							gallery={gallery}
-						/>
+						<TooltipWrapper
+							className="w-full h-full flex items-center fill-inherit"
+							tooltipText={gallery.length === 0 ? "" : tCommon("tooltip_gallery")}
+						>
+							<Gallery entry={entry} gallery={gallery} />
+						</TooltipWrapper>
 
 						<UpdateAboutEntry entry={entry} fileList={fileList} iconsMap={iconsMap} tags={tags} />
 					</div>

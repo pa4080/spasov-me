@@ -3,8 +3,7 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
-import ButtonIcon, { ButtonIconProps } from "@/components/fragments/ButtonIcon";
-import { IconEmbSvgPathType } from "@/components/fragments/IconEmbedSvg";
+import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import Loading from "@/components/fragments/Loading";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
@@ -33,22 +32,13 @@ const PostForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <
 interface Props {
 	className?: string;
 	post: PostData;
-	dialogTrigger_buttonIconProps?: ButtonIconProps;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
 	iconsMap: IconsMap;
 	tags: TagData[] | null;
 }
 
-const UpdatePost: React.FC<Props> = ({
-	className,
-	post,
-	dialogTrigger_buttonIconProps,
-	fileList,
-	iconList,
-	iconsMap,
-	tags,
-}) => {
+const UpdatePost: React.FC<Props> = ({ className, post, fileList, iconList, iconsMap, tags }) => {
 	const t = msgs("Posts_Update");
 	const entryTypeLabel = (
 		msgs("Posts_Form")("post_type_list") as unknown as Record<string, string>
@@ -90,24 +80,25 @@ const UpdatePost: React.FC<Props> = ({
 		}
 	};
 
-	const buttonIconPropsFinal = {
-		className: "pl-1 bg-transparent icon_accent_secondary",
-		disabled: !session,
-		height: 22,
-		type: "brush" as IconEmbSvgPathType,
-		width: 22,
-		onClick: () => setIsOpen(true),
-		...dialogTrigger_buttonIconProps,
-	};
-
 	if (!session) {
 		return null;
 	}
 
 	return (
 		<Dialog open={isOpen} onOpenChange={setIsOpen}>
-			<DialogTrigger className={className} disabled={submitting}>
-				<ButtonIcon {...buttonIconPropsFinal} />
+			<DialogTrigger
+				className={className}
+				disabled={submitting || !session}
+				onClick={() => setIsOpen(true)}
+			>
+				<IconEmbedSvg
+					className="grayscale-[100%] hover:grayscale-[0%]"
+					className_Path1="fill-accent-secondary"
+					className_Path2="fill-accent"
+					height={23}
+					type={"screwdriver-wrench"}
+					width={23}
+				/>
 			</DialogTrigger>
 			<DialogContent
 				className="ma:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"

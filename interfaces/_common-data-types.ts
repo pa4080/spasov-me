@@ -18,6 +18,28 @@ export const data = {
 		"officeApplications",
 	],
 	post_type_list: ["blog", "reference", "manual", "note", "lifestyle"],
+	lab_entry: {
+		type_list: ["site", "service", "application", "database"],
+		visibility: ["private", "public"],
+		property: ["own", "client", "shared"],
+		host: [
+			"vps",
+			"vps-docker",
+			"vps-linux",
+			"vps-linux-docker",
+			"linux",
+			"linux-docker",
+			"docker",
+			"self-hosted",
+			"self-hosted-docker",
+			"pve",
+			"pve-vm",
+			"pve-container",
+			"aws",
+			"cloudflare",
+			"third-party",
+		],
+	},
 } as const;
 
 export const countryTuple = data.country_name_list;
@@ -26,7 +48,23 @@ export const tagTuple = data.tag_type_list;
 export const aboutEntryTuple = data.about_type_list;
 export const projectTuple = data.project_type_list;
 export const postTuple = data.post_type_list;
-export const unitedDataEntriesTuple = [...aboutEntryTuple, ...projectTuple, ...postTuple];
+
+export const labEntryTuple = data.lab_entry.type_list;
+export const labEntryVisibilityTuple = data.lab_entry.visibility;
+export const labEntryPropertyTuple = data.lab_entry.property;
+export const labEntryHostTuple = data.lab_entry.host;
+
+export const unitedLabEntryTuple = [
+	...labEntryTuple,
+	...labEntryVisibilityTuple,
+	...labEntryHostTuple,
+];
+export const unitedDataEntriesTuple = [
+	...aboutEntryTuple,
+	...projectTuple,
+	...postTuple,
+	...unitedLabEntryTuple,
+];
 
 export type DataTuples = (typeof data)[keyof typeof data];
 
@@ -36,9 +74,24 @@ export type TagType = (typeof data.tag_type_list)[number];
 export type AboutEntryType = (typeof data.about_type_list)[number];
 export type ProjectType = (typeof data.project_type_list)[number];
 export type PostType = (typeof data.post_type_list)[number];
+
+export type LabEntryType = (typeof data.lab_entry.type_list)[number];
+export type LabEntryVisibilityType = (typeof data.lab_entry.visibility)[number];
+export type LabEntryPropertyType = (typeof data.lab_entry.property)[number];
+export type LabEntryHostType = (typeof data.lab_entry.host)[number];
+
+export type UnitedLabEntryType = (typeof unitedLabEntryTuple)[number];
 export type UnitedDataEntriesType = (typeof unitedDataEntriesTuple)[number];
 
-export type ModelType = "AboutEntry" | "PageCard" | "Post" | "Project" | "File" | "Tag" | "User";
+export type ModelType =
+	| "AboutEntry"
+	| "PageCard"
+	| "Post"
+	| "Project"
+	| "File"
+	| "Tag"
+	| "User"
+	| "LabEntry";
 
 export interface AttachedToDocument {
 	modelType: ModelType;

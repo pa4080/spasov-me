@@ -166,6 +166,10 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 	display: inherit;
 }
 
+*::-webkit-scrollbar-button {
+	display: none !important;
+}
+
 /* Outline */
 :focus-visible,
 :focus {
@@ -414,6 +418,11 @@ body textarea.w-md-editor-text-input:focus {
 	text-shadow: none !important;
 	font-feature-settings: unset !important;
 	font-variation-settings: unset !important;
+}
+
+/** Hide the elements which are empty */
+.if-empty-display-none:empty {
+	display: none !important;
 }
 
 /**

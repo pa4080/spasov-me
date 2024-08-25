@@ -2,66 +2,80 @@ import React, { CSSProperties } from "react";
 
 import { cn } from "@/lib/cn-utils";
 
-export type IconEmbSvgPathType =
-	| "check-circle"
-	| "check-square"
-	| "radio"
-	| "circle"
-	| "square"
-	| "tick"
-	| "cloud"
-	| "cloud-arrow-up"
-	| "cloud-check"
-	| "cloud-binary"
-	| "clipboard"
-	| "clipboard-check"
-	| "tag"
-	| "tags"
-	| "up-right-from-square"
-	| "link"
-	| "message-lines"
-	| "brush"
-	| "trash"
-	| "trash-check"
-	| "broom-ball"
-	| "broom"
-	| "broom-wide"
-	| "github"
-	| "arrow-right-from-bracket"
-	| "arrow-right-to-bracket"
-	| "sidebar"
-	| "sidebar-flip"
-	| "rectangle-history-circle-plus"
-	| "sun"
-	| "moon"
-	| "moon-over-sun"
-	| "ubuntu-aka-ask-ubuntu"
-	| "wikimedia"
-	| "github-rounded"
-	| "linkedin-square"
-	| "metalevel-wiki"
-	| "lock-keyhole"
-	| "unlock-keyhole"
-	| "arrow-rotate-right"
-	| "angles-up-up"
-	| "angles-up-up-c"
-	| "angles-up-down-rev-c"
-	| "angles-up-down-reverse"
-	| "angles-up-down"
-	| "folder-image"
-	| "git-alt-mono"
-	| "square-gitlab-mono"
-	| "square-github-mono"
-	| "browser-mono"
-	| "globe-pointer-mono"
-	| "file-circle-plus"
-	| "download"
-	| "magnifying-glass-play"
-	| "magnifying-glass"
-	| "magnifying-glass-arrows-rotate"
-	| "rocket"
-	| "rocket-launch";
+export const iconEmbSvgPathType = [
+	"check-circle",
+	"check-square",
+	"radio",
+	"circle",
+	"square",
+	"tick",
+	"cloud",
+	"cloud-arrow-up",
+	"cloud-check",
+	"cloud-binary",
+	"clipboard",
+	"clipboard-check",
+	"tag",
+	"tags",
+	"up-right-from-square",
+	"link",
+	"message-lines",
+	"brush",
+	"trash",
+	"trash-check",
+	"broom-ball",
+	"broom",
+	"broom-wide",
+	"github",
+	"arrow-right-from-bracket",
+	"arrow-right-to-bracket",
+	"sidebar",
+	"sidebar-flip",
+	"rectangle-history-circle-plus",
+	"sun",
+	"moon",
+	"moon-over-sun",
+	"ubuntu-aka-ask-ubuntu",
+	"wikimedia",
+	"github-rounded",
+	"linkedin-square",
+	"metalevel-wiki",
+	"lock-keyhole",
+	"unlock-keyhole",
+	"arrow-rotate-right",
+	"angles-up-up",
+	"angles-up-up-c",
+	"angles-up-down-rev-c",
+	"angles-up-down-reverse",
+	"angles-up-down",
+	"folder-image",
+	"git-alt-mono",
+	"square-gitlab-mono",
+	"square-github-mono",
+	"browser-mono",
+	"browser",
+	"share",
+	"globe-pointer-mono",
+	"globe-pointer",
+	"file-circle-plus",
+	"download",
+	"magnifying-glass-play",
+	"magnifying-glass",
+	"magnifying-glass-arrows-rotate",
+	"rocket",
+	"rocket-launch",
+	"dice-d6",
+	"shield-checked",
+	"user-shield",
+	"pen-nib",
+	"screwdriver-wrench",
+	"person-through-window",
+	"puzzle",
+	"box-circle-check",
+	"arrow-up-right-from-square",
+] as const;
 
+export type IconEmbSvgPathType = (typeof iconEmbSvgPathType)[number];
 /**
  * It is possible to override the default colors of the SVG element
  * via CSS/SASS modules by using code like this:
@@ -210,6 +224,19 @@ const SvgPathLib: React.FC<SvgPathLibProps> = ({ type, className_Path1, classNam
 					/>
 				</>
 			);
+		case "arrow-up-right-from-square":
+			return (
+				<>
+					<path
+						className={className_Path2}
+						d="M0 112C0 67.8 35.8 32 80 32H192c17.7 0 32 14.3 32 32s-14.3 32-32 32H80c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16H400c8.8 0 16-7.2 16-16V320c0-17.7 14.3-32 32-32s32 14.3 32 32V432c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V112z"
+					/>
+					<path
+						className={className_Path1}
+						d="M288 32c0-17.7 14.3-32 32-32H480c17.7 0 32 14.3 32 32V192c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3L246.6 310.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L402.7 64H320c-17.7 0-32-14.3-32-32z"
+					/>
+				</>
+			);
 		case "cloud-binary":
 			return (
 				<>
@@ -220,6 +247,61 @@ const SvgPathLib: React.FC<SvgPathLibProps> = ({ type, className_Path1, classNam
 					<path
 						className={className_Path1}
 						d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm16-280v32c0 22.1 17.9 40 40 40h16c22.1 0 40-17.9 40-40V200c0-22.1-17.9-40-40-40H200c-22.1 0-40 17.9-40 40zm40-8h16c4.4 0 8 3.6 8 8v32c0 4.4-3.6 8-8 8H200c-4.4 0-8-3.6-8-8V200c0-4.4 3.6-8 8-8zm88-16c0 8.8 7.2 16 16 16v64c0 8.8 7.2 16 16 16s16-7.2 16-16V176c0-8.8-7.2-16-16-16H304c-8.8 0-16 7.2-16 16zm136-16c-22.1 0-40 17.9-40 40v32c0 22.1 17.9 40 40 40h16c22.1 0 40-17.9 40-40V200c0-22.1-17.9-40-40-40H424zm-8 40c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v32c0 4.4-3.6 8-8 8H424c-4.4 0-8-3.6-8-8V200zM176 320c0 8.8 7.2 16 16 16v64c0 8.8 7.2 16 16 16s16-7.2 16-16V320c0-8.8-7.2-16-16-16H192c-8.8 0-16 7.2-16 16zm96 24v32c0 22.1 17.9 40 40 40h16c22.1 0 40-17.9 40-40V344c0-22.1-17.9-40-40-40H312c-22.1 0-40 17.9-40 40zm40-8h16c4.4 0 8 3.6 8 8v32c0 4.4-3.6 8-8 8H312c-4.4 0-8-3.6-8-8V344c0-4.4 3.6-8 8-8zm104-32c-8.8 0-16 7.2-16 16s7.2 16 16 16v64c0 8.8 7.2 16 16 16s16-7.2 16-16V320c0-8.8-7.2-16-16-16H416z"
+					/>
+				</>
+			);
+		case "screwdriver-wrench":
+			return (
+				<>
+					<path
+						className={className_Path2}
+						d="M168.4 247.6L19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7zM429 274.5c49-23 83-72.8 83-130.5c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7H352c-8.8 0-16-7.2-16-16V102.6c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144c0 .3 0 .5 0 .8l85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5zM80 408a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"
+					/>
+					<path
+						className={className_Path1}
+						d="M47 7c8.5-8.5 22-9.4 31.6-2.1l104 80c5.9 4.5 9.4 11.6 9.4 19v54.1l109 109c29-14.7 65.4-10 89.6 14.3l112 112c12.5 12.5 12.5 32.8 0 45.3l-64 64c-12.5 12.5-32.8 12.5-45.3 0l-112-112c-24.2-24.2-29-60.6-14.3-89.6l-109-109H104c-7.5 0-14.5-3.5-19-9.4L5 78.6C-2.4 69.1-1.5 55.6 7 47L47 7z"
+					/>
+				</>
+			);
+		case "person-through-window":
+			// viewBox="0 0 512 512"
+			return (
+				<>
+					<path
+						className={className_Path2}
+						d="M352 73.8l0-9.8H288l0 9.8c0 39-23.7 74-59.9 88.4C167.6 186.5 128 245 128 310.2l0 73.8c0 17.7 14.3 32 32 32s32-14.3 32-32l0-73.8c0-10.2 1.6-20.1 4.7-29.5L341.4 497.8c9.8 14.7 29.7 18.7 44.4 8.9s18.7-29.7 8.9-44.4L310.5 336l74.6 0 40 48h83.3l-3.7-4.5-75.2-90.2c-9.1-10.9-22.6-17.3-36.9-17.3l-71.1 0-41-63.1c-.3-.5-.6-1-1-1.4c44.7-29 72.5-79 72.5-133.6zM192 128a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z"
+					/>
+					<path
+						className={className_Path1}
+						d="M64 64V384h64c0 17.7 14.3 32 32 32s32-14.3 32-32h73.5l42.7 64H48c-26.5 0-48-21.5-48-48V48C0 21.5 21.5 0 48 0H592c26.5 0 48 21.5 48 48V400c0 26.5-21.5 48-48 48H385.1l-42.7-64H576V64L352 64l-64 0L64 64z"
+					/>
+				</>
+			);
+		case "puzzle":
+			// viewBox="0 0 640 512"
+			return (
+				<>
+					<path
+						className={className_Path2}
+						d="M320 0H448c35.3 0 64 28.7 64 64V192c0 8.8-7.2 16-16 16H444c-6.6 0-12 5.4-12 12v4c0 17.7-14.3 32-32 32s-32-14.3-32-32v-4c0-6.6-5.4-12-12-12l-36 0c-8.8 0-16-7.2-16-16V160c0-8.8 7.2-16 16-16h16c17.7 0 32-14.3 32-32s-14.3-32-32-32H320c-8.8 0-16-7.2-16-16V16c0-8.8 7.2-16 16-16zM224 448v64H64c-35.3 0-64-28.7-64-64V288H64c8.8 0 16-7.2 16-16V256c0-17.7 14.3-32 32-32s32 14.3 32 32v16c0 8.8 7.2 16 16 16h64v64c0 8.8-7.2 16-16 16H192c-17.7 0-32 14.3-32 32s14.3 32 32 32h16c8.8 0 16 7.2 16 16z"
+					/>
+					<path
+						className={className_Path1}
+						d="M0 288H64c8.8 0 16-7.2 16-16V256c0-17.7 14.3-32 32-32s32 14.3 32 32v16c0 8.8 7.2 16 16 16h64V220c0-6.6 5.4-12 12-12h4c17.7 0 32-14.3 32-32s-14.3-32-32-32h-4c-6.6 0-12-5.4-12-12V80c0-8.8-7.2-16-16-16H64C28.7 64 0 92.7 0 128V288zm224 0v64c0 8.8-7.2 16-16 16H192c-17.7 0-32 14.3-32 32s14.3 32 32 32h16c8.8 0 16 7.2 16 16v64H384c35.3 0 64-28.7 64-64V304c0-8.8-7.2-16-16-16H384c-8.8 0-16 7.2-16 16v16c0 17.7-14.3 32-32 32s-32-14.3-32-32V304c0-8.8-7.2-16-16-16H224z"
+					/>
+				</>
+			);
+		case "box-circle-check":
+			// viewBox="0 0 576 512"
+			return (
+				<>
+					<path
+						className={className_Path2}
+						d="M50.7 58.5L0 160H208V32H93.7C75.5 32 58.9 42.3 50.7 58.5zM240 160H416h32L397.3 58.5C389.1 42.3 372.5 32 354.3 32H240V160zm176 32H0V416c0 35.3 28.7 64 64 64H296.2C271.1 449.6 256 410.5 256 368c0-91.8 70.3-167.2 160-175.3V192z"
+					/>
+					<path
+						className={className_Path1}
+						d="M432 512a144 144 0 1 0 0-288 144 144 0 1 0 0 288zm67.3-164.7l-72 72c-6.2 6.2-16.4 6.2-22.6 0l-40-40c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0L416 385.4l60.7-60.7c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"
 					/>
 				</>
 			);
@@ -813,6 +895,90 @@ const SvgPathLib: React.FC<SvgPathLibProps> = ({ type, className_Path1, classNam
 					/>
 				</>
 			);
+		case "globe-pointer":
+			// viewBox="0 0 512 512";
+			return (
+				<>
+					<path
+						className={className_Path2}
+						d="M352 256c0 22.2-1.2 43.6-3.3 64H281.8l12.6-42.8c10.7-36.4-23.1-70.3-59.6-59.6l-74.6 21.9c.4-16.3 1.5-32.2 3.1-47.5H348.7c2.2 20.4 3.3 41.8 3.3 64zM20.4 280.6c-7.1 2.1-13.1 5.5-18.1 9.9C.8 279.2 0 267.7 0 256c0-22.1 2.8-43.5 8.1-64H131.2c-1.9 18.4-2.9 37.4-3.1 57L20.4 280.6zM231.4 491.6L272.4 352h71.9c-6.1 36.4-15.5 68.6-27 94.6c-10.5 23.6-22.2 40.7-33.5 51.5C272.6 508.8 263.3 512 256 512c-7.2 0-16.3-3.1-27.3-13.4c1-2.2 1.9-4.6 2.7-7.1zM380.8 192H503.9c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64H380.8c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32H376.7c-10-63.9-29.8-117.4-55.3-151.6c78.3 20.7 142 77.5 171.9 151.6zm-325.7 0c6.1-36.4 15.5-68.6 27-94.7c10.5-23.6 22.2-40.7 33.5-51.5C239.4 3.2 248.7 0 256 0s16.6 3.2 27.8 13.8c11.3 10.8 23 27.9 33.5 51.5c11.6 26 20.9 58.2 27 94.7H167.7zm-32.4 0H18.6C48.6 85.9 112.2 29.1 190.6 8.4C165.1 42.6 145.3 96.1 135.3 160zM493.4 352c-30 74.1-93.6 130.9-171.9 151.6c25.5-34.2 45.2-87.7 55.3-151.6H493.4z"
+					/>
+					<path
+						className={className_Path1}
+						d="M243.9 248.3L39 308.5c-13.9 4.1-15.6 23.2-2.6 29.7l57.3 28.7c1.3 .7 2.6 1.5 3.7 2.5l-88 88c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l88-88c1 1.1 1.9 2.3 2.5 3.7l28.7 57.3c6.5 13 25.6 11.3 29.7-2.6l60.2-204.8c3.6-12.1-7.7-23.4-19.9-19.9z"
+					/>
+				</>
+			);
+		case "share":
+			// viewBox="0 0 512 512";
+			return (
+				<>
+					<path
+						className={className_Path2}
+						d="M288 288V128H176C78.8 128 0 206.8 0 304C0 417.3 81.5 467.9 100.2 478.1c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-7.5-4.3-14.4-9.8-19.5C108.8 431.9 96 414.4 96 384c0-53 43-96 96-96h96z"
+					/>
+					<path
+						className={className_Path1}
+						d="M288 64c0-12.6 7.4-24.1 19-29.2s25-3 34.4 5.4l160 144c6.7 6.1 10.6 14.7 10.6 23.8s-3.8 17.7-10.6 23.8l-160 144c-9.4 8.5-22.9 10.6-34.4 5.4s-19-16.6-19-29.2V64z"
+					/>
+				</>
+			);
+		case "browser":
+			// viewBox="0 0 512 512";
+			return (
+				<>
+					<path
+						className={className_Path2}
+						d="M96 96a32 32 0 1 0 0 64 32 32 0 1 0 0-64zM448 480c35.3 0 64-28.7 64-64V224L0 224V416c0 35.3 28.7 64 64 64l384 0z"
+					/>
+					<path
+						className={className_Path1}
+						d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V224H0V96zm64 32a32 32 0 1 0 64 0 32 32 0 1 0 -64 0zm120-24c-13.3 0-24 10.7-24 24s10.7 24 24 24H424c13.3 0 24-10.7 24-24s-10.7-24-24-24H184z"
+					/>
+				</>
+			);
+		case "dice-d6":
+			// viewBox="0 0 512 512";
+			return (
+				<>
+					<path
+						className={className_Path2}
+						d="M247 10.3c-14.3-7.8-31.6-7.8-46 0L25.7 106c-5.1 2.8-8.3 8.2-8.3 14s3.2 11.2 8.3 14L216.3 238c4.8 2.6 10.5 2.6 15.3 0L422.3 134c5.1-2.8 8.3-8.2 8.3-14s-3.2-11.2-8.3-14L247 10.3z"
+					/>
+					<path
+						className={className_Path1}
+						d="M7.8 170.2c4.9-2.9 10.9-3 15.8-.3l176 96c5.1 2.8 8.3 8.2 8.3 14V496c0 5.6-3 10.9-7.8 13.8s-10.9 3-15.8 .3L25 423.1C9.6 414.7 0 398.6 0 381V184c0-5.6 3-10.9 7.8-13.8zm432.3 0c4.9 2.9 7.8 8.1 7.8 13.8V381c0 17.6-9.6 33.7-25 42.1L263.7 510c-5 2.7-11 2.6-15.8-.3s-7.8-8.1-7.8-13.8V280c0-5.9 3.2-11.2 8.3-14l176-96c5-2.7 11-2.6 15.8 .3z"
+					/>
+				</>
+			);
+		case "shield-checked":
+			// viewBox="0 0 512 512";
+			return (
+				<>
+					<path
+						className={className_Path2}
+						d="M269.4 2.9C265.2 1 260.7 0 256 0s-9.2 1-13.4 2.9L54.3 82.8c-22 9.3-38.4 31-38.3 57.2c.5 99.2 41.3 280.7 213.6 363.2c16.7 8 36.1 8 52.8 0C454.7 420.7 495.5 239.2 496 140c.1-26.2-16.3-47.9-38.3-57.2L269.4 2.9zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
+					/>
+					<path
+						className={className_Path1}
+						d="M369 175c9.4 9.4 9.4 24.6 0 33.9L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0z"
+					/>
+				</>
+			);
+		case "user-shield":
+			// viewBox="0 0 512 512";
+			return (
+				<>
+					<path
+						className={className_Path2}
+						d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4c17.6 0 34.6 2.6 50.7 7.3c3.3 59.2 26.8 145.1 103.1 200.2c-1.7 .3-3.5 .5-5.3 .5H29.7C13.3 512 0 498.7 0 482.3z"
+					/>
+					<path
+						className={className_Path1}
+						d="M504.9 225.7c-5.7-2.3-12.1-2.3-17.8 0l-120 48C358 277.4 352 286.2 352 296c0 63.3 25.9 168.8 134.8 214.2c5.9 2.5 12.6 2.5 18.5 0C614.1 464.8 640 359.3 640 296c0-9.8-6-18.6-15.1-22.3l-120-48zm-8.9 236V273.8L591.4 312c-3.9 50.7-27.2 116.7-95.4 149.7z"
+					/>
+				</>
+			);
 		case "magnifying-glass-play":
 			// viewBox="0 0 512 512";
 			return (
@@ -824,6 +990,20 @@ const SvgPathLib: React.FC<SvgPathLibProps> = ({ type, className_Path1, classNam
 					<path
 						className={className_Path1}
 						d="M161.8 130.1c-5 2.9-8 8.1-8 13.9V272c0 5.7 3.1 11 8 13.9s11.1 2.8 16 0l110.2-64c4.9-2.9 8-8.1 8-13.8s-3-11-8-13.8l-110.2-64c-4.9-2.9-11.1-2.9-16 0zM330.7 376L457.4 502.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L376 330.7C363.3 348 348 363.3 330.7 376z"
+					/>
+				</>
+			);
+		case "pen-nib":
+			// viewBox="0 0 512 512";
+			return (
+				<>
+					<path
+						className={className_Path2}
+						d="M293.9 92.8L419.2 218.1l-4.5 15.1L371.4 377.3c-6 19.9-21.2 35.7-41 42.3L66.2 508.2c-11.3 3.8-23.9 1-32.4-7.4L187.3 347.3c6.3 3 13.3 4.7 20.7 4.7c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48c0 7.4 1.7 14.4 4.7 20.7L11.1 478.3C2.8 469.7 0 457.2 3.8 445.8L92.4 181.5c6.6-19.7 22.4-35 42.3-41L278.8 97.4l15.1-4.5 0 0z"
+					/>
+					<path
+						className={className_Path1}
+						d="M368.4 18.3c21.9-21.9 57.3-21.9 79.2 0l46.1 46.1c21.9 21.9 21.9 57.3 0 79.2l-71 71-3.4 3.4 0 0L293.9 92.8l0 0 0 0 3.4-3.4 71-71z"
 					/>
 				</>
 			);

@@ -23,7 +23,8 @@ import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import DisplayResourceUrlAsIcon from "../common/DisplayResourceUrlAsIcon";
+import DisplayResourceUrlAsIcon from "@/components/fragments/DisplayResourceUrlAsIcon";
+
 import DeleteProject from "./Actions/Delete";
 import UpdateProject from "./Actions/Update";
 
@@ -50,6 +51,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 }) => {
 	const tTime = msgs("Projects_Form");
 	const tCommon = msgs("Projects");
+	const tCard = msgs("Projects_CardPublic");
 
 	const { dateFrom, dateTo } = project;
 	const dtFrom = new Date(dateFrom);
@@ -109,18 +111,41 @@ const ProjectAdminCard: React.FC<Props> = ({
 
 					<div className={styles.linksProjectPost}>
 						<div className={styles.iconWrapper}>
-							<DisplayResourceUrlAsIcon size={23} type="home" url={project.urlHome} />
+							<DisplayResourceUrlAsIcon
+								className="grayscale-[100%] hover:grayscale-[0%]"
+								height={22}
+								iconType="globe-pointer"
+								icon_className_Path1="fill-accent-secondary"
+								icon_className_Path2="fill-accent"
+								label={tCard("tooltip_link", { linkType: "Homepage" })}
+								url={project.urlHome}
+								width={22}
+							/>
 						</div>
 						<div className={styles.iconWrapper}>
-							<DisplayResourceUrlAsIcon size={28} type="repo" url={project.urlRepo} />
+							<DisplayResourceUrlAsIcon
+								className="grayscale-[100%] hover:grayscale-[0%] mr-0.5"
+								height={23}
+								iconType="dice-d6"
+								icon_className_Path1="fill-accent-secondary"
+								icon_className_Path2="fill-accent"
+								label={tCard("tooltip_link", { linkType: "Repository" })}
+								url={project.urlRepo}
+								width={24}
+							/>
 						</div>
 					</div>
 				</div>
 				<div className={styles.header}>
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							<DeleteProject project={project} />
-							<VisibilitySwitchDisplay disabled checked={project.visibility} className="mt-0.5" />
+							<Gallery
+								className="mt-0.5"
+								entry={project}
+								gallery={gallery}
+								height={24}
+								width={32}
+							/>
 							<FileAddressHandle
 								address={
 									project.html.attachment?.metadata?.html?.fileUri ||
@@ -128,7 +153,8 @@ const ProjectAdminCard: React.FC<Props> = ({
 									""
 								}
 							/>
-							<Gallery entry={project} gallery={gallery} />
+							<DeleteProject project={project} />
+							<VisibilitySwitchDisplay disabled checked={project.visibility} className="mt-0.5" />
 							<UpdateProject
 								fileList={fileList}
 								iconList={iconList}

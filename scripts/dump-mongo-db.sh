@@ -1,7 +1,7 @@
 #!/bin/bash
 # run it fron the root of the project: tmp/dump-mongo-db.sh .env.local
 
-. "$1" # load .env provided as param
+if [ -f "$1" ]; then . "$1"; fi
 
 source_db_cs="${MONGODB_URI}"
 destin_db_cs="${MONGODB_URI_LOCAL}"

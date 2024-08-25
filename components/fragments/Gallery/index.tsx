@@ -2,7 +2,6 @@
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 
-import ButtonIcon, { ButtonIconProps } from "@/components/fragments/ButtonIcon";
 import {
 	Dialog,
 	DialogContent,
@@ -13,15 +12,13 @@ import {
 } from "@/components/ui/dialog";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { FileHtmlProps } from "@/interfaces/File";
+import { LabEntryData } from "@/interfaces/LabEntry";
+import { PostData } from "@/interfaces/Post";
 import { ProjectData } from "@/interfaces/Project";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
-import { useAppContext } from "@/contexts/AppContext";
-
-import { PostData } from "@/interfaces/Post";
-
-import { IconEmbSvgPathType } from "../IconEmbedSvg";
+import IconEmbedSvg from "../IconEmbedSvg";
 import Loading from "../Loading";
 // import GalleryCarousel from "./GalleryCarousel";
 
@@ -32,43 +29,44 @@ const GalleryCarousel = dynamic(() => import("./GalleryCarousel"), {
 
 interface Props {
 	className?: string;
-	entry: AboutEntryData | ProjectData | PostData;
+	entry: AboutEntryData | ProjectData | PostData | LabEntryData;
 	gallery: FileHtmlProps[] | undefined;
-	dialogTrigger_buttonIconProps?: ButtonIconProps;
+	height?: number;
+	width?: number;
 }
 
-const Gallery: React.FC<Props> = ({ className, entry, gallery, dialogTrigger_buttonIconProps }) => {
+const Gallery: React.FC<Props> = ({ className, entry, gallery, height = 23, width = 30 }) => {
 	const t = msgs("Gallery");
 
-	const { session } = useAppContext();
 	const [isOpen, setIsOpen] = useState(false);
-
-	if (!gallery?.length && !session) {
-		return null;
-	}
-
-	const buttonIconPropsFinal = {
-		className: "px-0.5 bg-transparent icon_accent_secondary",
-		disabled: !gallery?.length,
-		height: 22,
-		type: "folder-image" as IconEmbSvgPathType,
-		width: 26,
-		onClick: () => setIsOpen(true),
-		...dialogTrigger_buttonIconProps,
-	};
 
 	return (
 		<Dialog open={isOpen} onOpenChange={setIsOpen}>
-			<DialogTrigger disabled={!gallery?.length}>
-				<ButtonIcon {...buttonIconPropsFinal} />
+			<DialogTrigger
+				className={cn(gallery?.length === 0 && "opacity-40 grayscale-[100%]", className)}
+				disabled={!gallery?.length}
+				id="gallery-open-button"
+				onClick={() => setIsOpen(false)}
+			>
+				<IconEmbedSvg
+					className={"grayscale-[100%] hover:grayscale-[0%]"}
+					className_Path1="fill-accent-secondary"
+					className_Path2="fill-accent"
+					cursor={gallery?.length === 0 ? "not-allowed" : "pointer"}
+					height={height}
+					type={"box-circle-check"}
+					width={width}
+				/>
 			</DialogTrigger>
 			<DialogContent
 				className={cn(
-					"sm:max-w-full md:!max-w-fit sa:max-w-lg sa:max-2xl:min-w-[calc(100vw-6rem)] 2xl:w-[1420px] 2xl:min-w-[1420px] sm:max-h-full sm:rounded-none h-full sa:max-h-[calc((var(--vh,1vh)_*_90))] sa:rounded-lg max-sa-min-w-[320px] min-h-[calc(100vh-4rem)] flex flex-col justify-normal gap-0 bg-background sa:border-border overflow-x-scroll 6xs:overflow-x-hidden w-full",
-					className
+					"sm:max-w-full md:!max-w-fit sa:max-w-lg sa:max-2xl:min-w-[calc(100vw-6rem)] 2xl:w-[1420px] 2xl:min-w-[1420px] sm:max-h-full sm:rounded-none h-full sa:max-h-[calc((var(--vh,1vh)_*_90))] sa:rounded-lg max-sa-min-w-[320px] min-h-[calc(100vh-4rem)] flex flex-col justify-normal gap-0 bg-background sa:border-border overflow-x-scroll 6xs:overflow-x-hidden w-full"
 				)}
 				closeOnOverlayClick={false}
 			>
+				<DialogDescription className="visually-hidden h-0 w-0 overflow-hidden opacity-0 absolute left-0 top-0">
+					{t("dialog_title", { title: entry.title })}
+				</DialogDescription>
 				<DialogHeader>
 					<div className="flex flex-col gap-1">
 						<DialogTitle className="leading-normal line-clamp-1">
@@ -91,17 +89,3 @@ const Gallery: React.FC<Props> = ({ className, entry, gallery, dialogTrigger_but
 };
 
 export default Gallery;
-
-export const dialogTrigger_Type2 = {
-	className: "p-0 bg-transparent hover:bg-transparent m-0 mt-0.5 fill-inherit grayscale-0",
-	widthOffset: 0,
-	heightOffset: 0,
-	width: 15,
-	height: 18,
-	iconEmbedSvgProps: {
-		className_Path1: "fill-card/60",
-		className_Path2: "fill-card ",
-		viewBoxHeight: 512,
-		viewBoxWidth: 380,
-	},
-};

@@ -6,7 +6,7 @@ import { getFilesR2 } from "@/components/files-cloudflare/_files.actions";
 import { tagDocuments_toData } from "./process-data-tags";
 import { processMarkdown } from "./process-markdown";
 
-export async function aboutDocuments_toData({
+export async function aboutEntryDocuments_toData({
 	entries,
 	hyphen,
 	typeList,
@@ -55,7 +55,7 @@ export async function aboutDocuments_toData({
 		}));
 }
 
-export function aboutFormData_toNewEntryData({
+export function aboutEntryFormData_toNewEntryData({
 	data,
 	user_id,
 }: {

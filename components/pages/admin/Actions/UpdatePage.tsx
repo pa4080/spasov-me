@@ -4,7 +4,6 @@ import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
 	Dialog,
@@ -21,6 +20,8 @@ import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
 import { FileListItem } from "@/interfaces/File";
+
+import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 
 import { updatePageCard } from "../../_pages.actions";
 import PageForm from "../Form";
@@ -68,13 +69,14 @@ const UpdatePage: React.FC<Props> = ({ className, page, icons, fileList }) => {
 	return (
 		<div className={className}>
 			<Dialog open={isOpen} onOpenChange={setIsOpen}>
-				<DialogTrigger disabled={submitting}>
-					<ButtonIcon
-						className="pl-1 bg-transparent icon_accent_secondary"
-						height={22}
-						type="brush"
-						width={22}
-						onClick={() => setIsOpen(true)}
+				<DialogTrigger disabled={submitting} onClick={() => setIsOpen(true)}>
+					<IconEmbedSvg
+						className="grayscale-[100%] hover:grayscale-[0%] mt-2"
+						className_Path1="fill-accent-secondary"
+						className_Path2="fill-accent"
+						height={23}
+						type={"screwdriver-wrench"}
+						width={24}
 					/>
 				</DialogTrigger>
 				<DialogContent

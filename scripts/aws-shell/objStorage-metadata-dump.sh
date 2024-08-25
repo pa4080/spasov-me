@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# doppler run -- scripts/objStorage-r2-minio-metadata-dump.sh
+# doppler run -- scripts/aws-shell/objStorage-metadata-dump.sh
 
 DUMP_FILE="$(dirname "$0")/object-storage-metadata-$(date +%Y-%m-%d-%H-%M).json"
 S3_DUMP_DIR=$NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_METADATA

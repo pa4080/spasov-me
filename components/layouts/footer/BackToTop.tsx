@@ -2,18 +2,23 @@
 
 import React, { useEffect, useRef } from "react";
 
+import { Tooltip } from "@radix-ui/react-tooltip";
+
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import { TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { cn } from "@/lib/cn-utils";
+import { msgs } from "@/messages";
 
 interface Props {
 	className?: string;
 }
 
 const BackToTop: React.FC<Props> = ({ className }) => {
+	const t = msgs("Footer");
 	const { isAboveSm } = useBreakpoint("sm");
 	const distanceFromTop = 200;
-	const btnRef = useRef<HTMLDivElement>(null);
+	const btnRef = useRef<HTMLButtonElement>(null);
 
 	useEffect(() => {
 		const btn = btnRef.current;
@@ -57,36 +62,48 @@ const BackToTop: React.FC<Props> = ({ className }) => {
 	}, []);
 
 	return (
-		<div
-			ref={btnRef}
-			className={cn(
-				// "ml:right-[calc(50vw-448px)]",
-				"fixed -bottom-0.5 sm:bottom-0 right-1 sm:right-2 group flex items-center justify-center py-2 cursor-pointer rounded-md border border-transparent sm:hover:border-secondary/80 select-none transition-transform duration-300 w-8 sm:w-10 max-sm:hover:bg-primary/70",
-				className
-			)}
-			style={{
-				transform: "translateY(42px)",
-				zIndex: 1000,
-			}}
-			onClick={(e) => {
-				e.stopPropagation();
+		<TooltipProvider>
+			<Tooltip>
+				<TooltipTrigger
+					ref={btnRef}
+					className={cn(
+						// "ml:right-[calc(50vw-448px)]",
+						"fixed -bottom-0.5 sm:bottom-0 right-1 sm:right-2 group flex items-center justify-center cursor-pointer rounded-md border border-transparent sm:hover:border-secondary/80 select-none transition-all duration-300 w-8 sm:w-10 max-sm:hover:bg-primary/70",
+						className
+					)}
+					style={{
+						transform: "translateY(42px)",
+						zIndex: 15,
+					}}
+					onClick={(e) => {
+						e.stopPropagation();
 
-				const target = document.querySelector("#scroll-to-top");
-				const navbar = document.querySelector("#top-navbar");
+						const target = document.querySelector("#scroll-to-top");
+						const navbar = document.querySelector("#top-navbar");
 
-				if (target && isAboveSm) {
-					target.scrollIntoView({ behavior: "smooth" });
-				} else if (navbar) {
-					navbar.scrollIntoView({ behavior: "smooth" });
-				}
-			}}
-		>
-			<IconEmbedSvg className="-rotate-45 group-hover:hidden" type="rocket" />
-			<IconEmbedSvg
-				className="-rotate-45 hidden group-hover:block group-active:block"
-				type="rocket-launch"
-			/>
-		</div>
+						if (target && isAboveSm) {
+							target.scrollIntoView({ behavior: "smooth" });
+						} else if (navbar) {
+							navbar.scrollIntoView({ behavior: "smooth" });
+						}
+					}}
+				>
+					<div className="relative w-10 h-10">
+						<IconEmbedSvg
+							className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-45 opacity-1 group-hover:opacity-0 transition-opacity group-hover:duration-500 duration-300 z-2"
+							type="rocket"
+						/>
+						<IconEmbedSvg
+							className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-45 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity group-hover:duration-300 duration-500 z-1"
+							type="rocket-launch"
+						/>
+					</div>
+				</TooltipTrigger>
+				<TooltipContent className="border-2 border-muted-secondary dark:border-primary">
+					{t("btn_backToTop")}
+				</TooltipContent>
+			</Tooltip>
+		</TooltipProvider>
 	);
 };
 

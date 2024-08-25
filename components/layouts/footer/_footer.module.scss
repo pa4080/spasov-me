@@ -1,4 +1,6 @@
 .footer {
+	@apply bg-background;
+
 	box-shadow: 0 -2px 6px 3px theme("colors.background");
 	z-index: 15;
 }

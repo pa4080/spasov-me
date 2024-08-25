@@ -23,7 +23,8 @@ import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import DisplayResourceUrlAsIcon from "../common/DisplayResourceUrlAsIcon";
+import DisplayResourceUrlAsIcon from "@/components/fragments/DisplayResourceUrlAsIcon";
+
 import DeletePost from "./Actions/Delete";
 import UpdatePost from "./Actions/Update";
 
@@ -50,6 +51,7 @@ const PostAdminCard: React.FC<Props> = ({
 }) => {
 	// const tTime = msgs("Posts_Form");
 	const tCommon = msgs("Posts");
+	const tCard = msgs("Posts_CardPublic");
 
 	const { dateFrom, dateTo } = post;
 	const dtFrom = new Date(dateFrom);
@@ -92,31 +94,37 @@ const PostAdminCard: React.FC<Props> = ({
 						</div>
 					)}
 
-					<div className={styles.linksProjectPost}>
-						{["url1", "url2"].map((key) => {
-							if (!post[key as keyof typeof post]) {
-								return null;
-							}
-
-							return (
-								<div key={key} className={styles.iconWrapper}>
-									<DisplayResourceUrlAsIcon
-										height={18}
-										icon_className_Path2="fill-accent"
-										type="URL 1"
-										url={post[key as "url1" | "url2"]}
-										width={26}
-									/>
-								</div>
-							);
-						})}
+					<div className={`${styles.linksProjectPost} scale-90 origin-left`}>
+						<div className={styles.iconWrapper}>
+							<DisplayResourceUrlAsIcon
+								className="grayscale-[100%] hover:grayscale-[0%]"
+								height={21}
+								iconType="arrow-up-right-from-square"
+								icon_className_Path1="fill-accent-secondary"
+								icon_className_Path2="fill-accent"
+								label={tCard("tooltip_link", { linkType: "Link 1" })}
+								url={post.url1}
+								width={21}
+							/>
+						</div>
+						<div className={styles.iconWrapper}>
+							<DisplayResourceUrlAsIcon
+								className="grayscale-[100%] hover:grayscale-[0%]"
+								height={21}
+								iconType="arrow-up-right-from-square"
+								icon_className_Path1="fill-accent-secondary"
+								icon_className_Path2="fill-accent"
+								label={tCard("tooltip_link", { linkType: "Link 2" })}
+								url={post.url2}
+								width={21}
+							/>
+						</div>
 					</div>
 				</div>
 				<div className={styles.header}>
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							<DeletePost post={post} />
-							<VisibilitySwitchDisplay disabled checked={post.visibility} className="mt-0.5" />
+							<Gallery className="mt-0.5" entry={post} gallery={gallery} height={24} width={32} />
 							<FileAddressHandle
 								address={
 									post.html.attachment?.metadata?.html?.fileUri ||
@@ -124,7 +132,8 @@ const PostAdminCard: React.FC<Props> = ({
 									""
 								}
 							/>
-							<Gallery entry={post} gallery={gallery} />
+							<DeletePost post={post} />
+							<VisibilitySwitchDisplay disabled checked={post.visibility} className="mt-1" />
 							<UpdatePost
 								fileList={fileList}
 								iconList={iconList}

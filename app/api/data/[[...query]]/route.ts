@@ -1,5 +1,6 @@
 /**
- * NOTE: This API is deprecated. It doesn't posse all features
+ * NOTE: This API is deprecated!!!
+ * 			 It doesn't posse all features
  *       implemented in "@/components/data/_<data>.actions.ts".
  *       I.e. linking the files to "about", "posts", "projects", etc.
  *
