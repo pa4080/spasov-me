@@ -881,6 +881,10 @@
 		"title_application": "Application",
 		"title_database": "Database",
 
+		"title_by_property_own": "Own resources",
+		"title_by_property_client": "Client's resources",
+		"title_by_property_shared": "Shared resources",
+
 		"btnMore": "Read more",
 		"btnLess": "Show less",
 		"btnAll": "Show all"
@@ -920,7 +924,15 @@
 		"area_label_card_link": "Link to the Lab entry's page",
 
 		"tooltip_home_link": "Link to the Lab entry's { linkType }",
-		"tooltip_home_link_private": "This resource is private."
+		"tooltip_home_link_private": "This resource is private.",
+
+		"label_by_property_own": "Own",
+		"label_by_property_client": "Client",
+		"label_by_property_shared": "Shared",
+
+		"label_tooltip_by_property_own": "Own resources",
+		"label_tooltip_by_property_client": "Client's resources",
+		"label_tooltip_by_property_shared": "Shared resources"
 	},
 	"Search": {
 		"title": "Search the site",

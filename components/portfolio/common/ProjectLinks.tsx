@@ -6,7 +6,6 @@ import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
-import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
 import DisplayResourceUrlAsIcon from "@/components/fragments/DisplayResourceUrlAsIcon";
@@ -51,17 +50,8 @@ const ProjectLinks: React.FC<Props> = ({ project, fileList, iconList, iconsMap, 
 			</div>
 
 			<div className={iconWrapper}>
-				<TooltipWrapper
-					className="w-full h-full flex items-center fill-inherit"
-					tooltipText={t("tooltip_gallery")}
-				>
-					<Gallery entry={project} gallery={gallery} />
-				</TooltipWrapper>
-			</div>
-
-			<div className={iconWrapper}>
 				<DisplayResourceUrlAsIcon
-					className="grayscale-[100%] hover:grayscale-[0%] mr-0.5"
+					className="grayscale-[100%] hover:grayscale-[0%] ml-1"
 					height={23}
 					iconType="dice-d6"
 					icon_className_Path1="fill-accent-secondary"
@@ -72,9 +62,18 @@ const ProjectLinks: React.FC<Props> = ({ project, fileList, iconList, iconsMap, 
 				/>
 			</div>
 
-			<div className={cn(iconWrapper, "overflow-hidden -ml-1")}>
+			<div className={iconWrapper}>
 				<TooltipWrapper
 					className="w-full h-full flex items-center fill-inherit"
+					tooltipText={t("tooltip_gallery")}
+				>
+					<Gallery entry={project} gallery={gallery} />
+				</TooltipWrapper>
+			</div>
+
+			<div className={iconWrapper}>
+				<TooltipWrapper
+					className="w-full h-full flex items-center fill-inherit ml-0.5"
 					tooltipText={t("tooltip_update")}
 				>
 					<UpdateProject

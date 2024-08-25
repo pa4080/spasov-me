@@ -7,7 +7,7 @@ import { labEntryPropertyTuple } from "@/interfaces/_common-data-types";
 import { getIconsMap } from "@/components/files-cloudflare/_files.actions";
 
 import { getLabEntries } from "../_lab.actions";
-import Section from "./Section";
+import TimeLine from "./TimeLine";
 
 interface Props {
 	className?: string;
@@ -28,7 +28,7 @@ const LabPublic: React.FC<Props> = async ({ className }) => {
 	return (
 		<div className={cn("space-y-20", className)}>
 			{labEntryPropertyTuple.map((type) => (
-				<Section key={type} {...data} labEntryPropertyType={type} />
+				<TimeLine key={type} {...data} labEntryPropertyType={type} />
 			))}
 		</div>
 	);

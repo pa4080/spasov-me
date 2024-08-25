@@ -9,11 +9,13 @@ import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 
+import LabEntriesPublic_EmbedList from "@/components/lab/public/LabEntriesPublic_EmbedList";
+
 import ProjectPublic_Card from "./Card";
 
 interface Props {
 	className?: string;
-	type?: ProjectType;
+	projectType?: ProjectType;
 	projects: ProjectData[] | null;
 	fileList: FileListItem[] | null;
 	iconList: FileListItem[] | null;
@@ -44,6 +46,7 @@ const TimeLine: React.FC<Props> = ({ className, projects, fileList, iconList, ic
 						tags={tags}
 					/>
 				))}
+				<LabEntriesPublic_EmbedList />
 			</div>
 		</div>
 	);

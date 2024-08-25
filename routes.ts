@@ -37,7 +37,7 @@ export const Route = {
 		},
 		LAB: {
 			inFeed: false,
-			inNavbar: true,
+			inNavbar: false,
 			name: "lab",
 			uri: "/lab",
 			visible: true,

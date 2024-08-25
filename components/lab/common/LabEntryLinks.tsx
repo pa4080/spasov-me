@@ -18,7 +18,10 @@ import { Route } from "@/routes";
 
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 
+import { cn } from "@/lib/cn-utils";
+
 import UpdateLabEntry from "../admin/Actions/Update";
+import DisplayConditionally from "./DisplayConditionally";
 import DisplayConditionally_ResourceButtons from "./DisplayConditionally_ResourceButtons";
 
 interface Props {
@@ -77,7 +80,7 @@ const LabEntryLinks: React.FC<Props> = ({ labEntry, tags, fileList, iconList, ic
 
 			<div className={iconWrapper}>
 				<DisplayConditionally_ResourceButtons
-					className="grayscale-[100%] hover:grayscale-[20%] opacity-90 ml-1"
+					className="grayscale-[100%] hover:grayscale-[20%] ml-1"
 					entryUrl={labEntry.urlSource}
 					entryVisibilityType={labEntry.visibilityType}
 					height={23}
@@ -101,7 +104,7 @@ const LabEntryLinks: React.FC<Props> = ({ labEntry, tags, fileList, iconList, ic
 					</div>
 					<div className={iconWrapper}>
 						<TooltipWrapper
-							className="w-full h-full flex items-center fill-inherit"
+							className="w-full h-full flex items-center fill-inherit ml-0.5"
 							tooltipText={t("tooltip_gallery")}
 						>
 							<UpdateLabEntry
@@ -115,33 +118,38 @@ const LabEntryLinks: React.FC<Props> = ({ labEntry, tags, fileList, iconList, ic
 					</div>
 				</>
 			) : (
-				<>
-					<div className={iconWrapper}>
-						<Link href={`${Route.public.LAB.uri}/${labEntry.slug}?id=gallery-open-button`}>
-							<IconEmbedSvg
-								className={"grayscale-[100%] hover:grayscale-[0%]"}
-								className_Path1="fill-accent-secondary"
-								className_Path2="fill-accent"
-								cursor={"pointer"}
-								height={23}
-								type={"box-circle-check"}
-								width={30}
-							/>
-						</Link>
-					</div>
-					<div className={iconWrapper}>
-						<Link href={`${Route.public.LAB.uri}/${labEntry.slug}?id=lab-entry-update-button`}>
-							<IconEmbedSvg
-								className="grayscale-[100%] hover:grayscale-[0%]"
-								className_Path1="fill-accent-secondary"
-								className_Path2="fill-accent"
-								height={23}
-								type={"screwdriver-wrench"}
-								width={24}
-							/>
-						</Link>
-					</div>
-				</>
+				<DisplayConditionally>
+					<>
+						<div className={iconWrapper}>
+							<Link href={`${Route.public.LAB.uri}/${labEntry.slug}?id=gallery-open-button`}>
+								<IconEmbedSvg
+									className={cn(
+										"grayscale-[100%] hover:grayscale-[0%]",
+										gallery?.length === 0 && "opacity-40 grayscale-[100%]"
+									)}
+									className_Path1="fill-accent-secondary"
+									className_Path2="fill-accent"
+									cursor={gallery?.length === 0 ? "not-allowed" : "pointer"}
+									height={23}
+									type={"box-circle-check"}
+									width={30}
+								/>
+							</Link>
+						</div>
+						<div className={iconWrapper}>
+							<Link href={`${Route.public.LAB.uri}/${labEntry.slug}?id=lab-entry-update-button`}>
+								<IconEmbedSvg
+									className="grayscale-[100%] hover:grayscale-[0%]"
+									className_Path1="fill-accent-secondary"
+									className_Path2="fill-accent"
+									height={23}
+									type={"screwdriver-wrench"}
+									width={24}
+								/>
+							</Link>
+						</div>
+					</>
+				</DisplayConditionally>
 			)}
 		</div>
 	) : (

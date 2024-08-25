@@ -21,6 +21,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] Display gallery switch in the post form, to display the gallery navigation or not;
         Display gallery items caption switch too.
 
+- Lab entry
+  - [ ] Use mongo GridFS files
+
 - Portfolio
   - [ ] Project ADMIN link like in the Labs
 
