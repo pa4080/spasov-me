@@ -22,16 +22,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
         Display gallery items caption switch too.
 
 - Lab entry
-  - [ ] Use mongo GridFS files
   - [ ] Add to the search!
 
-- Portfolio
-  - [ ] Project ADMIN link like in the Labs
-
 - [ ] Create to do list
-
 - [ ] Allow file rename when it is not linked to a post?
-
 - Redis
   - [ ] Create event loop by using Upstash/Redis queue - object like:
 

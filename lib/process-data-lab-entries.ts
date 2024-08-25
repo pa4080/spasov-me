@@ -8,10 +8,12 @@ import {
 
 import { LabEntryData, LabEntryDocPopulated, NewLabEntryData } from "@/interfaces/LabEntry";
 
+import { getFiles_mongo } from "@/components/files-mongodb/_files.actions";
+
 import { tagDocuments_toData } from "./process-data-tags";
 import { processMarkdown } from "./process-markdown";
 
-const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
+// const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
 const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
 
 export async function labEntryDocuments_toData({
@@ -31,7 +33,7 @@ export async function labEntryDocuments_toData({
 		labEntriesFiltered = labEntries.filter((entry) => entry.visibility);
 	}
 
-	const files = await getFilesR2({ prefix: files_prefix });
+	const files = await getFiles_mongo();
 	const icons = await getFilesR2({ prefix: icons_prefix });
 
 	return labEntriesFiltered

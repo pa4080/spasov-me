@@ -19,7 +19,7 @@ import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { updateFile } from "../../_files.actions";
+import { updateFile_mongo } from "../../_files.actions";
 import { File_FormSchema } from "../Form/schema";
 // import FileForm from "../Form";
 const FileForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
@@ -40,7 +40,7 @@ const UpdateFile: React.FC<Props> = ({ className, file }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await updateFile(generateFormDataFromObject(data), file._id, [
+			const response = await updateFile_mongo(generateFormDataFromObject(data), file._id, [
 				pathname,
 				Route.admin.ABOUT,
 				Route.admin.PORTFOLIO,

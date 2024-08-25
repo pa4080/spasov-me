@@ -24,7 +24,7 @@
 		"ABOUT": "About",
 		"ABOUT_DESC": "Edit the about (CV) page",
 
-		"LAB": "Lab",
+		"LAB": "Laboratory",
 		"LAB_DESC": "Edit the laboratory entries",
 
 		"PORTFOLIO": "Portfolio",
@@ -420,6 +420,7 @@
 		"section_title_about_entry": "About",
 		"section_title_project": "Portfolio",
 		"section_title_post": "Blog posts",
+		"section_title_lab_entry": "Laboratory",
 		"btnAll": "Show all",
 		"btnLess": "Show less",
 		"btnMore": "Read more"

@@ -1,5 +1,8 @@
 "use server";
 
+// import { Redis } from "@upstash/redis";
+import { createClient } from "@vercel/kv";
+
 import { ObjectId } from "mongodb";
 
 import { FileData, FileDoc, FileListItem } from "@/interfaces/File";
@@ -15,6 +18,17 @@ import { AttachedToDocument, regexFilesAll } from "@/interfaces/_common-data-typ
 import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "../_common.actions";
 
 import { Readable } from "stream";
+
+// const redis = new Redis({
+// 	url: process.env.UPSTASH_REDIS_REST_URL,
+// 	token: process.env.UPSTASH_REDIS_REST_TOKEN,
+// });
+
+const redis = createClient({
+	url: process.env.UPSTASH_REDIS_REST_URL,
+	token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
+const MONGO_REDIS_PREFIX = "mongo_db_files";
 
 export const getFilesV1 = async (): Promise<FileData[] | null> => {
 	try {
@@ -45,7 +59,7 @@ export const getFilesV1 = async (): Promise<FileData[] | null> => {
 	}
 };
 
-export const getFiles = async ({
+export const getFiles_mongo = async ({
 	hyphen = true,
 	public: visible = false,
 }: {
@@ -53,6 +67,12 @@ export const getFiles = async ({
 	public?: boolean;
 } = {}): Promise<FileData[] | null> => {
 	try {
+		const cachedFiles = await redis.get<FileData[]>(MONGO_REDIS_PREFIX);
+
+		if (cachedFiles) {
+			return cachedFiles;
+		}
+
 		await connectToMongoDb();
 		const files = await FileGFS.find();
 
@@ -60,7 +80,16 @@ export const getFiles = async ({
 			return null;
 		}
 
-		return fileDocuments_toData({ files: files.map((file) => file.toObject()), hyphen, visible });
+		const filesProcessed = fileDocuments_toData({
+			files: files.map((file) => file.toObject()),
+			hyphen,
+			visible,
+		});
+
+		// Set the "files"/"icons" array in Redis
+		await redis.set(MONGO_REDIS_PREFIX, JSON.stringify(filesProcessed));
+
+		return filesProcessed;
 	} catch (error) {
 		console.error(error);
 
@@ -68,10 +97,10 @@ export const getFiles = async ({
 	}
 };
 
-export const getFileList = async ({ images }: { images?: boolean } = {}): Promise<
+export const getFileList_mongo = async ({ images }: { images?: boolean } = {}): Promise<
 	FileListItem[] | null
 > => {
-	const files = await getFiles();
+	const files = await getFiles_mongo();
 
 	if (!files || files?.length === 0) {
 		return null;
@@ -93,7 +122,7 @@ export const getFileList = async ({ images }: { images?: boolean } = {}): Promis
 	}));
 };
 
-export const createFile = async (data: FormData, paths: string[]): Promise<true | null> => {
+export const createFile_mongo = async (data: FormData, paths: string[]): Promise<true | null> => {
 	try {
 		const session = await getSession();
 
@@ -149,6 +178,9 @@ export const createFile = async (data: FormData, paths: string[]): Promise<true 
 				uploadStream.on("error", reject);
 			});
 
+			// Flush the cache
+			await redis.del(MONGO_REDIS_PREFIX);
+
 			return dbObject.id ? true : null;
 		} else {
 			console.error(msgs("Errors")("invalidFile"));
@@ -164,7 +196,7 @@ export const createFile = async (data: FormData, paths: string[]): Promise<true 
 	}
 };
 
-export const updateFile = async (
+export const updateFile_mongo = async (
 	data: FormData,
 	file_id: string,
 	paths: string[]
@@ -277,6 +309,9 @@ export const updateFile = async (
 				await bucket.rename(_id, documentData_new.file_name);
 			}
 
+			// Flush the cache
+			await redis.del(MONGO_REDIS_PREFIX);
+
 			return true;
 		}
 	} catch (error) {
@@ -288,7 +323,7 @@ export const updateFile = async (
 	}
 };
 
-export const deleteFile = async (file_id: string, paths: string[]): Promise<true | null> => {
+export const deleteFile_mongo = async (file_id: string, paths: string[]): Promise<true | null> => {
 	try {
 		if (!(await getSession())?.user) {
 			throw new Error(msgs("Errors")("invalidUser"));
@@ -306,6 +341,8 @@ export const deleteFile = async (file_id: string, paths: string[]): Promise<true
 
 		// Do the actual remove
 		await bucket.delete(_id);
+		// Flush the cache
+		await redis.del(MONGO_REDIS_PREFIX);
 
 		return true;
 	} catch (error) {
@@ -322,7 +359,7 @@ export const deleteFile = async (file_id: string, paths: string[]): Promise<true
  * like as "About", "Portfolio/Projects", "Blog/Posts" etc.,
  * to ADD the relevant "attachedTo" item to a File.
  */
-export const fileAttachment_add = async ({
+export const fileAttachment_add_mongo = async ({
 	documentToAttach,
 	target_file_id,
 }: {
@@ -359,6 +396,9 @@ export const fileAttachment_add = async ({
 		console.error("Unable to add attached document to a File: ", error);
 
 		return false;
+	} finally {
+		// Flush the cache
+		await redis.del(MONGO_REDIS_PREFIX);
 	}
 };
 
@@ -367,7 +407,7 @@ export const fileAttachment_add = async ({
  * like as "About", "Portfolio/Projects", "Blog/Posts" etc.,
  * to REMOVE the relevant "attachedTo" item from a File.
  */
-export const fileAttachment_remove = async ({
+export const fileAttachment_remove_mongo = async ({
 	attachedDocument_id,
 	target_file_id,
 }: {
@@ -394,5 +434,8 @@ export const fileAttachment_remove = async ({
 		console.error("Unable to remove attached document from a File: ", error);
 
 		return false;
+	} finally {
+		// Flush the cache
+		await redis.del(MONGO_REDIS_PREFIX);
 	}
 };

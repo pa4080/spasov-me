@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
-import { createFile } from "@/components/files-mongodb/_files.actions";
+import { createFile_mongo } from "@/components/files-mongodb/_files.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import Loading from "@/components/fragments/Loading";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
@@ -37,7 +37,7 @@ const CreateFile: React.FC<Props> = ({ className }) => {
 		setSubmitting(true);
 
 		try {
-			const response = await createFile(generateFormDataFromObject(data), [pathname]);
+			const response = await createFile_mongo(generateFormDataFromObject(data), [pathname]);
 
 			serverActionResponseToastAndLocationReload({
 				trigger: !!response,

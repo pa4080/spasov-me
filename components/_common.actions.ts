@@ -26,6 +26,11 @@ import PageCard from "@/models/page-card";
 import Post from "@/models/post";
 import Project from "@/models/project";
 
+import {
+	fileAttachment_add_mongo,
+	fileAttachment_remove_mongo,
+} from "./files-mongodb/_files.actions";
+
 const redis = new Redis({
 	url: process.env.UPSTASH_REDIS_REST_URL,
 	token: process.env.UPSTASH_REDIS_REST_TOKEN,
@@ -33,7 +38,7 @@ const redis = new Redis({
 
 export const revalidatePaths = async <T extends string>({
 	paths,
-	files_prefixes = ["files", "icons", "iconsMap"],
+	files_prefixes = ["files", "icons", "iconsMap", "mongo_db_files"],
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	redirectTo,
 }: {
@@ -236,11 +241,15 @@ export const process_relations = async ({
 	document_new,
 	document_prev,
 	modelType,
+	attachment_mongo = false,
+	gallery_mongo = false,
 }: {
 	documentData_new?: NewAboutEntryData | NewProjectData | NewPostData | NewLabEntryData;
 	document_new?: AboutEntryDoc | ProjectDoc | PostDoc | LabEntryDoc;
 	document_prev?: AboutEntryDoc | ProjectDoc | PostDoc | LabEntryDoc;
 	modelType: ModelType;
+	attachment_mongo?: boolean;
+	gallery_mongo?: boolean;
 }) => {
 	const updateAttachment = !arraysEqual(
 		[document_prev?.attachment ?? ""],
@@ -264,11 +273,18 @@ export const process_relations = async ({
 		// Deal with the "attachment"
 		if (updateAttachment) {
 			if (document_prev?.attachment && document_prev?.attachment !== "undefined") {
-				await fileAttachment_remove({
-					attachedDocument_id: document_prev._id.toString(),
-					target_file_id: document_prev.attachment,
-					prefix: "all_prefixes",
-				});
+				if (attachment_mongo) {
+					await fileAttachment_remove_mongo({
+						attachedDocument_id: document_prev._id.toString(),
+						target_file_id: document_prev.attachment,
+					});
+				} else {
+					await fileAttachment_remove({
+						attachedDocument_id: document_prev._id.toString(),
+						target_file_id: document_prev.attachment,
+						prefix: "all_prefixes",
+					});
+				}
 			}
 		}
 
@@ -288,11 +304,18 @@ export const process_relations = async ({
 			if (galleryDiff_remove.length > 0) {
 				await Promise.all(
 					galleryDiff_remove.map(async (file_id: string) => {
-						await fileAttachment_remove({
-							attachedDocument_id: document_prev._id.toString(),
-							target_file_id: file_id,
-							prefix: "all_prefixes",
-						});
+						if (gallery_mongo) {
+							await fileAttachment_remove_mongo({
+								attachedDocument_id: document_prev._id.toString(),
+								target_file_id: file_id,
+							});
+						} else {
+							await fileAttachment_remove({
+								attachedDocument_id: document_prev._id.toString(),
+								target_file_id: file_id,
+								prefix: "all_prefixes",
+							});
+						}
 					})
 				);
 			}
@@ -316,15 +339,26 @@ export const process_relations = async ({
 		// Deal with the "attachment"
 		if (updateAttachment) {
 			if (documentData_new?.attachment && documentData_new?.attachment !== "undefined") {
-				await fileAttachment_add({
-					documentToAttach: {
-						_id: document_new._id.toString(),
-						title: document_new.title,
-						modelType: modelType,
-					},
-					target_file_id: documentData_new.attachment,
-					prefix: "all_prefixes",
-				});
+				if (attachment_mongo) {
+					await fileAttachment_add_mongo({
+						documentToAttach: {
+							_id: document_new._id.toString(),
+							title: document_new.title,
+							modelType: modelType,
+						},
+						target_file_id: documentData_new.attachment,
+					});
+				} else {
+					await fileAttachment_add({
+						documentToAttach: {
+							_id: document_new._id.toString(),
+							title: document_new.title,
+							modelType: modelType,
+						},
+						target_file_id: documentData_new.attachment,
+						prefix: "all_prefixes",
+					});
+				}
 			} else {
 				document_new.attachment = undefined;
 			}
@@ -356,15 +390,26 @@ export const process_relations = async ({
 			if (galleryDiff_add.length > 0) {
 				await Promise.all(
 					galleryDiff_add.map(async (file_id) => {
-						await fileAttachment_add({
-							documentToAttach: {
-								_id: document_new._id.toString(),
-								title: document_new.title,
-								modelType: modelType,
-							},
-							target_file_id: file_id,
-							prefix: "all_prefixes",
-						});
+						if (gallery_mongo) {
+							await fileAttachment_add_mongo({
+								documentToAttach: {
+									_id: document_new._id.toString(),
+									title: document_new.title,
+									modelType: modelType,
+								},
+								target_file_id: file_id,
+							});
+						} else {
+							await fileAttachment_add({
+								documentToAttach: {
+									_id: document_new._id.toString(),
+									title: document_new.title,
+									modelType: modelType,
+								},
+								target_file_id: file_id,
+								prefix: "all_prefixes",
+							});
+						}
 					})
 				);
 			}
