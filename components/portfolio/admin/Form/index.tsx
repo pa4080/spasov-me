@@ -87,6 +87,7 @@ const ProjectForm: React.FC<Props> = ({
 			description: "",
 			slug: "",
 			urlHome: "",
+			urlAdmin: "",
 			urlRepo: "",
 			dateFrom: undefined,
 			dateTo: undefined,
@@ -243,6 +244,28 @@ const ProjectForm: React.FC<Props> = ({
 									) : (
 										t("urlHome_description") && (
 											<FormDescription>{t("urlHome_description")}</FormDescription>
+										)
+									)}
+								</FormItem>
+							)}
+						/>
+
+						{/* Project's admin url */}
+						<FormField
+							control={form.control}
+							name="urlAdmin"
+							render={({ field }) => (
+								<FormItem className="space-y-0">
+									{t("urlAdmin_label") && <FormLabel>{t("urlAdmin_label")}</FormLabel>}
+									<FormControl>
+										<Input className="text-sm" placeholder={t("urlAdmin_placeholder")} {...field} />
+									</FormControl>
+
+									{form.formState.errors.urlAdmin ? (
+										<FormMessage className="!mt-1" />
+									) : (
+										t("urlAdmin_description") && (
+											<FormDescription>{t("urlAdmin_description")}</FormDescription>
 										)
 									)}
 								</FormItem>

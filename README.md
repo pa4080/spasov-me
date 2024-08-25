@@ -23,6 +23,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 - Lab entry
   - [ ] Use mongo GridFS files
+  - [ ] Add to the search!
 
 - Portfolio
   - [ ] Project ADMIN link like in the Labs

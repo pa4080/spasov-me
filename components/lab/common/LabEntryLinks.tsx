@@ -20,8 +20,8 @@ import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 
 import { cn } from "@/lib/cn-utils";
 
+import DisplayConditionally from "../../fragments/DisplayConditionally";
 import UpdateLabEntry from "../admin/Actions/Update";
-import DisplayConditionally from "./DisplayConditionally";
 import DisplayConditionally_ResourceButtons from "./DisplayConditionally_ResourceButtons";
 
 interface Props {
@@ -48,11 +48,10 @@ const LabEntryLinks: React.FC<Props> = ({ labEntry, tags, fileList, iconList, ic
 	const iconWrapper =
 		"fill-foreground-tertiary hover:fill-ring-secondary flex items-center justify-center h-full if-empty-display-none";
 
-	return labEntry.urlHome ? (
+	return (
 		<div className="pt-1 m-0 flex gap-2 transition-all duration-300 items-center justify-start max-h-7">
 			<div className={iconWrapper}>
 				<DisplayConditionally_ResourceButtons
-					className="grayscale-[100%] hover:grayscale-[20%] opacity-90"
 					entryUrl={labEntry.urlHome}
 					entryVisibilityType={labEntry.visibilityType}
 					iconType="globe-pointer"
@@ -60,16 +59,13 @@ const LabEntryLinks: React.FC<Props> = ({ labEntry, tags, fileList, iconList, ic
 					icon_className_Path2="fill-accent"
 					isPrivateOnly={false}
 					linkType="Home Page"
-					size={23}
 				/>
 			</div>
 
 			<div className={iconWrapper}>
 				<DisplayConditionally_ResourceButtons
-					className="grayscale-[100%] hover:grayscale-[20%] opacity-90"
 					entryUrl={labEntry.urlAdmin}
 					entryVisibilityType={labEntry.visibilityType}
-					height={23}
 					iconType="user-shield"
 					icon_className_Path1="fill-accent-secondary"
 					icon_className_Path2="fill-accent"
@@ -80,10 +76,9 @@ const LabEntryLinks: React.FC<Props> = ({ labEntry, tags, fileList, iconList, ic
 
 			<div className={iconWrapper}>
 				<DisplayConditionally_ResourceButtons
-					className="grayscale-[100%] hover:grayscale-[20%] ml-1"
+					className="ml-1"
 					entryUrl={labEntry.urlSource}
 					entryVisibilityType={labEntry.visibilityType}
-					height={23}
 					iconType="dice-d6"
 					icon_className_Path1="fill-accent-secondary"
 					icon_className_Path2="fill-accent"
@@ -124,8 +119,9 @@ const LabEntryLinks: React.FC<Props> = ({ labEntry, tags, fileList, iconList, ic
 							<Link href={`${Route.public.LAB.uri}/${labEntry.slug}?id=gallery-open-button`}>
 								<IconEmbedSvg
 									className={cn(
-										"grayscale-[100%] hover:grayscale-[0%]",
-										gallery?.length === 0 && "opacity-40 grayscale-[100%]"
+										gallery?.length === 0
+											? "grayscale-[100%] hover:grayscale-[100%] opacity-40"
+											: "grayscale-[100%] hover:grayscale-[0%]"
 									)}
 									className_Path1="fill-accent-secondary"
 									className_Path2="fill-accent"
@@ -152,8 +148,6 @@ const LabEntryLinks: React.FC<Props> = ({ labEntry, tags, fileList, iconList, ic
 				</DisplayConditionally>
 			)}
 		</div>
-	) : (
-		<div />
 	);
 };
 

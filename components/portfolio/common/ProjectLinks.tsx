@@ -10,6 +10,8 @@ import { msgs } from "@/messages";
 
 import DisplayResourceUrlAsIcon from "@/components/fragments/DisplayResourceUrlAsIcon";
 
+import DisplayConditionally from "@/components/fragments/DisplayConditionally";
+
 import UpdateProject from "../admin/Actions/Update";
 
 interface Props {
@@ -43,11 +45,27 @@ const ProjectLinks: React.FC<Props> = ({ project, fileList, iconList, iconsMap, 
 					iconType="globe-pointer"
 					icon_className_Path1="fill-accent-secondary"
 					icon_className_Path2="fill-accent"
+					isClickable={!!project.urlHome}
 					label={t("tooltip_link", { linkType: "Homepage" })}
 					size={23}
 					url={project.urlHome}
 				/>
 			</div>
+
+			<DisplayConditionally>
+				<div className={iconWrapper}>
+					<DisplayResourceUrlAsIcon
+						className="grayscale-[100%] hover:grayscale-[0%]"
+						iconType="user-shield"
+						icon_className_Path1="fill-accent-secondary"
+						icon_className_Path2="fill-accent"
+						isClickable={!!project.urlAdmin}
+						label={t("tooltip_link", { linkType: "Admin panel" })}
+						url={project.urlAdmin}
+						width={32}
+					/>
+				</div>
+			</DisplayConditionally>
 
 			<div className={iconWrapper}>
 				<DisplayResourceUrlAsIcon
@@ -56,6 +74,7 @@ const ProjectLinks: React.FC<Props> = ({ project, fileList, iconList, iconsMap, 
 					iconType="dice-d6"
 					icon_className_Path1="fill-accent-secondary"
 					icon_className_Path2="fill-accent"
+					isClickable={!!project.urlRepo}
 					label={t("tooltip_link", { linkType: "Repository" })}
 					url={project.urlRepo}
 					width={24}

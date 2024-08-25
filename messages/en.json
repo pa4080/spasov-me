@@ -512,6 +512,10 @@
 		"urlHome_placeholder": "Homepage of the project",
 		"urlHome_description": "",
 
+		"urlAdmin_label": "",
+		"urlAdmin_placeholder": "Admin page of the project",
+		"urlAdmin_description": "",
+
 		"urlRepo_label": "",
 		"urlRepo_placeholder": "Repository of the project",
 		"urlRepo_description": "",

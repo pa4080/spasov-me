@@ -29,6 +29,10 @@ const ProjectSchema = new Schema({
 		type: String,
 		required: [false, "The project's home url is not required!"],
 	},
+	urlAdmin: {
+		type: String,
+		required: [false, "The project's admin url is not required!"],
+	},
 	urlRepo: {
 		type: String,
 		required: [false, "The project's repository url is not required!"],

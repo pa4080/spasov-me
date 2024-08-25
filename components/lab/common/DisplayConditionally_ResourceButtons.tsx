@@ -19,7 +19,7 @@ interface Props {
 	icon_className_Path2?: string;
 	className?: string;
 	isPrivateOnly?: boolean;
-	entryUrl: string | undefined | null;
+	entryUrl?: string | undefined;
 	entryVisibilityType: LabEntryVisibilityType;
 	iconType: IconEmbSvgPathType;
 }
@@ -39,10 +39,6 @@ const DisplayConditionally_ResourceButtons: React.FC<Props> = ({
 }) => {
 	const { session } = useAppContext();
 
-	if (!entryUrl) {
-		return null;
-	}
-
 	const t = msgs("LabEntries_CardPublic");
 
 	if (!session && isPrivateOnly) {
@@ -57,6 +53,7 @@ const DisplayConditionally_ResourceButtons: React.FC<Props> = ({
 				iconType={iconType}
 				icon_className_Path1={icon_className_Path1}
 				icon_className_Path2={icon_className_Path2}
+				isClickable={!!entryUrl}
 				label={t("tooltip_home_link", { linkType: linkType })}
 				size={size}
 				url={entryUrl}
@@ -67,7 +64,7 @@ const DisplayConditionally_ResourceButtons: React.FC<Props> = ({
 
 	return isPrivateOnly || (entryVisibilityType === "private" && !session) ? (
 		<DisplayResourceUrlAsIcon
-			className={cn("cursor-none", className)}
+			className={cn("", className)}
 			height={height}
 			iconType="lock-keyhole"
 			icon_className_Path1={icon_className_Path1}
@@ -85,6 +82,7 @@ const DisplayConditionally_ResourceButtons: React.FC<Props> = ({
 			iconType={iconType}
 			icon_className_Path1={icon_className_Path1}
 			icon_className_Path2={icon_className_Path2}
+			isClickable={!!entryUrl}
 			label={t("tooltip_home_link", { linkType: linkType })}
 			size={size}
 			url={entryUrl}

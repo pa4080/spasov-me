@@ -30,10 +30,6 @@ const DisplayResourceUrlAsIcon: React.FC<Props> = ({
 	label,
 	url,
 }) => {
-	if (!url) {
-		return null;
-	}
-
 	const w = width || size;
 	const h = height || size;
 
@@ -47,20 +43,28 @@ const DisplayResourceUrlAsIcon: React.FC<Props> = ({
 				<TooltipTrigger
 					aria-label={label || "Link"}
 					className={cn("!mt-0", className)}
+					disabled={!isClickable}
 					onClick={handleOnClick}
 				>
 					<IconEmbedSvg
-						className="cursor-not-allowed"
+						className={cn(
+							isClickable
+								? "grayscale-[100%] hover:grayscale-[20%]"
+								: "grayscale-[100%] hover:grayscale-[100%] opacity-40"
+						)}
 						className_Path1={icon_className_Path1}
 						className_Path2={icon_className_Path2}
+						cursor={isClickable ? "pointer" : "not-allowed"}
 						height={h}
 						type={iconType}
 						width={w}
 					/>
 				</TooltipTrigger>
-				<TooltipContent className="border-2 border-muted-secondary dark:border-primary">
-					<div dangerouslySetInnerHTML={{ __html: `${label}: <br/>${url}` }} />
-				</TooltipContent>
+				{isClickable && (
+					<TooltipContent className="border-2 border-muted-secondary dark:border-primary">
+						<div dangerouslySetInnerHTML={{ __html: `${label}<br/>${url}` }} />
+					</TooltipContent>
+				)}
 			</Tooltip>
 		</TooltipProvider>
 	);

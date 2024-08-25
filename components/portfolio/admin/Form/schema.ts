@@ -11,6 +11,7 @@ export const Project_FormSchemaGenerator = (messages?: string[]) =>
 			message: messages?.[1],
 		}),
 		urlHome: z.string().optional(),
+		urlAdmin: z.string().optional(),
 		urlRepo: z.string().optional(),
 		entryType: z.enum(projectTuple, {
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -13,6 +13,7 @@ export interface ProjectDoc {
 	description: string;
 	slug: string;
 	urlHome: string;
+	urlAdmin: string;
 	urlRepo: string;
 	entryType: ProjectType;
 	dateFrom: Date | string;
