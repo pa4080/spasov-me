@@ -18,8 +18,10 @@ import { buttonVariants } from "@/components/ui/button";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
+
+import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import { cn } from "@/lib/cn-utils";
 
 import { deletePageCard } from "../../_pages.actions";
 
@@ -64,13 +66,14 @@ const DeletePage: React.FC<Props> = ({ className, page_id, page_title }) => {
 	return (
 		<div className={className}>
 			<AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-				<AlertDialogTrigger>
-					<ButtonIcon
-						className="pl-[2.6px] bg-transparent icon_accent_secondary"
+				<AlertDialogTrigger onClick={() => setIsOpen(true)}>
+					<IconEmbedSvg
+						className={cn("grayscale-[100%] hover:grayscale-[0%] mt-1", className)}
+						className_Path1="fill-accent"
+						className_Path2="fill-accent-secondary"
 						height={22}
 						type="trash"
 						width={22}
-						onClick={() => setIsOpen(true)}
 					/>
 				</AlertDialogTrigger>
 				<AlertDialogContent>

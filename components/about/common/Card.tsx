@@ -23,8 +23,9 @@ import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisp
 
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
-import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
+
+import TooltipWrapper from "@/components/fragments/TooltipWrapper";
 
 import CopyEntryUri from "../admin/Actions/CopyEntryUri";
 import DeleteAboutEntry from "../admin/Actions/Delete";
@@ -94,9 +95,6 @@ const AboutEntryCard: React.FC<Props> = ({
 						<span className={styles.lightPrimaryText}>{" - "}</span>
 						{dtTo ? (
 							<span>
-								{/* <span className={styles.lightSecondaryText}>
-								{format(dtTo, "MM/", { locale: en })}
-							</span> */}
 								<span className={styles.lightPrimaryText}>
 									{format(dtTo, "yyyy", { locale: en })}
 								</span>
@@ -114,24 +112,23 @@ const AboutEntryCard: React.FC<Props> = ({
 				<div className={styles.header}>
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							<Gallery
-								dialogTrigger_buttonIconProps={{
-									className: cn(
-										"bg-transparent hover:bg-transparent p-0 opacity-45 transition-all duration-200",
-										!gallery?.length
-											? "grayscale hover:grayscale"
-											: "grayscale-[0.8] hover:grayscale-0 hover:opacity-100"
-									),
-									height: 24,
-									width: 28,
-								}}
-								entry={entry}
-								gallery={gallery}
-							/>
+							<TooltipWrapper
+								className="w-full h-full flex items-center fill-inherit"
+								tooltipText={gallery.length === 0 ? "" : tCommon("tooltip_gallery")}
+							>
+								<Gallery
+									className="mt-0.5"
+									entry={entry}
+									gallery={gallery}
+									height={24}
+									width={32}
+								/>
+							</TooltipWrapper>
+
 							<FileAddressHandle address={attachmentAddress} />
 							<CopyEntryUri entry_id={entry._id} />
 							<DeleteAboutEntry entry={entry} />
-							<VisibilitySwitchDisplay disabled checked={entry.visibility} className="mt-0.5" />
+							<VisibilitySwitchDisplay disabled checked={entry.visibility} className="mt-1" />
 							<UpdateAboutEntry entry={entry} fileList={fileList} iconsMap={iconsMap} tags={tags} />
 							<ToggleCollapsible
 								tooltip

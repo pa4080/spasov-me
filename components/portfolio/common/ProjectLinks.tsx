@@ -1,6 +1,6 @@
 "use client";
 
-import Gallery, { dialogTrigger_Type2 } from "@/components/fragments/Gallery";
+import Gallery from "@/components/fragments/Gallery";
 import TooltipWrapper from "@/components/fragments/TooltipWrapper";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
@@ -9,8 +9,9 @@ import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
+import DisplayResourceUrlAsIcon from "@/components/fragments/DisplayResourceUrlAsIcon";
+
 import UpdateProject from "../admin/Actions/Update";
-import DisplayResourceUrlAsIcon from "./DisplayResourceUrlAsIcon";
 
 interface Props {
 	project: ProjectData;
@@ -33,17 +34,18 @@ const ProjectLinks: React.FC<Props> = ({ project, fileList, iconList, iconsMap, 
 			: gallery;
 
 	const iconWrapper =
-		"fill-foreground-tertiary hover:fill-accent flex items-center justify-center h-full opacity-90";
+		"fill-foreground-tertiary hover:fill-accent flex items-center justify-center h-full if-empty-display-none";
 
 	return (
 		<div className="pt-1 m-0 flex gap-2 transition-all duration-300 items-center justify-start max-h-7">
 			<div className={iconWrapper}>
 				<DisplayResourceUrlAsIcon
-					className="grayscale-[100%] hover:grayscale-[20%]"
+					className="grayscale-[100%] hover:grayscale-[0%]"
+					iconType="globe-pointer"
 					icon_className_Path1="fill-accent-secondary"
 					icon_className_Path2="fill-accent"
+					label={t("tooltip_link", { linkType: "Homepage" })}
 					size={23}
-					type="home"
 					url={project.urlHome}
 				/>
 			</div>
@@ -53,47 +55,29 @@ const ProjectLinks: React.FC<Props> = ({ project, fileList, iconList, iconsMap, 
 					className="w-full h-full flex items-center fill-inherit"
 					tooltipText={t("tooltip_gallery")}
 				>
-					<Gallery
-						dialogTrigger_buttonIconProps={{
-							className:
-								"p-0 bg-transparent hover:bg-transparent m-0 h-full fill-inherit grayscale-[100%] hover:grayscale-[20%] hover:fill-transparent opacity-80",
-							widthOffset: 0,
-							heightOffset: 0,
-							width: 27,
-							height: 26,
-							iconEmbedSvgProps: {
-								className_Path1: "fill-inherit",
-								className_Path2: "fill-accent",
-							},
-						}}
-						entry={project}
-						gallery={gallery}
-					/>
+					<Gallery entry={project} gallery={gallery} />
 				</TooltipWrapper>
 			</div>
 
 			<div className={iconWrapper}>
 				<DisplayResourceUrlAsIcon
-					className="opacity-70 hover:opacity-80"
-					size={28}
-					type="repo"
+					className="grayscale-[100%] hover:grayscale-[0%] mr-0.5"
+					height={23}
+					iconType="dice-d6"
+					icon_className_Path1="fill-accent-secondary"
+					icon_className_Path2="fill-accent"
+					label={t("tooltip_link", { linkType: "Repository" })}
 					url={project.urlRepo}
+					width={24}
 				/>
 			</div>
 
-			<div
-				className={cn(
-					iconWrapper,
-					"overflow-hidden rounded-[3px] bg-foreground-tertiary hover:bg-ring-secondary -ml-1 opacity-60"
-				)}
-			>
+			<div className={cn(iconWrapper, "overflow-hidden -ml-1")}>
 				<TooltipWrapper
 					className="w-full h-full flex items-center fill-inherit"
 					tooltipText={t("tooltip_update")}
 				>
 					<UpdateProject
-						className="h-6 w-6 flex items-center justify-center mr-[1px]"
-						dialogTrigger_buttonIconProps={dialogTrigger_Type2}
 						fileList={fileList}
 						iconList={iconList}
 						iconsMap={iconsMap}

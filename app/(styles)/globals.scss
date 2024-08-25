@@ -420,6 +420,11 @@ body textarea.w-md-editor-text-input:focus {
 	font-variation-settings: unset !important;
 }
 
+/** Hide the elements which are empty */
+.if-empty-display-none:empty {
+	display: none !important;
+}
+
 /**
  * Markdown Processed to HTML
  * Note: The content of div.md-processed-to-html is wrapped with div.prose

@@ -39,7 +39,7 @@ const DisplayTags: React.FC<Props> = ({
 					>
 						<DisplayIcon
 							key={tag._id}
-							className="-mb-1"
+							className="-mb-1.5"
 							description={tag.html.description}
 							icon={iconsMap[tag.icon]}
 							size={iconsSize}

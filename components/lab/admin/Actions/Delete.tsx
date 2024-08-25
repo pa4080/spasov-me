@@ -2,7 +2,6 @@
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
 	AlertDialog,
@@ -20,6 +19,9 @@ import { useAppContext } from "@/contexts/AppContext";
 import { LabEntryData } from "@/interfaces/LabEntry";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
+
+import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import { cn } from "@/lib/cn-utils";
 
 import { deleteLabEntry } from "../../_lab.actions";
 
@@ -70,13 +72,14 @@ const DeleteLabEntry: React.FC<Props> = ({ className, labEntry }) => {
 	return (
 		<div className={className}>
 			<AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-				<AlertDialogTrigger>
-					<ButtonIcon
-						className="pl-[2.6px] bg-transparent icon_accent_secondary"
-						height={22}
+				<AlertDialogTrigger onClick={() => setIsOpen(true)}>
+					<IconEmbedSvg
+						className={cn("grayscale-[100%] hover:grayscale-[0%] mt-[10px]", className)}
+						className_Path1="fill-accent"
+						className_Path2="fill-accent-secondary"
+						height={21}
 						type="trash"
-						width={22}
-						onClick={() => setIsOpen(true)}
+						width={21}
 					/>
 				</AlertDialogTrigger>
 				<AlertDialogContent>

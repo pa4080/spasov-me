@@ -8,8 +8,8 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 
 import { IconsMap } from "@/interfaces/IconsMap";
 
-import PostLinks from "./fragments/PostLinks";
-import ShowDetailsOrTags from "./fragments/ShowDetailsOrTags";
+import LabEntryLinks from "../common/LabEntryLinks";
+import ShowDetailsOrTags from "../common/ShowDetailsOrTags";
 
 interface Props {
 	className?: string;
@@ -49,8 +49,8 @@ const LabEntryPublic_Card: React.FC<Props> = ({ labEntry, className, iconsMap })
 			/>
 
 			{/* Footer buttons */}
-			<div className="flex flex-row items-center justify-between gap-2 w-full -mb-1">
-				<PostLinks labEntry={labEntry} />
+			<div className="flex flex-row items-center justify-between gap-2 w-full -mb-1 min-h-9">
+				<LabEntryLinks labEntry={labEntry} />
 				<ShowDetailsOrTags iconsMap={iconsMap} slug={labEntry.slug} tags={labEntry.tags} />
 			</div>
 		</div>

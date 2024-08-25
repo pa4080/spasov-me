@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 
 import { deleteEntry } from "@/components/about/_about.actions";
-import ButtonIcon from "@/components/fragments/ButtonIcon";
+import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
 	AlertDialog,
@@ -20,6 +20,7 @@ import {
 import { buttonVariants } from "@/components/ui/button";
 import { useAppContext } from "@/contexts/AppContext";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
+import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
@@ -71,13 +72,14 @@ const DeleteAboutEntry: React.FC<Props> = ({ className, entry }) => {
 	return (
 		<div className={className}>
 			<AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-				<AlertDialogTrigger>
-					<ButtonIcon
-						className="pl-[2.6px] bg-transparent icon_accent_secondary"
-						height={22}
+				<AlertDialogTrigger onClick={() => setIsOpen(true)}>
+					<IconEmbedSvg
+						className={cn("grayscale-[100%] hover:grayscale-[0%] mt-[10px]", className)}
+						className_Path1="fill-accent"
+						className_Path2="fill-accent-secondary"
+						height={21}
 						type="trash"
-						width={22}
-						onClick={() => setIsOpen(true)}
+						width={21}
 					/>
 				</AlertDialogTrigger>
 				<AlertDialogContent>

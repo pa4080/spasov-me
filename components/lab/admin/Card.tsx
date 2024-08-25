@@ -24,7 +24,7 @@ import { Route } from "@/routes";
 
 import { LabEntryData } from "@/interfaces/LabEntry";
 
-import DisplayResourceUrlAsIcon from "../public/fragments/DisplayWebLink";
+import DisplayConditionally_ResourceButtons from "../common/DisplayConditionally_ResourceButtons";
 import DeleteLabEntry from "./Actions/Delete";
 import UpdateLabEntry from "./Actions/Update";
 
@@ -93,14 +93,44 @@ const LabEntryAdminCard: React.FC<Props> = ({
 						</div>
 					)}
 
-					<div className={styles.linksProjectPost}>
+					<div className={`${styles.linksProjectPost} scale-90 origin-left`}>
 						<div className={styles.iconWrapper}>
-							<DisplayResourceUrlAsIcon
-								height={18}
+							<DisplayConditionally_ResourceButtons
+								className="grayscale-[100%] hover:grayscale-[20%] opacity-90"
+								entryUrl={labEntry.urlHome}
+								entryVisibilityType={labEntry.visibilityType}
+								iconType="globe-pointer"
+								icon_className_Path1="fill-accent-secondary"
 								icon_className_Path2="fill-accent"
-								labEntry={labEntry}
-								type="Home Page"
-								width={26}
+								isPrivateOnly={false}
+								linkType="Home Page"
+								size={23}
+							/>
+						</div>
+						<div className={styles.iconWrapper}>
+							<DisplayConditionally_ResourceButtons
+								className="grayscale-[100%] hover:grayscale-[20%] opacity-90"
+								entryUrl={labEntry.urlAdmin}
+								entryVisibilityType={labEntry.visibilityType}
+								height={23}
+								iconType="user-shield"
+								icon_className_Path1="fill-accent-secondary"
+								icon_className_Path2="fill-accent"
+								linkType="Admin Page"
+								width={32}
+							/>
+						</div>
+						<div className={styles.iconWrapper}>
+							<DisplayConditionally_ResourceButtons
+								className="grayscale-[100%] hover:grayscale-[20%] opacity-90 ml-1"
+								entryUrl={labEntry.urlSource}
+								entryVisibilityType={labEntry.visibilityType}
+								height={23}
+								iconType="dice-d6"
+								icon_className_Path1="fill-accent-secondary"
+								icon_className_Path2="fill-accent"
+								linkType="Source"
+								width={24}
 							/>
 						</div>
 					</div>
@@ -108,8 +138,13 @@ const LabEntryAdminCard: React.FC<Props> = ({
 				<div className={styles.header}>
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							<DeleteLabEntry labEntry={labEntry} />
-							<VisibilitySwitchDisplay disabled checked={labEntry.visibility} className="mt-0.5" />
+							<Gallery
+								className="mt-0.5"
+								entry={labEntry}
+								gallery={gallery}
+								height={24}
+								width={32}
+							/>
 							<FileAddressHandle
 								address={
 									labEntry.html.attachment?.metadata?.html?.fileUri ||
@@ -117,7 +152,8 @@ const LabEntryAdminCard: React.FC<Props> = ({
 									""
 								}
 							/>
-							<Gallery entry={labEntry} gallery={gallery} />
+							<DeleteLabEntry labEntry={labEntry} />
+							<VisibilitySwitchDisplay disabled checked={labEntry.visibility} className="mt-0.5" />
 							<UpdateLabEntry
 								fileList={fileList}
 								iconList={iconList}
@@ -125,7 +161,6 @@ const LabEntryAdminCard: React.FC<Props> = ({
 								labEntry={labEntry}
 								tags={tags}
 							/>
-
 							<ToggleCollapsible
 								tooltip
 								className="icon_accent_primary"

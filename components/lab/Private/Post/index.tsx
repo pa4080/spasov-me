@@ -18,6 +18,8 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown
 
 import { LabEntryData } from "@/interfaces/LabEntry";
 
+import LabEntryLinks from "../../common/LabEntryLinks";
+
 const GalleryCarousel = dynamic(() => import("@/components/fragments/Gallery/GalleryCarousel"), {
 	ssr: false,
 	loading: () => (
@@ -34,7 +36,7 @@ interface Props {
 	iconsMap: IconsMap;
 }
 
-const LabPublicEntry: React.FC<Props> = async ({
+const LabPublicEntry: React.FC<Props> = ({
 	className,
 	labEntry,
 	tags,
@@ -60,6 +62,8 @@ const LabPublicEntry: React.FC<Props> = async ({
 	const dtFrom = new Date(labEntry.dateFrom);
 	const dateLabel = format(dtFrom, "dd MMM yyyy", { locale: en });
 
+	// lab-entry-update-button
+
 	return (
 		<div className={cn("w-full pt-8 sa:pt-6 lg:pt-1", className)}>
 			<GalleryCarousel entryData={labEntry} gallery={gallery} navPosition="bottom" navType="none" />
@@ -80,13 +84,13 @@ const LabPublicEntry: React.FC<Props> = async ({
 				label={dateLabel}
 				title={labEntry.html.title}
 			>
-				{/* <PostLinks
+				<LabEntryLinks
 					fileList={fileList}
 					iconList={iconList}
 					iconsMap={iconsMap}
-					post={labEntry}
+					labEntry={labEntry}
 					tags={tags}
-				/> */}
+				/>
 			</SectionHeader>
 
 			{/* @see https://github.com/tailwindlabs/tailwindcss-typography */}

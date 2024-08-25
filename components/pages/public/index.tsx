@@ -2,6 +2,8 @@ import React from "react";
 
 import { getIconsMap } from "@/components/files-cloudflare/_files.actions";
 
+import { Route } from "@/routes";
+
 import { getPageCards } from "../_pages.actions";
 import PagesPublic_Card from "./Card";
 
@@ -10,8 +12,17 @@ interface Props {
 }
 
 const PagesPublic: React.FC<Props> = async ({ className }) => {
-	const pages = await getPageCards({ public: true });
-	const iconsMap = await getIconsMap();
+	const inFeed = Object.values(Route.public)
+		.filter((route) => route.inFeed)
+		.map((route) => route.uri.replace("/", ""));
+
+	const { pages, iconsMap } = await Promise.all([
+		getPageCards({ public: true }),
+		getIconsMap(),
+	]).then(([pages, iconsMap]) => ({
+		pages: pages?.filter((page) => inFeed.includes(page.uri)),
+		iconsMap,
+	}));
 
 	return (
 		<div className={className}>

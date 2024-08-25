@@ -3,7 +3,6 @@ import React, { useState } from "react";
 
 import { usePathname } from "next/navigation";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
 	AlertDialog,
@@ -21,6 +20,9 @@ import { TagData } from "@/interfaces/Tag";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import { cn } from "@/lib/cn-utils";
+
 import { deleteTag } from "../../_tags.actions";
 
 interface Props {
@@ -37,8 +39,13 @@ const DeleteTag: React.FC<Props> = ({ className, tag }) => {
 	const [submitting, setSubmitting] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
+	const disabled = (tag.attachedTo && tag.attachedTo?.length > 0) || submitting;
 
 	const handleDeleteEntry = async () => {
+		if (disabled) {
+			return;
+		}
+
 		setSubmitting(true);
 
 		try {
@@ -61,14 +68,18 @@ const DeleteTag: React.FC<Props> = ({ className, tag }) => {
 	return (
 		<div className={className}>
 			<AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-				<AlertDialogTrigger>
-					<ButtonIcon
-						className="pl-[2.6px] bg-transparent icon_accent_secondary"
-						disabled={(tag.attachedTo && tag.attachedTo?.length > 0) || submitting}
-						height={18}
+				<AlertDialogTrigger disabled={disabled} onClick={() => !disabled && setIsOpen(true)}>
+					<IconEmbedSvg
+						className={cn(
+							"grayscale-[100%] hover:grayscale-[0%] mt-2",
+							disabled ? "opacity-40 hover:grayscale-[100%]" : className
+						)}
+						className_Path1="fill-accent"
+						className_Path2="fill-accent-secondary"
+						cursor={disabled ? "not-allowed" : "pointer"}
+						height={21}
 						type="trash"
-						width={18}
-						onClick={() => setIsOpen(true)}
+						width={21}
 					/>
 				</AlertDialogTrigger>
 				<AlertDialogContent>

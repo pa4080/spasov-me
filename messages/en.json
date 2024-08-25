@@ -214,7 +214,8 @@
 		"title_techTags": "Technologies",
 		"btnMore": "Read more",
 		"btnLess": "Show less",
-		"btnAll": "Show all"
+		"btnAll": "Show all",
+		"tooltip_gallery": "View the attached docs"
 	},
 	"AboutEntries_Create": {
 		"dialog_title": "Create a new { entryType } entry",
@@ -610,7 +611,7 @@
 	},
 	"Projects_CardPublic": {
 		"button_call_to_action": "Details",
-		"tooltip_gallery": "View project's gallery",
+		"tooltip_gallery": "View the Project's gallery",
 		"tooltip_update": "Edit the project",
 		"tooltip_link": "Link to the Project's { linkType }",
 		"area_label_card_link": "Link to the Project's page"
@@ -740,7 +741,7 @@
 		"button_call_to_action": "Details",
 		"tooltip_gallery": "View post's gallery",
 		"tooltip_update": "Edit the post",
-		"tooltip_link": "Link to the Post's { linkType }",
+		"tooltip_link": "Post's { linkType }",
 		"area_label_card_link": "Link to the Post's page"
 	},
 	"LabEntries_Form": {

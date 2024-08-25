@@ -47,6 +47,7 @@ const PublicMenu_Desktop: React.FC<Props> = ({ className }) => {
 
 				if (
 					Route.public[pathAsKey].uri !== Route.public.HOME.uri &&
+					Route.public[pathAsKey].inNavbar &&
 					Route.public[pathAsKey].visible
 				) {
 					return (

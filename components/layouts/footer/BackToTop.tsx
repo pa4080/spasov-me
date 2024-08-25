@@ -73,7 +73,7 @@ const BackToTop: React.FC<Props> = ({ className }) => {
 					)}
 					style={{
 						transform: "translateY(42px)",
-						zIndex: 1000,
+						zIndex: 15,
 					}}
 					onClick={(e) => {
 						e.stopPropagation();

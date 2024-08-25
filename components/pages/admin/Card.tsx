@@ -42,9 +42,9 @@ const PageCard: React.FC<Props> = ({ className, page, iconsMap, fileList }) => {
 				</div>
 
 				<div className="flex gap-1">
+					<FileAddressHandle address={`/${page.uri}`} className="mt-[5px] mr-1.5" />
 					<DeletePage page_id={page._id} page_title={page.title} />
-					<FileAddressHandle address={`/${page.uri}`} />
-					<VisibilitySwitchDisplay disabled checked={page.visibility} className="mt-1 mr-1" />
+					<VisibilitySwitchDisplay disabled checked={page.visibility} className="mt-1.5 mr-1" />
 					<UpdatePage fileList={fileList} icons={iconsMap} page={page} />
 				</div>
 			</div>
