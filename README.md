@@ -11,7 +11,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Todo
 
 - Search page
-  - [ ] Choose the base data category type to be searched - i.e.: Search in [x]CV [x]Blog [x]Portfolio
+  - [ ] Choose the base data category type to be searched - i.e.: Search in [x]CV [x]Blog [x]Portfolio [x]Resources/Lab
   - [ ] Implement `useTransition()` and/or `useDeferredValue()`.
 
 - Blog
@@ -21,8 +21,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] Display gallery switch in the post form, to display the gallery navigation or not;
         Display gallery items caption switch too.
 
-- Lab entry
-  - [ ] Add to the search!
+- Portfolio
+  - [ ] Add Titles: Projects, Resources
 
 - Fix the icons style for:
   - [ ] Files Mongo Admin
@@ -30,7 +30,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] Icons CloudFlare Admin
 
 - [ ] Create to do list?
+
 - [ ] Allow file rename when it is not linked to a post?
+
 - Redis
   - [ ] Create event loop by using Upstash/Redis queue - object like:
 
