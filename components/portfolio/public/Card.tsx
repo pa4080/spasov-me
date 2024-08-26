@@ -59,8 +59,9 @@ const ProjectPublic_Card: React.FC<Props> = ({
 				className="flex-grow line-clamp-2 pl-2"
 			/>
 
-			<div className="flex flex-row items-center justify-between gap-2 w-full">
+			<div className="flex flex-col 2xs:flex-row items-stretch justify-between gap-4 2xs:gap-2 w-full -mb-1 min-h-9">
 				<ProjectLinks
+					className="max-2xs:self-start pl-1 2xs:pl-0 translate-y-0.5"
 					fileList={fileList}
 					iconList={iconList}
 					iconsMap={iconsMap}
@@ -70,6 +71,7 @@ const ProjectPublic_Card: React.FC<Props> = ({
 
 				<Link
 					area-label={t("area_label_card_link")}
+					className="max-2xs:self-end"
 					href={`${Route.public.PORTFOLIO.uri}/${project.slug}`}
 				>
 					<Button

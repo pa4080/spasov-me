@@ -1,16 +1,15 @@
 "use client";
 
+import DisplayConditionally from "@/components/fragments/DisplayConditionally";
+import DisplayResourceUrlAsIcon from "@/components/fragments/DisplayResourceUrlAsIcon";
 import Gallery from "@/components/fragments/Gallery";
 import TooltipWrapper from "@/components/fragments/TooltipWrapper";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
+import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
-
-import DisplayResourceUrlAsIcon from "@/components/fragments/DisplayResourceUrlAsIcon";
-
-import DisplayConditionally from "@/components/fragments/DisplayConditionally";
 
 import UpdateProject from "../admin/Actions/Update";
 
@@ -20,9 +19,18 @@ interface Props {
 	iconList: FileListItem[] | null;
 	iconsMap: IconsMap;
 	tags: TagData[] | null;
+
+	className?: string;
 }
 
-const ProjectLinks: React.FC<Props> = ({ project, fileList, iconList, iconsMap, tags }) => {
+const ProjectLinks: React.FC<Props> = ({
+	project,
+	fileList,
+	iconList,
+	iconsMap,
+	tags,
+	className,
+}) => {
 	const t = msgs("Projects_CardPublic");
 
 	let gallery = project?.gallery
@@ -38,7 +46,12 @@ const ProjectLinks: React.FC<Props> = ({ project, fileList, iconList, iconsMap, 
 		"fill-foreground-tertiary hover:fill-accent flex items-center justify-center h-full if-empty-display-none";
 
 	return (
-		<div className="pt-1 m-0 flex gap-2 transition-all duration-300 items-center justify-start max-h-7">
+		<div
+			className={cn(
+				"pt-1 m-0 flex gap-2 transition-all duration-300 items-center justify-start max-h-7",
+				className
+			)}
+		>
 			<div className={iconWrapper}>
 				<DisplayResourceUrlAsIcon
 					className="grayscale-[100%] hover:grayscale-[0%]"

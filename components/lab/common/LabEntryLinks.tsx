@@ -30,9 +30,17 @@ interface Props {
 	fileList?: FileListItem[] | null;
 	iconList?: FileListItem[] | null;
 	iconsMap?: IconsMap;
+	className?: string;
 }
 
-const LabEntryLinks: React.FC<Props> = ({ labEntry, tags, fileList, iconList, iconsMap }) => {
+const LabEntryLinks: React.FC<Props> = ({
+	labEntry,
+	tags,
+	fileList,
+	iconList,
+	iconsMap,
+	className,
+}) => {
 	useClickButtonByDomId();
 	const t = msgs("LabEntries_CardPublic");
 
@@ -49,7 +57,12 @@ const LabEntryLinks: React.FC<Props> = ({ labEntry, tags, fileList, iconList, ic
 		"fill-foreground-tertiary hover:fill-ring-secondary flex items-center justify-center h-full if-empty-display-none";
 
 	return (
-		<div className="pt-1 m-0 flex gap-2 transition-all duration-300 items-center justify-start max-h-7">
+		<div
+			className={cn(
+				"pt-1 m-0 flex gap-2 transition-all duration-300 items-center justify-start max-h-7",
+				className
+			)}
+		>
 			<div className={iconWrapper}>
 				<DisplayConditionally_ResourceButtons
 					entryUrl={labEntry.urlHome}

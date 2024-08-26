@@ -17,9 +17,13 @@ const DetailsButton: React.FC<Props> = ({ className, slug }) => {
 	const t = msgs("Posts_CardPublic");
 
 	return (
-		<Link aria-label={t("area_label_card_link")} href={`${Route.public.LAB.uri}/${slug}`}>
+		<Link
+			aria-label={t("area_label_card_link")}
+			className={className}
+			href={`${Route.public.LAB.uri}/${slug}`}
+		>
 			<Button
-				className={cn("transition-colors duration-300 hover:duration-150", className)}
+				className={cn("transition-colors duration-300 hover:duration-150")}
 				size="sm"
 				variant="defaultSecondary"
 			>

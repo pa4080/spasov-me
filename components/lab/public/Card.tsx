@@ -65,8 +65,11 @@ const LabEntryPublic_Card: React.FC<Props> = ({ labEntry, className, iconsMap })
 
 			{/* Footer buttons */}
 
-			<div className="flex flex-row items-center justify-between gap-2 w-full -mb-1 min-h-9">
-				<LabEntryLinks labEntry={labEntry} />
+			<div className="flex flex-col 2xs:flex-row items-stretch justify-between gap-4 2xs:gap-2 w-full -mb-1 min-h-9">
+				<LabEntryLinks
+					className="max-2xs:self-start pl-1 2xs:pl-0 translate-y-0.5"
+					labEntry={labEntry}
+				/>
 				<ShowDetailsOrTags iconsMap={iconsMap} slug={labEntry.slug} tags={labEntry.tags} />
 			</div>
 		</div>
