@@ -76,15 +76,30 @@ const BlogPublic_Card: React.FC<Props> = ({
 			/>
 
 			{/* Footer buttons */}
-			<div className="flex flex-row items-center justify-between gap-2 w-full">
+			<div
+				className={cn(
+					"flex flex-row items-center justify-between w-full",
+					"gap-4 flex-col",
+					"2xs:gap-2 2xs:flex-row",
+					"md:gap-4 md:flex-col",
+					"mc:gap-2 mc:flex-row"
+				)}
+			>
 				<PostLinks
+					categoryPosition="right"
+					className="max-2xs:self-start md:max-mc:self-start"
+					classNameCategory="2xs:tracking-wide max-2xs:max-w-[4.95rem] overflow-hidden text-ellipsis whitespace-nowrap"
 					fileList={fileList}
 					iconList={iconList}
 					iconsMap={iconsMap}
 					post={post}
 					tags={tags}
 				/>
-				<Link area-label={t("area_label_card_link")} href={`${Route.public.BLOG.uri}/${post.slug}`}>
+				<Link
+					area-label={t("area_label_card_link")}
+					className="max-2xs:self-end md:max-mc:self-end"
+					href={`${Route.public.BLOG.uri}/${post.slug}`}
+				>
 					<Button
 						className="transition-colors duration-300 hover:duration-150"
 						size="sm"

@@ -66,7 +66,7 @@ const BlogPublicPost: React.FC<Props> = async ({
 			<GalleryCarousel entryData={post} gallery={gallery} navPosition="bottom" navType="none" />
 			<SectionHeader
 				className="pop-header mt-6 1xl:mt-[1.15rem] relative justify-end"
-				className_Actions="absolute right-0 -bottom-2 scale-75 2xs:scale-85"
+				className_Actions="absolute right-0 -bottom-3"
 				iconComponent={
 					<IconCircleWrapper
 						alt={post.title}
@@ -80,6 +80,8 @@ const BlogPublicPost: React.FC<Props> = async ({
 				title={post.html.title}
 			>
 				<PostLinks
+					categoryPosition="left"
+					classNameCategory="tracking-wider mr-1 translate-y-[1px]"
 					fileList={fileList}
 					iconList={iconList}
 					iconsMap={iconsMap}

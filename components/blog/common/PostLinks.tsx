@@ -22,10 +22,25 @@ interface Props {
 	iconList: FileListItem[] | null;
 	iconsMap: IconsMap;
 	tags: TagData[] | null;
+	categoryPosition?: "left" | "right";
+	className?: string;
+	classNameCategory?: string;
 }
 
-const PostLinks: React.FC<Props> = ({ post, fileList, iconList, tags, iconsMap }) => {
+const PostLinks: React.FC<Props> = ({
+	post,
+	fileList,
+	iconList,
+	tags,
+	iconsMap,
+	categoryPosition,
+	className,
+	classNameCategory,
+}) => {
 	const t = msgs("Posts_CardPublic");
+	const tCommon = msgs("Posts");
+
+	type tType = Parameters<typeof tCommon>[0];
 
 	let gallery = post?.gallery
 		?.map((file) => file.metadata.html)
@@ -39,8 +54,31 @@ const PostLinks: React.FC<Props> = ({ post, fileList, iconList, tags, iconsMap }
 	const iconWrapper =
 		"fill-foreground-tertiary hover:fill-ring-secondary flex items-center justify-center h-full if-empty-display-none";
 
+	const label = tCommon(`title_${post.entryType}` as tType);
+	const tooltip = t("category_tooltip", { category: label });
+
+	const Category = ({ className }: { className?: string }) => (
+		<TooltipWrapper className={cn("cursor-default", className)} tooltipText={tooltip}>
+			<span
+				className={cn(
+					"font-unicephalon text-sm text-background bg-primary-foreground px-1 block rounded-sm",
+					classNameCategory
+				)}
+			>
+				{label}
+			</span>
+		</TooltipWrapper>
+	);
+
 	return (
-		<div className="pt-1 m-0 flex gap-2 transition-all duration-300 items-center justify-start max-h-7">
+		<div
+			className={cn(
+				"pt-1 m-0 flex gap-2 transition-all duration-300 items-center justify-start max-h-7",
+				className
+			)}
+		>
+			{categoryPosition === "left" && <Category />}
+
 			<div className={iconWrapper}>
 				<TooltipWrapper
 					className="w-full h-full flex items-center fill-inherit"
@@ -91,6 +129,8 @@ const PostLinks: React.FC<Props> = ({ post, fileList, iconList, tags, iconsMap }
 					/>
 				</TooltipWrapper>
 			</div>
+
+			{categoryPosition === "right" && <Category />}
 		</div>
 	);
 };

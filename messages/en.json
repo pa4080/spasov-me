@@ -748,7 +748,8 @@
 		"tooltip_gallery": "View post's gallery",
 		"tooltip_update": "Edit the post",
 		"tooltip_link": "Post's { linkType }",
-		"area_label_card_link": "Link to the Post's page"
+		"area_label_card_link": "Link to the Post's page",
+		"category_tooltip": "Category: { category }"
 	},
 	"LabEntries_Form": {
 		"schema_title": "The entry title must be at least 4 characters.",
