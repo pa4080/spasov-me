@@ -577,6 +577,7 @@
 		"dateTo_now_current": "Now"
 	},
 	"Projects": {
+		"title_common": "Projects",
 		"title_informationTechnologies": "Information Technologies",
 		"title_mechanicalEngineering": "Mechanical Engineering",
 		"title_managementConsultancy": "Management Consultancy",
@@ -747,7 +748,8 @@
 		"tooltip_gallery": "View post's gallery",
 		"tooltip_update": "Edit the post",
 		"tooltip_link": "Post's { linkType }",
-		"area_label_card_link": "Link to the Post's page"
+		"area_label_card_link": "Link to the Post's page",
+		"category_tooltip": "Category: { category }"
 	},
 	"LabEntries_Form": {
 		"schema_title": "The entry title must be at least 4 characters.",
@@ -881,6 +883,7 @@
 		"dateTo_now_current": "Now"
 	},
 	"LabEntries": {
+		"title_common": "Resources",
 		"title_site": "Site",
 		"title_service": "Service",
 		"title_application": "Application",
@@ -926,6 +929,7 @@
 		"button_call_to_action": "Details",
 		"tooltip_gallery": "View Lab entry's gallery",
 		"tooltip_update": "Edit the Lab entry",
+		"tooltip_link": "Entry's { linkType }",
 		"area_label_card_link": "Link to the Lab entry's page",
 
 		"tooltip_home_link": "Link to the Lab entry's { linkType }",
@@ -937,7 +941,11 @@
 
 		"label_tooltip_by_property_own": "Own resources",
 		"label_tooltip_by_property_client": "Client's resources",
-		"label_tooltip_by_property_shared": "Shared resources"
+		"label_tooltip_by_property_shared": "Shared resources",
+
+		"btnMore": "Read more",
+		"btnLess": "Show less",
+		"btnAll": "Show all"
 	},
 	"Search": {
 		"title": "Search the site",

@@ -76,6 +76,12 @@ const PostAdminCard: React.FC<Props> = ({
 	// gallery =
 	// 	post?.html?.icon && gallery ? [post?.html?.icon.metadata.html].concat(gallery) : gallery;
 
+	const isDisabled_Url1 =
+		post.url1 === undefined || post.url1 === null || post.url1 === "" || post.url1 === "undefined";
+
+	const isDisabled_Url2 =
+		post.url2 === undefined || post.url2 === null || post.url2 === "" || post.url2 === "undefined";
+
 	return (
 		<div className={`card-border-wrapper ${className}`} id={toggle_target_id}>
 			<div className={styles.card}>
@@ -102,6 +108,7 @@ const PostAdminCard: React.FC<Props> = ({
 								iconType="arrow-up-right-from-square"
 								icon_className_Path1="fill-accent-secondary"
 								icon_className_Path2="fill-accent"
+								isDisabled={isDisabled_Url1}
 								label={tCard("tooltip_link", { linkType: "Link 1" })}
 								url={post.url1}
 								width={21}
@@ -114,6 +121,7 @@ const PostAdminCard: React.FC<Props> = ({
 								iconType="arrow-up-right-from-square"
 								icon_className_Path1="fill-accent-secondary"
 								icon_className_Path2="fill-accent"
+								isDisabled={isDisabled_Url2}
 								label={tCard("tooltip_link", { linkType: "Link 2" })}
 								url={post.url2}
 								width={21}
@@ -124,7 +132,7 @@ const PostAdminCard: React.FC<Props> = ({
 				<div className={styles.header}>
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							<Gallery className="mt-0.5" entry={post} gallery={gallery} height={24} width={32} />
+							<Gallery className="mt-0.5" entry={post} gallery={gallery} height={24} width={24} />
 							<FileAddressHandle
 								address={
 									post.html.attachment?.metadata?.html?.fileUri ||

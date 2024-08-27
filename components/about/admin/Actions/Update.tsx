@@ -29,6 +29,8 @@ import { TagData } from "@/interfaces/Tag";
 
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 
+import { cn } from "@/lib/cn-utils";
+
 import { Entry_FormSchema } from "../Form/schema";
 
 const AboutEntryForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
@@ -87,48 +89,46 @@ const UpdateAboutEntry: React.FC<Props> = ({ className, entry, fileList, tags, i
 	}
 
 	return (
-		<div className={className}>
-			<Dialog open={isOpen} onOpenChange={setIsOpen}>
-				<DialogTrigger disabled={submitting} onClick={() => setIsOpen(true)}>
-					<IconEmbedSvg
-						className="grayscale-[100%] hover:grayscale-[0%] mt-2"
-						className_Path1="fill-accent-secondary"
-						className_Path2="fill-accent"
-						height={23}
-						type={"screwdriver-wrench"}
-						width={24}
-					/>
-				</DialogTrigger>
-				<DialogContent
-					className="ma:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
-					closeOnOverlayClick={false}
-				>
-					<DialogHeader displayClose>
-						<div className="flex flex-col gap-1">
-							<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
-							{t("dialog_description") && (
-								<DialogDescription
-									dangerouslySetInnerHTML={{
-										__html: t("dialog_description", { id: entry._id }),
-									}}
-								/>
-							)}
-						</div>
-					</DialogHeader>
+		<Dialog open={isOpen} onOpenChange={setIsOpen}>
+			<DialogTrigger disabled={submitting} onClick={() => setIsOpen(true)}>
+				<IconEmbedSvg
+					className={cn("grayscale-[100%] hover:grayscale-[0%]", className)}
+					className_Path1="fill-accent-secondary"
+					className_Path2="fill-accent"
+					height={23}
+					type={"screwdriver-wrench"}
+					width={24}
+				/>
+			</DialogTrigger>
+			<DialogContent
+				className="ma:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
+				closeOnOverlayClick={false}
+			>
+				<DialogHeader displayClose>
+					<div className="flex flex-col gap-1">
+						<DialogTitle>{t("dialog_title", { entryType: entryTypeLabel })}</DialogTitle>
+						{t("dialog_description") && (
+							<DialogDescription
+								dangerouslySetInnerHTML={{
+									__html: t("dialog_description", { id: entry._id }),
+								}}
+							/>
+						)}
+					</div>
+				</DialogHeader>
 
-					<AboutEntryForm
-						className={t("dialog_description") ? "mt-0" : "mt-1"}
-						entryType={entry.entryType}
-						fileList={fileList}
-						formData={entry}
-						iconsMap={iconsMap}
-						submitting={submitting}
-						tags={tags}
-						onSubmit={handleUpdateEntry}
-					/>
-				</DialogContent>
-			</Dialog>
-		</div>
+				<AboutEntryForm
+					className={t("dialog_description") ? "mt-0" : "mt-1"}
+					entryType={entry.entryType}
+					fileList={fileList}
+					formData={entry}
+					iconsMap={iconsMap}
+					submitting={submitting}
+					tags={tags}
+					onSubmit={handleUpdateEntry}
+				/>
+			</DialogContent>
+		</Dialog>
 	);
 };
 

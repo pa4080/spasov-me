@@ -74,7 +74,7 @@ const DeleteAboutEntry: React.FC<Props> = ({ className, entry }) => {
 			<AlertDialog open={isOpen} onOpenChange={setIsOpen}>
 				<AlertDialogTrigger onClick={() => setIsOpen(true)}>
 					<IconEmbedSvg
-						className={cn("grayscale-[100%] hover:grayscale-[0%] mt-[10px]", className)}
+						className={cn("grayscale-[100%] hover:grayscale-[0%]", className)}
 						className_Path1="fill-accent"
 						className_Path2="fill-accent-secondary"
 						height={21}

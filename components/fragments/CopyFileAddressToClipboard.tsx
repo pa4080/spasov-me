@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { cn } from "@/lib/cn-utils";
+
+import IconEmbedSvg from "./IconEmbedSvg";
 
 export interface Props {
 	className?: string;
@@ -34,8 +35,7 @@ const CopyFileAddressToClipboard: React.FC<Props> = ({ className, address, child
 			className={cn(
 				"transition-all duration-300",
 				popTimer ? "scale-120" : "",
-				children ? className : "cursor-pointer",
-				children ? className : ""
+				children ? className : "cursor-pointer"
 			)}
 			onClick={(e) => {
 				e.stopPropagation();
@@ -46,16 +46,16 @@ const CopyFileAddressToClipboard: React.FC<Props> = ({ className, address, child
 			{children ? (
 				children
 			) : (
-				<ButtonIcon
-					className={cn(
-						"pl-[5px] bg-transparent icon_accent_secondary",
-						!children ? className : ""
-					)}
-					height={22}
-					type={popTimer ? "clipboard-check" : "clipboard"}
-					width={22}
-					onClick={handleCopyFileAddress}
-				/>
+				<div onClick={handleCopyFileAddress}>
+					<IconEmbedSvg
+						className={cn("grayscale-[100%] hover:grayscale-[0%]", className)}
+						className_Path1="fill-accent-secondary"
+						className_Path2={popTimer ? "fill-foreground-secondary" : "fill-accent"}
+						height={22}
+						type={popTimer ? "clipboard-check" : "clipboard"}
+						width={22}
+					/>
+				</div>
 			)}
 		</div>
 	);

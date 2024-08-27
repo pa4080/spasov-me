@@ -16,6 +16,7 @@ interface Props {
 	isClickable?: boolean;
 	label: string;
 	url: string | undefined;
+	isDisabled?: boolean;
 }
 
 const DisplayResourceUrlAsIcon: React.FC<Props> = ({
@@ -23,13 +24,18 @@ const DisplayResourceUrlAsIcon: React.FC<Props> = ({
 	size = 23,
 	width = 23,
 	height = 23,
-	icon_className_Path1 = "fill-inherit",
-	icon_className_Path2 = "fill-inherit",
+	icon_className_Path1 = "fill-accent-secondary",
+	icon_className_Path2 = "fill-accent",
 	className,
 	isClickable = true,
 	label,
 	url,
+	isDisabled = false,
 }) => {
+	if (isDisabled) {
+		return null;
+	}
+
 	const w = width || size;
 	const h = height || size;
 

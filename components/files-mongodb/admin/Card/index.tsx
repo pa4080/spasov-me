@@ -20,6 +20,8 @@ import { roundTo } from "@/lib/round";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
+import Gallery from "@/components/fragments/Gallery";
+
 import DeleteFile from "../Actions/DeleteFile";
 import UpdateFile from "../Actions/UpdateFile";
 import styles from "./_file-card.module.scss";
@@ -57,15 +59,21 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common" }) =
 				<div className={styles.header}>
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							<CopyFileAddressToClipboard address={fileAddress} />
+							<Gallery
+								entry={{ title: file.filename }}
+								gallery={[file.metadata.html]}
+								height={24}
+								width={24}
+							/>
+							<FileAddressHandle download address={fileAddress} />
+							<CopyFileAddressToClipboard address={fileAddress} className="mt-0.5" />
+							<FileAddressHandle address={fileAddress} />
+							<DeleteFile className="mt-1" file={file} />
 							<VisibilitySwitchDisplay
 								disabled
 								checked={file.metadata.visibility}
 								className="mt-0.5"
 							/>
-							<DeleteFile file={file} />
-							<FileAddressHandle address={fileAddress} />
-							<FileAddressHandle download address={fileAddress} />
 							<UpdateFile file={file} />
 
 							<ToggleCollapsible

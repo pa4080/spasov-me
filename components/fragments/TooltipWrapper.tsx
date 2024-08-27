@@ -1,6 +1,7 @@
 "use client";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { cn } from "@/lib/cn-utils";
 
 interface Props {
 	className?: string;
@@ -13,11 +14,11 @@ interface Props {
  * thus we can provide children which is Button. Other wise e get the warning
  * "<button> cannot appear as a descendant of <button>""
  */
-const TooltipWrapper: React.FC<Props> = ({ className = "!mt-0", children, tooltipText }) => {
+const TooltipWrapper: React.FC<Props> = ({ className, children, tooltipText }) => {
 	return (
 		<TooltipProvider>
 			<Tooltip>
-				<TooltipTrigger asChild className={className}>
+				<TooltipTrigger asChild className={cn("!mt-0", className)}>
 					<div>{children}</div>
 				</TooltipTrigger>
 				{tooltipText && (
