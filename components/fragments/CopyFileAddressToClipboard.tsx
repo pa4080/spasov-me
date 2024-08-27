@@ -8,10 +8,11 @@ import IconEmbedSvg from "./IconEmbedSvg";
 export interface Props {
 	className?: string;
 	address: string;
+	children?: React.ReactNode;
 }
 
-const CopyFileAddressToClipboard: React.FC<Props> = ({ className, address }) => {
-	const [submitting, setSubmitting] = useState(false);
+const CopyFileAddressToClipboard: React.FC<Props> = ({ className, address, children }) => {
+	const [popTimer, setPopTimer] = useState(false);
 
 	if (!address) {
 		return null;
@@ -20,28 +21,42 @@ const CopyFileAddressToClipboard: React.FC<Props> = ({ className, address }) => 
 	const addressNoVersion = address?.split("?")[0];
 
 	const handleCopyFileAddress = () => {
-		setSubmitting(true);
+		setPopTimer(true);
 
 		navigator.clipboard.writeText(`${addressNoVersion}`);
 
 		setTimeout(() => {
-			setSubmitting(false);
+			setPopTimer(false);
 		}, 3000);
 	};
 
 	return (
 		<div
-			className={`transition-all duration-300 ${submitting ? "scale-120" : ""}`}
-			onClick={handleCopyFileAddress}
+			className={cn(
+				"transition-all duration-300",
+				popTimer ? "scale-120" : "",
+				children ? className : "cursor-pointer"
+			)}
+			onClick={(e) => {
+				e.stopPropagation();
+				e.preventDefault();
+				children && handleCopyFileAddress();
+			}}
 		>
-			<IconEmbedSvg
-				className={cn("grayscale-[100%] hover:grayscale-[0%]", className)}
-				className_Path1="fill-accent-secondary"
-				className_Path2={submitting ? "fill-secondary" : "fill-accent"}
-				height={22}
-				type={submitting ? "clipboard-check" : "clipboard"}
-				width={22}
-			/>
+			{children ? (
+				children
+			) : (
+				<div onClick={handleCopyFileAddress}>
+					<IconEmbedSvg
+						className={cn("grayscale-[100%] hover:grayscale-[0%]", className)}
+						className_Path1="fill-accent-secondary"
+						className_Path2={popTimer ? "fill-foreground-secondary" : "fill-accent"}
+						height={22}
+						type={popTimer ? "clipboard-check" : "clipboard"}
+						width={22}
+					/>
+				</div>
+			)}
 		</div>
 	);
 };
