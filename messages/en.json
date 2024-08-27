@@ -926,6 +926,7 @@
 		"button_call_to_action": "Details",
 		"tooltip_gallery": "View Lab entry's gallery",
 		"tooltip_update": "Edit the Lab entry",
+		"tooltip_link": "Entry's { linkType }",
 		"area_label_card_link": "Link to the Lab entry's page",
 
 		"tooltip_home_link": "Link to the Lab entry's { linkType }",
@@ -937,7 +938,11 @@
 
 		"label_tooltip_by_property_own": "Own resources",
 		"label_tooltip_by_property_client": "Client's resources",
-		"label_tooltip_by_property_shared": "Shared resources"
+		"label_tooltip_by_property_shared": "Shared resources",
+
+		"btnMore": "Read more",
+		"btnLess": "Show less",
+		"btnAll": "Show all"
 	},
 	"Search": {
 		"title": "Search the site",

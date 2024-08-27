@@ -39,9 +39,9 @@ const CopyEntryUri: React.FC<Props> = ({ className, entry_id }) => {
 			onClick={handleCopyFileAddress}
 		>
 			<IconEmbedSvg
-				className={cn("grayscale-[100%] hover:grayscale-[0%] mt-0.5", className)}
-				className_Path1="fill-accent"
-				className_Path2="fill-accent-secondary"
+				className={cn("grayscale-[100%] hover:grayscale-[0%]", className)}
+				className_Path1="fill-accent-secondary"
+				className_Path2={submitting ? "fill-secondary" : "fill-accent"}
 				height={22}
 				type={submitting ? "clipboard-check" : "clipboard"}
 				width={22}

@@ -3,7 +3,6 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
 import Loading from "@/components/fragments/Loading";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
@@ -18,6 +17,10 @@ import { FileData } from "@/interfaces/File";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
+
+import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+
+import { cn } from "@/lib/cn-utils";
 
 import { updateFile_mongo } from "../../_files.actions";
 import { File_FormSchema } from "../Form/schema";
@@ -62,44 +65,43 @@ const UpdateFile: React.FC<Props> = ({ className, file }) => {
 	};
 
 	return (
-		<div className={className}>
-			<Dialog open={isOpen} onOpenChange={setIsOpen}>
-				<DialogTrigger disabled={submitting}>
-					<ButtonIcon
-						className="pl-1 bg-transparent icon_accent_secondary"
-						height={22}
-						type="brush"
-						width={22}
-						onClick={() => setIsOpen(true)}
-					/>
-				</DialogTrigger>
-				<DialogContent
-					className="ma:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
-					closeOnOverlayClick={false}
-				>
-					<DialogHeader>
-						<div className="flex flex-col gap-1">
-							<DialogTitle>{t("dialog_title")}</DialogTitle>
-							{t("dialog_description") && (
-								<DialogDescription
-									dangerouslySetInnerHTML={{
-										__html: t("dialog_description", { filename: file.filename, id: file._id }),
-									}}
-								/>
-							)}
-						</div>
-					</DialogHeader>
+		<Dialog open={isOpen} onOpenChange={setIsOpen}>
+			<DialogTrigger disabled={submitting} onClick={() => setIsOpen(true)}>
+				<IconEmbedSvg
+					className={cn("grayscale-[100%] hover:grayscale-[0%]", className)}
+					className_Path1="fill-accent-secondary"
+					className_Path2="fill-accent"
+					height={23}
+					type={"screwdriver-wrench"}
+					width={23}
+				/>
+			</DialogTrigger>
+			<DialogContent
+				className="ma:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
+				closeOnOverlayClick={false}
+			>
+				<DialogHeader>
+					<div className="flex flex-col gap-1">
+						<DialogTitle>{t("dialog_title")}</DialogTitle>
+						{t("dialog_description") && (
+							<DialogDescription
+								dangerouslySetInnerHTML={{
+									__html: t("dialog_description", { filename: file.filename, id: file._id }),
+								}}
+							/>
+						)}
+					</div>
+				</DialogHeader>
 
-					<FileForm
-						className={t("dialog_description") ? "mt-0" : "mt-1"}
-						formData={file}
-						isContainerDialogOpen={isOpen}
-						submitting={submitting}
-						onSubmit={handleUpdateFile}
-					/>
-				</DialogContent>
-			</Dialog>
-		</div>
+				<FileForm
+					className={t("dialog_description") ? "mt-0" : "mt-1"}
+					formData={file}
+					isContainerDialogOpen={isOpen}
+					submitting={submitting}
+					onSubmit={handleUpdateFile}
+				/>
+			</DialogContent>
+		</Dialog>
 	);
 };
 

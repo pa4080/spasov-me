@@ -77,26 +77,26 @@ const LabEntryLinks: React.FC<Props> = ({
 
 			<div className={iconWrapper}>
 				<DisplayConditionally_ResourceButtons
+					className="-ml-1 -mr-0.5"
 					entryUrl={labEntry.urlAdmin}
 					entryVisibilityType={labEntry.visibilityType}
 					iconType="user-shield"
 					icon_className_Path1="fill-accent-secondary"
 					icon_className_Path2="fill-accent"
 					linkType="Admin Page"
-					width={32}
+					width={34}
 				/>
 			</div>
 
 			<div className={iconWrapper}>
 				<DisplayConditionally_ResourceButtons
-					className="ml-1"
 					entryUrl={labEntry.urlSource}
 					entryVisibilityType={labEntry.visibilityType}
-					iconType="dice-d6"
+					iconType="box-circle-check"
 					icon_className_Path1="fill-accent-secondary"
 					icon_className_Path2="fill-accent"
 					linkType="Source"
-					width={24}
+					width={30}
 				/>
 			</div>
 
@@ -112,7 +112,7 @@ const LabEntryLinks: React.FC<Props> = ({
 					</div>
 					<div className={iconWrapper}>
 						<TooltipWrapper
-							className="w-full h-full flex items-center fill-inherit ml-0.5"
+							className="w-full h-full flex items-center fill-inherit -ml-0.5"
 							tooltipText={t("tooltip_gallery")}
 						>
 							<UpdateLabEntry
@@ -140,8 +140,8 @@ const LabEntryLinks: React.FC<Props> = ({
 									className_Path2="fill-accent"
 									cursor={gallery?.length === 0 ? "not-allowed" : "pointer"}
 									height={23}
-									type={"box-circle-check"}
-									width={30}
+									type="dice-d6"
+									width={23}
 								/>
 							</Link>
 						</div>
@@ -150,11 +150,11 @@ const LabEntryLinks: React.FC<Props> = ({
 								href={`${Route.public.LAB.uri}/${labEntry.slug}?btn_id=lab-entry-update-button`}
 							>
 								<IconEmbedSvg
-									className="grayscale-[100%] hover:grayscale-[0%]"
+									className="grayscale-[100%] hover:grayscale-[0%] -ml-0.5"
 									className_Path1="fill-accent-secondary"
 									className_Path2="fill-accent"
 									height={23}
-									type={"screwdriver-wrench"}
+									type="screwdriver-wrench"
 									width={24}
 								/>
 							</Link>

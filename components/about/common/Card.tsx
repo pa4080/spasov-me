@@ -116,19 +116,12 @@ const AboutEntryCard: React.FC<Props> = ({
 								className="w-full h-full flex items-center fill-inherit"
 								tooltipText={gallery.length === 0 ? "" : tCommon("tooltip_gallery")}
 							>
-								<Gallery
-									className="mt-0.5"
-									entry={entry}
-									gallery={gallery}
-									height={24}
-									width={32}
-								/>
+								<Gallery entry={entry} gallery={gallery} height={24} width={24} />
 							</TooltipWrapper>
-
-							<FileAddressHandle address={attachmentAddress} />
 							<CopyEntryUri entry_id={entry._id} />
-							<DeleteAboutEntry entry={entry} />
-							<VisibilitySwitchDisplay disabled checked={entry.visibility} className="mt-1" />
+							<FileAddressHandle address={attachmentAddress} />
+							<DeleteAboutEntry className="mt-1" entry={entry} />
+							<VisibilitySwitchDisplay disabled checked={entry.visibility} className="mt-0.5" />
 							<UpdateAboutEntry entry={entry} fileList={fileList} iconsMap={iconsMap} tags={tags} />
 							<ToggleCollapsible
 								tooltip

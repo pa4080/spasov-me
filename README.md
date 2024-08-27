@@ -24,11 +24,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - Portfolio
   - [ ] Add Titles: Projects, Resources
 
-- Fix the icons style for:
-  - [ ] Files Mongo Admin
-  - [ ] Files CloudFlare Admin
-  - [ ] Icons CloudFlare Admin
-
 - [ ] Create to do list?
 
 - [ ] Allow file rename when it is not linked to a post?

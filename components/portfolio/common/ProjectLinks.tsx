@@ -54,13 +54,9 @@ const ProjectLinks: React.FC<Props> = ({
 		>
 			<div className={iconWrapper}>
 				<DisplayResourceUrlAsIcon
-					className="grayscale-[100%] hover:grayscale-[0%]"
 					iconType="globe-pointer"
-					icon_className_Path1="fill-accent-secondary"
-					icon_className_Path2="fill-accent"
 					isClickable={!!project.urlHome}
 					label={t("tooltip_link", { linkType: "Homepage" })}
-					size={23}
 					url={project.urlHome}
 				/>
 			</div>
@@ -68,29 +64,23 @@ const ProjectLinks: React.FC<Props> = ({
 			<DisplayConditionally>
 				<div className={iconWrapper}>
 					<DisplayResourceUrlAsIcon
-						className="grayscale-[100%] hover:grayscale-[0%]"
+						className="-ml-1 -mr-0.5"
 						iconType="user-shield"
-						icon_className_Path1="fill-accent-secondary"
-						icon_className_Path2="fill-accent"
 						isClickable={!!project.urlAdmin}
 						label={t("tooltip_link", { linkType: "Admin panel" })}
 						url={project.urlAdmin}
-						width={32}
+						width={34}
 					/>
 				</div>
 			</DisplayConditionally>
 
 			<div className={iconWrapper}>
 				<DisplayResourceUrlAsIcon
-					className="grayscale-[100%] hover:grayscale-[0%] ml-1"
-					height={23}
-					iconType="dice-d6"
-					icon_className_Path1="fill-accent-secondary"
-					icon_className_Path2="fill-accent"
+					iconType="box-circle-check"
 					isClickable={!!project.urlRepo}
 					label={t("tooltip_link", { linkType: "Repository" })}
 					url={project.urlRepo}
-					width={24}
+					width={30}
 				/>
 			</div>
 
@@ -105,7 +95,7 @@ const ProjectLinks: React.FC<Props> = ({
 
 			<div className={iconWrapper}>
 				<TooltipWrapper
-					className="w-full h-full flex items-center fill-inherit ml-0.5"
+					className="w-full h-full flex items-center fill-inherit -ml-0.5"
 					tooltipText={t("tooltip_update")}
 				>
 					<UpdateProject

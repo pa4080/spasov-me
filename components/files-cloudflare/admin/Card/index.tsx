@@ -21,6 +21,8 @@ import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 
 import { roundTo } from "@/lib/round";
 
+import Gallery from "@/components/fragments/Gallery";
+
 import CopyFileAddressToClipboard from "../../../fragments/CopyFileAddressToClipboard";
 import DeleteFile from "../Actions/DeleteFile";
 import UpdateFile from "../Actions/UpdateFile";
@@ -62,15 +64,17 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common", fil
 				<div className={styles.header}>
 					<div className={styles.buttons}>
 						<div className={styles.buttonsContainer}>
-							<CopyFileAddressToClipboard address={fileAddress} />
-							<VisibilitySwitchDisplay
-								disabled
-								checked={file.metadata.visibility}
-								className="mt-0.5"
+							<Gallery
+								entry={{ title: file.filename }}
+								gallery={[file.metadata.html]}
+								height={24}
+								width={24}
 							/>
-							<DeleteFile file={file} files_prefix={files_prefix} />
-							<FileAddressHandle address={fileAddress} />
 							<FileAddressHandle download address={fileAddress} />
+							<CopyFileAddressToClipboard address={fileAddress} className="mt-0.5" />
+							<FileAddressHandle address={fileAddress} />
+							<DeleteFile file={file} files_prefix={files_prefix} />
+							<VisibilitySwitchDisplay disabled checked={file.metadata.visibility} />
 							<UpdateFile file={file} files_prefix={files_prefix} />
 
 							<ToggleCollapsible

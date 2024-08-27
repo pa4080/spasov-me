@@ -109,29 +109,29 @@ const ProjectAdminCard: React.FC<Props> = ({
 						</div>
 					)}
 
-					<div className={styles.linksProjectPost}>
+					<div className={`${styles.linksProjectPost} scale-90 origin-left`}>
 						<div className={styles.iconWrapper}>
 							<DisplayResourceUrlAsIcon
-								className="grayscale-[100%] hover:grayscale-[0%]"
-								height={22}
 								iconType="globe-pointer"
-								icon_className_Path1="fill-accent-secondary"
-								icon_className_Path2="fill-accent"
-								label={tCard("tooltip_link", { linkType: "Homepage" })}
+								label={tCard("tooltip_link", { linkType: "Home Page" })}
 								url={project.urlHome}
-								width={22}
 							/>
 						</div>
 						<div className={styles.iconWrapper}>
 							<DisplayResourceUrlAsIcon
-								className="grayscale-[100%] hover:grayscale-[0%] mr-0.5"
-								height={23}
-								iconType="dice-d6"
-								icon_className_Path1="fill-accent-secondary"
-								icon_className_Path2="fill-accent"
+								className="-ml-1 -mr-0.5"
+								iconType="user-shield"
+								label={tCard("tooltip_link", { linkType: "Admin Page" })}
+								url={project.urlAdmin}
+								width={34}
+							/>
+						</div>
+						<div className={styles.iconWrapper}>
+							<DisplayResourceUrlAsIcon
+								iconType="box-circle-check"
 								label={tCard("tooltip_link", { linkType: "Repository" })}
 								url={project.urlRepo}
-								width={24}
+								width={30}
 							/>
 						</div>
 					</div>
@@ -144,7 +144,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 								entry={project}
 								gallery={gallery}
 								height={24}
-								width={32}
+								width={24}
 							/>
 							<FileAddressHandle
 								address={

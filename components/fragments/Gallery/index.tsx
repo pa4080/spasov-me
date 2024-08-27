@@ -31,13 +31,19 @@ const GalleryCarousel = dynamic(() => import("./GalleryCarousel"), {
 
 interface Props {
 	className?: string;
-	entry: AboutEntryData | ProjectData | PostData | LabEntryData | LabEntryCustom;
+	entry:
+		| AboutEntryData
+		| ProjectData
+		| PostData
+		| LabEntryData
+		| LabEntryCustom
+		| { title: string };
 	gallery: FileHtmlProps[] | undefined;
 	height?: number;
 	width?: number;
 }
 
-const Gallery: React.FC<Props> = ({ className, entry, gallery, height = 23, width = 30 }) => {
+const Gallery: React.FC<Props> = ({ className, entry, gallery, height = 23, width = 23 }) => {
 	const t = msgs("Gallery");
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +62,7 @@ const Gallery: React.FC<Props> = ({ className, entry, gallery, height = 23, widt
 					className_Path2="fill-accent"
 					cursor={gallery?.length === 0 ? "not-allowed" : "pointer"}
 					height={height}
-					type={"box-circle-check"}
+					type="dice-d6"
 					width={width}
 				/>
 			</DialogTrigger>

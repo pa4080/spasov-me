@@ -24,7 +24,8 @@ import { Route } from "@/routes";
 
 import { LabEntryData } from "@/interfaces/LabEntry";
 
-import DisplayConditionally_ResourceButtons from "../common/DisplayConditionally_ResourceButtons";
+import DisplayResourceUrlAsIcon from "@/components/fragments/DisplayResourceUrlAsIcon";
+
 import DeleteLabEntry from "./Actions/Delete";
 import UpdateLabEntry from "./Actions/Update";
 
@@ -49,8 +50,7 @@ const LabEntryAdminCard: React.FC<Props> = ({
 	iconsMap,
 	tags,
 }) => {
-	// const tTime = msgs("Posts_Form");
-	const tCommon = msgs("Posts");
+	const t = msgs("LabEntries_CardPublic");
 
 	const { dateFrom, dateTo } = labEntry;
 	const dtFrom = new Date(dateFrom);
@@ -95,42 +95,27 @@ const LabEntryAdminCard: React.FC<Props> = ({
 
 					<div className={`${styles.linksProjectPost} scale-90 origin-left`}>
 						<div className={styles.iconWrapper}>
-							<DisplayConditionally_ResourceButtons
-								className="grayscale-[100%] hover:grayscale-[20%] opacity-90"
-								entryUrl={labEntry.urlHome}
-								entryVisibilityType={labEntry.visibilityType}
+							<DisplayResourceUrlAsIcon
 								iconType="globe-pointer"
-								icon_className_Path1="fill-accent-secondary"
-								icon_className_Path2="fill-accent"
-								isPrivateOnly={false}
-								linkType="Home Page"
-								size={23}
+								label={t("tooltip_link", { linkType: "Home Page" })}
+								url={labEntry.urlHome}
 							/>
 						</div>
 						<div className={styles.iconWrapper}>
-							<DisplayConditionally_ResourceButtons
-								className="grayscale-[100%] hover:grayscale-[20%] opacity-90"
-								entryUrl={labEntry.urlAdmin}
-								entryVisibilityType={labEntry.visibilityType}
-								height={23}
+							<DisplayResourceUrlAsIcon
+								className="-ml-1 -mr-0.5"
 								iconType="user-shield"
-								icon_className_Path1="fill-accent-secondary"
-								icon_className_Path2="fill-accent"
-								linkType="Admin Page"
-								width={32}
+								label={t("tooltip_link", { linkType: "Admin Page" })}
+								url={labEntry.urlAdmin}
+								width={34}
 							/>
 						</div>
 						<div className={styles.iconWrapper}>
-							<DisplayConditionally_ResourceButtons
-								className="grayscale-[100%] hover:grayscale-[20%] opacity-90 ml-1"
-								entryUrl={labEntry.urlSource}
-								entryVisibilityType={labEntry.visibilityType}
-								height={23}
-								iconType="dice-d6"
-								icon_className_Path1="fill-accent-secondary"
-								icon_className_Path2="fill-accent"
-								linkType="Source"
-								width={24}
+							<DisplayResourceUrlAsIcon
+								iconType="box-circle-check"
+								label={t("tooltip_link", { linkType: "Source" })}
+								url={labEntry.urlSource}
+								width={30}
 							/>
 						</div>
 					</div>
@@ -143,7 +128,7 @@ const LabEntryAdminCard: React.FC<Props> = ({
 								entry={labEntry}
 								gallery={gallery}
 								height={24}
-								width={32}
+								width={24}
 							/>
 							<FileAddressHandle
 								address={
@@ -165,7 +150,7 @@ const LabEntryAdminCard: React.FC<Props> = ({
 								tooltip
 								className="icon_accent_primary"
 								target_id={toggle_target_id}
-								text={[tCommon("btnMore"), tCommon("btnLess")]}
+								text={[t("btnMore"), t("btnLess")]}
 								type={descriptionArr[1] ? "card" : "card-item-single"}
 							/>
 						</div>
