@@ -17,29 +17,25 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - Blog
   - [ ] MD PDF Embed
   - [ ] Copy button for the post's code snippets
+
   - [ ] Display the post category as label on the blog card and post page
+
   - [ ] Display gallery switch in the post form, to display the gallery navigation or not;
         Display gallery items caption switch too.
 
-- Portfolio
-  - [ ] Add Titles: Projects, Resources
-
 - [ ] Create to do list?
-
 - [ ] Allow file rename when it is not linked to a post?
+- [ ] Redis: Create event loop by using Upstash/Redis queue - object like:
 
-- Redis
-  - [ ] Create event loop by using Upstash/Redis queue - object like:
-
-    ```js
-    {
-      objectKey: string,
-      metadata: FileMetadata,
-      objectBody?: buffer, // this should become a temp file
-      prefix: string,
-      action: "create" | "update" | "update-metadata" | "delete",
-    }
-    ```
+  ```js
+  {
+    objectKey: string,
+    metadata: FileMetadata,
+    objectBody?: buffer, // this should become a temp file
+    prefix: string,
+    action: "create" | "update" | "update-metadata" | "delete",
+  }
+  ```
 
 ## Vercel CLI
 

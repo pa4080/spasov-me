@@ -30,7 +30,7 @@ const TimeLine: React.FC<Props> = ({ className, posts, fileList, iconList, tags,
 	const postsByType = posts?.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
 	return (
-		<div className={cn("portfolio-cards-section scroll-m-8", className)}>
+		<div className={cn("blog-cards-section scroll-m-8", className)}>
 			<div className="grid grid-cols-1 md:grid-cols-2 grid-flow-row gap-12 md:gap-10 lg:gap-14">
 				{postsByType?.map((post, index) => (
 					<BlogPublic_Card

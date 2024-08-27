@@ -577,6 +577,7 @@
 		"dateTo_now_current": "Now"
 	},
 	"Projects": {
+		"title_common": "Projects",
 		"title_informationTechnologies": "Information Technologies",
 		"title_mechanicalEngineering": "Mechanical Engineering",
 		"title_managementConsultancy": "Management Consultancy",
@@ -881,6 +882,7 @@
 		"dateTo_now_current": "Now"
 	},
 	"LabEntries": {
+		"title_common": "Resources",
 		"title_site": "Site",
 		"title_service": "Service",
 		"title_application": "Application",
