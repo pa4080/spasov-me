@@ -57,6 +57,12 @@ const PostLinks: React.FC<Props> = ({
 	const label = tCommon(`title_${post.entryType}` as tType);
 	const tooltip = t("category_tooltip", { category: label });
 
+	const isDisabled_Url1 =
+		post.url1 === undefined || post.url1 === null || post.url1 === "" || post.url1 === "undefined";
+
+	const isDisabled_Url2 =
+		post.url2 === undefined || post.url2 === null || post.url2 === "" || post.url2 === "undefined";
+
 	const Category = ({ className }: { className?: string }) => (
 		<TooltipWrapper className={cn("cursor-default", className)} tooltipText={tooltip}>
 			<span
@@ -95,6 +101,7 @@ const PostLinks: React.FC<Props> = ({
 					iconType="arrow-up-right-from-square"
 					icon_className_Path1="fill-accent-secondary"
 					icon_className_Path2="fill-accent"
+					isDisabled={isDisabled_Url1}
 					label={t("tooltip_link", { linkType: "Link 1" })}
 					url={post.url1}
 					width={21}
@@ -108,6 +115,7 @@ const PostLinks: React.FC<Props> = ({
 					iconType="arrow-up-right-from-square"
 					icon_className_Path1="fill-accent-secondary"
 					icon_className_Path2="fill-accent"
+					isDisabled={isDisabled_Url2}
 					label={t("tooltip_link", { linkType: "Link 2" })}
 					url={post.url2}
 					width={21}
