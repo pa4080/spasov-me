@@ -44,6 +44,10 @@ const PublicMenu_Desktop: React.FC<Props> = ({ className }) => {
 
 			{menuItems.map((path, index) => {
 				const pathAsKey = path as keyof typeof Route.public;
+				const menuItemPathName = Route.public[pathAsKey].uri;
+				const isConcretePath = currentPathName === menuItemPathName;
+				const isSubpath =
+					menuItemPathName !== Route.public.HOME.uri && currentPathName.includes(menuItemPathName);
 
 				if (
 					Route.public[pathAsKey].uri !== Route.public.HOME.uri &&
@@ -54,9 +58,11 @@ const PublicMenu_Desktop: React.FC<Props> = ({ className }) => {
 						<Link
 							key={index}
 							className={`${styles.navItemCommon} text-[19px] translate-y-[2px] emphasize_drop_shadow ${
-								currentPathName !== Route.public[pathAsKey].uri
-									? "text-muted-foreground dark:text-foreground"
-									: "text-ring"
+								isConcretePath
+									? "text-ring"
+									: isSubpath
+										? "text-ring-secondary"
+										: "text-muted-foreground dark:text-foreground"
 							}`}
 							href={Route.public[pathAsKey].uri}
 						>

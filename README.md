@@ -20,9 +20,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] Display gallery switch in the post form: to display the gallery navigation or not;
         Display gallery items caption switch too.
 
-- [ ] Navigation: Highlight Blog/Portfolio when is displayed the page of a concrete post
 - [ ] Create to do list?
 - [ ] Allow file rename when it is not linked to a post?
+
 - [ ] Redis: Create event loop by using Upstash/Redis queue - object like:
 
   ```js
