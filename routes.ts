@@ -39,7 +39,7 @@ export const Route = {
 			inFeed: false,
 			inNavbar: false,
 			name: "lab",
-			uri: "/lab",
+			uri: "/portfolio/lab",
 			visible: true,
 		},
 		CONTACT: {

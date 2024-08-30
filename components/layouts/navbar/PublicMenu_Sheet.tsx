@@ -50,15 +50,22 @@ const PublicMenu_Sheet: React.FC<Props> = ({ className, children }) => {
 					<div className="flex flex-col gap-8 pl-2">
 						{menuItems.map((path, index) => {
 							const pathAsKey = path as keyof typeof Route.public;
+							const menuItemPathName = Route.public[pathAsKey].uri;
+							const isConcretePath = currentPathName === menuItemPathName;
+							const isSubpath =
+								menuItemPathName !== Route.public.HOME.uri &&
+								currentPathName.includes(menuItemPathName);
 
 							if (Route.public[pathAsKey].visible) {
 								return (
 									<Link
 										key={index}
 										className={`emphasize_drop_shadow ${
-											currentPathName === Route.public[pathAsKey].uri
-												? "text-accent"
-												: "text-foreground"
+											isConcretePath
+												? "text-ring"
+												: isSubpath
+													? "text-ring-secondary"
+													: "text-muted-foreground dark:text-foreground"
 										}`}
 										href={Route.public[pathAsKey].uri}
 										tabIndex={-1}
