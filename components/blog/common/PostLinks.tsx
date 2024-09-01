@@ -67,7 +67,7 @@ const PostLinks: React.FC<Props> = ({
 		<TooltipWrapper className={cn("cursor-default", className)} tooltipText={tooltip}>
 			<span
 				className={cn(
-					"font-unicephalon text-sm text-background bg-primary-foreground px-1 block rounded-sm",
+					"grayscale-[100%] hover:grayscale-0 transition-colors duration-150 font-unicephalon text-sm text-background bg-accent-secondary px-1 block rounded-sm translate-y-[1px]",
 					classNameCategory
 				)}
 			>
