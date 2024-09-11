@@ -692,9 +692,9 @@ body textarea.w-md-editor-text-input:focus {
 			@apply rounded-md shadow-xl;
 
 			position: absolute;
+			overflow: hidden;
 			width: 100%;
 			height: 100%;
-			overflow: hidden;
 			inset: 0;
 		}
 	}
@@ -726,5 +726,38 @@ body textarea.w-md-editor-text-input:focus {
 		overflow-y: auto;
 		display: block;
 		height: fit-content;
+	}
+}
+
+/** Styles for the hook 'useCodeCopyButton()' */
+.code-copy-button-handled {
+	position: relative;
+
+	.code-copy-button {
+		@apply absolute top-1 right-1 cursor-pointer w-9 h-9 rounded-full items-center justify-center overflow-hidden hover:bg-ring/10 active:bg-ring/30 dark:active:bg-ring/20 flex opacity-0 transition-opacity duration-300 ease-in-out;
+
+		.code-copy-button-icon {
+			@apply m-0 p-0 mb-[1px] w-4 h-6 group-hover:scale-110 transition-all duration-100 ease-in-out;
+		}
+
+		&:hover {
+			.code-copy-button-icon {
+				transition: transform 0.3s ease-in-out;
+				transform: scale(1.15);
+			}
+		}
+
+		&:active {
+			.code-copy-button-icon {
+				transition: transform 0.05s ease-in-out;
+				transform: scale(0.95);
+			}
+		}
+	}
+
+	&:hover {
+		.code-copy-button {
+			@apply opacity-100 transition-opacity duration-100 ease-in-out;
+		}
 	}
 }
