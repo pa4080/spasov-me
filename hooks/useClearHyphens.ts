@@ -44,11 +44,13 @@ export const cleanClipboardV3 = (event: ClipboardEvent) => {
 	const selectedRange = window.getSelection()?.getRangeAt(0);
 
 	const isSelectedInMDEditor =
-		selectedRange?.commonAncestorContainer?.parentElement?.classList.contains("w-md-editor-area");
+		!!selectedRange?.commonAncestorContainer?.parentElement?.classList.contains("w-md-editor-area");
 	const isSelectedEditable =
-		selectedRange?.commonAncestorContainer?.parentElement?.querySelector("input, textarea");
+		!!selectedRange?.commonAncestorContainer?.parentElement?.querySelector("input, textarea");
+	const isSelectedWithinTagPre =
+		selectedRange?.commonAncestorContainer?.parentElement?.tagName === "PRE";
 
-	if (isSelectedInMDEditor || isSelectedEditable) {
+	if (isSelectedInMDEditor || isSelectedEditable || isSelectedWithinTagPre) {
 		return;
 	}
 
