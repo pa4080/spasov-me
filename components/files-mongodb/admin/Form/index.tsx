@@ -306,7 +306,7 @@ const FileForm: React.FC<Props> = ({ className, onSubmit, submitting = false, fo
 							render={({ field }) => (
 								<FormItem
 									className="flex-grow h-auto mb:h-1"
-									data-color-mode={theme === "dark" ? "dark" : "light" || "auto"}
+									data-color-mode={theme ? (theme === "dark" ? "dark" : "light") : "auto"}
 								>
 									{t("description_label") && <FormLabel>{t("description_label")}</FormLabel>}
 									<FormControl>

@@ -217,8 +217,10 @@ export const createFile = async ({
 			} as FileMetadata["info"];
 
 			if (filename.match(regexFilesImages)) {
-				info = sizeOf(buffer) as FileMetadata["info"];
-				info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
+				const ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
+				const infoSize = sizeOf(buffer as unknown as Uint8Array);
+
+				info = { ...info, ...(infoSize ? infoSize : {}), ratio } as FileMetadata["info"];
 			}
 
 			return await uploadObject({
@@ -304,9 +306,20 @@ export const updateFile = async ({
 			// Convert the blob to buffer
 			const buffer = Buffer.from(await file.arrayBuffer());
 
-			const info = sizeOf(buffer) as FileMetadata["info"];
+			// Get info of the file
+			let info = {
+				height: 0,
+				width: 0,
+				ratio: 0,
+				type: `${file.type}`,
+			} as FileMetadata["info"];
 
-			info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
+			if (filename.match(regexFilesImages)) {
+				const ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
+				const infoSize = sizeOf(buffer as unknown as Uint8Array);
+
+				info = { ...info, ...(infoSize ? infoSize : {}), ratio } as FileMetadata["info"];
+			}
 
 			// Upload the new file
 			return await uploadObject({
