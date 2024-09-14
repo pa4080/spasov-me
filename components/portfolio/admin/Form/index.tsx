@@ -396,7 +396,7 @@ const ProjectForm: React.FC<Props> = ({
 							render={({ field }) => (
 								<FormItem
 									className="flex-grow h-96 ma:h-1"
-									data-color-mode={theme === "dark" ? "dark" : "light" || "auto"}
+									data-color-mode={theme ? (theme === "dark" ? "dark" : "light") : "auto"}
 								>
 									{t("description_label") && <FormLabel>{t("description_label")}</FormLabel>}
 									<FormControl>

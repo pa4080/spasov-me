@@ -184,6 +184,15 @@ const FileForm: React.FC<Props> = ({
 			: `https://${r2BucketDomain}/${files_prefix}/${formData?.filename}?v=${new Date(formData?.uploadDate).getTime()}`
 		: Route.assets.IMAGE_PLACEHOLDER;
 
+	/**
+	 * We allow to rename only !isAttachedTo files,
+	 * because we are using the file name as _id and
+	 * its change within the relevant documents will
+	 * be complicated and time consuming to manage
+	 */
+	const isAttachedTo =
+		(formData && formData.metadata.attachedTo && formData.metadata.attachedTo?.length > 0) ?? false;
+
 	return (
 		<Form {...form}>
 			<form
@@ -291,7 +300,7 @@ const FileForm: React.FC<Props> = ({
 											className="text-lg"
 											placeholder={t("filename_placeholder")}
 											{...field}
-											disabled={!!formData}
+											disabled={isAttachedTo}
 										/>
 									</FormControl>
 
@@ -313,7 +322,7 @@ const FileForm: React.FC<Props> = ({
 							render={({ field }) => (
 								<FormItem
 									className="flex-grow h-auto mb:h-1"
-									data-color-mode={theme === "dark" ? "dark" : "light" || "auto"}
+									data-color-mode={theme ? (theme === "dark" ? "dark" : "light") : "auto"}
 								>
 									{t("description_label") && <FormLabel>{t("description_label")}</FormLabel>}
 									<FormControl>

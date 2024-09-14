@@ -217,8 +217,10 @@ export const createFile = async ({
 			} as FileMetadata["info"];
 
 			if (filename.match(regexFilesImages)) {
-				info = sizeOf(buffer) as FileMetadata["info"];
-				info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
+				const ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
+				const infoSize = sizeOf(buffer as unknown as Uint8Array);
+
+				info = { ...info, ...(infoSize ? infoSize : {}), ratio } as FileMetadata["info"];
 			}
 
 			return await uploadObject({
@@ -263,14 +265,14 @@ export const updateFile = async ({
 
 		const file = data.get("file") as File;
 		const description = data.get("description") as string;
-		const file_name = data.get("filename") as string;
+		const new_filename = data.get("filename") as string;
 		const visibility = data.get("visibility") as string;
 		const attachedTo = JSON.parse(data.get("attachedTo") as string) as AttachedToDocument[];
 
 		const user_id = session?.user.id as string;
 
 		// If no new file is provided, just update the metadata
-		const fileOld = await getObject({ objectKey: file_name, partNumber: 1, prefix });
+		const fileOld = await getObject({ objectKey: filename, partNumber: 1, prefix });
 		const attachedToOld = JSON.parse(fileOld?.Metadata?.attachedto || "[]");
 
 		// Process the "attachedTo" array first -- await attachedTo_detachFromTarget()
@@ -296,7 +298,7 @@ export const updateFile = async ({
 			};
 
 			// Override the original filename
-			const filename = file_name || file.name;
+			const filename_override = new_filename || file.name;
 
 			// Delete the old file. Note: file_id is the filename without extension!
 			await getObjectListAndDelete({ prefix: `${prefix}/${file_id.replace(/^Id:/, "")}` });
@@ -304,20 +306,31 @@ export const updateFile = async ({
 			// Convert the blob to buffer
 			const buffer = Buffer.from(await file.arrayBuffer());
 
-			const info = sizeOf(buffer) as FileMetadata["info"];
+			// Get info of the file
+			let info = {
+				height: 0,
+				width: 0,
+				ratio: 0,
+				type: `${file.type}`,
+			} as FileMetadata["info"];
 
-			info.ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
+			if (filename_override.match(regexFilesImages)) {
+				const ratio = Math.round((info.width / info.height + Number.EPSILON) * 100) / 100;
+				const infoSize = sizeOf(buffer as unknown as Uint8Array);
+
+				info = { ...info, ...(infoSize ? infoSize : {}), ratio } as FileMetadata["info"];
+			}
 
 			// Upload the new file
 			return await uploadObject({
-				objectKey: filename,
+				objectKey: filename_override,
 				metadata: { ...metadataPart, info },
 				objectBody: buffer,
 				prefix,
 			});
 		} else {
 			if (!fileOld || !fileOld.Metadata) {
-				throw new Error(msgs("Errors")("invalidFile", { id: file_name }));
+				throw new Error(msgs("Errors")("invalidFile", { id: new_filename }));
 			}
 
 			const metadataParse: Record<string, string> = {};
@@ -338,7 +351,18 @@ export const updateFile = async ({
 				info: (metadataParse.info || {}) as FileMetadata["info"],
 			};
 
-			return await updateObject({ objectKey: filename, metadata, prefix });
+			if (filename === new_filename) {
+				return await updateObject({ objectKey: filename, metadata, prefix });
+			} else {
+				return (
+					(await updateObject({
+						objectKey: new_filename,
+						sourceObjectKey: filename,
+						metadata,
+						prefix,
+					})) && (await deleteFile({ file_id: filename, paths, prefix }))
+				);
+			}
 		}
 	} catch (error) {
 		console.error(error);

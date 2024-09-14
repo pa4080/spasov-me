@@ -3,8 +3,6 @@
  */
 import { useEffect } from "react";
 
-// /assets/icons/ui/clipboard-prescription.svg
-
 export function useCodeCopyButton() {
 	useEffect(() => {
 		const allPreTags = document.querySelectorAll("pre");
