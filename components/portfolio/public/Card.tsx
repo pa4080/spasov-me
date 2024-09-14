@@ -55,7 +55,7 @@ const ProjectPublic_Card: React.FC<Props> = ({
 
 					<div
 						dangerouslySetInnerHTML={{ __html: project.html.title }}
-						className="text-lg font-semibold line-clamp-1 flex-shrink"
+						className="text-lg font-semibold line-clamp-2 flex-shrink leading-5 text-balance"
 					/>
 				</div>
 

@@ -65,16 +65,18 @@ const PostForm: React.FC<Props> = ({
 	const t = msgs("Posts_Form");
 
 	const FormSchema = Post_FormSchemaGenerator([
-		t("schema_title"),
-		t("schema_description"),
-		t("schema_type"),
-		t("schema_date"),
-		t("schema_date"),
-		t("schema_visibility"),
-		t("schema_tags"),
-		t("schema_gallery"),
-		t("schema_slug_length"),
-		t("schema_slug_schema"),
+		t("schema_title"), // 0
+		t("schema_description"), // 1
+		t("schema_type"), // 2
+		t("schema_date"), // 3
+		t("schema_date"), // 4
+		t("schema_visibility"), // 5
+		t("schema_tags"), // 6
+		t("schema_gallery"), // 7
+		t("schema_slug_length"), // 8
+		t("schema_slug_schema"), // 9
+		t("schema_galleryNav"), // 10
+		t("schema_galleryCaptions"), // 10
 	]);
 
 	const { theme } = useTheme();
@@ -90,6 +92,8 @@ const PostForm: React.FC<Props> = ({
 			dateFrom: undefined,
 			dateTo: undefined,
 			entryType: entryType,
+			galleryNav: false,
+			galleryCaptions: true,
 			visibility: true,
 			attachment: undefined,
 			icon: undefined,
@@ -310,6 +314,53 @@ const PostForm: React.FC<Props> = ({
 									placeholder: t("type_placeholder"),
 								}}
 								name="entryType"
+							/>
+						</div>
+
+						{/* Gallery attributes */}
+						<div className="flex gap-3 flex-col 3xs:flex-row ma:flex-col w-full">
+							{/* Gallery navigation */}
+							<FormField
+								control={form.control}
+								name="galleryNav"
+								// eslint-disable-next-line @typescript-eslint/no-unused-vars
+								render={({ field }) => (
+									<FormItem className="flex-1 rounded-md border space-y-0">
+										<div className="flex items-center justify-between py-2 pl-4 pr-3">
+											<div>
+												<FormLabel>{t("galleryNav_title")}</FormLabel>
+												{t("galleryNav_description") && (
+													<FormDescription>{t("galleryNav_description")}</FormDescription>
+												)}
+											</div>
+											<FormControl>
+												<Switch checked={field.value} onCheckedChange={field.onChange} />
+											</FormControl>
+										</div>
+									</FormItem>
+								)}
+							/>
+
+							{/* Gallery captions */}
+							<FormField
+								control={form.control}
+								name="galleryCaptions"
+								// eslint-disable-next-line @typescript-eslint/no-unused-vars
+								render={({ field }) => (
+									<FormItem className="flex-1 rounded-md border space-y-0">
+										<div className="flex items-center justify-between py-2 pl-4 pr-3">
+											<div>
+												<FormLabel>{t("galleryCaptions_title")}</FormLabel>
+												{t("galleryCaptions_description") && (
+													<FormDescription>{t("galleryCaptions_description")}</FormDescription>
+												)}
+											</div>
+											<FormControl>
+												<Switch checked={field.value} onCheckedChange={field.onChange} />
+											</FormControl>
+										</div>
+									</FormItem>
+								)}
 							/>
 						</div>
 

@@ -49,6 +49,24 @@ export const Post_FormSchemaGenerator = (messages?: string[]) =>
 				},
 			})
 			.optional(),
+		galleryNav: z.boolean({
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			errorMap: (issue, _ctx) => {
+				switch (issue.code) {
+					default:
+						return { message: String(messages?.[10]) };
+				}
+			},
+		}),
+		galleryCaptions: z.boolean({
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			errorMap: (issue, _ctx) => {
+				switch (issue.code) {
+					default:
+						return { message: String(messages?.[11]) };
+				}
+			},
+		}),
 		visibility: z.boolean({
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			errorMap: (issue, _ctx) => {

@@ -15,23 +15,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] Implement `useTransition()` and/or `useDeferredValue()`.
 
 - Blog
-  - [ ] MD PDF Embed
-  - [ ] Display gallery switch in the post form: to display the gallery navigation or not;
-        Display gallery items caption switch too.
+  - [ ] MD PDF embed
+  - [ ] HTML5 video embed
 
 - [ ] Create to do list?
-
-- [ ] Redis: Create event loop by using Upstash/Redis queue - object like:
-
-  ```js
-  {
-    objectKey: string,
-    metadata: FileMetadata,
-    objectBody?: buffer, // this should become a temp file
-    prefix: string,
-    action: "create" | "update" | "update-metadata" | "delete",
-  }
-  ```
 
 ## Vercel CLI
 

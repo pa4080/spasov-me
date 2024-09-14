@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 
 import { Tooltip } from "@radix-ui/react-tooltip";
 
@@ -61,32 +61,43 @@ const BackToTop: React.FC<Props> = ({ className }) => {
 		};
 	}, []);
 
+	const handleScrollToTop = useCallback(
+		(event: React.MouseEvent) => {
+			event.stopPropagation();
+
+			const target = document.querySelector("#scroll-to-top");
+			const navbar = document.querySelector("#top-navbar");
+
+			if (target && isAboveSm) {
+				target.scrollIntoView({ behavior: "smooth" });
+			} else if (navbar) {
+				navbar.scrollIntoView({ behavior: "smooth" });
+			}
+
+			// This doesn't work for some reason
+			setTimeout(() => {
+				btnRef.current?.focus();
+				btnRef.current?.blur();
+			}, 1000);
+		},
+		[isAboveSm]
+	);
+
 	return (
 		<TooltipProvider>
 			<Tooltip>
 				<TooltipTrigger
 					ref={btnRef}
 					className={cn(
-						// "ml:right-[calc(50vw-448px)]",
-						"fixed -bottom-0.5 sm:bottom-0 right-1 sm:right-2 group flex items-center justify-center cursor-pointer rounded-md border border-transparent sm:hover:border-secondary/80 select-none transition-all duration-300 w-8 sm:w-10 max-sm:hover:bg-primary/70",
+						// "ml:right-[calc(50vw-448px)] max-sm:hover:bg-primary/70",
+						"fixed -bottom-1 sm:bottom-0 right-1 sm:right-2 group flex items-center justify-center cursor-pointer rounded-md border border-transparent sm:hover:border-secondary/80 select-none transition-all duration-300 w-8 sm:w-10",
 						className
 					)}
 					style={{
 						transform: "translateY(42px)",
 						zIndex: 15,
 					}}
-					onClick={(e) => {
-						e.stopPropagation();
-
-						const target = document.querySelector("#scroll-to-top");
-						const navbar = document.querySelector("#top-navbar");
-
-						if (target && isAboveSm) {
-							target.scrollIntoView({ behavior: "smooth" });
-						} else if (navbar) {
-							navbar.scrollIntoView({ behavior: "smooth" });
-						}
-					}}
+					onClick={handleScrollToTop}
 				>
 					<div className="relative w-10 h-10">
 						<IconEmbedSvg

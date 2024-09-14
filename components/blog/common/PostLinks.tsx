@@ -90,7 +90,7 @@ const PostLinks: React.FC<Props> = ({
 					className="w-full h-full flex items-center fill-inherit"
 					tooltipText={t("tooltip_gallery")}
 				>
-					<Gallery entry={post} gallery={gallery} />
+					<Gallery descriptionDisplay={post.galleryCaptions} entry={post} gallery={gallery} />
 				</TooltipWrapper>
 			</div>
 
