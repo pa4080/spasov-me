@@ -113,6 +113,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 						<div className={styles.iconWrapper}>
 							<DisplayResourceUrlAsIcon
 								iconType="globe-pointer"
+								isClickable={!!project.urlHome}
 								label={tCard("tooltip_link", { linkType: "Home Page" })}
 								url={project.urlHome}
 							/>
@@ -121,6 +122,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 							<DisplayResourceUrlAsIcon
 								className="-ml-1 -mr-0.5"
 								iconType="user-shield"
+								isClickable={!!project.urlAdmin}
 								label={tCard("tooltip_link", { linkType: "Admin Page" })}
 								url={project.urlAdmin}
 								width={34}
@@ -129,6 +131,7 @@ const ProjectAdminCard: React.FC<Props> = ({
 						<div className={styles.iconWrapper}>
 							<DisplayResourceUrlAsIcon
 								iconType="box-circle-check"
+								isClickable={!!project.urlRepo}
 								label={tCard("tooltip_link", { linkType: "Repository" })}
 								url={project.urlRepo}
 								width={30}

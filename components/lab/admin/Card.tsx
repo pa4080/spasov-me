@@ -24,8 +24,7 @@ import { Route } from "@/routes";
 
 import { LabEntryData } from "@/interfaces/LabEntry";
 
-import DisplayResourceUrlAsIcon from "@/components/fragments/DisplayResourceUrlAsIcon";
-
+import DisplayConditionally_ResourceButtons from "../common/DisplayConditionally_ResourceButtons";
 import DeleteLabEntry from "./Actions/Delete";
 import UpdateLabEntry from "./Actions/Update";
 
@@ -95,26 +94,36 @@ const LabEntryAdminCard: React.FC<Props> = ({
 
 					<div className={`${styles.linksProjectPost} scale-90 origin-left`}>
 						<div className={styles.iconWrapper}>
-							<DisplayResourceUrlAsIcon
+							<DisplayConditionally_ResourceButtons
+								entryUrl={labEntry.urlHome}
+								entryVisibilityType={labEntry.visibilityType}
 								iconType="globe-pointer"
-								label={t("tooltip_link", { linkType: "Home Page" })}
-								url={labEntry.urlHome}
+								icon_className_Path1="fill-accent-secondary"
+								icon_className_Path2="fill-accent"
+								isPrivateOnly={false}
+								linkType="Home Page"
 							/>
 						</div>
 						<div className={styles.iconWrapper}>
-							<DisplayResourceUrlAsIcon
+							<DisplayConditionally_ResourceButtons
 								className="-ml-1 -mr-0.5"
+								entryUrl={labEntry.urlAdmin}
+								entryVisibilityType={labEntry.visibilityType}
 								iconType="user-shield"
-								label={t("tooltip_link", { linkType: "Admin Page" })}
-								url={labEntry.urlAdmin}
+								icon_className_Path1="fill-accent-secondary"
+								icon_className_Path2="fill-accent"
+								linkType="Admin Page"
 								width={34}
 							/>
 						</div>
 						<div className={styles.iconWrapper}>
-							<DisplayResourceUrlAsIcon
+							<DisplayConditionally_ResourceButtons
+								entryUrl={labEntry.urlSource}
+								entryVisibilityType={labEntry.visibilityType}
 								iconType="box-circle-check"
-								label={t("tooltip_link", { linkType: "Source" })}
-								url={labEntry.urlSource}
+								icon_className_Path1="fill-accent-secondary"
+								icon_className_Path2="fill-accent"
+								linkType="Source"
 								width={30}
 							/>
 						</div>
