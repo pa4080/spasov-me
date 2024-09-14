@@ -59,13 +59,21 @@ const DeleteFile: React.FC<Props> = ({ className, file, files_prefix }) => {
 		}
 	};
 
+	const isDisabled =
+		(file.metadata.attachedTo && file.metadata.attachedTo?.length > 0) || submitting;
+
 	return (
 		<AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-			<AlertDialogTrigger onClick={() => setIsOpen(true)}>
+			<AlertDialogTrigger disabled={isDisabled}>
 				<IconEmbedSvg
-					className={cn("grayscale-[100%] hover:grayscale-[0%]", className)}
+					className={cn(
+						"grayscale-[100%]",
+						isDisabled ? "opacity-60 hover:grayscale-[100%]" : "hover:grayscale-[0%]",
+						className
+					)}
 					className_Path1="fill-accent"
 					className_Path2="fill-accent-secondary"
+					cursor={isDisabled ? "not-allowed" : "pointer"}
 					height={21}
 					type="trash"
 					width={21}

@@ -12,11 +12,13 @@ const r2BucketName = process.env.CLOUDFLARE_R2_BUCKET_NAME;
 
 export const updateObject = async ({
 	objectKey,
+	sourceObjectKey,
 	metadata,
 	bucket,
 	prefix,
 }: {
 	objectKey: string;
+	sourceObjectKey?: string;
 	metadata: FileMetadata;
 	bucket?: string;
 	prefix?: string;
@@ -31,9 +33,14 @@ export const updateObject = async ({
 		});
 
 		const theKey = prefix ? `${prefix}/${objectKey}` : objectKey;
+		const theSourceKey = sourceObjectKey
+			? prefix
+				? `${prefix}/${sourceObjectKey}`
+				: sourceObjectKey
+			: null;
 
 		const command = new CopyObjectCommand({
-			CopySource: `/${bucket || r2BucketName}/${theKey}`,
+			CopySource: `/${bucket || r2BucketName}/${theSourceKey ?? theKey}`,
 			Bucket: bucket || r2BucketName,
 			Key: theKey,
 			ContentType: metadata.contentType,

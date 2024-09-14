@@ -16,12 +16,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 - Blog
   - [ ] MD PDF Embed
-
   - [ ] Display gallery switch in the post form: to display the gallery navigation or not;
         Display gallery items caption switch too.
 
 - [ ] Create to do list?
-- [x] Allow file rename when it is not linked to a post?
 
 - [ ] Redis: Create event loop by using Upstash/Redis queue - object like:
 
