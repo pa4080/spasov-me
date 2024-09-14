@@ -40,6 +40,14 @@ const PostSchema = new Schema({
 	dateTo: {
 		type: Date, // it is not required, so when it is not defined the frontend will display "Now"
 	},
+	galleryNav: {
+		type: Boolean,
+		required: [true, "Gallery navigation visibility is required!"], // default false
+	},
+	galleryCaptions: {
+		type: Boolean,
+		required: [true, "Gallery captions visibility is required!"], // default true
+	},
 	visibility: {
 		type: Boolean,
 		required: [true, "Visibility is required!"],

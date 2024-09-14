@@ -63,18 +63,26 @@ const BlogPublicPost: React.FC<Props> = async ({
 
 	return (
 		<div className={cn("w-full pt-8 sa:pt-6 lg:pt-1", className)}>
-			<GalleryCarousel entryData={post} gallery={gallery} navPosition="bottom" navType="none" />
+			<GalleryCarousel
+				descriptionDisplay={post.galleryCaptions}
+				entryData={post}
+				gallery={gallery}
+				navPosition="bottom"
+				navType={post.galleryNav ? "embedded" : "none"}
+			/>
 			<SectionHeader
 				className="pop-header mt-6 1xl:mt-[1.15rem] relative justify-end"
 				className_Actions="absolute right-0 -bottom-3"
 				iconComponent={
-					<IconCircleWrapper
-						alt={post.title}
-						className="min-w-[3.74rem] w-[3.74rem] min-h-[3.74rem] h-[3.74rem] drop-shadow-2xl"
-						className_Image="size-12"
-						src={post.html.icon?.metadata.html.fileUrl || post.html.icon?.metadata.html.fileUri}
-						unoptimized={post.html.icon?.filename.match(/\.svg$/) ? true : false}
-					/>
+					post.galleryNav ? undefined : (
+						<IconCircleWrapper
+							alt={post.title}
+							className="min-w-[3.74rem] w-[3.74rem] min-h-[3.74rem] h-[3.74rem] drop-shadow-2xl"
+							className_Image="size-12"
+							src={post.html.icon?.metadata.html.fileUrl || post.html.icon?.metadata.html.fileUri}
+							unoptimized={post.html.icon?.filename.match(/\.svg$/) ? true : false}
+						/>
+					)
 				}
 				label={dateLabel}
 				title={post.html.title}

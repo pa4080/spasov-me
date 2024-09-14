@@ -41,9 +41,17 @@ interface Props {
 	gallery: FileHtmlProps[] | undefined;
 	height?: number;
 	width?: number;
+	descriptionDisplay?: boolean;
 }
 
-const Gallery: React.FC<Props> = ({ className, entry, gallery, height = 23, width = 23 }) => {
+const Gallery: React.FC<Props> = ({
+	className,
+	entry,
+	gallery,
+	height = 23,
+	width = 23,
+	descriptionDisplay,
+}) => {
 	const t = msgs("Gallery");
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -90,7 +98,11 @@ const Gallery: React.FC<Props> = ({ className, entry, gallery, height = 23, widt
 					</div>
 				</DialogHeader>
 
-				<GalleryCarousel gallery={gallery} setIsOpen={setIsOpen} />
+				<GalleryCarousel
+					descriptionDisplay={descriptionDisplay}
+					gallery={gallery}
+					setIsOpen={setIsOpen}
+				/>
 			</DialogContent>
 		</Dialog>
 	);

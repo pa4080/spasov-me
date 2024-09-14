@@ -52,7 +52,7 @@ const LabEntryPublic_Card: React.FC<Props> = ({ labEntry, className, iconsMap })
 
 					<div
 						dangerouslySetInnerHTML={{ __html: labEntry.html.title }}
-						className="text-lg font-semibold line-clamp-2 flex-shrink leading-5"
+						className="text-lg font-semibold line-clamp-2 flex-shrink leading-5 text-balance"
 					/>
 
 					<TooltipWrapper className="absolute -right-4 -top-4 cursor-default" tooltipText={tooltip}>

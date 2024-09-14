@@ -627,6 +627,8 @@
 		"schema_description": "The description must be at least 10 characters.",
 		"schema_date": "Select a date.",
 		"schema_type": "Select a type.",
+		"schema_galleryNav": "The default galleryNav value is \"false\".",
+		"schema_galleryCaptions": "The default galleryCaptions value is \"true\".",
 		"schema_visibility": "The default visibility value is \"true\".",
 		"schema_tags": "Select at least one tag.",
 		"schema_gallery": "Select multiple attachments.",
@@ -670,6 +672,12 @@
 
 		"visibility_title": "Is public?",
 		"visibility_description": "",
+
+		"galleryNav_title": "Gallery nav?",
+		"galleryNav_description": "",
+
+		"galleryCaptions_title": "Gallery captions?",
+		"galleryCaptions_description": "",
 
 		"attachment_label": "",
 		"attachment_description": "",

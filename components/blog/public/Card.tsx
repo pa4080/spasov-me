@@ -65,7 +65,7 @@ const BlogPublic_Card: React.FC<Props> = ({
 
 				<div
 					dangerouslySetInnerHTML={{ __html: post.html.title }}
-					className="text-lg font-semibold line-clamp-2 flex-shrink leading-5"
+					className="text-lg font-semibold line-clamp-2 flex-shrink leading-5 text-balance"
 				/>
 			</div>
 
