@@ -1,4 +1,4 @@
-import LabPublic from "@/components/lab/public";
+import LabPublic from "@/components/laboratory/public";
 
 const Laboratory: React.FC = () => {
 	return (
