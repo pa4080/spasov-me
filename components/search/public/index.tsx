@@ -1,5 +1,5 @@
 "use client";
-import { hyphenateSync as hyphenate } from "hyphen/en";
+
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -10,23 +10,15 @@ import { msgs } from "@/messages";
 
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import SectionHeader from "@/components/fragments/SectionHeader";
-import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { IconsMap } from "@/interfaces/IconsMap";
-import { PostData } from "@/interfaces/Post";
-import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
 import { postTuple, projectTuple } from "@/interfaces/_common-data-types";
 
-import { LabEntryData } from "@/interfaces/LabEntry";
-
-import TagFilter from "./TagFilter";
+import HorizontalChecklist, { ChecklistItems } from "../../fragments/CheckList_AtleastOne";
+import TagFilter from "./Filter_Tags";
 import TimeLine from "./TimeLine";
-
-export interface LabEntryCustom extends Omit<LabEntryData, "entryType"> {
-	entryType: "lab";
-}
-
-export type UnitedEntryType = ProjectData | AboutEntryData | PostData | LabEntryCustom;
+import { UnitedEntryType } from "./type";
+import { filterItems } from "./utils/filterItems";
 
 interface SelectedTag {
 	tag: TagData;
@@ -128,41 +120,10 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedTagSearch]);
 
-	const filterItems = () => {
-		if (!searchValue) {
-			return dataList;
-		}
-
-		const searchValueSanitized = searchValue.trim();
-		const searchValuePrepared = searchValueSanitized.replace(/\s+/g, ".*?");
-		const searchValueHyphenated = hyphenate(searchValueSanitized).replace(/\s+/g, ".*?");
-
-		const regExpSearch = new RegExp(`(\\b(${searchValuePrepared})\\b)`, "i");
-		const regExpHighligh = new RegExp(`(\\b(${searchValueHyphenated})\\b)`, "i");
-
-		return dataList
-			.filter(
-				(dataItem) => dataItem.title.match(regExpSearch) || dataItem.description.match(regExpSearch)
-			)
-			.map((dataItem) => ({
-				...dataItem,
-				html: {
-					title: dataItem.html.title.replace(
-						regExpHighligh,
-						"<span class='search-result-match'>$1</span>"
-					),
-					description: dataItem.html.description.replace(
-						regExpHighligh,
-						"<span class='search-result-match'>$1</span>"
-					),
-				},
-			}));
-	};
-
 	useEffect(() => {
 		clearTimeout(searchTimeout);
 
-		const results_value_filter = filterItems();
+		const results_value_filter = filterItems({ searchValue, dataList });
 		const results_tag_filter = results_value_filter?.filter(
 			({ _id }) => selectedTag && selectedTag.attachedToIds.includes(_id)
 		);
@@ -182,6 +143,17 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 
 	const clearButtonClasses =
 		"h-6 w-7 flex items-center justify-center rounded-md grayscale hover:grayscale-0 hover:brightness-110 active:brightness-75 transition-colors duration-300 hover:bg-primary-foreground/20"; // bg-accent-secondary/20
+
+	const [categories, setCategories] = useState<ChecklistItems>(() => ({
+		projects: { selected: true, label: t("cat_filter_projects") },
+		labs: { selected: true, label: t("cat_filter_labs") },
+		about: { selected: true, label: t("cat_filter_about") },
+		blog: { selected: true, label: t("cat_filter_blog") },
+	}));
+
+	// TODO: Filter by the selected categories
+	// TODO: Att selected categories to the query
+	// TODO: Read the selected categories from the query like the tags
 
 	return (
 		<div className={cn("space-y-20", cn(className))}>
@@ -247,6 +219,11 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 						/>
 					</div>
 				</div>
+				<HorizontalChecklist
+					checklistItems={categories}
+					className="absolute left-4 -bottom-8"
+					setChecklistItems={setCategories}
+				/>
 			</div>
 
 			{/* Results */}
