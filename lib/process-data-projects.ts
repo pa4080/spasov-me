@@ -63,6 +63,7 @@ export async function projectDocuments_toData({
 			attachment: project.attachment,
 			tags: tagDocuments_toData({ tags: project.tags || [], hyphen: true }),
 			gallery: files?.filter((file) => project?.gallery?.includes(file._id)),
+			modelType: "Project",
 		}));
 }
 

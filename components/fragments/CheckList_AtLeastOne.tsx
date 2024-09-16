@@ -20,7 +20,7 @@ interface HorizontalChecklistProps {
 	align?: "horizontal" | "vertical";
 }
 
-export default function HorizontalChecklist({
+export default function CheckList_AtLeastOne({
 	className,
 	className_Checkbox = "h-5 w-5 border-[2px] dark:border-secondary dark:data-[state=checked]:bg-secondary data-[state=checked]:text-ring",
 	checklistItems,

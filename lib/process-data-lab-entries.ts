@@ -78,6 +78,7 @@ export async function labEntryDocuments_toData({
 			icon: labEntry.icon,
 			gallery: files?.filter((file) => labEntry?.gallery?.includes(file._id)),
 			tags: tagDocuments_toData({ tags: labEntry.tags || [], hyphen: true }),
+			modelType: "LabEntry",
 		}));
 }
 

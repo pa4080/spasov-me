@@ -2,23 +2,24 @@ import { hyphenateSync as hyphenate } from "hyphen/en";
 
 import { UnitedEntryType } from "../type";
 
-export interface FilterItems {
+export interface FilterItemsByText {
 	searchValue: string | undefined | null;
-	dataList: UnitedEntryType[];
+	items: UnitedEntryType[];
 }
-export function filterItems({ searchValue, dataList }: FilterItems) {
+
+export function filterItems_byText({ searchValue, items }: FilterItemsByText) {
 	if (!searchValue) {
-		return dataList;
+		return items;
 	}
 
 	const searchValueSanitized = searchValue.trim();
 	const searchValuePrepared = searchValueSanitized.replace(/\s+/g, ".*?");
 	const searchValueHyphenated = hyphenate(searchValueSanitized).replace(/\s+/g, ".*?");
 
-	const regExpSearch = new RegExp(`(\\b(${searchValuePrepared})\\b)`, "i");
-	const regExpHighligh = new RegExp(`(\\b(${searchValueHyphenated})\\b)`, "i");
+	const regExpSearch = new RegExp(`(\\b(${searchValuePrepared})\\b)`, "ig");
+	const regExpHighligh = new RegExp(`(\\b(${searchValueHyphenated})\\b)`, "ig");
 
-	return dataList
+	return items
 		.filter(
 			(dataItem) => dataItem.title.match(regExpSearch) || dataItem.description.match(regExpSearch)
 		)

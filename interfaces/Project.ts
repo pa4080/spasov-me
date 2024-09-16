@@ -67,4 +67,5 @@ export interface ProjectData
 	icon?: string;
 	tags: TagData[];
 	gallery?: FileData[];
+	modelType: "Project"; // See { ModelType } from "./_common-data-types";
 }

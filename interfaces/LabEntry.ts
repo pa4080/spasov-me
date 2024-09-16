@@ -83,4 +83,5 @@ export interface LabEntryData
 	icon?: string;
 	tags: TagData[];
 	gallery?: FileData[];
+	modelType: "LabEntry"; // See { ModelType } from "./_common-data-types";
 }

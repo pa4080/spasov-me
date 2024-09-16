@@ -14,11 +14,12 @@ import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { postTuple, projectTuple } from "@/interfaces/_common-data-types";
 
-import HorizontalChecklist, { ChecklistItems } from "../../fragments/CheckList_AtleastOne";
-import TagFilter from "./Filter_Tags";
+import CheckList_AtLeastOne, { ChecklistItems } from "../../fragments/CheckList_AtLeastOne";
+import TagFilter from "./TagsFilter";
 import TimeLine from "./TimeLine";
 import { UnitedEntryType } from "./type";
-import { filterItems } from "./utils/filterItems";
+import { filterItems_byTag } from "./utils/filterItems_byTag";
+import { filterItems_byText } from "./utils/filterItems_byText";
 
 interface SelectedTag {
 	tag: TagData;
@@ -86,15 +87,6 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 		!loading && setLoading(true);
 
 		setSearchParams({ selectedTag_manual: tag?._id || null, searchValue_manual: searchValue });
-
-		setSelectedTag(
-			tag
-				? {
-						tag,
-						attachedToIds: tag?.attachedTo?.map(({ _id }) => _id) || [],
-					}
-				: null
-		);
 	};
 
 	const searchValue = searchParams.get("value");
@@ -123,17 +115,12 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 	useEffect(() => {
 		clearTimeout(searchTimeout);
 
-		const results_value_filter = filterItems({ searchValue, dataList });
-		const results_tag_filter = results_value_filter?.filter(
-			({ _id }) => selectedTag && selectedTag.attachedToIds.includes(_id)
-		);
-
-		const results =
-			results_tag_filter && results_tag_filter.length > 0
-				? results_tag_filter
-				: selectedTag && results_tag_filter.length === 0
-					? results_tag_filter
-					: results_value_filter;
+		const result_text_filter = filterItems_byText({ searchValue, items: dataList });
+		const results = filterItems_byTag({
+			items: result_text_filter,
+			tags: tags,
+			selectedTagQuery: selectedTagSearch,
+		});
 
 		setLoading(false);
 		setSearchResults(results);
@@ -154,6 +141,9 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 	// TODO: Filter by the selected categories
 	// TODO: Att selected categories to the query
 	// TODO: Read the selected categories from the query like the tags
+
+	const showResults =
+		searchResults && searchResults.length > 0 && searchResults.length !== dataList.length;
 
 	return (
 		<div className={cn("space-y-20", cn(className))}>
@@ -213,13 +203,13 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 
 						<TagFilter
 							iconsMap={iconsMap}
-							selectedTag={selectedTag?.tag || null}
+							selectedTag={selectedTagSearch}
 							tags={tags}
 							onTagClick={setTag}
 						/>
 					</div>
 				</div>
-				<HorizontalChecklist
+				<CheckList_AtLeastOne
 					checklistItems={categories}
 					className="absolute left-4 -bottom-8"
 					setChecklistItems={setCategories}
@@ -227,16 +217,14 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 			</div>
 
 			{/* Results */}
-			{searchResults && searchResults.length === 0 ? (
-				<SectionHeader className="h-12" title={t("noResults")} />
-			) : (!searchValue || !selectedTag) && loading ? (
+
+			{loading ? (
 				<SectionHeader className="h-12" title={t("loading")} />
-			) : searchValue || selectedTag ? (
-				loading ? (
-					<SectionHeader className="h-12" title={t("loading")} />
-				) : (
-					[...postTuple, ...projectTuple, "employment", "education", "resume", "lab"].map(
-						(entryType) => (
+			) : (
+				showResults &&
+				[...postTuple, ...projectTuple, "employment", "education", "resume", "lab"].map(
+					(entryType) => {
+						return (
 							<TimeLine
 								key={entryType}
 								displayTags={true}
@@ -244,10 +232,10 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 								iconsMap={iconsMap}
 								type={entryType as UnitedEntryType["entryType"]}
 							/>
-						)
-					)
+						);
+					}
 				)
-			) : null}
+			)}
 		</div>
 	);
 };
