@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -44,54 +44,42 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 
-	const [selectedTag, setSelectedTag] = useState<SelectedTag | null>(null);
-
 	const [loading, setLoading] = useState(false);
 	const searchInputRef = useRef<HTMLInputElement>(null);
 	const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout>();
 	const [searchResults, setSearchResults] = useState<UnitedEntryType[] | null>(dataList);
 
-	const setSearchParams = useCallback(
-		({ searchValue_manual, selectedTag_manual }: QueryFilter = {}) => {
-			const params = new URLSearchParams(searchParams);
-
-			if (searchValue_manual) {
-				params.set("value", searchValue_manual);
-			} else if (searchValue) {
-				params.set("value", searchValue);
-			} else if (searchValue_manual === "") {
-				params.delete("value");
-			} else {
-				params.delete("value");
-			}
-
-			if (selectedTag_manual) {
-				params.set("tag", selectedTag_manual);
-			} else if (selectedTag) {
-				params.set("tag", selectedTag.tag._id);
-			} else {
-				params.delete("tag");
-			}
-
-			const newQuery = params.toString();
-
-			router.replace(pathname + "?" + newQuery, {
-				scroll: false,
-			});
-		},
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[]
-	);
+	const searchValue = searchParams.get("value");
+	const selectedTagSearch = searchParams.get("tag");
 
 	const setTag = (tag: TagData | null) => {
 		!loading && setLoading(true);
 
-		setSearchParams({ selectedTag_manual: tag?._id || null, searchValue_manual: searchValue });
+		const params = new URLSearchParams(searchParams);
+
+		if (tag) {
+			params.set("tag", tag._id || "");
+		} else {
+			params.delete("tag");
+		}
+
+		router.replace(pathname + "?" + params.toString(), {
+			scroll: false,
+		});
 	};
 
-	const searchValue = searchParams.get("value");
-	const setSearchValue = (value: string) => {
-		setSearchParams({ searchValue_manual: value, selectedTag_manual: selectedTag?.tag?._id });
+	const setSearchValue = (value: string | null) => {
+		const params = new URLSearchParams(searchParams);
+
+		if (value) {
+			params.set("value", value || "");
+		} else {
+			params.delete("value");
+		}
+
+		router.replace(pathname + "?" + params.toString(), {
+			scroll: false,
+		});
 	};
 
 	useEffect(() => {
@@ -100,8 +88,6 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	const selectedTagSearch = searchParams.get("tag");
 
 	useEffect(() => {
 		if (selectedTagSearch) {
@@ -126,21 +112,17 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 		setSearchResults(results);
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [searchValue, selectedTag, tags, dataList]);
+	}, [searchValue, tags, dataList]);
 
 	const clearButtonClasses =
 		"h-6 w-7 flex items-center justify-center rounded-md grayscale hover:grayscale-0 hover:brightness-110 active:brightness-75 transition-colors duration-300 hover:bg-primary-foreground/20"; // bg-accent-secondary/20
 
 	const [categories, setCategories] = useState<ChecklistItems>(() => ({
-		projects: { selected: true, label: t("cat_filter_projects") },
-		labs: { selected: true, label: t("cat_filter_labs") },
-		about: { selected: true, label: t("cat_filter_about") },
-		blog: { selected: true, label: t("cat_filter_blog") },
+		projects: { selected: true, label: t("cat_filter_projects"), modelType: "Project" },
+		labs: { selected: true, label: t("cat_filter_labs"), modelType: "LabEntry" },
+		about: { selected: true, label: t("cat_filter_about"), modelType: "AboutEntry" },
+		blog: { selected: true, label: t("cat_filter_blog"), modelType: "Post" },
 	}));
-
-	// TODO: Filter by the selected categories
-	// TODO: Att selected categories to the query
-	// TODO: Read the selected categories from the query like the tags
 
 	const showResults =
 		searchResults && searchResults.length > 0 && searchResults.length !== dataList.length;
@@ -217,7 +199,6 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 			</div>
 
 			{/* Results */}
-
 			{loading ? (
 				<SectionHeader className="h-12" title={t("loading")} />
 			) : (
