@@ -5,16 +5,25 @@ import { UnitedEntryType } from "../type";
 export interface FilterItemsByText {
 	searchValue: string | undefined | null;
 	items: UnitedEntryType[];
+	searchMode?: "exact" | "hungry";
 }
 
-export function filterItems_byText({ searchValue, items }: FilterItemsByText) {
+export function filterItems_byText({
+	searchValue,
+	items,
+	searchMode = "hungry",
+}: FilterItemsByText) {
 	if (!searchValue) {
 		return items;
 	}
 
 	const searchValueSanitized = searchValue.trim();
-	const searchValuePrepared = searchValueSanitized.replace(/\s+/g, ".*?");
-	const searchValueHyphenated = hyphenate(searchValueSanitized).replace(/\s+/g, ".*?");
+	const searchValuePrepared =
+		searchMode === "hungry" ? searchValueSanitized.replace(/\s+/g, ".*?") : searchValueSanitized;
+	const searchValueHyphenated =
+		searchMode === "hungry"
+			? hyphenate(searchValueSanitized).replace(/\s+/g, ".*?")
+			: hyphenate(searchValueSanitized);
 
 	const regExpSearch = new RegExp(`(\\b(${searchValuePrepared})\\b)`, "ig");
 	const regExpHighligh = new RegExp(`(\\b(${searchValueHyphenated})\\b)`, "ig");

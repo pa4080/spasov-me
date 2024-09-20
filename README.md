@@ -10,10 +10,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- Search page
-  - [ ] Choose the base data category type to be searched - i.e.: Search in [x]CV [x]Blog [x]Portfolio [x]Resources/Lab
-  - [ ] Implement `useTransition()` and/or `useDeferredValue()`.
-
 - Blog
   - [ ] MD PDF embed
   - [ ] HTML5 video embed

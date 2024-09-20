@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,6 +13,10 @@ import SectionHeader from "@/components/fragments/SectionHeader";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { postTuple, projectTuple } from "@/interfaces/_common-data-types";
+
+import { Switch } from "@/components/ui/switch";
+
+import TooltipWrapper from "@/components/fragments/TooltipWrapper";
 
 import CheckList_AtLeastOne, { CheckListItem } from "../../fragments/CheckList_AtLeastOne";
 import TagFilter from "./TagsFilter";
@@ -35,9 +39,8 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 
-	const [loading, setLoading] = useState(false);
+	const [isPending, startTransition] = useTransition();
 	const searchInputRef = useRef<HTMLInputElement>(null);
-	const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout>();
 	const [searchResults, setSearchResults] = useState<UnitedEntryType[] | null>(dataList);
 
 	const defaultCategories = useMemo<CheckListItemModelType[]>(
@@ -53,10 +56,23 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 	const searchValue = searchParams.get("value");
 	const selectedTagQuery = searchParams.get("tag");
 	const selectedCatsQuery = searchParams.get("cats");
+	const selectedSearchMode = searchParams.get("mode");
+
+	const setSearchMode = (mode: boolean) => {
+		const params = new URLSearchParams(searchParams);
+
+		if (!mode) {
+			params.set("mode", "exact");
+		} else {
+			params.delete("mode");
+		}
+
+		router.replace(pathname + "?" + params.toString(), {
+			scroll: false,
+		});
+	};
 
 	const setTag = (tag: TagData | null) => {
-		!loading && setLoading(true);
-
 		const params = new URLSearchParams(searchParams);
 
 		if (tag) {
@@ -118,7 +134,7 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedTagQuery]);
 
-	const categories = (() => {
+	const categories = useMemo(() => {
 		if (selectedCatsQuery) {
 			const cats = selectedCatsQuery.split("_");
 
@@ -128,27 +144,30 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 		}
 
 		return defaultCategories;
-	})();
+	}, [defaultCategories, selectedCatsQuery]);
 
 	useEffect(() => {
-		clearTimeout(searchTimeout);
+		startTransition(() => {
+			const result_text_filter = filterItems_byText({
+				searchValue,
+				items: dataList,
+				searchMode: selectedSearchMode === "exact" ? "exact" : "hungry",
+			});
+			const result_tag_filter = filterItems_byTag({
+				items: result_text_filter,
+				tags: tags,
+				selectedTagQuery,
+			});
 
-		const result_text_filter = filterItems_byText({ searchValue, items: dataList });
-		const result_tag_filter = filterItems_byTag({
-			items: result_text_filter,
-			tags: tags,
-			selectedTagQuery,
+			const result_cat_filter = filterItems_byCats({
+				categories,
+				items: result_tag_filter,
+			});
+
+			const results = searchValue || selectedTagQuery ? result_cat_filter : result_tag_filter;
+
+			setSearchResults(results);
 		});
-
-		const result_cat_filter = filterItems_byCats({
-			categories,
-			items: result_tag_filter,
-		});
-
-		const results = searchValue || selectedTagQuery ? result_cat_filter : result_tag_filter;
-
-		setLoading(false);
-		setSearchResults(results);
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [tags, dataList]);
@@ -162,76 +181,84 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 	return (
 		<div className={cn("space-y-20", cn(className))}>
 			{/* Form */}
-			<div className="relative mx-auto my-12 sa:my-auto h-full select-none flex justify-center items-start sa:items-center w-full max-w-screen-1xl bg-secondary px-5 py-3 rounded-2xl">
-				<div className="relative w-full flex-grow h-fit flex flex-col gap-3 sm:gap-6 px-2 py-0 sa:px-0 sa:py-2 space-y-6">
-					<div className="space-y-2">
-						<Label className="text-lg flex gap-2 w-fit">
-							<span>{t("input_label")}</span>
-							<button
-								className={clearButtonClasses}
-								role="button"
-								onClick={() => {
-									if (searchInputRef.current && searchInputRef.current.value !== "") {
-										searchInputRef.current.value = "";
-										searchInputRef.current.focus();
-										setSearchValue("");
-										!loading && setLoading(true);
-									}
-								}}
-							>
-								<IconEmbedSvg height={16} type="broom" width={16} />
-							</button>
-						</Label>
+			<div>
+				<div className="mx-auto mt-12 sa:my-auto h-full select-none flex justify-center items-start sa:items-center w-full max-w-screen-1xl bg-secondary px-5 py-3 rounded-2xl">
+					<div className="relative w-full flex-grow h-fit flex flex-col gap-3 sm:gap-6 px-2 py-0 sa:px-0 sa:py-2 space-y-6">
+						<div className="space-y-2">
+							<Label className="text-lg flex gap-2 w-fit">
+								<span>{t("input_label")}</span>
+								<button
+									className={clearButtonClasses}
+									role="button"
+									onClick={() => {
+										if (searchInputRef.current && searchInputRef.current.value !== "") {
+											searchInputRef.current.value = "";
+											searchInputRef.current.focus();
+											setSearchValue("");
+										}
+									}}
+								>
+									<IconEmbedSvg height={16} type="broom" width={16} />
+								</button>
+							</Label>
 
-						<Input
-							ref={searchInputRef}
-							className="ring-offset-secondary focus-visible:ring-offset-secondary focus:ring-offset-secondary"
-							placeholder={t("input_placeholder")}
-							onChange={(e) => {
-								!loading && setLoading(true);
+							<Input
+								ref={searchInputRef}
+								className="ring-offset-secondary focus-visible:ring-offset-secondary focus:ring-offset-secondary"
+								placeholder={t("input_placeholder")}
+								onChange={(e) => setSearchValue(e.target.value)}
+							/>
+						</div>
 
-								setSearchTimeout(
-									setTimeout(() => {
-										setSearchValue(e.target.value);
-									}, 1000)
-								);
-							}}
-						/>
-					</div>
+						<div className="space-y-[0.625em]">
+							<Label className="text-lg flex gap-2 w-fit">
+								<span>{t("tags_label")}</span>
+								<button
+									className={clearButtonClasses}
+									role="button"
+									onClick={() => {
+										if (selectedTagQuery) {
+											setTag(null);
+										}
+									}}
+								>
+									<IconEmbedSvg height={16} type="broom" width={16} />
+								</button>
+							</Label>
 
-					<div className="space-y-[0.625em]">
-						<Label className="text-lg flex gap-2 w-fit">
-							<span>{t("tags_label")}</span>
-							<button
-								className={clearButtonClasses}
-								role="button"
-								onClick={() => {
-									if (selectedTagQuery) {
-										setTag(null);
-									}
-								}}
-							>
-								<IconEmbedSvg height={16} type="broom" width={16} />
-							</button>
-						</Label>
-
-						<TagFilter
-							iconsMap={iconsMap}
-							selectedTag={selectedTagQuery}
-							tags={tags}
-							onTagClick={setTag}
-						/>
+							<TagFilter
+								iconsMap={iconsMap}
+								selectedTag={selectedTagQuery}
+								tags={tags}
+								onTagClick={setTag}
+							/>
+						</div>
 					</div>
 				</div>
-				<CheckList_AtLeastOne
-					checklistItems={categories}
-					className="absolute left-4 -bottom-8"
-					setChecklistItems={setCategories}
-				/>
+				<div className="mt-2 pl-4 pr-3 flex gap-2 justify-between w-full">
+					<CheckList_AtLeastOne
+						checklistItems={categories}
+						className_List="flex-col sm:flex-row"
+						setChecklistItems={setCategories}
+					/>
+
+					<TooltipWrapper
+						className=""
+						tooltipText={
+							selectedSearchMode === "exact" ? t("search_mode_exact") : t("search_mode_hungry")
+						}
+					>
+						<Switch
+							checked={selectedSearchMode !== "exact"}
+							className="scale-90 origin-right"
+							onCheckedChange={setSearchMode}
+						/>
+					</TooltipWrapper>
+				</div>
 			</div>
 
 			{/* Results */}
-			{loading ? (
+			{isPending ? (
 				<SectionHeader className="h-12" title={t("loading")} />
 			) : (
 				showResults &&

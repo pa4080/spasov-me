@@ -10,6 +10,7 @@ export interface CheckListItem {
 interface HorizontalChecklistProps {
 	className?: string;
 	className_Checkbox?: string;
+	className_List?: string;
 	checklistItems: CheckListItem[];
 	setChecklistItems: (items: CheckListItem[]) => void;
 	align?: "horizontal" | "vertical";
@@ -18,6 +19,7 @@ interface HorizontalChecklistProps {
 export default function CheckList_AtLeastOne({
 	className,
 	className_Checkbox = "h-5 w-5 border-[2px] dark:border-secondary dark:data-[state=checked]:bg-secondary data-[state=checked]:text-ring",
+	className_List = "",
 	align = "horizontal",
 	checklistItems,
 	setChecklistItems,
@@ -39,7 +41,13 @@ export default function CheckList_AtLeastOne({
 
 	return (
 		<div className={cn(align === "horizontal" ? "flex-row" : "flex-col", className)}>
-			<div className={cn("flex gap-4", align === "horizontal" ? "flex-row" : "flex-col")}>
+			<div
+				className={cn(
+					"flex gap-4",
+					align === "horizontal" ? "flex-row" : "flex-col",
+					className_List
+				)}
+			>
 				{checklistItems.map((item) => (
 					<label
 						key={item.key}
