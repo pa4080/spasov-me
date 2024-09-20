@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,6 +18,7 @@ import CheckList_AtLeastOne, { CheckListItem } from "../../fragments/CheckList_A
 import TagFilter from "./TagsFilter";
 import TimeLine from "./TimeLine";
 import { UnitedEntryType } from "./type";
+import { CheckListItemModelType, filterItems_byCats } from "./utils/filterItems_byCats";
 import { filterItems_byTag } from "./utils/filterItems_byTag";
 import { filterItems_byText } from "./utils/filterItems_byText";
 
@@ -39,12 +40,15 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 	const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout>();
 	const [searchResults, setSearchResults] = useState<UnitedEntryType[] | null>(dataList);
 
-	const [categories, setCategories] = useState<CheckListItem[]>(() => [
-		{ key: "prj", selected: true, label: t("cat_filter_projects"), modelType: "Project" },
-		{ key: "lbs", selected: true, label: t("cat_filter_labs"), modelType: "LabEntry" },
-		{ key: "cv", selected: true, label: t("cat_filter_about"), modelType: "AboutEntry" },
-		{ key: "blg", selected: true, label: t("cat_filter_blog"), modelType: "Post" },
-	]);
+	const defaultCategories = useMemo<CheckListItemModelType[]>(
+		() => [
+			{ key: "prj", selected: true, label: t("cat_filter_projects"), modelType: "Project" },
+			{ key: "lbs", selected: true, label: t("cat_filter_labs"), modelType: "LabEntry" },
+			{ key: "cv", selected: true, label: t("cat_filter_about"), modelType: "AboutEntry" },
+			{ key: "blg", selected: true, label: t("cat_filter_blog"), modelType: "Post" },
+		],
+		[t]
+	);
 
 	const searchValue = searchParams.get("value");
 	const selectedTagQuery = searchParams.get("tag");
@@ -80,7 +84,7 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 		});
 	};
 
-	const setCategoriesQuery = useCallback(
+	const setCategories = useCallback(
 		(cats: CheckListItem[]) => {
 			const params = new URLSearchParams(searchParams);
 
@@ -100,10 +104,6 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 	);
 
 	useEffect(() => {
-		setCategoriesQuery(categories);
-	}, [categories, setCategoriesQuery]);
-
-	useEffect(() => {
 		if (searchValue && searchInputRef?.current) {
 			searchInputRef.current.value = searchValue;
 		}
@@ -118,21 +118,40 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedTagQuery]);
 
+	const categories = (() => {
+		if (selectedCatsQuery) {
+			const cats = selectedCatsQuery.split("_");
+
+			return defaultCategories.map((cat) =>
+				cats.includes(cat.key) ? { ...cat, selected: true } : { ...cat, selected: false }
+			);
+		}
+
+		return defaultCategories;
+	})();
+
 	useEffect(() => {
 		clearTimeout(searchTimeout);
 
 		const result_text_filter = filterItems_byText({ searchValue, items: dataList });
-		const results = filterItems_byTag({
+		const result_tag_filter = filterItems_byTag({
 			items: result_text_filter,
 			tags: tags,
 			selectedTagQuery,
 		});
 
+		const result_cat_filter = filterItems_byCats({
+			categories,
+			items: result_tag_filter,
+		});
+
+		const results = searchValue || selectedTagQuery ? result_cat_filter : result_tag_filter;
+
 		setLoading(false);
 		setSearchResults(results);
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [searchValue, tags, dataList]);
+	}, [tags, dataList]);
 
 	const clearButtonClasses =
 		"h-6 w-7 flex items-center justify-center rounded-md grayscale hover:grayscale-0 hover:brightness-110 active:brightness-75 transition-colors duration-300 hover:bg-primary-foreground/20"; // bg-accent-secondary/20

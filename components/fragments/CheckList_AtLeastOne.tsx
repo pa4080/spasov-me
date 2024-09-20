@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/cn-utils";
 
@@ -13,49 +11,30 @@ interface HorizontalChecklistProps {
 	className?: string;
 	className_Checkbox?: string;
 	checklistItems: CheckListItem[];
-	setChecklistItems: React.Dispatch<React.SetStateAction<CheckListItem[]>>;
+	setChecklistItems: (items: CheckListItem[]) => void;
 	align?: "horizontal" | "vertical";
 }
 
 export default function CheckList_AtLeastOne({
 	className,
 	className_Checkbox = "h-5 w-5 border-[2px] dark:border-secondary dark:data-[state=checked]:bg-secondary data-[state=checked]:text-ring",
+	align = "horizontal",
 	checklistItems,
 	setChecklistItems,
-	align = "horizontal",
 }: HorizontalChecklistProps) {
-	useEffect(() => {
-		// Ensure at least one item is selected on initial render
-		const selectedCount = checklistItems.filter((item) => item.selected).length;
-
-		if (selectedCount === 0) {
-			const firstItem = checklistItems[0];
-
-			setChecklistItems((prevData) => {
-				return [
-					{
-						...firstItem,
-						selected: true,
-					},
-					...prevData.slice(1),
-				];
-			});
-		}
-	}, [checklistItems, setChecklistItems]);
-
 	const handleCheckboxChange = (key: string) => {
 		const selectedCount = checklistItems.filter((item) => item.selected).length;
 
+		// Prevent unselecting if it's the last selected item
 		if (checklistItems.find((item) => item.key === key)?.selected && selectedCount === 1) {
-			// Prevent unselecting if it's the last selected item
-			return;
+			return setChecklistItems(checklistItems);
 		}
 
-		setChecklistItems((prevData) => {
-			return prevData.map((item) =>
+		setChecklistItems(
+			checklistItems.map((item) =>
 				item.key === key ? { ...item, selected: !item.selected } : item
-			);
-		});
+			)
+		);
 	};
 
 	return (
