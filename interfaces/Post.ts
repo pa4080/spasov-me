@@ -72,4 +72,5 @@ export interface PostData
 	icon?: string;
 	tags: TagData[];
 	gallery?: FileData[];
+	modelType: "Post"; // See { ModelType } from "./_common-data-types";
 }

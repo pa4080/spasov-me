@@ -8,8 +8,8 @@ import { notFound } from "next/navigation";
 
 import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
 import { getFileList_mongo } from "@/components/files-mongodb/_files.actions";
-import { getLabEntries } from "@/components/lab/_lab.actions";
-import LabPublicEntry from "@/components/lab/Private/Post";
+import { getLabEntries } from "@/components/laboratory/_lab.actions";
+import LabPublicEntry from "@/components/laboratory/Private/Post";
 import { getTags } from "@/components/tags/_tags.actions";
 import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";

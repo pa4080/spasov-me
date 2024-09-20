@@ -36,4 +36,5 @@ export interface PageCardData
 	html: PageCardHtmlProps;
 	attachment: string | undefined;
 	visibility: boolean;
+	modelType: "PageCard"; // See { ModelType } from "./_common-data-types";
 }

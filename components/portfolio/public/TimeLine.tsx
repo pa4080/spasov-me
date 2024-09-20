@@ -9,7 +9,7 @@ import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 
-import LabEntriesPublic_EmbedList from "@/components/lab/public/TimeLine_EmbedIn_LabEntriesPublic";
+import LabEntriesPublic_EmbedList from "@/components/laboratory/public/TimeLine_EmbedIn_LabEntriesPublic";
 
 import { msgs } from "@/messages";
 

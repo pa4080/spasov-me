@@ -56,4 +56,5 @@ export interface AboutEntryData
 	visibility: boolean;
 	attachment?: string;
 	gallery?: FileData[];
+	modelType: "AboutEntry"; // See { ModelType } from "./_common-data-types";
 }

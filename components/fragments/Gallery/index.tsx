@@ -18,12 +18,12 @@ import { ProjectData } from "@/interfaces/Project";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
-import { LabEntryCustom } from "@/components/search/public";
+import { LabEntryCustom } from "@/components/search/public/type";
 
 import IconEmbedSvg from "../IconEmbedSvg";
 import Loading from "../Loading";
-// import GalleryCarousel from "./GalleryCarousel";
 
+// import GalleryCarousel from "./GalleryCarousel";
 const GalleryCarousel = dynamic(() => import("./GalleryCarousel"), {
 	ssr: false,
 	loading: () => <Loading scale={3} />,
@@ -53,7 +53,6 @@ const Gallery: React.FC<Props> = ({
 	descriptionDisplay,
 }) => {
 	const t = msgs("Gallery");
-
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (

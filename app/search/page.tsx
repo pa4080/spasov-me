@@ -6,7 +6,7 @@ import React from "react";
 import { getEntries } from "@/components/about/_about.actions";
 import { getPosts } from "@/components/blog/_blog.actions";
 import { getIconsMap } from "@/components/files-cloudflare/_files.actions";
-import { getLabEntries } from "@/components/lab/_lab.actions";
+import { getLabEntries } from "@/components/laboratory/_lab.actions";
 import { getProjects } from "@/components/portfolio/_portfolio.actions";
 import SearchPublic from "@/components/search/public";
 import { getTags } from "@/components/tags/_tags.actions";

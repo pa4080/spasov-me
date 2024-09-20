@@ -7,8 +7,7 @@ import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName
 import { msgs } from "@/messages";
 
 import SearchResultEntryCard from "../common/Card";
-
-import { UnitedEntryType } from ".";
+import { UnitedEntryType } from "./type";
 
 interface Props {
 	className?: string;

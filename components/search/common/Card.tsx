@@ -32,7 +32,7 @@ import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { LabEntryCustom } from "../public";
+import { LabEntryCustom } from "../public/type";
 
 interface ProjectDataExtended extends ProjectData {
 	city?: string;

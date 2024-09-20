@@ -960,6 +960,7 @@
 		"input_placeholder": "Word or phrase...",
 		"input_label": "Search",
 		"tags_label": "Filter by a technology tag",
+		"cats_label": "Filter by a category",
 		"item_link": "Link to the search item",
 		"loading": "Loading...",
 		"noResults": "No results",
@@ -986,6 +987,14 @@
 
 		"btnMore": "Read more",
 		"btnLess": "Show less",
-		"btnAll": "Show all"
+		"btnAll": "Show all",
+
+		"cat_filter_projects": "Projects",
+		"cat_filter_blog": "Blog",
+		"cat_filter_about": "About (CV)",
+		"cat_filter_labs": "Resources",
+
+		"search_mode_hungry": "Search mode Hungry",
+		"search_mode_exact": "Search node Exact"
 	}
 }

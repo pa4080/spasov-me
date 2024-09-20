@@ -62,6 +62,7 @@ export async function postDocuments_toData({
 			attachment: post.attachment,
 			tags: tagDocuments_toData({ tags: post.tags || [], hyphen: true }),
 			gallery: files?.filter((file) => post?.gallery?.includes(file._id)),
+			modelType: "Post",
 		}));
 }
 

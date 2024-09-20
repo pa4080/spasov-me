@@ -52,6 +52,7 @@ export async function aboutEntryDocuments_toData({
 			attachment: entry.attachment,
 			tags: tagDocuments_toData({ tags: entry.tags || [], hyphen: true }),
 			gallery: files?.filter((file) => entry?.gallery?.includes(file._id)),
+			modelType: "AboutEntry",
 		}));
 }
 

@@ -41,6 +41,7 @@ export async function PageCardDocuments_toData({
 		visibility: page.visibility as boolean,
 		attachment: page.attachment,
 		icon: page.icon === "undefined" ? "" : page.icon,
+		modelType: "PageCard",
 	}));
 }
 
