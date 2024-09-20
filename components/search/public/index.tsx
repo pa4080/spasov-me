@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,22 +14,12 @@ import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { postTuple, projectTuple } from "@/interfaces/_common-data-types";
 
-import CheckList_AtLeastOne, { ChecklistItems } from "../../fragments/CheckList_AtLeastOne";
+import CheckList_AtLeastOne, { CheckListItem } from "../../fragments/CheckList_AtLeastOne";
 import TagFilter from "./TagsFilter";
 import TimeLine from "./TimeLine";
 import { UnitedEntryType } from "./type";
 import { filterItems_byTag } from "./utils/filterItems_byTag";
 import { filterItems_byText } from "./utils/filterItems_byText";
-
-interface SelectedTag {
-	tag: TagData;
-	attachedToIds: string[];
-}
-
-interface QueryFilter {
-	searchValue_manual?: string | null;
-	selectedTag_manual?: string | null;
-}
 
 interface Props {
 	className?: string;
@@ -49,8 +39,16 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 	const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout>();
 	const [searchResults, setSearchResults] = useState<UnitedEntryType[] | null>(dataList);
 
+	const [categories, setCategories] = useState<CheckListItem[]>(() => [
+		{ key: "prj", selected: true, label: t("cat_filter_projects"), modelType: "Project" },
+		{ key: "lbs", selected: true, label: t("cat_filter_labs"), modelType: "LabEntry" },
+		{ key: "cv", selected: true, label: t("cat_filter_about"), modelType: "AboutEntry" },
+		{ key: "blg", selected: true, label: t("cat_filter_blog"), modelType: "Post" },
+	]);
+
 	const searchValue = searchParams.get("value");
-	const selectedTagSearch = searchParams.get("tag");
+	const selectedTagQuery = searchParams.get("tag");
+	const selectedCatsQuery = searchParams.get("cats");
 
 	const setTag = (tag: TagData | null) => {
 		!loading && setLoading(true);
@@ -82,21 +80,43 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 		});
 	};
 
+	const setCategoriesQuery = useCallback(
+		(cats: CheckListItem[]) => {
+			const params = new URLSearchParams(searchParams);
+
+			const catParams = cats.filter(({ selected }) => selected).map(({ key }) => key);
+
+			if (catParams.length !== cats.length) {
+				params.set("cats", catParams.join("_"));
+			} else {
+				params.delete("cats");
+			}
+
+			router.replace(pathname + "?" + params.toString(), {
+				scroll: false,
+			});
+		},
+		[pathname, router, searchParams]
+	);
+
+	useEffect(() => {
+		setCategoriesQuery(categories);
+	}, [categories, setCategoriesQuery]);
+
 	useEffect(() => {
 		if (searchValue && searchInputRef?.current) {
 			searchInputRef.current.value = searchValue;
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [searchValue]);
 
 	useEffect(() => {
-		if (selectedTagSearch) {
-			const tag = tags.find(({ _id }) => _id === selectedTagSearch);
+		if (selectedTagQuery) {
+			const tag = tags.find(({ _id }) => _id === selectedTagQuery);
 
 			tag && setTag(tag);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [selectedTagSearch]);
+	}, [selectedTagQuery]);
 
 	useEffect(() => {
 		clearTimeout(searchTimeout);
@@ -105,7 +125,7 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 		const results = filterItems_byTag({
 			items: result_text_filter,
 			tags: tags,
-			selectedTagQuery: selectedTagSearch,
+			selectedTagQuery,
 		});
 
 		setLoading(false);
@@ -116,13 +136,6 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 
 	const clearButtonClasses =
 		"h-6 w-7 flex items-center justify-center rounded-md grayscale hover:grayscale-0 hover:brightness-110 active:brightness-75 transition-colors duration-300 hover:bg-primary-foreground/20"; // bg-accent-secondary/20
-
-	const [categories, setCategories] = useState<ChecklistItems>(() => ({
-		projects: { selected: true, label: t("cat_filter_projects"), modelType: "Project" },
-		labs: { selected: true, label: t("cat_filter_labs"), modelType: "LabEntry" },
-		about: { selected: true, label: t("cat_filter_about"), modelType: "AboutEntry" },
-		blog: { selected: true, label: t("cat_filter_blog"), modelType: "Post" },
-	}));
 
 	const showResults =
 		searchResults && searchResults.length > 0 && searchResults.length !== dataList.length;
@@ -139,13 +152,12 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 								className={clearButtonClasses}
 								role="button"
 								onClick={() => {
-									if (searchInputRef.current) {
+									if (searchInputRef.current && searchInputRef.current.value !== "") {
 										searchInputRef.current.value = "";
 										searchInputRef.current.focus();
+										setSearchValue("");
+										!loading && setLoading(true);
 									}
-
-									setSearchValue("");
-									!loading && setLoading(true);
 								}}
 							>
 								<IconEmbedSvg height={16} type="broom" width={16} />
@@ -175,8 +187,9 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 								className={clearButtonClasses}
 								role="button"
 								onClick={() => {
-									// !loading && setLoading(true);
-									setTag(null);
+									if (selectedTagQuery) {
+										setTag(null);
+									}
 								}}
 							>
 								<IconEmbedSvg height={16} type="broom" width={16} />
@@ -185,7 +198,7 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
 
 						<TagFilter
 							iconsMap={iconsMap}
-							selectedTag={selectedTagSearch}
+							selectedTag={selectedTagQuery}
 							tags={tags}
 							onTagClick={setTag}
 						/>
