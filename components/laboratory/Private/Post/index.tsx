@@ -14,7 +14,7 @@ import { FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
-import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 
 import { LabEntryData } from "@/interfaces/LabEntry";
 

@@ -18,7 +18,7 @@ import { FileData, FileListItem } from "@/interfaces/File";
 import { IconsMap } from "@/interfaces/IconsMap";
 import { PostData } from "@/interfaces/Post";
 import { TagData } from "@/interfaces/Tag";
-import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";

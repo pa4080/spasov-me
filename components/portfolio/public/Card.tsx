@@ -5,7 +5,7 @@ import Link from "next/link";
 import styles from "@/app/(styles)/card.module.scss";
 import { Button } from "@/components/ui/button";
 import { ProjectData } from "@/interfaces/Project";
-import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 

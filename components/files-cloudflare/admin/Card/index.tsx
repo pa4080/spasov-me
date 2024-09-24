@@ -13,7 +13,7 @@ import AttachedToBadge from "@/components/fragments/AttachedToBadge";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
 import { capitalize } from "@/lib/capitalize";
-import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 

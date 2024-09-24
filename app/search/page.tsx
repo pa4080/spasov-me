@@ -10,7 +10,7 @@ import { getLabEntries } from "@/components/laboratory/_lab.actions";
 import { getProjects } from "@/components/portfolio/_portfolio.actions";
 import SearchPublic from "@/components/search/public";
 import { getTags } from "@/components/tags/_tags.actions";
-import { splitDescriptionKeyword } from "@/lib/process-markdown";
+import { splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { msgs } from "@/messages";
 
 const Portfolio: React.FC = async () => {

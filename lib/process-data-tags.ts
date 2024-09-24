@@ -1,7 +1,7 @@
 import { NewTagData, TagData, TagDoc } from "@/interfaces/Tag";
 import { AttachedToDocument, TagType } from "@/interfaces/_common-data-types";
 
-import { processMarkdown } from "./process-markdown";
+import { processMarkdown } from "./md/process-markdown";
 
 export function tagDocuments_toData({
 	tags,

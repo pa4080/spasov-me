@@ -4,7 +4,7 @@ import styles from "@/app/(styles)/card.module.scss";
 
 import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
 import { LabEntryData } from "@/interfaces/LabEntry";
-import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 
 import { IconsMap } from "@/interfaces/IconsMap";
 

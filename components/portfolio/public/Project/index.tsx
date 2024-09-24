@@ -10,7 +10,7 @@ import { IconsMap } from "@/interfaces/IconsMap";
 import { ProjectData } from "@/interfaces/Project";
 import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
-import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 
 import ProjectLinks from "../../common/ProjectLinks";
 

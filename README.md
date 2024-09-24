@@ -10,6 +10,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
+- Update the layout to be compatible with Tablets.
+
 - Blog
   - [ ] MD PDF embed
   - [ ] HTML5 video embed

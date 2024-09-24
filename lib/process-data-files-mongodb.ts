@@ -1,7 +1,7 @@
 import { FileData, FileDoc } from "@/interfaces/File";
 import { Route } from "@/routes";
 
-import { processMarkdown } from "./process-markdown";
+import { processMarkdown } from "./md/process-markdown";
 
 export function fileDocuments_toData({
 	files,

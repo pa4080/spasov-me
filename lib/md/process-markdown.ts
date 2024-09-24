@@ -15,7 +15,8 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
-import { myRemarkPlugin_Image, myRemarkPlugin_YouTube } from "./process-markdown-plugins";
+import { myRemarkPlugin_Image } from "./markdown-plugin-image";
+import { myRemarkPlugin_YouTube } from "./markdown-plugin-youtube";
 
 export const new_tab_target = "spasov-me-tab" as Target;
 

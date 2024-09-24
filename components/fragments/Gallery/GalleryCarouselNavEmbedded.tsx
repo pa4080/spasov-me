@@ -9,7 +9,7 @@ import { FileHtmlProps } from "@/interfaces/File";
 import { PostData } from "@/interfaces/Post";
 import { ProjectData } from "@/interfaces/Project";
 import { cn } from "@/lib/cn-utils";
-import { commentsMatcher } from "@/lib/process-markdown";
+import { commentsMatcher } from "@/lib/md/process-markdown";
 import { msgs } from "@/messages";
 
 import { LabEntryData } from "@/interfaces/LabEntry";
