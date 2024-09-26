@@ -679,17 +679,17 @@ body textarea.w-md-editor-text-input:focus {
 }
 
 /** You tube embed @/lib/process-markdown-plugins.ts **/
-.youtube-embed {
+.md-embed {
 	@apply mx-0 my-6 scroll-mt-8;
 
-	.youtube-embed-wrapper {
+	.md-embed-wrapper {
 		padding-top: 56.25%;
 		position: relative;
 		width: 100%;
 		height: 0;
 
-		.youtube-embed-container {
-			@apply rounded-md shadow-xl;
+		.md-embed-container {
+			@apply rounded-md shadow-xl border border-secondary/60;
 
 			position: absolute;
 			overflow: hidden;
@@ -699,24 +699,15 @@ body textarea.w-md-editor-text-input:focus {
 		}
 	}
 
-	.image-caption,
-	.youtube-embed-caption {
-		@apply text-foreground-secondary text-sm text-center mt-4;
-	}
-}
-
-.image-container {
-	@apply mx-0 my-6 scroll-mt-8;
-
-	.image-wrapper {
-		@apply rounded-md shadow-xl;
+	.md-embed-image-wrapper {
+		@apply rounded-md shadow-xl border border-secondary/60;
 
 		img {
 			@apply rounded-md m-0;
 		}
 	}
 
-	.image-caption {
+	.md-embed-caption {
 		@apply text-foreground-secondary text-sm text-center mt-4;
 	}
 }

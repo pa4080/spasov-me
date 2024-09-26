@@ -25,7 +25,7 @@ export function myRemarkPlugin_Image() {
 					data: {
 						hName: "div",
 						hProperties: {
-							class: "image-wrapper",
+							class: "md-embed-image-wrapper",
 						},
 					},
 				};
@@ -39,7 +39,7 @@ export function myRemarkPlugin_Image() {
 						data: {
 							hName: "span",
 							hProperties: {
-								class: "image-caption-label",
+								class: "md-embed-caption-label",
 							},
 						},
 					});
@@ -55,7 +55,7 @@ export function myRemarkPlugin_Image() {
 						data: {
 							hName: "span",
 							hProperties: {
-								class: "image-caption-text",
+								class: "md-embed-caption-text",
 							},
 						},
 					});
@@ -67,7 +67,7 @@ export function myRemarkPlugin_Image() {
 					data: {
 						hName: "p",
 						hProperties: {
-							class: "image-caption",
+							class: "md-embed-caption",
 						},
 					},
 				};
@@ -76,7 +76,7 @@ export function myRemarkPlugin_Image() {
 				node.children = [imageWrapper, pCaption];
 				node.data["hProperties"] = {
 					...attributes,
-					class: attributes.class ? `${attributes.class} image-container` : "image-container",
+					class: attributes.class ? `${attributes.class} md-embed` : "md-embed",
 				};
 			}
 		});

@@ -16,6 +16,7 @@ import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
 import { myRemarkPlugin_Image } from "./markdown-plugin-image";
+import { myRemarkPlugin_Pdf } from "./markdown-plugin-pdf";
 import { myRemarkPlugin_YouTube } from "./markdown-plugin-youtube";
 
 export const new_tab_target = "spasov-me-tab" as Target;
@@ -26,6 +27,7 @@ export const processMarkdown = ({ markdown, hyphen }: { markdown: string; hyphen
 		.use(remarkDirective)
 		.use(myRemarkPlugin_YouTube)
 		.use(myRemarkPlugin_Image)
+		.use(myRemarkPlugin_Pdf)
 		.use(remarkRehype, { allowDangerousHtml: true })
 		.use(rehypeFormat)
 		.use(rehypeExternalLinks, { rel: ["nofollow"], target: new_tab_target })
