@@ -2,6 +2,9 @@
 import { visit } from "unist-util-visit";
 
 // Embed image with caption. TODO: read the caption as html in order to process links or other html.
+// Invoke syntax:
+// > ::img[![Img ALT example <a href="#">link</a>](https://image-url.com "Img TITLE")]{#id-of-the-container}
+
 export function myRemarkPlugin_Image() {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
 	return (tree: any, file: { fail: (arg0: string, arg1: any) => void }) => {
@@ -32,7 +35,7 @@ export function myRemarkPlugin_Image() {
 				if (image.title) {
 					caption.push({
 						type: "span",
-						children: [{ type: "text", value: `${image.title} ` }],
+						children: [{ type: "html", value: `${image.title} ` }],
 						data: {
 							hName: "span",
 							hProperties: {
@@ -42,10 +45,13 @@ export function myRemarkPlugin_Image() {
 					});
 				}
 
+				// Using 'processCaption({ items: ... })' here makes the things un necessary complicated.
+				// So if you need to have links in the caption - use '<a>' tags in the alt of the image.
+
 				if (image.alt) {
 					caption.push({
 						type: "span",
-						children: [{ type: "text", value: image.alt }],
+						children: [{ type: "html", value: image.alt }],
 						data: {
 							hName: "span",
 							hProperties: {

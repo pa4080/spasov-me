@@ -1,7 +1,11 @@
 // Source: https://unifiedjs.com/explore/package/remark-directive/#unifieduseremarkdirective
 import { visit } from "unist-util-visit";
 
+import { processCaption } from "./utils";
+
 // This plugin is an example to turn `::youtube` into iframe.
+// Invoke syntax:
+// > ::youtube[Caption]{#5yEG6GhoJBs}
 export function myRemarkPlugin_YouTube() {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	return (tree: any, file: { fail: (arg0: string, arg1: any) => void }) => {
@@ -43,7 +47,7 @@ export function myRemarkPlugin_YouTube() {
 				};
 				 */
 
-				const textNode = node.children[0];
+				const caption = processCaption({ items: node.children });
 
 				const iframeNode = {
 					type: "iframe",
@@ -84,7 +88,7 @@ export function myRemarkPlugin_YouTube() {
 
 				const pCaption = {
 					type: "p",
-					children: [textNode],
+					children: [{ type: "html", value: caption }],
 					data: {
 						hName: "p",
 						hProperties: {
