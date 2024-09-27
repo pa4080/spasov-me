@@ -683,6 +683,8 @@ body textarea.w-md-editor-text-input:focus {
 	@apply mx-0 my-6 scroll-mt-8;
 
 	.md-embed-wrapper {
+		/** &:has(:not(> .md-embed-container > .md-embed-video)) {} */
+
 		padding-top: 56.25%;
 		position: relative;
 		width: 100%;
@@ -710,12 +712,16 @@ body textarea.w-md-editor-text-input:focus {
 	.md-embed-caption {
 		@apply text-foreground-secondary text-sm text-center mt-4;
 	}
+
+	.md-embed-video {
+		@apply my-0 mx-auto p-0 h-full;
+	}
 }
 
 @media print {
 	body .body-content {
-		overflow-y: auto;
 		display: block;
+		overflow-y: auto;
 		height: fit-content;
 	}
 }
