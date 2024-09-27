@@ -3,7 +3,7 @@ import { _Object } from "@aws-sdk/client-s3";
 import { FileData } from "@/interfaces/File";
 
 import { getObject } from "./aws";
-import { processMarkdown } from "./process-markdown";
+import { processMarkdown } from "./md/process-markdown";
 
 const r2BucketDomain = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DOMAIN;
 

@@ -1,7 +1,12 @@
 // Source: https://unifiedjs.com/explore/package/remark-directive/#unifieduseremarkdirective
 import { visit } from "unist-util-visit";
 
-// This plugin is an example to turn `::youtube` into iframe.
+import { processCaption } from "./utils";
+
+// This plugin is an example to turn `::youtube` into <iframe>.
+// Invoke syntax:
+// > ::youtube[Caption <a href="#">link</a>]{#5yEG6GhoJBs}
+// > ::youtube[Caption [url](#url) or <a href="#">link</a>]{#5yEG6GhoJBs}
 export function myRemarkPlugin_YouTube() {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	return (tree: any, file: { fail: (arg0: string, arg1: any) => void }) => {
@@ -43,7 +48,7 @@ export function myRemarkPlugin_YouTube() {
 				};
 				 */
 
-				const textNode = node.children[0];
+				const caption = processCaption({ items: node.children });
 
 				const iframeNode = {
 					type: "iframe",
@@ -66,7 +71,7 @@ export function myRemarkPlugin_YouTube() {
 					data: {
 						hName: "div",
 						hProperties: {
-							class: "youtube-embed-container",
+							class: "md-embed-container",
 						},
 					},
 				};
@@ -77,18 +82,18 @@ export function myRemarkPlugin_YouTube() {
 					data: {
 						hName: "div",
 						hProperties: {
-							class: "youtube-embed-wrapper",
+							class: "md-embed-wrapper",
 						},
 					},
 				};
 
 				const pCaption = {
 					type: "p",
-					children: [textNode],
+					children: [{ type: "html", value: caption }],
 					data: {
 						hName: "p",
 						hProperties: {
-							class: "youtube-embed-caption",
+							class: "md-embed-caption",
 						},
 					},
 				};
@@ -96,82 +101,7 @@ export function myRemarkPlugin_YouTube() {
 				node.type = "div";
 				node.children = [divNodeWrapper, pCaption];
 				node.data.hProperties = {
-					class: "youtube-embed",
-				};
-			}
-		});
-	};
-}
-
-export function myRemarkPlugin_Image() {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-	return (tree: any, file: { fail: (arg0: string, arg1: any) => void }) => {
-		visit(tree, function (node) {
-			if (node.type === "leafDirective" && node.name === "img") {
-				// eslint-disable-next-line @typescript-eslint/no-unused-vars
-				const data = node.data || (node.data = {});
-				const attributes = node.attributes || {};
-				const image = node.children[0];
-
-				if (image.type !== "image") {
-					return;
-				}
-
-				const imageWrapper = {
-					type: "div",
-					children: [image],
-					data: {
-						hName: "div",
-						hProperties: {
-							class: "image-wrapper",
-						},
-					},
-				};
-
-				const caption = [];
-
-				if (image.title) {
-					caption.push({
-						type: "span",
-						children: [{ type: "text", value: `${image.title} ` }],
-						data: {
-							hName: "span",
-							hProperties: {
-								class: "image-caption-label",
-							},
-						},
-					});
-				}
-
-				if (image.alt) {
-					caption.push({
-						type: "span",
-						children: [{ type: "text", value: image.alt }],
-						data: {
-							hName: "span",
-							hProperties: {
-								class: "image-caption-text",
-							},
-						},
-					});
-				}
-
-				const pCaption = {
-					type: "p",
-					children: caption,
-					data: {
-						hName: "p",
-						hProperties: {
-							class: "image-caption",
-						},
-					},
-				};
-
-				node.type = "div";
-				node.children = [imageWrapper, pCaption];
-				node.data["hProperties"] = {
-					...attributes,
-					class: attributes.class ? `${attributes.class} image-container` : "image-container",
+					class: "md-embed",
 				};
 			}
 		});

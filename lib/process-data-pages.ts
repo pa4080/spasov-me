@@ -1,7 +1,7 @@
 import { getFilesR2 } from "@/components/files-cloudflare/_files.actions";
 import { NewPageCardData, PageCardData, PageCardDocPopulated } from "@/interfaces/PageCard";
 
-import { processMarkdown } from "./process-markdown";
+import { processMarkdown } from "./md/process-markdown";
 
 export async function PageCardDocuments_toData({
 	pages,

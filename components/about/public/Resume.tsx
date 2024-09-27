@@ -4,7 +4,7 @@ import SectionHeader from "@/components/fragments/SectionHeader";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { AboutEntryData } from "@/interfaces/AboutEntry";
 import { AboutEntryType } from "@/interfaces/_common-data-types";
-import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 

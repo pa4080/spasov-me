@@ -11,7 +11,7 @@ import { IconsMap } from "@/interfaces/IconsMap";
 import { PostData } from "@/interfaces/Post";
 import { TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
-import { commentsMatcher, splitDescriptionKeyword } from "@/lib/process-markdown";
+import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 

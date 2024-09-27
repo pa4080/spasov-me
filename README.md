@@ -10,10 +10,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- Blog
-  - [ ] MD PDF embed
-  - [ ] HTML5 video embed
-
+- [ ] Update the layout to be compatible with Tablets.
 - [ ] Create to do list?
 
 ## Vercel CLI

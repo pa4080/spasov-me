@@ -8,7 +8,7 @@ import { CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { FileHtmlProps } from "@/interfaces/File";
 import { cn } from "@/lib/cn-utils";
-import { commentsMatcher } from "@/lib/process-markdown";
+import { commentsMatcher } from "@/lib/md/process-markdown";
 import { msgs } from "@/messages";
 
 interface Props {

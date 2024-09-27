@@ -3,7 +3,7 @@
 import IconEmbedSvg, { IconEmbSvgPathType } from "@/components/fragments/IconEmbedSvg";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/cn-utils";
-import { new_tab_target } from "@/lib/process-markdown";
+import { new_tab_target } from "@/lib/md/process-markdown";
 
 interface Props {
 	iconType: IconEmbSvgPathType;
