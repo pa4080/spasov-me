@@ -62,7 +62,7 @@ const FileForm: React.FC<Props> = ({
 	const collisionBoundaryRef = useRef<HTMLFormElement>(null);
 	const [fileToUpload, setFileToUpload] = useState<File | null>(null);
 	const { isAboveMb } = useBreakpoint("mb");
-	const { isAboveSm } = useBreakpoint("3xl");
+	const { isAboveSm } = useBreakpoint("sm");
 
 	const FormSchema = File_FormSchemaGenerator(
 		[
