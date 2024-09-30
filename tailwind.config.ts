@@ -64,6 +64,9 @@ const appTwConfig: import("tailwindcss").Config = {
 					tertiary: "hsl(var(--foreground-tertiary))",
 					quaternary: "hsl(var(--foreground-quaternary))",
 				},
+				scrollbar: {
+					DEFAULT: "hsl(var(--scrollbar))",
+				},
 
 				primary: {
 					DEFAULT: "hsl(var(--primary))",

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useLayoutEffect, useRef } from "react";
 
 import { Tooltip } from "@radix-ui/react-tooltip";
 
@@ -16,11 +16,12 @@ interface Props {
 
 const BackToTop: React.FC<Props> = ({ className }) => {
 	const t = msgs("Footer");
-	const { isAboveSm } = useBreakpoint("sm");
+	const { isAbove3xl } = useBreakpoint("3xl");
 	const distanceFromTop = 200;
 	const btnRef = useRef<HTMLButtonElement>(null);
 
-	useEffect(() => {
+	// Show hide scroll button on scroll
+	useLayoutEffect(() => {
 		const btn = btnRef.current;
 		const content = document.querySelector("#content main");
 
@@ -61,6 +62,41 @@ const BackToTop: React.FC<Props> = ({ className }) => {
 		};
 	}, []);
 
+	// Toggle the class .hide-footer-animated from the footer: 1) Whe scroll from top is more than 62px, 2) and when the user scroll back to top direction.
+	useLayoutEffect(() => {
+		let prevScrollPosition = window.scrollY;
+		const footer = document.querySelector("footer") as HTMLElement;
+		const fromTop = 200;
+		const fromBottom = 300;
+
+		const handleScroll = () => {
+			const currentScrollPosition = window.scrollY;
+			const isScrollingUp = currentScrollPosition < prevScrollPosition;
+
+			if (footer) {
+				if (currentScrollPosition > fromTop && !isScrollingUp) {
+					if (
+						window.innerHeight + currentScrollPosition <
+						document.body.scrollHeight - fromBottom
+					) {
+						footer.style.transform = "translateY(120%)";
+					} else {
+						footer.style.transform = "translateY(0)";
+					}
+				} else if (isScrollingUp) {
+					footer.style.transform = "translateY(0)";
+				}
+			}
+
+			prevScrollPosition = currentScrollPosition;
+		};
+
+		window.addEventListener("scroll", handleScroll);
+
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
+
+	// Handle the button click and scroll to top
 	const handleScrollToTop = useCallback(
 		(event: React.MouseEvent) => {
 			event.stopPropagation();
@@ -68,19 +104,20 @@ const BackToTop: React.FC<Props> = ({ className }) => {
 			const target = document.querySelector("#scroll-to-top");
 			const navbar = document.querySelector("#top-navbar");
 
-			if (target && isAboveSm) {
+			if (target && isAbove3xl) {
 				target.scrollIntoView({ behavior: "smooth" });
 			} else if (navbar) {
-				navbar.scrollIntoView({ behavior: "smooth" });
+				// navbar.scrollIntoView({ behavior: "smooth" });
+				window.scrollTo({ top: 0, behavior: "smooth" });
 			}
 
 			// This doesn't work for some reason
-			setTimeout(() => {
-				btnRef.current?.focus();
-				btnRef.current?.blur();
-			}, 1000);
+			// setTimeout(() => {
+			// 	btnRef.current?.focus();
+			// 	btnRef.current?.blur();
+			// }, 1000);
 		},
-		[isAboveSm]
+		[isAbove3xl]
 	);
 
 	return (

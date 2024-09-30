@@ -15,6 +15,7 @@
 		--foreground-tertiary: 0 0% 50%;
 		--foreground-quaternary: 0 0% 60%;
 
+		--scrollbar: 0 0% 93%;
 		--primary: 0 0% 80%;
 		--primary-foreground: 220.9 39.3% 11%;
 
@@ -63,6 +64,7 @@
 		--foreground-quaternary: 34 30% 45%;
 
 		--background: 34 30% 96%;
+		--scrollbar: 34 30% 92%;
 		--primary: 34 30% 82%;
 		--secondary: 34 30% 68%;
 
@@ -84,6 +86,7 @@
 		--foreground-tertiary: 0 0% 65%;
 		--foreground-quaternary: 0 0% 45%;
 
+		--scrollbar: 0 0% 18%;
 		--primary: 0 0% 24%;
 		--primary-foreground: 0 0% 52%;
 
@@ -121,12 +124,19 @@
 			overflow-x: hidden;
 		}
 
-		@screen sm {
+		@screen 3xl {
 			overflow-y: hidden;
 		}
 
 		overflow-x: auto;
 		min-width: 320px;
+
+		html &[data-scroll-locked] {
+			margin-right: 0 !important;
+			overflow: overlay !important;
+
+			--removed-body-scroll-bar-size: 0 !important;
+		}
 	}
 }
 
@@ -166,10 +176,6 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 	display: inherit;
 }
 
-*::-webkit-scrollbar-button {
-	display: none !important;
-}
-
 /* Outline */
 :focus-visible,
 :focus {
@@ -186,17 +192,18 @@ body [data-radix-select-viewport]::-webkit-scrollbar {
 * {
 	color-scheme: light dark;
 	scrollbar-width: thin;
-	scrollbar-color: theme("colors.muted.DEFAULT") transparent;
+	scrollbar-color: theme("colors.muted.DEFAULT") theme("colors.scrollbar.DEFAULT");
+	scrollbar-gutter: auto;
 }
 
 .dark * {
 	color-scheme: dark;
-	scrollbar-color: theme("colors.accent.DEFAULT") transparent;
+	scrollbar-color: theme("colors.accent.DEFAULT") theme("colors.scrollbar.DEFAULT");
 }
 
 html.dark {
 	color-scheme: dark;
-	scrollbar-color: theme("colors.accent.DEFAULT/5") transparent;
+	scrollbar-color: theme("colors.accent.DEFAULT/5") theme("colors.scrollbar.DEFAULT");
 }
 
 main {
