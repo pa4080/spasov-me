@@ -7,7 +7,7 @@ import styles from "./_footer.module.scss";
 
 const Footer: React.FC = () => {
 	return (
-		<footer className={styles.footer}>
+		<div className={styles.footer}>
 			<div className="max-w-4xl mx-auto relative flex items-center justify-center w-full h-footer overflow-hidden">
 				<a
 					aria-label="Link to GitHub"
@@ -80,7 +80,7 @@ const Footer: React.FC = () => {
 					/>
 				</a>
 			</div>
-		</footer>
+		</div>
 	);
 };
 
