@@ -67,6 +67,15 @@ export const Post_FormSchemaGenerator = (messages?: string[]) =>
 				}
 			},
 		}),
+		galleryDisplay: z.boolean({
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			errorMap: (issue, _ctx) => {
+				switch (issue.code) {
+					default:
+						return { message: String(messages?.[12]) };
+				}
+			},
+		}),
 		visibility: z.boolean({
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			errorMap: (issue, _ctx) => {

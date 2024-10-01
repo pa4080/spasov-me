@@ -63,13 +63,15 @@ const BlogPublicPost: React.FC<Props> = async ({
 
 	return (
 		<div className={cn("w-full pt-8 sa:pt-6 lg:pt-1", className)}>
-			<GalleryCarousel
-				descriptionDisplay={post.galleryCaptions}
-				entryData={post}
-				gallery={gallery}
-				navPosition="bottom"
-				navType={post.galleryNav ? "embedded" : "none"}
-			/>
+			{post.galleryDisplay && (
+				<GalleryCarousel
+					descriptionDisplay={post.galleryCaptions}
+					entryData={post}
+					gallery={gallery}
+					navPosition="bottom"
+					navType={post.galleryNav ? "embedded" : "none"}
+				/>
+			)}
 			<SectionHeader
 				className="pop-header mt-6 1xl:mt-[1.15rem] relative justify-end"
 				className_Actions="absolute right-0 -bottom-3"

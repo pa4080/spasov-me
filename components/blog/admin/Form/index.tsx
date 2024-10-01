@@ -76,7 +76,8 @@ const PostForm: React.FC<Props> = ({
 		t("schema_slug_length"), // 8
 		t("schema_slug_schema"), // 9
 		t("schema_galleryNav"), // 10
-		t("schema_galleryCaptions"), // 10
+		t("schema_galleryCaptions"), // 11
+		t("schema_galleryDisplay"), // 12
 	]);
 
 	const { theme } = useTheme();
@@ -94,6 +95,7 @@ const PostForm: React.FC<Props> = ({
 			entryType: entryType,
 			galleryNav: false,
 			galleryCaptions: true,
+			galleryDisplay: true,
 			visibility: true,
 			attachment: undefined,
 			icon: undefined,
@@ -353,6 +355,28 @@ const PostForm: React.FC<Props> = ({
 												<FormLabel>{t("galleryCaptions_title")}</FormLabel>
 												{t("galleryCaptions_description") && (
 													<FormDescription>{t("galleryCaptions_description")}</FormDescription>
+												)}
+											</div>
+											<FormControl>
+												<Switch checked={field.value} onCheckedChange={field.onChange} />
+											</FormControl>
+										</div>
+									</FormItem>
+								)}
+							/>
+
+							{/* Gallery display */}
+							<FormField
+								control={form.control}
+								name="galleryDisplay"
+								// eslint-disable-next-line @typescript-eslint/no-unused-vars
+								render={({ field }) => (
+									<FormItem className="flex-1 rounded-md border space-y-0">
+										<div className="flex items-center justify-between py-2 pl-4 pr-3">
+											<div>
+												<FormLabel>{t("galleryDisplay_title")}</FormLabel>
+												{t("galleryDisplay_description") && (
+													<FormDescription>{t("galleryDisplay_description")}</FormDescription>
 												)}
 											</div>
 											<FormControl>

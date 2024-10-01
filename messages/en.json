@@ -628,6 +628,7 @@
 		"schema_date": "Select a date.",
 		"schema_type": "Select a type.",
 		"schema_galleryNav": "The default galleryNav value is \"false\".",
+		"schema_galleryDisplay": "The default galleryDisplay value is \"true\".",
 		"schema_galleryCaptions": "The default galleryCaptions value is \"true\".",
 		"schema_visibility": "The default visibility value is \"true\".",
 		"schema_tags": "Select at least one tag.",
@@ -678,6 +679,9 @@
 
 		"galleryCaptions_title": "Gallery captions?",
 		"galleryCaptions_description": "",
+
+		"galleryDisplay_title": "Gallery display?",
+		"galleryDisplay_description": "",
 
 		"attachment_label": "",
 		"attachment_description": "",

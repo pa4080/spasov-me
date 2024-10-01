@@ -25,7 +25,7 @@ export function myRemarkPlugin_Image() {
 					data: {
 						hName: "div",
 						hProperties: {
-							class: "md-embed-image-wrapper",
+							class: "md-embed-image-wrapper md-embed-image ",
 						},
 					},
 				};

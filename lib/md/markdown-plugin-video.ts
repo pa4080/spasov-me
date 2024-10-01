@@ -60,7 +60,7 @@ export function myRemarkPlugin_Video() {
 					data: {
 						hName: "div",
 						hProperties: {
-							class: "md-embed-container md-embed-pdf",
+							class: "md-embed-container",
 						},
 					},
 				};
