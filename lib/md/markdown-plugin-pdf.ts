@@ -55,7 +55,7 @@ export function myRemarkPlugin_Pdf() {
 					data: {
 						hName: "div",
 						hProperties: {
-							class: "md-embed-container",
+							class: "md-embed-container md-embed-pdf",
 						},
 					},
 				};

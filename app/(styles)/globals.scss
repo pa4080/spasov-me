@@ -698,7 +698,12 @@ body textarea.w-md-editor-text-input:focus {
 		height: 0;
 
 		.md-embed-container {
-			@apply rounded-md shadow-xl border border-secondary/60;
+			@apply rounded-lg shadow-xl border  border-secondary/80;
+
+			&.md-embed-pdf,
+			&.md-embed-image {
+				@apply dark:outline dark:outline-secondary;
+			}
 
 			position: absolute;
 			overflow: hidden;
@@ -711,8 +716,18 @@ body textarea.w-md-editor-text-input:focus {
 	.md-embed-image-wrapper {
 		@apply rounded-md shadow-xl border border-secondary/60;
 
+		&.md-embed-image {
+			@apply dark:outline dark:outline-primary;
+		}
+
 		img {
 			@apply rounded-md m-0;
+		}
+	}
+
+	&.dark-soft-filter img {
+		.dark & {
+			filter: brightness(0.85) grayscale(0.45) sepia(0.1);
 		}
 	}
 

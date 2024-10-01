@@ -19,6 +19,7 @@ export interface PostDoc {
 	dateTo: Date | string | undefined;
 	galleryNav: boolean | string;
 	galleryCaptions: boolean | string;
+	galleryDisplay: boolean | string;
 	visibility: boolean | string;
 	attachment?: string | undefined;
 	icon?: string | undefined;
@@ -57,6 +58,7 @@ export interface PostData
 		| "dateFrom"
 		| "galleryNav"
 		| "galleryCaptions"
+		| "galleryDisplay"
 		| "visibility"
 		| "gallery"
 		| "icon"
@@ -67,6 +69,7 @@ export interface PostData
 	dateTo: Date | undefined;
 	galleryNav: boolean;
 	galleryCaptions: boolean;
+	galleryDisplay: boolean;
 	visibility: boolean;
 	attachment?: string;
 	icon?: string;
