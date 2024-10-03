@@ -7,7 +7,7 @@ import TagsAdmin from "@/components/tags/admin";
 export const dynamic = "force-dynamic";
 
 const Pages: React.FC = () => {
-	return <TagsAdmin className="margin_vh_top margin_vh_bottom scroll-m-40" />;
+	return <TagsAdmin className="margin_vh_top margin_vh_bottom scroll-mt-40" />;
 };
 
 export default Pages;

@@ -56,7 +56,7 @@ const TimeLine: React.FC<Props> = ({
 	return (
 		<>
 			<div
-				className={cn("scroll-m-24 list-section expand-collapsed", className)}
+				className={cn("scroll-mt-24 list-section expand-collapsed", className)}
 				id={toggle_target_id}
 			>
 				<SectionHeader className="pop-header" title={section_title}>

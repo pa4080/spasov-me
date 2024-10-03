@@ -38,8 +38,11 @@ const LabEntryPublic_Card: React.FC<Props> = ({ labEntry, className, iconsMap })
 	const tooltip = t(`label_tooltip_by_property_${labEntry.propertyType}` as tType);
 
 	return (
-		<div className={cn("display-wrapper scroll-m-8", className)}>
-			<div className={styles.card} id={`lab_${labEntry._id}`}>
+		<div
+			className={cn("display-wrapper scroll-mt-20 3xl:scroll-mt-8", className)}
+			id={`lab_${labEntry._id}`}
+		>
+			<div className={styles.card}>
 				{/* Logo and Title */}
 				<div className="flex gap-2 items-center justify-start w-full relative">
 					<IconCircleWrapper

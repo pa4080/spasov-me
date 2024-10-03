@@ -25,7 +25,7 @@ const SectionHeader: React.FC<Props> = ({
 	return (
 		<div
 			className={cn(
-				"2xs:flex 2xs:flex-row-reverse items-start justify-between gap-6 2xs:gap-4 mb-8 w-full scroll-m-6",
+				"2xs:flex 2xs:flex-row-reverse items-start justify-between gap-6 2xs:gap-4 mb-8 w-full scroll-mt-6",
 				className
 			)}
 		>

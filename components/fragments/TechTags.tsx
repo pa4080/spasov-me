@@ -24,7 +24,10 @@ const TechTags: React.FC<Props> = ({ className, tags, iconsMap }) => {
 	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_techTags`);
 
 	return (
-		<div className={cn("scroll-m-8 list-section", className)} id={toggle_target_id}>
+		<div
+			className={cn("scroll-mt-24 3xl:scroll-mt-8 list-section", className)}
+			id={toggle_target_id}
+		>
 			<SectionHeader className="pop-header" title={section_title} />
 
 			<div className="flex flex-wrap gap-2 items-center justify-start pop-item">

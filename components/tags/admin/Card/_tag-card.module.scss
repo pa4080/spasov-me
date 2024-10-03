@@ -1,7 +1,7 @@
 @import "@/app/(styles)/globals.variables.module.scss";
 
 .cardWrapper {
-	@apply scroll-m-8 relative;
+	@apply scroll-mt-24 3xl:scroll-mt-8 relative;
 
 	.buttons {
 		@apply flex gap-2 absolute right-0 bottom-0 p-4 rounded-2xl;

@@ -42,8 +42,11 @@ const ProjectPublic_Card: React.FC<Props> = ({
 	});
 
 	return (
-		<div className={cn("display-wrapper scroll-m-8", className)}>
-			<div className={styles.card} id={`project_${project._id}`}>
+		<div
+			className={cn("display-wrapper scroll-mt-20 3xl:scroll-mt-8", className)}
+			id={`project_${project._id}`}
+		>
+			<div className={styles.card}>
 				<div className="flex gap-2 items-center justify-start w-full">
 					<IconCircleWrapper
 						alt={project.title}

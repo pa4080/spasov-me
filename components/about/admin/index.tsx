@@ -28,7 +28,7 @@ const AboutAdmin: React.FC<Props> = async ({ className }) => {
 	}));
 
 	return (
-		<div className={cn("space-y-20 scroll-m-8", className)}>
+		<div className={cn("space-y-20 scroll-mt-24 3xl:scroll-mt-8", className)}>
 			<TimeLine {...data} type="businessCard" visibleItems={1} />
 			<TimeLine {...data} type="resume" visibleItems={1} />
 			<TimeLine {...data} type="employment" />

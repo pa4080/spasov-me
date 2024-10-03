@@ -41,7 +41,10 @@ const BlogPublic_Card: React.FC<Props> = ({
 	});
 
 	return (
-		<div className={`${styles.card} group scroll-m-8 ${className}`} id={`post_${post._id}`}>
+		<div
+			className={`${styles.card} group scroll-mt-24 3xl:scroll-mt-8 ${className}`}
+			id={`post_${post._id}`}
+		>
 			{/* Header image */}
 			<div className="w-full h-0 pt-[56.25%] relative">
 				<div className="w-full absolute inset-0 rounded-md overflow-hidden group-hover:shadow-lg">

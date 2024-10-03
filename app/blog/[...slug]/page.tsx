@@ -70,7 +70,7 @@ const Post: React.FC<Props> = async ({ params }) => {
 	delete data.postsHyphenated;
 
 	return (
-		<div className="mt-2 sa:mt-6 mb-24 scroll-m-40">
+		<div className="mt-2 sa:mt-6 mb-24 scroll-mt-40">
 			<BlogPublicPost post={post} {...data} />
 		</div>
 	);

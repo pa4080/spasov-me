@@ -53,7 +53,7 @@ const TimeLine: React.FC<Props> = ({
 
 	return (
 		<div
-			className={cn("about-cards-section list-section scroll-m-8", className)}
+			className={cn("about-cards-section list-section scroll-mt-24 3xl:scroll-mt-8", className)}
 			id={toggle_target_id}
 		>
 			<SectionHeader title={section_title}>

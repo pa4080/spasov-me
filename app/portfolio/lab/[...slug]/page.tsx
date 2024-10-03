@@ -71,7 +71,7 @@ const LabEntry: React.FC<Props> = async ({ params }) => {
 	delete data.labEntriesHyphenated;
 
 	return (
-		<div className="mt-2 sa:mt-6 mb-24 scroll-m-40">
+		<div className="mt-2 sa:mt-6 mb-24 scroll-mt-40">
 			<LabPublicEntry labEntry={labEntry} {...data} />
 		</div>
 	);

@@ -34,7 +34,7 @@ const LabEntriesPublic_EmbedList: React.FC<Props> = async ({ className, visibleI
 
 	return (
 		<div
-			className={cn("scroll-m-16 list-section expand-collapsed", className)}
+			className={cn("scroll-mt-16 list-section expand-collapsed", className)}
 			id={toggle_target_id}
 		>
 			<SectionHeader className="pop-header" title={section_title}>
