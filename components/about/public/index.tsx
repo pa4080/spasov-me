@@ -48,9 +48,9 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 	const { entriesHyphenated, entriesClear, fileList, iconsMap, tags } = data;
 
 	return (
-		<div className={cn("space-y-20 scroll-m-8", className)}>
+		<div className={cn("space-y-20 scroll-mt-24 3xl:scroll-mt-8", className)}>
 			<BusinessCard
-				className="about-cards-section list-section scroll-m-8"
+				className="about-cards-section list-section scroll-mt-24 3xl:scroll-mt-8"
 				entries={entriesClear}
 				fileList={fileList}
 				iconsMap={iconsMap}
@@ -58,7 +58,7 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 				type="businessCard"
 			/>
 			<Resume
-				className="about-cards-section list-section scroll-m-8"
+				className="about-cards-section list-section scroll-mt-24 3xl:scroll-mt-8"
 				entries={entriesHyphenated}
 				fileList={fileList}
 				iconsMap={iconsMap}
@@ -66,7 +66,7 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 				type="resume"
 			/>
 			<TimeLine
-				className="about-cards-section list-section scroll-m-8"
+				className="about-cards-section list-section scroll-mt-24 3xl:scroll-mt-8"
 				displayTags={true}
 				entries={entriesHyphenated}
 				fileList={fileList}
@@ -75,7 +75,7 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 				type="employment"
 			/>
 			<TimeLine
-				className="about-cards-section list-section scroll-m-8"
+				className="about-cards-section list-section scroll-mt-24 3xl:scroll-mt-8"
 				displayTags={false}
 				entries={entriesHyphenated}
 				fileList={fileList}
@@ -85,12 +85,12 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
 				visibleItems={2}
 			/>
 			<SpokenLanguages
-				className="about-cards-section list-section scroll-m-8"
+				className="about-cards-section list-section scroll-mt-24 3xl:scroll-mt-8"
 				entries={entriesClear}
 				type="spokenLanguages"
 			/>
 			<TechTags
-				className="about-cards-section list-section scroll-m-8"
+				className="about-cards-section list-section scroll-mt-24 3xl:scroll-mt-8"
 				iconsMap={iconsMap}
 				tags={tags}
 			/>

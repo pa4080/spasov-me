@@ -57,7 +57,7 @@ export default function UploadPage() {
 	}, []);
 
 	return (
-		<div className="margin_vh_top margin_vh_bottom space-y-12 scroll-m-40">
+		<div className="margin_vh_top margin_vh_bottom space-y-12 scroll-mt-40">
 			<div>
 				<h1 className="section_title">Upload Blob</h1>
 

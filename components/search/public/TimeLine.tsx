@@ -37,7 +37,7 @@ const TimeLine: React.FC<Props> = ({ type, visibleItems = 15, entries, displayTa
 	return (
 		entriesByType &&
 		entriesByType.length > 0 && (
-			<div className="list-section scroll-m-8" id={toggle_target_id}>
+			<div className="list-section scroll-mt-24 3xl:scroll-mt-8" id={toggle_target_id}>
 				<SectionHeader className="pop-header h-12" title={section_title}>
 					<ToggleCollapsible
 						tooltip

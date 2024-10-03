@@ -35,7 +35,7 @@ const TimeLine: React.FC<Props> = ({ className, labEntries, labEntryPropertyType
 		?.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
 	return (
-		<div className={cn("laboratory-cards-section scroll-m-8", className)}>
+		<div className={cn("laboratory-cards-section scroll-mt-24 3xl:scroll-mt-8", className)}>
 			<SectionHeader title={section_title} />
 			<div className="grid grid-cols-1 md:grid-cols-2 grid-flow-row gap-12 md:gap-10 lg:gap-14">
 				{labEntriesByPropertyType?.map((labEntry, index) => (

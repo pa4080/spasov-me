@@ -58,7 +58,9 @@ const Section: React.FC<Props> = ({
 		.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
 	return (
-		<div className={cn("portfolio-admin-section list-section scroll-m-8", className)}>
+		<div
+			className={cn("portfolio-admin-section list-section scroll-mt-24 3xl:scroll-mt-8", className)}
+		>
 			<SectionHeader title={section_title}>
 				<CreateFile files_prefix={files_prefix} />
 				<RevalidatePaths paths={[Route.public.PORTFOLIO.uri]} />

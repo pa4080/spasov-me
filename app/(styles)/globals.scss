@@ -599,7 +599,7 @@ body textarea.w-md-editor-text-input:focus {
 
 /* Bordered Card */
 .card-border-wrapper {
-	@apply scroll-m-8 relative;
+	@apply scroll-mt-24 3xl:scroll-mt-8 relative;
 
 	/* Box outline */
 	&::before {
@@ -687,7 +687,7 @@ body textarea.w-md-editor-text-input:focus {
 
 /** You tube embed @/lib/process-markdown-plugins.ts **/
 .md-embed {
-	@apply mx-0 my-6 scroll-mt-8;
+	@apply mx-0 my-6 scroll-mt-24 3xl:scroll-mt-8;
 
 	.md-embed-wrapper {
 		/** &:has(:not(> .md-embed-container > .md-embed-video)) {} */

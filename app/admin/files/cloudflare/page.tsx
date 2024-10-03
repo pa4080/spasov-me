@@ -7,7 +7,7 @@ const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || 
 const Files: React.FC = () => {
 	return (
 		<FilesAdmin_CloudFlare
-			className="margin_vh_top margin_vh_bottom scroll-m-40"
+			className="margin_vh_top margin_vh_bottom scroll-mt-40"
 			files_prefix={files_prefix}
 			visibleItemsCommon={500}
 		/>

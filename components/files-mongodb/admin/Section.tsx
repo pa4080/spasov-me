@@ -83,7 +83,7 @@ const Section: React.FC<Props> = ({
 				Object.keys(attachedToDocuments).map((attachedToDocument, index) => (
 					<div
 						key={index}
-						className={`${styles.feed} scroll-m-8 mt-12 list-sub-section ${sortByAttachedToVisibleItems > index ? "" : "sub-section-collapsible"}`}
+						className={`${styles.feed} scroll-mt-24 3xl:scroll-mt-8 mt-12 list-sub-section ${sortByAttachedToVisibleItems > index ? "" : "sub-section-collapsible"}`}
 						id={`${toggle_target_id}_${index}`}
 					>
 						<div className="flex flex-row w-full justify-between gap-4 items-center border-4 h-10 border-primary bg-primary rounded-full">

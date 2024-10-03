@@ -43,7 +43,7 @@ const Portfolio: React.FC = async () => {
 	}));
 
 	return (
-		<div className="margin_vh_top margin_vh_bottom scroll-m-40">
+		<div className="margin_vh_top margin_vh_bottom scroll-mt-40">
 			<h1 className="section_title">{t("title")}</h1>
 			<SearchPublic {...data} />
 		</div>
