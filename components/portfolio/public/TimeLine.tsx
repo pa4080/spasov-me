@@ -72,7 +72,7 @@ const TimeLine: React.FC<Props> = ({
 					{projectsByType?.map((project, index) => (
 						<ProjectPublic_Card
 							key={index}
-							className={visibleItems > index ? "pop-item" : "section-card-collapsible pop-item"}
+							className={`${visibleItems > index ? "pop-item" : "section-card-collapsible pop-item"} ${project.slug.match("spasov-me-cms") ? "special-card" : ""}`.trim()}
 							fileList={fileList}
 							iconList={iconList}
 							iconsMap={iconsMap}
