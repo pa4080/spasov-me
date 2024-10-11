@@ -6,7 +6,11 @@
 	// 	"titleBar.inactiveForeground": "#e7e7e799"
 	// },
 	"cSpell.words": [
-		"'",
+		"CLIENTVAR",
+		"commitlint",
+		"nextjs",
+		"runtimes",
+		"snapix",
 		"Appstimate",
 		"atrule",
 		"attachedto",
