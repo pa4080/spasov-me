@@ -29,7 +29,11 @@ const RebuildMasterVercel: React.FC<Props> = ({ className }) => {
 						<div className="flex items-center gap-2 justify-between">
 							<span
 								dangerouslySetInnerHTML={{
-									__html: response ? t("toast_success") : t("toast_error"),
+									__html: response
+										? t("toast_success", {
+												url: String(process.env.NEXT_PUBLIC_VERCEL_BUILD_BOARD),
+											})
+										: t("toast_error"),
 								}}
 								className="text-base"
 							/>
