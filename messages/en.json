@@ -130,7 +130,7 @@
 		"btn_revalidate_submitting": "Revalidating..."
 	},
 	"RebuildMasterVercel": {
-		"toast_success": "The rebuild action was successfully submitted.",
+		"toast_success": "The rebuild action was successfully submitted. Visit the <a href='{ url }' target='spasov-me-tab'>Vercel's Board</a> to check the status.",
 		"toast_error": "Something went wrong. Please try again.",
 		"btn_rebuild": "Rebuild site on Vercel",
 		"btn_rebuild_submitting": "Rebuilding..."
