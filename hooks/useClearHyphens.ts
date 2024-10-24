@@ -42,17 +42,16 @@ export function useClearHyphens() {
 export const cleanClipboardV3 = (event: ClipboardEvent) => {
 	// Get the selected range
 	const selectedRange = window.getSelection()?.getRangeAt(0);
+	const selectedParent = selectedRange?.commonAncestorContainer?.parentElement;
 
-	const isSelectedInMDEditor =
-		!!selectedRange?.commonAncestorContainer?.parentElement?.classList.contains("w-md-editor-area");
-	const isSelectedEditable =
-		!!selectedRange?.commonAncestorContainer?.parentElement?.querySelector("input, textarea");
-	const isSelectedWithinTagPre =
-		selectedRange?.commonAncestorContainer?.parentElement?.tagName === "PRE";
+	const isSelectedInMDEditor = !!selectedParent?.classList.contains("w-md-editor-area");
+	const isSelectedEditable = !!selectedParent?.querySelector("input, textarea");
 
-	if (isSelectedInMDEditor || isSelectedEditable || isSelectedWithinTagPre) {
+	if (isSelectedInMDEditor || isSelectedEditable) {
 		return;
 	}
+
+	const isSelectedWithinTagPre = selectedParent?.tagName === "PRE";
 
 	// Create a div and append the selected range's cloned contents
 	const tempDiv = document.createElement("div");
@@ -64,13 +63,13 @@ export const cleanClipboardV3 = (event: ClipboardEvent) => {
 	const doc = parser.parseFromString(tempDiv.innerHTML, "text/html");
 
 	// Find all pre elements
-	const preElements = doc.getElementsByTagName("pre");
+	const preElements = isSelectedWithinTagPre ? [selectedParent] : doc.getElementsByTagName("pre");
 
 	// Backup innerHTML of all pre elements
 	const originalPreContents: string[] = [];
 
 	for (let i = 0; i < preElements.length; i++) {
-		originalPreContents[i] = preElements[i].innerHTML;
+		originalPreContents[i] = preElements[i].textContent || "";
 	}
 
 	// Replace hyphenation symbols and codes in the innerHTML, preserving HTML tags

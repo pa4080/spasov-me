@@ -21,7 +21,13 @@ export function useCodeCopyButton() {
 
 			button.addEventListener("click", () => {
 				if (pre.textContent) {
-					navigator.clipboard.writeText(pre.textContent.trim() + "\n");
+					navigator.clipboard.writeText(
+						pre.textContent
+							.replace(/&shy;/g, "")
+							.replace(/\u00AD/gi, "")
+							.replace(/\u200B/gi, "")
+							.trim() + "\n"
+					);
 				}
 			});
 

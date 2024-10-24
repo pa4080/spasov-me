@@ -9,7 +9,7 @@
 		"generate-icon-map": "ts-node --skip-project scripts/generate-icon-map.ts",
 		"purge-cache": "rm -rf .next",
 		"dev-purge": "pnpm purge-cache && next dev",
-		"dev": "next dev",
+		"dev": "next dev --turbo",
 		"build": "next build",
 		"start": "next start",
 		"start0": "next start -p 3000 --hostname 0.0.0.0",

@@ -1,1004 +1,1004 @@
 {
-	"NotFound": {
-		"error": "404",
-		"errorDesc": "| This page could not be found",
-		"errorLong": "404 | Not Found"
-	},
-	"Errors": {
-		"invalidUser": "Invalid user",
-		"invalidFile": "Invalid file object, not a file.",
-		"notFoundFileInDB": "File with id { id } was not found in the database"
-	},
-	"Theme": {
-		"light": "Light",
-		"ltBrown": "Light Brown",
-		"dark": "Dark",
-		"system": "System",
-		"themeSelector": "Theme selector"
-	},
-	"Navigation": {
-		"CONTACT": "Contact",
-		"SERVICES": "Services",
-		"HOME": "Home",
-
-		"ABOUT": "About",
-		"ABOUT_DESC": "Edit the about (CV) page",
-
-		"LAB": "Laboratory",
-		"LAB_DESC": "Edit the laboratory entries",
-
-		"PORTFOLIO": "Portfolio",
-		"PORTFOLIO_DESC": "Edit the project entries",
-
-		"TAGS": "Tags",
-		"TAGS_DESC": "Browse and manage tags",
-
-		"THEME": "Theme",
-		"THEME_DESC": "Preview the color theme",
-
-		"PAGES": "Page cards",
-		"PAGES_DESC": "Edit the page cards displayed at Home",
-
-		"FILES_MONGODB": "Files MongoDB",
-		"FILES_MONGODB_DESC": "Manage files on MongoDB GridFS",
-
-		"FILES_CFR2": "Files CloudFlare",
-		"FILES_CFR2_DESC": "Manage files on Cloudflare R2 Bucket",
-
-		"ICONS_CFR2": "Icons CloudFlare",
-		"ICONS_CFR2_DESC": "Manage icons on Cloudflare R2 Bucket",
-
-		"FILES_VERCEL": "Files Vercel",
-		"FILES_VERCEL_DESC": "Manage files on Vercel Blob Storage",
-
-		"BLOG": "Blog",
-		"BLOG_DESC": "Edit the posts of the blog",
-
-		"signUp": "Sign Up",
-		"signIn": "Sign In",
-		"signOut": "Sign Out",
-		"signOutDescription": "Exit the edit mode",
-		"signInWith": "Sign In with { provider }",
-		"loggedInUserMenu": "Logged in as user menu",
-
-		"searchButton": "Search the site",
-
-		"altUserProfile": "User Profile",
-		"altMenuButton": "Menu Button",
-
-		"user": "User",
-		"publicMenu_title": "Public Menu"
-	},
-	"Footer": {
-		"btn_backToTop": "Top"
-	},
-	"SiteLogo": {
-		"altLogo": "Site Logo"
-	},
-	"Home": {
-		"greeting_ln1": "Welcome to",
-		"greeting_ln2": "&nbsp;my site"
-	},
-	"Contact": {
-		"title": "Let's build together!",
-
-		"toast_submitted": "You submitted the following values:",
-		"toast_success": "Your message was successfully sent.",
-		"toast_error": "Something went wrong. Please try again.",
-		"toast_errorSendingEmail": "Error sending email: { error }",
-		"toast_reCaptcha_selfError": "Something went wrong with reCaptcha API. Please try again.",
-		"toast_reCaptcha_scoreError": "Please verify that you are not a robot.",
-		"toast_reCaptcha_genericError": "Recaptcha error...",
-
-		"form_name_label": "Full name",
-		"form_name_placeholder": "Enter your name",
-		"form_name_error": "The name is required and must be at least 3 characters.",
-		"form_name_description": "We won't share your full name with anyone.",
-		"form_name_minLength": 3,
-		"form_name_maxLength": null,
-
-		"form_email_label": "Email",
-		"form_email_placeholder": "Enter your email",
-		"form_email_description": "We won't share your email with anyone.",
-		"form_email_error": "Invalid email.",
-		"form_email_minLength": null,
-		"form_email_maxLength": null,
-
-		"form_message_label": "Message",
-		"form_message_placeholder": "Enter your message...",
-		"form_message_description": "Leave me a message. Ask me anything related to the fields described in the services and projects sections.",
-		"form_message_error": "The message is required it must be at least 25 characters.",
-		"form_message_minLength": 25,
-		"form_message_maxLength": null
-	},
-	"ContactEmail_Admin": {
-		"subjectToAdmin": "New client message at { siteName }",
-		"clientNameMsg": "Client name:",
-		"theMessageMsg": "Message:",
-		"clientEmailMsg": "Client email:"
-	},
-	"ContactEmail_Client": {
-		"subjectToClient": "{ admin } from { siteName }",
-		"messageTitle": "Hello, { name }!",
-		"yourMessage": "The following message of yours was successfully submitted:",
-		"thankYou": "Thank you for reaching out to me. I will get back to you as soon as possible.",
-		"bestRegards": "Best regards,"
-	},
-	"RevalidatePaths": {
-		"toast_submitted": "The paths [{ paths }] were successfully revalidated.",
-		"btn_revalidate": "Revalidate paths",
-		"btn_revalidate_submitting": "Revalidating..."
-	},
-	"RebuildMasterVercel": {
-		"toast_success": "The rebuild action was successfully submitted. Visit the <a href='{ url }' target='spasov-me-tab'>Vercel's Board</a> to check the status.",
-		"toast_error": "Something went wrong. Please try again.",
-		"btn_rebuild": "Rebuild site on Vercel",
-		"btn_rebuild_submitting": "Rebuilding..."
-	},
-	"PageCards": {
-		"title_common": "Edit home page cards",
-		"index_pageAttachment_alt": "Image for the page '{ title }'"
-	},
-	"PageCards_Create": {
-		"toast_success": "The page was successfully created.",
-		"toast_error": "Something went wrong. Please try again.",
-		"dialog_btn_add": "Add a page",
-		"dialog_btn_add_submitting": "Submitting...",
-		"dialog_title": "Add a new page",
-		"dialog_description": ""
-	},
-	"PageCards_Update": {
-		"toast_success": "The page was successfully updated.",
-		"toast_error": "Something went wrong. Please try again.",
-		"dialog_title": "Update an existing page",
-		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>"
-	},
-	"PageCards_Delete": {
-		"dialog_title": "Delete a page",
-		"dialog_description": "<p class='json-desc'>Title: <b><code>{ title }</code></b></p><p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
-		"dialog_btn_delete": "Delete the page",
-		"dialog_btn_delete_submitting": "Deleting...",
-		"dialog_btn_cancel": "Cancel",
-		"toast_deleted": "The page was successfully deleted!",
-		"toast_success": "The page was successfully deleted!",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"PageCards_Form": {
-		"form_pageTitle": "Page title",
-		"form_pageTitlePlaceholder": "Page title...",
-		"form_pageTitleDescription": "Enter the display title/name of the page.",
-		"form_pageDescription": "Page description",
-		"form_pageDescriptionPlaceholder": "Page description...",
-		"form_pageDescriptionDescription": "Enter the description of the page.",
-
-		"form_pageUri_label": "Select page URI",
-		"form_pageUri_description": "This will be used in the URL. The values are defined in @/routes.tsx",
-		"form_pageUri_placeholder": "page-slug",
-		"form_pageUri_searchNotFound": "The searched URI could not be found.",
-		"form_pageUri_select": "Select URI for the page...",
-		"form_pageUri_selectNone": "Must be chosen!",
-
-		"form_pageAttachment_label": "Select page image",
-		"form_pageAttachment_description": "Choice an image. It must exist on the system.",
-		"form_pageAttachment_search": "Search for an image...",
-		"form_pageAttachment_searchNotFound": "The image could not be found.",
-		"form_pageAttachment_select": "Select an image...",
-		"form_pageAttachment_selectNone": "< None! >",
-
-		"form_pageVisibility_title": "Page visibility",
-		"form_pageVisibility_description": "The value depends on the page URI and it is also defined in @/routes.tsx",
-
-		"form_btn_submit": "Submit",
-		"form_btn_submitting": "Submitting...",
-
-		"schema_title": "The page title must be at least 2 characters.",
-		"schema_description": "The description must be at least 20 characters.",
-		"schema_uri": "The Page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
-		"schema_image": "The allowed formats are: png, avif, jfif, jpg, jpeg, svg, webp.",
-		"schema_icon": "These are icons from the FS, like in the Tags.",
-
-		"icon_label": "",
-		"icon_description": "",
-		"icon_search": "Search for an icon...",
-		"icon_select": "Select an icon...",
-		"icon_searchNotFound": "Not found.",
-		"icon_selectNone": "< Optional! >"
-	},
-	"AboutEntries": {
-		"title_spokenLanguages": "Languages",
-		"title_businessCard": "Business card",
-		"title_resume": "Resume",
-		"title_employment": "Employment history",
-		"title_education": "Education",
-		"title_skills": "Skills",
-		"title_techTags": "Technologies",
-		"btnMore": "Read more",
-		"btnLess": "Show less",
-		"btnAll": "Show all",
-		"tooltip_gallery": "View the attached docs"
-	},
-	"AboutEntries_Create": {
-		"dialog_title": "Create a new { entryType } entry",
-		"dialog_description": "",
-		"dialog_btn_add": "Add a new entry",
-		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The entry was successfully created.",
-		"toast_success": "The entry was successfully created.",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"AboutEntries_Update": {
-		"dialog_title": "Update an existing { entryType } entry",
-		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
-		"dialog_btn_add": "Update the entry",
-		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The entry was successfully updated.",
-		"toast_success": "The entry was successfully updated.",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"AboutEntries_Delete": {
-		"dialog_title": "Delete an entry of type { entryType } ",
-		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
-		"dialog_btn_delete": "Delete the entry",
-		"dialog_btn_delete_submitting": "Deleting...",
-		"dialog_btn_cancel": "Cancel",
-		"toast_deleted": "The entry was successfully deleted!",
-		"toast_success": "The entry was successfully deleted!",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"AboutEntries_Form": {
-		"schema_title": "The entry title must be at least 4 characters.",
-		"schema_description": "The description must be at least 10 characters.",
-		"schema_country": "The country is required.",
-		"schema_city": "The city is required.",
-		"schema_date": "Select a date.",
-		"schema_type": "Select a type.",
-		"schema_visibility": "The default visibility value is \"true\".",
-		"schema_attachment": "Attach a file to the entry - i.e scanned copy of a diploma as a image, PDF or other type of file.",
-		"schema_tags": "Select at least one tag.",
-		"schema_gallery": "Select multiple attachments.",
-
-		"title_label": "",
-		"title_placeholder": "Title of the entry",
-		"title_description": "",
-
-		"description_label": "",
-		"description_placeholder": "Description of the entry",
-		"description_description": "",
-
-		"country_label": "",
-		"country_placeholder": "Country",
-		"country_description": "",
-		"country_list": {
-			"bulgaria": "Bulgaria"
-		},
-
-		"city_label": "",
-		"city_placeholder": "City",
-		"city_description": "",
-		"city_list": {
-			"sofia": "Sofia",
-			"pazardjik": "Pazardjik",
-			"yambol": "Yambol",
-			"plovdiv": "Plovdiv"
-		},
-
-		"type_label": "",
-		"type_placeholder": "Select Type",
-		"type_description": "",
-		"aboutEntry_type_list": {
-			"businessCard": "Business card",
-			"resume": "Resume",
-			"employment": "Employment",
-			"education": "Education",
-			"spokenLanguages": "Spoken Languages"
-		},
-
-		"dateFrom_label": "From",
-		"dateTo_label": "To",
-		"date_button": "OK",
-
-		"visibility_title": "Is public?",
-		"visibility_description": "",
-
-		"attachment_label": "",
-		"attachment_description": "",
-		"attachment_search": "Search for an attachment...",
-		"attachment_select": "Attachment...",
-		"attachment_searchNotFound": "Not found.",
-		"attachment_selectNone": "< None! >",
-
-		"tags_label": "",
-		"tags_description": "",
-		"tags_search": "Search for a tag...",
-		"tags_add": "Add tags",
-		"tags_searchNotFound": "Not found...",
-		"tags_selectNone": "< None! >",
-
-		"gallery_label": "",
-		"gallery_description": "",
-		"gallery_search": "Search for a file...",
-		"gallery_add": "Add gallery items",
-		"gallery_searchNotFound": "Not found...",
-		"gallery_selectNone": "< None! >",
-
-		"btn_submit": "Submit",
-		"btn_submitting": "Submitting...",
-
-		"dateTo_now_current": "Now"
-	},
-	"Tags": {
-		"title_system": "System (not listed) Tags",
-		"title_blog": "Blog posts",
-		"title_informationTechnologies": "Information Technologies",
-		"title_mechanicalEngineering": "Mechanical Engineering",
-		"title_officeApplications": "Office Applications",
-		"title_skills": "Skills",
-		"title_tagIndex": "Tag Index",
-		"btnAll": "Show all",
-		"btnLess": "Show less"
-	},
-	"Tags_Create": {
-		"dialog_title": "Create a new tag of type { tagType }",
-		"dialog_description": "",
-		"dialog_btn_add": "Add a new tag",
-		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The tag was successfully created.",
-		"toast_success": "The tag was successfully created.",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"Tags_Update": {
-		"dialog_title": "Update an existing { tagType } tag",
-		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
-		"dialog_btn_add": "Update the tag",
-		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The tag was successfully updated.",
-		"toast_success": "The tag was successfully updated.",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"Tags_Display": {
-		"name": "Name (slug)",
-		"description": "Description",
-		"type": "Type",
-		"icon": "Icon",
-		"orderKey": "Order key",
-		"index_id": "[index { index }]: { id }"
-	},
-	"Tags_Delete": {
-		"dialog_title": "Delete a tag of type { tagType } ",
-		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p><p class='json-desc'>Name: <b><code>{ name }</code></b></p><p class='json-desc'>Description: <b><code>{ description }</code></b></p>",
-		"dialog_btn_delete": "Delete the tag",
-		"dialog_btn_delete_submitting": "Deleting...",
-		"dialog_btn_cancel": "Cancel",
-		"toast_deleted": "The tag was successfully deleted!",
-		"toast_success": "The tag was successfully deleted!",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"Tags_Form": {
-		"schema_name_length": "The tag name must be at least 2 characters (lowercase).",
-		"schema_name_monolite": "It will be used in the search and as a slug, so must be monolite word and dashes optionally.",
-		"schema_description": "The description must be at least 6 characters.",
-		"schema_icon": "Select an icon.",
-		"schema_orderKey": "Type a word as an order key.",
-		"schema_type": "Select tag type.",
-
-		"name_label": "",
-		"name_description": "",
-		"name_placeholder": "Tag name (slug) e.g. [a-z-]+",
-
-		"description_label": "",
-		"description_description": "",
-		"description_placeholder": "Tag description...",
-
-		"orderKey_label": "",
-		"orderKey_description": "",
-		"orderKey_placeholder": "Enter a word as an order key...",
-
-		"type_label": "",
-		"type_placeholder": "Select tag type",
-		"type_description": "",
-		"tag_type_list": {
-			"informationTechnologies": "Information Technologies",
-			"mechanicalEngineering": "Mechanical Engineering",
-			"skills": "Skills",
-			"officeApplications": "Office  Applications",
-			"system": "System (not listed) Tags",
-			"blog": "Blog posts"
-		},
-
-		"icon_label": "",
-		"icon_description": "",
-		"icon_search": "Search for an icon...",
-		"icon_select": "Select an icon...",
-		"icon_searchNotFound": "Not found.",
-		"icon_selectNone": "< Optional! >",
-
-		"btn_submit": "Submit",
-		"btn_submitting": "Submitting..."
-	},
-	"Files": {
-		"section_title_common": "Not categorized",
-		"section_title_about_entry": "About",
-		"section_title_project": "Portfolio",
-		"section_title_post": "Blog posts",
-		"section_title_lab_entry": "Laboratory",
-		"btnAll": "Show all",
-		"btnLess": "Show less",
-		"btnMore": "Read more"
-	},
-	"Files_Display": {
-		"size": "Size",
-		"contentType": "Content type",
-		"lastModified": "Last modified",
-		"kilobyte": "KB",
-		"index_id": "[index { index }]: { id }"
-	},
-	"Files_Create": {
-		"dialog_title": "Create (upload) a new file of type \"{ fileType }\"",
-		"dialog_description": "",
-		"dialog_btn_add": "Add a new file",
-		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The file was successfully created.",
-		"toast_success": "The file was successfully created (uploaded).",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"Files_Update": {
-		"dialog_title": "Update a file",
-		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
-		"dialog_btn_add": "Update the file",
-		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The file was successfully updated.",
-		"toast_success": "The file was successfully updated.",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"Files_Delete": {
-		"dialog_title": "Delete a file",
-		"dialog_description": "<p class='json-desc'>Name: <b><code>{ filename }</code></b></p><p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
-		"dialog_btn_delete": "Delete the file",
-		"dialog_btn_delete_submitting": "Deleting...",
-		"dialog_btn_cancel": "Cancel",
-		"toast_deleted": "The file was successfully deleted!",
-		"toast_success": "The file was successfully deleted!",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"Files_Form": {
-		"schema_file": "The file is absolutely required. It cannot start with a special character or a number.",
-
-		"fileInput_label": "",
-		"fileInput_placeholder": "The allowed formats are: png, avif, jpg, jpeg, svg, webp, jfif, pdf, pptx, xlsx, csv, txt, txt, docx.",
-		"fileInput_description": "",
-
-		"filename_label": "",
-		"filename_placeholder": "Override the name of the file. Use numbers, latin alphabet, dashes and underscores.",
-		"filename_description": "",
-
-		"description_label": "",
-		"description_placeholder": "Description of the file. It will be used as a description in the galleries.",
-		"description_description": "",
-
-		"visibility_title": "Is public?",
-		"visibility_description": "",
-
-		"btn_submit": "Submit",
-		"btn_submitting": "Submitting..."
-	},
-	"Gallery": {
-		"dialog_title": "{ title } [gallery]",
-		"dialog_description": "",
-		"dialog_btn_close": "Close",
-		"counter": "Slide { current } of { count }"
-	},
-	"TechTags": {
-		"title": "Technology Tags"
-	},
-	"Projects_Form": {
-		"schema_title": "The project title must be at least 4 characters.",
-		"schema_description": "The description must be at least 10 characters.",
-		"schema_date": "Select a date.",
-		"schema_type": "Select a type.",
-		"schema_visibility": "The default visibility value is \"true\".",
-		"schema_tags": "Select at least one tag.",
-		"schema_gallery": "Select multiple attachments.",
-		"schema_slug_length": "The slug must be at least 4 characters.",
-		"schema_slug_schema": "Slug must be in-kebab-case.",
-
-		"title_label": "",
-		"title_placeholder": "Title of the project",
-		"title_description": "",
-
-		"description_label": "",
-		"description_placeholder": "Description of the project",
-		"description_description": "",
-
-		"urlHome_label": "",
-		"urlHome_placeholder": "Homepage of the project",
-		"urlHome_description": "",
-
-		"urlAdmin_label": "",
-		"urlAdmin_placeholder": "Admin page of the project",
-		"urlAdmin_description": "",
-
-		"urlRepo_label": "",
-		"urlRepo_placeholder": "Repository of the project",
-		"urlRepo_description": "",
-
-		"slug_label": "",
-		"slug_placeholder": "Slug of the project",
-		"slug_description": "",
-
-		"type_label": "",
-		"type_placeholder": "Select Type",
-		"type_description": "",
-		"project_type_list": {
-			"informationTechnologies": "Information Technologies",
-			"mechanicalEngineering": "Mechanical Engineering",
-			"managementConsultancy": "Management Consultancy",
-			"education_prj": "Education",
-			"officeApplications": "Office Applications"
-		},
-
-		"dateFrom_label": "From",
-		"dateTo_label": "To",
-		"date_button": "OK",
-
-		"visibility_title": "Is public?",
-		"visibility_description": "",
-
-		"attachment_label": "",
-		"attachment_description": "",
-		"attachment_search": "Search for an attachment...",
-		"attachment_select": "Attachment...",
-		"attachment_searchNotFound": "Not found.",
-		"attachment_selectNone": "< None! >",
-
-		"icon_label": "",
-		"icon_description": "",
-		"icon_search": "Search for an icon...",
-		"icon_select": "Icon...",
-		"icon_searchNotFound": "Not found.",
-		"icon_selectNone": "< None! >",
-
-		"tags_label": "",
-		"tags_description": "",
-		"tags_search": "Search for a tag...",
-		"tags_add": "Add tags",
-		"tags_searchNotFound": "Not found...",
-		"tags_selectNone": "< None! >",
-
-		"gallery_label": "",
-		"gallery_description": "",
-		"gallery_search": "Search for a file...",
-		"gallery_add": "Add gallery items",
-		"gallery_searchNotFound": "Not found...",
-		"gallery_selectNone": "< None! >",
-
-		"btn_submit": "Submit",
-		"btn_submitting": "Submitting...",
-
-		"dateTo_now_current": "Now"
-	},
-	"Projects": {
-		"title_common": "Projects",
-		"title_informationTechnologies": "Information Technologies",
-		"title_mechanicalEngineering": "Mechanical Engineering",
-		"title_managementConsultancy": "Management Consultancy",
-		"title_education_prj": "Education",
-		"title_officeApplications": "Office Applications",
-		"btnMore": "Read more",
-		"btnLess": "Show less",
-		"btnAll": "Show all"
-	},
-	"Projects_Create": {
-		"dialog_title": "Create a new { entryType } project",
-		"dialog_description": "",
-		"dialog_btn_add": "Add a new project",
-		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The project was successfully created.",
-		"toast_success": "The project was successfully created.",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"Projects_Update": {
-		"dialog_title": "Update an existing { entryType } project",
-		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
-		"dialog_btn_add": "Update the project",
-		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The project was successfully updated.",
-		"toast_success": "The project was successfully updated.",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"Projects_Delete": {
-		"dialog_title": "Delete a project of type { entryType } ",
-		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
-		"dialog_btn_delete": "Delete the project",
-		"dialog_btn_delete_submitting": "Deleting...",
-		"dialog_btn_cancel": "Cancel",
-		"toast_deleted": "The project was successfully deleted!",
-		"toast_success": "The project was successfully deleted!",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"Projects_CardPublic": {
-		"button_call_to_action": "Details",
-		"tooltip_gallery": "View the Project's gallery",
-		"tooltip_update": "Edit the project",
-		"tooltip_link": "Link to the Project's { linkType }",
-		"area_label_card_link": "Link to the Project's page"
-	},
-	"Posts_Form": {
-		"schema_title": "The post title must be at least 4 characters.",
-		"schema_description": "The description must be at least 10 characters.",
-		"schema_date": "Select a date.",
-		"schema_type": "Select a type.",
-		"schema_galleryNav": "The default galleryNav value is \"false\".",
-		"schema_galleryDisplay": "The default galleryDisplay value is \"true\".",
-		"schema_galleryCaptions": "The default galleryCaptions value is \"true\".",
-		"schema_visibility": "The default visibility value is \"true\".",
-		"schema_tags": "Select at least one tag.",
-		"schema_gallery": "Select multiple attachments.",
-		"schema_slug_length": "The slug must be at least 4 characters.",
-		"schema_slug_schema": "Slug must be in-kebab-case.",
-
-		"title_label": "",
-		"title_placeholder": "Title of the post",
-		"title_description": "",
-
-		"description_label": "",
-		"description_placeholder": "Description of the post",
-		"description_description": "",
-
-		"url1_label": "",
-		"url1_placeholder": "URL 1 related to the post",
-		"url1_description": "",
-
-		"url2_label": "",
-		"url2_placeholder": "URL 2 related to the post",
-		"url2_description": "",
-
-		"slug_label": "",
-		"slug_placeholder": "Slug of the post",
-		"slug_description": "",
-
-		"type_label": "",
-		"type_placeholder": "Select Type",
-		"type_description": "",
-		"post_type_list": {
-			"blog": "Blog",
-			"reference": "Reference",
-			"manual": "Manual",
-			"note": "Note",
-			"lifestyle": "Lifestyle"
-		},
-
-		"dateFrom_label": "From",
-		"dateTo_label": "To",
-		"date_button": "OK",
-
-		"visibility_title": "Is public?",
-		"visibility_description": "",
-
-		"galleryNav_title": "Gallery nav?",
-		"galleryNav_description": "",
-
-		"galleryCaptions_title": "Gallery captions?",
-		"galleryCaptions_description": "",
-
-		"galleryDisplay_title": "Gallery display?",
-		"galleryDisplay_description": "",
-
-		"attachment_label": "",
-		"attachment_description": "",
-		"attachment_search": "Search for an attachment...",
-		"attachment_select": "Attachment...",
-		"attachment_searchNotFound": "Not found.",
-		"attachment_selectNone": "< None! >",
-
-		"icon_label": "",
-		"icon_description": "",
-		"icon_search": "Search for an icon...",
-		"icon_select": "Icon...",
-		"icon_searchNotFound": "Not found.",
-		"icon_selectNone": "< None! >",
-
-		"tags_label": "",
-		"tags_description": "",
-		"tags_search": "Search for a tag...",
-		"tags_add": "Add tags",
-		"tags_searchNotFound": "Not found...",
-		"tags_selectNone": "< None! >",
-
-		"gallery_label": "",
-		"gallery_description": "",
-		"gallery_search": "Search for a file...",
-		"gallery_add": "Add gallery items",
-		"gallery_searchNotFound": "Not found...",
-		"gallery_selectNone": "< None! >",
-
-		"btn_submit": "Submit",
-		"btn_submitting": "Submitting...",
-
-		"dateTo_now_current": "Now"
-	},
-	"Posts": {
-		"title_blog": "Blog",
-		"title_reference": "Reference",
-		"title_manual": "Manual",
-		"title_note": "Note",
-		"title_lifestyle": "Lifestyle",
-
-		"btnMore": "Read more",
-		"btnLess": "Show less",
-		"btnAll": "Show all"
-	},
-	"Posts_Create": {
-		"dialog_title": "Create a new { entryType } post",
-		"dialog_description": "",
-		"dialog_btn_add": "Add a new post",
-		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The post was successfully created.",
-		"toast_success": "The post was successfully created.",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"Posts_Update": {
-		"dialog_title": "Update an existing { entryType } post",
-		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
-		"dialog_btn_add": "Update the post",
-		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The post was successfully updated.",
-		"toast_success": "The post was successfully updated.",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"Posts_Delete": {
-		"dialog_title": "Delete a post of type { entryType } ",
-		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
-		"dialog_btn_delete": "Delete the post",
-		"dialog_btn_delete_submitting": "Deleting...",
-		"dialog_btn_cancel": "Cancel",
-		"toast_deleted": "The post was successfully deleted!",
-		"toast_success": "The post was successfully deleted!",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"Posts_CardPublic": {
-		"button_call_to_action": "Details",
-		"tooltip_gallery": "View post's gallery",
-		"tooltip_update": "Edit the post",
-		"tooltip_link": "Post's { linkType }",
-		"area_label_card_link": "Link to the Post's page",
-		"category_tooltip": "Category: { category }"
-	},
-	"LabEntries_Form": {
-		"schema_title": "The entry title must be at least 4 characters.",
-		"schema_description": "The description must be at least 10 characters.",
-		"schema_date": "Select a date.",
-		"schema_type": "Select a type.",
-		"schema_visibility": "The default visibility value is \"true\".",
-		"schema_tags": "Select at least one tag.",
-		"schema_gallery": "Select multiple attachments.",
-		"schema_slug_length": "The slug must be at least 4 characters.",
-		"schema_slug_schema": "Slug must be in-kebab-case.",
-
-		"schema_visibility_type": "Set the asset visibility",
-		"schema_property_type": "Set the asset property type",
-		"schema_host_type": "Set the asset host type",
-
-		"title_label": "",
-		"title_placeholder": "Title of the entry",
-		"title_description": "",
-
-		"description_label": "",
-		"description_placeholder": "Description of the entry",
-		"description_description": "",
-
-		"urlHome_label": "",
-		"urlHome_placeholder": "Home url of the asset",
-		"urlHome_description": "",
-
-		"urlAdmin_label": "",
-		"urlAdmin_placeholder": "Admin url of the asset",
-		"urlAdmin_description": "",
-
-		"urlSource_label": "",
-		"urlSource_placeholder": "Source url of the asset",
-		"urlSource_description": "",
-
-		"slug_label": "",
-		"slug_placeholder": "Slug of the entry page",
-		"slug_description": "",
-
-		"lab_entry_type_field": {
-			"label": "",
-			"description": "",
-			"placeholder": "Type?"
-		},
-		"lab_entry_type_list": {
-			"site": "Site",
-			"service": "Service",
-			"application": "Application",
-			"database": "Database"
-		},
-
-		"lab_entry_visibility_field": {
-			"label": "",
-			"description": "",
-			"placeholder": "Visibility?"
-		},
-		"lab_entry_visibility": { "private": "Private", "public": "Public" },
-
-		"lab_entry_property_field": {
-			"label": "",
-			"description": "",
-			"placeholder": "Property?"
-		},
-		"lab_entry_property": { "own": "Own", "client": "Client", "shared": "Shared" },
-
-		"lab_entry_host_field": {
-			"label": "",
-			"description": "",
-			"placeholder": "Host?"
-		},
-		"lab_entry_host": {
-			"vps": "VPS",
-			"vps-docker": "VPS Docker",
-			"vps-linux": "VPS Linux",
-			"vps-linux-docker": "VPS Linux Docker",
-			"linux": "Linux",
-			"linux-docker": "Linux Docker",
-			"docker": "Docker",
-			"self-hosted": "Self Hosted",
-			"self-hosted-docker": "Self Hosted Docker",
-			"pve": "PVE",
-			"pve-vm": "PVE VM",
-			"pve-container": "PVE Container",
-			"aws": "AWS",
-			"cloudflare": "Cloudflare",
-			"third-party": "Third-Party"
-		},
-
-		"dateFrom_label": "From",
-		"dateTo_label": "To",
-		"date_button": "OK",
-
-		"visibility_title": "Is entry public?",
-		"visibility_description": "",
-
-		"active_title": "Is asset active?",
-		"active_description": "",
-
-		"attachment_label": "",
-		"attachment_description": "",
-		"attachment_search": "Search for an attachment...",
-		"attachment_select": "Attachment...",
-		"attachment_searchNotFound": "Not found.",
-		"attachment_selectNone": "< None! >",
-
-		"icon_label": "",
-		"icon_description": "",
-		"icon_search": "Search for an icon...",
-		"icon_select": "Icon...",
-		"icon_searchNotFound": "Not found.",
-		"icon_selectNone": "< None! >",
-
-		"tags_label": "",
-		"tags_description": "",
-		"tags_search": "Search for a tag...",
-		"tags_add": "Add tags",
-		"tags_searchNotFound": "Not found...",
-		"tags_selectNone": "< None! >",
-
-		"gallery_label": "",
-		"gallery_description": "",
-		"gallery_search": "Search for a file...",
-		"gallery_add": "Add gallery items",
-		"gallery_searchNotFound": "Not found...",
-		"gallery_selectNone": "< None! >",
-
-		"btn_submit": "Submit",
-		"btn_submitting": "Submitting...",
-
-		"dateTo_now_current": "Now"
-	},
-	"LabEntries": {
-		"title_common": "Resources",
-		"title_site": "Site",
-		"title_service": "Service",
-		"title_application": "Application",
-		"title_database": "Database",
-
-		"title_by_property_own": "Own resources",
-		"title_by_property_client": "Client's resources",
-		"title_by_property_shared": "Shared resources",
-
-		"btnMore": "Read more",
-		"btnLess": "Show less",
-		"btnAll": "Show all"
-	},
-	"LabEntries_Create": {
-		"dialog_title": "Create a new { entryType } entry",
-		"dialog_description": "",
-		"dialog_btn_add": "Add a new entry",
-		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The entry was successfully created.",
-		"toast_success": "The entry was successfully created.",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"LabEntries_Update": {
-		"dialog_title": "Update an existing { entryType } entry",
-		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
-		"dialog_btn_add": "Update the entry",
-		"dialog_btn_add_submitting": "Submitting...",
-		"toast_submitted": "The entry was successfully updated.",
-		"toast_success": "The entry was successfully updated.",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"LabEntries_Delete": {
-		"dialog_title": "Delete an entry of type { entryType } ",
-		"dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
-		"dialog_btn_delete": "Delete the entry",
-		"dialog_btn_delete_submitting": "Deleting...",
-		"dialog_btn_cancel": "Cancel",
-		"toast_deleted": "The entry was successfully deleted!",
-		"toast_success": "The entry was successfully deleted!",
-		"toast_error": "Something went wrong. Please try again."
-	},
-	"LabEntries_CardPublic": {
-		"button_call_to_action": "Details",
-		"tooltip_gallery": "View Lab entry's gallery",
-		"tooltip_update": "Edit the Lab entry",
-		"tooltip_link": "Entry's { linkType }",
-		"area_label_card_link": "Link to the Lab entry's page",
-
-		"tooltip_home_link": "Link to the Lab entry's { linkType }",
-		"tooltip_home_link_private": "This resource is private.",
-
-		"label_by_property_own": "Own",
-		"label_by_property_client": "Client",
-		"label_by_property_shared": "Shared",
-
-		"label_tooltip_by_property_own": "Own resources",
-		"label_tooltip_by_property_client": "Client's resources",
-		"label_tooltip_by_property_shared": "Shared resources",
-
-		"btnMore": "Read more",
-		"btnLess": "Show less",
-		"btnAll": "Show all"
-	},
-	"Search": {
-		"title": "Search the site",
-		"input_placeholder": "Word or phrase...",
-		"input_label": "Search",
-		"tags_label": "Filter by a technology tag",
-		"cats_label": "Filter by a category",
-		"item_link": "Link to the search item",
-		"loading": "Loading...",
-		"noResults": "No results",
-
-		"title_spokenLanguages": "Languages",
-		"title_businessCard": "Business card",
-		"title_resume": "Resume",
-		"title_employment": "Employment history",
-		"title_education": "Education",
-		"title_skills": "Skills",
-		"title_lab": "Resources",
-
-		"title_informationTechnologies": "IT Projects",
-		"title_mechanicalEngineering": "Engineering Projects",
-		"title_managementConsultancy": "Consultancy Projects",
-		"title_education_prj": "Education Projects",
-		"title_officeApplications": "Office Applications Projects",
-
-		"title_blog": "Blog posts",
-		"title_reference": "Blog references",
-		"title_manual": "Blog manuals",
-		"title_note": "Blog notes",
-		"title_lifestyle": "Blog lifestyle",
-
-		"btnMore": "Read more",
-		"btnLess": "Show less",
-		"btnAll": "Show all",
-
-		"cat_filter_projects": "Projects",
-		"cat_filter_blog": "Blog",
-		"cat_filter_about": "About (CV)",
-		"cat_filter_labs": "Resources",
-
-		"search_mode_hungry": "Search mode Hungry",
-		"search_mode_exact": "Search node Exact"
-	}
+  "NotFound": {
+    "error": "404",
+    "errorDesc": "| This page could not be found",
+    "errorLong": "404 | Not Found"
+  },
+  "Errors": {
+    "invalidUser": "Invalid user",
+    "invalidFile": "Invalid file object, not a file.",
+    "notFoundFileInDB": "File with id { id } was not found in the database"
+  },
+  "Theme": {
+    "light": "Light",
+    "ltBrown": "Light Brown",
+    "dark": "Dark",
+    "system": "System",
+    "themeSelector": "Theme selector"
+  },
+  "Navigation": {
+    "CONTACT": "Contact",
+    "SERVICES": "Services",
+    "HOME": "Home",
+
+    "ABOUT": "About",
+    "ABOUT_DESC": "Edit the about (CV) page",
+
+    "LAB": "Laboratory",
+    "LAB_DESC": "Edit the laboratory entries",
+
+    "PORTFOLIO": "Portfolio",
+    "PORTFOLIO_DESC": "Edit the project entries",
+
+    "TAGS": "Tags",
+    "TAGS_DESC": "Browse and manage tags",
+
+    "THEME": "Theme",
+    "THEME_DESC": "Preview the color theme",
+
+    "PAGES": "Page cards",
+    "PAGES_DESC": "Edit the page cards displayed at Home",
+
+    "FILES_MONGODB": "Files MongoDB",
+    "FILES_MONGODB_DESC": "Manage files on MongoDB GridFS",
+
+    "FILES_CFR2": "Files CloudFlare",
+    "FILES_CFR2_DESC": "Manage files on Cloudflare R2 Bucket",
+
+    "ICONS_CFR2": "Icons CloudFlare",
+    "ICONS_CFR2_DESC": "Manage icons on Cloudflare R2 Bucket",
+
+    "FILES_VERCEL": "Files Vercel",
+    "FILES_VERCEL_DESC": "Manage files on Vercel Blob Storage",
+
+    "BLOG": "Blog",
+    "BLOG_DESC": "Edit the posts of the blog",
+
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "signOutDescription": "Exit the edit mode",
+    "signInWith": "Sign In with { provider }",
+    "loggedInUserMenu": "Logged in as user menu",
+
+    "searchButton": "Search the site",
+
+    "altUserProfile": "User Profile",
+    "altMenuButton": "Menu Button",
+
+    "user": "User",
+    "publicMenu_title": "Public Menu"
+  },
+  "Footer": {
+    "btn_backToTop": "Top"
+  },
+  "SiteLogo": {
+    "altLogo": "Site Logo"
+  },
+  "Home": {
+    "greeting_ln1": "Welcome to",
+    "greeting_ln2": "&nbsp;my site"
+  },
+  "Contact": {
+    "title": "Let's build together!",
+
+    "toast_submitted": "You submitted the following values:",
+    "toast_success": "Your message was successfully sent.",
+    "toast_error": "Something went wrong. Please try again.",
+    "toast_errorSendingEmail": "Error sending email: { error }",
+    "toast_reCaptcha_selfError": "Something went wrong with reCaptcha API. Please try again.",
+    "toast_reCaptcha_scoreError": "Please verify that you are not a robot.",
+    "toast_reCaptcha_genericError": "Recaptcha error...",
+
+    "form_name_label": "Full name",
+    "form_name_placeholder": "Enter your name",
+    "form_name_error": "The name is required and must be at least 3 characters.",
+    "form_name_description": "We won't share your full name with anyone.",
+    "form_name_minLength": 3,
+    "form_name_maxLength": null,
+
+    "form_email_label": "Email",
+    "form_email_placeholder": "Enter your email",
+    "form_email_description": "We won't share your email with anyone.",
+    "form_email_error": "Invalid email.",
+    "form_email_minLength": null,
+    "form_email_maxLength": null,
+
+    "form_message_label": "Message",
+    "form_message_placeholder": "Enter your message...",
+    "form_message_description": "Leave me a message. Ask me anything related to the fields described in the services and projects sections.",
+    "form_message_error": "The message is required it must be at least 25 characters.",
+    "form_message_minLength": 25,
+    "form_message_maxLength": null
+  },
+  "ContactEmail_Admin": {
+    "subjectToAdmin": "New client message at { siteName }",
+    "clientNameMsg": "Client name:",
+    "theMessageMsg": "Message:",
+    "clientEmailMsg": "Client email:"
+  },
+  "ContactEmail_Client": {
+    "subjectToClient": "{ admin } from { siteName }",
+    "messageTitle": "Hello, { name }!",
+    "yourMessage": "The following message of yours was successfully submitted:",
+    "thankYou": "Thank you for reaching out to me. I will get back to you as soon as possible.",
+    "bestRegards": "Best regards,"
+  },
+  "RevalidatePaths": {
+    "toast_submitted": "The paths [{ paths }] were successfully revalidated.",
+    "btn_revalidate": "Revalidate paths",
+    "btn_revalidate_submitting": "Revalidating..."
+  },
+  "RebuildMasterVercel": {
+    "toast_success": "The rebuild action was successfully submitted. Visit the <a href='{ url }' target='spasov-me-tab'>Vercel's Board</a> to check the status.",
+    "toast_error": "Something went wrong. Please try again.",
+    "btn_rebuild": "Rebuild site on Vercel",
+    "btn_rebuild_submitting": "Rebuilding..."
+  },
+  "PageCards": {
+    "title_common": "Edit home page cards",
+    "index_pageAttachment_alt": "Image for the page '{ title }'"
+  },
+  "PageCards_Create": {
+    "toast_success": "The page was successfully created.",
+    "toast_error": "Something went wrong. Please try again.",
+    "dialog_btn_add": "Add a page",
+    "dialog_btn_add_submitting": "Submitting...",
+    "dialog_title": "Add a new page",
+    "dialog_description": ""
+  },
+  "PageCards_Update": {
+    "toast_success": "The page was successfully updated.",
+    "toast_error": "Something went wrong. Please try again.",
+    "dialog_title": "Update an existing page",
+    "dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>"
+  },
+  "PageCards_Delete": {
+    "dialog_title": "Delete a page",
+    "dialog_description": "<p class='json-desc'>Title: <b><code>{ title }</code></b></p><p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+    "dialog_btn_delete": "Delete the page",
+    "dialog_btn_delete_submitting": "Deleting...",
+    "dialog_btn_cancel": "Cancel",
+    "toast_deleted": "The page was successfully deleted!",
+    "toast_success": "The page was successfully deleted!",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "PageCards_Form": {
+    "form_pageTitle": "Page title",
+    "form_pageTitlePlaceholder": "Page title...",
+    "form_pageTitleDescription": "Enter the display title/name of the page.",
+    "form_pageDescription": "Page description",
+    "form_pageDescriptionPlaceholder": "Page description...",
+    "form_pageDescriptionDescription": "Enter the description of the page.",
+
+    "form_pageUri_label": "Select page URI",
+    "form_pageUri_description": "This will be used in the URL. The values are defined in @/routes.tsx",
+    "form_pageUri_placeholder": "page-slug",
+    "form_pageUri_searchNotFound": "The searched URI could not be found.",
+    "form_pageUri_select": "Select URI for the page...",
+    "form_pageUri_selectNone": "Must be chosen!",
+
+    "form_pageAttachment_label": "Select page image",
+    "form_pageAttachment_description": "Choice an image. It must exist on the system.",
+    "form_pageAttachment_search": "Search for an image...",
+    "form_pageAttachment_searchNotFound": "The image could not be found.",
+    "form_pageAttachment_select": "Select an image...",
+    "form_pageAttachment_selectNone": "< None! >",
+
+    "form_pageVisibility_title": "Page visibility",
+    "form_pageVisibility_description": "The value depends on the page URI and it is also defined in @/routes.tsx",
+
+    "form_btn_submit": "Submit",
+    "form_btn_submitting": "Submitting...",
+
+    "schema_title": "The page title must be at least 2 characters.",
+    "schema_description": "The description must be at least 20 characters.",
+    "schema_uri": "The Page URI must be at least 2 characters. It must start with latin lowercase letter and can contain numbers and dashes.",
+    "schema_image": "The allowed formats are: png, avif, jfif, jpg, jpeg, svg, webp.",
+    "schema_icon": "These are icons from the FS, like in the Tags.",
+
+    "icon_label": "",
+    "icon_description": "",
+    "icon_search": "Search for an icon...",
+    "icon_select": "Select an icon...",
+    "icon_searchNotFound": "Not found.",
+    "icon_selectNone": "< Optional! >"
+  },
+  "AboutEntries": {
+    "title_spokenLanguages": "Languages",
+    "title_businessCard": "Business card",
+    "title_resume": "Resume",
+    "title_employment": "Employment history",
+    "title_education": "Education",
+    "title_skills": "Skills",
+    "title_techTags": "Technologies",
+    "btnMore": "Read more",
+    "btnLess": "Show less",
+    "btnAll": "Show all",
+    "tooltip_gallery": "View the attached docs"
+  },
+  "AboutEntries_Create": {
+    "dialog_title": "Create a new { entryType } entry",
+    "dialog_description": "",
+    "dialog_btn_add": "Add a new entry",
+    "dialog_btn_add_submitting": "Submitting...",
+    "toast_submitted": "The entry was successfully created.",
+    "toast_success": "The entry was successfully created.",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "AboutEntries_Update": {
+    "dialog_title": "Update an existing { entryType } entry",
+    "dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+    "dialog_btn_add": "Update the entry",
+    "dialog_btn_add_submitting": "Submitting...",
+    "toast_submitted": "The entry was successfully updated.",
+    "toast_success": "The entry was successfully updated.",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "AboutEntries_Delete": {
+    "dialog_title": "Delete an entry of type { entryType } ",
+    "dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+    "dialog_btn_delete": "Delete the entry",
+    "dialog_btn_delete_submitting": "Deleting...",
+    "dialog_btn_cancel": "Cancel",
+    "toast_deleted": "The entry was successfully deleted!",
+    "toast_success": "The entry was successfully deleted!",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "AboutEntries_Form": {
+    "schema_title": "The entry title must be at least 4 characters.",
+    "schema_description": "The description must be at least 10 characters.",
+    "schema_country": "The country is required.",
+    "schema_city": "The city is required.",
+    "schema_date": "Select a date.",
+    "schema_type": "Select a type.",
+    "schema_visibility": "The default visibility value is \"true\".",
+    "schema_attachment": "Attach a file to the entry - i.e scanned copy of a diploma as a image, PDF or other type of file.",
+    "schema_tags": "Select at least one tag.",
+    "schema_gallery": "Select multiple attachments.",
+
+    "title_label": "",
+    "title_placeholder": "Title of the entry",
+    "title_description": "",
+
+    "description_label": "",
+    "description_placeholder": "Description of the entry",
+    "description_description": "",
+
+    "country_label": "",
+    "country_placeholder": "Country",
+    "country_description": "",
+    "country_list": {
+      "bulgaria": "Bulgaria"
+    },
+
+    "city_label": "",
+    "city_placeholder": "City",
+    "city_description": "",
+    "city_list": {
+      "sofia": "Sofia",
+      "pazardjik": "Pazardjik",
+      "yambol": "Yambol",
+      "plovdiv": "Plovdiv"
+    },
+
+    "type_label": "",
+    "type_placeholder": "Select Type",
+    "type_description": "",
+    "aboutEntry_type_list": {
+      "businessCard": "Business card",
+      "resume": "Resume",
+      "employment": "Employment",
+      "education": "Education",
+      "spokenLanguages": "Spoken Languages"
+    },
+
+    "dateFrom_label": "From",
+    "dateTo_label": "To",
+    "date_button": "OK",
+
+    "visibility_title": "Is public?",
+    "visibility_description": "",
+
+    "attachment_label": "",
+    "attachment_description": "",
+    "attachment_search": "Search for an attachment...",
+    "attachment_select": "Attachment...",
+    "attachment_searchNotFound": "Not found.",
+    "attachment_selectNone": "< None! >",
+
+    "tags_label": "",
+    "tags_description": "",
+    "tags_search": "Search for a tag...",
+    "tags_add": "Add tags",
+    "tags_searchNotFound": "Not found...",
+    "tags_selectNone": "< None! >",
+
+    "gallery_label": "",
+    "gallery_description": "",
+    "gallery_search": "Search for a file...",
+    "gallery_add": "Add gallery items",
+    "gallery_searchNotFound": "Not found...",
+    "gallery_selectNone": "< None! >",
+
+    "btn_submit": "Submit",
+    "btn_submitting": "Submitting...",
+
+    "dateTo_now_current": "Now"
+  },
+  "Tags": {
+    "title_system": "System (not listed) Tags",
+    "title_blog": "Blog posts",
+    "title_informationTechnologies": "Information Technologies",
+    "title_mechanicalEngineering": "Mechanical Engineering",
+    "title_officeApplications": "Office Applications",
+    "title_skills": "Skills",
+    "title_tagIndex": "Tag Index",
+    "btnAll": "Show all",
+    "btnLess": "Show less"
+  },
+  "Tags_Create": {
+    "dialog_title": "Create a new tag of type { tagType }",
+    "dialog_description": "",
+    "dialog_btn_add": "Add a new tag",
+    "dialog_btn_add_submitting": "Submitting...",
+    "toast_submitted": "The tag was successfully created.",
+    "toast_success": "The tag was successfully created.",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "Tags_Update": {
+    "dialog_title": "Update an existing { tagType } tag",
+    "dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+    "dialog_btn_add": "Update the tag",
+    "dialog_btn_add_submitting": "Submitting...",
+    "toast_submitted": "The tag was successfully updated.",
+    "toast_success": "The tag was successfully updated.",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "Tags_Display": {
+    "name": "Name (slug)",
+    "description": "Description",
+    "type": "Type",
+    "icon": "Icon",
+    "orderKey": "Order key",
+    "index_id": "[index { index }]: { id }"
+  },
+  "Tags_Delete": {
+    "dialog_title": "Delete a tag of type { tagType } ",
+    "dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p><p class='json-desc'>Name: <b><code>{ name }</code></b></p><p class='json-desc'>Description: <b><code>{ description }</code></b></p>",
+    "dialog_btn_delete": "Delete the tag",
+    "dialog_btn_delete_submitting": "Deleting...",
+    "dialog_btn_cancel": "Cancel",
+    "toast_deleted": "The tag was successfully deleted!",
+    "toast_success": "The tag was successfully deleted!",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "Tags_Form": {
+    "schema_name_length": "The tag name must be at least 2 characters (lowercase).",
+    "schema_name_monolite": "It will be used in the search and as a slug, so must be monolite word and dashes optionally.",
+    "schema_description": "The description must be at least 6 characters.",
+    "schema_icon": "Select an icon.",
+    "schema_orderKey": "Type a word as an order key.",
+    "schema_type": "Select tag type.",
+
+    "name_label": "",
+    "name_description": "",
+    "name_placeholder": "Tag name (slug) e.g. [a-z-]+",
+
+    "description_label": "",
+    "description_description": "",
+    "description_placeholder": "Tag description...",
+
+    "orderKey_label": "",
+    "orderKey_description": "",
+    "orderKey_placeholder": "Enter a word as an order key...",
+
+    "type_label": "",
+    "type_placeholder": "Select tag type",
+    "type_description": "",
+    "tag_type_list": {
+      "informationTechnologies": "Information Technologies",
+      "mechanicalEngineering": "Mechanical Engineering",
+      "skills": "Skills",
+      "officeApplications": "Office  Applications",
+      "system": "System (not listed) Tags",
+      "blog": "Blog posts"
+    },
+
+    "icon_label": "",
+    "icon_description": "",
+    "icon_search": "Search for an icon...",
+    "icon_select": "Select an icon...",
+    "icon_searchNotFound": "Not found.",
+    "icon_selectNone": "< Optional! >",
+
+    "btn_submit": "Submit",
+    "btn_submitting": "Submitting..."
+  },
+  "Files": {
+    "section_title_common": "Not categorized",
+    "section_title_about_entry": "About",
+    "section_title_project": "Portfolio",
+    "section_title_post": "Blog posts",
+    "section_title_lab_entry": "Laboratory",
+    "btnAll": "Show all",
+    "btnLess": "Show less",
+    "btnMore": "Read more"
+  },
+  "Files_Display": {
+    "size": "Size",
+    "contentType": "Content type",
+    "lastModified": "Last modified",
+    "kilobyte": "KB",
+    "index_id": "[index { index }]: { id }"
+  },
+  "Files_Create": {
+    "dialog_title": "Create (upload) a new file of type \"{ fileType }\"",
+    "dialog_description": "",
+    "dialog_btn_add": "Add a new file",
+    "dialog_btn_add_submitting": "Submitting...",
+    "toast_submitted": "The file was successfully created.",
+    "toast_success": "The file was successfully created (uploaded).",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "Files_Update": {
+    "dialog_title": "Update a file",
+    "dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+    "dialog_btn_add": "Update the file",
+    "dialog_btn_add_submitting": "Submitting...",
+    "toast_submitted": "The file was successfully updated.",
+    "toast_success": "The file was successfully updated.",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "Files_Delete": {
+    "dialog_title": "Delete a file",
+    "dialog_description": "<p class='json-desc'>Name: <b><code>{ filename }</code></b></p><p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+    "dialog_btn_delete": "Delete the file",
+    "dialog_btn_delete_submitting": "Deleting...",
+    "dialog_btn_cancel": "Cancel",
+    "toast_deleted": "The file was successfully deleted!",
+    "toast_success": "The file was successfully deleted!",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "Files_Form": {
+    "schema_file": "The file is absolutely required. It cannot start with a special character or a number.",
+
+    "fileInput_label": "",
+    "fileInput_placeholder": "The allowed formats are: png, avif, jpg, jpeg, svg, webp, jfif, pdf, pptx, xlsx, csv, txt, txt, docx.",
+    "fileInput_description": "",
+
+    "filename_label": "",
+    "filename_placeholder": "Override the name of the file. Use numbers, latin alphabet, dashes and underscores.",
+    "filename_description": "",
+
+    "description_label": "",
+    "description_placeholder": "Description of the file. It will be used as a description in the galleries.",
+    "description_description": "",
+
+    "visibility_title": "Is public?",
+    "visibility_description": "",
+
+    "btn_submit": "Submit",
+    "btn_submitting": "Submitting..."
+  },
+  "Gallery": {
+    "dialog_title": "{ title } [gallery]",
+    "dialog_description": "",
+    "dialog_btn_close": "Close",
+    "counter": "Slide { current } of { count }"
+  },
+  "TechTags": {
+    "title": "Technology Tags"
+  },
+  "Projects_Form": {
+    "schema_title": "The project title must be at least 4 characters.",
+    "schema_description": "The description must be at least 10 characters.",
+    "schema_date": "Select a date.",
+    "schema_type": "Select a type.",
+    "schema_visibility": "The default visibility value is \"true\".",
+    "schema_tags": "Select at least one tag.",
+    "schema_gallery": "Select multiple attachments.",
+    "schema_slug_length": "The slug must be at least 4 characters.",
+    "schema_slug_schema": "Slug must be in-kebab-case.",
+
+    "title_label": "",
+    "title_placeholder": "Title of the project",
+    "title_description": "",
+
+    "description_label": "",
+    "description_placeholder": "Description of the project",
+    "description_description": "",
+
+    "urlHome_label": "",
+    "urlHome_placeholder": "Homepage of the project",
+    "urlHome_description": "",
+
+    "urlAdmin_label": "",
+    "urlAdmin_placeholder": "Admin page of the project",
+    "urlAdmin_description": "",
+
+    "urlRepo_label": "",
+    "urlRepo_placeholder": "Repository of the project",
+    "urlRepo_description": "",
+
+    "slug_label": "",
+    "slug_placeholder": "Slug of the project",
+    "slug_description": "",
+
+    "type_label": "",
+    "type_placeholder": "Select Type",
+    "type_description": "",
+    "project_type_list": {
+      "informationTechnologies": "Information Technologies",
+      "mechanicalEngineering": "Mechanical Engineering",
+      "managementConsultancy": "Management Consultancy",
+      "education_prj": "Education",
+      "officeApplications": "Office Applications"
+    },
+
+    "dateFrom_label": "From",
+    "dateTo_label": "To",
+    "date_button": "OK",
+
+    "visibility_title": "Is public?",
+    "visibility_description": "",
+
+    "attachment_label": "",
+    "attachment_description": "",
+    "attachment_search": "Search for an attachment...",
+    "attachment_select": "Attachment...",
+    "attachment_searchNotFound": "Not found.",
+    "attachment_selectNone": "< None! >",
+
+    "icon_label": "",
+    "icon_description": "",
+    "icon_search": "Search for an icon...",
+    "icon_select": "Icon...",
+    "icon_searchNotFound": "Not found.",
+    "icon_selectNone": "< None! >",
+
+    "tags_label": "",
+    "tags_description": "",
+    "tags_search": "Search for a tag...",
+    "tags_add": "Add tags",
+    "tags_searchNotFound": "Not found...",
+    "tags_selectNone": "< None! >",
+
+    "gallery_label": "",
+    "gallery_description": "",
+    "gallery_search": "Search for a file...",
+    "gallery_add": "Add gallery items",
+    "gallery_searchNotFound": "Not found...",
+    "gallery_selectNone": "< None! >",
+
+    "btn_submit": "Submit",
+    "btn_submitting": "Submitting...",
+
+    "dateTo_now_current": "Now"
+  },
+  "Projects": {
+    "title_common": "Projects",
+    "title_informationTechnologies": "Information Technologies",
+    "title_mechanicalEngineering": "Mechanical Engineering",
+    "title_managementConsultancy": "Management Consultancy",
+    "title_education_prj": "Education",
+    "title_officeApplications": "Office Applications",
+    "btnMore": "Read more",
+    "btnLess": "Show less",
+    "btnAll": "Show all"
+  },
+  "Projects_Create": {
+    "dialog_title": "Create a new { entryType } project",
+    "dialog_description": "",
+    "dialog_btn_add": "Add a new project",
+    "dialog_btn_add_submitting": "Submitting...",
+    "toast_submitted": "The project was successfully created.",
+    "toast_success": "The project was successfully created.",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "Projects_Update": {
+    "dialog_title": "Update an existing { entryType } project",
+    "dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+    "dialog_btn_add": "Update the project",
+    "dialog_btn_add_submitting": "Submitting...",
+    "toast_submitted": "The project was successfully updated.",
+    "toast_success": "The project was successfully updated.",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "Projects_Delete": {
+    "dialog_title": "Delete a project of type { entryType } ",
+    "dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+    "dialog_btn_delete": "Delete the project",
+    "dialog_btn_delete_submitting": "Deleting...",
+    "dialog_btn_cancel": "Cancel",
+    "toast_deleted": "The project was successfully deleted!",
+    "toast_success": "The project was successfully deleted!",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "Projects_CardPublic": {
+    "button_call_to_action": "Details",
+    "tooltip_gallery": "View the Project's gallery",
+    "tooltip_update": "Edit the project",
+    "tooltip_link": "Link to the Project's { linkType }",
+    "area_label_card_link": "Link to the Project's page"
+  },
+  "Posts_Form": {
+    "schema_title": "The post title must be at least 4 characters.",
+    "schema_description": "The description must be at least 10 characters.",
+    "schema_date": "Select a date.",
+    "schema_type": "Select a type.",
+    "schema_galleryNav": "The default galleryNav value is \"false\".",
+    "schema_galleryDisplay": "The default galleryDisplay value is \"true\".",
+    "schema_galleryCaptions": "The default galleryCaptions value is \"true\".",
+    "schema_visibility": "The default visibility value is \"true\".",
+    "schema_tags": "Select at least one tag.",
+    "schema_gallery": "Select multiple attachments.",
+    "schema_slug_length": "The slug must be at least 4 characters.",
+    "schema_slug_schema": "Slug must be in-kebab-case.",
+
+    "title_label": "",
+    "title_placeholder": "Title of the post",
+    "title_description": "",
+
+    "description_label": "",
+    "description_placeholder": "Description of the post",
+    "description_description": "",
+
+    "url1_label": "",
+    "url1_placeholder": "URL 1 related to the post",
+    "url1_description": "",
+
+    "url2_label": "",
+    "url2_placeholder": "URL 2 related to the post",
+    "url2_description": "",
+
+    "slug_label": "",
+    "slug_placeholder": "Slug of the post",
+    "slug_description": "",
+
+    "type_label": "",
+    "type_placeholder": "Select Type",
+    "type_description": "",
+    "post_type_list": {
+      "blog": "Blog",
+      "reference": "Reference",
+      "manual": "Manual",
+      "note": "Note",
+      "lifestyle": "Lifestyle"
+    },
+
+    "dateFrom_label": "From",
+    "dateTo_label": "To",
+    "date_button": "OK",
+
+    "visibility_title": "Is public?",
+    "visibility_description": "",
+
+    "galleryNav_title": "Gallery nav?",
+    "galleryNav_description": "",
+
+    "galleryCaptions_title": "Gallery captions?",
+    "galleryCaptions_description": "",
+
+    "galleryDisplay_title": "Gallery display?",
+    "galleryDisplay_description": "",
+
+    "attachment_label": "",
+    "attachment_description": "",
+    "attachment_search": "Search for an attachment...",
+    "attachment_select": "Attachment...",
+    "attachment_searchNotFound": "Not found.",
+    "attachment_selectNone": "< None! >",
+
+    "icon_label": "",
+    "icon_description": "",
+    "icon_search": "Search for an icon...",
+    "icon_select": "Icon...",
+    "icon_searchNotFound": "Not found.",
+    "icon_selectNone": "< None! >",
+
+    "tags_label": "",
+    "tags_description": "",
+    "tags_search": "Search for a tag...",
+    "tags_add": "Add tags",
+    "tags_searchNotFound": "Not found...",
+    "tags_selectNone": "< None! >",
+
+    "gallery_label": "",
+    "gallery_description": "",
+    "gallery_search": "Search for a file...",
+    "gallery_add": "Add gallery items",
+    "gallery_searchNotFound": "Not found...",
+    "gallery_selectNone": "< None! >",
+
+    "btn_submit": "Submit",
+    "btn_submitting": "Submitting...",
+
+    "dateTo_now_current": "Now"
+  },
+  "Posts": {
+    "title_blog": "Blog",
+    "title_reference": "Reference",
+    "title_manual": "Manual",
+    "title_note": "Note",
+    "title_lifestyle": "Lifestyle",
+
+    "btnMore": "Read more",
+    "btnLess": "Show less",
+    "btnAll": "Show all"
+  },
+  "Posts_Create": {
+    "dialog_title": "Create a new { entryType } post",
+    "dialog_description": "",
+    "dialog_btn_add": "Add a new post",
+    "dialog_btn_add_submitting": "Submitting...",
+    "toast_submitted": "The post was successfully created.",
+    "toast_success": "The post was successfully created.",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "Posts_Update": {
+    "dialog_title": "Update an existing { entryType } post",
+    "dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+    "dialog_btn_add": "Update the post",
+    "dialog_btn_add_submitting": "Submitting...",
+    "toast_submitted": "The post was successfully updated.",
+    "toast_success": "The post was successfully updated.",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "Posts_Delete": {
+    "dialog_title": "Delete a post of type { entryType } ",
+    "dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+    "dialog_btn_delete": "Delete the post",
+    "dialog_btn_delete_submitting": "Deleting...",
+    "dialog_btn_cancel": "Cancel",
+    "toast_deleted": "The post was successfully deleted!",
+    "toast_success": "The post was successfully deleted!",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "Posts_CardPublic": {
+    "button_call_to_action": "Details",
+    "tooltip_gallery": "View post's gallery",
+    "tooltip_update": "Edit the post",
+    "tooltip_link": "Post's { linkType }",
+    "area_label_card_link": "Link to the Post's page",
+    "category_tooltip": "Category: { category }"
+  },
+  "LabEntries_Form": {
+    "schema_title": "The entry title must be at least 4 characters.",
+    "schema_description": "The description must be at least 10 characters.",
+    "schema_date": "Select a date.",
+    "schema_type": "Select a type.",
+    "schema_visibility": "The default visibility value is \"true\".",
+    "schema_tags": "Select at least one tag.",
+    "schema_gallery": "Select multiple attachments.",
+    "schema_slug_length": "The slug must be at least 4 characters.",
+    "schema_slug_schema": "Slug must be in-kebab-case.",
+
+    "schema_visibility_type": "Set the asset visibility",
+    "schema_property_type": "Set the asset property type",
+    "schema_host_type": "Set the asset host type",
+
+    "title_label": "",
+    "title_placeholder": "Title of the entry",
+    "title_description": "",
+
+    "description_label": "",
+    "description_placeholder": "Description of the entry",
+    "description_description": "",
+
+    "urlHome_label": "",
+    "urlHome_placeholder": "Home url of the asset",
+    "urlHome_description": "",
+
+    "urlAdmin_label": "",
+    "urlAdmin_placeholder": "Admin url of the asset",
+    "urlAdmin_description": "",
+
+    "urlSource_label": "",
+    "urlSource_placeholder": "Source url of the asset",
+    "urlSource_description": "",
+
+    "slug_label": "",
+    "slug_placeholder": "Slug of the entry page",
+    "slug_description": "",
+
+    "lab_entry_type_field": {
+      "label": "",
+      "description": "",
+      "placeholder": "Type?"
+    },
+    "lab_entry_type_list": {
+      "site": "Site",
+      "service": "Service",
+      "application": "Application",
+      "database": "Database"
+    },
+
+    "lab_entry_visibility_field": {
+      "label": "",
+      "description": "",
+      "placeholder": "Visibility?"
+    },
+    "lab_entry_visibility": { "private": "Private", "public": "Public" },
+
+    "lab_entry_property_field": {
+      "label": "",
+      "description": "",
+      "placeholder": "Property?"
+    },
+    "lab_entry_property": { "own": "Own", "client": "Client", "shared": "Shared" },
+
+    "lab_entry_host_field": {
+      "label": "",
+      "description": "",
+      "placeholder": "Host?"
+    },
+    "lab_entry_host": {
+      "vps": "VPS",
+      "vps-docker": "VPS Docker",
+      "vps-linux": "VPS Linux",
+      "vps-linux-docker": "VPS Linux Docker",
+      "linux": "Linux",
+      "linux-docker": "Linux Docker",
+      "docker": "Docker",
+      "self-hosted": "Self Hosted",
+      "self-hosted-docker": "Self Hosted Docker",
+      "pve": "PVE",
+      "pve-vm": "PVE VM",
+      "pve-container": "PVE Container",
+      "aws": "AWS",
+      "cloudflare": "Cloudflare",
+      "third-party": "Third-Party"
+    },
+
+    "dateFrom_label": "From",
+    "dateTo_label": "To",
+    "date_button": "OK",
+
+    "visibility_title": "Is entry public?",
+    "visibility_description": "",
+
+    "active_title": "Is asset active?",
+    "active_description": "",
+
+    "attachment_label": "",
+    "attachment_description": "",
+    "attachment_search": "Search for an attachment...",
+    "attachment_select": "Attachment...",
+    "attachment_searchNotFound": "Not found.",
+    "attachment_selectNone": "< None! >",
+
+    "icon_label": "",
+    "icon_description": "",
+    "icon_search": "Search for an icon...",
+    "icon_select": "Icon...",
+    "icon_searchNotFound": "Not found.",
+    "icon_selectNone": "< None! >",
+
+    "tags_label": "",
+    "tags_description": "",
+    "tags_search": "Search for a tag...",
+    "tags_add": "Add tags",
+    "tags_searchNotFound": "Not found...",
+    "tags_selectNone": "< None! >",
+
+    "gallery_label": "",
+    "gallery_description": "",
+    "gallery_search": "Search for a file...",
+    "gallery_add": "Add gallery items",
+    "gallery_searchNotFound": "Not found...",
+    "gallery_selectNone": "< None! >",
+
+    "btn_submit": "Submit",
+    "btn_submitting": "Submitting...",
+
+    "dateTo_now_current": "Now"
+  },
+  "LabEntries": {
+    "title_common": "Resources",
+    "title_site": "Site",
+    "title_service": "Service",
+    "title_application": "Application",
+    "title_database": "Database",
+
+    "title_by_property_own": "Own resources",
+    "title_by_property_client": "Client's resources",
+    "title_by_property_shared": "Shared resources",
+
+    "btnMore": "Read more",
+    "btnLess": "Show less",
+    "btnAll": "Show all"
+  },
+  "LabEntries_Create": {
+    "dialog_title": "Create a new { entryType } entry",
+    "dialog_description": "",
+    "dialog_btn_add": "Add a new entry",
+    "dialog_btn_add_submitting": "Submitting...",
+    "toast_submitted": "The entry was successfully created.",
+    "toast_success": "The entry was successfully created.",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "LabEntries_Update": {
+    "dialog_title": "Update an existing { entryType } entry",
+    "dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+    "dialog_btn_add": "Update the entry",
+    "dialog_btn_add_submitting": "Submitting...",
+    "toast_submitted": "The entry was successfully updated.",
+    "toast_success": "The entry was successfully updated.",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "LabEntries_Delete": {
+    "dialog_title": "Delete an entry of type { entryType } ",
+    "dialog_description": "<p class='json-desc'>Id: <b><code>{ id }</code></b></p>",
+    "dialog_btn_delete": "Delete the entry",
+    "dialog_btn_delete_submitting": "Deleting...",
+    "dialog_btn_cancel": "Cancel",
+    "toast_deleted": "The entry was successfully deleted!",
+    "toast_success": "The entry was successfully deleted!",
+    "toast_error": "Something went wrong. Please try again."
+  },
+  "LabEntries_CardPublic": {
+    "button_call_to_action": "Details",
+    "tooltip_gallery": "View Lab entry's gallery",
+    "tooltip_update": "Edit the Lab entry",
+    "tooltip_link": "Entry's { linkType }",
+    "area_label_card_link": "Link to the Lab entry's page",
+
+    "tooltip_home_link": "Link to the Lab entry's { linkType }",
+    "tooltip_home_link_private": "This resource is private.",
+
+    "label_by_property_own": "Own",
+    "label_by_property_client": "Client",
+    "label_by_property_shared": "Shared",
+
+    "label_tooltip_by_property_own": "Own resources",
+    "label_tooltip_by_property_client": "Client's resources",
+    "label_tooltip_by_property_shared": "Shared resources",
+
+    "btnMore": "Read more",
+    "btnLess": "Show less",
+    "btnAll": "Show all"
+  },
+  "Search": {
+    "title": "Search the site",
+    "input_placeholder": "Word or phrase...",
+    "input_label": "Search",
+    "tags_label": "Filter by a technology tag",
+    "cats_label": "Filter by a category",
+    "item_link": "Link to the search item",
+    "loading": "Loading...",
+    "noResults": "No results",
+
+    "title_spokenLanguages": "Languages",
+    "title_businessCard": "Business card",
+    "title_resume": "Resume",
+    "title_employment": "Employment history",
+    "title_education": "Education",
+    "title_skills": "Skills",
+    "title_lab": "Resources",
+
+    "title_informationTechnologies": "IT Projects",
+    "title_mechanicalEngineering": "Engineering Projects",
+    "title_managementConsultancy": "Consultancy Projects",
+    "title_education_prj": "Education Projects",
+    "title_officeApplications": "Office Applications Projects",
+
+    "title_blog": "Blog posts",
+    "title_reference": "Blog references",
+    "title_manual": "Blog manuals",
+    "title_note": "Blog notes",
+    "title_lifestyle": "Blog lifestyle",
+
+    "btnMore": "Read more",
+    "btnLess": "Show less",
+    "btnAll": "Show all",
+
+    "cat_filter_projects": "Projects",
+    "cat_filter_blog": "Blog",
+    "cat_filter_about": "About (CV)",
+    "cat_filter_labs": "Resources",
+
+    "search_mode_hungry": "Search mode Hungry",
+    "search_mode_exact": "Search node Exact"
+  }
 }
