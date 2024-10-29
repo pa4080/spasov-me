@@ -1,52 +1,43 @@
-import React from "react";
-
 import { getFiles_mongo } from "../_files.actions";
-import styles from "../_files.module.scss";
 import Section from "./Section";
 
 interface Props {
-	className?: string;
+  className?: string;
 }
 
 const FilesAdmin_MongoDB: React.FC<Props> = async ({ className }) => {
-	const files = await getFiles_mongo();
+  const files = await getFiles_mongo();
 
-	const filesCommon = files?.filter(
-		(file) => !file.metadata.attachedTo || file.metadata.attachedTo.length === 0
-	);
+  const filesCommon = files?.filter(
+    (file) => !file.metadata.attachedTo || file.metadata.attachedTo.length === 0
+  );
 
-	const filesAbout = files?.filter(
-		(file) =>
-			file.metadata.attachedTo &&
-			file.metadata.attachedTo.find(({ modelType }) => modelType === "AboutEntry")
-	);
+  const filesAbout = files?.filter((file) =>
+    file.metadata.attachedTo?.find(({ modelType }) => modelType === "AboutEntry")
+  );
 
-	const filesPortfolio = files?.filter(
-		(file) =>
-			file.metadata.attachedTo &&
-			file.metadata.attachedTo.find(({ modelType }) => modelType === "Project")
-	);
+  const filesPortfolio = files?.filter((file) =>
+    file.metadata.attachedTo?.find(({ modelType }) => modelType === "Project")
+  );
 
-	const filesLaboratory = files?.filter(
-		(file) =>
-			file.metadata.attachedTo &&
-			file.metadata.attachedTo.find(({ modelType }) => modelType === "LabEntry")
-	);
+  const filesLaboratory = files?.filter((file) =>
+    file.metadata.attachedTo?.find(({ modelType }) => modelType === "LabEntry")
+  );
 
-	return (
-		<div className={`${styles.files} ${className}`}>
-			<Section files={filesCommon} type="common" />
-			<Section
-				sortByAttachedTo
-				files={filesLaboratory}
-				sortByAttachedToVisibleItems={12}
-				type="LabEntry"
-				visibleItems={2}
-			/>
-			<Section files={filesAbout} type="AboutEntry" />
-			<Section sortByAttachedTo files={filesPortfolio} type="Project" visibleItems={1} />
-		</div>
-	);
+  return (
+    <div className={className}>
+      <Section files={filesCommon} type="common" />
+      <Section
+        sortByAttachedTo
+        files={filesLaboratory}
+        sortByAttachedToVisibleItems={12}
+        type="LabEntry"
+        visibleItems={2}
+      />
+      <Section files={filesAbout} type="AboutEntry" />
+      <Section sortByAttachedTo files={filesPortfolio} type="Project" visibleItems={1} />
+    </div>
+  );
 };
 
 export default FilesAdmin_MongoDB;

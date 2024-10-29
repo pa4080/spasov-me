@@ -1,0 +1,47 @@
+.navbar {
+  @apply relative flex justify-between items-center w-full h-navbar max-h-navbar bg-primary px-4 py-3 scroll-mt-40;
+
+  box-sizing: border-box;
+  box-shadow: 0 2px 6px 3px theme("colors.background");
+  z-index: 15;
+
+  .userMenu {
+    @apply items-center justify-center gap-4 flex;
+
+    .logInButton {
+      @apply flex;
+    }
+
+    .loggedInMenu {
+      .icon-embed-svg-override-path-1 {
+        fill: theme("colors.secondary.DEFAULT");
+      }
+
+      .icon-embed-svg-override-path-2 {
+        fill: theme("colors.ring.secondary");
+      }
+
+      .dark & {
+        .icon-embed-svg-override-path-1 {
+          fill: theme("colors.foreground.quaternary");
+        }
+      }
+    }
+
+    .userMenuItem {
+      @apply p-3 block rounded break-inside-avoid-column;
+
+      &:hover {
+        @apply bg-primary/50;
+      }
+
+      & + & {
+        @apply mt-1;
+      }
+    }
+  }
+
+  .navItemCommon {
+    @apply h-full transition-colors duration-100 hover:text-accent active:text-ring-secondary hover:transition-colors hover:duration-200 font-unicephalon tracking-wide ml:tracking-widest;
+  }
+}

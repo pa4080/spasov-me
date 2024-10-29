@@ -1,0 +1,38 @@
+.footer {
+  @apply bg-background;
+
+  box-shadow: 0 -2px 6px 3px theme("colors.background");
+}
+
+.icon {
+  @screen 6xs {
+    padding: 0.8em;
+  }
+
+  padding: 0.7em 0.6em;
+  display: inline-block;
+  color: transparent;
+  text-decoration: none;
+  opacity: 0.85;
+
+  .footer-icon {
+    @screen 6xs {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    width: 1.7rem;
+    height: 1.7rem;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transition: transform 0.2s ease-in-out;
+      transform: scale(1.4);
+    }
+  }
+}
+
+.iconSpecial {
+  filter: drop-shadow(1px 2px 3px theme("colors.muted.secondary"));
+  transform: scale(1.05);
+}

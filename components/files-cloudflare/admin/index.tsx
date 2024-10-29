@@ -1,11 +1,10 @@
 import React from "react";
 
-import { ModelType } from "@/interfaces/_common-data-types";
-
-import { FileData } from "@/interfaces/File";
+import { type ModelType } from "@/interfaces/_common-data-types";
+import { type FileData } from "@/interfaces/File";
 
 import { getFilesR2 } from "../_files.actions";
-import styles from "../_files.module.scss";
+import styles from "../_files.module.css";
 import Section from "./Section";
 
 interface Props {
@@ -34,40 +33,32 @@ const FilesAdmin_CloudFlare: React.FC<Props> = async ({
       type: "AboutEntry",
       visibleItems: 2,
       sortByAttachedTo: true,
-      files: files?.filter(
-        (file) =>
-          file.metadata.attachedTo &&
-          file.metadata.attachedTo.find(({ modelType }) => modelType === "AboutEntry")
+      files: files?.filter((file) =>
+        file.metadata.attachedTo?.find(({ modelType }) => modelType === "AboutEntry")
       ),
     },
     {
       type: "Project",
       visibleItems: 1,
       sortByAttachedTo: true,
-      files: files?.filter(
-        (file) =>
-          file.metadata.attachedTo &&
-          file.metadata.attachedTo.find(({ modelType }) => modelType === "Project")
+      files: files?.filter((file) =>
+        file.metadata.attachedTo?.find(({ modelType }) => modelType === "Project")
       ),
     },
     {
       type: "LabEntry",
       visibleItems: 1,
       sortByAttachedTo: true,
-      files: files?.filter(
-        (file) =>
-          file.metadata.attachedTo &&
-          file.metadata.attachedTo.find(({ modelType }) => modelType === "LabEntry")
+      files: files?.filter((file) =>
+        file.metadata.attachedTo?.find(({ modelType }) => modelType === "LabEntry")
       ),
     },
     {
       type: "Post",
       visibleItems: 2,
       sortByAttachedTo: true,
-      files: files?.filter(
-        (file) =>
-          file.metadata.attachedTo &&
-          file.metadata.attachedTo.find(({ modelType }) => modelType === "Post")
+      files: files?.filter((file) =>
+        file.metadata.attachedTo?.find(({ modelType }) => modelType === "Post")
       ),
     },
   ] satisfies {

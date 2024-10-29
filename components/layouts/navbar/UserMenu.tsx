@@ -9,24 +9,24 @@ import { useScrollToAboutEntry } from "@/hooks/useScrollToEntry";
 
 import LogIn_Button from "./UserMenu_LogIn_Button";
 import LoggedIn_Menu from "./UserMenu_LoggedIn_Menu";
-import styles from "./_navbar.module.scss";
+import styles from "./_navbar.module.css";
 
 interface Props {
-	className?: string;
+  className?: string;
 }
 
 const UserMenu: React.FC<Props> = ({ className }) => {
-	const { authProviders, session } = useAppContext();
+  const { authProviders, session } = useAppContext();
 
-	useClearHyphens();
-	useCodeCopyButton();
-	useScrollToAboutEntry();
+  useClearHyphens();
+  useCodeCopyButton();
+  useScrollToAboutEntry();
 
-	return (
-		<div className={`${styles.userMenu} ${className}`}>
-			{session?.user ? <LoggedIn_Menu /> : <LogIn_Button authProviders={authProviders} />}
-		</div>
-	);
+  return (
+    <div className={`${styles.userMenu} ${className}`}>
+      {session?.user ? <LoggedIn_Menu /> : <LogIn_Button authProviders={authProviders} />}
+    </div>
+  );
 };
 
 export default UserMenu;

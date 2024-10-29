@@ -17,7 +17,7 @@ import mongoose from "mongoose";
 export const defaultChunkSize = 1024 * 32; // ~ 32 KB;
 
 if (!process.env.MONGODB_URI) {
-	throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
+  throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
 }
 
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -28,36 +28,38 @@ let isConnected = false; // track the connection status
 let bucket: mongoose.mongo.GridFSBucket | null = null;
 
 export const connectToMongoDb = async () => {
-	try {
-		mongoose.set("strictQuery", true);
+  try {
+    mongoose.set("strictQuery", true);
 
-		if (isConnected) {
-			return;
-		}
+    if (isConnected) {
+      return;
+    }
 
-		await mongoose.connect(MONGODB_URI, {
-			dbName: MONGODB_DB_NAME,
-		});
+    await mongoose.connect(MONGODB_URI, {
+      dbName: MONGODB_DB_NAME,
+    });
 
-		isConnected = true;
-	} catch (error) {
-		console.error("MongoDB connect Error:", error);
-	}
+    isConnected = true;
+  } catch (error) {
+    console.error("MongoDB connect Error:", error);
+  }
 };
 
 export const gridFSBucket = async () => {
-	await connectToMongoDb();
+  await connectToMongoDb();
 
-	if (bucket) {
-		return bucket;
-	}
+  if (bucket) {
+    return bucket;
+  }
 
-	bucket =
-		bucket ||
-		new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
-			bucketName: MONGODB_FILES_BUCKET_NAME,
-			chunkSizeBytes: defaultChunkSize,
-		}); // mongoose.connection === mongoose.connections[0]
+  if (!mongoose?.connection?.db) {
+    throw new Error("gridFSBucket: No connection to MongoDB");
+  }
 
-	return bucket;
+  bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+    bucketName: MONGODB_FILES_BUCKET_NAME,
+    chunkSizeBytes: defaultChunkSize,
+  }); // mongoose.connection === mongoose.connections[0]
+
+  return bucket;
 };

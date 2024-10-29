@@ -1,11 +1,13 @@
-import LabPublic from "@/components/laboratory/public";
+import { redirect } from "next/navigation";
 
-const Laboratory: React.FC = () => {
-	return (
-		<div className="margin_vh_top mb-24 scroll-mt-40">
-			<LabPublic />
-		</div>
-	);
-};
+// import { getSession } from "@/components/_common.actions";
 
-export default Laboratory;
+export default async function RedirectToLab() {
+  // const session = await getSession();
+
+  // if (!session?.user) {
+  //   redirect("/portfolio");
+  // }
+
+  redirect("/lab");
+}

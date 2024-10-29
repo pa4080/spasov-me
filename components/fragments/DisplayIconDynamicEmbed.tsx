@@ -4,27 +4,26 @@
  * @see https://stackblitz.com/edit/nextjs-dynamic-svg-import?file=components%2Flazy-svg.tsx
  * @see https://react-svgr.com/docs/next/
  */
-import React, { ComponentProps } from "react";
-
 import dynamic from "next/dynamic";
+import React, { type ComponentProps } from "react";
 
-import { IconsMap } from "@/interfaces/IconsMap";
+import { type IconsMap } from "@/interfaces/IconsMap";
 
 interface Props extends ComponentProps<"svg"> {
-	icon: IconsMap[string];
-	size?: number;
-	theme?: "light" | "dark";
+  icon: IconsMap[string];
+  size?: number;
+  theme?: "light" | "dark";
 }
 
 const DisplayIconDynamicEmbed: React.FC<Props> = async ({ icon, theme = "light", ...props }) => {
-	const svgFileRelative =
-		theme === "dark" ? icon?.uri?.dark || icon?.uri?.light : icon?.uri?.light || icon?.uri?.dark;
-	const name = `${svgFileRelative.slice(1).replace(/\.svg$/, "")}`;
+  const svgFileRelative =
+    theme === "dark" ? icon?.uri?.dark || icon?.uri?.light : icon?.uri?.light || icon?.uri?.dark;
+  const name = `${svgFileRelative.slice(1).replace(/\.svg$/, "")}`;
 
-	// Note: Having ".svg" literal here is required, otherwise we ending up with module not found
-	const Svg = dynamic(() => import(`@/public/${name}.svg`));
+  // Note: Having ".svg" literal here is required, otherwise we ending up with module not found
+  const Svg = dynamic(() => import(`@/public/${name}.svg`));
 
-	return <Svg {...props} />;
+  return <Svg {...props} />;
 };
 
 export default DisplayIconDynamicEmbed;

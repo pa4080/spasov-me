@@ -1,0 +1,27 @@
+.businessCard {
+  @apply flex flex-col sa:grid gap-4 xa:gap-8 sa:gap-6 mb-16;
+
+  @screen sa {
+    grid-template:
+      "image title"
+      "image description"
+      / max-content 1fr;
+  }
+
+  .businessCardTitle {
+    @screen 6xs {
+      line-height: 1.15em;
+    }
+
+    grid-area: title;
+    line-height: 1.2em;
+  }
+
+  .imageWrapper {
+    grid-area: image;
+  }
+
+  .businessCardDescription {
+    grid-area: description;
+  }
+}
