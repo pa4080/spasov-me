@@ -6,7 +6,7 @@ import sizeOf from "image-size";
 
 import { getRatio } from "@/lib/get-ratio";
 
-import { IconsMap } from "../interfaces/IconsMap";
+import { type IconsMap } from "../interfaces/IconsMap";
 
 import fs from "fs";
 import path from "path";

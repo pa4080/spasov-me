@@ -10,18 +10,18 @@ import { uploadObjectList } from "./obj-upload-from-fs";
 
 // Generate file map (list of the files to be uploaded)
 const iconMap = generateFileMapRecursive({
-	dir: "./public/assets/icons",
-	date: new Date(),
-	creatorId: "spas-z-spasov",
-	locale: "en",
-	filename_trim_prefix: "icons",
+  dir: "./public/assets/icons",
+  date: new Date(),
+  creatorId: "spas-z-spasov",
+  locale: "en",
+  filename_trim_prefix: "icons",
 });
 
 // Upload the files
 uploadObjectList({
-	fileList: iconMap,
-	prefix: r2BucketIconsPath,
-	bucket: r2BucketName,
-	config: r2cfConfig,
-	batchSize: 10,
+  fileList: iconMap,
+  prefix: r2BucketIconsPath,
+  bucket: r2BucketName,
+  config: r2cfConfig,
+  batchSize: 10,
 });

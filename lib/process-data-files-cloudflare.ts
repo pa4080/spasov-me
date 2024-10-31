@@ -1,6 +1,7 @@
-import { _Object } from "@aws-sdk/client-s3";
+import { type _Object } from "@aws-sdk/client-s3";
 
-import { FileData } from "@/interfaces/File";
+import { type FileData } from "@/interfaces/File";
+import { type AttachedToDocument } from "@/interfaces/_common-data-types";
 
 import { getObject } from "./aws";
 import { processMarkdown } from "./md/process-markdown";
@@ -21,69 +22,80 @@ const r2BucketDomain = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DOMAIN;
  *    so please do not add or replace characters inside.
  */
 export async function fileObject_toData({
-	files,
-	hyphen = true,
-	visible,
-	prefix = "",
+  files,
+  hyphen = true,
+  visible,
+  prefix = "",
 }: {
-	files: _Object[];
-	hyphen?: boolean;
-	visible?: boolean;
-	prefix?: string;
+  files: _Object[];
+  hyphen?: boolean;
+  visible?: boolean;
+  prefix?: string;
 }): Promise<FileData[]> {
-	const filesAcc: FileData[] = [];
+  const filesAcc: FileData[] = [];
 
-	await Promise.all(
-		files.map(async (file_raw) => {
-			const objectKey = file_raw.Key!;
-			const file = await getObject({ objectKey, partNumber: 1 });
+  await Promise.all(
+    files.map(async (file_raw) => {
+      const objectKey = file_raw.Key!;
+      const file = await getObject({ objectKey, partNumber: 1 });
 
-			const uploadDate = file?.LastModified || new Date();
-			const length = file?.ContentLength || 0;
-			const description = getMetadataValue(file?.Metadata, "description", "");
+      if (!file) {
+        return;
+      }
 
-			// Replace: 1) remove the path (i.e: files/); 2) remove the extension (i.e: .webp)
-			const filename = objectKey.replace(/^.*?\//g, "")!;
-			const _id = "Id:" + filename.replace(/\.[^.]*$/, "");
+      const uploadDate = file.LastModified ?? new Date();
+      const length = file.ContentLength ?? 0;
+      const description = getMetadataValue(file.Metadata, "description", "");
 
-			const f: FileData = {
-				_id,
-				filename,
-				uploadDate,
-				length,
-				objectKey,
-				metadata: {
-					description: description,
-					size: getMetadataValue(file?.Metadata, "size", ""),
-					info: getMetadataValue(file?.Metadata, "info", ""),
-					contentType: getMetadataValue(file?.Metadata, "contenttype", ""),
-					lastModified: getMetadataValue(file?.Metadata, "lastmodified", new Date()),
-					originalName: getMetadataValue(file?.Metadata, "originalname", ""),
-					attachedTo: file?.Metadata?.attachedto ? JSON.parse(file?.Metadata?.attachedto) : [],
-					visibility: getMetadataValue(file?.Metadata, "visibility", "") === "true" ? true : false,
-					html: {
-						filename: filename,
-						title: processMarkdown({ markdown: filename, hyphen: true }),
-						description: processMarkdown({ markdown: description, hyphen }),
-						fileUrl: `https://${r2BucketDomain}${prefix ? "/" + prefix : ""}/${filename}?v=${new Date(uploadDate).getTime()}`,
-					},
-				},
-			};
+      // Replace: 1) remove the path (i.e: files/); 2) remove the extension (i.e: .webp)
+      const filename = objectKey.replace(/^.*?\//g, "");
+      const _id = "Id:" + filename.replace(/\.[^.]*$/, "");
 
-			filesAcc.push(f);
-		})
-	);
+      const f: FileData = {
+        _id,
+        filename,
+        uploadDate,
+        length,
+        objectKey,
+        metadata: {
+          description: description,
+          size: getMetadataValue(file?.Metadata, "size", ""),
+          info: getMetadataValue(file?.Metadata, "info", "") || {
+            height: 0,
+            width: 0,
+            type: "not-provided",
+            ratio: 0,
+          },
+          contentType: getMetadataValue(file?.Metadata, "contenttype", ""),
+          lastModified: getMetadataValue(file?.Metadata, "lastmodified", new Date()),
+          originalName: getMetadataValue(file?.Metadata, "originalname", ""),
+          attachedTo: file.Metadata?.attachedto
+            ? (JSON.parse(file?.Metadata?.attachedto) as AttachedToDocument[])
+            : [],
+          visibility: Boolean(getMetadataValue(file.Metadata, "visibility", "")) === true,
+          html: {
+            filename: filename,
+            title: processMarkdown({ markdown: filename, hyphen: true }),
+            description: processMarkdown({ markdown: description, hyphen }),
+            fileUrl: `https://${r2BucketDomain}${prefix ? "/" + prefix : ""}/${filename}?v=${new Date(uploadDate).getTime()}`,
+          },
+        },
+      };
 
-	return visible ? filesAcc.filter((file) => file.metadata?.visibility === true) : filesAcc;
+      filesAcc.push(f);
+    })
+  );
+
+  return visible ? filesAcc.filter((file) => file.metadata?.visibility === true) : filesAcc;
 }
 
 /**
  * Helper function to get the metadata value
  */
 export const getMetadataValue = <T>(
-	metadata: Record<string, string> | undefined,
-	key: string,
-	defaultValue: T
+  metadata: Record<string, string> | undefined,
+  key: string,
+  defaultValue: T
 ) => {
-	return metadata?.[key] ? JSON.parse(metadata?.[key]) : defaultValue;
+  return metadata?.[key] ? (JSON.parse(metadata?.[key]) as T) : defaultValue;
 };

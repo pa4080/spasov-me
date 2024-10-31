@@ -11,51 +11,51 @@
  * otherwise all falsy keys will be deleted.
  */
 export default function deleteFalsyKeys<T extends object, K extends keyof T>(obj: T, keys?: K[]) {
-	if (keys && keys.length > 0) {
-		for (const key of keys) {
-			if (
-				obj[key] === null ||
-				obj[key] === undefined ||
-				obj[key] === "undefined" ||
-				obj[key] === "null" ||
-				obj[key] === ""
-			) {
-				delete obj[key];
-			}
+  if (keys && keys.length > 0) {
+    for (const key of keys) {
+      if (
+        obj[key] === null ||
+        obj[key] === undefined ||
+        obj[key] === "undefined" ||
+        obj[key] === "null" ||
+        obj[key] === ""
+      ) {
+        delete obj[key];
+      }
 
-			// isArray, empty or have one falsy key
-			if (obj[key] && Array.isArray(obj[key])) {
-				const arr = obj[key] as string[];
+      // isArray, empty or have one falsy key
+      if (obj[key] && Array.isArray(obj[key])) {
+        const arr = obj[key] as string[];
 
-				if (arr.length === 0 || (arr.length === 1 && (arr[0] === "" || arr[0] === undefined))) {
-					delete obj[key];
-				}
-			}
-		}
+        if (arr.length === 0 || (arr.length === 1 && (arr[0] === "" || arr[0] === undefined))) {
+          delete obj[key];
+        }
+      }
+    }
 
-		return obj;
-	}
+    return obj;
+  }
 
-	for (const key in obj) {
-		if (
-			obj[key] === null ||
-			obj[key] === undefined ||
-			obj[key] === "undefined" ||
-			obj[key] === "null" ||
-			obj[key] === ""
-		) {
-			delete obj[key];
-		}
+  for (const key in obj) {
+    if (
+      obj[key] === null ||
+      obj[key] === undefined ||
+      obj[key] === "undefined" ||
+      obj[key] === "null" ||
+      obj[key] === ""
+    ) {
+      delete obj[key];
+    }
 
-		// isArray, empty or have one falsy key
-		if (obj[key] && Array.isArray(obj[key])) {
-			const arr = obj[key] as string[];
+    // isArray, empty or have one falsy key
+    if (obj[key] && Array.isArray(obj[key])) {
+      const arr = obj[key] as string[];
 
-			if (arr.length === 0 || (arr.length === 1 && (arr[0] === "" || arr[0] === undefined))) {
-				delete obj[key];
-			}
-		}
-	}
+      if (arr.length === 0 || (arr.length === 1 && (arr[0] === "" || arr[0] === undefined))) {
+        delete obj[key];
+      }
+    }
+  }
 
-	return obj;
+  return obj;
 }

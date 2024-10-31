@@ -1,45 +1,45 @@
 export const data = {
-	country_name_list: ["bulgaria"],
-	city_name_list: ["sofia", "pazardjik", "yambol", "plovdiv"],
-	tag_type_list: [
-		"informationTechnologies",
-		"mechanicalEngineering",
-		"officeApplications",
-		"system",
-		"blog",
-		"skills",
-	],
-	about_type_list: ["employment", "businessCard", "resume", "education", "spokenLanguages"],
-	project_type_list: [
-		"informationTechnologies",
-		"mechanicalEngineering",
-		"managementConsultancy",
-		"education_prj",
-		"officeApplications",
-	],
-	post_type_list: ["blog", "reference", "manual", "note", "lifestyle"],
-	lab_entry: {
-		type_list: ["site", "service", "application", "database"],
-		visibility: ["private", "public"],
-		property: ["own", "client", "shared"],
-		host: [
-			"vps",
-			"vps-docker",
-			"vps-linux",
-			"vps-linux-docker",
-			"linux",
-			"linux-docker",
-			"docker",
-			"self-hosted",
-			"self-hosted-docker",
-			"pve",
-			"pve-vm",
-			"pve-container",
-			"aws",
-			"cloudflare",
-			"third-party",
-		],
-	},
+  country_name_list: ["bulgaria"],
+  city_name_list: ["sofia", "pazardjik", "yambol", "plovdiv"],
+  tag_type_list: [
+    "informationTechnologies",
+    "mechanicalEngineering",
+    "officeApplications",
+    "system",
+    "blog",
+    "skills",
+  ],
+  about_type_list: ["employment", "businessCard", "resume", "education", "spokenLanguages"],
+  project_type_list: [
+    "informationTechnologies",
+    "mechanicalEngineering",
+    "managementConsultancy",
+    "education_prj",
+    "officeApplications",
+  ],
+  post_type_list: ["blog", "reference", "manual", "note", "lifestyle"],
+  lab_entry: {
+    type_list: ["site", "service", "application", "database"],
+    visibility: ["private", "public"],
+    property: ["own", "client", "shared"],
+    host: [
+      "vps",
+      "vps-docker",
+      "vps-linux",
+      "vps-linux-docker",
+      "linux",
+      "linux-docker",
+      "docker",
+      "self-hosted",
+      "self-hosted-docker",
+      "pve",
+      "pve-vm",
+      "pve-container",
+      "aws",
+      "cloudflare",
+      "third-party",
+    ],
+  },
 } as const;
 
 export const countryTuple = data.country_name_list;
@@ -55,15 +55,15 @@ export const labEntryPropertyTuple = data.lab_entry.property;
 export const labEntryHostTuple = data.lab_entry.host;
 
 export const unitedLabEntryTuple = [
-	...labEntryTuple,
-	...labEntryVisibilityTuple,
-	...labEntryHostTuple,
+  ...labEntryTuple,
+  ...labEntryVisibilityTuple,
+  ...labEntryHostTuple,
 ];
 export const unitedDataEntriesTuple = [
-	...aboutEntryTuple,
-	...projectTuple,
-	...postTuple,
-	...unitedLabEntryTuple,
+  ...aboutEntryTuple,
+  ...projectTuple,
+  ...postTuple,
+  ...unitedLabEntryTuple,
 ];
 
 export type DataTuples = (typeof data)[keyof typeof data];
@@ -84,35 +84,35 @@ export type UnitedLabEntryType = (typeof unitedLabEntryTuple)[number];
 export type UnitedDataEntriesType = (typeof unitedDataEntriesTuple)[number];
 
 export type ModelType =
-	| "AboutEntry"
-	| "PageCard"
-	| "Post"
-	| "Project"
-	| "File"
-	| "Tag"
-	| "User"
-	| "LabEntry";
+  | "AboutEntry"
+  | "PageCard"
+  | "Post"
+  | "Project"
+  | "File"
+  | "Tag"
+  | "User"
+  | "LabEntry";
 
 export interface AttachedToDocument {
-	modelType: ModelType;
-	title: string;
-	_id: string;
+  modelType: ModelType;
+  title: string;
+  _id: string;
 }
 
 // See @/next.config.js
 export const nextConfigCDNSource =
-	"/:all*(png|jpg|jpeg|svg|webp|gif|jfif|avif|pdf|pptx|xlsx|csv|txt|docx|webm|mkv|avi|mp4|eot|ttf|woff|woff2)";
+  "/:all*(png|jpg|jpeg|svg|webp|gif|jfif|avif|pdf|pptx|xlsx|csv|txt|docx|webm|mkv|avi|mp4|eot|ttf|woff|woff2)";
 
 export const regexFilesAll =
-	/\.(png|jpg|jpeg|svg|webp|gif|jfif|avif|bmp|pdf|pptx|xlsx|csv|txt|docx)$/;
+  /\.(png|jpg|jpeg|svg|webp|gif|jfif|avif|bmp|pdf|pptx|xlsx|csv|txt|docx)$/;
 export const regexFilesImages = /\.(png|jpg|jpeg|svg|webp|gif|jfif|avif|bmp)$/;
 
 export type FilesImagesExtensions =
-	| "png"
-	| "jpg"
-	| "jpeg"
-	| "svg"
-	| "webp"
-	| "gif"
-	| "jfif"
-	| "avif";
+  | "png"
+  | "jpg"
+  | "jpeg"
+  | "svg"
+  | "webp"
+  | "gif"
+  | "jfif"
+  | "avif";

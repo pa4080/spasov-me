@@ -3,9 +3,9 @@ import mime from "mime-types";
 
 import { getRatio } from "@/lib/get-ratio";
 
-import { FileMetadata } from "../../interfaces/File";
+import { type FileMetadata } from "../../interfaces/File";
 import { roundTo } from "../../lib/round";
-import { FileMapFs, GenerateFileMapInput } from "./types";
+import { type FileMapFs, type GenerateFileMapInput } from "./types";
 
 import fs from "fs";
 import path from "path";
