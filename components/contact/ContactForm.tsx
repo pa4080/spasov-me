@@ -20,10 +20,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
 import { type ReCaptchaRes, reCaptchaSubmit, sendEmail } from "./_contact.actions";
-import styles from "./_contact.module.css";
 
 const t = msgs("Contact");
 
@@ -172,15 +172,20 @@ const ContactForm: React.FC<Props> = ({ className }) => {
   );
 
   return (
-    <div className={`${styles.formContainer} ${className}`}>
+    <div
+      className={cn(
+        "relative w-full flex-grow h-fit flex flex-col gap-3 sm:gap-6 px-2 py-0 sa:px-0 sa:py-2",
+        className
+      )}
+    >
       <Form {...form}>
-        <form className={styles.form} onSubmit={form.handleSubmit(onSubmit)}>
+        <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className={styles.fieldLabel}>{t("form_name_label")}</FormLabel>
+                <FormLabel className="text-lg">{t("form_name_label")}</FormLabel>
                 <FormControl>
                   <Input
                     placeholder={t("form_name_placeholder")}
@@ -203,7 +208,7 @@ const ContactForm: React.FC<Props> = ({ className }) => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className={styles.fieldLabel}>{t("form_email_label")}</FormLabel>
+                <FormLabel className="text-lg">{t("form_email_label")}</FormLabel>
                 <FormControl>
                   <Input
                     placeholder={t("form_email_placeholder")}
@@ -226,7 +231,7 @@ const ContactForm: React.FC<Props> = ({ className }) => {
             name="message"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className={styles.fieldLabel}>{t("form_message_label")}</FormLabel>
+                <FormLabel className="text-lg">{t("form_message_label")}</FormLabel>
                 <FormControl>
                   <Textarea
                     className="ring-offset-secondary focus-visible:ring-offset-secondary focus:ring-offset-secondary resize-none"
@@ -243,10 +248,13 @@ const ContactForm: React.FC<Props> = ({ className }) => {
             )}
           />
 
-          <Button className={styles.button} type="submit">
+          <Button
+            className="border-2 border-foreground font-semibold text-lg text-background bg-foreground px-2 2xs:px-3 py-1 rounded-md hover:text-foreground hover:bg-muted-secondary transition-colors duration-500 hover:duration-150 hover:drop-shadow-lg opacity-95 hover:opacity-100 cursor-pointer flex items-center w-fit gap-1 xs:gap-3"
+            type="submit"
+          >
             {/* <span className={styles.btnText}>{messages.Buttons.submit}</span> */}
-            <span className={styles.btnText}>{"Submit"}</span>
-            <span className={styles.btnIcon}>
+            <span className="block w-full flex-grow">{"Submit"}</span>
+            <span className="text-xl w-fit">
               <BsSendPlus />
             </span>
           </Button>

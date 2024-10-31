@@ -10,6 +10,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
+- [ ] Fix footer for width < 1919px
 - [ ] Create to do list?
 
 ## Vercel CLI
