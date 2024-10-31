@@ -1,6 +1,6 @@
 {
   "extends": ["stylelint-config-standard"],
-  "plugins": ["stylelint-order"],
+  "plugins": ["stylelint-order", "stylelint-scss"],
   "ignoreFiles": [
     "public/css/**/*",
     "app/(styles)/globals.variables.module.css",
@@ -40,7 +40,15 @@
         "ignoreAtRules": ["extends", "tailwind", "screen"]
       }
     ],
+    "scss/at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["extends", "tailwind", "screen"]
+      }
+    ],
     "no-invalid-double-slash-comments": null,
+    "scss/dollar-variable-pattern": "^[a-z][a-zA-Z0-9_-]+$",
+    "scss/selector-no-redundant-nesting-selector": true,
     "order/order": [
       [
         "dollar-variables",

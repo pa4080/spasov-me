@@ -22,7 +22,7 @@
   .cardImageEditMode {
     @apply mt-8 border w-full drop-shadow-2xl rounded-md overflow-hidden;
 
-    img {
+    & img {
       @apply w-full h-auto;
     }
   }
