@@ -29,7 +29,8 @@
     "**/*.cjs",
     "**/*.js",
     ".next/types/**/*.ts",
-    "**/*.svg"
+    "**/*.svg",
+    "eslint.config.mjs"
   ],
   "exclude": ["node_modules", "tmp"]
 }

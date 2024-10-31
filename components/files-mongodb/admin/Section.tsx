@@ -1,6 +1,4 @@
-import React from "react";
-
-import FileCard from "@/components/files-cloudflare/admin/Card";
+import FileCard from "@/components/fragments/files/Card";
 import RevalidatePaths from "@/components/fragments/RevalidatePaths";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";

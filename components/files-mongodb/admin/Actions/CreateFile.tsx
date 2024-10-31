@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
+import { type File_FormSchema } from "@/components/files-cloudflare/admin/Form/schema";
 import { createFile_mongo } from "@/components/files-mongodb/_files.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import Loading from "@/components/fragments/Loading";
@@ -18,9 +19,11 @@ import {
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 
-import { type File_FormSchema } from "../Form/schema";
 // import FileForm from "../Form";
-const FileForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
+const FileForm = dynamic(() => import("@/components/files-cloudflare/admin/Form/"), {
+  ssr: false,
+  loading: () => <Loading />,
+});
 
 interface Props {
   className?: string;
@@ -88,6 +91,7 @@ const CreateFile: React.FC<Props> = ({ className }) => {
 
           <FileForm
             className="mt-1"
+            files_prefix="mongodb" // Important, determinate the file url!
             isContainerDialogOpen={isOpen}
             submitting={submitting}
             onSubmit={handleCreateFile}

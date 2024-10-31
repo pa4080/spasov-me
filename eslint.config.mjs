@@ -1,7 +1,18 @@
+/**
+ * This is the new flat config for Eslint.v9, note:
+ * "eslint.useFlatConfig: true" - must be set in VSC 'settings.json'
+ */
+/* eslint-disable import/no-anonymous-default-export */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
 import reactRefresh from "eslint-plugin-react-refresh";
 import react from "eslint-plugin-react";
 import typescriptEslint from "@typescript-eslint/eslint-plugin";
+import prettier from "eslint-plugin-prettier";
+import _import from "eslint-plugin-import";
 import tsParser from "@typescript-eslint/parser";
 import js from "@eslint/js";
 import { FlatCompat } from "@eslint/eslintrc";
@@ -11,7 +22,6 @@ import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 const compat = new FlatCompat({
   baseDirectory: __dirname,
   recommendedConfig: js.configs.recommended,
@@ -19,15 +29,20 @@ const compat = new FlatCompat({
 });
 
 export default [
+  {
+    ignores: ["**/next.config.js", "**/tsconfig.json", "node_modules/**/*", ".next/types/**/*.ts"],
+  },
   ...fixupConfigRules(
     compat.extends(
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended",
+      "plugin:prettier/recommended",
+      "plugin:@typescript-eslint/recommended",
       "next/core-web-vitals",
       "plugin:@typescript-eslint/recommended-type-checked",
       "plugin:@typescript-eslint/stylistic-type-checked",
-      "plugin:react/recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:react-hooks/recommended",
-      "plugin:prettier/recommended"
+      "plugin:import/recommended",
+      "plugin:import/typescript"
     )
   ),
   {
@@ -35,7 +50,10 @@ export default [
       "react-refresh": reactRefresh,
       react: fixupPluginRules(react),
       "@typescript-eslint": fixupPluginRules(typescriptEslint),
+      prettier: fixupPluginRules(prettier),
+      import: fixupPluginRules(_import),
     },
+
     languageOptions: {
       parser: tsParser,
       ecmaVersion: 5,
@@ -79,7 +97,13 @@ export default [
 
       curly: "warn",
 
-      eqeqeq: "error",
+      eqeqeq: [
+        "error",
+        "always",
+        {
+          null: "ignore",
+        },
+      ],
 
       "template-curly-spacing": "error",
       "rest-spread-spacing": ["error", "never"],

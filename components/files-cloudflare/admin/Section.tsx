@@ -8,9 +8,9 @@ import { type FileData } from "@/interfaces/File";
 import { hyphenateString } from "@/lib/process-text";
 import { msgs } from "@/messages";
 
+import FileCard from "../../fragments/files/Card";
 import styles from "../_files.module.css";
 import CreateFile from "./Actions/CreateFile";
-import FileCard from "./Card";
 
 interface Props {
   className?: string;

@@ -15,9 +15,9 @@ import { roundTo } from "@/lib/round";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
-import CopyFileAddressToClipboard from "../../../fragments/CopyFileAddressToClipboard";
-import DeleteFile from "../Actions/DeleteFile";
-import UpdateFile from "../Actions/UpdateFile";
+import DeleteFile from "../../../files-cloudflare/admin/Actions/DeleteFile";
+import UpdateFile from "../../../files-cloudflare/admin/Actions/UpdateFile";
+import CopyFileAddressToClipboard from "../../CopyFileAddressToClipboard";
 
 interface Props {
   className?: string;

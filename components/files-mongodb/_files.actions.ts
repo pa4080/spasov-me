@@ -3,6 +3,7 @@
 // import { Redis } from "@upstash/redis";
 import { createClient } from "@vercel/kv";
 import { ObjectId } from "mongodb";
+import { type HydratedDocument } from "mongoose";
 
 import { type AttachedToDocument, regexFilesAll } from "@/interfaces/_common-data-types";
 import { type FileData, type FileDoc, type FileListItem } from "@/interfaces/File";
@@ -76,7 +77,7 @@ export const getFiles_mongo = async ({
     }
 
     await connectToMongoDb();
-    const files = await FileGFS.find();
+    const files = await FileGFS.find<HydratedDocument<FileDoc>>();
 
     if (files?.length === 0) {
       return null;
@@ -221,7 +222,7 @@ export const updateFile_mongo = async (
     // Generate the ObjectId, connect to the db and get the bucket
     await connectToMongoDb();
     const _id = new ObjectId(file_id);
-    const document = await FileGFS.findOne(_id);
+    const document = await FileGFS.findOne<HydratedDocument<FileDoc>>(_id);
     const bucket = await gridFSBucket();
 
     if (!document) {
@@ -386,7 +387,7 @@ export const fileAttachment_add_mongo = async ({
   try {
     await connectToMongoDb();
     const target_file_ObjectId = new ObjectId(target_file_id);
-    const dbFileGFSRaw = await FileGFS.findOne(target_file_ObjectId);
+    const dbFileGFSRaw = await FileGFS.findOne<HydratedDocument<FileDoc>>(target_file_ObjectId);
 
     if (!dbFileGFSRaw) {
       throw new Error(msgs("Errors")("invalidFile", { id: target_file_id }));
@@ -440,7 +441,7 @@ export const fileAttachment_remove_mongo = async ({
   try {
     await connectToMongoDb();
     const target_file_ObjectId = new ObjectId(target_file_id);
-    const dbFileGFSRaw = await FileGFS.findOne(target_file_ObjectId);
+    const dbFileGFSRaw = await FileGFS.findOne<HydratedDocument<FileDoc>>(target_file_ObjectId);
 
     if (!dbFileGFSRaw) {
       throw new Error(msgs("Errors")("invalidFile", { id: target_file_id }));
