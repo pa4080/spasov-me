@@ -4,6 +4,12 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: "standalone",
   // trailingSlash: true,
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     // unoptimized: true,
     dangerouslyAllowSVG: true,
@@ -28,9 +34,6 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
-  },
-  sassOptions: {
-    api: "modern-compiler",
   },
   async headers() {
     return process.env.VERCEL_ENV === "development"
