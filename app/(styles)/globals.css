@@ -371,7 +371,7 @@ main {
   @apply transition-all duration-300;
 
   box-shadow: theme("colors.muted.DEFAULT") 0 0 5px !important;
-  translate: 100px -60px;
+  translate: 100px -70px;
 }
 
 /* Typography */
