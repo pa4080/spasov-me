@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
 import { updateFile } from "@/components/files-cloudflare/_files.actions";
+import { type File_FormSchema } from "@/components/fragments/files/Form/schema";
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import Loading from "@/components/fragments/Loading";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
@@ -21,9 +22,11 @@ import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import { type File_FormSchema } from "../Form/schema";
 // import FileForm from "../Form";
-const FileForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
+const FileForm = dynamic(() => import("@/components/fragments/files/Form"), {
+  ssr: false,
+  loading: () => <Loading />,
+});
 
 interface Props {
   className?: string;

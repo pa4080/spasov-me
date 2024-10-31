@@ -5,6 +5,7 @@ import React, { useState } from "react";
 
 import { createFile } from "@/components/files-cloudflare/_files.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
+import { type File_FormSchema } from "@/components/fragments/files/Form/schema";
 import Loading from "@/components/fragments/Loading";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
@@ -19,9 +20,11 @@ import { useAppContext } from "@/contexts/AppContext";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 
-import { type File_FormSchema } from "../Form/schema";
 // import FileForm from "../Form";
-const FileForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
+const FileForm = dynamic(() => import("@/components/fragments/files/Form"), {
+  ssr: false,
+  loading: () => <Loading />,
+});
 
 interface Props {
   className?: string;

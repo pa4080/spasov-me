@@ -44,7 +44,7 @@ interface Props {
   submitting?: boolean;
   isContainerDialogOpen?: boolean;
   formData?: FileData;
-  files_prefix: string;
+  files_prefix: string; // "mongodb" is a special one, the rest are related for Cloudflare R2's "folders" structure
 }
 
 const FileForm: React.FC<Props> = ({

@@ -97,6 +97,22 @@ export default [
 
       curly: "warn",
 
+      "no-unused-expressions": [
+        "warn",
+        {
+          allowShortCircuit: true,
+          allowTernary: true,
+        },
+      ],
+
+      "@typescript-eslint/no-unused-expressions": [
+        "warn",
+        {
+          allowShortCircuit: true,
+          allowTernary: true,
+        },
+      ],
+
       eqeqeq: [
         "error",
         "always",

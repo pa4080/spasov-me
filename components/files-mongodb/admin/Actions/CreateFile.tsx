@@ -3,9 +3,9 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
-import { type File_FormSchema } from "@/components/files-cloudflare/admin/Form/schema";
 import { createFile_mongo } from "@/components/files-mongodb/_files.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
+import { type File_FormSchema } from "@/components/fragments/files/Form/schema";
 import Loading from "@/components/fragments/Loading";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
@@ -20,7 +20,7 @@ import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 
 // import FileForm from "../Form";
-const FileForm = dynamic(() => import("@/components/files-cloudflare/admin/Form/"), {
+const FileForm = dynamic(() => import("@/components/fragments/files/Form"), {
   ssr: false,
   loading: () => <Loading />,
 });

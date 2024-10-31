@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
+import { type File_FormSchema } from "@/components/fragments/files/Form/schema";
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import Loading from "@/components/fragments/Loading";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
@@ -21,9 +22,11 @@ import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
 import { updateFile_mongo } from "../../_files.actions";
-import { type File_FormSchema } from "../Form/schema";
-// import FileForm from "../Form";
-const FileForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
+
+const FileForm = dynamic(() => import("@/components/fragments/files/Form"), {
+  ssr: false,
+  loading: () => <Loading />,
+});
 
 interface Props {
   className?: string;
@@ -93,6 +96,7 @@ const UpdateFile: React.FC<Props> = ({ className, file }) => {
 
         <FileForm
           className={t("dialog_description") ? "mt-0" : "mt-1"}
+          files_prefix={"mongodb"}
           formData={file}
           isContainerDialogOpen={isOpen}
           submitting={submitting}

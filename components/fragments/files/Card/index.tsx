@@ -2,7 +2,12 @@ import { format } from "date-fns";
 import { enUS as en } from "date-fns/locale";
 import React from "react";
 
+import DeleteFile_Cloudflare from "@/components/files-cloudflare/admin/Actions/DeleteFile";
+import UpdateFile_Cloudflare from "@/components/files-cloudflare/admin/Actions/UpdateFile";
+import DeleteFile_MongoDb from "@/components/files-mongodb/admin/Actions/DeleteFile";
+import UpdateFile_MongoDb from "@/components/files-mongodb/admin/Actions/UpdateFile";
 import AttachedToBadge from "@/components/fragments/AttachedToBadge";
+import CopyFileAddressToClipboard from "@/components/fragments/CopyFileAddressToClipboard";
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import FileAddressHandle from "@/components/fragments/FileAddressHandle";
 import Gallery from "@/components/fragments/Gallery";
@@ -15,15 +20,11 @@ import { roundTo } from "@/lib/round";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
-import DeleteFile from "../../../files-cloudflare/admin/Actions/DeleteFile";
-import UpdateFile from "../../../files-cloudflare/admin/Actions/UpdateFile";
-import CopyFileAddressToClipboard from "../../CopyFileAddressToClipboard";
-
 interface Props {
   className?: string;
   file: FileData;
   section_id?: string;
-  files_prefix: string;
+  files_prefix: string; // "mongodb" is a special one, the rest are related for Cloudflare R2's "folders" structure
 }
 
 const FileCard: React.FC<Props> = ({ className, file, section_id = "common", files_prefix }) => {
@@ -41,6 +42,8 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common", fil
     });
 
   const fileAddress = file.metadata.html.fileUri ?? file.metadata.html.fileUrl ?? "";
+
+  const isInMongoDB = files_prefix === "mongodb";
 
   return (
     <div className={`file-card card-border-wrapper ${className}`} id={toggle_target_id}>
@@ -68,9 +71,18 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common", fil
               <FileAddressHandle download address={fileAddress} />
               <CopyFileAddressToClipboard address={fileAddress} className="mt-0.5" />
               <FileAddressHandle address={fileAddress} />
-              <DeleteFile file={file} files_prefix={files_prefix} />
+
+              {isInMongoDB ? (
+                <DeleteFile_MongoDb file={file} />
+              ) : (
+                <DeleteFile_Cloudflare file={file} files_prefix={files_prefix} />
+              )}
               <VisibilitySwitchDisplay disabled checked={file.metadata.visibility} />
-              <UpdateFile file={file} files_prefix={files_prefix} />
+              {isInMongoDB ? (
+                <UpdateFile_MongoDb file={file} />
+              ) : (
+                <UpdateFile_Cloudflare file={file} files_prefix={files_prefix} />
+              )}
 
               <ToggleCollapsible
                 tooltip

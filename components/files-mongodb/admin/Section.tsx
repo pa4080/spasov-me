@@ -104,7 +104,7 @@ const Section: React.FC<Props> = ({
                   key={file._id.toString()}
                   className={visibleItems > index ? "" : "section-card-collapsible"}
                   file={file}
-                  files_prefix={"mongo-db"}
+                  files_prefix={"mongodb"}
                   section_id={`${toggle_target_id}_${type}_${attachedToDocument.replace(/ /g, "_")}`}
                 />
               ))}
@@ -124,7 +124,7 @@ const Section: React.FC<Props> = ({
                 key={file._id.toString()}
                 className={visibleItems > index ? "" : "section-card-collapsible"}
                 file={file}
-                files_prefix={"mongo-db"}
+                files_prefix={"mongodb"}
                 section_id={`${toggle_target_id}_${type}`}
               />
             ))}
