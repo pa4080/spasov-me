@@ -1,4 +1,4 @@
-import styles from "@/app/(styles)/card.module.css";
+import styles from "@/app/_styles/card.module.css";
 import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
 import TooltipWrapper from "@/components/fragments/TooltipWrapper";
 import { type IconsMap } from "@/interfaces/IconsMap";

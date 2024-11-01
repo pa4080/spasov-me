@@ -1,16 +1,17 @@
 .card {
   @apply grid relative;
 
-  @screen sa {
-    grid-template:
-      "meta-info content-title"
-      "meta-info content-description" / max-content 1fr;
-  }
-
   grid-template:
     "content-title"
     "meta-info"
     "content-description";
+
+  @screen sa {
+    grid-template:
+      "meta-info content-title"
+      "meta-info content-description"
+      / max-content 1fr;
+  }
 }
 
 .info {

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-import styles from "@/app/(styles)/card.module.css";
+import styles from "@/app/_styles/card.module.css";
 import DisplayFileImageOrEmbed from "@/components/fragments/DisplayFileImageOrEmbed";
 import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
 import { Button } from "@/components/ui/button";

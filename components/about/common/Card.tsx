@@ -3,7 +3,7 @@ import { enUS as en } from "date-fns/locale";
 import Link from "next/link";
 import React from "react";
 
-import styles from "@/app/(styles)/card-info.module.css";
+import styles from "@/app/_styles/card-info.module.css";
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 import FileAddressHandle from "@/components/fragments/FileAddressHandle";
@@ -121,7 +121,7 @@ const AboutEntryCard: React.FC<Props> = ({
                 className="icon_accent_primary"
                 target_id={toggle_target_id}
                 text={[tCommon("btnMore"), tCommon("btnLess")]}
-                type={descriptionArr[1] ? "card" : "card-item-single"}
+                type={descriptionArr[1] ? "card" : "card"}
               />
             </div>
           </div>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import styles from "@/app/(styles)/card.module.css";
+import styles from "@/app/_styles/card.module.css";
 import DisplayIconLight from "@/components/fragments/DisplayIconLight";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type PageCardData } from "@/interfaces/PageCard";

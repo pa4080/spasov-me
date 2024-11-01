@@ -11,12 +11,12 @@ const Footer: React.FC = () => {
       <div className="max-w-4xl mx-auto relative flex items-center justify-center w-full h-footer overflow-hidden">
         <a
           aria-label="Link to GitHub"
-          className={styles.icon}
+          className={styles.iconWrapper}
           href="https://github.com/pa4080"
           target={new_tab_target}
         >
           <IconEmbedSvg
-            className="footer-icon"
+            className={styles.footerIcon}
             height={32}
             type="github-rounded"
             viewBoxHeight={512}
@@ -26,12 +26,12 @@ const Footer: React.FC = () => {
         </a>
         <a
           aria-label="Link to Ask Ubuntu"
-          className={styles.icon}
+          className={styles.iconWrapper}
           href="https://askubuntu.com/users/566421/pa4080"
           target={new_tab_target}
         >
           <IconEmbedSvg
-            className="footer-icon"
+            className={styles.footerIcon}
             height={32}
             type="ubuntu-aka-ask-ubuntu"
             viewBoxHeight={512}
@@ -41,12 +41,12 @@ const Footer: React.FC = () => {
         </a>
         <a
           aria-label="Link to MetaLevel Wiki"
-          className={`${styles.icon} ${styles.iconSpecial}`}
+          className={`${styles.iconWrapper} ${styles.iconWrapperSpecial}`}
           href="https://wiki.metalevel.tech"
           target={new_tab_target}
         >
           <IconEmbedSvg
-            className="footer-icon"
+            className={styles.footerIcon}
             height={32}
             type="metalevel-wiki"
             viewBoxHeight={591.94}
@@ -56,12 +56,12 @@ const Footer: React.FC = () => {
         </a>
         <a
           aria-label="Link to LinkedIn"
-          className={styles.icon}
+          className={styles.iconWrapper}
           href="https://www.linkedin.com/in/spas-z-spasov"
           target={new_tab_target}
         >
           <IconEmbedSvg
-            className="footer-icon"
+            className={styles.footerIcon}
             height={32}
             type="linkedin-square"
             viewBoxHeight={512}
@@ -71,12 +71,12 @@ const Footer: React.FC = () => {
         </a>
         <a
           aria-label="Link to Wikimedia"
-          className={styles.icon}
+          className={styles.iconWrapper}
           href="https://meta.wikimedia.org/wiki/User:Spas.Z.Spasov"
           target={new_tab_target}
         >
           <IconEmbedSvg
-            className="footer-icon"
+            className={styles.footerIcon}
             height={32}
             type="wikimedia"
             viewBoxHeight={897}

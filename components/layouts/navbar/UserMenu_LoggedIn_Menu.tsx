@@ -16,8 +16,6 @@ import {
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
-import styles from "./_navbar.module.css";
-
 interface Props {
   className?: string;
 }
@@ -34,10 +32,7 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
       <RebuildMasterVercel className="scale-[85%] max-2xs:hidden mt-[1px]" />
       <RevalidatePaths className="scale-[85%] max-2xs:hidden mt-[1px] -mr-2" />
 
-      <NavigationMenu
-        className={`${styles.loggedInMenu} ${className}`}
-        viewportPosition="-right-16"
-      >
+      <NavigationMenu className={className} viewportPosition="-right-16">
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger
@@ -45,7 +40,11 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
               aria-label={t("loggedInUserMenu")}
               className="text-accent-secondary active:text-accent-secondary focus:text-accent-secondary focus-visible:text-accent-secondary"
             >
-              <IconEmbedSvg type="sidebar-flip" />
+              <IconEmbedSvg
+                className_Path1="icon-embed-svg-override-path-1 fill-secondary-foreground"
+                className_Path2="icon-embed-svg-override-path-2 fill-ring-secondary"
+                type="sidebar-flip"
+              />
             </NavigationMenuTrigger>
 
             <NavigationMenuContent className="w-64 3xs:w-[22rem] 2xs:w-[26rem]">
@@ -53,7 +52,7 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
                 {Object.keys(Route.admin).map((key) => (
                   <NavigationMenu_NextLink_Styled
                     key={key}
-                    className={`${styles.userMenuItem} ${pathname === Route.admin[key as keyof typeof Route.admin] ? "bg-accent/30 hover:!bg-accent/55" : ""}`}
+                    className={`p-3 block rounded break-inside-avoid-column hover:bg-primary/50 [&]:mt-1 ${pathname === Route.admin[key as keyof typeof Route.admin] ? "bg-accent/30 hover:!bg-accent/55" : ""}`}
                     desc={t(`${key}_DESC` as tType)}
                     href={Route.admin[key as keyof typeof Route.admin]}
                     title={t(key as tType)}
@@ -62,7 +61,7 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
               </div>
 
               <div className="3xs:columns-2">
-                <div className={styles.userMenuItem}>
+                <div className="p-3">
                   <p className="font-bold">
                     {t("user")} ({session?.user?.accountProvider})
                   </p>
@@ -70,7 +69,7 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
                 </div>
 
                 <NavigationMenu_NextLink_Styled
-                  className={styles.userMenuItem}
+                  className="p-3 block rounded break-inside-avoid-column hover:bg-primary/50"
                   desc={t("signOutDescription")}
                   href="#"
                   title={t("signOut")}

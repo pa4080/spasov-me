@@ -1,6 +1,6 @@
 import React from "react";
 
-import cardStyles from "@/app/(styles)/card-info.module.css";
+import cardStyles from "@/app/_styles/card-info.module.css";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { type AboutEntryData } from "@/interfaces/AboutEntry";

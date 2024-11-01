@@ -3,7 +3,7 @@ import { enUS as en } from "date-fns/locale";
 import Link from "next/link";
 import React from "react";
 
-import styles from "@/app/(styles)/card-info.module.css";
+import styles from "@/app/_styles/card-info.module.css";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 import Gallery from "@/components/fragments/Gallery";
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";

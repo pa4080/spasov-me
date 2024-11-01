@@ -3,10 +3,9 @@ import React from "react";
 
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 import { type AuthProviders } from "@/types/next-auth-providers";
-
-import styles from "./_navbar.module.css";
 
 interface Props {
   className?: string;
@@ -17,7 +16,7 @@ const LogIn_Button: React.FC<Props> = ({ className, authProviders }) => {
   const t = msgs("Navigation");
 
   return (
-    <div className={`${styles.logInButton} ${className}`}>
+    <div className={cn("flex", className)}>
       {authProviders ? (
         Object.values(authProviders).map((provider) => {
           if (provider.id === "github") {

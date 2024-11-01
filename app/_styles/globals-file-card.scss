@@ -13,23 +13,19 @@
 .file-card-grid {
   @apply grid relative gap-x-3 sm:gap-x-6 gap-y-2 sm:gap-y-2;
 
-  @screen sm {
-    grid-template:
-      "file-image file-header" auto "file-image file-info" auto "file-image file-content" 1fr / auto 1fr;
-  }
+  grid-template: "file-header file-header" auto "file-image file-info" 1fr / auto 1fr;
 
-  grid-template:
-    "file-header file-header" auto "file-image file-info" 1fr / auto 1fr;
+  @screen sm {
+    grid-template: "file-image file-header" auto "file-image file-info" auto "file-image file-content" 1fr / auto 1fr;
+  }
 }
 
 .expand-collapsed.file-card .file-card-grid {
-  @screen sm {
-    grid-template:
-      "file-image file-header" auto "file-image file-info" auto "file-image file-content" 1fr / auto 1fr;
-  }
+  grid-template: "file-header" auto "file-info" auto "file-image" auto "file-content" 1fr / auto;
 
-  grid-template:
-    "file-header" auto "file-info" auto "file-image" auto "file-content" 1fr / auto;
+  @screen sm {
+    grid-template: "file-image file-header" auto "file-image file-info" auto "file-image file-content" 1fr / auto 1fr;
+  }
 }
 
 /* File row1 (1) header */
@@ -119,14 +115,14 @@
 }
 
 /*
- .file-image-large {
+.file-image-large {
   @apply h-auto w-[100%] sm:w-[320px] object-contain rounded-md my-2 sm:my-0 animate-zoomInFile origin-top-left z-[1];
 }
 
 .file-image-thumb {
   @apply h-[80px] w-[80px] object-cover rounded-md -z-[1];
 }
-   */
+*/
 
 .expand-collapsed.file-card .file-image-thumb {
   @apply absolute top-0 left-0 my-2 sm:my-0 opacity-0;

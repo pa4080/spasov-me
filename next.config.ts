@@ -10,6 +10,19 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // experimental: {
+  //   turbo: {
+  //     useSwcCss: false,
+  //   },
+  // },
+  // sassOptions: {
+  //   scss: {
+  //     api: "modern-compiler",
+  //   },
+  // },
+  // sassOptions: {
+  //   additionalData: `@import "app/_styles/globals-file-card.scss"; @import "globals-syntax-highlight.scss";`,
+  // },
   images: {
     // unoptimized: true,
     dangerouslyAllowSVG: true,

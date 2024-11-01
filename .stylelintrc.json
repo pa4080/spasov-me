@@ -3,8 +3,8 @@
   "plugins": ["stylelint-order"],
   "ignoreFiles": [
     "public/css/**/*",
-    "app/(styles)/globals.variables.module.css",
-    "app/(styles)/syntax-highlight.css"
+    "app/_styles/globals.variables.module.css",
+    "app/_styles/syntax-highlight.css"
   ],
   "rules": {
     "import-notation": "string",

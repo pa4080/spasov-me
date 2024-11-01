@@ -1,14 +1,14 @@
 import React from "react";
 
-import { getTags } from "@/components/tags/_tags.actions";
-import TechTags from "@/components/fragments/TechTags";
-import { cn } from "@/lib/cn-utils";
 import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
+import TechTags from "@/components/fragments/TechTags";
+import { getTags } from "@/components/tags/_tags.actions";
+import { cn } from "@/lib/cn-utils";
 
 import { getEntries } from "../_about.actions";
+import BusinessCard from "./BusinessCard";
 import SpokenLanguages from "./Languages";
 import Resume from "./Resume";
-import BusinessCard from "./BusinessCard";
 import TimeLine from "./TimeLine";
 
 const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
@@ -72,7 +72,7 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
       />
       <TimeLine
         className="about-cards-section list-section scroll-mt-24 3xl:scroll-mt-8"
-        displayTags={false}
+        displayTags={true}
         entries={entriesHyphenated}
         fileList={fileList}
         iconsMap={iconsMap}

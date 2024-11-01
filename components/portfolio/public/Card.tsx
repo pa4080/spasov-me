@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import styles from "@/app/(styles)/card.module.css";
+import styles from "@/app/_styles/card.module.css";
 import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
 import { Button } from "@/components/ui/button";
 import { type FileListItem } from "@/interfaces/File";

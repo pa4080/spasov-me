@@ -8,6 +8,7 @@ import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type TagData } from "@/interfaces/Tag";
 import { type AboutEntryType } from "@/interfaces/_common-data-types";
+import { cn } from "@/lib/cn-utils";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
@@ -50,13 +51,23 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type, fileList, tag
 
   return (
     entry && (
-      <div className={`relative ${styles.businessCard} ${className}`} id={toggle_target_id}>
+      <div
+        className={cn(
+          styles.cardGrid,
+          "relative flex flex-col sa:grid gap-4 xa:gap-8 sa:gap-6 mb-16",
+          className
+        )}
+        id={toggle_target_id}
+      >
         <div
           dangerouslySetInnerHTML={{ __html: entry.html.title }}
-          className={`${styles.businessCardTitle} font-unicephalon text-2xl 6xs:text-[7.8vw] xa:text-5xl sa:text-[2.5rem] mp:text-[2.75rem] ma:text-5xl tracking-wider text-foreground-secondary flex sa:flex-col justify-center sa:justify-end items-center sa:items-start text-center sa:text-left`}
+          className={cn(
+            styles.cardGridTitle,
+            "!leading-[1.2em] 6xs:!leading-[1.15em] font-unicephalon text-2xl 6xs:text-[7.8vw] xa:text-5xl sa:text-[2.5rem] mp:text-[2.75rem] ma:text-5xl tracking-wider text-foreground-secondary flex sa:flex-col justify-center sa:justify-end items-center sa:items-start text-center sa:text-left"
+          )}
         />
 
-        <div className={`${styles.imageWrapper} max-sa:relative`}>
+        <div className={cn(styles.cardGridImage, "max-sa:relative")}>
           <div
             className={`rounded-full overflow-hidden p-2 3xs:p-3 sa:p-2 w-fit h-fit mx-auto select-none bg-secondary drop-shadow-[1px_2px_4px_rgba(17,17,17,0.4)] dark:bg-foreground-secondary dark:drop-shadow-[1px_2px_4px_rgba(17,17,17,1)]`}
             style={{
@@ -111,7 +122,10 @@ const BusinessCard: React.FC<Props> = ({ entries, className, type, fileList, tag
 
         <div
           dangerouslySetInnerHTML={{ __html: descriptionArr?.[0] ?? "" }}
-          className={`${styles.businessCardDescription} 6xs:text-lg sa:text-base ma:text-lg font-semibold tracking-widest text-foreground-tertiary text-center sa:text-left`}
+          className={cn(
+            styles.cardGridDescription,
+            "6xs:text-lg sa:text-base ma:text-lg font-semibold tracking-widest text-foreground-tertiary text-center sa:text-left"
+          )}
         />
       </div>
     )
