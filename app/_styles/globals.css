@@ -52,7 +52,7 @@
     --navbar-height: 3.875rem;
     --footer-height: 3.625rem;
     --content-height: calc((var(--vh, 1vh) * 100) - var(--navbar-height) - var(--footer-height));
-    --content-short-page-height: calc(var(--content-height) - 5rem);
+    --content-short-page-height: calc(var(--content-height) - 4.82rem);
     --project-image-max-width: calc((var(--content-height) - (var(--vh, 1vh) * 12)) / 0.5625);
     --gallery-image-max-width: calc((var(--content-height) - (var(--vh, 1vh) * 9)) / 0.5625);
   }
