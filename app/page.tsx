@@ -8,7 +8,7 @@ const Home: React.FC = async () => {
   const t = msgs("Home");
 
   return (
-    <div className="min-h-contentShortPage">
+    <div className="max-3xl:min-h-contentShortPage">
       <SiteLogo
         className="w-full margin_vh_top"
         greeting_ln1={t("greeting_ln1")}
