@@ -5,30 +5,32 @@
 import { useEffect } from "react";
 
 declare global {
-	interface Window {
-		shouldCopyInnerHTML: boolean;
-	}
+  interface Window {
+    shouldCopyInnerHTML: boolean;
+  }
 }
 
-window.shouldCopyInnerHTML = false;
-
 export function useClearHyphens() {
-	useEffect(() => {
-		const detectKeys = (event: KeyboardEvent) => {
-			// https://stackoverflow.com/q/5203407
-			if (event.key === "Alt") {
-				window.shouldCopyInnerHTML = true;
-			}
-		};
+  useEffect(() => {
+    if (!window.shouldCopyInnerHTML === undefined) {
+      window.shouldCopyInnerHTML = false;
+    }
 
-		document.addEventListener("copy", cleanClipboardV3);
-		document.addEventListener("keydown", detectKeys);
+    const detectKeys = (event: KeyboardEvent) => {
+      // https://stackoverflow.com/q/5203407
+      if (event.key === "Alt") {
+        window.shouldCopyInnerHTML = true;
+      }
+    };
 
-		return () => {
-			document.removeEventListener("copy", cleanClipboardV3);
-			document.removeEventListener("keydown", detectKeys);
-		};
-	}, []);
+    document.addEventListener("copy", cleanClipboardV3);
+    document.addEventListener("keydown", detectKeys);
+
+    return () => {
+      document.removeEventListener("copy", cleanClipboardV3);
+      document.removeEventListener("keydown", detectKeys);
+    };
+  }, []);
 }
 
 /**
@@ -40,69 +42,69 @@ export function useClearHyphens() {
  * @param event - The ClipboardEvent to handle.
  */
 export const cleanClipboardV3 = (event: ClipboardEvent) => {
-	// Get the selected range
-	const selectedRange = window.getSelection()?.getRangeAt(0);
-	const selectedParent = selectedRange?.commonAncestorContainer?.parentElement;
+  // Get the selected range
+  const selectedRange = window.getSelection()?.getRangeAt(0);
+  const selectedParent = selectedRange?.commonAncestorContainer?.parentElement;
 
-	const isSelectedInMDEditor = !!selectedParent?.classList.contains("w-md-editor-area");
-	const isSelectedEditable = !!selectedParent?.querySelector("input, textarea");
+  const isSelectedInMDEditor = !!selectedParent?.classList.contains("w-md-editor-area");
+  const isSelectedEditable = !!selectedParent?.querySelector("input, textarea");
 
-	if (isSelectedInMDEditor || isSelectedEditable) {
-		return;
-	}
+  if (isSelectedInMDEditor || isSelectedEditable) {
+    return;
+  }
 
-	const isSelectedWithinTagPre = selectedParent?.tagName === "PRE";
+  const isSelectedWithinTagPre = selectedParent?.tagName === "PRE";
 
-	// Create a div and append the selected range's cloned contents
-	const tempDiv = document.createElement("div");
+  // Create a div and append the selected range's cloned contents
+  const tempDiv = document.createElement("div");
 
-	tempDiv.appendChild(selectedRange?.cloneContents() || document.createDocumentFragment());
+  tempDiv.appendChild(selectedRange?.cloneContents() ?? document.createDocumentFragment());
 
-	// Use DOMParser to convert string to document
-	const parser = new DOMParser();
-	const doc = parser.parseFromString(tempDiv.innerHTML, "text/html");
+  // Use DOMParser to convert string to document
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(tempDiv.innerHTML, "text/html");
 
-	// Find all pre elements
-	const preElements = isSelectedWithinTagPre ? [selectedParent] : doc.getElementsByTagName("pre");
+  // Find all pre elements
+  const preElements = isSelectedWithinTagPre ? [selectedParent] : doc.getElementsByTagName("pre");
 
-	// Backup innerHTML of all pre elements
-	const originalPreContents: string[] = [];
+  // Backup innerHTML of all pre elements
+  const originalPreContents: string[] = [];
 
-	for (let i = 0; i < preElements.length; i++) {
-		originalPreContents[i] = preElements[i].textContent || "";
-	}
+  for (let i = 0; i < preElements.length; i++) {
+    originalPreContents[i] = preElements[i].textContent ?? "";
+  }
 
-	// Replace hyphenation symbols and codes in the innerHTML, preserving HTML tags
-	let cleanedHtml = doc.documentElement.innerHTML
-		.replace(/&shy;/g, "")
-		.replace(/\u00AD/gi, "")
-		.replace(/\u200B/gi, "");
+  // Replace hyphenation symbols and codes in the innerHTML, preserving HTML tags
+  let cleanedHtml = doc.documentElement.innerHTML
+    .replace(/&shy;/g, "")
+    .replace(/\u00AD/gi, "")
+    .replace(/\u200B/gi, "");
 
-	// Convert cleaned string back to document
-	const cleanedDoc = parser.parseFromString(cleanedHtml, "text/html");
+  // Convert cleaned string back to document
+  const cleanedDoc = parser.parseFromString(cleanedHtml, "text/html");
 
-	// Restore pre elements' innerHTML in cleaned document
-	const cleanedPreElements = cleanedDoc.getElementsByTagName("pre");
+  // Restore pre elements' innerHTML in cleaned document
+  const cleanedPreElements = cleanedDoc.getElementsByTagName("pre");
 
-	for (let i = 0; i < cleanedPreElements.length; i++) {
-		cleanedPreElements[i].innerHTML = originalPreContents[i];
-	}
+  for (let i = 0; i < cleanedPreElements.length; i++) {
+    cleanedPreElements[i].innerHTML = originalPreContents[i];
+  }
 
-	const cleanedDocEl = cleanedDoc.documentElement;
+  const cleanedDocEl = cleanedDoc.documentElement;
 
-	cleanedDocEl.innerHTML = cleanedDocEl.innerHTML.replace(/(<\/[a-z][a-z0-9]*>)/gi, "$1\n");
+  cleanedDocEl.innerHTML = cleanedDocEl.innerHTML.replace(/(<\/[a-z][a-z0-9]*>)/gi, "$1\n");
 
-	if (window.shouldCopyInnerHTML) {
-		cleanedHtml = cleanedDocEl.innerHTML.replace(/(\n)+/g, "\n");
-		event.clipboardData?.setData("text/html", cleanedHtml);
-	} else {
-		cleanedDocEl.innerHTML = cleanedDocEl.innerHTML.replace(/(<\/[a-z][a-z0-9]*>)/gi, "$1\n");
-		cleanedHtml = cleanedDocEl.innerText.replace(/(\n)+/g, "\n");
-		event.clipboardData?.setData("text/plain", cleanedHtml);
-	}
+  if (window.shouldCopyInnerHTML) {
+    cleanedHtml = cleanedDocEl.innerHTML.replace(/(\n)+/g, "\n");
+    event.clipboardData?.setData("text/html", cleanedHtml);
+  } else {
+    cleanedDocEl.innerHTML = cleanedDocEl.innerHTML.replace(/(<\/[a-z][a-z0-9]*>)/gi, "$1\n");
+    cleanedHtml = cleanedDocEl.innerText.replace(/(\n)+/g, "\n");
+    event.clipboardData?.setData("text/plain", cleanedHtml);
+  }
 
-	window.shouldCopyInnerHTML = false;
-	event.preventDefault();
+  window.shouldCopyInnerHTML = false;
+  event.preventDefault();
 };
 
 /**

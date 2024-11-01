@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /**
  * @see https://nextjs.org/docs/app/api-reference
  * @see https://nextjs.org/docs/app/api-reference/file-conventions/route
@@ -26,112 +27,131 @@
  * in the route handler.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import Post from "@/models/post";
 
 interface Context {
-	params: { id: string[] };
+  params: Promise<{ id: string[] }>;
 }
 
-function paramsToObject(params: Context["params"]) {
-	return Object.keys(params).length > 0 ? { _id: params?.id[0] } : {};
+async function paramsToObject(params: Context["params"]) {
+  const _id = (await params)?.id[0] || "";
+
+  return Object.keys(params).length > 0 ? { _id } : {};
 }
 
-export async function GET(request: NextRequest, { params }: Context) {
-	try {
-		await connectToMongoDb();
-		const posts = await Post.find(paramsToObject(params)).populate(["creator", "image"]);
+export async function GET(request: NextRequest, props: Context) {
+  const object_id = await paramsToObject(props.params);
 
-		return NextResponse.json({ posts }, { status: 200 });
-	} catch (error) {
-		return NextResponse.json({ error: "Failed to retrieve posts!" }, { status: 500 });
-	}
+  try {
+    await connectToMongoDb();
+    const posts = await Post.find(object_id).populate(["creator", "image"]);
+
+    return NextResponse.json({ posts }, { status: 200 });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json({ error: "Failed to retrieve posts!" }, { status: 500 });
+  }
 }
 
 export async function POST(request: NextRequest) {
-	const { creator, prompt, tags, aiCategory, link, image } = await request.json();
+  const { creator, prompt, tags, aiCategory, link, image } = await request.json();
 
-	try {
-		await connectToMongoDb();
-		const newPost = new Post({ creator, prompt, tags, aiCategory, link, image });
+  try {
+    await connectToMongoDb();
+    const newPost = new Post({ creator, prompt, tags, aiCategory, link, image });
 
-		await newPost.save();
-		await newPost.populate(["creator", "image"]);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    await newPost.save();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    await newPost.populate(["creator", "image"]);
 
-		return NextResponse.json(
-			{ message: "Prompt created successfully!", post: newPost },
-			{ status: 201 }
-		);
-	} catch (error) {
-		return NextResponse.json(error, { status: 500 }); // return new Response(JSON.stringify(error), { status: 500 });
-	}
+    return NextResponse.json(
+      { message: "Prompt created successfully!", post: newPost },
+      { status: 201 }
+    );
+  } catch (error) {
+    return NextResponse.json(error, { status: 500 }); // return new Response(JSON.stringify(error), { status: 500 });
+  }
 }
 
-export async function PUT(request: NextRequest, { params }: Context) {
-	const { creator, prompt, tags, aiCategory, link, image } = await request.json();
+export async function PUT(request: NextRequest, props: Context) {
+  const object_id = await paramsToObject(props.params);
+  const { creator, prompt, tags, aiCategory, link, image } = await request.json();
 
-	try {
-		await connectToMongoDb();
-		const updatedPost = await Post.findOneAndUpdate(
-			paramsToObject(params),
-			{ creator, prompt, tags, aiCategory, link, image },
-			{ new: true }
-		);
+  try {
+    await connectToMongoDb();
+    const updatedPost = await Post.findOneAndUpdate(
+      object_id,
+      { creator, prompt, tags, aiCategory, link, image },
+      { new: true }
+    );
 
-		if (!updatedPost) {
-			return NextResponse.json({ error: "Post not found!" }, { status: 404 });
-		}
+    if (!updatedPost) {
+      return NextResponse.json({ error: "Post not found!" }, { status: 404 });
+    }
 
-		await updatedPost.populate(["creator", "image"]);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    await updatedPost.populate(["creator", "image"]);
 
-		return NextResponse.json(
-			{ message: "Post updated successfully!", post: updatedPost },
-			{ status: 200 }
-		);
-	} catch (error) {
-		return NextResponse.json({ error: "Failed to update post!" }, { status: 500 });
-	}
+    return NextResponse.json(
+      { message: "Post updated successfully!", post: updatedPost },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json({ error: "Failed to update post!" }, { status: 500 });
+  }
 }
 
-export async function PATCH(request: NextRequest, { params }: Context) {
-	const { creator, prompt, tags, aiCategory, link, image } = await request.json();
+export async function PATCH(request: NextRequest, props: Context) {
+  const object_id = await paramsToObject(props.params);
+  const { creator, prompt, tags, aiCategory, link, image } = await request.json();
 
-	try {
-		await connectToMongoDb();
+  try {
+    await connectToMongoDb();
 
-		const updatedPost = await Post.findOneAndUpdate(
-			paramsToObject(params),
-			{ creator, prompt, tags, aiCategory, link, image },
-			{ new: true }
-		);
+    const updatedPost = await Post.findOneAndUpdate(
+      object_id,
+      { creator, prompt, tags, aiCategory, link, image },
+      { new: true }
+    );
 
-		if (!updatedPost) {
-			return NextResponse.json({ error: "Post not found!" }, { status: 404 });
-		}
+    if (!updatedPost) {
+      return NextResponse.json({ error: "Post not found!" }, { status: 404 });
+    }
 
-		return NextResponse.json(
-			{ message: "Post updated successfully!", post: updatedPost },
-			{ status: 200 }
-		);
-	} catch (error) {
-		return NextResponse.json({ error: "Failed to update post!" }, { status: 500 });
-	}
+    return NextResponse.json(
+      { message: "Post updated successfully!", post: updatedPost },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json({ error: "Failed to update post!" }, { status: 500 });
+  }
 }
 
-export async function DELETE(request: NextRequest, { params }: Context) {
-	try {
-		await connectToMongoDb();
+export async function DELETE(request: NextRequest, props: Context) {
+  const object_id = await paramsToObject(props.params);
 
-		const deletedPost = await Post.findOneAndDelete(paramsToObject(params));
+  try {
+    await connectToMongoDb();
 
-		if (!deletedPost) {
-			return NextResponse.json({ error: "Post not found!" }, { status: 404 });
-		}
+    const deletedPost = await Post.findOneAndDelete(object_id);
 
-		return NextResponse.json({ message: "Post deleted successfully!" }, { status: 200 });
-	} catch (error) {
-		return NextResponse.json({ error: "Failed to delete post!" }, { status: 500 });
-	}
+    if (!deletedPost) {
+      return NextResponse.json({ error: "Post not found!" }, { status: 404 });
+    }
+
+    return NextResponse.json({ message: "Post deleted successfully!" }, { status: 200 });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json({ error: "Failed to delete post!" }, { status: 500 });
+  }
 }

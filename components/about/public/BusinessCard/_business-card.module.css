@@ -1,0 +1,20 @@
+.cardGrid {
+  @screen sa {
+    grid-template:
+      "image title"
+      "image description"
+      / max-content 1fr;
+  }
+
+  .cardGridTitle {
+    grid-area: title;
+  }
+
+  .cardGridImage {
+    grid-area: image;
+  }
+
+  .cardGridDescription {
+    grid-area: description;
+  }
+}

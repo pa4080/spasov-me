@@ -14,37 +14,37 @@ import { config } from "./index";
 const r2BucketName = process.env.CLOUDFLARE_R2_BUCKET_NAME;
 
 export const getObject = async ({
-	objectKey,
-	bucket,
-	log = false,
-	partNumber,
-	prefix,
+  objectKey,
+  bucket,
+  log = false,
+  partNumber,
+  prefix,
 }: {
-	objectKey: string;
-	bucket?: string;
-	log?: boolean;
-	partNumber?: number;
-	prefix?: string;
+  objectKey: string;
+  bucket?: string;
+  log?: boolean;
+  partNumber?: number;
+  prefix?: string;
 }) => {
-	const s3client = new S3(config) || new S3Client(config);
+  const s3client = new S3(config) || new S3Client(config);
 
-	try {
-		const command = new GetObjectCommand({
-			Bucket: bucket || r2BucketName,
-			Key: prefix ? `${prefix}/${objectKey}` : objectKey,
-			PartNumber: partNumber,
-		});
+  try {
+    const command = new GetObjectCommand({
+      Bucket: bucket ?? r2BucketName,
+      Key: prefix ? `${prefix}/${objectKey}` : objectKey,
+      PartNumber: partNumber,
+    });
 
-		const responseObject = await s3client.send(command);
+    const responseObject = await s3client.send(command);
 
-		if (log) {
-			process.stdout.write(`🗂️  Object: ${objectKey}, ${responseObject.ContentType}\n`);
-		}
+    if (log) {
+      process.stdout.write(`🗂️  Object: ${objectKey}, ${responseObject.ContentType}\n`);
+    }
 
-		return responseObject;
-	} catch (err) {
-		console.error(objectKey, "::", (err as Error).message);
+    return responseObject;
+  } catch (err) {
+    console.error(objectKey, "::", (err as Error).message);
 
-		return null;
-	}
+    return null;
+  }
 };

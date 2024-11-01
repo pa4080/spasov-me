@@ -4,9 +4,9 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { cn } from "@/lib/cn-utils";
 
 interface Props {
-	className?: string;
-	children: React.ReactNode;
-	tooltipText: string;
+  className?: string;
+  children: React.ReactNode;
+  tooltipText: string;
 }
 
 /**
@@ -15,20 +15,20 @@ interface Props {
  * "<button> cannot appear as a descendant of <button>""
  */
 const TooltipWrapper: React.FC<Props> = ({ className, children, tooltipText }) => {
-	return (
-		<TooltipProvider>
-			<Tooltip>
-				<TooltipTrigger asChild className={cn("!mt-0", className)}>
-					<div>{children}</div>
-				</TooltipTrigger>
-				{tooltipText && (
-					<TooltipContent className="border-2 border-muted-secondary dark:border-primary">
-						<div dangerouslySetInnerHTML={{ __html: tooltipText }} />
-					</TooltipContent>
-				)}
-			</Tooltip>
-		</TooltipProvider>
-	);
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild className={cn("!mt-0", className)}>
+          <div>{children}</div>
+        </TooltipTrigger>
+        {tooltipText && (
+          <TooltipContent className="border-2 border-muted-secondary dark:border-primary">
+            <div dangerouslySetInnerHTML={{ __html: tooltipText }} />
+          </TooltipContent>
+        )}
+      </Tooltip>
+    </TooltipProvider>
+  );
 };
 
 export default TooltipWrapper;

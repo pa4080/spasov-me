@@ -11,38 +11,38 @@ import { errorMessages } from "@/app/api/common";
 import { authOptions } from "@/lib/auth-options";
 
 export async function POST(request: Request): Promise<NextResponse> {
-	const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
 
-	if (!session) {
-		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
-	}
+  if (!session) {
+    return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+  }
 
-	if (!request.body) {
-		return NextResponse.json(
-			{
-				error: "Request body is empty",
-			},
-			{ status: 500 }
-		);
-	}
+  if (!request.body) {
+    return NextResponse.json(
+      {
+        error: "Request body is empty",
+      },
+      { status: 500 }
+    );
+  }
 
-	const { searchParams } = new URL(request.url);
-	const filename = searchParams.get("filename");
+  const { searchParams } = new URL(request.url);
+  const filename = searchParams.get("filename");
 
-	if (!filename) {
-		return NextResponse.json(
-			{
-				error: "Missing filename",
-			},
-			{ status: 500 }
-		);
-	}
+  if (!filename) {
+    return NextResponse.json(
+      {
+        error: "Missing filename",
+      },
+      { status: 500 }
+    );
+  }
 
-	const blob = await put(filename, request.body, {
-		access: "public",
-	});
+  const blob = await put(filename, request.body, {
+    access: "public",
+  });
 
-	return NextResponse.json(blob);
+  return NextResponse.json(blob);
 }
 
 /**
@@ -62,37 +62,37 @@ export async function POST(request: Request): Promise<NextResponse> {
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(request: Request): Promise<NextResponse> {
-	const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
 
-	if (!session) {
-		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
-	}
+  if (!session) {
+    return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+  }
 
-	const blobRes = await list();
+  const blobRes = await list();
 
-	return NextResponse.json(blobRes);
+  return NextResponse.json(blobRes);
 }
 
 export async function DELETE(request: Request): Promise<NextResponse> {
-	const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
 
-	if (!session) {
-		return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
-	}
+  if (!session) {
+    return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+  }
 
-	const { searchParams } = new URL(request.url);
-	const url = searchParams.get("url");
+  const { searchParams } = new URL(request.url);
+  const url = searchParams.get("url");
 
-	if (!url) {
-		return NextResponse.json(
-			{
-				error: "Missing file url",
-			},
-			{ status: 500 }
-		);
-	}
+  if (!url) {
+    return NextResponse.json(
+      {
+        error: "Missing file url",
+      },
+      { status: 500 }
+    );
+  }
 
-	del(url);
+  del(url);
 
-	return NextResponse.json({ url: url, deleted: true });
+  return NextResponse.json({ url: url, deleted: true });
 }

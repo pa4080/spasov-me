@@ -14,40 +14,40 @@ import { splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { msgs } from "@/messages";
 
 const Portfolio: React.FC = async () => {
-	const t = msgs("Search");
+  const t = msgs("Search");
 
-	const data = await Promise.all([
-		getEntries({ hyphen: true, public: true }),
-		getTags({ hyphen: true, public: true }),
-		getProjects({ hyphen: true, public: true }),
-		getPosts({ hyphen: true, public: true }),
-		getLabEntries({ hyphen: true, public: true }),
-		getIconsMap(),
-	]).then(([aboutEntries, tags, projects, posts, labEntries, iconsMap]) => ({
-		tags: tags ?? [],
-		dataList: [
-			...(aboutEntries ?? []),
-			...(projects ?? []),
-			...(labEntries?.map((entry) => ({
-				...entry,
-				entryType: "lab" as const,
-				html: {
-					...entry.html,
-					description: entry.html.description.split(splitDescriptionKeyword)[0],
-				},
-				description: entry.description.split(splitDescriptionKeyword)[0],
-			})) ?? []),
-			...(posts ?? []),
-		],
-		iconsMap,
-	}));
+  const data = await Promise.all([
+    getEntries({ hyphen: true, public: true }),
+    getTags({ hyphen: true, public: true }),
+    getProjects({ hyphen: true, public: true }),
+    getPosts({ hyphen: true, public: true }),
+    getLabEntries({ hyphen: true, public: true }),
+    getIconsMap(),
+  ]).then(([aboutEntries, tags, projects, posts, labEntries, iconsMap]) => ({
+    tags: tags ?? [],
+    dataList: [
+      ...(aboutEntries ?? []),
+      ...(projects ?? []),
+      ...(labEntries?.map((entry) => ({
+        ...entry,
+        entryType: "lab" as const,
+        html: {
+          ...entry.html,
+          description: entry.html.description.split(splitDescriptionKeyword)[0],
+        },
+        description: entry.description.split(splitDescriptionKeyword)[0],
+      })) ?? []),
+      ...(posts ?? []),
+    ],
+    iconsMap,
+  }));
 
-	return (
-		<div className="margin_vh_top margin_vh_bottom scroll-mt-40">
-			<h1 className="section_title">{t("title")}</h1>
-			<SearchPublic {...data} />
-		</div>
-	);
+  return (
+    <div className="margin_vh_top scroll-mt-40 max-3xl:min-h-contentShortPage">
+      <h1 className="section_title">{t("title")}</h1>
+      <SearchPublic {...data} />
+    </div>
+  );
 };
 
 export default Portfolio;

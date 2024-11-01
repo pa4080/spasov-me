@@ -16,10 +16,10 @@ import localFont from "next/font/local";
 // });
 
 export const poppins = Poppins({
-	subsets: ["latin"],
-	display: "swap",
-	weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-	variable: "--font-poppins",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-poppins",
 });
 
 // export const roboto_slab = Roboto_Slab({
@@ -31,20 +31,20 @@ export const poppins = Poppins({
 // });
 
 export const unicephalon = localFont({
-	src: [
-		{
-			path: "../public/fonts/disaster-fonts/unicephalon.heavy.woff2",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "../public/fonts/disaster-fonts/unicephalon.heavy.ttf",
-			weight: "400",
-			style: "normal",
-		},
-	],
-	display: "swap",
-	variable: "--font-unicephalon",
+  src: [
+    {
+      path: "../public/fonts/disaster-fonts/unicephalon.heavy.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/disaster-fonts/unicephalon.heavy.ttf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  display: "swap",
+  variable: "--font-unicephalon",
 });
 
 // export const multivacInterference = localFont({

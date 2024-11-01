@@ -53,7 +53,7 @@ pnpm dlx vercel env pull --environment=production --yes --token $VERCEL_ENV_PULL
 - Next.js 14
 - Vercel
 - Typescript
-- Sass
+- Sass (removed in late 2024)
 - Tailwind
 - ShadCN/UI
 - React

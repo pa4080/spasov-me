@@ -3,32 +3,32 @@
 import { Schema, model, models } from "mongoose";
 
 const UserSchema = new Schema({
-	email: {
-		type: String,
-		required: [true, "Email is required!"],
-		unique: [true, "Email already exists!"],
-	},
-	username: {
-		type: String,
-		required: [true, "Username is required!"],
-		match: [
-			/^(?=.{4,84}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
-			"Username is invalid, it should contain 4-84 alphanumeric letters and be unique!",
-		],
-	},
-	name: {
-		type: String,
-	},
-	image: {
-		type: String,
-	},
-	accountProvider: {
-		type: String,
-		required: [true, "Account provider is required!"],
-	},
-	description: {
-		type: String,
-	},
+  email: {
+    type: String,
+    required: [true, "Email is required!"],
+    unique: [true, "Email already exists!"],
+  },
+  username: {
+    type: String,
+    required: [true, "Username is required!"],
+    match: [
+      /^(?=.{4,84}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
+      "Username is invalid, it should contain 4-84 alphanumeric letters and be unique!",
+    ],
+  },
+  name: {
+    type: String,
+  },
+  image: {
+    type: String,
+  },
+  accountProvider: {
+    type: String,
+    required: [true, "Account provider is required!"],
+  },
+  description: {
+    type: String,
+  },
 });
 
 /**

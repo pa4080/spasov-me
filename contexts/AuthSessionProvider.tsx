@@ -3,13 +3,13 @@
  */
 "use client";
 
-import { Session } from "next-auth";
+import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import React from "react";
 
 interface Props {
-	children: React.ReactNode;
-	session?: Session | null;
+  children: React.ReactNode;
+  session?: Session | null;
 }
 
 /**
@@ -23,11 +23,11 @@ interface Props {
  * support both server and client side rendering.
  */
 const AuthSessionProvider: React.FC<Props> = ({ children, session }) => {
-	return (
-		<SessionProvider refetchInterval={15 * 60} session={session}>
-			{children}
-		</SessionProvider>
-	);
+  return (
+    <SessionProvider refetchInterval={15 * 60} session={session}>
+      {children}
+    </SessionProvider>
+  );
 };
 
 export default AuthSessionProvider;

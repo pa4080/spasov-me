@@ -15,25 +15,25 @@ type Namespace = keyof typeof messages;
  *			type tType = Parameters<typeof t>[0];
  */
 function msgs<T extends Namespace>(ns: T) {
-	const msg = messages[ns];
+  const msg = messages[ns];
 
-	type Messages = keyof typeof msg;
+  type Messages = keyof typeof msg;
 
-	return function <T extends Messages>(key: T, replace?: Record<string, string | number>) {
-		let keyAsString = msg[key as T] as string;
+  return function <T extends Messages>(key: T, replace?: Record<string, string | number>) {
+    let keyAsString = msg[key] as string;
 
-		if (replace) {
-			Object.keys(replace).forEach((k) => {
-				const regex = new RegExp(`{\\s*${k}\\s*}`, "g");
+    if (replace) {
+      Object.keys(replace).forEach((k) => {
+        const regex = new RegExp(`{\\s*${k}\\s*}`, "g");
 
-				keyAsString = keyAsString.replace(regex, String(replace[k]));
-			});
+        keyAsString = keyAsString.replace(regex, String(replace[k]));
+      });
 
-			return keyAsString;
-		}
+      return keyAsString;
+    }
 
-		return keyAsString;
-	};
+    return keyAsString;
+  };
 }
 
 export { messages, msgs };

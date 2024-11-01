@@ -20,14 +20,14 @@ import "server-only";
  */
 
 export async function redisGet_SSR_Solution<T>(key: string): Promise<T | null> {
-	const response = await fetch(`${process.env.UPSTASH_REDIS_REST_URL}/get/${key}`, {
-		headers: {
-			Authorization: `Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`,
-		},
-		cache: "reload",
-	});
+  const response = await fetch(`${process.env.UPSTASH_REDIS_REST_URL}/get/${key}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`,
+    },
+    cache: "reload",
+  });
 
-	const data = await response.json();
+  const data = await response.json();
 
-	return (JSON.parse(data.result) as T) || null;
+  return (JSON.parse(data.result) as T) || null;
 }

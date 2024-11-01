@@ -2,13 +2,12 @@
 
 // import { Redis } from "@upstash/redis";
 import { createClient } from "@vercel/kv";
-
 import sizeOf from "image-size";
 
-import { FileData, FileListItem, FileMetadata } from "@/interfaces/File";
-import { IconsMap } from "@/interfaces/IconsMap";
+import { type FileData, type FileListItem, type FileMetadata } from "@/interfaces/File";
+import { type IconsMap } from "@/interfaces/IconsMap";
 import {
-  AttachedToDocument,
+  type AttachedToDocument,
   regexFilesAll,
   regexFilesImages,
 } from "@/interfaces/_common-data-types";
@@ -19,10 +18,9 @@ import {
   updateObject,
   uploadObject,
 } from "@/lib/aws";
+import { getRatio, type GetRatioInput } from "@/lib/get-ratio";
 import { fileObject_toData } from "@/lib/process-data-files-cloudflare";
 import { msgs } from "@/messages";
-
-import { getRatio, GetRatioInput } from "@/lib/get-ratio";
 
 import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "./../_common.actions";
 
@@ -189,7 +187,7 @@ export const createFile = async ({
     const file_name = data.get("filename") as string;
     const visibility = data.get("visibility") as string;
 
-    const user_id = session?.user.id as string;
+    const user_id = session?.user.id;
 
     // await redis.del(prefix);
 
@@ -244,7 +242,7 @@ export const createFile = async ({
 
     return null;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
 
@@ -274,11 +272,11 @@ export const updateFile = async ({
     const visibility = data.get("visibility") as string;
     const attachedTo = JSON.parse(data.get("attachedTo") as string) as AttachedToDocument[];
 
-    const user_id = session?.user.id as string;
+    const user_id = session?.user.id;
 
     // If no new file is provided, just update the metadata
     const fileOld = await getObject({ objectKey: filename, partNumber: 1, prefix });
-    const attachedToOld = JSON.parse(fileOld?.Metadata?.attachedto || "[]");
+    const attachedToOld = JSON.parse(fileOld?.Metadata?.attachedto ?? "[]") as AttachedToDocument[];
 
     // Process the "attachedTo" array first -- await attachedTo_detachFromTarget()
     await attachedTo_detachFromTarget({
@@ -337,14 +335,14 @@ export const updateFile = async ({
         prefix,
       });
     } else {
-      if (!fileOld || !fileOld.Metadata) {
+      if (!fileOld?.Metadata) {
         throw new Error(msgs("Errors")("invalidFile", { id: new_filename }));
       }
 
       const metadataParse: Record<string, string> = {};
 
       Object.entries(fileOld.Metadata).forEach(([key, value]) => {
-        metadataParse[key] = JSON.parse(value);
+        metadataParse[key] = JSON.parse(value) as string;
       });
 
       const metadata: FileMetadata = {
@@ -354,7 +352,7 @@ export const updateFile = async ({
         size: metadataParse.size,
         originalName: metadataParse.originalname,
         lastModified: new Date(),
-        contentType: fileOld.ContentType || metadataParse.contenttype || "application/octet-stream",
+        contentType: fileOld.ContentType ?? metadataParse.contenttype ?? "application/octet-stream",
         creator: user_id,
         info: (metadataParse.info || {}) as FileMetadata["info"],
       };
@@ -377,7 +375,7 @@ export const updateFile = async ({
 
     return null;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
 
@@ -406,7 +404,7 @@ export const deleteFile = async ({
 
     return null;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
 
@@ -428,8 +426,8 @@ export const fileAttachment_add = async ({
     let files: FileData[] | null;
 
     if (prefix === "all_prefixes") {
-      const getFiles = (await getFilesR2({ prefix: files_prefix })) || [];
-      const getIcons = (await getFilesR2({ prefix: icons_prefix })) || [];
+      const getFiles = (await getFilesR2({ prefix: files_prefix })) ?? [];
+      const getIcons = (await getFilesR2({ prefix: icons_prefix })) ?? [];
 
       files = [...getFiles, ...getIcons];
     } else {
@@ -452,9 +450,9 @@ export const fileAttachment_add = async ({
       return true;
     }
 
-    const attachedToNew = [...(targetFileObj_attachedTo || []), documentToAttach];
+    const attachedToNew = [...(targetFileObj_attachedTo ?? []), documentToAttach];
     const session = await getSession();
-    const creator = session?.user.id as string;
+    const creator = session?.user.id;
     const visibility = targetFileObj.metadata.visibility ? "true" : "false";
 
     const metadata: FileMetadata = {
@@ -465,7 +463,7 @@ export const fileAttachment_add = async ({
       lastModified: targetFileObj.metadata.lastModified,
       originalName: targetFileObj.metadata.originalName,
       visibility,
-      creator,
+      creator: creator ?? "unknown ... appears something went wrong",
       attachedTo: attachedToNew,
     };
 
@@ -499,8 +497,8 @@ export const fileAttachment_remove = async ({
     let files: FileData[] | null;
 
     if (prefix === "all_prefixes") {
-      const getFiles = (await getFilesR2({ prefix: files_prefix })) || [];
-      const getIcons = (await getFilesR2({ prefix: icons_prefix })) || [];
+      const getFiles = (await getFilesR2({ prefix: files_prefix })) ?? [];
+      const getIcons = (await getFilesR2({ prefix: icons_prefix })) ?? [];
 
       files = [...getFiles, ...getIcons];
     } else {
@@ -518,7 +516,7 @@ export const fileAttachment_remove = async ({
     );
 
     const session = await getSession();
-    const creator = session?.user.id as string;
+    const creator = session?.user.id;
     const visibility = targetFileObj.metadata.visibility ? "true" : "false";
 
     const metadata: FileMetadata = {
@@ -529,7 +527,7 @@ export const fileAttachment_remove = async ({
       lastModified: targetFileObj.metadata.lastModified,
       originalName: targetFileObj.metadata.originalName,
       visibility,
-      creator,
+      creator: creator ?? "unknown ... appears something went wrong",
       attachedTo: attachedToNew,
     };
 

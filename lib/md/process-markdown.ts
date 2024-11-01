@@ -6,7 +6,7 @@
  * -> https://github.com/jaywcjlove/rehype-video/tree/main
  */
 import { hyphenateSync as hyphenate } from "hyphen/en";
-import rehypeExternalLinks, { Target } from "rehype-external-links";
+import rehypeExternalLinks, { type Target } from "rehype-external-links";
 import rehypeFormat from "rehype-format";
 import rehypePrism from "rehype-prism-plus";
 import rehypeStringify from "rehype-stringify";
@@ -23,28 +23,28 @@ import { myRemarkPlugin_YouTube } from "./markdown-plugin-youtube";
 export const new_tab_target = "spasov-me-tab" as Target;
 
 export const processMarkdown = ({ markdown, hyphen }: { markdown: string; hyphen?: boolean }) => {
-	const result = unified()
-		.use(remarkParse)
-		.use(remarkDirective)
-		.use(myRemarkPlugin_YouTube)
-		.use(myRemarkPlugin_Video)
-		.use(myRemarkPlugin_Image)
-		.use(myRemarkPlugin_Pdf)
-		.use(remarkRehype, { allowDangerousHtml: true })
-		.use(rehypeFormat)
-		.use(rehypeExternalLinks, { rel: ["nofollow"], target: new_tab_target })
-		.use(rehypeStringify, { allowDangerousHtml: true })
-		.use(rehypePrism, { showLineNumbers: false, ignoreMissing: true })
-		.processSync(markdown);
+  const result = unified()
+    .use(remarkParse)
+    .use(remarkDirective)
+    .use(myRemarkPlugin_YouTube)
+    .use(myRemarkPlugin_Video)
+    .use(myRemarkPlugin_Image)
+    .use(myRemarkPlugin_Pdf)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeFormat)
+    .use(rehypeExternalLinks, { rel: ["nofollow"], target: new_tab_target })
+    .use(rehypeStringify, { allowDangerousHtml: true })
+    .use(rehypePrism, { showLineNumbers: false, ignoreMissing: true })
+    .processSync(markdown);
 
-	const resultStr = result.value.toString();
+  const resultStr = result.value.toString();
 
-	if (hyphen) {
-		// https://www.npmjs.com/package/hyphen
-		return hyphenate(resultStr);
-	}
+  if (hyphen) {
+    // https://www.npmjs.com/package/hyphen
+    return hyphenate(resultStr);
+  }
 
-	return resultStr;
+  return resultStr;
 };
 
 export const splitDescriptionKeyword = /<!--\s*more\s*-->/;
@@ -52,7 +52,6 @@ export const splitDescriptionKeyword = /<!--\s*more\s*-->/;
 // by unified().use(remarkRehype), because we are
 // using some of them as special tags, i.e. <!--more-->
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const commentsMatcher = new RegExp("<!--.*?-->", "gs");
 
 // export const commentsMatcher = /<!--.*?-->/gs;

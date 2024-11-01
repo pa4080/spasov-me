@@ -1,0 +1,50 @@
+.cardWrapper {
+  @apply scroll-mt-24 3xl:scroll-mt-8 relative;
+
+  .buttons {
+    @apply flex gap-2 absolute right-0 bottom-0 p-4 rounded-2xl;
+  }
+
+  .card {
+    @apply bg-card/[50%] md:bg-card/[25%] dark:bg-card/[25%] rounded-2xl h-full p-4 min-h-fit flex items-start flex-col gap-1 justify-start border-4 border-transparent;
+
+    transition:
+      background-color 0.5s,
+      box-shadow 0.5s,
+      opacity 0.5s,
+      box-shadow 0.5s,
+      border-color 0.5s;
+
+    &:hover {
+      @apply bg-popover/[80%] border-muted/60;
+
+      box-shadow: 0 4px 24px theme("colors.muted.secondary/80%");
+      transition:
+        background-color 0.5s,
+        box-shadow 0.5s,
+        opacity 0.5s,
+        box-shadow 0.5s border-color 0.5s;
+
+      :global(.dark) & {
+        @apply border-primary/60;
+      }
+    }
+
+    .cardRow {
+      @apply flex justify-start items-start;
+
+      .leftCol {
+        @apply text-foreground-secondary w-28 flex-shrink-0;
+      }
+
+      .rightCol {
+        @apply text-foreground line-clamp-1;
+      }
+    }
+  }
+
+  /* stylelint-disable no-descending-specificity */
+  &:target .card {
+    @apply border-primary/80;
+  }
+}

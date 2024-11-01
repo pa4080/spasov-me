@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * NOTE: This API is deprecated!!!
  * 			 It doesn't posse all features
@@ -31,7 +36,7 @@
  */
 
 import { getServerSession } from "next-auth";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 import { authOptions } from "@/lib/auth-options";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
@@ -44,391 +49,404 @@ import User from "@/models/user";
 import { errorMessages } from "../../common";
 
 interface Context {
-	params: { query: string[] };
+  params: Promise<{ query: string[] }>;
 }
 
 function _id(id: string) {
-	return id ? { _id: id } : {};
+  return id ? { _id: id } : {};
 }
 
-export async function GET(request: NextRequest, { params }: Context) {
-	try {
-		const session = await getServerSession(authOptions);
+export async function GET(request: NextRequest, props: Context) {
+  const params = await props.params;
 
-		if (!params.query) {
-			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
-		}
+  try {
+    const session = await getServerSession(authOptions);
 
-		const [type, id] = params.query;
+    if (!params.query) {
+      return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
+    }
 
-		await connectToMongoDb();
+    const [type, id] = params.query;
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let response: Omit<any, never>[] = [];
+    await connectToMongoDb();
 
-		switch (type) {
-			case "pages": {
-				if (session) {
-					response = await PageCard.find(_id(id)).populate(["creator", "attachment"]);
-				} else {
-					response = await PageCard.find(_id(id)).populate(["attachment"]);
-				}
+    let response: Omit<any, never>[] = [];
 
-				break;
-			}
+    switch (type) {
+      case "pages": {
+        if (session) {
+          response = (await PageCard.find(_id(id)).populate(["creator", "attachment"])) as Omit<
+            any,
+            never
+          >[];
+        } else {
+          response = await PageCard.find(_id(id)).populate(["attachment"]);
+        }
 
-			case "about": {
-				if (session) {
-					response = await AboutEntry.find(_id(id)).populate(["creator", "attachment"]);
-				} else {
-					response = await AboutEntry.find(_id(id)).populate(["attachment"]);
-				}
+        break;
+      }
 
-				break;
-			}
+      case "about": {
+        if (session) {
+          response = (await AboutEntry.find(_id(id)).populate(["creator", "attachment"])) as Omit<
+            any,
+            never
+          >[];
+        } else {
+          response = (await AboutEntry.find(_id(id)).populate(["attachment"])) as Omit<
+            any,
+            never
+          >[];
+        }
 
-			case "tags": {
-				if (session) {
-					response = await Tag.find(_id(id)).populate(["creator"]);
-				} else {
-					response = await Tag.find(_id(id));
-				}
+        break;
+      }
 
-				break;
-			}
+      case "tags": {
+        if (session) {
+          response = await Tag.find(_id(id)).populate(["creator"]);
+        } else {
+          response = await Tag.find(_id(id));
+        }
 
-			case "users": {
-				if (session) {
-					response = await User.find(_id(id));
-				} else {
-					return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
-				}
+        break;
+      }
 
-				break;
-			}
-		}
+      case "users": {
+        if (session) {
+          response = await User.find(_id(id));
+        } else {
+          return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+        }
 
-		return NextResponse.json(
-			{
-				message: { type, length: response.length, method: request.method },
-				data: response,
-			},
-			{ status: 200 }
-		);
-	} catch (error) {
-		return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
-	}
+        break;
+      }
+    }
+
+    return NextResponse.json(
+      {
+        message: { type, length: response.length, method: request.method },
+        data: response,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
+  }
 }
 
-export async function POST(request: NextRequest, { params }: Context) {
-	try {
-		const session = await getServerSession(authOptions);
+export async function POST(request: NextRequest, props: Context) {
+  const params = await props.params;
 
-		if (!session) {
-			return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
-		}
+  try {
+    const session = await getServerSession(authOptions);
 
-		if (!params.query) {
-			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
-		}
+    if (!session) {
+      return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+    }
 
-		const [type] = params.query;
+    if (!params.query) {
+      return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
+    }
 
-		if (!type) {
-			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
-		}
+    const [type] = params.query;
 
-		const request_object = await request.json();
+    if (!type) {
+      return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
+    }
 
-		deleteFalsyKeys(request_object);
+    const request_object = await request.json();
 
-		await connectToMongoDb();
+    deleteFalsyKeys(request_object);
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let response: Omit<any, never>[] = [];
-		let dbDocument;
+    await connectToMongoDb();
 
-		/**
-		 * Here is how to test, does the schema include certain field
-		 * > console.log( dbDocument.schema.obj );
-		 * > console.log( !!dbDocument.schema.obj.image );
-		 */
+    let response: Omit<any, never>[] = [];
+    let dbDocument;
 
-		switch (type) {
-			case "pages": {
-				dbDocument = new PageCard(request_object);
+    /**
+     * Here is how to test, does the schema include certain field
+     * > console.log( dbDocument.schema.obj );
+     * > console.log( !!dbDocument.schema.obj.image );
+     */
 
-				await dbDocument.save();
+    switch (type) {
+      case "pages": {
+        dbDocument = new PageCard(request_object);
 
-				if (session) {
-					response = await dbDocument.populate(["creator", "attachment"]);
-				} else {
-					response = await dbDocument.populate(["attachment"]);
-				}
+        await dbDocument.save();
 
-				break;
-			}
+        if (session) {
+          response = await dbDocument.populate(["creator", "attachment"]);
+        } else {
+          response = await dbDocument.populate(["attachment"]);
+        }
 
-			case "about": {
-				dbDocument = new AboutEntry(request_object);
+        break;
+      }
 
-				await dbDocument.save();
+      case "about": {
+        dbDocument = new AboutEntry(request_object);
 
-				if (session) {
-					response = await dbDocument.populate(["creator", "attachment"]);
-				} else {
-					response = await dbDocument.populate(["attachment"]);
-				}
+        await dbDocument.save();
 
-				break;
-			}
+        if (session) {
+          response = await dbDocument.populate(["creator", "attachment"]);
+        } else {
+          response = await dbDocument.populate(["attachment"]);
+        }
 
-			case "tags": {
-				dbDocument = new Tag(request_object);
+        break;
+      }
 
-				await dbDocument.save();
+      case "tags": {
+        dbDocument = new Tag(request_object);
 
-				if (session) {
-					response = await dbDocument.populate(["creator"]);
-				} else {
-					response = await dbDocument.populate();
-				}
+        await dbDocument.save();
 
-				break;
-			}
+        if (session) {
+          response = await dbDocument.populate(["creator"]);
+        } else {
+          response = await dbDocument.populate();
+        }
 
-			case "users": {
-				dbDocument = new User(request_object);
+        break;
+      }
 
-				await dbDocument.save();
+      case "users": {
+        dbDocument = new User(request_object);
 
-				if (session) {
-					response = await dbDocument.populate(["creator"]);
-				} else {
-					return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
-				}
+        await dbDocument.save();
 
-				break;
-			}
+        if (session) {
+          response = await dbDocument.populate(["creator"]);
+        } else {
+          return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+        }
 
-			default: {
-				return NextResponse.json({ error: errorMessages.e501 }, { status: 501 });
-			}
-		}
+        break;
+      }
 
-		return NextResponse.json(
-			{
-				message: { type, created: true, method: request.method },
-				data: response,
-			},
-			{ status: 201 }
-		);
-	} catch (error) {
-		return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
-	}
+      default: {
+        return NextResponse.json({ error: errorMessages.e501 }, { status: 501 });
+      }
+    }
+
+    return NextResponse.json(
+      {
+        message: { type, created: true, method: request.method },
+        data: response,
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
+  }
 }
 
-export async function PUT(request: NextRequest, { params }: Context) {
-	try {
-		const session = await getServerSession(authOptions);
+export async function PUT(request: NextRequest, props: Context) {
+  const params = await props.params;
 
-		if (!session) {
-			return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
-		}
+  try {
+    const session = await getServerSession(authOptions);
 
-		if (!params.query) {
-			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
-		}
+    if (!session) {
+      return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+    }
 
-		const [type, id] = params.query;
+    if (!params.query) {
+      return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
+    }
 
-		if (!type || !id) {
-			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
-		}
+    const [type, id] = params.query;
 
-		const request_object = await request.json();
+    if (!type || !id) {
+      return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
+    }
 
-		deleteFalsyKeys(request_object);
+    const request_object = await request.json();
 
-		await connectToMongoDb();
+    deleteFalsyKeys(request_object);
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let response: Omit<any, never>[] = [];
-		let dbDocument;
+    await connectToMongoDb();
 
-		switch (type) {
-			case "pages": {
-				dbDocument = PageCard;
+    let response: Omit<any, never>[] = [];
+    let dbDocument;
 
-				break;
-			}
+    switch (type) {
+      case "pages": {
+        dbDocument = PageCard;
 
-			case "about": {
-				dbDocument = AboutEntry;
+        break;
+      }
 
-				break;
-			}
+      case "about": {
+        dbDocument = AboutEntry;
 
-			case "tags": {
-				dbDocument = Tag;
+        break;
+      }
 
-				break;
-			}
+      case "tags": {
+        dbDocument = Tag;
 
-			case "users": {
-				dbDocument = User;
+        break;
+      }
 
-				break;
-			}
+      case "users": {
+        dbDocument = User;
 
-			default:
-				return NextResponse.json({ error: errorMessages.e501 }, { status: 501 });
-		}
+        break;
+      }
 
-		const updatedDocument = await dbDocument.findOneAndUpdate(_id(id), request_object, {
-			new: true,
-			strict: true,
-		});
+      default:
+        return NextResponse.json({ error: errorMessages.e501 }, { status: 501 });
+    }
 
-		if (!updatedDocument) {
-			return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
-		}
+    const updatedDocument = await dbDocument.findOneAndUpdate(_id(id), request_object, {
+      new: true,
+      strict: true,
+    });
 
-		if (!request_object.image && updatedDocument.image) {
-			updatedDocument.image = undefined;
-		}
+    if (!updatedDocument) {
+      return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
+    }
 
-		if (!request_object.attachment && updatedDocument.attachment) {
-			updatedDocument.attachment = undefined;
-		}
+    if (!request_object.image && updatedDocument.image) {
+      updatedDocument.image = undefined;
+    }
 
-		updatedDocument.save();
+    if (!request_object.attachment && updatedDocument.attachment) {
+      updatedDocument.attachment = undefined;
+    }
 
-		switch (type) {
-			case "pages": {
-				if (session) {
-					response = await updatedDocument.populate(["creator", "attachment"]);
-				} else {
-					response = await updatedDocument.populate(["attachment"]);
-				}
+    updatedDocument.save();
 
-				break;
-			}
+    switch (type) {
+      case "pages": {
+        if (session) {
+          response = await updatedDocument.populate(["creator", "attachment"]);
+        } else {
+          response = await updatedDocument.populate(["attachment"]);
+        }
 
-			case "about": {
-				if (session) {
-					response = await updatedDocument.populate(["creator", "attachment"]);
-				} else {
-					response = await updatedDocument.populate(["attachment"]);
-				}
+        break;
+      }
 
-				break;
-			}
+      case "about": {
+        if (session) {
+          response = await updatedDocument.populate(["creator", "attachment"]);
+        } else {
+          response = await updatedDocument.populate(["attachment"]);
+        }
 
-			case "tags": {
-				if (session) {
-					response = await updatedDocument.populate(["creator"]);
-				} else {
-					response = await updatedDocument.populate();
-				}
+        break;
+      }
 
-				break;
-			}
+      case "tags": {
+        if (session) {
+          response = await updatedDocument.populate(["creator"]);
+        } else {
+          response = await updatedDocument.populate();
+        }
 
-			case "users": {
-				if (session) {
-					response = await updatedDocument.populate(["creator"]);
-				} else {
-					return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
-				}
+        break;
+      }
 
-				break;
-			}
+      case "users": {
+        if (session) {
+          response = await updatedDocument.populate(["creator"]);
+        } else {
+          return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+        }
 
-			default:
-				return NextResponse.json({ error: errorMessages.e501 }, { status: 501 });
-		}
+        break;
+      }
 
-		return NextResponse.json(
-			{
-				message: { type, updated: true, method: request.method },
-				data: response,
-			},
-			{ status: 200 }
-		);
-	} catch (error) {
-		return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
-	}
+      default:
+        return NextResponse.json({ error: errorMessages.e501 }, { status: 501 });
+    }
+
+    return NextResponse.json(
+      {
+        message: { type, updated: true, method: request.method },
+        data: response,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
+  }
 }
 
 // The same as PUT() at the moment...
-export async function PATCH(request: NextRequest, { params }: Context) {
-	return PUT(request, { params });
+export async function PATCH(request: NextRequest, props: Context) {
+  return PUT(request, { params: props.params });
 }
 
-export async function DELETE(request: NextRequest, { params }: Context) {
-	try {
-		const session = await getServerSession(authOptions);
+export async function DELETE(request: NextRequest, props: Context) {
+  const params = await props.params;
 
-		if (!session) {
-			return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
-		}
+  try {
+    const session = await getServerSession(authOptions);
 
-		if (!params.query || params.query.length !== 2) {
-			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
-		}
+    if (!session) {
+      return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
+    }
 
-		const [type, id] = params.query;
+    if (!params.query || params.query.length !== 2) {
+      return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
+    }
 
-		if (!type || !id) {
-			return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
-		}
+    const [type, id] = params.query;
 
-		await connectToMongoDb();
+    if (!type || !id) {
+      return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
+    }
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let dbDocModel: any;
+    await connectToMongoDb();
 
-		switch (type) {
-			case "pages": {
-				dbDocModel = PageCard;
-				break;
-			}
+    let dbDocModel: any;
 
-			case "tags": {
-				dbDocModel = Tag;
-				break;
-			}
+    switch (type) {
+      case "pages": {
+        dbDocModel = PageCard;
+        break;
+      }
 
-			case "users": {
-				dbDocModel = User;
-				break;
-			}
+      case "tags": {
+        dbDocModel = Tag;
+        break;
+      }
 
-			case "about": {
-				dbDocModel = AboutEntry;
-				break;
-			}
+      case "users": {
+        dbDocModel = User;
+        break;
+      }
 
-			default: {
-				return NextResponse.json({ error: errorMessages.e501 }, { status: 501 });
-			}
-		}
+      case "about": {
+        dbDocModel = AboutEntry;
+        break;
+      }
 
-		const deletedDocument = await dbDocModel.findOneAndDelete(_id(id));
+      default: {
+        return NextResponse.json({ error: errorMessages.e501 }, { status: 501 });
+      }
+    }
 
-		if (!deletedDocument) {
-			return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
-		}
+    const deletedDocument = await dbDocModel.findOneAndDelete(_id(id));
 
-		return NextResponse.json(
-			{
-				message: { type, delete: true, method: request.method },
-				data: deletedDocument,
-			},
-			{ status: 200 }
-		);
-	} catch (error) {
-		return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
-	}
+    if (!deletedDocument) {
+      return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });
+    }
+
+    return NextResponse.json(
+      {
+        message: { type, delete: true, method: request.method },
+        data: deletedDocument,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json({ error, message: errorMessages.e500a }, { status: 500 });
+  }
 }

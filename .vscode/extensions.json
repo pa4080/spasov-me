@@ -1,10 +1,10 @@
 {
-	"recommendations": [
-		"jasonnutter.search-node-modules",
-		"mrmlnc.vscode-scss",
-		"esbenp.prettier-vscode",
-		"kisstkondoros.vscode-codemetrics",
-		"editorconfig.editorconfig",
-		"planbcoding.vscode-react-refactor"
-	]
+  "recommendations": [
+    "jasonnutter.search-node-modules",
+    // "mrmlnc.vscode-scss",
+    "esbenp.prettier-vscode",
+    "kisstkondoros.vscode-codemetrics",
+    "editorconfig.editorconfig",
+    "planbcoding.vscode-react-refactor"
+  ]
 }

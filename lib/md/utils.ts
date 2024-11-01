@@ -1,14 +1,14 @@
 export interface SampleLink {
-	type: "link";
-	title: string;
-	url: string;
-	children: [{ type: "text"; value: string }];
+  type: "link";
+  title: string;
+  url: string;
+  children: [{ type: "text"; value: string }];
 }
 
 export type Item = { type: "text" | "html"; value: string } | SampleLink;
 
 export interface NodeCaption {
-	items: Item[];
+  items: Item[];
 }
 
 /**
@@ -44,23 +44,23 @@ export interface NodeCaption {
 */
 
 export function processCaption({ items: children }: NodeCaption) {
-	return children
-		.reduce((acc: string, item: { type: "text" | "html"; value: string } | SampleLink) => {
-			if (item.type === "link") {
-				const link = item as SampleLink;
-				let html: string = "";
+  return children
+    .reduce((acc: string, item: { type: "text" | "html"; value: string } | SampleLink) => {
+      if (item.type === "link") {
+        const link = item;
+        let html = "";
 
-				if (link.title) {
-					html = `<a href="${link.url}">${link.title} ${link.children[0].value}</a>`;
-				} else {
-					html = `<a href="${link.url}">${link.children[0].value}</a>`;
-				}
+        if (link.title) {
+          html = `<a href="${link.url}">${link.title} ${link.children[0].value}</a>`;
+        } else {
+          html = `<a href="${link.url}">${link.children[0].value}</a>`;
+        }
 
-				return acc + html;
-			}
+        return acc + html;
+      }
 
-			return acc + item.value;
-		}, "")
-		.replace(/\s+/g, " ")
-		.trim();
+      return acc + item.value;
+    }, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }

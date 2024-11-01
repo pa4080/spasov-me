@@ -10,28 +10,28 @@ import generateFileMapRecursive from "./local-files-map";
 import { downloadObjectList } from "./obj-download-to-fs";
 
 (async () => {
-	// Generate file map (list of the files to be uploaded)
-	const iconMap = generateFileMapRecursive({
-		dir: "./public/assets/icons",
-		date: new Date(),
-		creatorId: "spas-z-spasov",
-		locale: "en",
-		filename_trim_prefix: "icons",
-	});
+  // Generate file map (list of the files to be uploaded)
+  const iconMap = generateFileMapRecursive({
+    dir: "./public/assets/icons",
+    date: new Date(),
+    creatorId: "spas-z-spasov",
+    locale: "en",
+    filename_trim_prefix: "icons",
+  });
 
-	// eslint-disable-next-line no-console
-	console.log(iconMap);
+  // eslint-disable-next-line no-console
+  console.log(iconMap);
 
-	// Download the files (note the batches must be small enough)
-	const fileMapDownloaded = await downloadObjectList({
-		fileList: iconMap,
-		prefix: r2BucketIconsPath,
-		bucket: r2BucketName,
-		config: r2cfConfig,
-		downloadDirFs: "public/tmp",
-		batchSize: 5,
-	});
+  // Download the files (note the batches must be small enough)
+  const fileMapDownloaded = await downloadObjectList({
+    fileList: iconMap,
+    prefix: r2BucketIconsPath,
+    bucket: r2BucketName,
+    config: r2cfConfig,
+    downloadDirFs: "public/tmp",
+    batchSize: 5,
+  });
 
-	// eslint-disable-next-line no-console
-	console.log(fileMapDownloaded);
+  // eslint-disable-next-line no-console
+  console.log(fileMapDownloaded);
 })();

@@ -6,7 +6,7 @@
  * 				- "scrollTo()" function which can be used to scroll to a given top offset.
  * 				- "vh" property which is read only and returns the actual Viewport Height.
  *
- * @see 	@/app/(styles)/globals.variables.module.scss @vh($q)
+ * @see 	@/app/_styles/globals.variables.module.scss @vh($q)
  * 				@/app/globals.scss									vh(100)
  *  			@/components/sidebar/Sidebar.tsx
  * 			 	@/components/sidebar/ScrollToTop.tsx
@@ -37,15 +37,15 @@
 import { useEffect, useState } from "react";
 
 declare global {
-	interface Window {
-		vhUnits: string | undefined;
-	}
+  interface Window {
+    vhUnits: string | undefined;
+  }
 }
 
 interface ReturnObj {
-	show: boolean;
-	scrollTo: (offset?: number, timeout?: number) => void;
-	readonly vh: string | undefined;
+  show: boolean;
+  scrollTo: (offset?: number, timeout?: number) => void;
+  readonly vh: string | undefined;
 }
 
 /**
@@ -58,51 +58,53 @@ interface ReturnObj {
  * }
  */
 export function useActualVh(): ReturnObj {
-	const [show, setShow] = useState(false);
-	const [vh, setVh] = useState<string>();
+  const [show, setShow] = useState(false);
+  const [vh, setVh] = useState<string>();
 
-	useEffect(() => {
-		const setWindowActualVhUnits = () => {
-			// const existingVh = document.documentElement.style.getPropertyValue("--vh");
-			const newVh = `${window.innerHeight / 100}px`;
+  useEffect(() => {
+    const setWindowActualVhUnits = () => {
+      // const existingVh = document.documentElement.style.getPropertyValue("--vh");
+      const newVh = `${window.innerHeight / 100}px`;
 
-			if (window.vhUnits !== newVh) {
-				window.vhUnits = newVh;
-				document.documentElement.style.setProperty("--vh", newVh);
-				setVh(newVh);
-			}
-		};
+      if (window.vhUnits !== newVh) {
+        window.vhUnits = newVh;
+        document.documentElement.style.setProperty("--vh", newVh);
+        setVh(newVh);
+      }
+    };
 
-		setWindowActualVhUnits();
-		window.addEventListener("scroll", setWindowActualVhUnits);
-		window.addEventListener("resize", setWindowActualVhUnits);
-		window.addEventListener("orientationchange", setWindowActualVhUnits);
+    setWindowActualVhUnits();
+    window.addEventListener("scroll", setWindowActualVhUnits);
+    window.addEventListener("resize", setWindowActualVhUnits);
+    window.addEventListener("orientationchange", setWindowActualVhUnits);
 
-		const showBackToTopWindow = () => {
-			const scrollFromTop = document.body.scrollTop || document.documentElement.scrollTop;
+    const showBackToTopWindow = () => {
+      const scrollFromTop = document.body.scrollTop || document.documentElement.scrollTop;
 
-			scrollFromTop > 240 ? setShow(true) : setShow(false);
-		};
+      setShow(scrollFromTop > 240 ? true : false);
+    };
 
-		window.addEventListener("scroll", showBackToTopWindow);
+    window.addEventListener("scroll", showBackToTopWindow);
 
-		return () => {
-			window.removeEventListener("scroll", setWindowActualVhUnits);
-			window.removeEventListener("resize", setWindowActualVhUnits);
-			window.removeEventListener("orientationchange", setWindowActualVhUnits);
-			window.removeEventListener("scroll", showBackToTopWindow);
-		};
-	}, []);
+    return () => {
+      window.removeEventListener("scroll", setWindowActualVhUnits);
+      window.removeEventListener("resize", setWindowActualVhUnits);
+      window.removeEventListener("orientationchange", setWindowActualVhUnits);
+      window.removeEventListener("scroll", showBackToTopWindow);
+    };
+  }, []);
 
-	const scrollTo = (offset = 0, timeout = 0) => {
-		setTimeout(() => {
-			window && window.scrollTo({ top: offset, left: 0, behavior: "smooth" });
-		}, timeout);
-	};
+  const scrollTo = (offset = 0, timeout = 0) => {
+    setTimeout(() => {
+      if (window) {
+        window.scrollTo({ top: offset, left: 0, behavior: "smooth" });
+      }
+    }, timeout);
+  };
 
-	return {
-		show,
-		scrollTo,
-		vh,
-	};
+  return {
+    show,
+    scrollTo,
+    vh,
+  };
 }

@@ -1,15 +1,15 @@
 import React from "react";
 
 import SectionHeader from "@/components/fragments/SectionHeader";
-import { AboutEntryData } from "@/interfaces/AboutEntry";
-import { AboutEntryType } from "@/interfaces/_common-data-types";
+import { type AboutEntryData } from "@/interfaces/AboutEntry";
+import { type AboutEntryType } from "@/interfaces/_common-data-types";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
 interface Props {
-	className?: string;
-	type: AboutEntryType;
-	entries: AboutEntryData[] | null;
+  className?: string;
+  type: AboutEntryType;
+  entries: AboutEntryData[] | null;
 }
 
 /**
@@ -19,25 +19,25 @@ interface Props {
  * @param starWeight the weight of one full star
  * @returns (<i-full-star/>|<i-half-star/>|<i-no-star/>)[]
  */
-function stars(points: number, maxStars: number = 5, starWeight: number = 10) {
-	const stars = [];
-	const fullStars = Math.floor(points / starWeight);
-	const halfStars = points % starWeight > 0 ? 1 : 0;
-	const emptyStars = maxStars - fullStars - halfStars;
+function stars(points: number, maxStars = 5, starWeight = 10) {
+  const stars = [];
+  const fullStars = Math.floor(points / starWeight);
+  const halfStars = points % starWeight > 0 ? 1 : 0;
+  const emptyStars = maxStars - fullStars - halfStars;
 
-	for (let i = 0; i < fullStars; i++) {
-		stars.push(<i key={`full-star-${i}`} className="icon i-full-star i-default-bg" />);
-	}
+  for (let i = 0; i < fullStars; i++) {
+    stars.push(<i key={`full-star-${i}`} className="icon i-full-star i-default-bg" />);
+  }
 
-	for (let i = fullStars; i < fullStars + halfStars; i++) {
-		stars.push(<i key={`half-star-${i}`} className="icon i-half-star i-default-bg" />);
-	}
+  for (let i = fullStars; i < fullStars + halfStars; i++) {
+    stars.push(<i key={`half-star-${i}`} className="icon i-half-star i-default-bg" />);
+  }
 
-	for (let i = fullStars + halfStars; i < fullStars + halfStars + emptyStars; i++) {
-		stars.push(<i key={`no-star-${i}`} className="icon i-no-star i-default-bg" />);
-	}
+  for (let i = fullStars + halfStars; i < fullStars + halfStars + emptyStars; i++) {
+    stars.push(<i key={`no-star-${i}`} className="icon i-no-star i-default-bg" />);
+  }
 
-	return stars;
+  return stars;
 }
 
 /**
@@ -49,38 +49,38 @@ function stars(points: number, maxStars: number = 5, starWeight: number = 10) {
  * In the format of: `title_${type}`, i.e. "title_employment"
  */
 const SpokenLanguages: React.FC<Props> = ({ className, type, entries }) => {
-	const t = msgs("AboutEntries");
+  const t = msgs("AboutEntries");
 
-	type tType = Parameters<typeof t>[0];
+  type tType = Parameters<typeof t>[0];
 
-	const section_title = t(`title_${type}` as tType);
-	const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_${type}`);
+  const section_title = t(`title_${type}` as tType);
+  const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_${type}`);
 
-	return (
-		<div className={className} id={toggle_target_id}>
-			<SectionHeader className="pop-header" title={section_title} />
+  return (
+    <div className={className} id={toggle_target_id}>
+      <SectionHeader className="pop-header" title={section_title} />
 
-			<div className="space-y-4">
-				{entries
-					?.filter(({ entryType }) => entryType === type)
-					.sort((a, b) => a.title.localeCompare(b.title))
-					.map((entry, index) => {
-						const [title, points, level] = entry.description.split(":");
+      <div className="space-y-4">
+        {entries
+          ?.filter(({ entryType }) => entryType === type)
+          .sort((a, b) => a.title.localeCompare(b.title))
+          .map((entry, index) => {
+            const [title, points, level] = entry.description.split(":");
 
-						return (
-							<div
-								key={index}
-								className="flex flex-wrap gap-2 3xs:gap-4 xa:gap-6 justify-start items-center pop-item"
-							>
-								<div className="4xs:w-24">{title}</div>
-								<div className="text-sm 5xs:text-base">{stars(Number(points))}</div>
-								<div className="text-foreground-secondary">{level}</div>
-							</div>
-						);
-					})}
-			</div>
-		</div>
-	);
+            return (
+              <div
+                key={index}
+                className="flex flex-wrap gap-2 3xs:gap-4 xa:gap-6 justify-start items-center pop-item"
+              >
+                <div className="4xs:w-24">{title}</div>
+                <div className="text-sm 5xs:text-base">{stars(Number(points))}</div>
+                <div className="text-foreground-secondary">{level}</div>
+              </div>
+            );
+          })}
+      </div>
+    </div>
+  );
 };
 
 export default SpokenLanguages;
