@@ -478,6 +478,11 @@ body textarea.w-md-editor-text-input:focus {
   }
 }
 
+.card-border-wrapper.expand-collapsed-current .md-processed-to-html .card-item-single,
+.card-border-wrapper.expand-collapsed-current .md-processed-to-html .card-item-single p {
+  @apply mb-0;
+}
+
 /** Remove the backticks (`) from inline code blocks */
 .prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before,
 .prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after {

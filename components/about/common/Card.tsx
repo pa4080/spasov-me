@@ -70,7 +70,14 @@ const AboutEntryCard: React.FC<Props> = ({
   // 	? [...gallery, entry.html.attachment?.metadata.html]
   // 	: gallery;
 
+  // If it is admin (displayGalleryInline === true) then we want to display all tags
+  const entryTags = displayGalleryInline
+    ? entry.tags
+    : entry.tags?.filter((tag) => tag.name !== "education" && tag.name !== "resume");
+
   const haveGallery = gallery && gallery.length > 0;
+  const haveTags = entryTags && entryTags.length > 0;
+  const isCardItemSingle = !(descriptionArr[1] || haveTags);
 
   return (
     <div className={`card-border-wrapper ${className}`} id={toggle_target_id}>
@@ -121,7 +128,7 @@ const AboutEntryCard: React.FC<Props> = ({
                 className="icon_accent_primary"
                 target_id={toggle_target_id}
                 text={[tCommon("btnMore"), tCommon("btnLess")]}
-                type={descriptionArr[1] ? "card" : "card"}
+                type={isCardItemSingle ? "card-item-single" : "card"}
               />
             </div>
           </div>
@@ -144,10 +151,10 @@ const AboutEntryCard: React.FC<Props> = ({
             ))}
           </div>
 
-          {displayTagsInline && (
+          {displayTagsInline && haveTags && (
             <div className="card-item-collapsible">
               <div className="about-entry-tags">
-                {entry.tags
+                {entryTags
                   ?.sort((a, b) =>
                     a.orderKey ? a.orderKey.localeCompare(b.orderKey) : a.name.localeCompare(b.name)
                   )
