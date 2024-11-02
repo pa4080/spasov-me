@@ -4,6 +4,8 @@ import FilesAdmin_CloudFlare from "@/components/files-cloudflare/admin";
 
 const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
 
+export const dynamic = "force-dynamic";
+
 const Files: React.FC = () => {
   return (
     <FilesAdmin_CloudFlare
