@@ -915,3 +915,24 @@ body textarea.w-md-editor-text-input:focus {
     --angle: 360deg;
   }
 }
+
+/**
+ * Cards - i.e. on the admin/tags page
+ */
+.card-shadow {
+  transition:
+    background-color 0.5s,
+    box-shadow 0.5s,
+    opacity 0.5s,
+    box-shadow 0.5s,
+    border-color 0.5s;
+}
+
+.card-shadow:hover {
+  box-shadow: 0 4px 24px theme("colors.muted.secondary/80%");
+  transition:
+    background-color 0.5s,
+    box-shadow 0.5s,
+    opacity 0.5s,
+    box-shadow 0.5s border-color 0.5s;
+}
