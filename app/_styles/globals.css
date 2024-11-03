@@ -50,7 +50,7 @@
     --scrollbar-track: 0 0% 93%;
     --scrollbar-thumb: 0 0% 65%;
     --scrollbar-width: 0.485rem;
-    --scrollbar-height: 6rem;
+    --scrollbar-height: 0.485rem;
     --scrollbar-thumb-radius: 0.5rem;
 
     --avh: var(--vh, 1vh);
