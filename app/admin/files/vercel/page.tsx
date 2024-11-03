@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { Route } from "@/routes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Route } from "@/routes";
 
 import type { PutBlobResult } from "@vercel/blob";
+
+export const dynamic = "force-dynamic";
 
 export default function UploadPage() {
   const inputFileRef = useRef<HTMLInputElement>(null);

@@ -3,17 +3,17 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
 
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/cn-utils";
-import { msgs } from "@/messages";
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import SectionHeader from "@/components/fragments/SectionHeader";
+import TooltipWrapper from "@/components/fragments/TooltipWrapper";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type TagData } from "@/interfaces/Tag";
 import { postTuple, projectTuple } from "@/interfaces/_common-data-types";
-import { Switch } from "@/components/ui/switch";
-import TooltipWrapper from "@/components/fragments/TooltipWrapper";
+import { cn } from "@/lib/cn-utils";
+import { msgs } from "@/messages";
 
 import CheckList_AtLeastOne, { type CheckListItem } from "../../fragments/CheckList_AtLeastOne";
 import TagFilter from "./TagsFilter";
@@ -258,20 +258,22 @@ const SearchPublic: React.FC<Props> = ({ className, tags, dataList, iconsMap }) 
       {isPending ? (
         <SectionHeader className="h-12" title={t("loading")} />
       ) : (
-        showResults &&
-        [...postTuple, ...projectTuple, "employment", "education", "resume", "lab"].map(
-          (entryType) => {
-            return (
-              <TimeLine
-                key={entryType}
-                displayTags={true}
-                entries={searchResults}
-                iconsMap={iconsMap}
-                type={entryType as UnitedEntryType["entryType"]}
-              />
-            );
-          }
-        )
+        <div className="pb-20 space-y-20">
+          {showResults &&
+            [...postTuple, ...projectTuple, "employment", "education", "resume", "lab"].map(
+              (entryType) => {
+                return (
+                  <TimeLine
+                    key={entryType}
+                    displayTags={true}
+                    entries={searchResults}
+                    iconsMap={iconsMap}
+                    type={entryType as UnitedEntryType["entryType"]}
+                  />
+                );
+              }
+            )}
+        </div>
       )}
     </div>
   );

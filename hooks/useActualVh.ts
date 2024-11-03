@@ -13,10 +13,6 @@
  *
  * @ref		https://chanind.github.io/javascript/2019/09/28/avoid-100vh-on-mobile-web.html#comment-4634921967
  *
- * @usage In a react component
- *    import { useBreakpoint } from "@/hooks/useBreakpoint";
- *    const show: boolean = useBreakpoint();
- *
  * @sass setup and usage
  *
  * 		@function vh($quantity) {
@@ -26,7 +22,6 @@
  *		selector { height: vh(100); }
  *
  * @css usage
- *
  * 		selector { height: calc(var(--vh, 1vh) * 100); }
  *
  * @see_also	The "vh" alternatives: "dvh", "svh", "lvh".
@@ -43,8 +38,6 @@ declare global {
 }
 
 interface ReturnObj {
-  show: boolean;
-  scrollTo: (offset?: number, timeout?: number) => void;
   readonly vh: string | undefined;
 }
 
@@ -52,13 +45,10 @@ interface ReturnObj {
  *
  * @param elementId // ID of the element which triggers show={false/true}
  * @returns {
- * 	show: boolean
- * 	scrollTo: (offset?: number, timeout?: number) => void
  * 	readonly vh: string
  * }
  */
 export function useActualVh(): ReturnObj {
-  const [show, setShow] = useState(false);
   const [vh, setVh] = useState<string>();
 
   useEffect(() => {
@@ -78,33 +68,14 @@ export function useActualVh(): ReturnObj {
     window.addEventListener("resize", setWindowActualVhUnits);
     window.addEventListener("orientationchange", setWindowActualVhUnits);
 
-    const showBackToTopWindow = () => {
-      const scrollFromTop = document.body.scrollTop || document.documentElement.scrollTop;
-
-      setShow(scrollFromTop > 240 ? true : false);
-    };
-
-    window.addEventListener("scroll", showBackToTopWindow);
-
     return () => {
       window.removeEventListener("scroll", setWindowActualVhUnits);
       window.removeEventListener("resize", setWindowActualVhUnits);
       window.removeEventListener("orientationchange", setWindowActualVhUnits);
-      window.removeEventListener("scroll", showBackToTopWindow);
     };
   }, []);
 
-  const scrollTo = (offset = 0, timeout = 0) => {
-    setTimeout(() => {
-      if (window) {
-        window.scrollTo({ top: offset, left: 0, behavior: "smooth" });
-      }
-    }, timeout);
-  };
-
   return {
-    show,
-    scrollTo,
     vh,
   };
 }

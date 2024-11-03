@@ -62,8 +62,11 @@ export default {
           tertiary: "hsl(var(--foreground-tertiary))",
           quaternary: "hsl(var(--foreground-quaternary))",
         },
-        scrollbar: {
-          DEFAULT: "hsl(var(--scrollbar))",
+        scrollbarTrack: {
+          DEFAULT: "hsl(var(--scrollbar-track))",
+        },
+        scrollbarThumb: {
+          DEFAULT: "hsl(var(--scrollbar-thumb))",
         },
 
         primary: {
@@ -102,6 +105,7 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        scrollbarThumb: "var(--scrollbar-thumb-radius)",
       },
       scale: {
         "0": "0",
@@ -182,6 +186,8 @@ export default {
         contentShortPage: "var(--content-short-page-height)",
         projectImageMaxWidth: "var(--project-image-max-width)",
         galleryImageMaxWidth: "var(--gallery-image-max-width)",
+        scrollbarWidth: "var(--scrollbar-width)",
+        scrollbarHeight: "var(--scrollbar-height)",
       },
       height: {
         navbar: "var(--navbar-height)",

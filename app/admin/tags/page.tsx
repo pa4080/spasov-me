@@ -2,7 +2,7 @@ import React from "react";
 
 import TagsAdmin from "@/components/tags/admin";
 
-//nextjs.org/docs/messages/app-static-to-dynamic-error
+// nextjs.org/docs/messages/app-static-to-dynamic-error
 // export const dynamic = 'force-static';
 export const dynamic = "force-dynamic";
 
