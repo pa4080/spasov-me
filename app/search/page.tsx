@@ -43,7 +43,7 @@ const Portfolio: React.FC = async () => {
   }));
 
   return (
-    <div className="margin_vh_top scroll-mt-40 max-3xl:min-h-contentShortPage mb-20">
+    <div className="margin_vh_top scroll-mt-40 max-3xl:min-h-contentShortPage">
       <h1 className="section_title">{t("title")}</h1>
       <SearchPublic {...data} />
     </div>
