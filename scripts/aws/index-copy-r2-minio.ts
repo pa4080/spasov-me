@@ -23,7 +23,7 @@ import { uploadObjectList } from "./obj-upload-from-fs";
     fileList: fileList,
     bucket: r2BucketName,
     config: r2cfConfig,
-    downloadDirFs: "public/tmp",
+    downloadDirFs: "tmp/r2-download",
     batchSize: 5,
   });
 
@@ -38,6 +38,6 @@ import { uploadObjectList } from "./obj-upload-from-fs";
     fileList: fileMapDownloaded,
     bucket: r2BucketName,
     config: minIoConfig,
-    batchSize: 10,
+    batchSize: 5,
   });
 })();

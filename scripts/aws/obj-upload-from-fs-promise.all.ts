@@ -34,32 +34,21 @@ export const uploadObject = async ({
     const metadataRecord: Record<string, string> = {};
 
     Object.entries(metadata).forEach(([key, value]) => {
-      // metadataRecord[key] = JSON.stringify(value);
-      metadataRecord[key] = value as string;
+      metadataRecord[key] = JSON.stringify(value);
     });
-
-    console.log(metadataRecord);
 
     const command = new PutObjectCommand({
       Body: fileContent,
       Bucket: bucket,
       Key: prefix ? `${prefix}/${objectKey}` : objectKey,
-      ContentType:
-        (JSON.parse(metadataRecord.contenttype) as string) ||
-        (JSON.parse(metadataRecord.contentType) as string) ||
-        (JSON.parse(metadataRecord.ContentType) as string) ||
-        "application/octet-stream",
-      Metadata: {
-        ...metadataRecord,
-      },
+      ContentType: metadata.contentType || "application/octet-stream",
+      Metadata: metadataRecord,
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const responseObject = await s3client.send(command);
-
-    return responseObject;
   } catch (error) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
-    console.error((error as any).$response);
+    console.error(error);
   }
 };
 
@@ -89,33 +78,26 @@ export const uploadObjectList = async ({
         `\nUploading batch ${counter++}/${fileListBatches.length} with length of ${fileListBatch.length}\n`
       );
 
-      for (const file of fileListBatch) {
-        if (!file.Key) {
-          return null;
-        }
+      await Promise.all(
+        fileListBatch.map(async (file) => {
+          if (!file.Key) {
+            return null;
+          }
 
-        console.log(`Uploading ${file.fsSourceFile} to ${bucket}`);
+          console.log(`Uploading ${file.fsSourceFile} to ${bucket}`);
 
-        await uploadObject({
-          objectKey: file.Key,
-          metadata: file?.metadata
-            ? file.metadata
-            : ((file.fileData?.Metadata && Object.keys(file.fileData.Metadata).length > 0
-                ? file.fileData?.Metadata
-                : {
-                    LastModified: file.fileData?.LastModified,
-                    ContentLength: file.fileData?.ContentLength,
-                    ETag: file.fileData?.ETag,
-                    ContentRange: file.fileData?.ContentRange,
-                    ContentType: file.fileData?.ContentType,
-                    Metadata: file.fileData?.Metadata,
-                  }) as unknown as FileMetadata),
-          fsSourceFile: file.fsSourceFile,
-          bucket,
-          prefix,
-          config,
-        });
-      }
+          await uploadObject({
+            objectKey: file.Key,
+            metadata: file?.metadata
+              ? file.metadata
+              : ((file.fileData?.Metadata ?? {}) as unknown as FileMetadata),
+            fsSourceFile: file.fsSourceFile,
+            bucket,
+            prefix,
+            config,
+          });
+        })
+      );
     }
   } catch (err) {
     console.error("Upload objects error: ", err);

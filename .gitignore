@@ -5,6 +5,7 @@ tmp*
 scripts/dbbackup/**
 scripts/object-storage-dump/**
 /analyze
+object-storage-dump/
 
 # dependencies
 /node_modules
