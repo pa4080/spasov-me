@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /**
  * Uploads a local directory to object storage (CloudflareR2 or MinIo bucket).
  *
