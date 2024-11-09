@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /**
  * Download from a object storage (CloudflareR2 or MinIo bucket)
  * on the base of a file list generated from the content of a local directory.
