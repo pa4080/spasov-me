@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@aws-sdk/client-s3':
-        specifier: 3.688.0
+        specifier: ^3.688.0
         version: 3.688.0
       '@hookform/resolvers':
         specifier: ^3.9.1
