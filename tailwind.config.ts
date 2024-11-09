@@ -23,6 +23,7 @@ export default {
         xs: "520px", // extra small
         xa: "580px", // extra small average
         sm: "640px",
+        sb: "680px",
         sa: "720px", // small average
         md: "768px",
         mp: "780px",
