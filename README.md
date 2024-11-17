@@ -146,3 +146,7 @@ This just stops working.
 ```bash
 doppler run -- pnpm exec ts-node --skip-project scripts/aws/index-copy-r2-minio.ts
 ```
+
+## Notes
+
+- Liner gradient Google: `linear-gradient(90deg,#ea473a 6%,#ffc619 38%,#4f8df5 70%,#19a261)`
