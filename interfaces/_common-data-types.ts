@@ -21,7 +21,7 @@ export const data = {
   lab_entry: {
     type_list: ["site", "service", "application", "database"],
     visibility: ["private", "public"],
-    property: ["own", "client", "shared"],
+    property: ["own", "client", "shared", "third-party"],
     host: [
       "vps",
       "vps-docker",
