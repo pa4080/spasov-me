@@ -826,7 +826,12 @@
       "description": "",
       "placeholder": "Property?"
     },
-    "lab_entry_property": { "own": "Own", "client": "Client", "shared": "Shared" },
+    "lab_entry_property": {
+      "own": "Own",
+      "client": "Client",
+      "shared": "Shared",
+      "third-party": "Third-Party"
+    },
 
     "lab_entry_host_field": {
       "label": "",
@@ -904,6 +909,7 @@
     "title_by_property_own": "Own resources",
     "title_by_property_client": "Client's resources",
     "title_by_property_shared": "Shared resources",
+    "title_by_property_third-party": "Third-party resources",
 
     "btnMore": "Read more",
     "btnLess": "Show less",
@@ -950,10 +956,12 @@
     "label_by_property_own": "Own",
     "label_by_property_client": "Client",
     "label_by_property_shared": "Shared",
+    "label_by_property_third-party": "Third-Party",
 
     "label_tooltip_by_property_own": "Own resources",
     "label_tooltip_by_property_client": "Client's resources",
     "label_tooltip_by_property_shared": "Shared resources",
+    "label_tooltip_by_property_third-party": "Third-Party resources",
 
     "btnMore": "Read more",
     "btnLess": "Show less",

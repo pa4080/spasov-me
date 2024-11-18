@@ -128,6 +128,8 @@ References:
 
 ## Full backup
 
+- Cloudflare CDN breaks the uploading of some files to Minio. So it is disabled for `minio-share.metalevel.cloud`. Ref: <https://stackoverflow.com/questions/77343759/minio-403-forbidden-head-request-using-saveas-filesaver-js>
+
 Backup of the database and Cloudflare's object storage.
 
 ```bash
@@ -135,5 +137,16 @@ Backup of the database and Cloudflare's object storage.
 doppler run -- scripts/dump-mongo-db.sh
 doppler run -- scripts/aws-shell/objStorage-metadata-dump.sh
 doppler run -- scripts/aws-shell/objStorage-sync.sh
+doppler run -- scripts/aws-shell/objStorage-copy.sh
+doppler run -- pnpm exec tsx scripts/aws/index-copy-r2-minio.ts
+```
+
+This just stops working.
+
+```bash
 doppler run -- pnpm exec ts-node --skip-project scripts/aws/index-copy-r2-minio.ts
 ```
+
+## Notes
+
+- Liner gradient Google: `linear-gradient(90deg,#ea473a 6%,#ffc619 38%,#4f8df5 70%,#19a261)`

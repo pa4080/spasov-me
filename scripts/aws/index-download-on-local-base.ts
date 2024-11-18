@@ -29,7 +29,7 @@ import { downloadObjectList } from "./obj-download-to-fs";
     prefix: r2BucketIconsPath,
     bucket: r2BucketName,
     config: r2cfConfig,
-    downloadDirFs: "public/tmp",
+    downloadDirFs: "tmp/r2-download",
     batchSize: 5,
   });
 
