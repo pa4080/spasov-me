@@ -3,11 +3,13 @@
  * you can use the following package:
  * @see https://github.com/alexsk/mongoose-intl
  */
-import { Schema, model, models } from "mongoose";
+import { type Model, Schema, model, models } from "mongoose";
+
+import { type PageCardDoc } from "@/interfaces/PageCard";
 
 import User from "./user";
 
-const PageCardSchema = new Schema({
+const PageCardSchema = new Schema<PageCardDoc>({
   title: {
     type: String,
     required: [true, "Title is required!"],
@@ -30,13 +32,14 @@ const PageCardSchema = new Schema({
   },
   attachment: {
     type: String,
-    // type: Schema.Types.ObjectId,
-    // ref: FileGFS,
   },
   icon: {
     type: String,
   },
 });
 
-const PageCard = models.PageCard || model("PageCard", PageCardSchema);
+export type PageCardModel = Model<PageCardDoc>;
+
+const PageCard =
+  (models.PageCard as PageCardModel) || model<PageCardDoc>("PageCard", PageCardSchema);
 export default PageCard;

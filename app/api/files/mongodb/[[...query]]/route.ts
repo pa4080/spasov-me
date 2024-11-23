@@ -5,9 +5,10 @@
  * @see https://mongodb.github.io/node-mongodb-native/6.0/classes/GridFSBucket.html#openUploadStream
  * @see https://mongodb.github.io/node-mongodb-native/6.0/classes/GridFSBucket.html#openUploadStreamWithId
  */
-import { type GridFSFile, ObjectId } from "mongodb";
+import { ObjectId, type GridFSFile } from "mongodb";
+import { type HydratedDocument } from "mongoose";
 import { getServerSession } from "next-auth";
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 import { errorMessages } from "@/app/api/common";
 import { type FileDoc } from "@/interfaces/File";
@@ -292,7 +293,7 @@ export async function PATCH(request: NextRequest, props: Context) {
            * So we do not need to create a new file and stream its content.
            */
           await connectToMongoDb();
-          const dbDocument = await FileGFS.findOne(_id);
+          const dbDocument = await FileGFS.findOne<HydratedDocument<FileDoc>>(_id);
 
           if (!dbDocument) {
             return NextResponse.json({ error: errorMessages.e404 }, { status: 404 });

@@ -35,6 +35,7 @@
  *
  */
 
+import { type Model } from "mongoose";
 import { getServerSession } from "next-auth";
 import { type NextRequest, NextResponse } from "next/server";
 
@@ -207,7 +208,7 @@ export async function POST(request: NextRequest, props: Context) {
         if (session) {
           response = await dbDocument.populate(["creator"]);
         } else {
-          response = await dbDocument.populate();
+          response = await dbDocument.populate([]);
         }
 
         break;
@@ -271,7 +272,7 @@ export async function PUT(request: NextRequest, props: Context) {
     await connectToMongoDb();
 
     let response: Omit<any, never>[] = [];
-    let dbDocument;
+    let dbDocument: Model<any>;
 
     switch (type) {
       case "pages": {

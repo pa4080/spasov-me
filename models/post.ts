@@ -1,11 +1,12 @@
-import { Schema, model, models } from "mongoose";
+import { type Model, Schema, model, models } from "mongoose";
 
 import { postTuple } from "@/interfaces/_common-data-types";
+import { type PostDoc } from "@/interfaces/Post";
 
 import Tag from "./tag";
 import User from "./user";
 
-const PostSchema = new Schema({
+const PostSchema = new Schema<PostDoc>({
   title: {
     type: String,
     required: [true, "Title is required!"],
@@ -80,5 +81,7 @@ const PostSchema = new Schema({
   },
 });
 
-const Post = models.Post || model("Post", PostSchema);
+export type PostModel = Model<PostDoc>;
+
+const Post = (models.Post as PostModel) || model<PostDoc>("Post", PostSchema);
 export default Post;

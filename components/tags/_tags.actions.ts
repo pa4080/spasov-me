@@ -63,7 +63,7 @@ export const createTag = async (data: FormData, paths: string[]): Promise<true |
 
     return null;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
 
@@ -93,6 +93,10 @@ export const updateTag = async (
       strict: true,
     });
 
+    if (!document_new || !document_prev) {
+      throw new Error(msgs("Errors")("mongoDbEntryNotFound", { id: tag_id }));
+    }
+
     // Process the "attachedTo" array first
     await attachedTo_detachFromTarget({
       attachedToArr_new: documentData_new?.attachedTo,
@@ -112,7 +116,7 @@ export const updateTag = async (
 
     return null;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
 
@@ -132,7 +136,7 @@ export const deleteTag = async (tag_id: string, paths: string[]): Promise<true |
 
     return null;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
 
@@ -151,7 +155,12 @@ export const tagAttachment_add = async ({
   try {
     await connectToMongoDb();
     const target_tag_ObjectId = new ObjectId(target_tag_id);
-    const dbTagDoc = (await Tag.findOne(target_tag_ObjectId)).toObject() as TagDoc;
+    const dbTagDoc = await Tag.findOne(target_tag_ObjectId);
+
+    if (!dbTagDoc) {
+      throw new Error(msgs("Errors")("mongoDbEntryNotFound", { id: target_tag_id }));
+    }
+
     const attachedTo = dbTagDoc.attachedTo! || [];
 
     // Check if the document is already attached
@@ -193,7 +202,12 @@ export const tagAttachment_remove = async ({
   try {
     await connectToMongoDb();
     const target_tag_ObjectId = new ObjectId(target_tag_id);
-    const dbTagDoc = (await Tag.findOne(target_tag_ObjectId)).toObject() as TagDoc;
+    const dbTagDoc = await Tag.findOne(target_tag_ObjectId);
+
+    if (!dbTagDoc) {
+      throw new Error(msgs("Errors")("mongoDbEntryNotFound", { id: target_tag_id }));
+    }
+
     const attachedTo = dbTagDoc.attachedTo! || [];
 
     const result = await Tag.updateOne(

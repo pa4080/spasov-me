@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import { type Model, Schema, model, models } from "mongoose";
 
 import {
   labEntryHostTuple,
@@ -6,11 +6,12 @@ import {
   labEntryTuple,
   labEntryVisibilityTuple,
 } from "@/interfaces/_common-data-types";
+import { type LabEntryDoc } from "@/interfaces/LabEntry";
 
 import Tag from "./tag";
 import User from "./user";
 
-const LabEntrySchema = new Schema({
+const LabEntrySchema = new Schema<LabEntryDoc>({
   title: {
     type: String,
     required: [true, "Title is required!"],
@@ -100,5 +101,8 @@ const LabEntrySchema = new Schema({
   },
 });
 
-const LabEntry = models.LabEntry || model("LabEntry", LabEntrySchema);
+export type LabEntryModel = Model<LabEntryDoc>;
+
+const LabEntry =
+  (models.LabEntry as LabEntryModel) || model<LabEntryDoc>("LabEntry", LabEntrySchema);
 export default LabEntry;

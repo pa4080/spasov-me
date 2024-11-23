@@ -1,11 +1,12 @@
-import { Schema, model, models } from "mongoose";
+import { type Model, Schema, model, models } from "mongoose";
 
 import { projectTuple } from "@/interfaces/_common-data-types";
+import { type ProjectDoc } from "@/interfaces/Project";
 
 import Tag from "./tag";
 import User from "./user";
 
-const ProjectSchema = new Schema({
+const ProjectSchema = new Schema<ProjectDoc>({
   title: {
     type: String,
     required: [true, "Title is required!"],
@@ -72,5 +73,7 @@ const ProjectSchema = new Schema({
   },
 });
 
-const Project = models.Project || model("Project", ProjectSchema);
+export type ProjectModel = Model<ProjectDoc>;
+
+const Project = (models.Project as ProjectModel) || model<ProjectDoc>("Project", ProjectSchema);
 export default Project;

@@ -1,10 +1,11 @@
-import { Schema, model, models } from "mongoose";
+import { type Model, Schema, model, models } from "mongoose";
 
 import { tagTuple } from "@/interfaces/_common-data-types";
+import { type TagDoc } from "@/interfaces/Tag";
 
 import User from "./user";
 
-const TagSchema = new Schema({
+const TagSchema = new Schema<TagDoc>({
   name: {
     type: String,
     required: [true, "Title is required!"],
@@ -37,5 +38,7 @@ const TagSchema = new Schema({
   },
 });
 
-const Tag = models.Tag || model("Tag", TagSchema);
+type TagModel = Model<TagDoc>;
+
+const Tag = (models.Tag as TagModel) || model<TagDoc>("Tag", TagSchema);
 export default Tag;

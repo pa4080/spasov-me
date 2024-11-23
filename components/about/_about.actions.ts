@@ -110,8 +110,8 @@ export const updateEntry = async (
 
     await process_relations({
       documentData_new,
-      document_new: document_new.toObject(),
-      document_prev: document_prev.toObject(),
+      document_new: document_new,
+      document_prev: document_prev,
       modelType: "AboutEntry",
     });
 

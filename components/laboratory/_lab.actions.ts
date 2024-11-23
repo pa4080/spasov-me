@@ -1,15 +1,17 @@
 "use server";
 
+import { type HydratedDocument } from "mongoose";
+
 import { getSession, process_relations, revalidatePaths } from "@/components/_common.actions";
 import { type LabEntryType } from "@/interfaces/_common-data-types";
+import { type LabEntryData, type LabEntryDocPopulated } from "@/interfaces/LabEntry";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
-import { msgs } from "@/messages";
-import { type LabEntryData, type LabEntryDocPopulated } from "@/interfaces/LabEntry";
 import {
   labEntryDocuments_toData,
   labEntryFormData_toNewLabEntryData,
 } from "@/lib/process-data-lab-entries";
+import { msgs } from "@/messages";
 import LabEntry from "@/models/lab-entry";
 
 export const getLabEntries = async ({
@@ -23,12 +25,9 @@ export const getLabEntries = async ({
 }): Promise<LabEntryData[] | null> => {
   try {
     await connectToMongoDb();
-    const labEntries: LabEntryDocPopulated[] = await LabEntry.find({}).populate([
-      "attachment",
-      "tags",
-      "gallery",
-      "icon",
-    ]);
+    const labEntries: LabEntryDocPopulated[] = await LabEntry.find<
+      HydratedDocument<LabEntryDocPopulated>
+    >({}).populate(["attachment", "tags", "gallery", "icon"]);
 
     return labEntryDocuments_toData({ labEntries: labEntries, hyphen, typeList, visible });
   } catch (error) {
@@ -75,7 +74,7 @@ export const createLabEntry = async (data: FormData, paths: string[]): Promise<b
 
     return null;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
 
@@ -107,6 +106,10 @@ export const updateLabEntry = async (
       strict: true,
     });
 
+    if (!document_new || !document_prev) {
+      throw new Error(msgs("Errors")("mongoDbEntryNotFound", { id: labEntry_id }));
+    }
+
     await process_relations({
       documentData_new,
       document_new,
@@ -130,7 +133,7 @@ export const updateLabEntry = async (
 
     return null;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
 
@@ -143,6 +146,10 @@ export const deleteLabEntry = async (labEntry_id: string, paths: string[]): Prom
     // Connect to the DB and delete the lab-entry
     await connectToMongoDb();
     const document_deleted = await LabEntry.findOneAndDelete({ _id: labEntry_id });
+
+    if (!document_deleted) {
+      throw new Error(msgs("Errors")("mongoDbEntryNotFound", { id: labEntry_id }));
+    }
 
     await process_relations({
       document_prev: document_deleted,
@@ -157,6 +164,6 @@ export const deleteLabEntry = async (labEntry_id: string, paths: string[]): Prom
 
     return false;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };

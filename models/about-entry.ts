@@ -63,7 +63,7 @@ const AboutEntrySchema = new Schema<AboutEntryDoc>({
   ],
 });
 
-type AboutEntryModel = Model<AboutEntryDoc>;
+export type AboutEntryModel = Model<AboutEntryDoc>;
 
 const AboutEntry =
   (models.AboutEntry as AboutEntryModel) || model<AboutEntryDoc>("AboutEntry", AboutEntrySchema);
