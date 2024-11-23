@@ -1,10 +1,10 @@
 import React from "react";
 
-import { cn } from "@/lib/cn-utils";
 import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
+import { getFileList_mongo } from "@/components/files-mongodb/_files.actions";
 import { getTags } from "@/components/tags/_tags.actions";
 import { labEntryTuple } from "@/interfaces/_common-data-types";
-import { getFileList_mongo } from "@/components/files-mongodb/_files.actions";
+import { cn } from "@/lib/cn-utils";
 
 import { getLabEntries } from "../_lab.actions";
 import Section from "./Section";
@@ -34,7 +34,7 @@ const LabAdmin: React.FC<Props> = async ({ className }) => {
           labEntries={labEntries}
           tags={tags}
           type={type}
-          visibleItems={25}
+          visibleItems={30}
         />
       ))}
     </div>
