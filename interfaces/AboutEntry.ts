@@ -7,7 +7,7 @@ import { type AboutEntryType, type CityType, type CountryType } from "./_common-
 
 export interface AboutEntryDoc {
   _id: ObjectId;
-  creator: UserObject;
+  creator: ObjectId;
 
   title: string;
   description: string;
@@ -23,7 +23,8 @@ export interface AboutEntryDoc {
 }
 
 export interface AboutEntryDocPopulated
-  extends Omit<AboutEntryDoc, "attachment" | "tags" | "gallery"> {
+  extends Omit<AboutEntryDoc, "creator" | "attachment" | "tags" | "gallery"> {
+  creator: UserObject;
   tags: TagDoc[];
   attachment?: string | undefined;
   gallery: string[] | undefined;

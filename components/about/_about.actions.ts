@@ -1,5 +1,7 @@
 "use server";
 
+import { type HydratedDocument } from "mongoose";
+
 import { getSession, process_relations, revalidatePaths } from "@/components/_common.actions";
 import { type AboutEntryData, type AboutEntryDocPopulated } from "@/interfaces/AboutEntry";
 import { type AboutEntryType } from "@/interfaces/_common-data-types";
@@ -23,7 +25,9 @@ export const getEntries = async ({
 }): Promise<AboutEntryData[] | null> => {
   try {
     await connectToMongoDb();
-    const entries: AboutEntryDocPopulated[] = await AboutEntry.find({}).populate(["tags"]);
+    const entries: AboutEntryDocPopulated[] = await AboutEntry.find<
+      HydratedDocument<AboutEntryDocPopulated>
+    >({}).populate(["tags"]);
 
     return await aboutEntryDocuments_toData({ entries, hyphen, typeList, visible });
   } catch (error) {
@@ -68,7 +72,7 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<bool
 
     return null;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
 
@@ -100,10 +104,14 @@ export const updateEntry = async (
       strict: true,
     });
 
+    if (!document_new || !document_prev) {
+      throw new Error(msgs("Errors")("mongoDbEntryNotFound", { id: entry_id }));
+    }
+
     await process_relations({
       documentData_new,
-      document_new,
-      document_prev,
+      document_new: document_new.toObject(),
+      document_prev: document_prev.toObject(),
       modelType: "AboutEntry",
     });
 
@@ -121,7 +129,7 @@ export const updateEntry = async (
 
     return null;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
 
@@ -135,6 +143,10 @@ export const deleteEntry = async (entry_id: string, paths: string[]): Promise<bo
     await connectToMongoDb();
     const document_deleted = await AboutEntry.findOneAndDelete({ _id: entry_id });
 
+    if (!document_deleted) {
+      throw new Error(msgs("Errors")("mongoDbEntryNotFound", { id: entry_id }));
+    }
+
     await process_relations({
       document_prev: document_deleted,
       modelType: "AboutEntry",
@@ -146,6 +158,6 @@ export const deleteEntry = async (entry_id: string, paths: string[]): Promise<bo
 
     return false;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };

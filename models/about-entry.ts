@@ -1,11 +1,12 @@
-import { Schema, model, models } from "mongoose";
+import { type Model, Schema, model, models } from "mongoose";
 
 import { aboutEntryTuple, cityTuple, countryTuple } from "@/interfaces/_common-data-types";
+import { type AboutEntryDoc } from "@/interfaces/AboutEntry";
 
 import Tag from "./tag";
 import User from "./user";
 
-const AboutEntrySchema = new Schema({
+const AboutEntrySchema = new Schema<AboutEntryDoc>({
   title: {
     type: String,
     required: [true, "Title is required!"],
@@ -62,5 +63,9 @@ const AboutEntrySchema = new Schema({
   ],
 });
 
-const AboutEntry = models.AboutEntry || model("AboutEntry", AboutEntrySchema);
+type AboutEntryModel = Model<AboutEntryDoc>;
+
+const AboutEntry =
+  (models.AboutEntry as AboutEntryModel) || model<AboutEntryDoc>("AboutEntry", AboutEntrySchema);
+
 export default AboutEntry;

@@ -1,6 +1,6 @@
 {
   "name": "spasov-me",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "private": true,
   "scripts": {
     "env-pull": "pnpm dlx vercel env pull",
@@ -59,8 +59,8 @@
     "lucide-react": "^0.381.0",
     "mdx-prism": "^0.3.4",
     "mime-types": "^2.1.35",
-    "mongodb": "^6.10.0",
-    "mongoose": "^8.8.1",
+    "mongodb": "^6.11.0",
+    "mongoose": "^8.8.2",
     "next": "15.0.3",
     "next-auth": "^4.24.10",
     "next-themes": "^0.3.0",
