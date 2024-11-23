@@ -66,8 +66,10 @@ const LabEntryAdminCard: React.FC<Props> = ({
 
   // This is disabled because the "icon" usually is SVG with a transparent background
   // and looks ugly within the container which have the site logo oas background
-  // gallery =
-  // 	post?.html?.icon && gallery ? [post?.html?.icon.metadata.html].concat(gallery) : gallery;
+  const galleryInline =
+    labEntry?.html?.icon && gallery
+      ? [labEntry?.html?.icon.metadata.html].concat(gallery)
+      : gallery;
 
   return (
     <div className={`card-border-wrapper ${className}`} id={toggle_target_id}>
@@ -182,7 +184,7 @@ const LabEntryAdminCard: React.FC<Props> = ({
           </div>
 
           {displayTagsInline && (
-            <div className="card-item-collapsible--disabled mt-4">
+            <div className="card-item-collapsible mt-4">
               <div className="about-entry-tags">
                 {labEntry.tags
                   ?.sort((a, b) =>
@@ -199,10 +201,10 @@ const LabEntryAdminCard: React.FC<Props> = ({
             </div>
           )}
 
-          {displayGalleryInline && ((gallery && gallery.length > 0) ?? labEntry?.html?.icon) && (
+          {displayGalleryInline && galleryInline && galleryInline.length > 0 && (
             <div className="card-item-collapsible--disabled">
               <div className="flex gap-2 flex-wrap p-0 mt-4">
-                {[labEntry?.html?.icon?.metadata?.html, ...(gallery ?? [])].map((image, index) => (
+                {galleryInline.map((image, index) => (
                   <DisplayFileImage
                     key={index}
                     className={`w-8 h-8 rounded-sm`}

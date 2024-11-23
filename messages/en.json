@@ -7,7 +7,8 @@
   "Errors": {
     "invalidUser": "Invalid user",
     "invalidFile": "Invalid file object, not a file.",
-    "notFoundFileInDB": "File with id { id } was not found in the database"
+    "notFoundFileInDB": "File with id { id } was not found in the database",
+    "mongoDbEntryNotFound": "MongoDB entry with id { id } was not found in the database"
   },
   "Theme": {
     "light": "Light",

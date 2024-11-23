@@ -93,7 +93,7 @@ const ToggleCollapsible: React.FC<Props> = ({
 
     // The auto scroll is disabled when we using 'invertButton',
     // because we need additional flag - otherwise it scrolls to the latest open item...
-    if (isContentShown && invertButton === undefined) {
+    if (isContentShown && (invertButton === undefined || invertButton === false)) {
       setTimeout(() => {
         thisTargetContainer?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 10);

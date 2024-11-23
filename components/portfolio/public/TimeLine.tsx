@@ -2,7 +2,7 @@ import React from "react";
 
 import SectionHeader from "@/components/fragments/SectionHeader";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
-import LabEntriesPublic_EmbedList from "@/components/laboratory/public/TimeLine_EmbedIn_LabEntriesPublic";
+import LabEntriesPublic_EmbedList from "@/components/laboratory/public/LabEntriesPublic_EmbedList";
 import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type ProjectData } from "@/interfaces/Project";
@@ -23,6 +23,7 @@ interface Props {
   iconsMap: IconsMap;
   tags: TagData[] | null;
   visibleItems?: number;
+  invertDisplay?: boolean;
 }
 
 /**
@@ -39,7 +40,8 @@ const TimeLine: React.FC<Props> = ({
   iconList,
   iconsMap,
   tags,
-  visibleItems = 2,
+  visibleItems = 3,
+  invertDisplay = true,
 }) => {
   const projectsByType = projects?.sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
@@ -50,12 +52,12 @@ const TimeLine: React.FC<Props> = ({
   return (
     <>
       <div
-        className={cn("scroll-mt-24 list-section expand-collapsed", className)}
+        className={cn("scroll-mt-24 list-section", invertDisplay && "expand-collapsed", className)}
         id={toggle_target_id}
       >
         <SectionHeader className="pop-header" title={section_title}>
           <ToggleCollapsible
-            invertButton
+            invertButton={invertDisplay}
             target_id={toggle_target_id}
             text={[t("btnAll"), t("btnLess")]}
             type="section"
@@ -76,7 +78,7 @@ const TimeLine: React.FC<Props> = ({
           ))}
         </div>
       </div>
-      <LabEntriesPublic_EmbedList visibleItems={visibleItems} />
+      <LabEntriesPublic_EmbedList invertDisplay={false} visibleItems={3} />
     </>
   );
 };

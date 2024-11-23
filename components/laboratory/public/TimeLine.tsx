@@ -1,10 +1,10 @@
 import React from "react";
 
-import { type LabEntryPropertyType } from "@/interfaces/_common-data-types";
-import { cn } from "@/lib/cn-utils";
-import { type LabEntryData } from "@/interfaces/LabEntry";
-import { type IconsMap } from "@/interfaces/IconsMap";
 import SectionHeader from "@/components/fragments/SectionHeader";
+import { type LabEntryPropertyType } from "@/interfaces/_common-data-types";
+import { type IconsMap } from "@/interfaces/IconsMap";
+import { type LabEntryData } from "@/interfaces/LabEntry";
+import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
 import LabEntryPublic_Card from "./Card";
@@ -14,6 +14,7 @@ interface Props {
   labEntryPropertyType: LabEntryPropertyType;
   labEntries: LabEntryData[] | null;
   iconsMap: IconsMap;
+  invertDisplay?: boolean;
 }
 
 /**

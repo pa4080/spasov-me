@@ -1,11 +1,11 @@
 "use server";
 
-import { type PageCardData, type PageCardDocPopulated } from "@/interfaces/PageCard";
 import { getSession, revalidatePaths } from "@/components/_common.actions";
 import {
   fileAttachment_add,
   fileAttachment_remove,
 } from "@/components/files-cloudflare/_files.actions";
+import { type PageCardData, type PageCardDocPopulated } from "@/interfaces/PageCard";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import { PageCardDocuments_toData, pageFormData_toNewEntryData } from "@/lib/process-data-pages";
@@ -72,7 +72,7 @@ export const createPageCard = async (data: FormData, paths: string[]): Promise<b
 
     return null;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
 
@@ -112,6 +112,10 @@ export const updatePageCard = async (
       });
     }
 
+    if (!document_new) {
+      throw new Error(msgs("Errors")("mongoDbEntryNotFound", { id: page_id }));
+    }
+
     // Deal with the "attachment" > add the relation for the new file
     if (documentData_new.attachment) {
       await fileAttachment_add({
@@ -136,7 +140,7 @@ export const updatePageCard = async (
 
     return null;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
 
@@ -149,6 +153,10 @@ export const deletePageCard = async (page_id: string, paths: string[]): Promise<
     // Connect to the DB and delete the entry
     await connectToMongoDb();
     const document_deleted = await PageCard.findOneAndDelete({ _id: page_id });
+
+    if (!document_deleted) {
+      throw new Error(msgs("Errors")("mongoDbEntryNotFound", { id: page_id }));
+    }
 
     // Deal with the "attachment"
     if (document_deleted.attachment) {
@@ -165,6 +173,6 @@ export const deletePageCard = async (page_id: string, paths: string[]): Promise<
 
     return false;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };

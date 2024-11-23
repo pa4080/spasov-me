@@ -13,9 +13,14 @@ import LabEntryPublic_Card from "./Card";
 interface Props {
   className?: string;
   visibleItems?: number;
+  invertDisplay?: boolean;
 }
 
-const LabEntriesPublic_EmbedList: React.FC<Props> = async ({ className, visibleItems = 2 }) => {
+const LabEntriesPublic_EmbedList: React.FC<Props> = async ({
+  className,
+  visibleItems = 3,
+  invertDisplay = false,
+}) => {
   const { labEntries, iconsMap } = await Promise.all([
     getLabEntries({
       hyphen: true,
@@ -33,12 +38,16 @@ const LabEntriesPublic_EmbedList: React.FC<Props> = async ({ className, visibleI
 
   return (
     <div
-      className={cn("scroll-mt-16 list-section expand-collapsed", className)}
+      className={cn(
+        "scroll-mt-20 3xl:scroll-mt-8 list-section",
+        invertDisplay && "expand-collapsed",
+        className
+      )}
       id={toggle_target_id}
     >
       <SectionHeader className="pop-header" title={section_title}>
         <ToggleCollapsible
-          invertButton
+          invertButton={invertDisplay}
           target_id={toggle_target_id}
           text={[t("btnAll"), t("btnLess")]}
           type="section"

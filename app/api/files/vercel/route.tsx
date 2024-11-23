@@ -92,7 +92,7 @@ export async function DELETE(request: Request): Promise<NextResponse> {
     );
   }
 
-  del(url);
+  void del(url);
 
   return NextResponse.json({ url: url, deleted: true });
 }

@@ -1,15 +1,17 @@
 "use server";
 
+import { type HydratedDocument } from "mongoose";
+
 import { getSession, process_relations, revalidatePaths } from "@/components/_common.actions";
 import { type ProjectType } from "@/interfaces/_common-data-types";
+import { type ProjectData, type ProjectDocPopulated } from "@/interfaces/Project";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
-import { msgs } from "@/messages";
-import { type ProjectData, type ProjectDocPopulated } from "@/interfaces/Project";
 import {
   projectDocuments_toData,
   projectFormData_toNewProjectData,
 } from "@/lib/process-data-projects";
+import { msgs } from "@/messages";
 import Project from "@/models/project";
 
 export const getProjects = async ({
@@ -23,12 +25,9 @@ export const getProjects = async ({
 }): Promise<ProjectData[] | null> => {
   try {
     await connectToMongoDb();
-    const projects: ProjectDocPopulated[] = await Project.find({}).populate([
-      "attachment",
-      "tags",
-      "gallery",
-      "icon",
-    ]);
+    const projects: ProjectDocPopulated[] = await Project.find<
+      HydratedDocument<ProjectDocPopulated>
+    >({}).populate(["attachment", "tags", "gallery", "icon"]);
 
     return projectDocuments_toData({ projects, hyphen, typeList, visible });
   } catch (error) {
@@ -73,7 +72,7 @@ export const createProject = async (data: FormData, paths: string[]): Promise<bo
 
     return null;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
 
@@ -105,6 +104,10 @@ export const updateProject = async (
       strict: true,
     });
 
+    if (!document_new || !document_prev) {
+      throw new Error(msgs("Errors")("mongoDbEntryNotFound", { id: project_id }));
+    }
+
     await process_relations({
       documentData_new,
       document_new,
@@ -126,7 +129,7 @@ export const updateProject = async (
 
     return null;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
 
@@ -140,6 +143,10 @@ export const deleteProject = async (project_id: string, paths: string[]): Promis
     await connectToMongoDb();
     const document_deleted = await Project.findOneAndDelete({ _id: project_id });
 
+    if (!document_deleted) {
+      throw new Error(msgs("Errors")("mongoDbEntryNotFound", { id: project_id }));
+    }
+
     await process_relations({
       document_prev: document_deleted,
       modelType: "Project",
@@ -151,6 +158,6 @@ export const deleteProject = async (project_id: string, paths: string[]): Promis
 
     return false;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };

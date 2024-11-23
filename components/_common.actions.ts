@@ -2,6 +2,7 @@
 
 import { Redis } from "@upstash/redis";
 import { type ObjectId } from "mongodb";
+import { type HydratedDocument } from "mongoose";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 
@@ -19,11 +20,11 @@ import { arraysEqual } from "@/lib/arrays-equal";
 import { arraysEqualDiff } from "@/lib/arrays-equal-diff";
 import { authOptions } from "@/lib/auth-options";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
-import AboutEntry from "@/models/about-entry";
-import LabEntry from "@/models/lab-entry";
-import PageCard from "@/models/page-card";
-import Post from "@/models/post";
-import Project from "@/models/project";
+import AboutEntry, { type AboutEntryModel } from "@/models/about-entry";
+import LabEntry, { type LabEntryModel } from "@/models/lab-entry";
+import PageCard, { type PageCardModel } from "@/models/page-card";
+import Post, { type PostModel } from "@/models/post";
+import Project, { type ProjectModel } from "@/models/project";
 
 import {
   fileAttachment_add_mongo,
@@ -50,7 +51,7 @@ export const revalidatePaths = async <T extends string>({
     if (files_prefixes && files_prefixes.length > 0) {
       files_prefixes.forEach((prefix) => {
         // await redis.del(prefix);
-        redis.del(prefix);
+        void redis.del(prefix);
       });
     }
 
@@ -86,9 +87,11 @@ export const getSession = async () => {
 /**
  * Trigger the Vercel's rebuild hook
  */
-export const vercelRebuildMaster = async (): Promise<null | {
+interface VercelRebuildResponse {
   job: { id: string; state: string; createdAt: number };
-}> => {
+}
+
+export const vercelRebuildMaster = async (): Promise<null | VercelRebuildResponse> => {
   try {
     const hookUrl = process.env.VERCEL_HOOK_REBUILD_MASTER;
 
@@ -96,7 +99,7 @@ export const vercelRebuildMaster = async (): Promise<null | {
       const response = await fetch(hookUrl);
 
       if (response.ok) {
-        return response.json();
+        return response.json() as Promise<VercelRebuildResponse>;
       }
     }
 
@@ -159,62 +162,82 @@ export const attachedTo_detachFromTarget = async ({
     if (attachedTo_diff.length > 0) {
       await Promise.all(
         attachedTo_diff.map(async ({ _id, modelType }: { _id: string; modelType: ModelType }) => {
-          let document;
+          let dbDocument:
+            | HydratedDocument<AboutEntryModel>
+            | HydratedDocument<PageCardModel>
+            | HydratedDocument<ProjectModel>
+            | HydratedDocument<PostModel>
+            | HydratedDocument<LabEntryModel>
+            | null;
 
           switch (modelType) {
             case "AboutEntry": {
-              document = await AboutEntry.findOne({ _id });
+              dbDocument = await AboutEntry.findOne({ _id });
               break;
             }
 
             case "PageCard": {
-              document = await PageCard.findOne({ _id });
+              dbDocument = await PageCard.findOne({ _id });
               break;
             }
 
             case "Project": {
-              document = await Project.findOne({ _id });
+              dbDocument = await Project.findOne({ _id });
               break;
             }
 
             case "Post": {
-              document = await Post.findOne({ _id });
+              dbDocument = await Post.findOne({ _id });
               break;
             }
 
             case "LabEntry": {
-              document = await LabEntry.findOne({ _id });
+              dbDocument = await LabEntry.findOne({ _id });
               break;
             }
 
             default: {
-              document = null;
+              dbDocument = null;
               break;
             }
           }
 
-          if (document) {
-            if (document.attachment && document.attachment.toString() === target_id) {
-              document.attachment = undefined;
+          if (dbDocument) {
+            if (
+              "attachment" in dbDocument &&
+              dbDocument.attachment &&
+              dbDocument.attachment === target_id
+            ) {
+              dbDocument.attachment = undefined;
             }
 
-            if (document.icon && document.icon.toString() === target_id) {
-              document.icon = undefined;
+            if ("icon" in dbDocument && dbDocument.icon && dbDocument.icon === target_id) {
+              dbDocument.icon = undefined;
             }
 
-            if (document.gallery && document.gallery.length > 0) {
-              document.gallery = document.gallery.filter(
+            if (
+              "gallery" in dbDocument &&
+              dbDocument.gallery &&
+              Array.isArray(dbDocument.gallery) &&
+              dbDocument.gallery.length > 0
+            ) {
+              dbDocument.gallery = dbDocument.gallery.filter(
                 (gallery_file_id: ObjectId) => gallery_file_id.toString() !== target_id
               );
             }
 
-            if (document.tags && document.tags.length > 0) {
-              document.tags = document.tags.filter(
+            if (
+              "tags" in dbDocument &&
+              dbDocument.tags &&
+              Array.isArray(dbDocument.tags) &&
+              dbDocument.tags.length > 0
+            ) {
+              dbDocument.tags = dbDocument.tags.filter(
                 (tag_id: ObjectId) => tag_id.toString() !== target_id
               );
             }
 
-            await document.save();
+            await dbDocument.save();
           } else {
             console.warn(
               `The DB document with Id '${_id}' does not exist.\n > ` +

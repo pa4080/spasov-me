@@ -1,12 +1,14 @@
 "use server";
 
+import { type HydratedDocument } from "mongoose";
+
 import { getSession, process_relations, revalidatePaths } from "@/components/_common.actions";
 import { type PostType } from "@/interfaces/_common-data-types";
+import { type PostData, type PostDocPopulated } from "@/interfaces/Post";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
-import { msgs } from "@/messages";
-import { type PostData, type PostDocPopulated } from "@/interfaces/Post";
 import { postDocuments_toData, postFormData_toNewPostData } from "@/lib/process-data-posts";
+import { msgs } from "@/messages";
 import Post from "@/models/post";
 
 export const getPosts = async ({
@@ -20,12 +22,9 @@ export const getPosts = async ({
 }): Promise<PostData[] | null> => {
   try {
     await connectToMongoDb();
-    const posts: PostDocPopulated[] = await Post.find({}).populate([
-      "attachment",
-      "tags",
-      "gallery",
-      "icon",
-    ]);
+    const posts: PostDocPopulated[] = await Post.find<HydratedDocument<PostDocPopulated>>(
+      {}
+    ).populate(["attachment", "tags", "gallery", "icon"]);
 
     return postDocuments_toData({ posts, hyphen, typeList, visible });
   } catch (error) {
@@ -70,7 +69,7 @@ export const createPost = async (data: FormData, paths: string[]): Promise<boole
 
     return null;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
 
@@ -102,6 +101,10 @@ export const updatePost = async (
       strict: true,
     });
 
+    if (!document_new || !document_prev) {
+      throw new Error(msgs("Errors")("mongoDbEntryNotFound", { id: post_id }));
+    }
+
     await process_relations({
       documentData_new,
       document_new,
@@ -123,7 +126,7 @@ export const updatePost = async (
 
     return null;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
 
@@ -137,6 +140,10 @@ export const deletePost = async (post_id: string, paths: string[]): Promise<bool
     await connectToMongoDb();
     const document_deleted = await Post.findOneAndDelete({ _id: post_id });
 
+    if (!document_deleted) {
+      throw new Error(msgs("Errors")("mongoDbEntryNotFound", { id: post_id }));
+    }
+
     await process_relations({
       document_prev: document_deleted,
       modelType: "Post",
@@ -148,6 +155,6 @@ export const deletePost = async (post_id: string, paths: string[]): Promise<bool
 
     return false;
   } finally {
-    revalidatePaths({ paths, redirectTo: paths[0] });
+    void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };

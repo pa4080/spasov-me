@@ -64,9 +64,8 @@ export async function POST(request: NextRequest) {
     await connectToMongoDb();
     const newPost = new Post({ creator, prompt, tags, aiCategory, link, image });
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     await newPost.save();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     await newPost.populate(["creator", "image"]);
 
     return NextResponse.json(
@@ -94,7 +93,6 @@ export async function PUT(request: NextRequest, props: Context) {
       return NextResponse.json({ error: "Post not found!" }, { status: 404 });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     await updatedPost.populate(["creator", "image"]);
 
     return NextResponse.json(
