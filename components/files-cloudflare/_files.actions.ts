@@ -24,8 +24,9 @@ import { msgs } from "@/messages";
 
 import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "./../_common.actions";
 
-const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
-const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
+const redis_app_prefix = process.env.UPSTASH_REDIS_PREFIX ?? "spasov_me";
+const files_prefix = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES ?? "files";
+const icons_prefix = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS ?? "icons";
 
 // const redis = new Redis({
 // 	url: process.env.UPSTASH_REDIS_REST_URL,
@@ -49,7 +50,7 @@ export const getFilesR2 = async ({
   try {
     // Check if the "files" array is already cached in Redis
     // const cachedFiles = await redisGet_SSR_Solution<FileData[]>(prefix);
-    const cachedFiles = await redis.get<FileData[]>(prefix);
+    const cachedFiles = await redis.get<FileData[]>(`${redis_app_prefix}_${prefix}`);
 
     if (cachedFiles) {
       return cachedFiles;
@@ -69,7 +70,7 @@ export const getFilesR2 = async ({
     });
 
     // Set the "files"/"icons" array in Redis
-    await redis.set(prefix, JSON.stringify(files));
+    await redis.set(`${redis_app_prefix}_${prefix}`, JSON.stringify(files));
 
     return files;
   } catch (error) {
@@ -149,7 +150,7 @@ export const getIconsMap = async ({
   prefix?: string;
 } = {}): Promise<IconsMap> => {
   // const cachedIconsMap = await redisGet_SSR_Solution<IconsMap>(prefix);
-  const cachedIconsMap = await redis.get<IconsMap>(prefix);
+  const cachedIconsMap = await redis.get<IconsMap>(`${redis_app_prefix}_${prefix}`);
 
   if (cachedIconsMap) {
     return cachedIconsMap;
@@ -161,7 +162,7 @@ export const getIconsMap = async ({
     return {} as IconsMap;
   }
 
-  await redis.set(prefix, JSON.stringify(iconsMap));
+  await redis.set(`${redis_app_prefix}_${prefix}`, JSON.stringify(iconsMap));
 
   return iconsMap;
 };
@@ -189,7 +190,7 @@ export const createFile = async ({
 
     const user_id = session?.user.id;
 
-    // await redis.del(prefix);
+    // await redis.del(`${redis_app_prefix}_${prefix}`);
 
     const metadataPart: Omit<FileMetadata, "info"> = {
       description,
@@ -285,7 +286,7 @@ export const updateFile = async ({
       target_id: file_id,
     });
 
-    // await redis.del(prefix);
+    // await redis.del(`${redis_app_prefix}_${prefix}`);
 
     if (file && typeof file === "object") {
       // If a new file is provided, delete the old file and upload the new one
@@ -393,7 +394,7 @@ export const deleteFile = async ({
       throw new Error(msgs("Errors")("invalidUser"));
     }
 
-    // await redis.del(prefix);
+    // await redis.del(`${redis_app_prefix}_${prefix}`);
 
     // Do the actual remove
     return await getObjectListAndDelete({
