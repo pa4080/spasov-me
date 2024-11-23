@@ -23,11 +23,13 @@ import { Readable } from "stream";
 // 	token: process.env.UPSTASH_REDIS_REST_TOKEN,
 // });
 
+const redis_app_prefix = process.env.UPSTASH_REDIS_PREFIX ?? "spasov_me";
+const files_prefix_mongo = process.env.MONGO_REDIS_PREFIX ?? "mongo_db_files";
+
 const redis = createClient({
   url: process.env.UPSTASH_REDIS_REST_URL,
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
-const MONGO_REDIS_PREFIX = "mongo_db_files";
 
 export const getFilesV1 = async (): Promise<FileData[] | null> => {
   try {
@@ -70,7 +72,7 @@ export const getFiles_mongo = async ({
   public?: boolean;
 } = {}): Promise<FileData[] | null> => {
   try {
-    const cachedFiles = await redis.get<FileData[]>(MONGO_REDIS_PREFIX);
+    const cachedFiles = await redis.get<FileData[]>(`${redis_app_prefix}_${files_prefix_mongo}`);
 
     if (cachedFiles) {
       return cachedFiles;
@@ -90,7 +92,7 @@ export const getFiles_mongo = async ({
     });
 
     // Set the "files"/"icons" array in Redis
-    await redis.set(MONGO_REDIS_PREFIX, JSON.stringify(filesProcessed));
+    await redis.set(`${redis_app_prefix}_${files_prefix_mongo}`, JSON.stringify(filesProcessed));
 
     return filesProcessed;
   } catch (error) {
@@ -190,7 +192,7 @@ export const createFile_mongo = async (data: FormData, paths: string[]): Promise
       });
 
       // Flush the cache
-      await redis.del(MONGO_REDIS_PREFIX);
+      await redis.del(`${redis_app_prefix}_${files_prefix_mongo}`);
 
       return dbObject.id ? true : null;
     } else {
@@ -323,7 +325,7 @@ export const updateFile_mongo = async (
       }
 
       // Flush the cache
-      await redis.del(MONGO_REDIS_PREFIX);
+      await redis.del(`${redis_app_prefix}_${files_prefix_mongo}`);
 
       return true;
     }
@@ -360,7 +362,7 @@ export const deleteFile_mongo = async (file_id: string, paths: string[]): Promis
     // Do the actual remove
     await bucket.delete(_id);
     // Flush the cache
-    await redis.del(MONGO_REDIS_PREFIX);
+    await redis.del(`${redis_app_prefix}_${files_prefix_mongo}`);
 
     return true;
   } catch (error) {
@@ -422,7 +424,7 @@ export const fileAttachment_add_mongo = async ({
     return false;
   } finally {
     // Flush the cache
-    await redis.del(MONGO_REDIS_PREFIX);
+    await redis.del(`${redis_app_prefix}_${files_prefix_mongo}`);
   }
 };
 
@@ -466,6 +468,6 @@ export const fileAttachment_remove_mongo = async ({
     return false;
   } finally {
     // Flush the cache
-    await redis.del(MONGO_REDIS_PREFIX);
+    await redis.del(`${redis_app_prefix}_${files_prefix_mongo}`);
   }
 };
