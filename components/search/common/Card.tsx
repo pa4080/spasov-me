@@ -216,7 +216,7 @@ const SearchResultEntryCard: React.FC<Props> = ({
       return (
         <Link
           aria-label={tCommon("item_link")}
-          href={`${Route.public.PORTFOLIO.uri}?id=lab_${entry._id}`}
+          href={`${Route.public.LAB.uri}?id=lab_${entry._id}`}
         >
           <RedirectIcon />
         </Link>
