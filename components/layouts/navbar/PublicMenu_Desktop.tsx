@@ -42,14 +42,17 @@ const PublicMenu_Desktop: React.FC<Props> = ({ className }) => {
 
       {menuItems.map((path, index) => {
         const pathAsKey = path as keyof typeof Route.public;
+        const isLab = !!new RegExp(Route.public.LAB.uri).exec(currentPathName);
+
         const menuItemPathName = Route.public[pathAsKey].uri;
+        const pathNameInUse = isLab ? Route.public.PORTFOLIO.uri : currentPathName;
+
         const isConcretePath = currentPathName === menuItemPathName;
         const isSubpath =
-          menuItemPathName !== Route.public.HOME.uri && currentPathName.includes(menuItemPathName);
+          (currentPathName !== Route.public.HOME.uri &&
+            currentPathName.includes(menuItemPathName)) ||
+          pathNameInUse === menuItemPathName;
 
-        // console.log(
-        //   `currentPathName: ${currentPathName}, menuItemPathName: ${menuItemPathName}, isConcretePath: ${isConcretePath}, isSubpath: ${isSubpath}`
-        // );
         if (
           Route.public[pathAsKey].uri !== Route.public.HOME.uri &&
           Route.public[pathAsKey].inNavbar &&
