@@ -4,10 +4,11 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import { BsSendCheck } from "react-icons/bs";
 
+import { redisCacheFile_Flush, revalidatePaths } from "@/components/_common.actions";
 import ButtonIcon from "@/components/fragments/ButtonIcon";
 import { toast } from "@/components/ui/use-toast";
 import { msgs } from "@/messages";
-import { revalidatePaths } from "@/components/_common.actions";
+import { Route } from "@/routes";
 
 interface Props {
   className?: string;
@@ -24,6 +25,9 @@ const RevalidatePaths: React.FC<Props> = ({ className, paths }) => {
 
   const handleRevalidatePaths = async () => {
     try {
+      pathname.includes(Route.admin.FILES_CFR2) && (await redisCacheFile_Flush("files"));
+      pathname.includes(Route.admin.ICONS_CFR2) && (await redisCacheFile_Flush("icons"));
+      pathname.includes(Route.admin.FILES_MONGODB) && (await redisCacheFile_Flush("files_mongo"));
       const response = await revalidatePaths({ paths: pathsToRevalidate, redirectTo: pathname });
 
       if (response) {

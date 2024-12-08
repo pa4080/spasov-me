@@ -31,10 +31,41 @@ import {
   fileAttachment_remove_mongo,
 } from "./files-mongodb/_files.actions";
 
+const redis_app_prefix = process.env.UPSTASH_REDIS_PREFIX ?? "spasov_me";
+const files_prefix_mongo = process.env.MONGO_REDIS_PREFIX ?? "mongo_db_files";
+const files_prefix = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES ?? "files";
+const icons_prefix = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS ?? "icons";
+const icons_map_prefix = "iconsMap";
+
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL,
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
+
+export const redisCacheFile_Flush = async (key: "all" | "files" | "icons" | "files_mongo") => {
+  switch (key) {
+    case "all":
+      await Promise.all([
+        redis.del(`${redis_app_prefix}_${files_prefix}`),
+        redis.del(`${redis_app_prefix}_${icons_prefix}`),
+        redis.del(`${redis_app_prefix}_${icons_map_prefix}`),
+        redis.del(`${redis_app_prefix}_${files_prefix_mongo}`),
+      ]);
+      break;
+    case "files":
+      await redis.del(`${redis_app_prefix}_${files_prefix}`);
+      break;
+    case "icons":
+      await Promise.all([
+        redis.del(`${redis_app_prefix}_${icons_prefix}`),
+        redis.del(`${redis_app_prefix}_${icons_map_prefix}`),
+      ]);
+      break;
+    case "files_mongo":
+      await redis.del(`${redis_app_prefix}_${files_prefix_mongo}`);
+      break;
+  }
+};
 
 export const revalidatePaths = async <T extends string>({
   paths,
