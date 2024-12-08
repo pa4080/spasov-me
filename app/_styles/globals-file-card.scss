@@ -28,6 +28,10 @@
   }
 }
 
+.expand-collapsed.file-card.card-border-wrapper .file-card-grid .card-item-collapsible {
+  @apply mt-0;
+}
+
 /* File row1 (1) header */
 .file-row-1-header {
   @apply w-full;

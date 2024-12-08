@@ -190,8 +190,6 @@ export const createFile = async ({
 
     const user_id = session?.user.id;
 
-    // await redis.del(`${redis_app_prefix}_${prefix}`);
-
     const metadataPart: Omit<FileMetadata, "info"> = {
       description,
       creator: user_id,
@@ -227,12 +225,19 @@ export const createFile = async ({
         } as FileMetadata["info"];
       }
 
-      return await uploadObject({
+      const uploadRes = await uploadObject({
         objectKey: filename,
         metadata: { ...metadataPart, info },
         objectBody: buffer,
         prefix,
       });
+
+      // await redis.del(`${redis_app_prefix}_${prefix}`);
+      if (!uploadRes) {
+        return null;
+      }
+
+      return await redisCacheFile_Add({ prefix, filename });
     } else {
       console.error(msgs("Errors")("invalidFile"));
 
@@ -286,7 +291,8 @@ export const updateFile = async ({
       target_id: file_id,
     });
 
-    // await redis.del(`${redis_app_prefix}_${prefix}`);
+    let uploadRes: boolean | null = false;
+    let filename_final = filename;
 
     if (file && typeof file === "object") {
       // If a new file is provided, delete the old file and upload the new one
@@ -329,12 +335,13 @@ export const updateFile = async ({
       }
 
       // Upload the new file
-      return await uploadObject({
+      uploadRes = await uploadObject({
         objectKey: filename_override,
         metadata: { ...metadataPart, info },
         objectBody: buffer,
         prefix,
       });
+      filename_final = filename_override;
     } else {
       if (!fileOld?.Metadata) {
         throw new Error(msgs("Errors")("invalidFile", { id: new_filename }));
@@ -358,19 +365,27 @@ export const updateFile = async ({
         info: (metadataParse.info || {}) as FileMetadata["info"],
       };
 
+      filename_final = new_filename;
+
       if (filename === new_filename) {
-        return await updateObject({ objectKey: filename, metadata, prefix });
+        uploadRes = await updateObject({ objectKey: filename, metadata, prefix });
       } else {
-        return (
+        uploadRes =
           (await updateObject({
             objectKey: new_filename,
             sourceObjectKey: filename,
             metadata,
             prefix,
-          })) && (await deleteFile({ file_id: filename, paths, prefix }))
-        );
+          })) && (await deleteFile({ file_id: filename, paths, prefix }));
       }
     }
+
+    // await redis.del(`${redis_app_prefix}_${prefix}`);
+    if (!uploadRes) {
+      return null;
+    }
+
+    return await redisCacheFile_Add({ prefix, filename: filename_final });
   } catch (error) {
     console.error(error);
 
@@ -394,12 +409,16 @@ export const deleteFile = async ({
       throw new Error(msgs("Errors")("invalidUser"));
     }
 
-    // await redis.del(`${redis_app_prefix}_${prefix}`);
+    const filename = file_id.replace(/^Id:/, "");
+
+    const redisRes = await redisCacheFile_Remove({ prefix, file_id });
 
     // Do the actual remove
-    return await getObjectListAndDelete({
-      prefix: `${prefix}/${file_id.replace(/^Id:/, "")}`,
+    const deleteRes = await getObjectListAndDelete({
+      prefix: `${prefix}/${filename}`,
     });
+
+    return redisRes && deleteRes;
   } catch (error) {
     console.error(error);
 
@@ -543,3 +562,37 @@ export const fileAttachment_remove = async ({
     return false;
   }
 };
+
+async function redisCacheFile_Add({ prefix, filename }: { prefix: string; filename: string }) {
+  const cachedFiles = await redis.get<FileData[]>(`${redis_app_prefix}_${prefix}`);
+  const filesRawR2List = await listObjects({ prefix: `${prefix}/${filename}` });
+
+  if (filesRawR2List?.length === 0) {
+    return null;
+  }
+
+  const newFileAsArr = await fileObject_toData({
+    files: filesRawR2List,
+    hyphen: true,
+    visible: false,
+    prefix,
+  });
+
+  const newFiles = [...(cachedFiles ?? []), ...newFileAsArr];
+  const redisRes = await redis.set(`${redis_app_prefix}_${prefix}`, JSON.stringify(newFiles));
+
+  return redisRes && redisRes === "OK" ? true : null;
+}
+
+async function redisCacheFile_Remove({ prefix, file_id }: { prefix: string; file_id: string }) {
+  const cachedFiles = await redis.get<FileData[]>(`${redis_app_prefix}_${prefix}`);
+
+  if (!cachedFiles) {
+    return null;
+  }
+
+  const newFiles = cachedFiles.filter(({ _id }: { _id: string }) => _id !== file_id);
+  const redisRes = await redis.set(`${redis_app_prefix}_${prefix}`, JSON.stringify(newFiles));
+
+  return redisRes && redisRes === "OK" ? true : null;
+}
