@@ -1,199 +1,200 @@
 {
-	// "workbench.colorCustomizations": {
-	// 	"titleBar.activeBackground": "#5c77e5",
-	// 	"titleBar.activeForeground": "#e7e7e7",
-	// 	"titleBar.inactiveBackground": "#D763B6",
-	// 	"titleBar.inactiveForeground": "#e7e7e799"
-	// },
-	"cSpell.words": [
-		"CLIENTVAR",
-		"commitlint",
-		"nextjs",
-		"runtimes",
-		"snapix",
-		"Appstimate",
-		"atrule",
-		"attachedto",
-		"Bito",
-		"Boxicoens",
-		"callout",
-		"Chakra",
-		"clsx",
-		"cmdk",
-		"Codacy",
-		"Coldark",
-		"contabo",
-		"contenttype",
-		"Creo",
-		"datetime",
-		"Deno",
-		"ecma",
-		"esrb",
-		"flexbox",
-		"flexbugs",
-		"Fonticons",
-		"fullhuman",
-		"googleusercontent",
-		"grecaptcha",
-		"gridfs",
-		"gruvbox",
-		"Hamedani",
-		"hastscript",
-		"hget",
-		"hmset",
-		"hookform",
-		"hset",
-		"hyperzon",
-		"Iconify",
-		"Iconoir",
-		"imagemagick",
-		"instanceof",
-		"ipapi",
-		"jfif",
-		"lastmodified",
-		"licdn",
-		"lucide",
-		"Mantine",
-		"maxage",
-		"mazak",
-		"metacritic",
-		"MINIO",
-		"mongoosejs",
-		"nbsp",
-		"nextauth",
-		"nextjs",
-		"nofollow",
-		"Onsen",
-		"Openweathermap",
-		"Pazardjik",
-		"Philippot",
-		"Preprocessors",
-		"Promptopia",
-		"purgecss",
-		"RAWG",
-		"Reakit",
-		"recaptcha",
-		"rehype",
-		"roboto",
-		"Safak",
-		"Schnerring",
-		"Shadcn",
-		"Spasov",
-		"stylelint",
-		"superhosting",
-		"svgr",
-		"swapi",
-		"Tabler",
-		"tailwindcss",
-		"toplay",
-		"uidotdev",
-		"unicephalon",
-		"UPSTASH",
-		"usehooks",
-		"webp",
-		"Yambol",
-		"zipcode"
-	],
-	"material-icon-theme.folders.associations": {
-		// https://github.com/PKief/vscode-material-icon-theme
-		"files": "upload",
-		"components": "home",
-		"[[...query]]": "api",
-		"files/[[...query]]": "upload",
-		"data": "database",
-		"data/[[...query]]": "database",
-		"session-info": "meta",
-		"app/[locale]": "home",
-		"components/services": "",
-		"components/ui": "core",
-		"components/fragments": "core",
-		"components/pages": "base",
-		"components/page-cards": "base",
-		"components/about": "base",
-		"components/contact": "base",
-		"components/portfolio": "base",
-		"components/files": "base",
-		"components/home": "base",
-		"components/lab": "base",
-		"components/blog": "base",
-		"components/theme": "base",
-		"components/tags": "base"
-	},
-	// https://youtu.be/3_-Je5XpbqY?t=688
-	// https://stackoverflow.com/a/76125894/6543935
-	// https://github.com/microsoft/vscode/issues/170589
-	// https://github.com/tailwindlabs/tailwindcss/discussions/5258#discussioncomment-1979394
-	"css.customData": [".vscode/css-container.json", ".vscode/css-tailwind.json"],
-	"svg.preview.background": "transparent",
-	"cssModules.camelCase": true,
+  // "workbench.colorCustomizations": {
+  // 	"titleBar.activeBackground": "#5c77e5",
+  // 	"titleBar.activeForeground": "#e7e7e7",
+  // 	"titleBar.inactiveBackground": "#D763B6",
+  // 	"titleBar.inactiveForeground": "#e7e7e799"
+  // },
+  "cSpell.words": [
+    "CLIENTVAR",
+    "commitlint",
+    "nextjs",
+    "runtimes",
+    "snapix",
+    "Appstimate",
+    "atrule",
+    "attachedto",
+    "Bito",
+    "Boxicoens",
+    "callout",
+    "Chakra",
+    "clsx",
+    "cmdk",
+    "Codacy",
+    "Coldark",
+    "contabo",
+    "contenttype",
+    "Creo",
+    "datetime",
+    "Deno",
+    "ecma",
+    "esrb",
+    "flexbox",
+    "flexbugs",
+    "Fonticons",
+    "fullhuman",
+    "googleusercontent",
+    "grecaptcha",
+    "gridfs",
+    "gruvbox",
+    "Hamedani",
+    "hastscript",
+    "hget",
+    "hmset",
+    "hookform",
+    "hset",
+    "hyperzon",
+    "Iconify",
+    "Iconoir",
+    "imagemagick",
+    "instanceof",
+    "ipapi",
+    "jfif",
+    "lastmodified",
+    "licdn",
+    "lucide",
+    "Mantine",
+    "maxage",
+    "mazak",
+    "metacritic",
+    "MINIO",
+    "mongoosejs",
+    "nbsp",
+    "nextauth",
+    "nextjs",
+    "nofollow",
+    "Onsen",
+    "Openweathermap",
+    "Pazardjik",
+    "Philippot",
+    "Preprocessors",
+    "Promptopia",
+    "purgecss",
+    "RAWG",
+    "Reakit",
+    "recaptcha",
+    "rehype",
+    "roboto",
+    "Safak",
+    "Schnerring",
+    "Shadcn",
+    "Spasov",
+    "stylelint",
+    "superhosting",
+    "svgr",
+    "swapi",
+    "Tabler",
+    "tailwindcss",
+    "toplay",
+    "uidotdev",
+    "unicephalon",
+    "UPSTASH",
+    "usehooks",
+    "webp",
+    "Yambol",
+    "zipcode"
+  ],
+  "material-icon-theme.folders.associations": {
+    // https://github.com/PKief/vscode-material-icon-theme
+    "files": "upload",
+    "components": "home",
+    "[[...query]]": "api",
+    "files/[[...query]]": "upload",
+    "data": "database",
+    "data/[[...query]]": "database",
+    "session-info": "meta",
+    "app/[locale]": "home",
+    "components/services": "",
+    "components/ui": "core",
+    "components/fragments": "core",
+    "components/pages": "base",
+    "components/page-cards": "base",
+    "components/about": "base",
+    "components/contact": "base",
+    "components/portfolio": "base",
+    "components/files": "base",
+    "components/home": "base",
+    "components/lab": "base",
+    "components/blog": "base",
+    "components/theme": "base",
+    "components/tags": "base"
+  },
+  // https://youtu.be/3_-Je5XpbqY?t=688
+  // https://stackoverflow.com/a/76125894/6543935
+  // https://github.com/microsoft/vscode/issues/170589
+  // https://github.com/tailwindlabs/tailwindcss/discussions/5258#discussioncomment-1979394
+  "css.customData": [".vscode/css-container.json", ".vscode/css-tailwind.json"],
+  "svg.preview.background": "transparent",
+  "cssModules.camelCase": true,
 
-	"reactTsScss.autoComplete": true,
-	"reactTsScss.definition": true,
-	"reactTsScss.peekProperties": true,
-	"reactTsScss.cssAutoComplete": true,
-	"reactTsScss.cssDefinitions": true,
-	"reactTsScss.diagnostics": true,
-	"reactTsScss.baseDir": "./",
-	"reactTsScss.cssSyntaxColor": true,
-	"reactTsScss.references": true,
-	"reactTsScss.codelens": true,
-	"reactTsScss.autoImport": true,
-	"reactTsScss.cleanUpDefs": [
-		"*.module.css",
-		"*.module.scss",
-		"*.module.sass",
-		"*.module.less",
-		"*.module.styl"
-	],
+  "reactTsScss.autoComplete": true,
+  "reactTsScss.definition": true,
+  "reactTsScss.peekProperties": true,
+  "reactTsScss.cssAutoComplete": true,
+  "reactTsScss.cssDefinitions": true,
+  "reactTsScss.diagnostics": true,
+  "reactTsScss.baseDir": "./",
+  "reactTsScss.cssSyntaxColor": true,
+  "reactTsScss.references": true,
+  "reactTsScss.codelens": true,
+  "reactTsScss.autoImport": true,
+  "reactTsScss.cleanUpDefs": [
+    "*.module.css",
+    "*.module.scss",
+    "*.module.sass",
+    "*.module.less",
+    "*.module.styl"
+  ],
 
-	"files.autoSave": "off",
-	"editor.formatOnPaste": true,
-	"editor.formatOnSave": true,
-	"editor.defaultFormatter": "dbaeumer.vscode-eslint",
-	"editor.guides.bracketPairs": true,
-	"editor.guides.highlightActiveBracketPair": true,
-	"editor.guides.highlightActiveIndentation": true,
-	"editor.guides.bracketPairsHorizontal": "active",
-	"editor.bracketPairColorization.enabled": true,
+  "files.autoSave": "off",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.guides.bracketPairs": true,
+  "editor.guides.highlightActiveBracketPair": true,
+  "editor.guides.highlightActiveIndentation": true,
+  "editor.guides.bracketPairsHorizontal": "active",
+  "editor.bracketPairColorization.enabled": true,
 
-	"prettier.singleQuote": false,
-	"eslint.format.enable": true,
-	// "eslint.workingDirectories": ["apps/main", "apps/mono-test"],
+  "prettier.singleQuote": false,
+  "eslint.format.enable": true,
+  // "eslint.workingDirectories": ["apps/main", "apps/mono-test"],
 
-	"[dotenv]": {
-		"editor.defaultFormatter": "foxundermoon.shell-format"
-	},
-	"[jsonc]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"[javascript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	"[typescript][typescriptreact]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.codeActionsOnSave": {
-			// "source.fixAll": "always",
-			// "source.addMissingImports": "always"
-			"source.fixAll.eslint": "always",
-			"source.organizeImports": "always"
-		}
-	},
-	"[html]": {
-		"editor.codeActionsOnSave": {
-			"source.fixAll.eslint": "never"
-		}
-	},
-	"[shellscript]": {
-		"editor.defaultFormatter": "foxundermoon.shell-format"
-	},
-	"[ignore]": {
-		"editor.defaultFormatter": "foxundermoon.shell-format"
-	},
-	"[markdown]": {
-		"editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
-	},
-	"typescript.tsdk": "node_modules/typescript/lib",
-	"[dockerfile]": {
-		"editor.defaultFormatter": "ms-azuretools.vscode-docker"
-	}
+  "[dotenv]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript][typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      // "source.fixAll": "always",
+      // "source.addMissingImports": "always"
+      "source.fixAll.eslint": "always",
+      "source.organizeImports": "always"
+    }
+  },
+  "[html]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "never"
+    }
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[ignore]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "reactTsScss.tsCleanUpDefs": true
 }
