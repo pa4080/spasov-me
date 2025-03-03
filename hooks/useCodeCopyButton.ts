@@ -1,14 +1,25 @@
+"use client";
+
 /**
- * `useCodeCopyButton` is a React Hook that add copy button to the pre tags.
+ * `useCodeCopyButton` is a React Hook that adds copy buttons to pre tags.
+ * It will re-run whenever the uri changes.
  */
 import { useEffect } from "react";
 
-export function useCodeCopyButton() {
+export function useCodeCopyButton(uri?: string) {
   useEffect(() => {
     const allPreTags = document.querySelectorAll("pre");
 
+    // Store references to the buttons we add for cleanup
+    const addedButtons: HTMLButtonElement[] = [];
+
     void Promise.all(
       Array.from(allPreTags).map(async (pre: HTMLPreElement) => {
+        // Skip if this pre tag already has a copy button
+        if (pre.querySelector(".code-copy-button")) {
+          return;
+        }
+
         const button = document.createElement("button");
         const icon = document.createElement("div");
         const response = await fetch("/assets/icons/ui/clipboard-prescription-fill.svg?v=1");
@@ -34,10 +45,20 @@ export function useCodeCopyButton() {
 
         pre.classList.add("code-copy-button-handled");
         pre.appendChild(button);
+        addedButtons.push(button);
       })
     );
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    return () => {};
-  }, []);
+    // Proper cleanup function to remove buttons when the effect re-runs
+    return () => {
+      addedButtons.forEach((button) => {
+        button.remove();
+      });
+
+      // Optionally remove the handled class if you want to start fresh
+      allPreTags.forEach((pre) => {
+        pre.classList.remove("code-copy-button-handled");
+      });
+    };
+  }, [uri]);
 }

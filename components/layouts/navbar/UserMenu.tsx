@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import React from "react";
 
 import { useAppContext } from "@/contexts/AppContext";
@@ -18,8 +19,10 @@ interface Props {
 const UserMenu: React.FC<Props> = ({ className }) => {
   const { authProviders, session } = useAppContext();
 
+  const pathName = usePathname();
+
   useClearHyphens();
-  useCodeCopyButton();
+  useCodeCopyButton(pathName);
   useScrollToAboutEntry();
 
   return (
