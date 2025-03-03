@@ -226,6 +226,9 @@ export default {
               borderRadius: "4px",
               backgroundColor: "hsl(var(--ring) / 90%)",
             },
+            "h2 > code": {
+              color: "hsl(var(--background))",
+            },
             ul: {
               listStyleType: "square",
               "--tw-prose-bullets": "hsl(var(--ring) / 80%)",
