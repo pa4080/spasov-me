@@ -34,7 +34,7 @@ const LabAdmin: React.FC<Props> = async ({ className }) => {
           labEntries={labEntries}
           tags={tags}
           type={type}
-          visibleItems={30}
+          visibleItems={60}
         />
       ))}
     </div>

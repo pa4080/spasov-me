@@ -71,7 +71,7 @@ const CreateAboutEntry: React.FC<Props> = ({ className, type, fileList, tags, ic
         trigger: !!response,
         msgSuccess: t("toast_success"),
         msgError: t("toast_error"),
-        redirectTo: pathname,
+        // redirectTo: pathname,
       });
     } catch (error) {
       console.error(error);

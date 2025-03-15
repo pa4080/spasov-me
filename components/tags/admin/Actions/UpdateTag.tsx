@@ -1,7 +1,9 @@
 "use client";
-import React, { useState } from "react";
 import { usePathname } from "next/navigation";
+import React, { useState } from "react";
 
+import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
   Dialog,
   DialogContent,
@@ -16,8 +18,6 @@ import { type TagType } from "@/interfaces/_common-data-types";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 
 import { updateTag } from "../../_tags.actions";
 import TagForm from "../Form";
@@ -59,7 +59,7 @@ const UpdateTag: React.FC<Props> = ({ className, tagType, tag, iconsMap }) => {
         trigger: !!response,
         msgSuccess: t("toast_success"),
         msgError: t("toast_error"),
-        redirectTo: pathname,
+        // redirectTo: pathname,
       });
     } catch (error) {
       console.error(error);

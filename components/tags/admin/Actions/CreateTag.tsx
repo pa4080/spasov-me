@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
 import { usePathname } from "next/navigation";
+import React, { useState } from "react";
 
+import ButtonIcon from "@/components/fragments/ButtonIcon";
+import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
   Dialog,
   DialogContent,
@@ -11,15 +13,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { msgs } from "@/messages";
-import ButtonIcon from "@/components/fragments/ButtonIcon";
-import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { type TagType } from "@/interfaces/_common-data-types";
 import { type IconsMap } from "@/interfaces/IconsMap";
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
+import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
+import { msgs } from "@/messages";
 
-import TagForm from "../Form";
 import { createTag } from "../../_tags.actions";
+import TagForm from "../Form";
 import { type Tag_FormSchema } from "../Form/schema";
 
 interface Props {
@@ -54,7 +54,7 @@ const CreateTag: React.FC<Props> = ({ className, tagType, iconsMap }) => {
         trigger: !!response,
         msgSuccess: t("toast_success"),
         msgError: t("toast_error"),
-        redirectTo: pathname,
+        // redirectTo: pathname,
       });
     } catch (error) {
       console.error(error);
