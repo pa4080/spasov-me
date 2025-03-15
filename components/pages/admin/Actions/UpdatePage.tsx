@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
 import { usePathname } from "next/navigation";
+import React, { useState } from "react";
 
+import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
 import {
   Dialog,
@@ -12,13 +13,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type PageCardData } from "@/interfaces/PageCard";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
-import { type FileListItem } from "@/interfaces/File";
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 
 import { updatePageCard } from "../../_pages.actions";
 import PageForm from "../Form";
@@ -53,7 +53,7 @@ const UpdatePage: React.FC<Props> = ({ className, page, icons, fileList }) => {
         trigger: !!response,
         msgSuccess: t("toast_success"),
         msgError: t("toast_error"),
-        redirectTo: pathname,
+        // redirectTo: pathname,
       });
     } catch (error) {
       console.error(error);

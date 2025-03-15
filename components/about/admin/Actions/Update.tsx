@@ -68,7 +68,7 @@ const UpdateAboutEntry: React.FC<Props> = ({ className, entry, fileList, tags, i
         trigger: !!response,
         msgSuccess: t("toast_success"),
         msgError: t("toast_error"),
-        redirectTo: pathname,
+        // redirectTo: pathname,
       });
     } catch (error) {
       console.error(error);
