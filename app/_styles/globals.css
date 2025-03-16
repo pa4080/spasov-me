@@ -498,6 +498,13 @@ body textarea.w-md-editor-text-input:focus {
 	 }
   }
  */
+.post-body p:has(+ ul) {
+  margin-bottom: 0.67em;
+}
+
+.post-body p + ul {
+  margin-top: 0.67em;
+}
 
 .md-processed-to-html {
   @apply text-foreground-secondary hyphens-auto xa:text-justify sa:text-[1.05rem] sa:leading-[1.75em] tracking-wide max-w-full overflow-x-hidden;
