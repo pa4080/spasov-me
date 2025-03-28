@@ -221,12 +221,16 @@ export default {
             },
             code: {
               color: "hsl(var(--background))",
-              padding: "3px 4px 1px 4px",
-              marginTop: "-2px",
+              padding: "1px 4px",
+              margin: "0",
+              fontSize: "1rem !important",
               borderRadius: "4px",
+              fontFamily: "monospace",
+              // border: "1px solid hsl(var(--ring) / 90%)",
               backgroundColor: "hsl(var(--ring) / 90%)",
+              position: "relative",
             },
-            "h2 > code": {
+            "h2 > code, h3 > code, h4 > code, h5 > code, h6 > code": {
               color: "hsl(var(--background))",
             },
             ul: {

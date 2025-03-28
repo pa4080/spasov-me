@@ -84,6 +84,14 @@ const nextConfig: NextConfig = {
           },
         ];
   },
+  allowedDevOrigins: [
+    "local-origin.dev",
+    "*.local-origin.dev",
+    "openvscode-3001.metalevel.tech",
+    "localhost:3001",
+    "localhost:3000",
+    "localhost",
+  ],
 };
 
 // const withBundleAnalyzer = require("@next/bundle-analyzer")({
