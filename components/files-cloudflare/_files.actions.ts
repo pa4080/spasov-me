@@ -242,8 +242,8 @@ export const createFile = async ({
         return null;
       }
 
-      await redisCacheFile_Flush("files");
-      await redisCacheFile_Flush("icons");
+      // await redisCacheFile_Flush("files");
+      // await redisCacheFile_Flush("icons");
 
       return await redisCacheFile_Add({ prefix, filename });
     } else {
