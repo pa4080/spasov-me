@@ -1,6 +1,6 @@
 {
   "name": "spasov-me",
-  "version": "4.4.3",
+  "version": "4.4.4",
   "private": true,
   "scripts": {
     "env-pull": "pnpm dlx vercel env pull",
