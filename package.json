@@ -1,6 +1,6 @@
 {
   "name": "spasov-me",
-  "version": "4.3.1",
+  "version": "4.4.1",
   "private": true,
   "scripts": {
     "env-pull": "pnpm dlx vercel env pull",
@@ -19,7 +19,14 @@
     "prepare": "husky",
     "pre-commit": "pnpm run check-branch-name && lint-staged",
     "git-push-u": "git push origin $(git branch | sed 's/^..//') -u",
-    "deploy-local": "sudo sh -c 'docker compose build && docker compose up -d' && scripts/dump-mongo-db.sh .env.local rm-dump && docker-prune.sh"
+    "backup:db-local": "sh -c 'scripts/dump-mongo-db.sh .env.local rm-dump",
+    "backup:db": "sh -c 'doppler run -- scripts/dump-mongo-db.sh",
+    "backup:r2": "sh -c 'doppler run -- pnpm exec tsx scripts/aws/index-copy-r2-minio.ts",
+    "docker:prune": "sudo sh -c 'docker-prune.sh",
+    "docker:build": "docker compose -f docker/docker-compose.yml up --build -d",
+    "docker:up": "docker compose -f docker/docker-compose.yml up -d",
+    "docker:down": "docker compose -f docker/docker-compose.yml down",
+    "docker:sudo-build": "sudo sh -c 'pnpm docker:build'"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",

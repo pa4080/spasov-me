@@ -51,7 +51,7 @@ pnpm dlx vercel env pull --environment=production --yes --token $VERCEL_ENV_PULL
 
 ## Tech stack
 
-- Next.js 14
+- Next.js 15
 - Vercel
 - Typescript
 - Sass (removed in late 2024)
