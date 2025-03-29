@@ -205,8 +205,17 @@ export default {
             a: {
               textDecoration: "none",
               color: "hsl(var(--accent))",
+              transition: "color 0.2s ease-in-out",
               "&:hover": {
                 color: "hsl(var(--accent-secondary))",
+                transition: "color 0.2s ease-in-out",
+              },
+              "& code": {
+                transition: "background-color 0.2s ease-in-out",
+              },
+              "&:hover code": {
+                backgroundColor: "hsl(var(--accent-secondary))",
+                transition: "background-color 0.2s ease-in-out",
               },
             },
             strong: {
@@ -223,15 +232,21 @@ export default {
               color: "hsl(var(--background))",
               padding: "1px 4px",
               margin: "0",
-              fontSize: "1rem !important",
+              fontSize: "1rem",
               borderRadius: "4px",
               fontFamily: "monospace",
               // border: "1px solid hsl(var(--ring) / 90%)",
               backgroundColor: "hsl(var(--ring) / 90%)",
               position: "relative",
             },
-            "h2 > code, h3 > code, h4 > code, h5 > code, h6 > code": {
+            "h2 code, h3 code, h4 code, h5 code, h6 code": {
               color: "hsl(var(--background))",
+              // fontSize: "1.rem !important",
+            },
+            "h2, h3, h4, h5, h6, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a": {
+              scrollMarginTop: "var(--navbar-height)",
+              color: "hsl(var(--primary-foreground))",
+              fontWeight: "600",
             },
             ul: {
               listStyleType: "square",
@@ -239,20 +254,41 @@ export default {
               // Search for ".md-processed-to-html" in globals.scss
               // in order to override the color by theme
             },
+            ol: {
+              "--tw-prose-counters": "hsl(var(--ring) / 80%)",
+            },
+            "h2#table-of-contents + ul": {
+              "&:has(ul)": {
+                listStyleType: "none",
+                paddingInlineStart: "0 !important",
+              },
+              "--tw-prose-bullets": "hsl(var(--ring-secondary) / 80%)",
+              "& ul": {
+                "--tw-prose-bullets": "hsl(var(--ring-secondary) / 80%)",
+              },
+              "& a": {
+                color: "hsl(var(--primary-foreground))",
+              },
+              "& code": {
+                backgroundColor: "hsl(var(--ring-secondary) / 90%)",
+              },
+            },
             h2: {
-              color: "hsl(var(--foreground-secondary))",
+              color: "hsl(var(--primary-foreground))",
             },
             h3: {
-              color: "hsl(var(--foreground-secondary))",
+              color: "hsl(var(--primary-foreground))",
             },
             h4: {
-              color: "hsl(var(--foreground-secondary))",
+              color: "hsl(var(--primary-foreground))",
+              fontSize: "1.25rem",
+              marginTop: "1.3rem !important",
             },
             h5: {
-              color: "hsl(var(--foreground-secondary))",
+              color: "hsl(var(--primary-foreground))",
             },
             h6: {
-              color: "hsl(var(--foreground-secondary))",
+              color: "hsl(var(--primary-foreground))",
             },
           },
         },
