@@ -25,6 +25,7 @@
     "datetime",
     "Deno",
     "ecma",
+    "esbuild",
     "esrb",
     "flexbox",
     "flexbugs",
