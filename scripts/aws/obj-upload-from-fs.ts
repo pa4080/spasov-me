@@ -38,7 +38,7 @@ export const uploadObject = async ({
       metadataRecord[key] = value as string;
     });
 
-    console.log(metadataRecord);
+    console.log(`metadata of "${objectKey}":`, metadataRecord);
 
     const command = new PutObjectCommand({
       Body: fileContent,
