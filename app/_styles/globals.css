@@ -95,7 +95,7 @@
     --scrollbar-track: 0 0% 18%;
     --scrollbar-thumb: 216 64% 59%;
     --primary: 0 0% 24%;
-    --primary-foreground: 0 0% 52%;
+    --primary-foreground: 0 0% 92%;
 
     --secondary: 0 0% 16%;
     --secondary-foreground: 0 0% 48%;
@@ -498,6 +498,13 @@ body textarea.w-md-editor-text-input:focus {
 	 }
   }
  */
+.post-body p:has(+ ul) {
+  margin-bottom: 0.67em;
+}
+
+.post-body p + ul {
+  margin-top: 0.67em;
+}
 
 .md-processed-to-html {
   @apply text-foreground-secondary hyphens-auto xa:text-justify sa:text-[1.05rem] sa:leading-[1.75em] tracking-wide max-w-full overflow-x-hidden;

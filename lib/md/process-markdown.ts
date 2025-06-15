@@ -6,13 +6,16 @@
  * -> https://github.com/jaywcjlove/rehype-video/tree/main
  */
 import { hyphenateSync as hyphenate } from "hyphen/en";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeExternalLinks, { type Target } from "rehype-external-links";
 import rehypeFormat from "rehype-format";
 import rehypePrism from "rehype-prism-plus";
+import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
 import remarkDirective from "remark-directive";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
+import remarkToc from "remark-toc";
 import { unified } from "unified";
 
 import { myRemarkPlugin_Image } from "./markdown-plugin-image";
@@ -25,12 +28,23 @@ export const new_tab_target = "spasov-me-tab" as Target;
 export const processMarkdown = ({ markdown, hyphen }: { markdown: string; hyphen?: boolean }) => {
   const result = unified()
     .use(remarkParse)
+    .use(remarkToc, { ordered: false, maxDepth: 3, heading: "Table of Contents" })
     .use(remarkDirective)
     .use(myRemarkPlugin_YouTube)
     .use(myRemarkPlugin_Video)
     .use(myRemarkPlugin_Image)
     .use(myRemarkPlugin_Pdf)
     .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeSlug) // Add IDs to headings
+    .use(
+      rehypeAutolinkHeadings, // Optionally add links to headings
+      {
+        behavior: "wrap", // Wrap heading text in a link
+        properties: { className: "autolink-anchor" },
+        headingProperties: { className: "autolink-heading" },
+        test: (node) => node.tagName !== "h1", // Skip <h1> tags
+      }
+    )
     .use(rehypeFormat)
     .use(rehypeExternalLinks, { rel: ["nofollow"], target: new_tab_target })
     .use(rehypeStringify, { allowDangerousHtml: true })

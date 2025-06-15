@@ -5,6 +5,7 @@
  *
  * From the root directory of the project:
  * > doppler run -- pnpm exec ts-node --skip-project scripts/aws/index-copy-r2-minio.ts
+ * > doppler run -- pnpm exec tsx scripts/aws/index-copy-r2-minio.ts
  */
 import { listObjects } from "../../lib/aws";
 import { minIoConfig, r2BucketName, r2cfConfig } from "./config";

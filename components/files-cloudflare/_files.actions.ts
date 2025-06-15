@@ -22,7 +22,12 @@ import { getRatio, type GetRatioInput } from "@/lib/get-ratio";
 import { fileObject_toData } from "@/lib/process-data-files-cloudflare";
 import { msgs } from "@/messages";
 
-import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "./../_common.actions";
+import {
+  attachedTo_detachFromTarget,
+  getSession,
+  redisCacheFile_Flush,
+  revalidatePaths,
+} from "./../_common.actions";
 
 const redis_app_prefix = process.env.UPSTASH_REDIS_PREFIX ?? "spasov_me";
 const files_prefix = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES ?? "files";
@@ -237,6 +242,9 @@ export const createFile = async ({
         return null;
       }
 
+      // await redisCacheFile_Flush("files");
+      // await redisCacheFile_Flush("icons");
+
       return await redisCacheFile_Add({ prefix, filename });
     } else {
       console.error(msgs("Errors")("invalidFile"));
@@ -385,6 +393,11 @@ export const updateFile = async ({
       return null;
     }
 
+    // await redisCacheFile_Flush("files");
+    // await redisCacheFile_Flush("icons");
+
+    await redisCacheFile_Remove({ prefix, file_id });
+
     return await redisCacheFile_Add({ prefix, filename: filename_final });
   } catch (error) {
     console.error(error);
@@ -417,6 +430,9 @@ export const deleteFile = async ({
     const deleteRes = await getObjectListAndDelete({
       prefix: `${prefix}/${filename}`,
     });
+
+    await redisCacheFile_Flush("files");
+    await redisCacheFile_Flush("icons");
 
     return redisRes && deleteRes;
   } catch (error) {

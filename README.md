@@ -51,7 +51,7 @@ pnpm dlx vercel env pull --environment=production --yes --token $VERCEL_ENV_PULL
 
 ## Tech stack
 
-- Next.js 14
+- Next.js 15
 - Vercel
 - Typescript
 - Sass (removed in late 2024)
@@ -141,7 +141,7 @@ doppler run -- scripts/aws-shell/objStorage-copy.sh
 doppler run -- pnpm exec tsx scripts/aws/index-copy-r2-minio.ts
 ```
 
-This just stops working.
+This just stops working:
 
 ```bash
 doppler run -- pnpm exec ts-node --skip-project scripts/aws/index-copy-r2-minio.ts

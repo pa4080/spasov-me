@@ -19,7 +19,7 @@ export const data = {
   ],
   post_type_list: ["blog", "reference", "manual", "note", "lifestyle"],
   lab_entry: {
-    type_list: ["site", "service", "application", "database"],
+    type_list: ["application", "database", "service", "site"],
     visibility: ["private", "public"],
     property: ["own", "client", "shared", "third-party"],
     host: [

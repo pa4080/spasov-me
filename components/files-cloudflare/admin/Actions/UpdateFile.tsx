@@ -57,7 +57,7 @@ const UpdateFile: React.FC<Props> = ({ className, file, files_prefix }) => {
         trigger: !!response,
         msgSuccess: t("toast_success"),
         msgError: t("toast_error"),
-        redirectTo: pathname,
+        // redirectTo: pathname,
       });
     } catch (error) {
       console.error(error);
