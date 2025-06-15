@@ -102,7 +102,7 @@ export const cleanClipboardV4 = (event: ClipboardEvent) => {
  * It also preserve the original contents of the <pre> elements.
  *
  * @param event - The ClipboardEvent to handle.
- */
+ * 
 export const cleanClipboardV3 = (event: ClipboardEvent) => {
   // Get the selected range
   const selectedRange = window.getSelection()?.getRangeAt(0);
@@ -186,6 +186,7 @@ export const cleanClipboardV3 = (event: ClipboardEvent) => {
   window.shouldCopyInnerHTML = false;
   event.preventDefault();
 };
+ */
 
 /**
  * @name cleanClipboardV2, like cleanClipboardV1 ( @see blow ), removes hyphenation symbols and codes, but does so from the temporary div's innerHTML.
