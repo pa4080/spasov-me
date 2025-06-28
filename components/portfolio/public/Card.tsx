@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import styles from "@/app/_styles/card.module.css";
 import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
 import { Button } from "@/components/ui/button";
 import { type FileListItem } from "@/interfaces/File";
@@ -11,6 +10,7 @@ import { cn } from "@/lib/cn-utils";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
+import styles from "app/_styles/card.module.css";
 
 import ProjectLinks from "../common/ProjectLinks";
 

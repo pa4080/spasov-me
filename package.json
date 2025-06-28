@@ -70,7 +70,7 @@
     "mime-types": "^2.1.35",
     "mongodb": "^6.17.0",
     "mongoose": "^8.15.2",
-    "next": "15.3.3",
+    "next": "15.3.4",
     "next-auth": "^4.24.10",
     "next-themes": "^0.3.0",
     "postcss": "^8.4.49",
@@ -127,7 +127,7 @@
     "@vercel/edge-config": "^1.4.0",
     "@vercel/kv": "^2.0.0",
     "eslint": "^9.15.0",
-    "eslint-config-next": "^15.3.3",
+    "eslint-config-next": "^15.3.4",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-typescript": "^3.6.3",
@@ -147,6 +147,7 @@
     "stylelint-order": "^6.0.4",
     "stylelint-scss": "^6.10.0",
     "typescript": "^5.7.2",
+    "typescript-plugin-css-modules": "^5.1.0",
     "vercel": "^34.4.0",
     "webpack": "^5.96.1"
   }

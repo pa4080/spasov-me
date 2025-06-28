@@ -1,7 +1,6 @@
 import Link from "next/link";
 import React from "react";
 
-import styles from "@/app/_styles/card.module.css";
 import DisplayFileImageOrEmbed from "@/components/fragments/DisplayFileImageOrEmbed";
 import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
 import { Button } from "@/components/ui/button";
@@ -13,6 +12,7 @@ import { cn } from "@/lib/cn-utils";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
+import styles from "app/_styles/card.module.css";
 
 import PostLinks from "../common/PostLinks";
 

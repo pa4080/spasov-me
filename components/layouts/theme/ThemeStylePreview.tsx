@@ -1,6 +1,6 @@
 import React from "react";
 
-// import colorVars from "@/app/_styles/globals.variables.module.scss";
+// import colorVars from "app/_styles/globals.variables.module.scss";
 
 interface Props {
   className?: string;

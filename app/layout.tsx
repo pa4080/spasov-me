@@ -7,9 +7,9 @@ import AuthSessionProvider from "@/contexts/AuthSessionProvider";
 import ThemesProvider from "@/contexts/ThemesProvider";
 import manifest from "@/public/manifest.json";
 
-import "@/app/_styles/globals-file-card.scss";
-import "@/app/_styles/globals-syntax-highlight.scss";
-import "@/app/_styles/globals.css";
+import "app/_styles/globals-file-card.scss";
+import "app/_styles/globals-syntax-highlight.scss";
+import "app/_styles/globals.css";
 
 import type { Metadata, Viewport } from "next";
 

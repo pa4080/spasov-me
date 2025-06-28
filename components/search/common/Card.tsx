@@ -3,7 +3,6 @@ import { enUS as en } from "date-fns/locale";
 import Link from "next/link";
 import React from "react";
 
-import styles from "@/app/_styles/card-info.module.css";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 import Gallery from "@/components/fragments/Gallery";
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
@@ -26,6 +25,7 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markd
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
+import styles from "app/_styles/card-info.module.css";
 
 import { type LabEntryCustom } from "../public/type";
 
