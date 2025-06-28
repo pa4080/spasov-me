@@ -3,7 +3,6 @@ import { enUS as en } from "date-fns/locale";
 import Link from "next/link";
 import React from "react";
 
-import styles from "@/app/_styles/card-info.module.css";
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
 import DisplayIcon from "@/components/fragments/DisplayIcon";
 import DisplayResourceUrlAsIcon from "@/components/fragments/DisplayResourceUrlAsIcon";
@@ -19,6 +18,7 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markd
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
+import styles from "app/_styles/card-info.module.css";
 
 import DeleteProject from "./Actions/Delete";
 import UpdateProject from "./Actions/Update";

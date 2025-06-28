@@ -1,4 +1,3 @@
-import styles from "@/app/_styles/card.module.css";
 import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
 import TooltipWrapper from "@/components/fragments/TooltipWrapper";
 import { type IconsMap } from "@/interfaces/IconsMap";
@@ -6,6 +5,7 @@ import { type LabEntryData } from "@/interfaces/LabEntry";
 import { cn } from "@/lib/cn-utils";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { msgs } from "@/messages";
+import styles from "app/_styles/card.module.css";
 
 import LabEntryLinks from "../common/LabEntryLinks";
 import ShowDetailsOrTags from "../common/ShowDetailsOrTags";

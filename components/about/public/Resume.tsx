@@ -1,6 +1,3 @@
-import React from "react";
-
-import cardStyles from "@/app/_styles/card-info.module.css";
 import SectionHeader from "@/components/fragments/SectionHeader";
 import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import { type AboutEntryData } from "@/interfaces/AboutEntry";
@@ -11,6 +8,7 @@ import { type AboutEntryType } from "@/interfaces/_common-data-types";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
+import cardStyles from "app/_styles/card-info.module.css";
 
 import UpdateAboutEntry from "../admin/Actions/Update";
 
