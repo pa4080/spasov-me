@@ -1,8 +1,8 @@
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";
 import { ChevronDown } from "lucide-react";
-import * as React from "react";
 import Link from "next/link";
+import * as React from "react";
 
 import { cn } from "@/lib/cn-utils";
 
@@ -124,14 +124,14 @@ const NavigationMenu_NextLink_Styled = React.forwardRef<
     desc?: string;
     href: string;
   }
->(({ className, title, desc, href, ...props }, ref) => (
-  <Link legacyBehavior passHref href={href}>
-    <NavigationMenuPrimitive.Link ref={ref} className={cn(className)} {...props}>
-      <p className="font-semibold line-clamp-1 break-words" style={{ letterSpacing: "1px" }}>
-        {title}
-      </p>
-      <p className="line-clamp-2 leading-snug text-foreground-secondary">{desc}</p>
-    </NavigationMenuPrimitive.Link>
+>(({ className, title, desc, href, ..._props }, ref) => (
+  <Link ref={ref} passHref className={cn("cursor-pointer", className)} href={href}>
+    {/* <NavigationMenuPrimitive.Link ref={ref} className={cn("cursor-pointer", className)} {...props}> */}
+    <p className="font-semibold line-clamp-1 break-words" style={{ letterSpacing: "1px" }}>
+      {title}
+    </p>
+    <p className="line-clamp-2 leading-snug text-foreground-secondary">{desc}</p>
+    {/* </NavigationMenuPrimitive.Link> */}
   </Link>
 ));
 
@@ -181,13 +181,13 @@ NavigationMenuIndicator.displayName = NavigationMenuPrimitive.Indicator.displayN
 
 export {
   NavigationMenu,
+  NavigationMenu_NextLink_Styled,
   NavigationMenuContent,
   NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
-  NavigationMenu_NextLink_Styled,
   navigationMenuTriggerStyle,
+  NavigationMenuViewport,
 };

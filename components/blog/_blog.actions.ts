@@ -34,6 +34,30 @@ export const getPosts = async ({
   }
 };
 
+export const getPostList_SiteMap = async ({
+  public: visible = true,
+}: {
+  public?: boolean;
+} = {}): Promise<
+  { title: string; slug: string; attachment?: string; gallery?: string[] }[] | null
+> => {
+  try {
+    await connectToMongoDb();
+    const projects = await Post.find(
+      {
+        visibility: visible,
+      },
+      { title: 1, slug: 1, attachment: 1, gallery: 1 }
+    );
+
+    return projects;
+  } catch (error) {
+    console.error(error);
+
+    return null;
+  }
+};
+
 export const createPost = async (data: FormData, paths: string[]): Promise<boolean | null> => {
   try {
     const session = await getSession();

@@ -9,20 +9,22 @@ import { r2BucketIconsPath, r2BucketName, r2cfConfig } from "./config";
 import generateFileMapRecursive from "./local-files-map";
 import { uploadObjectList } from "./obj-upload-from-fs";
 
-// Generate file map (list of the files to be uploaded)
-const iconMap = generateFileMapRecursive({
-  dir: "./public/assets/icons",
-  date: new Date(),
-  creatorId: "spas-z-spasov",
-  locale: "en",
-  filename_trim_prefix: "icons",
-});
+(async () => {
+  // Generate file map (list of the files to be uploaded)
+  const iconMap = await generateFileMapRecursive({
+    dir: "./public/assets/icons",
+    date: new Date(),
+    creatorId: "spas-z-spasov",
+    locale: "en",
+    filename_trim_prefix: "icons",
+  });
 
-// Upload the files
-uploadObjectList({
-  fileList: iconMap,
-  prefix: r2BucketIconsPath,
-  bucket: r2BucketName,
-  config: r2cfConfig,
-  batchSize: 10,
-});
+  // Upload the files
+  uploadObjectList({
+    fileList: iconMap,
+    prefix: r2BucketIconsPath,
+    bucket: r2BucketName,
+    config: r2cfConfig,
+    batchSize: 10,
+  });
+})();
