@@ -1,7 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import { updateEntry } from "@/components/about/_about.actions";
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
@@ -51,35 +51,42 @@ const UpdateAboutEntry: React.FC<Props> = ({ className, entry, fileList, tags, i
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  const handleUpdateEntry = async (data: Entry_FormSchema) => {
-    setSubmitting(true);
-    try {
-      /**
-       * In case we were used <form action={addPage}> this conversion will not be needed,
-       * Unfortunately, at the current moment nor "react-hook-form" nor "shadcn/ui" support
-       * form.action()... @see https://stackoverflow.com/a/40552372/6543935
-       */
+  const handleUpdateEntry = useCallback(
+    async (data: Entry_FormSchema) => {
+      setSubmitting(true);
+      try {
+        /**
+         * In case we were used <form action={addPage}> this conversion will not be needed,
+         * Unfortunately, at the current moment nor "react-hook-form" nor "shadcn/ui" support
+         * form.action()... @see https://stackoverflow.com/a/40552372/6543935
+         */
 
-      const response = await updateEntry(generateFormDataFromObject(data), entry._id, [
-        pathname,
-        Route.public.ABOUT.uri,
-        Route.admin.FILES_MONGODB,
-        Route.admin.FILES_CFR2,
-      ]);
+        const response = await updateEntry(generateFormDataFromObject(data), entry._id, [
+          pathname,
+          Route.public.ABOUT.uri,
+          Route.admin.FILES_MONGODB,
+          Route.admin.FILES_CFR2,
+        ]);
 
-      serverActionResponseToastAndLocationReload({
-        trigger: !!response,
-        msgSuccess: t("toast_success"),
-        msgError: t("toast_error"),
-        // redirectTo: pathname,
-      });
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setSubmitting(false);
-      // setIsOpen(false);
-    }
-  };
+        serverActionResponseToastAndLocationReload({
+          trigger: !!response,
+          msgSuccess: t("toast_success"),
+          msgError: t("toast_error"),
+          // redirectTo: pathname,
+        });
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setSubmitting(false);
+        // setIsOpen(false);
+      }
+    },
+    [entry._id, pathname, t]
+  );
+
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+  }, []);
 
   if (!session) {
     return null;
@@ -122,7 +129,7 @@ const UpdateAboutEntry: React.FC<Props> = ({ className, entry, fileList, tags, i
           iconsMap={iconsMap}
           submitting={submitting}
           tags={tags}
-          onClose={() => setIsOpen(false)}
+          onClose={handleClose}
           onSubmit={handleUpdateEntry}
         />
       </DialogContent>

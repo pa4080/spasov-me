@@ -1,7 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import Loading from "@/components/fragments/Loading";
@@ -59,34 +59,41 @@ const UpdateLabEntry: React.FC<Props> = ({
 
   const { session } = useAppContext();
 
-  const handleUpdateLabEntry = async (data: LabEntry_FormSchema) => {
-    setSubmitting(true);
-    try {
-      /**
-       * In case we were used <form action={addPage}> this conversion will not be needed,
-       * Unfortunately, at the current moment nor "react-hook-form" nor "shadcn/ui" support
-       * form.action()... @see https://stackoverflow.com/a/40552372/6543935
-       */
+  const handleUpdateLabEntry = useCallback(
+    async (data: LabEntry_FormSchema) => {
+      setSubmitting(true);
+      try {
+        /**
+         * In case we were used <form action={addPage}> this conversion will not be needed,
+         * Unfortunately, at the current moment nor "react-hook-form" nor "shadcn/ui" support
+         * form.action()... @see https://stackoverflow.com/a/40552372/6543935
+         */
 
-      const response = await updateLabEntry(generateFormDataFromObject(data), labEntry._id, [
-        pathname,
-        Route.public.LAB.uri,
-        Route.admin.LAB,
-      ]);
+        const response = await updateLabEntry(generateFormDataFromObject(data), labEntry._id, [
+          pathname,
+          Route.public.LAB.uri,
+          Route.admin.LAB,
+        ]);
 
-      serverActionResponseToastAndLocationReload({
-        trigger: !!response,
-        msgSuccess: t("toast_success"),
-        msgError: t("toast_error"),
-        // redirectTo: pathname,
-      });
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setSubmitting(false);
-      // setIsOpen(false);
-    }
-  };
+        serverActionResponseToastAndLocationReload({
+          trigger: !!response,
+          msgSuccess: t("toast_success"),
+          msgError: t("toast_error"),
+          // redirectTo: pathname,
+        });
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setSubmitting(false);
+        // setIsOpen(false);
+      }
+    },
+    [labEntry._id, pathname, t]
+  );
+
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+  }, []);
 
   if (!session) {
     return null;
@@ -135,7 +142,7 @@ const UpdateLabEntry: React.FC<Props> = ({
           iconsMap={iconsMap}
           submitting={submitting}
           tags={tags}
-          onClose={() => setIsOpen(false)}
+          onClose={handleClose}
           onSubmit={handleUpdateLabEntry}
         />
       </DialogContent>

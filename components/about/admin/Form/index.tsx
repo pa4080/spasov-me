@@ -1,15 +1,15 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import MDEditor from "@uiw/react-md-editor";
 import { Paperclip, Tag } from "lucide-react";
 import { useTheme } from "next-themes";
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
 import Combobox from "@/components/fragments/Combobox";
 import DatePicker from "@/components/fragments/DatePicker";
 import DisplayEntryAttachmentInTheEditForm from "@/components/fragments/DisplayEntryAttachmentInTheEditForm";
+import FormMdEditor from "@/components/fragments/FormMdEditor";
 import Loading from "@/components/fragments/Loading";
 import MultiSelectFromList from "@/components/fragments/MultiSelectFromList";
 import SelectFromList from "@/components/fragments/SelectFromList";
@@ -106,6 +106,7 @@ const AboutEntryForm: React.FC<Props> = ({
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      // Existing Ctrl+S handler
       if (event.ctrlKey && event.key === "s") {
         event.preventDefault();
         void form.handleSubmit(onSubmit)();
@@ -296,24 +297,10 @@ const AboutEntryForm: React.FC<Props> = ({
                 >
                   {t("description_label") && <FormLabel>{t("description_label")}</FormLabel>}
                   <FormControl>
-                    <MDEditor
-                      autoFocus
-                      enableScroll
-                      // commands={[...commands.getCommands()]}
-                      height={form.formState.errors.description ? "calc(100% - 1.8em)" : "100%"}
-                      overflow={false}
-                      preview="edit"
-                      textareaProps={{
-                        spellCheck: true,
-                        placeholder: t("description_placeholder"),
-                        style: {
-                          overscrollBehavior: "none",
-                          display: "block",
-                          color: "inherit",
-                        },
-                      }}
-                      value={field.value}
-                      onChange={field.onChange}
+                    <FormMdEditor
+                      field={field}
+                      form={form}
+                      placeholder={t("description_placeholder")}
                     />
                   </FormControl>
                   {form.formState.errors.description ? (
@@ -419,4 +406,4 @@ const AboutEntryForm: React.FC<Props> = ({
   );
 };
 
-export default AboutEntryForm;
+export default memo(AboutEntryForm);
