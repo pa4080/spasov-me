@@ -322,7 +322,8 @@
     "gallery_searchNotFound": "Not found...",
     "gallery_selectNone": "< None! >",
 
-    "btn_submit": "Submit",
+    "btn_close": "Close",
+    "btn_submit": "Save",
     "btn_submitting": "Submitting...",
 
     "dateTo_now_current": "Now"
@@ -572,7 +573,8 @@
     "gallery_searchNotFound": "Not found...",
     "gallery_selectNone": "< None! >",
 
-    "btn_submit": "Submit",
+    "btn_close": "Close",
+    "btn_submit": "Save",
     "btn_submitting": "Submitting...",
 
     "dateTo_now_current": "Now"
@@ -712,7 +714,8 @@
     "gallery_searchNotFound": "Not found...",
     "gallery_selectNone": "< None! >",
 
-    "btn_submit": "Submit",
+    "btn_close": "Close",
+    "btn_submit": "Save",
     "btn_submitting": "Submitting...",
 
     "dateTo_now_current": "Now"
@@ -895,7 +898,8 @@
     "gallery_searchNotFound": "Not found...",
     "gallery_selectNone": "< None! >",
 
-    "btn_submit": "Submit",
+    "btn_close": "Close",
+    "btn_submit": "Save",
     "btn_submitting": "Submitting...",
 
     "dateTo_now_current": "Now"

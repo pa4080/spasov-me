@@ -149,10 +149,10 @@ export default function MultiSelectFromList<T extends FieldValues>({
         <FormItem className={`w-full ${className}`}>
           {messages.label && <FormLabel>{messages.label}</FormLabel>}
           <Popover>
-            <div className="flex flex-col sm:grid sm:grid-cols-7 gap-3 w-full">
+            <div className="flex flex-col ma:grid ma:grid-cols-7 gap-3 w-full">
               <PopoverTrigger asChild>
                 <Button
-                  className={`w-full justify-between bg-primary text-sm sm:col-span-2 ${
+                  className={`w-full justify-between bg-primary text-sm ma:col-span-2 ${
                     !field.value && "text-muted-foreground"
                   }`}
                   role="combobox"
@@ -163,7 +163,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
                 </Button>
               </PopoverTrigger>
 
-              <div className="flex gap-1 flex-wrap sm:col-span-5 items-center px-1">
+              <div className="flex gap-1 flex-wrap ma:col-span-5 items-center px-1">
                 {selected && selected?.length > 0 ? (
                   itemsList
                     .filter((item) => selected?.includes(item.value))

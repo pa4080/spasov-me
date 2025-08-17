@@ -29,7 +29,7 @@ import { type Entry_FormSchema } from "../Form/schema";
 // import AboutEntryForm from "../Form";
 const AboutEntryForm = dynamic(() => import("../Form"), {
   ssr: false,
-  loading: () => <Loading />,
+  loading: () => <Loading height="100%" maxHeight="100%" />,
 });
 
 interface Props {
@@ -77,7 +77,7 @@ const CreateAboutEntry: React.FC<Props> = ({ className, type, fileList, tags, ic
       console.error(error);
     } finally {
       setSubmitting(false);
-      setIsOpen(false);
+      // setIsOpen(false);
     }
   };
 
@@ -98,7 +98,7 @@ const CreateAboutEntry: React.FC<Props> = ({ className, type, fileList, tags, ic
           />
         </DialogTrigger>
         <DialogContent
-          className="ma:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
+          className="ma:max-w-[calc(100%_-_2rem)] ma:w-full ma:h-[calc(100%_-_2rem)] flex flex-col"
           closeOnOverlayClick={false}
         >
           <DialogHeader>
@@ -121,6 +121,7 @@ const CreateAboutEntry: React.FC<Props> = ({ className, type, fileList, tags, ic
             iconsMap={iconsMap}
             submitting={submitting}
             tags={tags}
+            onClose={() => setIsOpen(false)}
             onSubmit={handleCreateEntry}
           />
         </DialogContent>

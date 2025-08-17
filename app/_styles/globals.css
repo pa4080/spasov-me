@@ -994,3 +994,12 @@ body textarea.w-md-editor-text-input:focus {
     --angle: 360deg;
   }
 }
+
+/** Dialogs */
+html:has(> body div[role="dialog"]) {
+  overflow: hidden;
+}
+
+body:has(div[role="dialog"]) {
+  padding-right: 12px !important;
+}

@@ -26,7 +26,10 @@ import { Route } from "@/routes";
 import { updatePost } from "../../_blog.actions";
 import { type Post_FormSchema } from "../Form/schema";
 
-const PostForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
+const PostForm = dynamic(() => import("../Form"), {
+  ssr: false,
+  loading: () => <Loading height="100%" maxHeight="100%" />,
+});
 
 interface Props {
   className?: string;
@@ -75,7 +78,7 @@ const UpdatePost: React.FC<Props> = ({ className, post, fileList, iconList, icon
       console.error(error);
     } finally {
       setSubmitting(false);
-      setIsOpen(false);
+      // setIsOpen(false);
     }
   };
 
@@ -100,7 +103,7 @@ const UpdatePost: React.FC<Props> = ({ className, post, fileList, iconList, icon
         />
       </DialogTrigger>
       <DialogContent
-        className="ma:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
+        className="ma:max-w-[calc(100%_-_2rem)] ma:w-full ma:h-[calc(100%_-_2rem)] flex flex-col"
         closeOnOverlayClick={false}
       >
         <DialogHeader>
@@ -125,6 +128,7 @@ const UpdatePost: React.FC<Props> = ({ className, post, fileList, iconList, icon
           iconsMap={iconsMap}
           submitting={submitting}
           tags={tags}
+          onClose={() => setIsOpen(false)}
           onSubmit={handleUpdatePost}
         />
       </DialogContent>
