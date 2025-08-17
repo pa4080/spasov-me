@@ -27,7 +27,7 @@ export interface DeepseekResponseData {
   system_fingerprint: string;
 }
 
-export async function getAICompletion(prompt: string): Promise<string> {
+export async function getAICompletion_v1(prompt: string): Promise<string> {
   const apiKey = process.env.DEEPSEEK_API_KEY;
 
   if (!apiKey) {
