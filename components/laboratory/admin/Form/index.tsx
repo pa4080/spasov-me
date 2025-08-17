@@ -133,6 +133,21 @@ const LabEntryForm: React.FC<Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.getFieldState("title").isTouched, form.watch("title")]);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.ctrlKey && event.key === "s") {
+        event.preventDefault();
+        void form.handleSubmit(onSubmit)();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [form, onSubmit]);
+
   if (!tags || !fileList || !iconList) {
     return <Loading />;
   }

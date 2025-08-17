@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import MDEditor from "@uiw/react-md-editor";
 import { Paperclip, Tag } from "lucide-react";
 import { useTheme } from "next-themes";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
@@ -103,6 +103,21 @@ const AboutEntryForm: React.FC<Props> = ({
         }
       : undefined,
   });
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.ctrlKey && event.key === "s") {
+        event.preventDefault();
+        void form.handleSubmit(onSubmit)();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [form, onSubmit]);
 
   if (!tags || !fileList) {
     return <Loading />;
