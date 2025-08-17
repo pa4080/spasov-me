@@ -6,13 +6,14 @@ interface Props {
   scale?: number;
   maxHeight?: string;
   className?: string;
+  height?: string;
 }
 
-const Loading: React.FC<Props> = ({ scale = 2, maxHeight = "480px", className }) => (
+const Loading: React.FC<Props> = ({ scale = 2, maxHeight = "480px", height, className }) => (
   <div
     className={cn("flex items-center justify-center", className)}
     style={{
-      height: `${192 * scale}px`,
+      height: height ?? `${192 * scale}px`,
       maxHeight,
     }}
   >

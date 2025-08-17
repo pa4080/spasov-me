@@ -42,6 +42,7 @@ interface Props {
   formData?: ProjectData;
   entryType: ProjectType;
   onSubmit: (data: Project_FormSchema) => void;
+  onClose?: () => void;
   submitting?: boolean;
   fileList: FileListItem[] | null;
   iconList: FileListItem[] | null;
@@ -54,6 +55,7 @@ const ProjectForm: React.FC<Props> = ({
   entryType: entryType = projectTuple[0],
   formData,
   onSubmit,
+  onClose,
   submitting,
   fileList,
   iconList,
@@ -128,11 +130,11 @@ const ProjectForm: React.FC<Props> = ({
   return (
     <Form {...form}>
       <form
-        className={`w-full space-y-4 relative ${className}`}
+        className={`w-full flex flex-col gap-4 relative ma:flex-grow ${className}`}
         onSubmit={form.handleSubmit(onSubmit)}
       >
         {/* Grid */}
-        <div className="flex flex-col ma:grid ma:grid-cols-7 gap-3">
+        <div className="flex flex-col ma:grid ma:grid-cols-7 ma:grid-rows-[1fr_auto_auto] gap-3 ma:max-h-[calc(100vh-12.4rem)] ma:flex-grow">
           {/* Left grid */}
           <div className="ma:col-span-2 flex flex-col gap-3">
             {/* Date From and Date To */}
@@ -357,7 +359,7 @@ const ProjectForm: React.FC<Props> = ({
           </div>
 
           {/* Right grid */}
-          <div className="ma:col-span-5 flex flex-col gap-3 h-full">
+          <div className="ma:col-span-5 flex flex-col gap-3 ma:overflow-hidden">
             {/* Title */}
             <FormField
               control={form.control}
@@ -390,7 +392,7 @@ const ProjectForm: React.FC<Props> = ({
               name="description"
               render={({ field }) => (
                 <FormItem
-                  className="flex-grow h-96 ma:h-1"
+                  className="ma:flex-grow overflow-hidden"
                   data-color-mode={theme ? (theme === "dark" ? "dark" : "light") : "auto"}
                 >
                   {t("description_label") && <FormLabel>{t("description_label")}</FormLabel>}
@@ -494,9 +496,23 @@ const ProjectForm: React.FC<Props> = ({
 
         {/* Submit button */}
         <div className="flex gap-3 w-full justify-between items-center">
-          <Button disabled={submitting} type="submit">
-            {submitting ? t("btn_submitting") : t("btn_submit")}
-          </Button>
+          <div className="flex gap-3">
+            <Button disabled={submitting} type="submit">
+              {submitting ? t("btn_submitting") : t("btn_submit")}
+            </Button>
+            {!!onClose && (
+              <Button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onClose();
+                }}
+              >
+                {t("btn_close")}
+              </Button>
+            )}
+          </div>
           <CreateFile files_prefix="files" />
         </div>
       </form>

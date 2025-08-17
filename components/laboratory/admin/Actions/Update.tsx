@@ -26,7 +26,10 @@ import { Route } from "@/routes";
 import { updateLabEntry } from "../../_lab.actions";
 import { type LabEntry_FormSchema } from "../Form/schema";
 
-const LabEntryForm = dynamic(() => import("../Form"), { ssr: false, loading: () => <Loading /> });
+const LabEntryForm = dynamic(() => import("../Form"), {
+  ssr: false,
+  loading: () => <Loading height="100%" maxHeight="100%" />,
+});
 
 interface Props {
   className?: string;
@@ -81,7 +84,7 @@ const UpdateLabEntry: React.FC<Props> = ({
       console.error(error);
     } finally {
       setSubmitting(false);
-      setIsOpen(false);
+      // setIsOpen(false);
     }
   };
 
@@ -107,7 +110,7 @@ const UpdateLabEntry: React.FC<Props> = ({
         />
       </DialogTrigger>
       <DialogContent
-        className="ma:max-w-[92%] lg:max-w-[82%] xl:max-w-5xl"
+        className="ma:max-w-[calc(100%_-_2rem)] ma:w-full ma:h-[calc(100%_-_2rem)] flex flex-col"
         closeOnOverlayClick={false}
       >
         <DialogHeader>
@@ -132,6 +135,7 @@ const UpdateLabEntry: React.FC<Props> = ({
           iconsMap={iconsMap}
           submitting={submitting}
           tags={tags}
+          onClose={() => setIsOpen(false)}
           onSubmit={handleUpdateLabEntry}
         />
       </DialogContent>
