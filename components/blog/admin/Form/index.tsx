@@ -1,9 +1,8 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import MDEditor, { commands } from "@uiw/react-md-editor";
 import { Paperclip, Tag } from "lucide-react";
 import { useTheme } from "next-themes";
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import slugify from "slugify";
 
@@ -12,6 +11,7 @@ import Combobox from "@/components/fragments/Combobox";
 import DatePicker from "@/components/fragments/DatePicker";
 import DisplayEntryAttachmentInTheEditForm from "@/components/fragments/DisplayEntryAttachmentInTheEditForm";
 import DisplayFileImage from "@/components/fragments/DisplayFileImage";
+import FormMdEditor from "@/components/fragments/FormMdEditor";
 import Loading from "@/components/fragments/Loading";
 import MultiSelectFromList from "@/components/fragments/MultiSelectFromList";
 import SelectFromList from "@/components/fragments/SelectFromList";
@@ -31,7 +31,7 @@ import { type FileData, type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type PostData } from "@/interfaces/Post";
 import { type TagData } from "@/interfaces/Tag";
-import { type PostType, postTuple } from "@/interfaces/_common-data-types";
+import { postTuple, type PostType } from "@/interfaces/_common-data-types";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
@@ -125,6 +125,22 @@ const PostForm: React.FC<Props> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.getFieldState("title").isTouched, form.watch("title")]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Existing Ctrl+S handler
+      if (event.ctrlKey && event.key === "s") {
+        event.preventDefault();
+        void form.handleSubmit(onSubmit)();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [form, onSubmit]);
 
   if (!tags || !fileList || !iconList) {
     return <Loading />;
@@ -447,24 +463,10 @@ const PostForm: React.FC<Props> = ({
                 >
                   {t("description_label") && <FormLabel>{t("description_label")}</FormLabel>}
                   <FormControl>
-                    <MDEditor
-                      autoFocus
-                      enableScroll
-                      commands={[...commands.getCommands()]}
-                      height={form.formState.errors.description ? "calc(100% - 1.8em)" : "100%"}
-                      overflow={false}
-                      preview="edit"
-                      textareaProps={{
-                        spellCheck: true,
-                        placeholder: t("description_placeholder"),
-                        style: {
-                          overscrollBehavior: "none",
-                          display: "block",
-                          color: "inherit",
-                        },
-                      }}
-                      value={field.value}
-                      onChange={field.onChange}
+                    <FormMdEditor
+                      field={field}
+                      form={form}
+                      placeholder={t("description_placeholder")}
                     />
                   </FormControl>
                   {form.formState.errors.description ? (
@@ -570,4 +572,4 @@ const PostForm: React.FC<Props> = ({
   );
 };
 
-export default PostForm;
+export default memo(PostForm);
