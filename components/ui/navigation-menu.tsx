@@ -1,6 +1,7 @@
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";
 import { ChevronDown } from "lucide-react";
+import Link from "next/link";
 import * as React from "react";
 
 import { cn } from "@/lib/cn-utils";
@@ -124,14 +125,14 @@ const NavigationMenu_NextLink_Styled = React.forwardRef<
     href: string;
   }
 >(({ className, title, desc, href, ...props }, ref) => (
-  // <Link passHref href={href}>
-  <NavigationMenuPrimitive.Link ref={ref} className={cn("cursor-pointer", className)} {...props}>
+  <Link passHref className={cn("cursor-pointer", className)} href={href}>
+    {/* <NavigationMenuPrimitive.Link ref={ref} className={cn("cursor-pointer", className)} {...props}> */}
     <p className="font-semibold line-clamp-1 break-words" style={{ letterSpacing: "1px" }}>
       {title}
     </p>
     <p className="line-clamp-2 leading-snug text-foreground-secondary">{desc}</p>
-  </NavigationMenuPrimitive.Link>
-  // </Link>
+    {/* </NavigationMenuPrimitive.Link> */}
+  </Link>
 ));
 
 NavigationMenu_NextLink_Styled.displayName = NavigationMenuPrimitive.Link.displayName;
