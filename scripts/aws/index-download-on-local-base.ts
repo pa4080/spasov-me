@@ -12,7 +12,7 @@ import { downloadObjectList } from "./obj-download-to-fs";
 
 (async () => {
   // Generate file map (list of the files to be uploaded)
-  const iconMap = generateFileMapRecursive({
+  const iconMap = await generateFileMapRecursive({
     dir: "./public/assets/icons",
     date: new Date(),
     creatorId: "spas-z-spasov",

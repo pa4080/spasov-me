@@ -4,7 +4,7 @@ import { getProjectList_SiteMap } from "@/components/portfolio/_portfolio.action
 
 import type { MetadataRoute } from "next";
 
-export const revalidate = 3600 * 24 * 7; // invalidate every week
+export const revalidate = 604800; // invalidate every week
 
 const files_prefix = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES ?? "files";
 const BASE_URL = "https://www.spasov.me";

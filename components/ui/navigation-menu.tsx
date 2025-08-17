@@ -124,8 +124,8 @@ const NavigationMenu_NextLink_Styled = React.forwardRef<
     desc?: string;
     href: string;
   }
->(({ className, title, desc, href, ...props }, ref) => (
-  <Link passHref className={cn("cursor-pointer", className)} href={href}>
+>(({ className, title, desc, href, ..._props }, ref) => (
+  <Link ref={ref} passHref className={cn("cursor-pointer", className)} href={href}>
     {/* <NavigationMenuPrimitive.Link ref={ref} className={cn("cursor-pointer", className)} {...props}> */}
     <p className="font-semibold line-clamp-1 break-words" style={{ letterSpacing: "1px" }}>
       {title}
