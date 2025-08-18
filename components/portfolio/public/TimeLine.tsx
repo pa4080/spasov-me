@@ -1,8 +1,8 @@
 import React from "react";
 
-import SectionHeader from "@/components/fragments/SectionHeader";
-import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
 import LabEntriesPublic_EmbedList from "@/components/laboratory/public/LabEntriesPublic_EmbedList";
+import SectionHeader from "@/components/shared/SectionHeader";
+import ToggleCollapsible from "@/components/shared/ToggleCollapsible";
 import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type ProjectData } from "@/interfaces/Project";

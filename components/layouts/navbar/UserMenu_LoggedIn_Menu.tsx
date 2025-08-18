@@ -2,9 +2,9 @@ import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
-import RebuildMasterVercel from "@/components/fragments/RebuildMasterVercel";
-import RevalidatePaths from "@/components/fragments/RevalidatePaths";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
+import RebuildMasterVercel from "@/components/shared/RebuildMasterVercel";
+import RevalidatePaths from "@/components/shared/RevalidatePaths";
 import {
   NavigationMenu,
   NavigationMenuContent,

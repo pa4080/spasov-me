@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
+import IconCircleWrapper from "@/components/shared/IconCircleWrapper";
 import { Button } from "@/components/ui/button";
 import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";

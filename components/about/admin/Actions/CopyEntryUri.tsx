@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
 import { useAppContext } from "@/contexts/AppContext";
 import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";

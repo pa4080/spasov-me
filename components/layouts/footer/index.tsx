@@ -1,6 +1,6 @@
 import React from "react";
 
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
 import { new_tab_target } from "@/lib/md/process-markdown";
 
 import styles from "./_footer.module.css";

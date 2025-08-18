@@ -1,4 +1,4 @@
-import { type CheckListItem } from "@/components/fragments/CheckList_AtLeastOne";
+import { type CheckListItem } from "@/components/shared/CheckList_AtLeastOne";
 
 import { type UnitedEntryType } from "../type";
 

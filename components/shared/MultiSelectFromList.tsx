@@ -18,7 +18,7 @@ import {
   type PathValue,
 } from "react-hook-form";
 
-import DisplayIcon from "@/components/fragments/DisplayIcon";
+import DisplayIcon from "@/components/shared/DisplayIcon";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {

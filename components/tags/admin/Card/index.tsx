@@ -1,6 +1,6 @@
 import React from "react";
 
-import DisplayIcon from "@/components/fragments/DisplayIcon";
+import DisplayIcon from "@/components/shared/DisplayIcon";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";

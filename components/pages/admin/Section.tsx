@@ -1,7 +1,7 @@
 import React from "react";
 
-import RevalidatePaths from "@/components/fragments/RevalidatePaths";
-import SectionHeader from "@/components/fragments/SectionHeader";
+import RevalidatePaths from "@/components/shared/RevalidatePaths";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type PageCardData } from "@/interfaces/PageCard";

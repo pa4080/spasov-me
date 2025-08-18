@@ -3,10 +3,10 @@ import { enUS as en } from "date-fns/locale";
 import dynamic from "next/dynamic";
 import React from "react";
 
-import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
-import Loading from "@/components/fragments/Loading";
-import SectionHeader from "@/components/fragments/SectionHeader";
-import TechTags from "@/components/fragments/TechTags";
+import IconCircleWrapper from "@/components/shared/IconCircleWrapper";
+import Loading from "@/components/shared/Loading";
+import SectionHeader from "@/components/shared/SectionHeader";
+import TechTags from "@/components/shared/TechTags";
 import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type PostData } from "@/interfaces/Post";
@@ -16,7 +16,7 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markd
 
 import PostLinks from "../../common/PostLinks";
 
-const GalleryCarousel = dynamic(() => import("@/components/fragments/Gallery/GalleryCarousel"), {
+const GalleryCarousel = dynamic(() => import("@/components/shared/Gallery/GalleryCarousel"), {
   ssr: true,
   loading: () => (
     <Loading className="h-auto w-auto max-h-[74vh] mx-auto" maxHeight="100%" scale={4} />

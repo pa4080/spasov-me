@@ -3,8 +3,8 @@ import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
 import { deleteFile } from "@/components/files-cloudflare/_files.actions";
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
+import serverActionResponseToastAndLocationReload from "@/components/shared/ServerActionResponseNotify";
 import {
   AlertDialog,
   AlertDialogAction,

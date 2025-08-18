@@ -1,9 +1,9 @@
 import Image from "next/image";
 import React from "react";
 
-import DisplayIcon from "@/components/fragments/DisplayIcon";
-import FileAddressHandle from "@/components/fragments/FileAddressHandle";
-import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
+import DisplayIcon from "@/components/shared/DisplayIcon";
+import FileAddressHandle from "@/components/shared/FileAddressHandle";
+import VisibilitySwitchDisplay from "@/components/shared/VisibilitySwitchDisplay";
 import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type PageCardData } from "@/interfaces/PageCard";

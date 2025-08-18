@@ -1,7 +1,7 @@
-import FileCard from "@/components/fragments/files/Card";
-import RevalidatePaths from "@/components/fragments/RevalidatePaths";
-import SectionHeader from "@/components/fragments/SectionHeader";
-import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
+import FileCard from "@/components/shared/files/Card";
+import RevalidatePaths from "@/components/shared/RevalidatePaths";
+import SectionHeader from "@/components/shared/SectionHeader";
+import ToggleCollapsible from "@/components/shared/ToggleCollapsible";
 import { type ModelType } from "@/interfaces/_common-data-types";
 import { type FileData } from "@/interfaces/File";
 import { hyphenateString } from "@/lib/process-text";

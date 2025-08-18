@@ -1,8 +1,8 @@
 import React from "react";
 
-import DisplayIcon from "@/components/fragments/DisplayIcon";
-import RevalidatePaths from "@/components/fragments/RevalidatePaths";
-import SectionHeader from "@/components/fragments/SectionHeader";
+import DisplayIcon from "@/components/shared/DisplayIcon";
+import RevalidatePaths from "@/components/shared/RevalidatePaths";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type TagData } from "@/interfaces/Tag";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";

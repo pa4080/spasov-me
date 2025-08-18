@@ -5,7 +5,7 @@ import React from "react";
 import { BsSendCheck } from "react-icons/bs";
 
 import { redisCacheFile_Flush, revalidatePaths } from "@/components/_common.actions";
-import ButtonIcon from "@/components/fragments/ButtonIcon";
+import ButtonIcon from "@/components/shared/ButtonIcon";
 import { toast } from "@/components/ui/use-toast";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";

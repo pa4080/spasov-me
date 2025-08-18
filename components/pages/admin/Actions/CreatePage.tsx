@@ -3,8 +3,8 @@
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
+import ButtonIcon from "@/components/shared/ButtonIcon";
+import serverActionResponseToastAndLocationReload from "@/components/shared/ServerActionResponseNotify";
 import {
   Dialog,
   DialogContent,

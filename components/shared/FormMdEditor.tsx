@@ -10,7 +10,7 @@ import {
   type UseFormReturn,
 } from "react-hook-form";
 
-import { type DeepSeekRequest } from "@/app/api/deepseek/route";
+import { type DeepSeekRequest } from "@/app/api/ai/deepseek/route";
 
 interface Props<T extends FieldValues> {
   className?: string;

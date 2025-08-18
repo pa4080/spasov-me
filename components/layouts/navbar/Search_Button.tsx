@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";

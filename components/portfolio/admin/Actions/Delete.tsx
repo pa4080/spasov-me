@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
 import { usePathname } from "next/navigation";
+import React, { useState } from "react";
 
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
+import serverActionResponseToastAndLocationReload from "@/components/shared/ServerActionResponseNotify";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,12 +16,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
+import { useAppContext } from "@/contexts/AppContext";
 import { type ProjectData } from "@/interfaces/Project";
+import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
-import { useAppContext } from "@/contexts/AppContext";
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
-import { cn } from "@/lib/cn-utils";
 
 import { deleteProject } from "../../_portfolio.actions";
 

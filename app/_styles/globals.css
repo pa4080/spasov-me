@@ -1000,6 +1000,8 @@ html:has(> body div[role="dialog"]) {
   overflow: hidden;
 }
 
-body:has(div[role="dialog"]) {
-  padding-right: 12px !important;
+@media screen and (width < 1900px) {
+  body:has(div[role="dialog"]) {
+    padding-right: 12px !important;
+  }
 }

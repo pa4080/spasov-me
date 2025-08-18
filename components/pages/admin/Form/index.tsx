@@ -1,8 +1,11 @@
 "use client";
-import React, { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
+import DisplayEntryAttachmentInTheEditForm from "@/components/shared/DisplayEntryAttachmentInTheEditForm";
+import DisplayIcon from "@/components/shared/DisplayIcon";
+import Loading from "@/components/shared/Loading";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,15 +18,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
-import { type FileListItem } from "@/interfaces/File";
-import DisplayIcon from "@/components/fragments/DisplayIcon";
-import DisplayEntryAttachmentInTheEditForm from "@/components/fragments/DisplayEntryAttachmentInTheEditForm";
-import Loading from "@/components/fragments/Loading";
 
-import Combobox from "../../../fragments/Combobox";
+import Combobox from "../../../shared/Combobox";
 import { type Pages_FormSchema, Pages_FormSchemaGenerator } from "./schema";
 
 interface Props {

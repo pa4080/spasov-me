@@ -1,12 +1,12 @@
 "use client";
 
+import { type IconEmbSvgPathType } from "@/components/shared/IconEmbedSvg";
 import { useAppContext } from "@/contexts/AppContext";
+import { type LabEntryVisibilityType } from "@/interfaces/_common-data-types";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
-import { type LabEntryVisibilityType } from "@/interfaces/_common-data-types";
-import { type IconEmbSvgPathType } from "@/components/fragments/IconEmbedSvg";
 
-import DisplayResourceUrlAsIcon from "../../fragments/DisplayResourceUrlAsIcon";
+import DisplayResourceUrlAsIcon from "../../shared/DisplayResourceUrlAsIcon";
 
 interface Props {
   linkType: "Home Page" | "Admin Page" | "Source";

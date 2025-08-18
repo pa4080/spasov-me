@@ -1,6 +1,6 @@
 "use client";
 
-import IconEmbedSvg, { type IconEmbSvgPathType } from "@/components/fragments/IconEmbedSvg";
+import IconEmbedSvg, { type IconEmbSvgPathType } from "@/components/shared/IconEmbedSvg";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/cn-utils";
 import { new_tab_target } from "@/lib/md/process-markdown";

@@ -1,8 +1,8 @@
 import dynamic from "next/dynamic";
 
-import Loading from "@/components/fragments/Loading";
-import SectionHeader from "@/components/fragments/SectionHeader";
-import TechTags from "@/components/fragments/TechTags";
+import Loading from "@/components/shared/Loading";
+import SectionHeader from "@/components/shared/SectionHeader";
+import TechTags from "@/components/shared/TechTags";
 import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type ProjectData } from "@/interfaces/Project";
@@ -12,7 +12,7 @@ import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markd
 
 import ProjectLinks from "../../common/ProjectLinks";
 
-const GalleryCarousel = dynamic(() => import("@/components/fragments/Gallery/GalleryCarousel"), {
+const GalleryCarousel = dynamic(() => import("@/components/shared/Gallery/GalleryCarousel"), {
   loading: () => (
     <Loading className="h-auto w-auto max-h-[74vh] mx-auto" maxHeight="100%" scale={4} />
   ),

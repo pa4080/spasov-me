@@ -3,9 +3,9 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
 
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
-import SectionHeader from "@/components/fragments/SectionHeader";
-import TooltipWrapper from "@/components/fragments/TooltipWrapper";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
+import SectionHeader from "@/components/shared/SectionHeader";
+import TooltipWrapper from "@/components/shared/TooltipWrapper";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -15,7 +15,7 @@ import { postTuple, projectTuple } from "@/interfaces/_common-data-types";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 
-import CheckList_AtLeastOne, { type CheckListItem } from "../../fragments/CheckList_AtLeastOne";
+import CheckList_AtLeastOne, { type CheckListItem } from "../../shared/CheckList_AtLeastOne";
 import TagFilter from "./TagsFilter";
 import TimeLine from "./TimeLine";
 import { type UnitedEntryType } from "./type";

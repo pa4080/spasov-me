@@ -1,6 +1,6 @@
 import React from "react";
 
-import SectionHeader from "@/components/fragments/SectionHeader";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { type LabEntryPropertyType } from "@/interfaces/_common-data-types";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type LabEntryData } from "@/interfaces/LabEntry";

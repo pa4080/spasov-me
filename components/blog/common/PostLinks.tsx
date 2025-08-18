@@ -1,14 +1,14 @@
 "use client";
 
-import TooltipWrapper from "@/components/fragments/TooltipWrapper";
-import { msgs } from "@/messages";
-import { cn } from "@/lib/cn-utils";
+import DisplayResourceUrlAsIcon from "@/components/shared/DisplayResourceUrlAsIcon";
+import Gallery from "@/components/shared/Gallery";
+import TooltipWrapper from "@/components/shared/TooltipWrapper";
 import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type PostData } from "@/interfaces/Post";
 import { type TagData } from "@/interfaces/Tag";
-import DisplayResourceUrlAsIcon from "@/components/fragments/DisplayResourceUrlAsIcon";
-import Gallery from "@/components/fragments/Gallery";
+import { cn } from "@/lib/cn-utils";
+import { msgs } from "@/messages";
 
 import UpdatePost from "../admin/Actions/Update";
 

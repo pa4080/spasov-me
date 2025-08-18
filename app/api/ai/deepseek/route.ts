@@ -37,8 +37,7 @@ export async function POST(request: NextRequest) {
   });
 
   try {
-    // eslint-disable-next-line no-console
-    console.log("DeepSeek request started", { prompt, temperature, max_tokens, model });
+    // console.log("DeepSeek request started", { prompt, temperature, max_tokens, model });
 
     const upstream = await fetch("https://api.deepseek.com/v1/chat/completions", {
       method: "POST",

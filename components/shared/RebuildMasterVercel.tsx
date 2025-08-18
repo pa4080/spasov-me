@@ -3,10 +3,10 @@
 import React from "react";
 import { BsSendCheck } from "react-icons/bs";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
+import { vercelRebuildMaster } from "@/components/_common.actions";
+import ButtonIcon from "@/components/shared/ButtonIcon";
 import { toast } from "@/components/ui/use-toast";
 import { msgs } from "@/messages";
-import { vercelRebuildMaster } from "@/components/_common.actions";
 
 interface Props {
   className?: string;

@@ -1,7 +1,7 @@
 import { signIn } from "next-auth/react";
 import React from "react";
 
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
