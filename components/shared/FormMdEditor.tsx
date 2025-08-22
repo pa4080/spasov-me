@@ -95,7 +95,7 @@ function FormMdEditor<T extends FieldValues>({ className, placeholder, form, fie
         if (aiProvider === "deepseek") {
           const request: Partial<DeepSeekApiRequest> = { prompt, temperature, max_tokens };
 
-          resp = await fetch(Route.api.ai[aiProvider], {
+          resp = await fetch(Route.apiAi[aiProvider], {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(request),
@@ -110,7 +110,7 @@ function FormMdEditor<T extends FieldValues>({ className, placeholder, form, fie
             max_completion_tokens: max_tokens,
           };
 
-          resp = await fetch(Route.api.ai[aiProvider], {
+          resp = await fetch(Route.apiAi[aiProvider], {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(request),

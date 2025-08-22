@@ -76,10 +76,10 @@ export const Route = {
     ABOUT: "/api/data/about",
     FILES_MONGODB: "/api/files/mongodb",
     FILES_VERCEL_BLOB: "/api/files/vercel",
-    ai: {
-      openai: "/api/ai/openai",
-      deepseek: "/api/ai/deepseek",
-    },
+  },
+  apiAi: {
+    openai: "/api/ai/openai",
+    deepseek: "/api/ai/deepseek",
   },
   assets: {
     MIME_TYPE: "/assets/images/mime-type-icons",

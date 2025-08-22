@@ -1,6 +1,6 @@
 import { type Route } from "@/routes";
 
-export type AiProvider = keyof typeof Route.api.ai;
+export type AiProvider = keyof typeof Route.apiAi;
 
 export interface AiApiRequest {
   prompt: string;

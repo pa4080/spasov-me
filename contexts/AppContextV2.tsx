@@ -1,5 +1,7 @@
 "use client";
 
+import { type Session } from "next-auth";
+import { getProviders, useSession } from "next-auth/react";
 import React, {
   type Dispatch,
   type SetStateAction,
@@ -9,8 +11,6 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { type Session } from "next-auth";
-import { getProviders, useSession } from "next-auth/react";
 
 import { getEntries } from "@/components/about/_about.actions";
 import { getFileList, getFilesR2 } from "@/components/files-cloudflare/_files.actions";
@@ -73,7 +73,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
   }, []);
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       setAuthProviders(await getProviders());
 
       setFiles(await getFilesR2({ hyphen: true, public: true }));
