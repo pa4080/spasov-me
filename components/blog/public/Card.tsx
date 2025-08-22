@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React from "react";
 
-import DisplayFileImageOrEmbed from "@/components/fragments/DisplayFileImageOrEmbed";
-import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
+import DisplayFileImageOrEmbed from "@/components/shared/DisplayFileImageOrEmbed";
+import IconCircleWrapper from "@/components/shared/IconCircleWrapper";
 import { Button } from "@/components/ui/button";
 import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";

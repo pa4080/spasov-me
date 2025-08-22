@@ -1,7 +1,9 @@
 "use client";
-import React, { useState } from "react";
 import { usePathname } from "next/navigation";
+import React, { useState } from "react";
 
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
+import serverActionResponseToastAndLocationReload from "@/components/shared/ServerActionResponseNotify";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,11 +16,9 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
-import { cn } from "@/lib/cn-utils";
 
 import { deletePageCard } from "../../_pages.actions";
 

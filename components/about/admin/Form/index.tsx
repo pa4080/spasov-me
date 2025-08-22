@@ -6,13 +6,13 @@ import React, { memo, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
-import Combobox from "@/components/fragments/Combobox";
-import DatePicker from "@/components/fragments/DatePicker";
-import DisplayEntryAttachmentInTheEditForm from "@/components/fragments/DisplayEntryAttachmentInTheEditForm";
-import FormMdEditor from "@/components/fragments/FormMdEditor";
-import Loading from "@/components/fragments/Loading";
-import MultiSelectFromList from "@/components/fragments/MultiSelectFromList";
-import SelectFromList from "@/components/fragments/SelectFromList";
+import Combobox from "@/components/shared/Combobox";
+import DatePicker from "@/components/shared/DatePicker";
+import DisplayEntryAttachmentInTheEditForm from "@/components/shared/DisplayEntryAttachmentInTheEditForm";
+import FormMdEditor from "@/components/shared/FormMdEditor";
+import Loading from "@/components/shared/Loading";
+import MultiSelectFromList from "@/components/shared/MultiSelectFromList";
+import SelectFromList from "@/components/shared/SelectFromList";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -127,7 +127,7 @@ const AboutEntryForm: React.FC<Props> = ({
   return (
     <Form {...form}>
       <form
-        className={`w-full flex flex-col gap-4 relative ma:flex-grow ${className}`}
+        className={`w-full flex flex-col gap-4 relative ma:flex-grow justify-between ${className}`}
         onSubmit={form.handleSubmit(onSubmit)}
       >
         {/* Grid */}

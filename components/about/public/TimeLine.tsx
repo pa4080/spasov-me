@@ -1,14 +1,14 @@
 import React from "react";
 
-import SectionHeader from "@/components/fragments/SectionHeader";
-import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
+import SectionHeader from "@/components/shared/SectionHeader";
+import ToggleCollapsible from "@/components/shared/ToggleCollapsible";
 import { type AboutEntryData } from "@/interfaces/AboutEntry";
-import { type AboutEntryType } from "@/interfaces/_common-data-types";
-import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
-import { msgs } from "@/messages";
 import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type TagData } from "@/interfaces/Tag";
+import { type AboutEntryType } from "@/interfaces/_common-data-types";
+import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
+import { msgs } from "@/messages";
 
 import AboutEntryCard from "../common/Card";
 

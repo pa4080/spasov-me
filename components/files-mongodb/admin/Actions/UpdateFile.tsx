@@ -3,10 +3,10 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
-import { type File_FormSchema } from "@/components/fragments/files/Form/schema";
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
-import Loading from "@/components/fragments/Loading";
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
+import { type File_FormSchema } from "@/components/shared/files/Form/schema";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
+import Loading from "@/components/shared/Loading";
+import serverActionResponseToastAndLocationReload from "@/components/shared/ServerActionResponseNotify";
 import {
   Dialog,
   DialogContent,
@@ -23,7 +23,7 @@ import { Route } from "@/routes";
 
 import { updateFile_mongo } from "../../_files.actions";
 
-const FileForm = dynamic(() => import("@/components/fragments/files/Form"), {
+const FileForm = dynamic(() => import("@/components/shared/files/Form"), {
   ssr: false,
   loading: () => <Loading />,
 });

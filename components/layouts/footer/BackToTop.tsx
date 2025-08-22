@@ -3,7 +3,7 @@
 import { Tooltip } from "@radix-ui/react-tooltip";
 import React, { useCallback, useLayoutEffect, useRef } from "react";
 
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
 import { TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useActualVh } from "@/hooks/useActualVh";
 import { useBreakpoint } from "@/hooks/useBreakpoint";

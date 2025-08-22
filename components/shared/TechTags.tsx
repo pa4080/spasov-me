@@ -1,8 +1,8 @@
-import React from "react";
 import Link from "next/link";
+import React from "react";
 
-import DisplayIcon from "@/components/fragments/DisplayIcon";
-import SectionHeader from "@/components/fragments/SectionHeader";
+import DisplayIcon from "@/components/shared/DisplayIcon";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";

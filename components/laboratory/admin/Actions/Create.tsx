@@ -3,9 +3,9 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import React, { useCallback, useState } from "react";
 
-import ButtonIcon from "@/components/fragments/ButtonIcon";
-import Loading from "@/components/fragments/Loading";
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
+import ButtonIcon from "@/components/shared/ButtonIcon";
+import Loading from "@/components/shared/Loading";
+import serverActionResponseToastAndLocationReload from "@/components/shared/ServerActionResponseNotify";
 import {
   Dialog,
   DialogContent,
@@ -84,7 +84,7 @@ const CreateLabEntry: React.FC<Props> = ({
         console.error(error);
       } finally {
         setSubmitting(false);
-        // setIsOpen(false);
+        setIsOpen(false);
       }
     },
     [pathname, t]

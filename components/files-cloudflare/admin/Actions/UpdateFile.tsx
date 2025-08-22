@@ -4,10 +4,10 @@ import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
 import { updateFile } from "@/components/files-cloudflare/_files.actions";
-import { type File_FormSchema } from "@/components/fragments/files/Form/schema";
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
-import Loading from "@/components/fragments/Loading";
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
+import { type File_FormSchema } from "@/components/shared/files/Form/schema";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
+import Loading from "@/components/shared/Loading";
+import serverActionResponseToastAndLocationReload from "@/components/shared/ServerActionResponseNotify";
 import {
   Dialog,
   DialogContent,
@@ -23,7 +23,7 @@ import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
 // import FileForm from "../Form";
-const FileForm = dynamic(() => import("@/components/fragments/files/Form"), {
+const FileForm = dynamic(() => import("@/components/shared/files/Form"), {
   ssr: false,
   loading: () => <Loading />,
 });

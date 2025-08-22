@@ -7,7 +7,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import slugify from "slugify";
 
-import AttachedToBadge from "@/components/fragments/AttachedToBadge";
+import AttachedToBadge from "@/components/shared/AttachedToBadge";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import {

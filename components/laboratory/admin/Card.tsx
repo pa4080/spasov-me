@@ -3,12 +3,12 @@ import { enUS as en } from "date-fns/locale";
 import Link from "next/link";
 import React from "react";
 
-import DisplayFileImage from "@/components/fragments/DisplayFileImage";
-import DisplayIcon from "@/components/fragments/DisplayIcon";
-import FileAddressHandle from "@/components/fragments/FileAddressHandle";
-import Gallery from "@/components/fragments/Gallery";
-import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
-import VisibilitySwitchDisplay from "@/components/fragments/VisibilitySwitchDisplay";
+import DisplayFileImage from "@/components/shared/DisplayFileImage";
+import DisplayIcon from "@/components/shared/DisplayIcon";
+import FileAddressHandle from "@/components/shared/FileAddressHandle";
+import Gallery from "@/components/shared/Gallery";
+import ToggleCollapsible from "@/components/shared/ToggleCollapsible";
+import VisibilitySwitchDisplay from "@/components/shared/VisibilitySwitchDisplay";
 import { type FileData, type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type LabEntryData } from "@/interfaces/LabEntry";

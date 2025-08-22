@@ -2,19 +2,19 @@
 
 import Link from "next/link";
 
-import { type LabEntryData } from "@/interfaces/LabEntry";
-import { msgs } from "@/messages";
-import Gallery from "@/components/fragments/Gallery";
-import TooltipWrapper from "@/components/fragments/TooltipWrapper";
+import Gallery from "@/components/shared/Gallery";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
+import TooltipWrapper from "@/components/shared/TooltipWrapper";
+import { useClickButtonByDomId } from "@/hooks/useClickButtonByDomId";
 import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
+import { type LabEntryData } from "@/interfaces/LabEntry";
 import { type TagData } from "@/interfaces/Tag";
-import { useClickButtonByDomId } from "@/hooks/useClickButtonByDomId";
-import { Route } from "@/routes";
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
 import { cn } from "@/lib/cn-utils";
+import { msgs } from "@/messages";
+import { Route } from "@/routes";
 
-import DisplayConditionally from "../../fragments/DisplayConditionally";
+import DisplayConditionally from "../../shared/DisplayConditionally";
 import UpdateLabEntry from "../admin/Actions/Update";
 import DisplayConditionally_ResourceButtons from "./DisplayConditionally_ResourceButtons";
 

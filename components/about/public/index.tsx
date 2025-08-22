@@ -1,7 +1,7 @@
 import React from "react";
 
 import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
-import TechTags from "@/components/fragments/TechTags";
+import TechTags from "@/components/shared/TechTags";
 import { getTags } from "@/components/tags/_tags.actions";
 import { cn } from "@/lib/cn-utils";
 

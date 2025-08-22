@@ -1,14 +1,14 @@
 import React from "react";
 
-import RevalidatePaths from "@/components/fragments/RevalidatePaths";
-import SectionHeader from "@/components/fragments/SectionHeader";
-import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
+import RevalidatePaths from "@/components/shared/RevalidatePaths";
+import SectionHeader from "@/components/shared/SectionHeader";
+import ToggleCollapsible from "@/components/shared/ToggleCollapsible";
 import { type ModelType } from "@/interfaces/_common-data-types";
 import { type FileData } from "@/interfaces/File";
 import { hyphenateString } from "@/lib/process-text";
 import { msgs } from "@/messages";
 
-import FileCard from "../../fragments/files/Card";
+import FileCard from "../../shared/files/Card";
 import styles from "../_files.module.css";
 import CreateFile from "./Actions/CreateFile";
 

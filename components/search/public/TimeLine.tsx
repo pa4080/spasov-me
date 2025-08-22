@@ -1,7 +1,7 @@
 import React from "react";
 
-import SectionHeader from "@/components/fragments/SectionHeader";
-import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
+import SectionHeader from "@/components/shared/SectionHeader";
+import ToggleCollapsible from "@/components/shared/ToggleCollapsible";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";

@@ -1,9 +1,9 @@
 "use client";
 
-import DisplayConditionally from "@/components/fragments/DisplayConditionally";
-import DisplayResourceUrlAsIcon from "@/components/fragments/DisplayResourceUrlAsIcon";
-import Gallery from "@/components/fragments/Gallery";
-import TooltipWrapper from "@/components/fragments/TooltipWrapper";
+import DisplayConditionally from "@/components/shared/DisplayConditionally";
+import DisplayResourceUrlAsIcon from "@/components/shared/DisplayResourceUrlAsIcon";
+import Gallery from "@/components/shared/Gallery";
+import TooltipWrapper from "@/components/shared/TooltipWrapper";
 import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type ProjectData } from "@/interfaces/Project";

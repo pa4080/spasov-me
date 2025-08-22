@@ -1,10 +1,10 @@
 "use client";
-import React, { useState } from "react";
 import { usePathname } from "next/navigation";
+import React, { useState } from "react";
 
 import { deleteEntry } from "@/components/about/_about.actions";
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
+import serverActionResponseToastAndLocationReload from "@/components/shared/ServerActionResponseNotify";
 import {
   AlertDialog,
   AlertDialogAction,

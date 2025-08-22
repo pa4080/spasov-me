@@ -1,16 +1,11 @@
 import { getServerSession } from "next-auth";
 import { type NextRequest } from "next/server";
 
+import { type DeepSeekApiRequest } from "@/interfaces/AI";
 import { createForbiddenResponse, isSameOrigin } from "@/lib/api/origin-protection";
 import { authOptions } from "@/lib/auth-options";
 
-// https://api-docs.deepseek.com/quick_start/pricing
-export interface DeepSeekRequest {
-  prompt: string;
-  temperature: number;
-  max_tokens: number;
-  model: "deepseek-chat" | "deepseek-coder" | "deepseek-reasoner";
-}
+export const revalidate = 0;
 
 export async function POST(request: NextRequest) {
   const isSameOrig = isSameOrigin(request);
@@ -20,7 +15,7 @@ export async function POST(request: NextRequest) {
     return createForbiddenResponse();
   }
 
-  const { prompt, temperature, max_tokens, model } = (await request.json()) as DeepSeekRequest;
+  const { prompt, temperature, max_tokens, model } = (await request.json()) as DeepSeekApiRequest;
   const apiKey = process.env.DEEPSEEK_API_KEY;
 
   if (!apiKey) {
@@ -37,28 +32,28 @@ export async function POST(request: NextRequest) {
   });
 
   try {
-    // eslint-disable-next-line no-console
-    console.log("DeepSeek request started", { prompt, temperature, max_tokens, model });
+    const request = {
+      model: model ?? "deepseek-chat",
+      messages: [
+        {
+          role: "system",
+          content: "You are a helpful assistant.",
+        },
+        { role: "user", content: prompt },
+      ],
+      temperature: temperature ?? 0.7,
+      max_tokens: max_tokens ?? 256,
+      stream: true,
+    };
 
     const upstream = await fetch("https://api.deepseek.com/v1/chat/completions", {
       method: "POST",
+      cache: "no-cache",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
       },
-      body: JSON.stringify({
-        model: model ?? "deepseek-chat",
-        messages: [
-          {
-            role: "system",
-            content: "You are a helpful assistant.",
-          },
-          { role: "user", content: prompt },
-        ],
-        temperature: temperature ?? 0.7,
-        max_tokens: max_tokens ?? 512,
-        stream: true,
-      }),
+      body: JSON.stringify(request),
       signal: abortController.signal,
     });
 

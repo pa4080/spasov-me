@@ -10,7 +10,21 @@ import {
   type UseFormReturn,
 } from "react-hook-form";
 
-import { type DeepSeekRequest } from "@/app/api/deepseek/route";
+import {
+  type AiApiRequest,
+  type AiProvider,
+  type DeepSeekApiRequest,
+  type OpenAiApiRequest,
+} from "@/interfaces/AI";
+import { Route } from "@/routes";
+
+import { Button } from "../ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 interface Props<T extends FieldValues> {
   className?: string;
@@ -26,6 +40,7 @@ function FormMdEditor<T extends FieldValues>({ className, placeholder, form, fie
   const selectionRef = useRef({ start: 0, end: 0 });
   const completionRef = useRef("");
   const stopControllerRef = useRef<AbortController | null>(null);
+  const [aiProvider, setAiProvider] = useState<AiProvider>("openai");
 
   // Optimized textarea reference setup
   useEffect(() => {
@@ -45,7 +60,7 @@ function FormMdEditor<T extends FieldValues>({ className, placeholder, form, fie
   }, []); // Empty dependency array ensures this runs only once
 
   const handleAIComplete = useCallback(
-    async ({ temperature, max_tokens, model }: Partial<Omit<DeepSeekRequest, "prompt">> = {}) => {
+    async ({ temperature, max_tokens }: Partial<Omit<AiApiRequest, "prompt">> = {}) => {
       if (!textareaRef.current) {
         console.error("Textarea reference not available");
 
@@ -75,12 +90,37 @@ function FormMdEditor<T extends FieldValues>({ className, placeholder, form, fie
       stopControllerRef.current = new AbortController();
 
       try {
-        const resp = await fetch("/api/deepseek", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt, temperature, max_tokens, model }),
-          signal: stopControllerRef.current.signal, // 🔑 connect abort
-        });
+        let resp: Response | null = null;
+
+        if (aiProvider === "deepseek") {
+          const request: Partial<DeepSeekApiRequest> = { prompt, temperature, max_tokens };
+
+          resp = await fetch(Route.apiAi[aiProvider], {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(request),
+            signal: stopControllerRef.current.signal, // 🔑 connect abort
+          });
+        }
+
+        if (aiProvider === "openai") {
+          const request: Partial<OpenAiApiRequest> = {
+            prompt,
+            temperature,
+            max_completion_tokens: max_tokens,
+          };
+
+          resp = await fetch(Route.apiAi[aiProvider], {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(request),
+            signal: stopControllerRef.current.signal, // 🔑 connect abort
+          });
+        }
+
+        if (resp === null) {
+          throw new Error("No response, probably not selected AI provider");
+        }
 
         if (!resp.body) {
           throw new Error("No response body");
@@ -156,7 +196,7 @@ function FormMdEditor<T extends FieldValues>({ className, placeholder, form, fie
         setAiLoading(false);
       }
     },
-    [form]
+    [aiProvider, form]
   );
 
   const aiCompleteCommand: commands.ICommand = {
@@ -196,6 +236,25 @@ function FormMdEditor<T extends FieldValues>({ className, placeholder, form, fie
     // execute: () => stopControllerRef.current?.abort(),
   };
 
+  const choiceAiProviderCommand: commands.ICommand = {
+    name: "choiceAiProvider",
+    keyCommand: "choiceAiProvider",
+    icon: (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button className="w-24 -translate-y-[1px]" title="Choose AI Provider" type="button">
+            {aiProvider === "deepseek" ? "DeepSeek" : "OpenAI"}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem onClick={() => setAiProvider("deepseek")}>DeepSeek</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setAiProvider("openai")}>OpenAI</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    ),
+    // execute: () => void choiceAiProvider(),
+  };
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.ctrlKey && event.key === ".") {
@@ -203,7 +262,7 @@ function FormMdEditor<T extends FieldValues>({ className, placeholder, form, fie
         if (aiLoading) {
           stopControllerRef.current?.abort();
         } else {
-          void handleAIComplete({ temperature: 0.1, max_tokens: 32 });
+          void handleAIComplete({ temperature: 0.2, max_tokens: 256 });
         }
       }
     };
@@ -222,7 +281,13 @@ function FormMdEditor<T extends FieldValues>({ className, placeholder, form, fie
       enableScroll
       className={className}
       commands={[...commands.getCommands(), aiCompleteCommand, aiLoading ? stopCommand : {}]}
-      extraCommands={[commands.codeEdit, commands.codeLive, commands.codePreview]}
+      extraCommands={[
+        choiceAiProviderCommand,
+        commands.codeEdit,
+        commands.codeLive,
+        commands.codePreview,
+        commands.fullscreen,
+      ]}
       height={form.formState.errors.description ? "calc(100% - 1.8em)" : "100%"}
       overflow={false}
       preview="edit"

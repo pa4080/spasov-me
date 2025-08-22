@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-import Gallery from "@/components/fragments/Gallery";
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
-import TooltipWrapper from "@/components/fragments/TooltipWrapper";
+import Gallery from "@/components/shared/Gallery";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
+import TooltipWrapper from "@/components/shared/TooltipWrapper";
 import { type AboutEntryData } from "@/interfaces/AboutEntry";
 import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";

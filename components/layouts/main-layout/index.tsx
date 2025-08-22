@@ -23,9 +23,9 @@ const MainLayout: React.FC<Props> = ({ children, className }) => {
       <header className="w-full sticky top-0 z-[15]">
         <Navbar />
       </header>
-      <main className="flex-1 flex-grow overflow-x-hidden overflow-y-auto w-full px-6 xa:px-8 min-h-content">
+      <main className="flex-1 flex-grow flex flex-col overflow-x-hidden overflow-y-auto w-full px-6 xa:px-8 min-h-content">
         <span className="w-0 h-0 opacity-0 scroll-mt-40" id="scroll-to-top" />
-        <div className="max-w-4xl mx-auto">{children}</div>
+        <div className="max-w-4xl mx-auto flex-grow flex flex-col">{children}</div>
       </main>
       <footer className="w-full sticky bottom-0 z-[15] transition-transform duration-300 ease-in-out">
         <Footer />

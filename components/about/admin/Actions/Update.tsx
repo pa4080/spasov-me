@@ -4,9 +4,9 @@ import { usePathname } from "next/navigation";
 import React, { useCallback, useState } from "react";
 
 import { updateEntry } from "@/components/about/_about.actions";
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
-import Loading from "@/components/fragments/Loading";
-import serverActionResponseToastAndLocationReload from "@/components/fragments/ServerActionResponseNotify";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
+import Loading from "@/components/shared/Loading";
+import serverActionResponseToastAndLocationReload from "@/components/shared/ServerActionResponseNotify";
 import {
   Dialog,
   DialogContent,

@@ -3,10 +3,10 @@ import { enUS as en } from "date-fns/locale";
 import Link from "next/link";
 import React from "react";
 
-import DisplayIcon from "@/components/fragments/DisplayIcon";
-import Gallery from "@/components/fragments/Gallery";
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
-import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
+import DisplayIcon from "@/components/shared/DisplayIcon";
+import Gallery from "@/components/shared/Gallery";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
+import ToggleCollapsible from "@/components/shared/ToggleCollapsible";
 import { type AboutEntryData } from "@/interfaces/AboutEntry";
 import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";

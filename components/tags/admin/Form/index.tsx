@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import AttachedToBadge from "@/components/fragments/AttachedToBadge";
-import Combobox from "@/components/fragments/Combobox";
-import DisplayIcon from "@/components/fragments/DisplayIcon";
-import SelectFromList from "@/components/fragments/SelectFromList";
+import AttachedToBadge from "@/components/shared/AttachedToBadge";
+import Combobox from "@/components/shared/Combobox";
+import DisplayIcon from "@/components/shared/DisplayIcon";
+import SelectFromList from "@/components/shared/SelectFromList";
 import { Button } from "@/components/ui/button";
 import {
   Form,

@@ -1,9 +1,9 @@
 import React from "react";
 
 import CreateFile from "@/components/files-cloudflare/admin/Actions/CreateFile";
-import RevalidatePaths from "@/components/fragments/RevalidatePaths";
-import SectionHeader from "@/components/fragments/SectionHeader";
-import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
+import RevalidatePaths from "@/components/shared/RevalidatePaths";
+import SectionHeader from "@/components/shared/SectionHeader";
+import ToggleCollapsible from "@/components/shared/ToggleCollapsible";
 import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type PostData } from "@/interfaces/Post";

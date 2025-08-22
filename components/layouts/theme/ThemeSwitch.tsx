@@ -1,9 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
+import React, { useEffect, useState } from "react";
 
-import { msgs } from "@/messages";
-import IconEmbedSvg from "@/components/fragments/IconEmbedSvg";
+import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { msgs } from "@/messages";
 
 const ThemeSwitch: React.FC = () => {
   const t = msgs("Theme");

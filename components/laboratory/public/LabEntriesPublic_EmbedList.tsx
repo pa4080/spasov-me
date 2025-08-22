@@ -1,8 +1,8 @@
 import React from "react";
 
 import { getIconsMap } from "@/components/files-cloudflare/_files.actions";
-import SectionHeader from "@/components/fragments/SectionHeader";
-import ToggleCollapsible from "@/components/fragments/ToggleCollapsible";
+import SectionHeader from "@/components/shared/SectionHeader";
+import ToggleCollapsible from "@/components/shared/ToggleCollapsible";
 import { cn } from "@/lib/cn-utils";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";

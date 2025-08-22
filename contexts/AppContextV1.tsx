@@ -1,5 +1,7 @@
 "use client";
 
+import { type Session } from "next-auth";
+import { getProviders, useSession } from "next-auth/react";
 import React, {
   type Dispatch,
   type SetStateAction,
@@ -8,13 +10,11 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { type Session } from "next-auth";
-import { getProviders, useSession } from "next-auth/react";
 
-import { type AuthProviders } from "@/types/next-auth-providers";
 import { type FileData } from "@/interfaces/File";
 import { type PageCardData } from "@/interfaces/PageCard";
 import loadDataFromApiRoute from "@/lib/load-data-fom-api-route";
+import { type AuthProviders } from "@/types/next-auth-providers";
 
 interface AppContextProps {
   session: Session | null;
@@ -40,14 +40,14 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 
   useEffect(() => {
     if (!authProviders) {
-      (async () => {
+      void (async () => {
         setAuthProviders(await getProviders());
       })();
     }
 
     const controller = new AbortController();
 
-    (async () => {
+    void (async () => {
       await loadDataFromApiRoute("PAGES", setPages, controller);
       await loadDataFromApiRoute("FILES_MONGODB", setFiles, controller);
     })();

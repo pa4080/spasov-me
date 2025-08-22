@@ -1,5 +1,5 @@
-import IconCircleWrapper from "@/components/fragments/IconCircleWrapper";
-import TooltipWrapper from "@/components/fragments/TooltipWrapper";
+import IconCircleWrapper from "@/components/shared/IconCircleWrapper";
+import TooltipWrapper from "@/components/shared/TooltipWrapper";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type LabEntryData } from "@/interfaces/LabEntry";
 import { cn } from "@/lib/cn-utils";
