@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { type NextRequest } from "next/server";
 
-import { type DeepSeekApiRequest } from "@/interfaces/AI";
+import { type OpenAiApiRequest } from "@/interfaces/AI";
 import { createForbiddenResponse, isSameOrigin } from "@/lib/api/origin-protection";
 import { authOptions } from "@/lib/auth-options";
 
@@ -15,8 +15,9 @@ export async function POST(request: NextRequest) {
     return createForbiddenResponse();
   }
 
-  const { prompt, temperature, max_tokens, model } = (await request.json()) as DeepSeekApiRequest;
-  const apiKey = process.env.DEEPSEEK_API_KEY;
+  const { prompt, temperature, max_completion_tokens, model } =
+    (await request.json()) as OpenAiApiRequest;
+  const apiKey = process.env.OPENAI_API_KEY;
 
   if (!apiKey) {
     return new Response("Missing API_KEY", { status: 500 });
@@ -26,27 +27,36 @@ export async function POST(request: NextRequest) {
 
   request.signal.addEventListener("abort", () => {
     // eslint-disable-next-line no-console
-    console.log("DeepSeek request aborted by client");
+    console.log("OpenAi request aborted by client");
 
     abortController.abort();
   });
 
   try {
-    const request = {
-      model: model ?? "deepseek-chat",
+    let request = {
+      model: model ?? "gpt-5-mini",
       messages: [
         {
           role: "system",
-          content: "You are a helpful assistant.",
+          content: "You are a helpful assistant. Answer directly without repeating the question.",
         },
         { role: "user", content: prompt },
       ],
       temperature: temperature ?? 0.7,
-      max_tokens: max_tokens ?? 256,
+      max_completion_tokens: max_completion_tokens ?? 256,
       stream: true,
+      // verbosity: "low", // "low", "medium"*, "high"
     };
 
-    const upstream = await fetch("https://api.deepseek.com/v1/chat/completions", {
+    request = {
+      ...request,
+      temperature: ["gpt-5-nano", "gpt-5-mini"].includes(request.model) ? 1 : request.temperature,
+    };
+
+    // eslint-disable-next-line no-console
+    console.log(request);
+
+    const upstream = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       cache: "no-cache",
       headers: {
@@ -60,7 +70,9 @@ export async function POST(request: NextRequest) {
     if (!upstream.ok || !upstream.body) {
       const text = await upstream.text();
 
-      return new Response(`DeepSeek error: ${text}`, { status: upstream.status });
+      console.warn(text);
+
+      return new Response(`OpenAi error: ${text}`, { status: upstream.status });
     }
 
     return new Response(upstream.body, {
@@ -73,12 +85,12 @@ export async function POST(request: NextRequest) {
   } catch (err: unknown) {
     if ((err as Error).name === "AbortError") {
       // eslint-disable-next-line no-console
-      console.log("DeepSeek request aborted by client");
+      console.log("OpenAi request aborted by client");
 
       return new Response(null, { status: 499 });
     }
 
-    console.error("DeepSeek API Route Error:", err);
+    console.error("OpenAi API Route Error:", err);
 
     return new Response("Internal Server Error", { status: 500 });
   }

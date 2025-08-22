@@ -84,7 +84,7 @@ const CreateLabEntry: React.FC<Props> = ({
         console.error(error);
       } finally {
         setSubmitting(false);
-        // setIsOpen(false);
+        setIsOpen(false);
       }
     },
     [pathname, t]

@@ -78,7 +78,7 @@ const CreateAboutEntry: React.FC<Props> = ({ className, type, fileList, tags, ic
         console.error(error);
       } finally {
         setSubmitting(false);
-        // setIsOpen(false);
+        setIsOpen(false);
       }
     },
     [pathname, t]

@@ -151,7 +151,7 @@ const PostForm: React.FC<Props> = ({
   return (
     <Form {...form}>
       <form
-        className={`w-full flex flex-col gap-4 relative ma:flex-grow ${className}`}
+        className={`w-full flex flex-col gap-4 relative ma:flex-grow justify-between ${className}`}
         onSubmit={form.handleSubmit(onSubmit)}
       >
         {/* Grid */}

@@ -77,8 +77,8 @@ export const Route = {
     FILES_MONGODB: "/api/files/mongodb",
     FILES_VERCEL_BLOB: "/api/files/vercel",
     ai: {
-      OPENAI: "/api/ai/openai",
-      DEEPSEEK: "/api/ai/deepseek",
+      openai: "/api/ai/openai",
+      deepseek: "/api/ai/deepseek",
     },
   },
   assets: {
@@ -87,4 +87,4 @@ export const Route = {
     IMAGE_PLACEHOLDER: "/assets/images/image-placeholder.webp",
     LOGO_SVG: "/icons/svg/spasov.me.logo.svg",
   },
-};
+} as const;

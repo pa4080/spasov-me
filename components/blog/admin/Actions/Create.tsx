@@ -24,7 +24,7 @@ import { Route } from "@/routes";
 
 import { createPost } from "../../_blog.actions";
 import { type Post_FormSchema } from "../Form/schema";
-// import PostForm from "../Form";
+
 const PostForm = dynamic(() => import("../Form"), {
   ssr: false,
   loading: () => <Loading height="100%" maxHeight="100%" />,
@@ -84,7 +84,7 @@ const CreatePost: React.FC<Props> = ({
         console.error(error);
       } finally {
         setSubmitting(false);
-        // setIsOpen(false);
+        setIsOpen(false);
       }
     },
     [pathname, t]

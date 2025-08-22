@@ -49,40 +49,54 @@ const nextConfig: NextConfig = {
     ],
   },
   async headers() {
-    return process.env.VERCEL_ENV === "development"
-      ? [
+    const conditionalHeaders =
+      process.env.VERCEL_ENV === "development"
+        ? [
+            {
+              source: "/:all*",
+              locale: false as const,
+              headers: [
+                {
+                  key: "Cache-Control",
+                  value: "public, max-age=10, s-maxage=10, must-revalidate",
+                },
+                {
+                  key: "Access-Control-Allow-Origin",
+                  value: "media.spasov.me",
+                },
+              ],
+            },
+          ]
+        : [
+            {
+              source:
+                "/:all*(png|jpg|jpeg|svg|webp|gif|jfif|avif|pdf|pptx|xlsx|csv|txt|docx|webm|mkv|avi|mp4|eot|ttf|woff|woff2)",
+              locale: false as const,
+              headers: [
+                {
+                  key: "Cache-Control",
+                  value: "public, max-age=604800, s-maxage=604800, must-revalidate",
+                },
+                {
+                  key: "Access-Control-Allow-Origin",
+                  value: "media.spasov.me",
+                },
+              ],
+            },
+          ];
+
+    return [
+      ...conditionalHeaders,
+      {
+        source: "/api/ai/openai",
+        headers: [
           {
-            source: "/:all*",
-            locale: false,
-            headers: [
-              {
-                key: "Cache-Control",
-                value: "public, max-age=10, s-maxage=10, must-revalidate",
-              },
-              {
-                key: "Access-Control-Allow-Origin",
-                value: "media.spasov.me",
-              },
-            ],
+            key: "Cache-Control",
+            value: "no-store, max-age=0",
           },
-        ]
-      : [
-          {
-            source:
-              "/:all*(png|jpg|jpeg|svg|webp|gif|jfif|avif|pdf|pptx|xlsx|csv|txt|docx|webm|mkv|avi|mp4|eot|ttf|woff|woff2)",
-            locale: false,
-            headers: [
-              {
-                key: "Cache-Control",
-                value: "public, max-age=604800, s-maxage=604800, must-revalidate",
-              },
-              {
-                key: "Access-Control-Allow-Origin",
-                value: "media.spasov.me",
-              },
-            ],
-          },
-        ];
+        ],
+      },
+    ];
   },
   allowedDevOrigins: [
     "local-origin.dev",
