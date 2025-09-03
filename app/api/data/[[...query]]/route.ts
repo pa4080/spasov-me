@@ -50,7 +50,7 @@ import User from "@/models/user";
 import { errorMessages } from "../../common";
 
 interface Context {
-  params: Promise<{ query: string[] }>;
+  params: Promise<{ query?: string[] | undefined }>;
 }
 
 function _id(id: string) {
