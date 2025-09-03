@@ -13,6 +13,7 @@ import rehypePrism from "rehype-prism-plus";
 import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
 import remarkDirective from "remark-directive";
+import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import remarkToc from "remark-toc";
@@ -34,6 +35,7 @@ export const processMarkdown = ({ markdown, hyphen }: { markdown: string; hyphen
     .use(myRemarkPlugin_Video)
     .use(myRemarkPlugin_Image)
     .use(myRemarkPlugin_Pdf)
+    .use(remarkGfm) // Support GFM (tables, autolinks, tasklists, strikethrough)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug) // Add IDs to headings
     .use(
