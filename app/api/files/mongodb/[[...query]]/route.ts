@@ -20,7 +20,7 @@ import { Route } from "@/routes";
 import { Readable } from "stream";
 
 interface Context {
-  params: Promise<{ query: string[] }>;
+  params: Promise<{ query?: string[] | undefined }>;
 }
 
 export async function GET(request: NextRequest, props: Context) {
@@ -52,7 +52,13 @@ export async function GET(request: NextRequest, props: Context) {
         // In this case we just check does the file exists,
         // and redirect to the next case.
 
-        const [fileId] = params?.query;
+        const query = params?.query;
+
+        if (!query || query.length !== 1) {
+          return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
+        }
+
+        const [fileId] = query;
         const _id = new ObjectId(fileId);
 
         await connectToMongoDb();
@@ -76,8 +82,14 @@ export async function GET(request: NextRequest, props: Context) {
         // because in this wej when we open the file in a new tab,
         // the save as option shows the correct filename.
 
+        const query = params?.query;
+
+        if (!query || query.length !== 2) {
+          return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
+        }
+
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const [fileId, fileName] = params?.query;
+        const [fileId, fileName] = query;
         const _id = new ObjectId(fileId);
 
         await connectToMongoDb();

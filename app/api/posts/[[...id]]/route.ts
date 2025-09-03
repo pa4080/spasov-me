@@ -33,11 +33,11 @@ import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import Post from "@/models/post";
 
 interface Context {
-  params: Promise<{ id: string[] }>;
+  params: Promise<{ id?: string[] | undefined }>;
 }
 
 async function paramsToObject(params: Context["params"]) {
-  const _id = (await params)?.id[0] || "";
+  const _id = (await params)?.id?.[0] ?? "";
 
   return Object.keys(params).length > 0 ? { _id } : {};
 }
