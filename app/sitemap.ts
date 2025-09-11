@@ -49,7 +49,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .map((item) => `${BASE_URL_IMAGES}/${item}`);
 
       return {
-        url: `${BASE_URL}/portfolio/${post.slug}`,
+        url: `${BASE_URL}/blog/${post.slug}`,
         lastModified: new Date(),
         changeFrequency: "monthly",
         priority: 0.5,
