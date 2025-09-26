@@ -26,7 +26,6 @@ const nextConfig: NextConfig = {
     // useLightningcss: true, // Use LightningCSS for faster bundling and smaller output -- does not work with postcss plugins
     esmExternals: true, // prefer native ESM deps
   },
-  legacyBrowsers: false, // no legacy transpilation
   // sassOptions: {
   //   scss: {
   //     api: "modern-compiler",
