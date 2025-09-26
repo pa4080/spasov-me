@@ -22,6 +22,7 @@ const nextConfig: NextConfig = {
       dynamic: 30, // cache dynamic routes for 30s
       static: 604800, // cache static routes for 1 week
     },
+    inlineCss: true,
   },
   // sassOptions: {
   //   scss: {
