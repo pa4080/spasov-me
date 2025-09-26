@@ -2,6 +2,7 @@
 
 import { format } from "date-fns";
 import { bg } from "date-fns/locale";
+import { CalendarIcon } from "lucide-react";
 import {
   type Control,
   type FieldError,
@@ -10,8 +11,9 @@ import {
   type Merge,
   type Path,
 } from "react-hook-form";
-import { CalendarIcon } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   FormControl,
   FormDescription,
@@ -21,8 +23,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 
 import { Input } from "../ui/input";
 
@@ -75,7 +75,7 @@ export default function DatePicker<T extends FieldValues>({
               </FormControl>
             </PopoverTrigger>
             <PopoverContent className="w-full p-0 max-w-min">
-              <div className="px-3 pt-3 pb-0 flex items-center justify-end gap-3 w-full">
+              <div className="px-2 pt-2 pb-2 flex items-center justify-end gap-3 w-full">
                 <Input
                   autoFocus
                   className="flex-shrink max-w-full"
@@ -99,8 +99,7 @@ export default function DatePicker<T extends FieldValues>({
               </div>
               <Calendar
                 ISOWeek
-                hideHead // This hides the days of the week
-                initialFocus
+                autoFocus
                 defaultMonth={field.value}
                 mode="single"
                 selected={field.value}

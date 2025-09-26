@@ -174,7 +174,7 @@ const ContactForm: React.FC<Props> = ({ className }) => {
   return (
     <div
       className={cn(
-        "relative w-full flex-grow h-fit flex flex-col gap-3 sm:gap-6 px-2 py-0 sa:px-0 sa:py-2",
+        "relative w-full flex-grow h-fit flex flex-col gap-3 sm:gap-6 px-2 py-0 sa:px-0 sa:pt-2 sa:pb-3 max-w-screen-1xl",
         className
       )}
     >

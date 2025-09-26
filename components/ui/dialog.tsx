@@ -55,6 +55,11 @@ const DialogContent = React.forwardRef<
         className
       )}
       {...props}
+      onEscapeKeyDown={(e) => {
+        if (e.key === "Escape") {
+          e.preventDefault();
+        }
+      }}
       onInteractOutside={(e) => {
         /**
          * Prevent Dialog from Closing when clicking outside

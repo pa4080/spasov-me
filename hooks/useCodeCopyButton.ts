@@ -1,12 +1,15 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 /**
  * `useCodeCopyButton` is a React Hook that adds copy buttons to pre tags.
  * It will re-run whenever the uri changes.
  */
 import { useEffect } from "react";
 
-export function useCodeCopyButton(uri?: string) {
+export function useCodeCopyButton() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const allPreTags = document.querySelectorAll("pre");
 
@@ -60,5 +63,5 @@ export function useCodeCopyButton(uri?: string) {
         pre.classList.remove("code-copy-button-handled");
       });
     };
-  }, [uri]);
+  }, [pathname]);
 }
