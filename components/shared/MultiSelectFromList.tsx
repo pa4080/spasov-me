@@ -103,7 +103,7 @@ export default function MultiSelectFromList<T extends FieldValues>({
           }
         }
 
-        // This is not a default behaviour of the <input /> field
+        // This is not a default behavior of the <input /> field
         if (e.key === "Escape") {
           input.blur();
         }
