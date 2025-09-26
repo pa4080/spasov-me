@@ -1,3 +1,5 @@
+"use client";
+
 import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -68,16 +70,23 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
                   <p className="text-foreground-tertiary">{session?.user?.name}</p>
                 </div>
 
-                <NavigationMenu_NextLink_Styled
-                  className="p-3 block rounded break-inside-avoid-column hover:bg-primary/50"
-                  desc={t("signOutDescription")}
-                  href="#"
-                  title={t("signOut")}
-                  onClick={async (e) => {
+                <div
+                  className="p-3 block rounded break-inside-avoid-column hover:bg-primary/50 cursor-pointer"
+                  onClick={(e) => {
                     e.preventDefault();
-                    await signOut();
+                    void signOut({ redirect: false });
                   }}
-                />
+                >
+                  <p
+                    className="font-semibold line-clamp-1 break-words"
+                    style={{ letterSpacing: "1px" }}
+                  >
+                    {t("signOut")}
+                  </p>
+                  <p className="line-clamp-2 leading-snug text-foreground-secondary">
+                    {t("signOutDescription")}
+                  </p>
+                </div>
               </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
