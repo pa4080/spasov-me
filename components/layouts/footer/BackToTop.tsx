@@ -5,7 +5,6 @@ import React, { useCallback, useLayoutEffect, useRef } from "react";
 
 import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
 import { TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { useActualVh } from "@/hooks/useActualVh";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
@@ -19,9 +18,6 @@ const BackToTop: React.FC<Props> = ({ className }) => {
   const { isAbove3xl } = useBreakpoint("3xl");
   const distanceFromTop = 200;
   const btnRef = useRef<HTMLButtonElement>(null);
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { vh } = useActualVh();
 
   // Show hide scroll button on scroll
   useLayoutEffect(() => {

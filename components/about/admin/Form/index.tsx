@@ -111,6 +111,10 @@ const AboutEntryForm: React.FC<Props> = ({
         event.preventDefault();
         void form.handleSubmit(onSubmit)();
       }
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+      }
     };
 
     document.addEventListener("keydown", handleKeyDown);
