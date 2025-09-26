@@ -19,11 +19,14 @@ const nextConfig: NextConfig = {
     },
     reactCompiler: !IS_DEV_MODE,
     staleTimes: {
-      dynamic: 30, // cache dynamic routes for 30s
+      dynamic: 60, // cache dynamic routes for 30s
       static: 604800, // cache static routes for 1 week
     },
-    inlineCss: true,
+    inlineCss: true, // Inline all critical CSS into <head>
+    // useLightningcss: true, // Use LightningCSS for faster bundling and smaller output -- does not work with postcss plugins
+    esmExternals: true, // prefer native ESM deps
   },
+  legacyBrowsers: false, // no legacy transpilation
   // sassOptions: {
   //   scss: {
   //     api: "modern-compiler",

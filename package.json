@@ -34,6 +34,17 @@
     "*.{css,scss}": "prettier --write",
     "*.css_": "stylelint --fix"
   },
+  "browserslist": {
+    "production": [
+      "last 2 Chrome versions",
+      "last 2 Firefox versions",
+      "last 2 Edge versions",
+      "last 2 Safari versions"
+    ],
+    "development": [
+      "last 1 Chrome version"
+    ]
+  },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.699.0",
     "@hookform/resolvers": "^3.9.1",
