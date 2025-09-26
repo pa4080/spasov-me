@@ -1,7 +1,7 @@
 "use client";
 
 import { Tooltip } from "@radix-ui/react-tooltip";
-import React, { useCallback, useLayoutEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 
 import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
 import { TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -19,8 +19,8 @@ const BackToTop: React.FC<Props> = ({ className }) => {
   const distanceFromTop = 200;
   const btnRef = useRef<HTMLButtonElement>(null);
 
-  // Show hide scroll button on scroll
-  useLayoutEffect(() => {
+  // Show/hide scroll button on scroll
+  useEffect(() => {
     const btn = btnRef.current;
     const content = document.querySelector("#content main");
 
@@ -28,69 +28,82 @@ const BackToTop: React.FC<Props> = ({ className }) => {
       return;
     }
 
-    const showHideScrollButton_BelowSm = (e: Event) => {
-      const element = e.target as Document;
+    let tickingBelow = false;
+    let tickingAbove = false;
 
-      if (element) {
-        if (window.scrollY > distanceFromTop) {
-          btn.style.transform = "translateY(-8px)";
-        } else {
-          btn.style.transform = "translateY(42px)";
-        }
+    const showHideScrollButton_BelowSm = () => {
+      if (!tickingBelow) {
+        tickingBelow = true;
+        requestAnimationFrame(() => {
+          const scrolled = window.scrollY > distanceFromTop;
+
+          btn.style.transform = scrolled ? "translateY(-8px)" : "translateY(42px)";
+          tickingBelow = false;
+        });
       }
     };
 
-    const showHideScrollButton_AboveSm = (e: Event) => {
-      const element = e.target as HTMLElement;
+    const showHideScrollButton_AboveSm = () => {
+      if (!tickingAbove) {
+        tickingAbove = true;
+        requestAnimationFrame(() => {
+          const scrolled = content.scrollTop > distanceFromTop;
 
-      if (element) {
-        if (element.scrollTop > distanceFromTop) {
-          btn.style.transform = "translateY(-8px)";
-        } else {
-          btn.style.transform = "translateY(42px)";
-        }
+          btn.style.transform = scrolled ? "translateY(-8px)" : "translateY(42px)";
+          tickingAbove = false;
+        });
       }
     };
 
-    window.addEventListener("scroll", showHideScrollButton_BelowSm);
-    content?.addEventListener("scroll", showHideScrollButton_AboveSm);
+    window.addEventListener("scroll", showHideScrollButton_BelowSm, { passive: true });
+    content.addEventListener("scroll", showHideScrollButton_AboveSm, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", showHideScrollButton_BelowSm);
-      content?.removeEventListener("scroll", showHideScrollButton_AboveSm);
+      content.removeEventListener("scroll", showHideScrollButton_AboveSm);
     };
   }, []);
 
-  // Toggle the class .hide-footer-animated from the footer: 1) Whe scroll from top is more than 62px, 2) and when the user scroll back to top direction.
-  useLayoutEffect(() => {
+  // Toggle footer animation on scroll
+  useEffect(() => {
     let prevScrollPosition = window.scrollY;
-    const footer = document.querySelector("footer")!;
+    const footer = document.querySelector("footer");
+
+    if (!footer) {
+      return;
+    }
+
+    let tickingFooter = false;
     const fromTop = 200;
     const fromBottom = 300;
 
     const handleScroll = () => {
-      const currentScrollPosition = window.scrollY;
-      const isScrollingUp = currentScrollPosition < prevScrollPosition;
+      if (!tickingFooter) {
+        tickingFooter = true;
+        requestAnimationFrame(() => {
+          const currentScrollPosition = window.scrollY;
+          const isScrollingUp = currentScrollPosition < prevScrollPosition;
 
-      if (footer) {
-        if (currentScrollPosition > fromTop && !isScrollingUp) {
-          if (
-            window.innerHeight + currentScrollPosition <
-            document.body.scrollHeight - fromBottom
-          ) {
-            footer.style.transform = "translateY(120%)";
-          } else {
+          if (currentScrollPosition > fromTop && !isScrollingUp) {
+            if (
+              window.innerHeight + currentScrollPosition <
+              document.body.scrollHeight - fromBottom
+            ) {
+              footer.style.transform = "translateY(120%)";
+            } else {
+              footer.style.transform = "translateY(0)";
+            }
+          } else if (isScrollingUp) {
             footer.style.transform = "translateY(0)";
           }
-        } else if (isScrollingUp) {
-          footer.style.transform = "translateY(0)";
-        }
-      }
 
-      prevScrollPosition = currentScrollPosition;
+          prevScrollPosition = currentScrollPosition;
+          tickingFooter = false;
+        });
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -106,15 +119,8 @@ const BackToTop: React.FC<Props> = ({ className }) => {
       if (target && isAbove3xl) {
         target.scrollIntoView({ behavior: "smooth" });
       } else if (navbar) {
-        // navbar.scrollIntoView({ behavior: "smooth" });
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
-
-      // This doesn't work for some reason
-      // setTimeout(() => {
-      // 	btnRef.current?.focus();
-      // 	btnRef.current?.blur();
-      // }, 1000);
     },
     [isAbove3xl]
   );
@@ -125,7 +131,6 @@ const BackToTop: React.FC<Props> = ({ className }) => {
         <TooltipTrigger
           ref={btnRef}
           className={cn(
-            // "ml:right-[calc(50vw-448px)] max-sm:hover:bg-primary/70",
             "fixed -bottom-1 sm:bottom-0 right-1 sm:right-2 group flex items-center justify-center cursor-pointer rounded-md border border-transparent sm:hover:border-secondary/80 select-none transition-all duration-300 w-8 sm:w-10",
             className
           )}
