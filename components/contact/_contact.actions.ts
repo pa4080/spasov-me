@@ -2,8 +2,8 @@
 
 import { Resend } from "resend";
 
+import { APP_NAME } from "@/app/_layout.constants";
 import { msgs } from "@/messages";
-import manifest from "@/public/manifest.json";
 
 import { type FormDataType } from "./ContactForm";
 import EmailTemplate_Admin from "./Templates/EmailTemplate_Admin";
@@ -34,7 +34,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const admin = String(process.env.NEXT_PUBLIC_ME_FULL_NAME);
 const adminEmail = String(process.env.NEXT_PUBLIC_ME_EMAIL);
-const siteName = manifest.short_name;
+const siteName = APP_NAME;
 const tContactAdmin = msgs("ContactEmail_Admin");
 const tContactClient = msgs("ContactEmail_Client");
 
@@ -56,7 +56,7 @@ export const sendEmail: SendEmail = async (formData: FormDataType) => {
     }
 
     const sendEmail_Admin = await resend.emails.send({
-      from: `${manifest.short_name} <${adminEmail}>`,
+      from: `${APP_NAME} <${adminEmail}>`,
       text: formData.message,
       to: adminEmail,
       subject: tContactAdmin("subjectToAdmin", { siteName }),
