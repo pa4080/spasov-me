@@ -2,12 +2,13 @@
  * @see https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
  */
 
+import { type Metadata, type ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 import React from "react";
-import { type Metadata, type ResolvingMetadata } from "next";
 
 import { APP_NAME, BASE_URL, META_DESCRIPTION, OG_IMAGE } from "@/app/_layout.constants";
-import { getPost, getPosts } from "@/components/blog/_blog.actions";
+import { getPost, getPosts, updatePost } from "@/components/blog/_blog.actions";
+import { type Post_FormSchema } from "@/components/blog/admin/Form/schema";
 import BlogPublicPost from "@/components/blog/public/Post";
 import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
 import { getTags } from "@/components/tags/_tags.actions";
@@ -15,7 +16,8 @@ import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type PostData } from "@/interfaces/Post";
 import { type TagData } from "@/interfaces/Tag";
-import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markdown";
+import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
+import { commentsMatcher, getKeywords, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { Route } from "@/routes";
 
 import { aiGenerateKeywords } from "./aiGenerateKeywords";
@@ -45,27 +47,52 @@ export async function generateMetadata(
 
   const title = post.title + ` | ${APP_NAME} Blog`;
   const coverImage = post.html.attachment?.metadata.html.fileUrl ?? OG_IMAGE;
-
-  const descriptionArr = post.description.split(splitDescriptionKeyword).map((str) => {
+  const postContent = post.description;
+  const postContentParts = postContent.split(splitDescriptionKeyword).map((str) => {
     return str.replace(commentsMatcher, "");
   });
+  const postDescription = postContentParts[0] ?? META_DESCRIPTION;
+  let postKeywords = getKeywords(postContent);
 
-  const metaDescription = descriptionArr[0] ?? META_DESCRIPTION;
-  const keywords = (await aiGenerateKeywords({ postDescription: metaDescription }))
-    .split(",")
-    .map((keyword: string) => keyword.trim());
+  // Generate keywords and update the post if there are no keywords
+  if (postKeywords.length === 0) {
+    const generatedKeywords = await aiGenerateKeywords({ postDescription: postDescription });
+    const postKeywordsString = `<!-- keywords: ${generatedKeywords} -->`;
+    const postContentWithKeywords = postKeywordsString + "\n\n" + postContent;
 
-  console.log(metaDescription, keywords);
+    postKeywords = getKeywords(postContentWithKeywords);
+
+    const postData: Post_FormSchema = {
+      title: post.title,
+      description: postContentWithKeywords,
+      slug: post.slug,
+      entryType: post.entryType,
+      url1: post.url1,
+      url2: post.url2,
+      dateFrom: post.dateFrom,
+      dateTo: post.dateTo,
+      galleryNav: post.galleryNav,
+      galleryCaptions: post.galleryCaptions,
+      galleryDisplay: post.galleryDisplay,
+      visibility: post.visibility,
+      attachment: post.attachment,
+      icon: post.icon,
+      gallery: post.gallery?.map((file) => file._id) ?? [],
+      tags: post.tags.map((tag) => tag._id),
+    };
+
+    await updatePost(generateFormDataFromObject(postData), post._id, []);
+  }
 
   return {
     title: title,
-    description: metaDescription,
+    description: postDescription,
     alternates: {
       canonical: `${BASE_URL}${Route.public.BLOG.uri}/${slug}`,
     },
     openGraph: {
       title,
-      description: metaDescription,
+      description: postDescription,
       images: [
         ...(coverImage
           ? [
@@ -83,10 +110,10 @@ export async function generateMetadata(
     twitter: {
       card: "summary_large_image", // or "summary", "app", "player"
       title,
-      description: metaDescription,
+      description: postDescription,
       images: [coverImage],
     },
-    keywords,
+    keywords: postKeywords,
   };
 }
 
@@ -146,7 +173,7 @@ const Post: React.FC<Props> = async ({ params }) => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: post.title,
+    headline: title,
     description: metaDescription,
     image: [coverImage ?? OG_IMAGE],
     author: {

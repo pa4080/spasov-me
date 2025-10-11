@@ -1,15 +1,12 @@
 "use server";
 
+import { type DeepseekResponseData } from "@/lib/actions/deepseek_v1";
+
 const defaultKeywords =
   "technology, react, next.js, javascript, typescript, databases, fontend, backend";
 const apiKey = process.env.DEEPSEEK_API_KEY;
-const IS_DEVELOPMENT = process.env.NODE_ENV === "development";
 
 export async function aiGenerateKeywords({ postDescription }: { postDescription: string }) {
-  if (IS_DEVELOPMENT) {
-    return defaultKeywords;
-  }
-
   if (!apiKey) {
     throw new Error("Missing API_KEY");
   }
@@ -46,19 +43,20 @@ export async function aiGenerateKeywords({ postDescription }: { postDescription:
     }
 
     // Parse the JSON response body
-    const data = await upstream.json();
+    const data = (await upstream.json()) as DeepseekResponseData;
 
     // Extract the completion text from the response structure
-    const completion = data.choices[0]?.message?.content?.trim();
+    const keywords = data.choices[0]?.message?.content?.trim();
 
     // Check if the completion text exists
-    if (!completion) {
+    if (!keywords) {
       throw new Error("API response did not contain valid content.");
     }
 
-    console.log("DeepSeek API Response:", completion);
+    // eslint-disable-next-line no-console
+    console.log("DeepSeek generated keywords:", keywords);
 
-    return completion;
+    return keywords;
   } catch (err: unknown) {
     console.error("DeepSeek API Route Error:", err);
 
