@@ -16,28 +16,13 @@ export const Tag_FormSchemaGenerator = (messages?: string[]) =>
       message: messages?.[2],
     }),
     icon: z.string({
-      errorMap: (issue, _ctx) => {
-        switch (issue.code) {
-          default:
-            return { message: String(messages?.[3]) };
-        }
-      },
+      error: (issue) => String(messages?.[3]),
     }),
     orderKey: z.string({
-      errorMap: (issue, _ctx) => {
-        switch (issue.code) {
-          default:
-            return { message: String(messages?.[3]) };
-        }
-      },
+      error: (issue) => String(messages?.[3]),
     }),
     tagType: z.enum(tagTuple, {
-      errorMap: (issue, _ctx) => {
-        switch (issue.code) {
-          default:
-            return { message: String(messages?.[4]) };
-        }
-      },
+      error: (issue) => String(messages?.[4]),
     }),
     attachedTo: z
       .array(

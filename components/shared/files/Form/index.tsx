@@ -89,6 +89,7 @@ const FileForm: React.FC<Props> = ({
       description: formData?.metadata?.description ?? "",
       attachedTo: formData?.metadata?.attachedTo ?? [],
       visibility: !formData ? true : formData?.metadata.visibility ? true : false,
+      file: null,
     },
   });
 

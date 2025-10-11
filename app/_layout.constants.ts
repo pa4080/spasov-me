@@ -1,0 +1,9 @@
+export const NEXT_PUBLIC_APP_URL = "https://www.spasov.me";
+export const APP_NAME = "Spasov.me";
+export const OG_IMAGE = `${NEXT_PUBLIC_APP_URL}/assets/og-image/og-image-spasov.me.jpeg`;
+export const APP_AUTHOR = process.env.NEXT_PUBLIC_ME_FULL_NAME;
+export const APP_AUTHOR_URL = `${NEXT_PUBLIC_APP_URL}/about`;
+export const OG_IMAGE_ALT = `${APP_NAME} Image Optimization`;
+export const BASE_URL = NEXT_PUBLIC_APP_URL;
+export const META_TITLE = `${APP_AUTHOR}'s personal site`;
+export const META_DESCRIPTION = `${APP_AUTHOR}'s personal portfolio site, blog, and web development resources portal.`;

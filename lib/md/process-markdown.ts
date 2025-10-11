@@ -75,3 +75,48 @@ export const commentsMatcher = new RegExp("<!--.*?-->", "gs");
 // TS1501: This regular expression flag is only available when targeting 'es2018' or later.
 // Update the target in tsconfig.json does not help.
 // https://github.com/microsoft/TypeScript/issues/58275
+
+export const getKeywords = (postContent: string) => {
+  const keywords = /<!--\s*keywords:\s*([\s\S]*?)\s*-->/.exec(postContent);
+
+  if (keywords) {
+    return keywords[1].split(/,\s*/).map((keyword) => keyword.trim());
+  } else {
+    return [];
+  }
+};
+
+type GetPostContentPartsReturn<T> = T extends { onlyBody: true }
+  ? string
+  : T extends { onlyDescription: true }
+    ? string
+    : string[];
+
+export const getPostContentParts = <
+  T extends {
+    postContent: string;
+    clean?: boolean;
+    onlyDescription?: boolean;
+    onlyBody?: boolean;
+  },
+>(
+  params: T
+): GetPostContentPartsReturn<T> => {
+  let parts = params.postContent.split(splitDescriptionKeyword);
+
+  if (params.clean) {
+    parts = parts.map((str) => {
+      return str.replace(commentsMatcher, "");
+    });
+  }
+
+  if (params.onlyDescription) {
+    return (parts?.[0] ?? "") as GetPostContentPartsReturn<T>;
+  }
+
+  if (params.onlyBody) {
+    return (parts?.[1] ?? "") as GetPostContentPartsReturn<T>;
+  }
+
+  return parts as GetPostContentPartsReturn<T>;
+};

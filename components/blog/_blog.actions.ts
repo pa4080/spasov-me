@@ -34,6 +34,37 @@ export const getPosts = async ({
   }
 };
 
+export const getPost = async ({
+  slug,
+  hyphen = false,
+  typeList,
+  public: visible = false,
+}: {
+  slug: string;
+  hyphen?: boolean;
+  typeList?: PostType[];
+  public?: boolean;
+}): Promise<PostData | null> => {
+  try {
+    await connectToMongoDb();
+    const post: PostDocPopulated | null = await Post.findOne<HydratedDocument<PostDocPopulated>>({
+      slug,
+    }).populate(["attachment", "tags", "gallery", "icon"]);
+
+    if (!post) {
+      return null;
+    }
+
+    const posts = await postDocuments_toData({ posts: [post], hyphen, typeList, visible });
+
+    return posts?.[0] ?? null;
+  } catch (error) {
+    console.error(error);
+
+    return null;
+  }
+};
+
 export const getPostList_SiteMap = async ({
   public: visible = true,
 }: {
