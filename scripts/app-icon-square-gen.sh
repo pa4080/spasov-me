@@ -5,14 +5,12 @@
 # Generate square app icon, from a HQ (svg) source image.
 # Requirements: sudo apt install imagemagick
 
-# LOGO_SOURCE_FILE="public/icons/svg/mlt.logo.orange.svg"
-LOGO_SOURCE_FILE="public/icons/svg/spasov.me.logo.svg"
-LOGO_DEST_DIRECTORY="public/icons"
+########################
+# LOGO #################
+########################
 
-# FAVICON_SOURCE_FILE="public/icons/svg/mlt.favicon.orange.svg"
-FAVICON_SOURCE_FILE="public/icons/svg/spasov.me.logo.svg"
-FAVICON_ICO_DEST_DIRECTORY="app/"
-FAVICON_SVG_DEST_DIRECTORY="public/"
+LOGO_SOURCE_FILE="public/icons/svg/spasov.me.logo.maskable.svg"
+LOGO_DEST_DIRECTORY="public/icons"
 
 # Generate app-icons
 for res in 192 512; do
@@ -21,11 +19,26 @@ for res in 192 512; do
     "$LOGO_SOURCE_FILE" "${LOGO_DEST_DIRECTORY}/app-icon-${res}.png"
 done
 
-for res in 114 120 144 152 180 57 60 72 76 36; do
+for res in 192 512; do
+  convert -background transparent -resize "${res}x${res}" \
+    -background transparent -gravity center -extent "${res}x${res}" \
+    "$LOGO_SOURCE_FILE" "${LOGO_DEST_DIRECTORY}/app-icon-maskable-${res}.png"
+done
+
+for res in 36 57 60 72 76 114 120 144 152 180 192 512; do
   convert -background transparent -resize "${res}x${res}" \
     -background transparent -gravity center -extent "${res}x${res}" \
     "$LOGO_SOURCE_FILE" "${LOGO_DEST_DIRECTORY}/apple-touch-icon-${res}x${res}.png"
 done
+cp "$LOGO_SOURCE_FILE" "${LOGO_DEST_DIRECTORY}/app-icon-general.svg"
+
+########################
+# FAVICON ##############
+########################
+
+FAVICON_SOURCE_FILE="public/icons/svg/spasov.me.logo.svg"
+FAVICON_ICO_DEST_DIRECTORY="public/"
+FAVICON_SVG_DEST_DIRECTORY="public/"
 
 convert -background transparent "$FAVICON_SOURCE_FILE" -clone 0 -resize "64x64" \
   -background transparent -gravity center -extent "64x64" \
@@ -33,5 +46,3 @@ convert -background transparent "$FAVICON_SOURCE_FILE" -clone 0 -resize "64x64" 
 
 cp "$FAVICON_SOURCE_FILE" "${FAVICON_SVG_DEST_DIRECTORY}/favicon.svg"
 
-# Inspect the result
-#identify ${LOGO_DEST_DIRECTORY}

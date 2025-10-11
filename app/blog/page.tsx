@@ -1,4 +1,11 @@
+import { type Metadata } from "next";
+
+import { APP_NAME } from "@/app/_layout.constants";
 import BlogPublic from "@/components/blog/public";
+
+export const metadata: Metadata = {
+  title: `${APP_NAME} Blog`,
+};
 
 const Blog: React.FC = () => {
   return (

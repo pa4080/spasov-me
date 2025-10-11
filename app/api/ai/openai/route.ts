@@ -6,6 +6,7 @@ import { createForbiddenResponse, isSameOrigin } from "@/lib/api/origin-protecti
 import { authOptions } from "@/lib/auth-options";
 
 export const revalidate = 0;
+const apiKey = process.env.OPENAI_API_KEY;
 
 export async function POST(request: NextRequest) {
   const isSameOrig = isSameOrigin(request);
@@ -17,7 +18,6 @@ export async function POST(request: NextRequest) {
 
   const { prompt, temperature, max_completion_tokens, model } =
     (await request.json()) as OpenAiApiRequest;
-  const apiKey = process.env.OPENAI_API_KEY;
 
   if (!apiKey) {
     return new Response("Missing API_KEY", { status: 500 });
@@ -38,7 +38,8 @@ export async function POST(request: NextRequest) {
       messages: [
         {
           role: "system",
-          content: "You are a helpful assistant. Answer directly without repeating the question.",
+          content:
+            "You are a helpful assistant. Answer directly without repeating the question. Output only the answer.",
         },
         { role: "user", content: prompt },
       ],
