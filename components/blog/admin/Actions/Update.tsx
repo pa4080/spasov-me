@@ -20,9 +20,11 @@ import { type IconsMap } from "@/interfaces/IconsMap";
 import { type PostData } from "@/interfaces/Post";
 import { type TagData } from "@/interfaces/Tag";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
+import { getKeywords, getPostContentParts } from "@/lib/md/process-markdown";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import { aiGenerateKeywords } from "../../_aiGenerateKeywords";
 import { updatePost } from "../../_blog.actions";
 import { type Post_FormSchema } from "../Form/schema";
 
@@ -62,7 +64,27 @@ const UpdatePost: React.FC<Props> = ({ className, post, fileList, iconList, icon
          * form.action()... @see https://stackoverflow.com/a/40552372/6543935
          */
 
-        const response = await updatePost(generateFormDataFromObject(data), post._id, [
+        let postData = data;
+        const postContent = data.description;
+        const postKeywords = getKeywords(postContent);
+
+        if (postKeywords.length === 0) {
+          const postDescription = getPostContentParts({
+            postContent,
+            onlyDescription: true,
+          });
+
+          const generatedKeywords = await aiGenerateKeywords({ postDescription });
+          const postKeywordsString = `<!-- keywords: ${generatedKeywords} -->`;
+          const postContentWithKeywords = postKeywordsString + "\n\n" + postContent;
+
+          postData = {
+            ...data,
+            description: postContentWithKeywords,
+          };
+        }
+
+        const response = await updatePost(generateFormDataFromObject(postData), post._id, [
           pathname,
           Route.public.BLOG.uri,
           Route.admin.FILES_MONGODB,

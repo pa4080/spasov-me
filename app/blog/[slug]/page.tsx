@@ -7,8 +7,7 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 import { APP_NAME, BASE_URL, META_DESCRIPTION, OG_IMAGE } from "@/app/_layout.constants";
-import { getPost, getPosts, updatePost } from "@/components/blog/_blog.actions";
-import { type Post_FormSchema } from "@/components/blog/admin/Form/schema";
+import { getPost, getPosts } from "@/components/blog/_blog.actions";
 import BlogPublicPost from "@/components/blog/public/Post";
 import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
 import { getTags } from "@/components/tags/_tags.actions";
@@ -16,11 +15,8 @@ import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type PostData } from "@/interfaces/Post";
 import { type TagData } from "@/interfaces/Tag";
-import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { commentsMatcher, getKeywords, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { Route } from "@/routes";
-
-import { aiGenerateKeywords } from "./aiGenerateKeywords";
 
 const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
 const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
@@ -52,9 +48,14 @@ export async function generateMetadata(
     return str.replace(commentsMatcher, "");
   });
   const postDescription = postContentParts[0] ?? META_DESCRIPTION;
-  let postKeywords = getKeywords(postContent);
+  const postKeywords = getKeywords(postContent);
 
-  // Generate keywords and update the post if there are no keywords
+  /**
+   * 
+   * Generate keywords and update the post if there are no keywords
+   * Placing this here breaks SSG, so we move the keywords generation 
+   * within Post create/update actions.
+   *
   if (postKeywords.length === 0) {
     const generatedKeywords = await aiGenerateKeywords({ postDescription: postDescription });
     const postKeywordsString = `<!-- keywords: ${generatedKeywords} -->`;
@@ -83,6 +84,7 @@ export async function generateMetadata(
 
     await updatePost(generateFormDataFromObject(postData), post._id, []);
   }
+   */
 
   return {
     title: title,

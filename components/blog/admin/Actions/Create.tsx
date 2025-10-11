@@ -19,9 +19,11 @@ import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type TagData } from "@/interfaces/Tag";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
+import { getKeywords, getPostContentParts } from "@/lib/md/process-markdown";
 import { msgs } from "@/messages";
 import { Route } from "@/routes";
 
+import { aiGenerateKeywords } from "../../_aiGenerateKeywords";
 import { createPost } from "../../_blog.actions";
 import { type Post_FormSchema } from "../Form/schema";
 
@@ -67,7 +69,27 @@ const CreatePost: React.FC<Props> = ({
          * form.action()... @see https://stackoverflow.com/a/40552372/6543935
          */
 
-        const response = await createPost(generateFormDataFromObject(data), [
+        let postData = data;
+        const postContent = data.description;
+        const postKeywords = getKeywords(postContent);
+
+        if (postKeywords.length === 0) {
+          const postDescription = getPostContentParts({
+            postContent,
+            onlyDescription: true,
+          });
+
+          const generatedKeywords = await aiGenerateKeywords({ postDescription });
+          const postKeywordsString = `<!-- keywords: ${generatedKeywords} -->`;
+          const postContentWithKeywords = postKeywordsString + "\n\n" + postContent;
+
+          postData = {
+            ...data,
+            description: postContentWithKeywords,
+          };
+        }
+
+        const response = await createPost(generateFormDataFromObject(postData), [
           pathname,
           Route.public.BLOG.uri,
           Route.admin.FILES_MONGODB,

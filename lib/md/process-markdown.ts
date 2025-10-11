@@ -85,3 +85,38 @@ export const getKeywords = (postContent: string) => {
     return [];
   }
 };
+
+type GetPostContentPartsReturn<T> = T extends { onlyBody: true }
+  ? string
+  : T extends { onlyDescription: true }
+    ? string
+    : string[];
+
+export const getPostContentParts = <
+  T extends {
+    postContent: string;
+    clean?: boolean;
+    onlyDescription?: boolean;
+    onlyBody?: boolean;
+  },
+>(
+  params: T
+): GetPostContentPartsReturn<T> => {
+  let parts = params.postContent.split(splitDescriptionKeyword);
+
+  if (params.clean) {
+    parts = parts.map((str) => {
+      return str.replace(commentsMatcher, "");
+    });
+  }
+
+  if (params.onlyDescription) {
+    return (parts?.[0] ?? "") as GetPostContentPartsReturn<T>;
+  }
+
+  if (params.onlyBody) {
+    return (parts?.[1] ?? "") as GetPostContentPartsReturn<T>;
+  }
+
+  return parts as GetPostContentPartsReturn<T>;
+};
