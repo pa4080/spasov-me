@@ -14,38 +14,18 @@ export const Project_FormSchemaGenerator = (messages?: string[]) =>
     urlAdmin: z.string().optional(),
     urlRepo: z.string().optional(),
     entryType: z.enum(projectTuple, {
-      errorMap: (issue, _ctx) => {
-        switch (issue.code) {
-          default:
-            return { message: String(messages?.[2]) };
-        }
-      },
+      error: (issue) => String(messages?.[2]),
     }),
     dateFrom: z.coerce.date({
-      errorMap: (issue, _ctx) => {
-        switch (issue.code) {
-          default:
-            return { message: String(messages?.[3]) };
-        }
-      },
+      error: (issue) => String(messages?.[3]),
     }),
     dateTo: z.coerce
       .date({
-        errorMap: (issue, _ctx) => {
-          switch (issue.code) {
-            default:
-              return { message: String(messages?.[4]) };
-          }
-        },
+        error: (issue) => String(messages?.[4]),
       })
       .optional(),
     visibility: z.boolean({
-      errorMap: (issue, _ctx) => {
-        switch (issue.code) {
-          default:
-            return { message: String(messages?.[5]) };
-        }
-      },
+      error: (issue) => String(messages?.[5]),
     }),
     // This will be an Image (GridFS document) Id as a string
     attachment: z.string().optional(),
@@ -54,12 +34,7 @@ export const Project_FormSchemaGenerator = (messages?: string[]) =>
       message: String(messages?.[6]),
     }),
     gallery: z.array(z.string(), {
-      errorMap: (issue, _ctx) => {
-        switch (issue.code) {
-          default:
-            return { message: String(messages?.[7]) };
-        }
-      },
+      error: (issue) => String(messages?.[7]),
     }),
     slug: z
       .string()
