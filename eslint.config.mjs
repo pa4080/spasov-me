@@ -35,7 +35,7 @@ export default [
   ...fixupConfigRules(
     compat.extends(
       "plugin:react/recommended",
-      "plugin:react-hooks/recommended",
+      "plugin:react-hooks/recommended-legacy", // https://react.dev/blog/2025/10/01/react-19-2#eslint-plugin-react-hooks
       "plugin:prettier/recommended",
       "plugin:@typescript-eslint/recommended",
       "next/core-web-vitals",
