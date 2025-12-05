@@ -1,7 +1,3 @@
-import { type LiteralUnion, type ClientSafeProvider } from "next-auth/react";
-import { type BuiltInProviderType } from "next-auth/providers/index";
+import { type getProviders } from "next-auth/react";
 
-export type AuthProviders = Record<
-  LiteralUnion<BuiltInProviderType, string>,
-  ClientSafeProvider
-> | null;
+export type AuthProvidersType = Awaited<ReturnType<typeof getProviders>> | null;

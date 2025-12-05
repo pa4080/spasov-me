@@ -46,7 +46,7 @@ export const sendEmail: SendEmail = async (formData: FormDataType) => {
       text: formData.message,
       to: formData.email,
       subject: tContactClient("subjectToClient", { admin, siteName }),
-      react: EmailTemplate_Client({ ...formData, admin }),
+      react: await EmailTemplate_Client({ ...formData, admin }),
     });
 
     if (sendEmail_Client.error) {
@@ -60,7 +60,7 @@ export const sendEmail: SendEmail = async (formData: FormDataType) => {
       text: formData.message,
       to: adminEmail,
       subject: tContactAdmin("subjectToAdmin", { siteName }),
-      react: EmailTemplate_Admin({ ...formData, siteName }),
+      react: await EmailTemplate_Admin({ ...formData, siteName }),
     });
 
     if (sendEmail_Admin.error) {

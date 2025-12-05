@@ -4,14 +4,13 @@
  */
 
 import { del, list, put } from "@vercel/blob";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
+import { auth } from "@/lib/auth";
 import { errorMessages } from "@/app/api/common";
-import { authOptions } from "@/lib/auth-options";
 
 export async function POST(request: Request): Promise<NextResponse> {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session) {
     return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
@@ -46,23 +45,23 @@ export async function POST(request: Request): Promise<NextResponse> {
 }
 
 /**
-	* @example fetch("/api/blob")
-	*
-	{
-		"hasMore": false,
-		"blobs": [
-			{
-				"url": "https://zmav0fjeywgydpex.public.blob.vercel-storage.com/simple-vercel-replica.logo-Yp3Urwt01ayuboYadZFpXwqWeh2sdk.svg",
-				"pathname": "simple-vercel-replica.logo.svg",
-				"size": 5087,
-				"uploadedAt": "2024-04-19T05:59:35.498Z"
-			},
-		]
-	}
+  * @example fetch("/api/blob")
+  *
+  {
+    "hasMore": false,
+    "blobs": [
+      {
+        "url": "https://zmav0fjeywgydpex.public.blob.vercel-storage.com/simple-vercel-replica.logo-Yp3Urwt01ayuboYadZFpXwqWeh2sdk.svg",
+        "pathname": "simple-vercel-replica.logo.svg",
+        "size": 5087,
+        "uploadedAt": "2024-04-19T05:59:35.498Z"
+      },
+    ]
+  }
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(request: Request): Promise<NextResponse> {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session) {
     return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
@@ -74,7 +73,7 @@ export async function GET(request: Request): Promise<NextResponse> {
 }
 
 export async function DELETE(request: Request): Promise<NextResponse> {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session) {
     return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });

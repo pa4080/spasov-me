@@ -18,7 +18,7 @@
 	.join("|");
 */
 
-export { default } from "next-auth/middleware";
+export { auth as proxy } from "@/lib/auth";
 
 export const config = {
   matcher: [`/((?!api|_next|.*\\..*|$|home|about|contact|portfolio|search|blog|lab$).*)`],

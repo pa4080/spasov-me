@@ -23,11 +23,12 @@ import GithubProvider from "next-auth/providers/github";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import User from "@/models/user";
 
-import type { NextAuthOptions } from "next-auth";
+import type { NextAuthConfig } from "next-auth";
 
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = process.env;
 
-export const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthConfig = {
+  trustHost: true,
   session: {
     strategy: "jwt",
   },

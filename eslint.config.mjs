@@ -1,57 +1,74 @@
-/**
- * This is the new flat config for Eslint.v9, note:
- * "eslint.useFlatConfig: true" - must be set in VSC 'settings.json'
- */
-/* eslint-disable import/no-anonymous-default-export */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
-import reactRefresh from "eslint-plugin-react-refresh";
-import react from "eslint-plugin-react";
 import typescriptEslint from "@typescript-eslint/eslint-plugin";
-import prettier from "eslint-plugin-prettier";
-import _import from "eslint-plugin-import";
+import { defineConfig, globalIgnores } from "eslint/config";
+import { fixupPluginRules, fixupConfigRules } from "@eslint/compat";
+import nextVitals from "eslint-config-next/core-web-vitals";
 import tsParser from "@typescript-eslint/parser";
-import js from "@eslint/js";
+import react from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import prettier from "eslint-plugin-prettier";
+import importPlugin from "eslint-plugin-import";
 import { FlatCompat } from "@eslint/eslintrc";
+import js from "@eslint/js";
+import esLintConfigPrettier from "eslint-config-prettier";
 
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
+  baseDirectory: import.meta.dirname || __dirname,
   recommendedConfig: js.configs.recommended,
   allConfig: js.configs.all,
 });
 
-export default [
+const eslintConfig = defineConfig([
+  // importPlugin.flatConfigs.typescript,
+  react.configs.flat.recommended,
+  reactHooks.configs.flat.recommended,
+
+  ...nextVitals,
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+  ]),
+  // js.configs.recommended,
+  // Ignore patterns
+  // ...fixupConfigRules(
+  //   compat.extends(
+  //     "next/core-web-vitals",
+  //     "next/typescript",
+  //     "plugin:react/recommended",
+  //     "plugin:prettier/recommended",
+  //     "plugin:@typescript-eslint/recommended",
+  //     "plugin:@typescript-eslint/recommended-type-checked",
+  //     "plugin:@typescript-eslint/stylistic-type-checked",
+  //     "plugin:import/recommended",
+  //   )
+  // ),
   {
-    ignores: ["**/next.config.js", "**/tsconfig.json", "node_modules/**/*", ".next/types/**/*.ts"],
+    ignores: [
+      "**/next.config.js",
+      "**/tsconfig.json",
+      "node_modules/**/*",
+      ".next/types/**/*.ts",
+      "src/server/actions/images/sharp/worker/sharp-worker.js",
+    ],
   },
-  ...fixupConfigRules(
-    compat.extends(
-      "plugin:react/recommended",
-      "plugin:react-hooks/recommended", // https://react.dev/blog/2025/10/01/react-19-2#eslint-plugin-react-hooks
-      "plugin:prettier/recommended",
-      "plugin:@typescript-eslint/recommended",
-      "next/core-web-vitals",
-      "plugin:@typescript-eslint/recommended-type-checked",
-      "plugin:@typescript-eslint/stylistic-type-checked",
-      "plugin:import/recommended",
-      "plugin:import/typescript"
-    )
-  ),
+  // Base config for JS/TS files
   {
+    files: ["**/*.{js,mjs,cjs,ts,tsx}"],
     plugins: {
+      "@typescript-eslint": typescriptEslint,
       "react-refresh": reactRefresh,
-      react: fixupPluginRules(react),
-      "@typescript-eslint": fixupPluginRules(typescriptEslint),
       prettier: fixupPluginRules(prettier),
-      import: fixupPluginRules(_import),
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      esLintConfigPrettier,
     },
 
     languageOptions: {
@@ -61,9 +78,16 @@ export default [
 
       parserOptions: {
         project: true,
+        project: ["./tsconfig.json", "tsconfig.node.json", "tsconfig.app.json"],
+        tsconfigRootDir: __dirname,
       },
     },
-
+    settings: {
+      "import/internal-regex": "^/",
+      react: {
+        version: "detect",
+      },
+    },
     rules: {
       "@typescript-eslint/array-type": "off",
       "@typescript-eslint/consistent-type-definitions": "off",
@@ -258,4 +282,6 @@ export default [
       ],
     },
   },
-];
+]);
+
+export default eslintConfig;

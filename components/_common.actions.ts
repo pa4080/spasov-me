@@ -3,9 +3,9 @@
 import { Redis } from "@upstash/redis";
 import { type ObjectId } from "mongodb";
 import { type HydratedDocument } from "mongoose";
-import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 
+import { auth } from "@/lib/auth";
 import {
   fileAttachment_add,
   fileAttachment_remove,
@@ -18,7 +18,6 @@ import { type NewProjectData, type ProjectDoc } from "@/interfaces/Project";
 import { type AttachedToDocument, type ModelType } from "@/interfaces/_common-data-types";
 import { arraysEqual } from "@/lib/arrays-equal";
 import { arraysEqualDiff } from "@/lib/arrays-equal-diff";
-import { authOptions } from "@/lib/auth-options";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import AboutEntry, { type AboutEntryModel } from "@/models/about-entry";
 import LabEntry, { type LabEntryModel } from "@/models/lab-entry";
@@ -97,20 +96,20 @@ export const revalidatePaths = async <T extends string>({
     return null;
   }
   /**
-	 * redirect() cause a specific Next.js error, so it must be outside the try block!
-	 * Actually the errors generates by redirect() causes internal server error in production.
-	 * We are refreshing the page via a client side component @see ServerActionResponseNotify.tsx
-	 *
-	 finally {
-	 	if (redirectTo) {
-	 		setTimeout(() => redirect(redirectTo), 1000);
-	 	}
-	 }
-	 */
+   * redirect() cause a specific Next.js error, so it must be outside the try block!
+   * Actually the errors generates by redirect() causes internal server error in production.
+   * We are refreshing the page via a client side component @see ServerActionResponseNotify.tsx
+   *
+   finally {
+      if (redirectTo) {
+        setTimeout(() => redirect(redirectTo), 1000);
+      }
+   }
+   */
 };
 
 export const getSession = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   return session;
 };

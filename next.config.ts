@@ -10,14 +10,11 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  reactCompiler: !IS_DEV_MODE,
   experimental: {
     serverActions: {
       bodySizeLimit: "26mb", // https://nextjs.org/docs/app/api-reference/next-config-js/serverActions#bodysizelimit
     },
-    reactCompiler: !IS_DEV_MODE,
     staleTimes: {
       dynamic: 60, // cache dynamic routes for 30s
       static: 604800, // cache static routes for 1 week
