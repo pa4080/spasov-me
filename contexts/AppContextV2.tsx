@@ -22,11 +22,11 @@ import { type FileData, type FileListItem } from "@/interfaces/File";
 import { type PageCardData } from "@/interfaces/PageCard";
 import { type ProjectData } from "@/interfaces/Project";
 import { type TagData } from "@/interfaces/Tag";
-import { type AuthProviders } from "@/types/next-auth-providers";
+import { type AuthProvidersType } from "@/types/next-auth-providers";
 
 interface AppContextProps {
   session: Session | null;
-  authProviders: AuthProviders;
+  authProviders: AuthProvidersType;
   setAboutEntries: Dispatch<SetStateAction<AboutEntryData[] | null>>;
   aboutEntries: AboutEntryData[] | null;
   files: FileData[] | null;
@@ -50,7 +50,7 @@ interface AppContextProviderProps {
 }
 
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
-  const [authProviders, setAuthProviders] = useState<AuthProviders>(null);
+  const [authProviders, setAuthProviders] = useState<AuthProvidersType>(null);
   const [aboutEntries, setAboutEntries] = useState<AboutEntryData[] | null>(null);
   const [files, setFiles] = useState<FileData[] | null>(null);
   const [fileList, setFileList] = useState<FileListItem[] | null>(null);

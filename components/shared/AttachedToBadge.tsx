@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
 import { X } from "lucide-react";
+import React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -52,7 +52,7 @@ interface Props {
   ttContentLn1?: string;
   ttContentLn2?: string;
   removeItemById?: () => void;
-  collisionBoundaryRef?: React.RefObject<HTMLFormElement>;
+  collisionBoundaryRef?: React.RefObject<HTMLFormElement | null>;
 }
 
 const AttachedToBadge: React.FC<Props> = ({
@@ -68,6 +68,9 @@ const AttachedToBadge: React.FC<Props> = ({
   const badgeText =
     badgeLabel.length > badgeLabelMaxLength ? badgeLabel.replace(regExp, "$1...") : badgeLabel;
 
+  // eslint-disable-next-line react-hooks/refs
+  const collisionBoundary = collisionBoundaryRef?.current || document.body;
+
   if (ttContentLn2 || ttContentLn1) {
     return (
       <TooltipProvider>
@@ -77,7 +80,7 @@ const AttachedToBadge: React.FC<Props> = ({
           </TooltipTrigger>
           <TooltipContent
             className="border-2 border-muted-secondary dark:border-primary max-w-xs"
-            collisionBoundary={collisionBoundaryRef?.current}
+            collisionBoundary={collisionBoundary}
           >
             {ttContentLn1 && <p className="font-semibold text-base -mt-1">{ttContentLn1}</p>}
             {ttContentLn2 && <p className="text-xs">{ttContentLn2}</p>}

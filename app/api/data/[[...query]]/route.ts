@@ -36,10 +36,9 @@
  */
 
 import { type Model } from "mongoose";
-import { getServerSession } from "next-auth";
 import { type NextRequest, NextResponse } from "next/server";
 
-import { authOptions } from "@/lib/auth-options";
+import { auth } from "@/lib/auth";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import AboutEntry from "@/models/about-entry";
@@ -61,7 +60,7 @@ export async function GET(request: NextRequest, props: Context) {
   const params = await props.params;
 
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     if (!params.query) {
       return NextResponse.json({ error: errorMessages.e510a }, { status: 510 });
@@ -140,7 +139,7 @@ export async function POST(request: NextRequest, props: Context) {
   const params = await props.params;
 
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     if (!session) {
       return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
@@ -249,7 +248,7 @@ export async function PUT(request: NextRequest, props: Context) {
   const params = await props.params;
 
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     if (!session) {
       return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
@@ -388,7 +387,7 @@ export async function DELETE(request: NextRequest, props: Context) {
   const params = await props.params;
 
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     if (!session) {
       return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });

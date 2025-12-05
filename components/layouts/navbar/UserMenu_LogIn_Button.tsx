@@ -5,11 +5,11 @@ import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
-import { type AuthProviders } from "@/types/next-auth-providers";
+import { type AuthProvidersType } from "@/types/next-auth-providers";
 
 interface Props {
   className?: string;
-  authProviders: AuthProviders;
+  authProviders: AuthProvidersType;
 }
 
 const LogIn_Button: React.FC<Props> = ({ className, authProviders }) => {

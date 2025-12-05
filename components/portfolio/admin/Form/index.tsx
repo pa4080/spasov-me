@@ -71,6 +71,7 @@ const ProjectForm: React.FC<Props> = ({
     t("schema_date"),
     t("schema_date"),
     t("schema_visibility"),
+    t("schema_highlighted"),
     t("schema_tags"),
     t("schema_gallery"),
     t("schema_slug_length"),
@@ -92,6 +93,7 @@ const ProjectForm: React.FC<Props> = ({
       dateTo: undefined,
       entryType: entryType,
       visibility: true,
+      highlighted: false,
       attachment: undefined,
       icon: undefined,
       tags: [],
@@ -102,6 +104,7 @@ const ProjectForm: React.FC<Props> = ({
           ...formData,
           tags: formData?.tags.map((tag) => tag._id) || [],
           gallery: formData?.gallery?.map((file) => file._id) ?? [],
+          highlighted: formData?.highlighted ?? false,
         }
       : undefined,
   });
@@ -321,6 +324,26 @@ const ProjectForm: React.FC<Props> = ({
                         <FormLabel>{t("visibility_title")}</FormLabel>
                         {t("visibility_description") && (
                           <FormDescription>{t("visibility_description")}</FormDescription>
+                        )}
+                      </div>
+                      <FormControl>
+                        <Switch checked={field.value} onCheckedChange={field.onChange} />
+                      </FormControl>
+                    </div>
+                  </FormItem>
+                )}
+              />
+              {/* Checkbox | Is highlighted? */}
+              <FormField
+                control={form.control}
+                name="highlighted"
+                render={({ field }) => (
+                  <FormItem className="flex-1 rounded-md border space-y-0">
+                    <div className="flex items-center justify-between py-2 pl-4 pr-3">
+                      <div>
+                        <FormLabel>{t("highlighted_title")}</FormLabel>
+                        {t("highlighted_description") && (
+                          <FormDescription>{t("highlighted_description")}</FormDescription>
                         )}
                       </div>
                       <FormControl>

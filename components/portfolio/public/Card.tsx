@@ -60,7 +60,7 @@ const ProjectPublic_Card: React.FC<Props> = ({
 
         <div
           dangerouslySetInnerHTML={{ __html: descriptionArr[0] }}
-          className="flex-grow line-clamp-2 pl-2"
+          className="line-clamp-2 pl-2"
         />
 
         <div className="flex flex-col 2xs:flex-row items-stretch justify-between gap-4 2xs:gap-2 w-full -mb-1 min-h-9">

@@ -7,12 +7,11 @@
  */
 import { ObjectId, type GridFSFile } from "mongodb";
 import { type HydratedDocument } from "mongoose";
-import { getServerSession } from "next-auth";
 import { NextResponse, type NextRequest } from "next/server";
 
+import { auth } from "@/lib/auth";
 import { errorMessages } from "@/app/api/common";
 import { type FileDoc } from "@/interfaces/File";
-import { authOptions } from "@/lib/auth-options";
 import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
 import FileGFS from "@/models/file";
 import { Route } from "@/routes";
@@ -27,7 +26,7 @@ export async function GET(request: NextRequest, props: Context) {
   const params = await props.params;
 
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     if (!session) {
       return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
@@ -123,7 +122,7 @@ export async function POST(request: NextRequest, props: Context) {
   const params = await props.params;
 
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     if (!session) {
       return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
@@ -216,7 +215,7 @@ export async function PATCH(request: NextRequest, props: Context) {
   const params = await props.params;
 
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     if (!session) {
       return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });
@@ -355,7 +354,7 @@ export async function DELETE(request: NextRequest, props: Context) {
   const params = await props.params;
 
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     if (!session) {
       return NextResponse.json({ error: errorMessages.e401 }, { status: 401 });

@@ -498,6 +498,7 @@
     "schema_date": "Select a date.",
     "schema_type": "Select a type.",
     "schema_visibility": "The default visibility value is \"true\".",
+    "schema_highlighted": "The default highlighted value is \"false\".",
     "schema_tags": "Select at least one tag.",
     "schema_gallery": "Select multiple attachments.",
     "schema_slug_length": "The slug must be at least 4 characters.",
@@ -542,8 +543,11 @@
     "dateTo_label": "To",
     "date_button": "OK",
 
-    "visibility_title": "Is public?",
+    "visibility_title": "Is project public?",
     "visibility_description": "",
+
+    "highlighted_title": "Is project highlighted?",
+    "highlighted_description": "",
 
     "attachment_label": "",
     "attachment_description": "",

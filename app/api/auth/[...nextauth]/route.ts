@@ -1,13 +1,12 @@
 /**
- * @see [Next-Auth] Tutorial with Next.js 13 @see https://youtu.be/w2h54xz6Ndw
- * @see https://next-auth.js.org/configuration/initialization#route-handlers-app
- * @see https://next-auth.js.org/getting-started/example
+ * @see https://authjs.dev/getting-started/installation?framework=pnpm
  * @use "openssl rand -base64 32" to generate a NEXTAUTH_SECRET
+ *
+ * @deprecated [Next-Auth] Tutorial with Next.js 13 @see https://youtu.be/w2h54xz6Ndw
+ * @deprecated https://next-auth.js.org/configuration/initialization#route-handlers-app
+ * @deprecated https://next-auth.js.org/getting-started/example
  */
-import NextAuth from "next-auth";
 
-import { authOptions } from "@/lib/auth-options";
+import { handlers } from "@/lib/auth";
 
-const handler = NextAuth(authOptions);
-
-export { handler as GET, handler as POST };
+export const { GET, POST } = handlers;

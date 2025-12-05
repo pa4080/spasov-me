@@ -1,16 +1,15 @@
-import { getServerSession } from "next-auth";
 import { type NextRequest } from "next/server";
 
+import { auth } from "@/lib/auth";
 import { type DeepSeekApiRequest } from "@/interfaces/AI";
 import { createForbiddenResponse, isSameOrigin } from "@/lib/api/origin-protection";
-import { authOptions } from "@/lib/auth-options";
 
 export const revalidate = 0;
 const apiKey = process.env.DEEPSEEK_API_KEY;
 
 export async function POST(request: NextRequest) {
   const isSameOrig = isSameOrigin(request);
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!isSameOrig || !session) {
     return createForbiddenResponse();

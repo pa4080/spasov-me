@@ -14,7 +14,7 @@ import React, {
 import { type FileData } from "@/interfaces/File";
 import { type PageCardData } from "@/interfaces/PageCard";
 import loadDataFromApiRoute from "@/lib/load-data-fom-api-route";
-import { type AuthProviders } from "@/types/next-auth-providers";
+import { type AuthProvidersType } from "@/types/next-auth-providers";
 
 interface AppContextProps {
   session: Session | null;
@@ -22,7 +22,7 @@ interface AppContextProps {
   setPages: Dispatch<SetStateAction<PageCardData[]>>;
   files: FileData[];
   setFiles: Dispatch<SetStateAction<FileData[]>>;
-  authProviders: AuthProviders;
+  authProviders: AuthProvidersType;
 }
 
 const AppContext = createContext<AppContextProps>({} as AppContextProps);
@@ -34,7 +34,7 @@ interface AppContextProviderProps {
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
   const [pages, setPages] = useState<PageCardData[]>([]);
   const [files, setFiles] = useState<FileData[]>([]);
-  const [authProviders, setAuthProviders] = useState<AuthProviders>(null);
+  const [authProviders, setAuthProviders] = useState<AuthProvidersType>(null);
 
   const { data: session } = useSession();
 

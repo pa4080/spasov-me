@@ -1,6 +1,8 @@
 // Ref.: https://youtu.be/wm5gMKuwSYk?t=5477
 // Ref. regexp: https://gist.githubusercontent.com/adrianhajdin/6df61c6cd5ed052dce814a765bff9032/raw/3964dff2483e7aded3c567df1fb0b3f90a74b0aa/user.js
-import { Schema, model, models } from "mongoose";
+import { type Model, Schema, model, models } from "mongoose";
+
+import { type UserObject } from "@/interfaces/User";
 
 const UserSchema = new Schema({
   email: {
@@ -32,13 +34,15 @@ const UserSchema = new Schema({
 });
 
 /**
- * For a regular  always on always 
+ * For a regular  always on always
  * running backend server (as express.js),
  * we would do something like this:
- * 
+ *
 const User = model("User", UserSchema);
 export default User;
 */
+
+export type UserModel = Model<UserObject>;
 
 /**
  * For the Next.js API Routes, and serverless functions
