@@ -70,8 +70,8 @@ const UpdateProject: React.FC<Props> = ({
          * Unfortunately, at the current moment nor "react-hook-form" nor "shadcn/ui" support
          * form.action()... @see https://stackoverflow.com/a/40552372/6543935
          */
-
-        const response = await updateProject(generateFormDataFromObject(data), project._id, [
+        const formData = generateFormDataFromObject(data);
+        const response = await updateProject(formData, project._id, [
           pathname,
           Route.public.PORTFOLIO.uri,
           Route.admin.FILES_MONGODB,

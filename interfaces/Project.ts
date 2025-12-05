@@ -19,6 +19,7 @@ export interface ProjectDoc {
   dateFrom: Date | string;
   dateTo: Date | string | undefined;
   visibility: boolean | string;
+  highlighted: boolean;
   tags: ObjectId[] | undefined;
   attachment?: string | undefined;
   icon?: string | undefined;

@@ -20,6 +20,7 @@
 
 import GithubProvider from "next-auth/providers/github";
 
+import { type UserObject } from "@/interfaces/User";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import User from "@/models/user";
 
@@ -44,7 +45,11 @@ export const authOptions: NextAuthConfig = {
     // https://next-auth.js.org/configuration/options#session
     async session({ session }) {
       await connectToMongoDb();
-      const sessionUser = await User.findOne({ email: session.user.email });
+      const sessionUser = await User.findOne<UserObject>({ email: session.user.email });
+
+      if (!sessionUser) {
+        return session;
+      }
 
       session.user = {
         ...session?.user,
@@ -73,7 +78,7 @@ export const authOptions: NextAuthConfig = {
         await connectToMongoDb();
 
         // Check if the user already exists in the database
-        const userExist = await User.findOne({ email: profile?.email });
+        const userExist = await User.findOne<UserObject>({ email: profile?.email });
 
         /**
          * If the user not exists, create a new one in the database..m-0.5

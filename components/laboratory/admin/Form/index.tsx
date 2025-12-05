@@ -91,9 +91,9 @@ const LabEntryForm: React.FC<Props> = ({
   const form = useForm<LabEntry_FormSchema>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      title: formData?.title ?? "",
-      description: formData?.description ?? "",
-      slug: formData?.slug ?? "",
+      title: formData?.title,
+      description: formData?.description,
+      slug: formData?.slug,
       entryType: entryType,
 
       visibilityType: formData?.visibilityType ?? labEntryVisibilityTuple[0],
@@ -104,8 +104,8 @@ const LabEntryForm: React.FC<Props> = ({
       dateTo: formData?.dateTo ?? undefined,
 
       visibility: true,
-      attachment: formData?.attachment ?? "",
-      icon: formData?.icon ?? "",
+      attachment: formData?.attachment,
+      icon: formData?.icon,
       tags: [],
       gallery: [],
     },

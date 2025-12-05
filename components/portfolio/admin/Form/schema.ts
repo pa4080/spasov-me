@@ -27,22 +27,25 @@ export const Project_FormSchemaGenerator = (messages?: string[]) =>
     visibility: z.boolean({
       error: (issue) => String(messages?.[5]),
     }),
+    highlighted: z.boolean({
+      error: (issue) => String(messages?.[6]),
+    }),
     // This will be an Image (GridFS document) Id as a string
     attachment: z.string().optional(),
     icon: z.string().optional(),
     tags: z.array(z.string()).refine((tags) => tags.length > 0, {
-      message: String(messages?.[6]),
+      message: String(messages?.[7]),
     }),
     gallery: z.array(z.string(), {
-      error: (issue) => String(messages?.[7]),
+      error: (issue) => String(messages?.[8]),
     }),
     slug: z
       .string()
       .min(4, {
-        message: messages?.[8],
+        message: messages?.[9],
       })
       .regex(/^[a-z][a-z0-9-]+$/, {
-        message: messages?.[9],
+        message: messages?.[10],
       }),
   });
 

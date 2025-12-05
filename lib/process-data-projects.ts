@@ -61,6 +61,7 @@ export async function projectDocuments_toData({
       dateTo: project.dateTo as Date | undefined,
       entryType: project.entryType,
       visibility: project.visibility as boolean,
+      highlighted: project.highlighted as boolean,
       icon: project.icon,
       attachment: project.attachment,
       tags: tagDocuments_toData({ tags: project.tags || [], hyphen: true }),
@@ -89,6 +90,7 @@ export function projectFormData_toNewProjectData({
     visibility: data.get("visibility") as string,
     attachment: data.get("attachment") as string,
     icon: data.get("icon") as string,
+    highlighted: data.get("highlighted") === "true",
 
     tags: JSON.parse(data.get("tags") as string) as string[],
     gallery: JSON.parse(data.get("gallery") as string) as string[],

@@ -49,6 +49,10 @@ const ProjectSchema = new Schema<ProjectDoc>({
     type: Boolean,
     required: [true, "Visibility is required!"],
   },
+  highlighted: {
+    type: Boolean,
+    required: [true, "Highlighted is required!"],
+  },
   attachment: {
     type: String,
   },
