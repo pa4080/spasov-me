@@ -13,6 +13,8 @@ import { getTags } from "@/components/tags/_tags.actions";
 import { splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { msgs } from "@/messages";
 
+export const dynamic = "force-dynamic";
+
 const Portfolio: React.FC = async () => {
   const t = msgs("Search");
 
