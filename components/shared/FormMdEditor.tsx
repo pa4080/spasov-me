@@ -1,6 +1,6 @@
 "use client";
 import MDEditor, { commands, type RefMDEditor } from "@uiw/react-md-editor";
-import { Sparkles } from "lucide-react";
+import { Image as ImageIcon, Sparkles, Video, Youtube } from "lucide-react";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import {
   type ControllerRenderProps,
@@ -255,6 +255,57 @@ function FormMdEditor<T extends FieldValues>({ className, placeholder, form, fie
     // execute: () => void choiceAiProvider(),
   };
 
+  const youtubeEmbedCommand: commands.ICommand = {
+    name: "youtubeEmbed",
+    keyCommand: "youtubeEmbed",
+    shortcuts: "ctrlcmd+[",
+    buttonProps: {
+      "aria-label": "Insert YouTube Embed (ctrl + [)",
+      title: "YouTube Embed (ctrl + [)",
+    },
+    icon: <Youtube size={14} />,
+    execute: (state, api) => {
+      const selectedText = state.selectedText || "video_description";
+      const newText = `::youtube[${selectedText}]{#video_id}`;
+
+      api.replaceSelection(newText);
+    },
+  };
+
+  const videoEmbedCommand: commands.ICommand = {
+    name: "videoEmbed",
+    keyCommand: "videoEmbed",
+    shortcuts: "ctrlcmd+]",
+    buttonProps: {
+      "aria-label": "Insert Video Embed (ctrl + ])",
+      title: "Video Embed (ctrl + ])",
+    },
+    icon: <Video size={14} />,
+    execute: (state, api) => {
+      const selectedText = state.selectedText || "video_description";
+      const newText = `::video[${selectedText}]{#vid-id src="video_url" ratioPercent="67%" maxWidth="800px"}`;
+
+      api.replaceSelection(newText);
+    },
+  };
+
+  const imageEmbedCommand: commands.ICommand = {
+    name: "imageEmbed",
+    keyCommand: "imageEmbed",
+    shortcuts: "ctrlcmd+;",
+    buttonProps: {
+      "aria-label": "Insert Image Embed (ctrl + ;)",
+      title: "Image Embed (ctrl + ;), reference: [text](#image-id)",
+    },
+    icon: <ImageIcon size={14} />,
+    execute: (state, api) => {
+      const selectedText = state.selectedText || "alt_text";
+      const newText = `::img[![${selectedText}](image_url)]{#image-id}`;
+
+      api.replaceSelection(newText);
+    },
+  };
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.ctrlKey && event.key === ".") {
@@ -280,7 +331,14 @@ function FormMdEditor<T extends FieldValues>({ className, placeholder, form, fie
       autoFocus
       enableScroll
       className={className}
-      commands={[...commands.getCommands(), aiCompleteCommand, aiLoading ? stopCommand : {}]}
+      commands={[
+        ...commands.getCommands(),
+        youtubeEmbedCommand,
+        videoEmbedCommand,
+        imageEmbedCommand,
+        aiCompleteCommand,
+        aiLoading ? stopCommand : {},
+      ]}
       extraCommands={[
         choiceAiProviderCommand,
         commands.codeEdit,
