@@ -8,23 +8,18 @@ import { type TagData } from "@/interfaces/Tag";
 interface Props {
   tags: TagData[];
   onTagClick: (tag: TagData) => void;
-  selectedTag: string | null;
+  selectedTags: string[];
   iconsMap: IconsMap;
 }
 
-const TagFilter: React.FC<Props> = ({
-  tags,
-  onTagClick,
-  selectedTag: selectedTag_id,
-  iconsMap,
-}) => {
+const TagFilter: React.FC<Props> = ({ tags, onTagClick, selectedTags, iconsMap }) => {
   return (
     <div className="flex flex-wrap gap-2 items-center justify-start">
       {tags?.length > 0
         ? tags?.map((tag) => (
             <DisplayIcon
               key={tag._id}
-              className={`${tag._id === selectedTag_id ? "ring-2 ring-accent" : ""}`}
+              className={`${selectedTags.includes(tag._id) ? "ring-2 ring-accent" : ""}`}
               className_TooltipTrigger="!mt-0"
               description={tag.html.description}
               icon={iconsMap[tag.icon]}

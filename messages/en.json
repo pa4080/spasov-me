@@ -985,6 +985,9 @@
     "item_link": "Link to the search item",
     "loading": "Loading...",
     "noResults": "No results",
+    "results_count_zero": "0 Results found",
+    "results_count_one": "1 Result found",
+    "results_count_other": "{count} Results found",
 
     "title_spokenLanguages": "Languages",
     "title_businessCard": "Business card",
