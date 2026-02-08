@@ -288,6 +288,9 @@ importers:
       babel-plugin-react-compiler:
         specifier: 1.0.0
         version: 1.0.0
+      baseline-browser-mapping:
+        specifier: ^2.9.19
+        version: 2.9.19
       eslint:
         specifier: ^9.39.1
         version: 9.39.1(jiti@1.21.6)
@@ -3186,6 +3189,10 @@ packages:
 
   balanced-match@2.0.0:
     resolution: {integrity: sha512-1ugUSr8BHXRnK23KfuYS+gVMC3LB8QGH9W1iGtDPsNWoQbgtXSExkBu2aDR4epiGWZOjZsj6lDl/N/AqqTC3UA==}
+
+  baseline-browser-mapping@2.9.19:
+    resolution: {integrity: sha512-ipDqC8FrAl/76p2SSWKSI+H9tFwm7vYqXQrItCuiVPt26Km0jS+NzSsBWAaBusvSbQcfJG+JitdMm+wZAgTYqg==}
+    hasBin: true
 
   bcp-47-match@2.0.3:
     resolution: {integrity: sha512-JtTezzbAibu8G0R9op9zb3vcWZd9JF6M0xOYGPn0fNCd7wOpRB1mU2mH9T8gaBGbAAyIIVgB2G7xG0GP98zMAQ==}
@@ -10706,6 +10713,8 @@ snapshots:
   balanced-match@1.0.2: {}
 
   balanced-match@2.0.0: {}
+
+  baseline-browser-mapping@2.9.19: {}
 
   bcp-47-match@2.0.3: {}
 

@@ -5,7 +5,6 @@ import { type ObjectId } from "mongodb";
 import { type HydratedDocument } from "mongoose";
 import { revalidatePath } from "next/cache";
 
-import { auth } from "@/lib/auth";
 import {
   fileAttachment_add,
   fileAttachment_remove,
@@ -18,6 +17,7 @@ import { type NewProjectData, type ProjectDoc } from "@/interfaces/Project";
 import { type AttachedToDocument, type ModelType } from "@/interfaces/_common-data-types";
 import { arraysEqual } from "@/lib/arrays-equal";
 import { arraysEqualDiff } from "@/lib/arrays-equal-diff";
+import { auth } from "@/lib/auth";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import AboutEntry, { type AboutEntryModel } from "@/models/about-entry";
 import LabEntry, { type LabEntryModel } from "@/models/lab-entry";

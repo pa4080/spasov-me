@@ -12,14 +12,14 @@ import React, {
   useState,
 } from "react";
 
-import { getEntries } from "@/components/about/_about.actions";
+import { getAppData } from "@/components/_get.data.actions";
 import { getFileList, getFilesR2 } from "@/components/files-cloudflare/_files.actions";
-import { getPageCards } from "@/components/pages/_pages.actions";
-import { getProjects } from "@/components/portfolio/_portfolio.actions";
-import { getTags } from "@/components/tags/_tags.actions";
 import { type AboutEntryData } from "@/interfaces/AboutEntry";
 import { type FileData, type FileListItem } from "@/interfaces/File";
+import { type IconsMap } from "@/interfaces/IconsMap";
+import { type LabEntryData } from "@/interfaces/LabEntry";
 import { type PageCardData } from "@/interfaces/PageCard";
+import { type PostData } from "@/interfaces/Post";
 import { type ProjectData } from "@/interfaces/Project";
 import { type TagData } from "@/interfaces/Tag";
 import { type AuthProvidersType } from "@/types/next-auth-providers";
@@ -29,6 +29,12 @@ interface AppContextProps {
   authProviders: AuthProvidersType;
   aboutEntries: AboutEntryData[];
   setAboutEntries: Dispatch<SetStateAction<AboutEntryData[]>>;
+  posts: PostData[];
+  setPosts: Dispatch<SetStateAction<PostData[]>>;
+  labEntries: LabEntryData[];
+  setLabEntries: Dispatch<SetStateAction<LabEntryData[]>>;
+  iconsMap: IconsMap;
+  setIconsMap: Dispatch<SetStateAction<IconsMap>>;
   files: FileData[];
   setFiles: Dispatch<SetStateAction<FileData[]>>;
   fileList: FileListItem[];
@@ -39,6 +45,7 @@ interface AppContextProps {
   setTags: Dispatch<SetStateAction<TagData[]>>;
   projects: ProjectData[];
   setProjects: Dispatch<SetStateAction<ProjectData[]>>;
+  searchDataReady: boolean;
   setFilesData: () => Promise<void>;
   setEntriesData: () => Promise<void>;
 }
@@ -52,11 +59,15 @@ interface AppContextProviderProps {
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
   const [authProviders, setAuthProviders] = useState<AuthProvidersType>(null);
   const [aboutEntries, setAboutEntries] = useState<AboutEntryData[]>([]);
+  const [posts, setPosts] = useState<PostData[]>([]);
+  const [labEntries, setLabEntries] = useState<LabEntryData[]>([]);
+  const [iconsMap, setIconsMap] = useState<IconsMap>({});
   const [files, setFiles] = useState<FileData[]>([]);
   const [fileList, setFileList] = useState<FileListItem[]>([]);
   const [pages, setPages] = useState<PageCardData[]>([]);
   const [tags, setTags] = useState<TagData[]>([]);
   const [projects, setProjects] = useState<ProjectData[]>([]);
+  const [searchDataReady, setSearchDataReady] = useState(false);
 
   const { data: session } = useSession();
 
@@ -74,22 +85,15 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
   }, []);
 
   const setEntriesData = useCallback(async () => {
-    const data = await Promise.all([
-      getEntries({ hyphen: true, public: true }),
-      getPageCards({ hyphen: true, public: true }),
-      getTags({ hyphen: true, public: true }),
-      getProjects({ hyphen: true, public: true }),
-    ]).then(([aboutEntries, pages, tags, projects]) => ({
-      aboutEntries: aboutEntries ?? [],
-      pages: pages ?? [],
-      tags: tags ?? [],
-      projects: projects ?? [],
-    }));
+    const data = await getAppData();
 
     setAboutEntries(data.aboutEntries);
     setPages(data.pages);
     setTags(data.tags);
     setProjects(data.projects);
+    setPosts(data.posts);
+    setLabEntries(data.labEntries);
+    setIconsMap(data.iconsMap);
   }, []);
 
   useEffect(() => {
@@ -97,20 +101,27 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
       setAuthProviders(await getProviders());
     })();
 
-    // if (session) {
-    // 	setFilesData();
-    // 	setEntriesData();
-    // }
+    // Fetch all app data on init via a single server action call
+    void (async () => {
+      try {
+        const data = await getAppData();
+
+        setAboutEntries(data.aboutEntries);
+        setTags(data.tags);
+        setProjects(data.projects);
+        setPosts(data.posts);
+        setLabEntries(data.labEntries);
+        setIconsMap(data.iconsMap);
+        setPages(data.pages);
+        setSearchDataReady(true);
+      } catch (error) {
+        console.error("Failed to fetch app data:", error);
+        setSearchDataReady(true);
+      }
+    })();
 
     return () => {};
   }, []);
-
-  // useEffect(() => {
-  // 	if (session) {
-  // 		setFilesData();
-  // 		setEntriesData();
-  // 	}
-  // }, [session]);
 
   return (
     <AppContext.Provider
@@ -119,6 +130,12 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
         authProviders,
         aboutEntries,
         setAboutEntries,
+        posts,
+        setPosts,
+        labEntries,
+        setLabEntries,
+        iconsMap,
+        setIconsMap,
         files,
         setFiles,
         fileList,
@@ -129,6 +146,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
         setTags,
         projects,
         setProjects,
+        searchDataReady,
         setFilesData,
         setEntriesData,
       }}
