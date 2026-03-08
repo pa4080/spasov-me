@@ -31,7 +31,7 @@ const PortfolioAdmin: React.FC<Props> = async ({ className }) => {
   return (
     <div className={cn("space-y-20", className)}>
       {projectTuple.map((type) => (
-        <TimeLine key={type} type={type} visibleItems={25} {...data} />
+        <TimeLine key={type} type={type} visibleItems={3} {...data} />
       ))}
     </div>
   );

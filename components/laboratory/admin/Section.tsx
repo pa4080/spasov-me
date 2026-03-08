@@ -59,6 +59,7 @@ const Section: React.FC<Props> = ({
   return (
     <div
       className={cn("portfolio-admin-section list-section scroll-mt-24 3xl:scroll-mt-8", className)}
+      id={toggle_target_id}
     >
       <SectionHeader title={section_title}>
         <CreateFile files_prefix={files_prefix} />
