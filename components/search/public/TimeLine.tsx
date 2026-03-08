@@ -34,6 +34,10 @@ const TimeLine: React.FC<Props> = ({ type, visibleItems = 15, entries, displayTa
     ?.filter(({ entryType }) => entryType === type)
     .sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
+  const count = entriesByType?.length || 0;
+  const displayCountAll = ` ${count}/${count}`;
+  const displayCountLess = ` ${visibleItems}/${count}`;
+
   return (
     entriesByType &&
     entriesByType.length > 0 && (
@@ -43,7 +47,7 @@ const TimeLine: React.FC<Props> = ({ type, visibleItems = 15, entries, displayTa
             tooltip
             disabled={entriesByType && entriesByType?.length <= visibleItems}
             target_id={toggle_target_id}
-            text={[t("btnAll"), t("btnLess")]}
+            text={[t("btnAll") + displayCountAll, t("btnLess") + displayCountLess]}
             type="section"
           />
         </SectionHeader>

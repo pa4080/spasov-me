@@ -13,7 +13,7 @@ interface Props {
 const FilesAdmin_CloudFlare: React.FC<Props> = async ({
   className,
   files_prefix,
-  visibleItemsCommon = 25,
+  visibleItemsCommon = 3,
 }) => {
   const files = await getFilesR2({ prefix: files_prefix });
 

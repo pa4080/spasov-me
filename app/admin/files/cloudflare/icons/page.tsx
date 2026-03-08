@@ -10,7 +10,7 @@ const Icons: React.FC = () => {
     <FilesAdmin_CloudFlare
       className="margin_vh_top margin_vh_bottom scroll-mt-40"
       files_prefix={icons_prefix}
-      visibleItemsCommon={500}
+      visibleItemsCommon={10}
     />
   );
 };

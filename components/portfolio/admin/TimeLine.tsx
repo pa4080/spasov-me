@@ -56,6 +56,10 @@ const TimeLine: React.FC<Props> = ({
     ?.filter(({ entryType }) => entryType === type)
     .sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
+  const count = projectsByType?.length || 0;
+  const displayCountAll = ` ${count}/${count}`;
+  const displayCountLess = ` ${visibleItems}/${count}`;
+
   if (!projectsByType || projectsByType.length === 0) {
     return null;
   }
@@ -78,7 +82,7 @@ const TimeLine: React.FC<Props> = ({
         <ToggleCollapsible
           tooltip
           target_id={toggle_target_id}
-          text={[t("btnAll"), t("btnLess")]}
+          text={[t("btnAll") + displayCountAll, t("btnLess") + displayCountLess]}
           type="section"
         />
       </SectionHeader>

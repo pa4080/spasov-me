@@ -17,7 +17,7 @@ interface Props {
 
 const List_FilesAdmin_CloudFlare: React.FC<Props> = ({
   files_prefix,
-  visibleItemsCommon = 25,
+  visibleItemsCommon = 3,
   files: allFiles,
 }) => {
   const [files, setFiles] = React.useState<FileData[] | null>(allFiles);

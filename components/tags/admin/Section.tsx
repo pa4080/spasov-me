@@ -30,6 +30,11 @@ const Section: React.FC<Props> = ({ className, tags, type, visibleItems = 2, ico
   const section_title = hyphenateString(t(`title_${type}` as tType));
   const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_${type}`);
 
+  const tagsByType = tags?.filter(({ tagType }) => tagType === type) || [];
+  const count = tagsByType.length;
+  const displayCountAll = ` ${count}/${count}`;
+  const displayCountLess = ` ${visibleItems}/${count}`;
+
   return (
     <div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
       <SectionHeader title={section_title}>
@@ -38,14 +43,13 @@ const Section: React.FC<Props> = ({ className, tags, type, visibleItems = 2, ico
         <ToggleCollapsible
           tooltip
           target_id={toggle_target_id}
-          text={[t("btnAll"), t("btnLess")]}
+          text={[t("btnAll") + displayCountAll, t("btnLess") + displayCountLess]}
           type="section"
         />
       </SectionHeader>
 
       <div className={styles.feed}>
-        {tags
-          ?.filter(({ tagType }) => tagType === type)
+        {tagsByType
           .sort((a, b) => a.orderKey.localeCompare(b.orderKey))
           .map((tag, index) => (
             <TagCard

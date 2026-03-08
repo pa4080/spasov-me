@@ -45,7 +45,7 @@ const ContentFilterField: React.FC<Props> = ({ handleFilterChange, isPending, cl
     <>
       <div ref={containerRef} className={cn("w-full h-8", className)}>
         <div
-          className="fixed top-16 z-10 bg-background/75 backdrop-blur-sm pt-6 pb-6 px-4 -mx-4 w-auto"
+          className="fixed top-16 z-10 bg-background/75 backdrop-blur-sm pt-6 pb-1 px-4 -mx-4 w-auto"
           style={{
             ...(searchWidth ? { width: searchWidth } : {}),
           }}

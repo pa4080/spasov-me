@@ -36,6 +36,10 @@ const LabEntriesPublic_EmbedList: React.FC<Props> = async ({
   const section_title = t("title_common");
   const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_lab_resources_portfolio_page`);
 
+  const count = labEntries?.length || 0;
+  const displayCountAll = ` ${count}/${count}`;
+  const displayCountLess = ` ${visibleItems}/${count}`;
+
   return (
     <div
       className={cn(
@@ -49,7 +53,7 @@ const LabEntriesPublic_EmbedList: React.FC<Props> = async ({
         <ToggleCollapsible
           invertButton={invertDisplay}
           target_id={toggle_target_id}
-          text={[t("btnAll"), t("btnLess")]}
+          text={[t("btnAll") + displayCountAll, t("btnLess") + displayCountLess]}
           type="section"
         />
       </SectionHeader>
