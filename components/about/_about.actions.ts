@@ -11,11 +11,9 @@ import {
   aboutEntryDocuments_toData,
   aboutEntryFormData_toNewEntryData,
 } from "@/lib/process-data-about-entries";
-import { redis, redis_app_prefix, redis_ttl } from "@/lib/redis";
+import { redis, redis_cache_app_data_key } from "@/lib/redis";
 import { msgs } from "@/messages";
 import AboutEntry from "@/models/about-entry";
-
-const redis_cache_key = `${redis_app_prefix}_about_entries`;
 
 export const getEntries = async ({
   hyphen,
@@ -27,19 +25,10 @@ export const getEntries = async ({
   public?: boolean;
 }): Promise<AboutEntryData[] | null> => {
   try {
-    const cached = await redis.get<AboutEntryDocPopulated[]>(redis_cache_key);
-
-    if (cached) {
-      return await aboutEntryDocuments_toData({ entries: cached, hyphen, typeList, visible });
-    }
-
     await connectToMongoDb();
     const entries: AboutEntryDocPopulated[] = await AboutEntry.find<
       HydratedDocument<AboutEntryDocPopulated>
     >({}).populate(["tags"]);
-
-    // Cache the raw documents
-    await redis.set(redis_cache_key, JSON.stringify(entries), { ex: redis_ttl });
 
     return await aboutEntryDocuments_toData({ entries, hyphen, typeList, visible });
   } catch (error) {
@@ -84,7 +73,7 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<bool
 
     return null;
   } finally {
-    await redis.del(redis_cache_key);
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -142,7 +131,7 @@ export const updateEntry = async (
 
     return null;
   } finally {
-    await redis.del(redis_cache_key);
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -172,7 +161,7 @@ export const deleteEntry = async (entry_id: string, paths: string[]): Promise<bo
 
     return false;
   } finally {
-    await redis.del(redis_cache_key);
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };

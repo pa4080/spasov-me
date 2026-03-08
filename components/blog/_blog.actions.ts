@@ -8,11 +8,9 @@ import { type PostData, type PostDocPopulated } from "@/interfaces/Post";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import { postDocuments_toData, postFormData_toNewPostData } from "@/lib/process-data-posts";
-import { redis, redis_app_prefix, redis_ttl } from "@/lib/redis";
+import { redis, redis_cache_app_data_key } from "@/lib/redis";
 import { msgs } from "@/messages";
 import Post from "@/models/post";
-
-const redis_cache_key = `${redis_app_prefix}_posts`;
 
 export const getPosts = async ({
   hyphen,
@@ -24,19 +22,10 @@ export const getPosts = async ({
   public?: boolean;
 }): Promise<PostData[] | null> => {
   try {
-    const cached = await redis.get<PostDocPopulated[]>(redis_cache_key);
-
-    if (cached) {
-      return postDocuments_toData({ posts: cached, hyphen, typeList, visible });
-    }
-
     await connectToMongoDb();
     const posts: PostDocPopulated[] = await Post.find<HydratedDocument<PostDocPopulated>>(
       {}
     ).populate(["attachment", "tags", "gallery", "icon"]);
-
-    // Cache the raw documents
-    await redis.set(redis_cache_key, JSON.stringify(posts), { ex: redis_ttl });
 
     return postDocuments_toData({ posts, hyphen, typeList, visible });
   } catch (error) {
@@ -136,7 +125,7 @@ export const createPost = async (data: FormData, paths: string[]): Promise<boole
 
     return null;
   } finally {
-    await redis.del(redis_cache_key);
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -194,7 +183,7 @@ export const updatePost = async (
 
     return null;
   } finally {
-    await redis.del(redis_cache_key);
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -224,7 +213,7 @@ export const deletePost = async (post_id: string, paths: string[]): Promise<bool
 
     return false;
   } finally {
-    await redis.del(redis_cache_key);
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };

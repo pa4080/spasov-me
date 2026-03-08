@@ -13,6 +13,7 @@ interface Props {
 }
 
 const BlogAdmin: React.FC<Props> = ({ className }) => {
+  "use no memo";
   const { posts, tags, fileList, iconList, iconsMap } = useAppContext();
 
   if (posts.length === 0) {

@@ -73,42 +73,44 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
     const data = await getAppData();
 
     setAboutEntries(data.aboutEntries);
-    setPages(data.pages);
     setTags(data.tags);
     setProjects(data.projects);
     setPosts(data.posts);
     setLabEntries(data.labEntries);
     setIconsMap(data.iconsMap);
+    setPages(data.pages);
+    setFileList(data.fileList);
+    setIconList(data.iconList);
+    setSearchDataReady(true);
   }, []);
 
   useEffect(() => {
     void (async () => {
       setAuthProviders(await getProviders());
     })();
+  }, [setEntriesData]);
 
-    // Fetch all app data on init via a single server action call
-    void (async () => {
-      try {
-        const data = await getAppData();
+  useEffect(() => {
+    try {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      void setEntriesData();
+    } catch (error) {
+      console.error("Failed to fetch app data:", error);
+      setSearchDataReady(true);
+    }
+  }, [setEntriesData]);
 
-        setAboutEntries(data.aboutEntries);
-        setTags(data.tags);
-        setProjects(data.projects);
-        setPosts(data.posts);
-        setLabEntries(data.labEntries);
-        setIconsMap(data.iconsMap);
-        setPages(data.pages);
-        setFileList(data.fileList);
-        setIconList(data.iconList);
-        setSearchDataReady(true);
-      } catch (error) {
-        console.error("Failed to fetch app data:", error);
-        setSearchDataReady(true);
-      }
-    })();
+  useEffect(() => {
+    const handleMutationSuccess = () => {
+      void setEntriesData();
+    };
 
-    return () => {};
-  }, []);
+    document.addEventListener("app:mutation-success", handleMutationSuccess);
+
+    return () => {
+      document.removeEventListener("app:mutation-success", handleMutationSuccess);
+    };
+  }, [setEntriesData]);
 
   return (
     <AppContext.Provider
