@@ -282,9 +282,6 @@ importers:
       '@vercel/edge-config':
         specifier: 1.4.0
         version: 1.4.0
-      '@vercel/kv':
-        specifier: 2.0.0
-        version: 2.0.0
       babel-plugin-react-compiler:
         specifier: 1.0.0
         version: 1.0.0
@@ -2882,11 +2879,6 @@ packages:
 
   '@vercel/introspection@0.0.6':
     resolution: {integrity: sha512-eWaw2rMrDo5xsivRw3Cd0izj9q0WBoL3Xc8wJIxhUTn+TFo18mZqzMPHIG//NebAKgVTxppe19kyvvHvPGFTyg==}
-
-  '@vercel/kv@2.0.0':
-    resolution: {integrity: sha512-zdVrhbzZBYo5d1Hfn4bKtqCeKf0FuzW8rSHauzQVMUgv1+1JOwof2mWcBuI+YMJy8s0G0oqAUfQ7HgUDzb8EbA==}
-    engines: {node: '>=14.6'}
-    deprecated: 'Vercel KV is deprecated. If you had an existing KV store, it should have moved to Upstash Redis which you will see under Vercel Integrations. For new projects, install a Redis integration from Vercel Marketplace: https://vercel.com/marketplace?category=storage&search=redis'
 
   '@vercel/nestjs@0.2.17':
     resolution: {integrity: sha512-ZeR1Ins4Jhttc5Jehj4+Hna4Znb+JmdhTB6yn9ROwuKzgcqw+qu0jk7nbA1HysHHgrgFNJSV54rDmmOEZ8Ix7g==}
@@ -10235,10 +10227,6 @@ snapshots:
     dependencies:
       path-to-regexp: 8.3.0
       zod: 3.22.4
-
-  '@vercel/kv@2.0.0':
-    dependencies:
-      '@upstash/redis': 1.34.3
 
   '@vercel/nestjs@0.2.17':
     dependencies:

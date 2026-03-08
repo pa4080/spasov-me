@@ -16,7 +16,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useAppContext } from "@/contexts/AppContext";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 
@@ -33,7 +32,6 @@ interface Props {
 
 const CreateFile: React.FC<Props> = ({ className, files_prefix }) => {
   const t = msgs("Files_Create");
-  const { setFilesData } = useAppContext();
 
   const [submitting, setSubmitting] = useState(false);
   const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353
@@ -60,8 +58,6 @@ const CreateFile: React.FC<Props> = ({ className, files_prefix }) => {
     } finally {
       setSubmitting(false);
       setIsOpen(false);
-
-      await setFilesData();
     }
   };
 

@@ -141,7 +141,6 @@
     "@typescript-eslint/parser": "8.48.1",
     "@vercel/blob": "0.23.4",
     "@vercel/edge-config": "1.4.0",
-    "@vercel/kv": "2.0.0",
     "babel-plugin-react-compiler": "1.0.0",
     "baseline-browser-mapping": "2.9.19",
     "eslint": "9.39.1",

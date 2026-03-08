@@ -1,7 +1,6 @@
 "use server";
 
-// import { Redis } from "@upstash/redis";
-import { createClient } from "@vercel/kv";
+import { Redis } from "@upstash/redis";
 import { ObjectId } from "mongodb";
 import { type HydratedDocument } from "mongoose";
 
@@ -18,15 +17,11 @@ import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "../_co
 
 import { Readable } from "stream";
 
-// const redis = new Redis({
-// 	url: process.env.UPSTASH_REDIS_REST_URL,
-// 	token: process.env.UPSTASH_REDIS_REST_TOKEN,
-// });
-
 const redis_app_prefix = process.env.UPSTASH_REDIS_PREFIX ?? "spasov_me";
+const redis_ttl = process.env.UPSTASH_REDIS_TTL ?? 4 * 168 * 3600; // 4 weeks
 const files_prefix_mongo = process.env.MONGO_REDIS_PREFIX ?? "mongo_db_files";
 
-const redis = createClient({
+const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL,
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
@@ -91,8 +86,10 @@ export const getFiles_mongo = async ({
       visible,
     });
 
-    // Set the "files"/"icons" array in Redis
-    await redis.set(`${redis_app_prefix}_${files_prefix_mongo}`, JSON.stringify(filesProcessed));
+    // Set the "files"/"icons" array in Redis with a TTL
+    await redis.set(`${redis_app_prefix}_${files_prefix_mongo}`, JSON.stringify(filesProcessed), {
+      ex: Number(redis_ttl),
+    });
 
     return filesProcessed;
   } catch (error) {
