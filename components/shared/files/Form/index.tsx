@@ -75,7 +75,7 @@ const FileForm: React.FC<Props> = ({
 
   const { theme } = useTheme();
 
-  const form = useForm<File_FormSchema>({
+  const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       file: null,

@@ -17,11 +17,13 @@ interface Props {
 }
 
 const LabAdmin: React.FC<Props> = async ({ className }) => {
-  const labEntries = await getLabEntries({ hyphen: true });
-  const tags = await getTags();
-  const fileList = await getFileList_mongo();
-  const iconList = await getFileList({ prefix: icons_prefix });
-  const iconsMap = await getIconsMap();
+  const [labEntries, tags, fileList, iconList, iconsMap] = await Promise.all([
+    getLabEntries({ hyphen: true }),
+    getTags(),
+    getFileList_mongo(),
+    getFileList({ prefix: icons_prefix }),
+    getIconsMap(),
+  ]);
 
   return (
     <div className={cn("space-y-20", className)}>
@@ -34,7 +36,7 @@ const LabAdmin: React.FC<Props> = async ({ className }) => {
           labEntries={labEntries}
           tags={tags}
           type={type}
-          visibleItems={60}
+          visibleItems={2}
         />
       ))}
     </div>

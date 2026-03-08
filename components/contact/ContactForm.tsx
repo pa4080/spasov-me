@@ -67,7 +67,7 @@ const ContactForm: React.FC<Props> = ({ className }) => {
     };
   }, []);
 
-  const form = useForm<FormDataType>({
+  const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",

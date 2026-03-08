@@ -56,7 +56,7 @@ const TagForm: React.FC<Props> = ({
     t("schema_type"),
   ]);
 
-  const form = useForm<Tag_FormSchema>({
+  const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       name: "",

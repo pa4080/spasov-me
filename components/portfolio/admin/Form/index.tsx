@@ -80,7 +80,7 @@ const ProjectForm: React.FC<Props> = ({
 
   const { theme } = useTheme();
 
-  const form = useForm<Project_FormSchema>({
+  const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       title: "",
