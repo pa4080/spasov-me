@@ -56,10 +56,12 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common", fil
           <DisplayFileImage
             className="file-image-thumb h-[80px] w-[80px] object-cover rounded-md -z-[1]"
             file={file}
+            unoptimized={true}
           />
           <DisplayFileImage
             className="file-image-large card-item-collapsible h-auto w-[100%] sm:w-[320px] object-contain rounded-md my-2 sm:my-0 animate-zoomInFile origin-top-left z-[1]"
             file={file}
+            unoptimized={true}
           />
         </div>
 

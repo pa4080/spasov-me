@@ -104,11 +104,13 @@ const List_FilesAdmin_CloudFlare: React.FC<Props> = ({
   return (
     <>
       <ContentFilterField handleFilterChange={handleFilterChange} isPending={isPending} />
-      {sections.map(({ type, visibleItems, sortByAttachedTo, files }) => (
+      {sections.map(({ type, visibleItems, sortByAttachedTo, files }, index) => (
         <Section
           key={type}
+          className={index === 0 ? "mt-4" : ""}
           files={files}
           files_prefix={files_prefix}
+          scrollDisabled={index === 0}
           sortByAttachedTo={sortByAttachedTo}
           type={type as ModelType | "common"}
           visibleItems={visibleItems}

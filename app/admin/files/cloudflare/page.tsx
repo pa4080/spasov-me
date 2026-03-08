@@ -11,7 +11,7 @@ const Files: React.FC = () => {
     <FilesAdmin_CloudFlare
       className="margin_vh_top margin_vh_bottom scroll-mt-40"
       files_prefix={files_prefix}
-      visibleItemsCommon={500}
+      visibleItemsCommon={5}
     />
   );
 };

@@ -21,6 +21,7 @@ interface Props {
   sortByAttachedTo?: boolean;
   sortByAttachedToVisibleItems?: number;
   files_prefix: string;
+  scrollDisabled?: boolean;
 }
 
 const Section: React.FC<Props> = ({
@@ -31,6 +32,7 @@ const Section: React.FC<Props> = ({
   sortByAttachedTo = true,
   sortByAttachedToVisibleItems = 25,
   files_prefix,
+  scrollDisabled,
 }) => {
   if (!files || files.length === 0) {
     return null;
@@ -88,6 +90,7 @@ const Section: React.FC<Props> = ({
         <CreateFile files_prefix={files_prefix} />
         <ToggleCollapsible
           tooltip
+          scrollDisabled={scrollDisabled}
           target_id={toggle_target_id}
           text={[t("btnAll") + displayCountAllSection, t("btnLess") + displayCountLessSection]}
           type="section"
