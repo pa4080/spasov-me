@@ -80,8 +80,8 @@ const Section: React.FC<Props> = ({
       ? sortByAttachedToVisibleItems
       : visibleItems;
 
-  const displayCountAllSection = ` ${countSection}/${countSection}`;
-  const displayCountLessSection = ` ${countSectionVisible}/${countSection}`;
+  const displayCountLess = ` | ${countSection}/${countSection}`;
+  const displayCountAll = ` | ${countSectionVisible}/${countSection}`;
 
   return (
     <div className={cn(styles.section, "list-section", className)} id={toggle_target_id}>
@@ -92,7 +92,7 @@ const Section: React.FC<Props> = ({
           tooltip
           scrollDisabled={scrollDisabled}
           target_id={toggle_target_id}
-          text={[t("btnAll") + displayCountAllSection, t("btnLess") + displayCountLessSection]}
+          text={[t("btnAll") + displayCountAll, t("btnLess") + displayCountLess]}
           type="section"
         />
       </SectionHeader>

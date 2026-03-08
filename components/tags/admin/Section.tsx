@@ -32,8 +32,8 @@ const Section: React.FC<Props> = ({ className, tags, type, visibleItems = 2, ico
 
   const tagsByType = tags?.filter(({ tagType }) => tagType === type) || [];
   const count = tagsByType.length;
-  const displayCountAll = ` ${count}/${count}`;
-  const displayCountLess = ` ${visibleItems}/${count}`;
+  const displayCountLess = ` | ${count}/${count}`;
+  const displayCountAll = ` | ${visibleItems}/${count}`;
 
   return (
     <div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>

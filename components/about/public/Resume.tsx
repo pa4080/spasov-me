@@ -39,8 +39,8 @@ const Resume: React.FC<Props> = ({ entries, className, type, fileList, tags, ico
   });
 
   const count = descriptionArr?.length || 0;
-  const displayCountAll = ` ${count}/${count}`;
-  const displayCountLess = ` 1/${count}`;
+  const displayCountLess = ` | ${count}/${count}`;
+  const displayCountAll = ` | 1/${count}`;
 
   return (
     entry &&

@@ -52,8 +52,8 @@ const TimeLine: React.FC<Props> = ({
     .sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
   const count = entriesByType?.length || 0;
-  const displayCountAll = ` ${count}/${count}`;
-  const displayCountLess = ` ${visibleItems}/${count}`;
+  const displayCountLess = ` | ${count}/${count}`;
+  const displayCountAll = ` | ${visibleItems}/${count}`;
 
   return (
     <div

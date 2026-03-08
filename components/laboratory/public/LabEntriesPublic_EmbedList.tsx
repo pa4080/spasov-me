@@ -37,8 +37,8 @@ const LabEntriesPublic_EmbedList: React.FC<Props> = async ({
   const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_lab_resources_portfolio_page`);
 
   const count = labEntries?.length || 0;
-  const displayCountAll = ` ${count}/${count}`;
-  const displayCountLess = ` ${visibleItems}/${count}`;
+  const displayCountAll = ` | ${visibleItems}/${count}`;
+  const displayCountLess = ` | ${count}/${count}`;
 
   return (
     <div

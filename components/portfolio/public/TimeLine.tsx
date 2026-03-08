@@ -50,8 +50,8 @@ const TimeLine: React.FC<Props> = ({
   const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_projects_portfolio_page`);
 
   const count = projectsByType?.length || 0;
-  const displayCountAll = ` ${count}/${count}`;
-  const displayCountLess = ` ${visibleItems}/${count}`;
+  const displayCountAll = ` | ${visibleItems}/${count}`;
+  const displayCountLess = ` | ${count}/${count}`;
 
   return (
     <>
