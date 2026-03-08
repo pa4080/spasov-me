@@ -70,8 +70,8 @@ export async function labEntryDocuments_toData({
       urlAdmin: labEntry.urlAdmin && labEntry.urlAdmin !== "undefined" ? labEntry.urlAdmin : "",
       urlSource: labEntry.urlSource && labEntry.urlSource !== "undefined" ? labEntry.urlSource : "",
 
-      dateFrom: labEntry.dateFrom as Date,
-      dateTo: labEntry.dateTo as Date | undefined,
+      dateFrom: new Date(labEntry.dateFrom),
+      dateTo: labEntry.dateTo ? new Date(labEntry.dateTo) : undefined,
 
       visibility: labEntry.visibility as boolean,
       attachment: labEntry.attachment,
