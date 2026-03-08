@@ -11,8 +11,11 @@ import {
   projectDocuments_toData,
   projectFormData_toNewProjectData,
 } from "@/lib/process-data-projects";
+import { redis, redis_app_prefix, redis_ttl } from "@/lib/redis";
 import { msgs } from "@/messages";
 import Project from "@/models/project";
+
+const redis_cache_key = `${redis_app_prefix}_projects`;
 
 export const getProjects = async ({
   hyphen,
@@ -24,10 +27,19 @@ export const getProjects = async ({
   public?: boolean;
 }): Promise<ProjectData[] | null> => {
   try {
+    const cached = await redis.get<ProjectDocPopulated[]>(redis_cache_key);
+
+    if (cached) {
+      return projectDocuments_toData({ projects: cached, hyphen, typeList, visible });
+    }
+
     await connectToMongoDb();
     const projects: ProjectDocPopulated[] = await Project.find<
       HydratedDocument<ProjectDocPopulated>
     >({}).populate(["attachment", "tags", "gallery", "icon"]);
+
+    // Cache the raw documents
+    await redis.set(redis_cache_key, JSON.stringify(projects), { ex: redis_ttl });
 
     return projectDocuments_toData({ projects, hyphen, typeList, visible });
   } catch (error) {
@@ -96,6 +108,7 @@ export const createProject = async (data: FormData, paths: string[]): Promise<bo
 
     return null;
   } finally {
+    await redis.del(redis_cache_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -153,6 +166,7 @@ export const updateProject = async (
 
     return null;
   } finally {
+    await redis.del(redis_cache_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -182,6 +196,7 @@ export const deleteProject = async (project_id: string, paths: string[]): Promis
 
     return false;
   } finally {
+    await redis.del(redis_cache_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };

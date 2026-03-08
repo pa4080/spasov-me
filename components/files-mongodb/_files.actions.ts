@@ -1,6 +1,5 @@
 "use server";
 
-import { Redis } from "@upstash/redis";
 import { ObjectId } from "mongodb";
 import { type HydratedDocument } from "mongoose";
 
@@ -9,6 +8,7 @@ import { type FileData, type FileDoc, type FileListItem } from "@/interfaces/Fil
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb, defaultChunkSize, gridFSBucket } from "@/lib/mongodb-mongoose";
 import { fileDocuments_toData } from "@/lib/process-data-files-mongodb";
+import { files_prefix_mongo, redis, redis_app_prefix, redis_ttl } from "@/lib/redis";
 import { msgs } from "@/messages";
 import FileGFS from "@/models/file";
 import { Route } from "@/routes";
@@ -16,15 +16,6 @@ import { Route } from "@/routes";
 import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "../_common.actions";
 
 import { Readable } from "stream";
-
-const redis_app_prefix = process.env.UPSTASH_REDIS_PREFIX ?? "spasov_me";
-const redis_ttl = process.env.UPSTASH_REDIS_TTL ?? 4 * 168 * 3600; // 4 weeks
-const files_prefix_mongo = process.env.MONGO_REDIS_PREFIX ?? "mongo_db_files";
-
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN,
-});
 
 export const getFilesV1 = async (): Promise<FileData[] | null> => {
   try {
@@ -88,7 +79,7 @@ export const getFiles_mongo = async ({
 
     // Set the "files"/"icons" array in Redis with a TTL
     await redis.set(`${redis_app_prefix}_${files_prefix_mongo}`, JSON.stringify(filesProcessed), {
-      ex: Number(redis_ttl),
+      ex: redis_ttl,
     });
 
     return filesProcessed;

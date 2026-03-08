@@ -14,9 +14,7 @@ import {
 
 import { processMarkdown } from "./md/process-markdown";
 import { tagDocuments_toData } from "./process-data-tags";
-
-// const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
-const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
+import { icons_prefix } from "./redis";
 
 export async function labEntryDocuments_toData({
   labEntries,

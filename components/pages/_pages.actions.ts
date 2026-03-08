@@ -9,8 +9,11 @@ import { type PageCardData, type PageCardDocPopulated } from "@/interfaces/PageC
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import { PageCardDocuments_toData, pageFormData_toNewEntryData } from "@/lib/process-data-pages";
+import { redis, redis_app_prefix, redis_ttl } from "@/lib/redis";
 import { msgs } from "@/messages";
 import PageCard from "@/models/page-card";
+
+const redis_cache_key = `${redis_app_prefix}_page_cards`;
 
 export const getPageCards = async ({
   public: visible,
@@ -20,8 +23,17 @@ export const getPageCards = async ({
   hyphen?: boolean;
 } = {}): Promise<null | PageCardData[]> => {
   try {
+    const cached = await redis.get<PageCardDocPopulated[]>(redis_cache_key);
+
+    if (cached) {
+      return PageCardDocuments_toData({ pages: cached, visible, hyphen });
+    }
+
     await connectToMongoDb();
     const pages: PageCardDocPopulated[] = await PageCard.find({});
+
+    // Cache the raw documents
+    await redis.set(redis_cache_key, JSON.stringify(pages), { ex: redis_ttl });
 
     return PageCardDocuments_toData({ pages, visible, hyphen });
   } catch (error) {
@@ -72,6 +84,7 @@ export const createPageCard = async (data: FormData, paths: string[]): Promise<b
 
     return null;
   } finally {
+    await redis.del(redis_cache_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -140,6 +153,7 @@ export const updatePageCard = async (
 
     return null;
   } finally {
+    await redis.del(redis_cache_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -173,6 +187,7 @@ export const deletePageCard = async (page_id: string, paths: string[]): Promise<
 
     return false;
   } finally {
+    await redis.del(redis_cache_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };

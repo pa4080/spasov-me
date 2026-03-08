@@ -1,6 +1,5 @@
 "use server";
 
-import { Redis } from "@upstash/redis";
 import { type ObjectId } from "mongodb";
 import { type HydratedDocument } from "mongoose";
 import { revalidatePath } from "next/cache";
@@ -19,6 +18,14 @@ import { arraysEqual } from "@/lib/arrays-equal";
 import { arraysEqualDiff } from "@/lib/arrays-equal-diff";
 import { auth } from "@/lib/auth";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
+import {
+  files_prefix,
+  files_prefix_mongo,
+  icons_map_prefix,
+  icons_prefix,
+  redis,
+  redis_app_prefix,
+} from "@/lib/redis";
 import AboutEntry, { type AboutEntryModel } from "@/models/about-entry";
 import LabEntry, { type LabEntryModel } from "@/models/lab-entry";
 import PageCard, { type PageCardModel } from "@/models/page-card";
@@ -29,17 +36,6 @@ import {
   fileAttachment_add_mongo,
   fileAttachment_remove_mongo,
 } from "./files-mongodb/_files.actions";
-
-const redis_app_prefix = process.env.UPSTASH_REDIS_PREFIX ?? "spasov_me";
-const files_prefix_mongo = process.env.MONGO_REDIS_PREFIX ?? "mongo_db_files";
-const files_prefix = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES ?? "files";
-const icons_prefix = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS ?? "icons";
-const icons_map_prefix = "iconsMap";
-
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN,
-});
 
 export const redisCacheFile_Flush = async (key: "all" | "files" | "icons" | "files_mongo") => {
   switch (key) {

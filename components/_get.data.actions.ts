@@ -8,9 +8,7 @@ import { getPageCards } from "@/components/pages/_pages.actions";
 import { getProjects } from "@/components/portfolio/_portfolio.actions";
 import { getTags } from "@/components/tags/_tags.actions";
 import { splitDescriptionKeyword } from "@/lib/md/process-markdown";
-
-const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
-const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
+import { files_prefix, icons_prefix } from "@/lib/redis";
 
 /**
  * Fetch all public data needed by the application at startup.

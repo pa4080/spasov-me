@@ -12,8 +12,11 @@ import { type AttachedToDocument } from "@/interfaces/_common-data-types";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import { tagDocuments_toData, tagFormData_toNewTagData } from "@/lib/process-data-tags";
+import { redis, redis_app_prefix, redis_ttl } from "@/lib/redis";
 import { msgs } from "@/messages";
 import Tag from "@/models/tag";
+
+const redis_cache_key = `${redis_app_prefix}_tags`;
 
 export const getTags = async ({
   public: visible,
@@ -25,8 +28,17 @@ export const getTags = async ({
   sorted?: boolean;
 } = {}): Promise<TagData[] | null> => {
   try {
+    const cached = await redis.get<TagDoc[]>(redis_cache_key);
+
+    if (cached) {
+      return tagDocuments_toData({ tags: cached, visible, hyphen, sorted });
+    }
+
     await connectToMongoDb();
     const tags: TagDoc[] = await Tag.find({});
+
+    // Cache the raw documents
+    await redis.set(redis_cache_key, JSON.stringify(tags), { ex: redis_ttl });
 
     return tagDocuments_toData({ tags, visible, hyphen, sorted });
   } catch (error) {
@@ -56,6 +68,9 @@ export const createTag = async (data: FormData, paths: string[]): Promise<true |
     const newTagDocument = new Tag(documentData_new);
 
     await newTagDocument.save();
+
+    // Flush the cache
+    await redis.del(redis_cache_key);
 
     return true;
   } catch (error) {
@@ -110,6 +125,9 @@ export const updateTag = async (
 
     await document_new.save();
 
+    // Flush the cache
+    await redis.del(redis_cache_key);
+
     return true;
   } catch (error) {
     console.error(error);
@@ -129,6 +147,9 @@ export const deleteTag = async (tag_id: string, paths: string[]): Promise<true |
     await connectToMongoDb();
 
     const document_deleted = await Tag.findOneAndDelete({ _id: tag_id });
+
+    // Flush the cache
+    await redis.del(redis_cache_key);
 
     return !!document_deleted ? true : null;
   } catch (error) {
@@ -179,6 +200,9 @@ export const tagAttachment_add = async ({
       }
     );
 
+    // Flush the cache
+    await redis.del(redis_cache_key);
+
     return !!result;
   } catch (error) {
     console.error("Unable to add attached document to a Tag: ", error);
@@ -218,6 +242,9 @@ export const tagAttachment_remove = async ({
         },
       }
     );
+
+    // Flush the cache
+    await redis.del(redis_cache_key);
 
     return !!result;
   } catch (error) {

@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 
+import LoadingPage from "@/app/admin/loading";
 import { useAppContext } from "@/contexts/AppContext";
 import { postTuple } from "@/interfaces/_common-data-types";
 import { cn } from "@/lib/cn-utils";
@@ -13,6 +14,10 @@ interface Props {
 
 const BlogAdmin: React.FC<Props> = ({ className }) => {
   const { posts, tags, fileList, iconList, iconsMap } = useAppContext();
+
+  if (posts.length === 0) {
+    return <LoadingPage />;
+  }
 
   return (
     <div className={cn("space-y-20", className)}>

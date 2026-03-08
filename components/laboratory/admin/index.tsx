@@ -5,12 +5,10 @@ import { getFileList_mongo } from "@/components/files-mongodb/_files.actions";
 import { getTags } from "@/components/tags/_tags.actions";
 import { labEntryTuple } from "@/interfaces/_common-data-types";
 import { cn } from "@/lib/cn-utils";
+import { icons_prefix } from "@/lib/redis";
 
 import { getLabEntries } from "../_lab.actions";
 import Section from "./Section";
-
-// const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
-const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
 
 interface Props {
   className?: string;

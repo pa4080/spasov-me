@@ -11,8 +11,11 @@ import {
   labEntryDocuments_toData,
   labEntryFormData_toNewLabEntryData,
 } from "@/lib/process-data-lab-entries";
+import { redis, redis_app_prefix, redis_ttl } from "@/lib/redis";
 import { msgs } from "@/messages";
 import LabEntry from "@/models/lab-entry";
+
+const redis_cache_key = `${redis_app_prefix}_lab_entries`;
 
 export const getLabEntries = async ({
   hyphen,
@@ -24,10 +27,19 @@ export const getLabEntries = async ({
   public?: boolean;
 }): Promise<LabEntryData[] | null> => {
   try {
+    const cached = await redis.get<LabEntryDocPopulated[]>(redis_cache_key);
+
+    if (cached) {
+      return labEntryDocuments_toData({ labEntries: cached, hyphen, typeList, visible });
+    }
+
     await connectToMongoDb();
     const labEntries: LabEntryDocPopulated[] = await LabEntry.find<
       HydratedDocument<LabEntryDocPopulated>
     >({}).populate(["attachment", "tags", "gallery", "icon"]);
+
+    // Cache the raw documents
+    await redis.set(redis_cache_key, JSON.stringify(labEntries), { ex: redis_ttl });
 
     return labEntryDocuments_toData({ labEntries: labEntries, hyphen, typeList, visible });
   } catch (error) {
@@ -74,6 +86,7 @@ export const createLabEntry = async (data: FormData, paths: string[]): Promise<b
 
     return null;
   } finally {
+    await redis.del(redis_cache_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -133,6 +146,7 @@ export const updateLabEntry = async (
 
     return null;
   } finally {
+    await redis.del(redis_cache_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -164,6 +178,7 @@ export const deleteLabEntry = async (labEntry_id: string, paths: string[]): Prom
 
     return false;
   } finally {
+    await redis.del(redis_cache_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };

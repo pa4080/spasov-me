@@ -14,9 +14,7 @@ import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type LabEntryData } from "@/interfaces/LabEntry";
 import { type TagData } from "@/interfaces/Tag";
-
-// const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
-const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
+import { icons_prefix } from "@/lib/redis";
 
 interface Props {
   params: Promise<{ slug: string[] }>;

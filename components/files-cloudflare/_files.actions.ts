@@ -1,6 +1,5 @@
 "use server";
 
-import { Redis } from "@upstash/redis";
 import sizeOf from "image-size";
 
 import { type FileData, type FileListItem, type FileMetadata } from "@/interfaces/File";
@@ -19,20 +18,10 @@ import {
 } from "@/lib/aws";
 import { getRatio, type GetRatioInput } from "@/lib/get-ratio";
 import { fileObject_toData } from "@/lib/process-data-files-cloudflare";
+import { files_prefix, icons_prefix, redis, redis_app_prefix, redis_ttl } from "@/lib/redis";
 import { msgs } from "@/messages";
 
 import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "./../_common.actions";
-
-const redis_app_prefix = process.env.UPSTASH_REDIS_PREFIX ?? "spasov_me";
-const redis_ttl = process.env.UPSTASH_REDIS_TTL ?? 4 * 168 * 3600; // 4 weeks
-const files_prefix = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES ?? "files";
-const icons_prefix = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS ?? "icons";
-
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN,
-  // cache: "force-cache",
-});
 
 export const getFilesR2 = async ({
   hyphen = true,
@@ -67,7 +56,7 @@ export const getFilesR2 = async ({
 
     // Set the "files"/"icons" array in Redis
     await redis.set(`${redis_app_prefix}_${prefix}`, JSON.stringify(files), {
-      ex: Number(redis_ttl),
+      ex: redis_ttl,
     });
 
     return files;
@@ -161,7 +150,7 @@ export const getIconsMap = async ({
   }
 
   await redis.set(`${redis_app_prefix}_${prefix}`, JSON.stringify(iconsMap), {
-    ex: Number(redis_ttl),
+    ex: redis_ttl,
   });
 
   return iconsMap;
@@ -596,7 +585,7 @@ async function redisCacheFile_Add({ prefix, filename }: { prefix: string; filena
 
   const newFiles = [...cachedFiles, ...newFileAsArr];
   const redisRes = await redis.set(`${redis_app_prefix}_${prefix}`, JSON.stringify(newFiles), {
-    ex: Number(redis_ttl),
+    ex: redis_ttl,
   });
 
   return redisRes && redisRes === "OK" ? true : null;
@@ -611,7 +600,7 @@ async function redisCacheFile_Remove({ prefix, file_id }: { prefix: string; file
 
   const newFiles = cachedFiles.filter(({ _id }: { _id: string }) => _id !== file_id);
   const redisRes = await redis.set(`${redis_app_prefix}_${prefix}`, JSON.stringify(newFiles), {
-    ex: Number(redis_ttl),
+    ex: redis_ttl,
   });
 
   return redisRes && redisRes === "OK" ? true : null;
