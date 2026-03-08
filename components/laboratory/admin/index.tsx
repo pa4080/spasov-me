@@ -1,27 +1,24 @@
+"use client";
+
 import React from "react";
 
-import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
-import { getFileList_mongo } from "@/components/files-mongodb/_files.actions";
-import { getTags } from "@/components/tags/_tags.actions";
+import LoadingPage from "@/app/admin/loading";
+import { useAppContext } from "@/contexts/AppContext";
 import { labEntryTuple } from "@/interfaces/_common-data-types";
 import { cn } from "@/lib/cn-utils";
-import { icons_prefix } from "@/lib/redis";
 
-import { getLabEntries } from "../_lab.actions";
 import Section from "./Section";
 
 interface Props {
   className?: string;
 }
 
-const LabAdmin: React.FC<Props> = async ({ className }) => {
-  const [labEntries, tags, fileList, iconList, iconsMap] = await Promise.all([
-    getLabEntries({ hyphen: true }),
-    getTags(),
-    getFileList_mongo(),
-    getFileList({ prefix: icons_prefix }),
-    getIconsMap(),
-  ]);
+const LabAdmin: React.FC<Props> = ({ className }) => {
+  const { labEntries, tags, fileList, iconList, iconsMap } = useAppContext();
+
+  if (labEntries.length === 0) {
+    return <LoadingPage />;
+  }
 
   return (
     <div className={cn("space-y-20", className)}>

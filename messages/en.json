@@ -17,6 +17,10 @@
     "system": "System",
     "themeSelector": "Theme selector"
   },
+  "Common": {
+    "filter": "Filter",
+    "loading": "Loading..."
+  },
   "Navigation": {
     "CONTACT": "Contact",
     "SERVICES": "Services",
