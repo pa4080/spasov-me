@@ -13,6 +13,7 @@ interface Props {
   sizes?: [string, string];
   description?: string;
   style?: React.CSSProperties;
+  unoptimized?: boolean;
 }
 
 const DisplayFileImage: React.FC<Props> = ({
@@ -22,6 +23,7 @@ const DisplayFileImage: React.FC<Props> = ({
   sizes = ["160px", "320px"],
   description,
   style,
+  unoptimized = true,
 }) => {
   if (!file?.filename) {
     return null;
@@ -49,7 +51,7 @@ const DisplayFileImage: React.FC<Props> = ({
         file.metadata.html.fileUrl ?? file.metadata.html.fileUri ?? Route.assets.IMAGE_PLACEHOLDER
       }
       style={style}
-      unoptimized={/\.svg$/.exec(file.filename) ? true : false}
+      unoptimized={unoptimized || (/\.svg$/.exec(file.filename) ? true : false)}
       width="0"
     />
   );

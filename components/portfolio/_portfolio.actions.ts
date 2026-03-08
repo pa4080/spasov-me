@@ -11,6 +11,7 @@ import {
   projectDocuments_toData,
   projectFormData_toNewProjectData,
 } from "@/lib/process-data-projects";
+import { redis, redis_cache_app_data_key } from "@/lib/redis";
 import { msgs } from "@/messages";
 import Project from "@/models/project";
 
@@ -96,6 +97,7 @@ export const createProject = async (data: FormData, paths: string[]): Promise<bo
 
     return null;
   } finally {
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -153,6 +155,7 @@ export const updateProject = async (
 
     return null;
   } finally {
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -182,6 +185,7 @@ export const deleteProject = async (project_id: string, paths: string[]): Promis
 
     return false;
   } finally {
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };

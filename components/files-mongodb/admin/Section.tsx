@@ -59,6 +59,18 @@ const Section: React.FC<Props> = ({
       )
     : undefined;
 
+  const countSection =
+    attachedToDocuments && Object.keys(attachedToDocuments).length > 0
+      ? Object.keys(attachedToDocuments).length
+      : files?.length || 0;
+  const countSectionVisible =
+    attachedToDocuments && Object.keys(attachedToDocuments).length > 0
+      ? sortByAttachedToVisibleItems
+      : visibleItems;
+
+  const displayCountAll = ` | ${countSectionVisible}/${countSection}`;
+  const displayCountLess = ` | ${countSection}/${countSection}`;
+
   return (
     <div className={`files-section list-section ${className}`} id={toggle_target_id}>
       <SectionHeader title={section_title}>
@@ -67,49 +79,58 @@ const Section: React.FC<Props> = ({
         <ToggleCollapsible
           tooltip
           target_id={toggle_target_id}
-          text={[t("btnAll"), t("btnLess")]}
+          text={[t("btnAll") + displayCountAll, t("btnLess") + displayCountLess]}
           type="section"
         />
       </SectionHeader>
 
       {attachedToDocuments && Object.keys(attachedToDocuments).length > 0 ? (
-        Object.keys(attachedToDocuments).map((attachedToDocument, index) => (
-          <div
-            key={index}
-            className={`files-feed scroll-mt-24 3xl:scroll-mt-8 mt-12 list-sub-section ${sortByAttachedToVisibleItems > index ? "" : "sub-section-collapsible"}`}
-            id={`${toggle_target_id}_${index}`}
-          >
-            <div className="flex flex-row w-full justify-between gap-4 items-center border-4 h-10 border-primary bg-primary rounded-full">
-              <div className="text-xl font-semibold tracking-wide flex-grow pl-5 flex items-center rounded-full">
-                <h2 className="line-clamp-1">{attachedToDocument}</h2>
-              </div>
-              <ToggleCollapsible
-                tooltip
-                className="-mr-1"
-                target_id={`${toggle_target_id}_${index}`}
-                text={[t("btnAll"), t("btnLess")]}
-                type="section"
-              />
-            </div>
+        Object.keys(attachedToDocuments).map((attachedToDocument, index) => {
+          const filesInSubSectionCount = attachedToDocuments[attachedToDocument]?.length || 0;
+          const displayCountAllSubSection = ` ${filesInSubSectionCount}/${filesInSubSectionCount}`;
+          const displayCountLessSubSection = ` ${visibleItems}/${filesInSubSectionCount}`;
 
-            {attachedToDocuments[attachedToDocument]
-              ?.sort((b, a) =>
-                typeof a.uploadDate.getTime === "function" &&
-                typeof b.uploadDate.getTime === "function"
-                  ? a.uploadDate.getTime() - b.uploadDate.getTime()
-                  : 0
-              )
-              ?.map((file, index) => (
-                <FileCard
-                  key={file._id.toString()}
-                  className={visibleItems > index ? "" : "section-card-collapsible"}
-                  file={file}
-                  files_prefix={"mongodb"}
-                  section_id={`${toggle_target_id}_${type}_${attachedToDocument.replace(/ /g, "_")}`}
+          return (
+            <div
+              key={index}
+              className={`files-feed scroll-mt-24 3xl:scroll-mt-8 mt-12 list-sub-section ${sortByAttachedToVisibleItems > index ? "" : "sub-section-collapsible"}`}
+              id={`${toggle_target_id}_${index}`}
+            >
+              <div className="flex flex-row w-full justify-between gap-4 items-center border-4 h-10 border-primary bg-primary rounded-full">
+                <div className="text-xl font-semibold tracking-wide flex-grow pl-5 flex items-center rounded-full">
+                  <h2 className="line-clamp-1">{attachedToDocument}</h2>
+                </div>
+                <ToggleCollapsible
+                  tooltip
+                  className="-mr-1"
+                  target_id={`${toggle_target_id}_${index}`}
+                  text={[
+                    t("btnAll") + displayCountAllSubSection,
+                    t("btnLess") + displayCountLessSubSection,
+                  ]}
+                  type="section"
                 />
-              ))}
-          </div>
-        ))
+              </div>
+
+              {attachedToDocuments[attachedToDocument]
+                ?.sort((b, a) =>
+                  typeof a.uploadDate.getTime === "function" &&
+                  typeof b.uploadDate.getTime === "function"
+                    ? a.uploadDate.getTime() - b.uploadDate.getTime()
+                    : 0
+                )
+                ?.map((file, index) => (
+                  <FileCard
+                    key={file._id.toString()}
+                    className={visibleItems > index ? "" : "section-card-collapsible"}
+                    file={file}
+                    files_prefix={"mongodb"}
+                    section_id={`${toggle_target_id}_${type}_${attachedToDocument.replace(/ /g, "_")}`}
+                  />
+                ))}
+            </div>
+          );
+        })
       ) : (
         <div className="files-feed">
           {files

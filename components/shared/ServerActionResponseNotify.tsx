@@ -18,8 +18,14 @@ export default function serverActionResponseToastAndLocationReload({
   msgError,
   redirectTo,
 }: Props) {
-  if (trigger && redirectTo) {
-    setTimeout(() => redirect(redirectTo), 1000);
+  if (trigger) {
+    if (typeof window !== "undefined") {
+      document.dispatchEvent(new CustomEvent("app:mutation-success"));
+    }
+
+    if (redirectTo) {
+      setTimeout(() => redirect(redirectTo), 1000);
+    }
   }
 
   toast({

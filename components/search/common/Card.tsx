@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { enUS as en } from "date-fns/locale";
 import Link from "next/link";
-import React from "react";
+import React, { useMemo } from "react";
 
 import DisplayIcon from "@/components/shared/DisplayIcon";
 import Gallery from "@/components/shared/Gallery";
@@ -21,6 +21,7 @@ import {
   postTuple,
   projectTuple,
 } from "@/interfaces/_common-data-types";
+import { cn } from "@/lib/cn-utils";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
@@ -68,8 +69,7 @@ const SearchResultEntryCard: React.FC<Props> = ({
   const tCommon = msgs("Search");
 
   const { dateFrom, dateTo } = entry;
-  const dtFrom = new Date(dateFrom);
-  const dtTo = dateTo ? new Date(dateTo) : undefined;
+
   const toggle_target_id = sanitizeHtmlTagIdOrClassName(`entry_${entry?._id.toString()}`);
   const descriptionArr = entry.html.description.split(splitDescriptionKeyword).map((str) => {
     return str.replace(commentsMatcher, "");
@@ -80,12 +80,15 @@ const SearchResultEntryCard: React.FC<Props> = ({
     "justify-center text-foreground-secondary bg-primary hover:bg-background " +
     "transition-colors duration-300 border-primary border-4";
 
-  const RedirectIcon = () => (
-    <div className={`${classToggleIcon} group`}>
-      {/* className="group-hover:hidden grayscale" */}
-      <IconEmbedSvg className="group-hover:hidden" cursor="pointer" type="rocket" />
-      <IconEmbedSvg className="hidden group-hover:block" cursor="pointer" type="rocket-launch" />
-    </div>
+  const redirectIcon = useMemo(
+    () => (
+      <div className={`${classToggleIcon} group`}>
+        {/* className="group-hover:hidden grayscale" */}
+        <IconEmbedSvg className="group-hover:hidden" cursor="pointer" type="rocket" />
+        <IconEmbedSvg className="hidden group-hover:block" cursor="pointer" type="rocket-launch" />
+      </div>
+    ),
+    [classToggleIcon]
   );
 
   const getGallery = entry.gallery
@@ -103,7 +106,10 @@ const SearchResultEntryCard: React.FC<Props> = ({
   const isAbout = aboutEntryTuple.includes(entry.entryType as AboutEntryType);
   const isLab = ["lab"].includes(entry.entryType);
 
-  const InfoSection = () => {
+  const infoSection = useMemo(() => {
+    const dtFrom = new Date(dateFrom);
+    const dtTo = dateTo ? new Date(dateTo) : undefined;
+
     if (isPost) {
       return (
         <div className={styles.info}>
@@ -190,13 +196,13 @@ const SearchResultEntryCard: React.FC<Props> = ({
         </div>
       );
     }
-  };
+  }, [dateFrom, dateTo, entry.city, entry.country, isAbout, isLab, isPost, isProject, tTime]);
 
-  const LinkToTheEntry = () => {
+  const linkToTheEntry = useMemo(() => {
     if (isPost) {
       return (
         <Link aria-label={tCommon("item_link")} href={`${Route.public.BLOG.uri}/${entry.slug}`}>
-          <RedirectIcon />
+          {redirectIcon}
         </Link>
       );
     }
@@ -207,7 +213,7 @@ const SearchResultEntryCard: React.FC<Props> = ({
           aria-label={tCommon("item_link")}
           href={`${Route.public.PORTFOLIO.uri}/${entry.slug}`}
         >
-          <RedirectIcon />
+          {redirectIcon}
         </Link>
       );
     }
@@ -218,7 +224,7 @@ const SearchResultEntryCard: React.FC<Props> = ({
           aria-label={tCommon("item_link")}
           href={`${Route.public.LAB.uri}?id=lab_${entry._id}`}
         >
-          <RedirectIcon />
+          {redirectIcon}
         </Link>
       );
     }
@@ -229,16 +235,16 @@ const SearchResultEntryCard: React.FC<Props> = ({
           aria-label={tCommon("item_link")}
           href={`${Route.public.ABOUT.uri}?id=entry_${entry._id}`}
         >
-          <RedirectIcon />
+          {redirectIcon}
         </Link>
       );
     }
-  };
+  }, [entry._id, entry.slug, isAbout, isLab, isPost, isProject, redirectIcon, tCommon]);
 
   return (
-    <div className={`card-border-wrapper ${className}`} id={toggle_target_id}>
+    <div className={cn("card-border-wrapper", className)} id={toggle_target_id}>
       <div className={styles.card}>
-        <InfoSection />
+        {infoSection}
 
         <div className={styles.header}>
           <div className={styles.buttons}>
@@ -253,7 +259,7 @@ const SearchResultEntryCard: React.FC<Props> = ({
                 type={descriptionArr[1] ? "card" : "card-item-single"}
               />
 
-              <LinkToTheEntry />
+              {linkToTheEntry}
             </div>
           </div>
           <div dangerouslySetInnerHTML={{ __html: entry.html.title }} className={styles.title} />

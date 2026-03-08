@@ -88,12 +88,12 @@ const LabEntryForm: React.FC<Props> = ({
 
   const { theme } = useTheme();
 
-  const form = useForm<LabEntry_FormSchema>({
+  const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      title: formData?.title,
-      description: formData?.description,
-      slug: formData?.slug,
+      title: formData?.title ?? "",
+      description: formData?.description ?? "",
+      slug: formData?.slug ?? "",
       entryType: entryType,
 
       visibilityType: formData?.visibilityType ?? labEntryVisibilityTuple[0],

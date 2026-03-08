@@ -38,6 +38,10 @@ const Resume: React.FC<Props> = ({ entries, className, type, fileList, tags, ico
     return str.replace(commentsMatcher, "");
   });
 
+  const count = descriptionArr?.length || 0;
+  const displayCountLess = ` | ${count}/${count}`;
+  const displayCountAll = ` | 1/${count}`;
+
   return (
     entry &&
     descriptionArr && (
@@ -46,7 +50,7 @@ const Resume: React.FC<Props> = ({ entries, className, type, fileList, tags, ico
           <UpdateAboutEntry entry={entry} fileList={fileList} iconsMap={iconsMap} tags={tags} />
           <ToggleCollapsible
             target_id={toggle_target_id}
-            text={[t("btnMore"), t("btnLess")]}
+            text={[t("btnMore") + displayCountAll, t("btnLess") + displayCountLess]}
             type="section"
           />
         </SectionHeader>

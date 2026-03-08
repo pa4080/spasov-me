@@ -15,6 +15,7 @@ import ToggleCollapsible from "@/components/shared/ToggleCollapsible";
 import VisibilitySwitchDisplay from "@/components/shared/VisibilitySwitchDisplay";
 import { type FileData } from "@/interfaces/File";
 import { capitalize } from "@/lib/capitalize";
+import { cn } from "@/lib/cn-utils";
 import { commentsMatcher, splitDescriptionKeyword } from "@/lib/md/process-markdown";
 import { roundTo } from "@/lib/round";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
@@ -46,16 +47,21 @@ const FileCard: React.FC<Props> = ({ className, file, section_id = "common", fil
   const isInMongoDB = files_prefix === "mongodb";
 
   return (
-    <div className={`file-card card-border-wrapper ${className}`} id={toggle_target_id}>
+    <div
+      className={cn("file-card", "card-border-wrapper !scroll-mt-40 !3xl:scroll-mt-28", className)}
+      id={toggle_target_id}
+    >
       <div className="file-card-grid">
         <div className="file-image-container">
           <DisplayFileImage
             className="file-image-thumb h-[80px] w-[80px] object-cover rounded-md -z-[1]"
             file={file}
+            unoptimized={true}
           />
           <DisplayFileImage
             className="file-image-large card-item-collapsible h-auto w-[100%] sm:w-[320px] object-contain rounded-md my-2 sm:my-0 animate-zoomInFile origin-top-left z-[1]"
             file={file}
+            unoptimized={true}
           />
         </div>
 

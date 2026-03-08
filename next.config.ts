@@ -55,6 +55,16 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
+    // https://nextjs.org/docs/messages/next-image-unconfigured-localpatterns
+    localPatterns: [
+      {
+        pathname: "/api/**",
+        // search is omitted, so ?v=123, ?t=456, or no query string are all allowed
+      },
+      {
+        pathname: "/assets/**",
+      },
+    ],
   },
   async headers() {
     const conditionalHeaders = IS_DEV_MODE_VERCEL

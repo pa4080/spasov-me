@@ -53,7 +53,7 @@ const PageForm: React.FC<Props> = ({
     t("schema_icon"),
   ]);
 
-  const form = useForm<Pages_FormSchema>({
+  const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       title: "",

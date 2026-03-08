@@ -82,7 +82,7 @@ const PostForm: React.FC<Props> = ({
 
   const { theme } = useTheme();
 
-  const form = useForm<Post_FormSchema>({
+  const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       title: "",

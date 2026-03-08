@@ -51,6 +51,10 @@ const TimeLine: React.FC<Props> = ({
     ?.filter(({ entryType }) => entryType === type)
     .sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
+  const count = entriesByType?.length || 0;
+  const displayCountLess = ` | ${count}/${count}`;
+  const displayCountAll = ` | ${visibleItems}/${count}`;
+
   return (
     <div
       className={cn("about-cards-section list-section scroll-mt-24 3xl:scroll-mt-8", className)}
@@ -62,7 +66,7 @@ const TimeLine: React.FC<Props> = ({
         <ToggleCollapsible
           tooltip
           target_id={toggle_target_id}
-          text={[t("btnAll"), t("btnLess")]}
+          text={[t("btnAll") + displayCountAll, t("btnLess") + displayCountLess]}
           type="section"
         />
       </SectionHeader>

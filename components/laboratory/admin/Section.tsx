@@ -56,9 +56,14 @@ const Section: React.FC<Props> = ({
     ?.filter(({ entryType }) => entryType === type)
     .sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
+  const count = labEntriesByType?.length || 0;
+  const displayCountAll = ` | ${visibleItems}/${count}`;
+  const displayCountLess = ` | ${count}/${count}`;
+
   return (
     <div
       className={cn("portfolio-admin-section list-section scroll-mt-24 3xl:scroll-mt-8", className)}
+      id={toggle_target_id}
     >
       <SectionHeader title={section_title}>
         <CreateFile files_prefix={files_prefix} />
@@ -73,7 +78,7 @@ const Section: React.FC<Props> = ({
         <ToggleCollapsible
           tooltip
           target_id={toggle_target_id}
-          text={[t("btnAll"), t("btnLess")]}
+          text={[t("btnAll") + displayCountAll, t("btnLess") + displayCountLess]}
           type="section"
         />
       </SectionHeader>

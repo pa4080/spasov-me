@@ -45,6 +45,7 @@ interface Props {
   isContainerDialogOpen?: boolean;
   formData?: FileData;
   files_prefix: string; // "mongodb" is a special one, the rest are related for Cloudflare R2's "folders" structure
+  unoptimized?: boolean;
 }
 
 const FileForm: React.FC<Props> = ({
@@ -53,6 +54,7 @@ const FileForm: React.FC<Props> = ({
   submitting = false,
   formData,
   files_prefix,
+  unoptimized = true,
 }) => {
   const t = msgs("Files_Form");
   const tCard = msgs("Files_Display");
@@ -75,7 +77,7 @@ const FileForm: React.FC<Props> = ({
 
   const { theme } = useTheme();
 
-  const form = useForm<File_FormSchema>({
+  const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       file: null,
@@ -253,7 +255,7 @@ const FileForm: React.FC<Props> = ({
                   height="0"
                   sizes="208px"
                   src={fileUri}
-                  unoptimized={/\.svg$/.exec(fileUri) ? true : false}
+                  unoptimized={unoptimized || (/\.svg$/.exec(fileUri) ? true : false)}
                   width="0"
                 />
               </AspectRatio>

@@ -12,6 +12,7 @@ import { type AttachedToDocument } from "@/interfaces/_common-data-types";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import { tagDocuments_toData, tagFormData_toNewTagData } from "@/lib/process-data-tags";
+import { redis, redis_cache_app_data_key } from "@/lib/redis";
 import { msgs } from "@/messages";
 import Tag from "@/models/tag";
 
@@ -56,6 +57,9 @@ export const createTag = async (data: FormData, paths: string[]): Promise<true |
     const newTagDocument = new Tag(documentData_new);
 
     await newTagDocument.save();
+
+    // Flush the cache
+    await redis.del(redis_cache_app_data_key);
 
     return true;
   } catch (error) {
@@ -110,6 +114,9 @@ export const updateTag = async (
 
     await document_new.save();
 
+    // Flush the cache
+    await redis.del(redis_cache_app_data_key);
+
     return true;
   } catch (error) {
     console.error(error);
@@ -129,6 +136,9 @@ export const deleteTag = async (tag_id: string, paths: string[]): Promise<true |
     await connectToMongoDb();
 
     const document_deleted = await Tag.findOneAndDelete({ _id: tag_id });
+
+    // Flush the cache
+    await redis.del(redis_cache_app_data_key);
 
     return !!document_deleted ? true : null;
   } catch (error) {
@@ -179,6 +189,9 @@ export const tagAttachment_add = async ({
       }
     );
 
+    // Flush the cache
+    await redis.del(redis_cache_app_data_key);
+
     return !!result;
   } catch (error) {
     console.error("Unable to add attached document to a Tag: ", error);
@@ -218,6 +231,9 @@ export const tagAttachment_remove = async ({
         },
       }
     );
+
+    // Flush the cache
+    await redis.del(redis_cache_app_data_key);
 
     return !!result;
   } catch (error) {

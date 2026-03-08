@@ -16,10 +16,8 @@ import { type IconsMap } from "@/interfaces/IconsMap";
 import { type PostData } from "@/interfaces/Post";
 import { type TagData } from "@/interfaces/Tag";
 import { commentsMatcher, getKeywords, splitDescriptionKeyword } from "@/lib/md/process-markdown";
+import { files_prefix, icons_prefix } from "@/lib/redis";
 import { Route } from "@/routes";
-
-const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
-const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -51,9 +49,9 @@ export async function generateMetadata(
   const postKeywords = getKeywords(postContent);
 
   /**
-   * 
+   *
    * Generate keywords and update the post if there are no keywords
-   * Placing this here breaks SSG, so we move the keywords generation 
+   * Placing this here breaks SSG, so we move the keywords generation
    * within Post create/update actions.
    *
   if (postKeywords.length === 0) {

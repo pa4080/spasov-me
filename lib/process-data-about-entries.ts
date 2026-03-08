@@ -1,3 +1,4 @@
+import { getFilesR2 } from "@/components/files-cloudflare/_files.actions";
 import {
   type AboutEntryData,
   type AboutEntryDocPopulated,
@@ -8,7 +9,6 @@ import {
   type CityType,
   type CountryType,
 } from "@/interfaces/_common-data-types";
-import { getFilesR2 } from "@/components/files-cloudflare/_files.actions";
 
 import { processMarkdown } from "./md/process-markdown";
 import { tagDocuments_toData } from "./process-data-tags";
@@ -52,8 +52,8 @@ export async function aboutEntryDocuments_toData({
       description: entry.description,
       country: entry.country,
       city: entry.city,
-      dateFrom: entry.dateFrom as Date,
-      dateTo: entry.dateTo as Date | undefined,
+      dateFrom: new Date(entry.dateFrom),
+      dateTo: entry.dateTo ? new Date(entry.dateTo) : undefined,
       entryType: entry.entryType,
       visibility: entry.visibility as boolean,
       attachment: entry.attachment,

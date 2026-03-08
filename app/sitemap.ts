@@ -1,12 +1,12 @@
 import { getPostList_SiteMap } from "@/components/blog/_blog.actions";
 import { getFilesR2 } from "@/components/files-cloudflare/_files.actions";
 import { getProjectList_SiteMap } from "@/components/portfolio/_portfolio.actions";
+import { files_prefix } from "@/lib/redis";
 
 import type { MetadataRoute } from "next";
 
 export const revalidate = 604800; // invalidate every week
 
-const files_prefix = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES ?? "files";
 const BASE_URL = "https://www.spasov.me";
 const BASE_URL_IMAGES = "https://media.spasov.me";
 

@@ -13,9 +13,8 @@ import React, {
 } from "react";
 
 import { getAppData } from "@/components/_get.data.actions";
-import { getFileList, getFilesR2 } from "@/components/files-cloudflare/_files.actions";
 import { type AboutEntryData } from "@/interfaces/AboutEntry";
-import { type FileData, type FileListItem } from "@/interfaces/File";
+import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type LabEntryData } from "@/interfaces/LabEntry";
 import { type PageCardData } from "@/interfaces/PageCard";
@@ -35,10 +34,10 @@ interface AppContextProps {
   setLabEntries: Dispatch<SetStateAction<LabEntryData[]>>;
   iconsMap: IconsMap;
   setIconsMap: Dispatch<SetStateAction<IconsMap>>;
-  files: FileData[];
-  setFiles: Dispatch<SetStateAction<FileData[]>>;
   fileList: FileListItem[];
   setFileList: Dispatch<SetStateAction<FileListItem[]>>;
+  iconList: FileListItem[];
+  setIconList: Dispatch<SetStateAction<FileListItem[]>>;
   pages: PageCardData[];
   setPages: Dispatch<SetStateAction<PageCardData[]>>;
   tags: TagData[];
@@ -46,7 +45,6 @@ interface AppContextProps {
   projects: ProjectData[];
   setProjects: Dispatch<SetStateAction<ProjectData[]>>;
   searchDataReady: boolean;
-  setFilesData: () => Promise<void>;
   setEntriesData: () => Promise<void>;
 }
 
@@ -62,8 +60,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
   const [posts, setPosts] = useState<PostData[]>([]);
   const [labEntries, setLabEntries] = useState<LabEntryData[]>([]);
   const [iconsMap, setIconsMap] = useState<IconsMap>({});
-  const [files, setFiles] = useState<FileData[]>([]);
   const [fileList, setFileList] = useState<FileListItem[]>([]);
+  const [iconList, setIconList] = useState<FileListItem[]>([]);
   const [pages, setPages] = useState<PageCardData[]>([]);
   const [tags, setTags] = useState<TagData[]>([]);
   const [projects, setProjects] = useState<ProjectData[]>([]);
@@ -71,57 +69,48 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
 
   const { data: session } = useSession();
 
-  const setFilesData = useCallback(async () => {
-    const data = await Promise.all([
-      getFilesR2({ hyphen: true, public: true }),
-      getFileList(),
-    ]).then(([files, fileList]) => ({
-      files: files ?? [],
-      fileList: fileList ?? [],
-    }));
-
-    setFiles(data.files);
-    setFileList(data.fileList);
-  }, []);
-
   const setEntriesData = useCallback(async () => {
     const data = await getAppData();
 
     setAboutEntries(data.aboutEntries);
-    setPages(data.pages);
     setTags(data.tags);
     setProjects(data.projects);
     setPosts(data.posts);
     setLabEntries(data.labEntries);
     setIconsMap(data.iconsMap);
+    setPages(data.pages);
+    setFileList(data.fileList);
+    setIconList(data.iconList);
+    setSearchDataReady(true);
   }, []);
 
   useEffect(() => {
     void (async () => {
       setAuthProviders(await getProviders());
     })();
+  }, [setEntriesData]);
 
-    // Fetch all app data on init via a single server action call
-    void (async () => {
-      try {
-        const data = await getAppData();
+  useEffect(() => {
+    try {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      void setEntriesData();
+    } catch (error) {
+      console.error("Failed to fetch app data:", error);
+      setSearchDataReady(true);
+    }
+  }, [setEntriesData]);
 
-        setAboutEntries(data.aboutEntries);
-        setTags(data.tags);
-        setProjects(data.projects);
-        setPosts(data.posts);
-        setLabEntries(data.labEntries);
-        setIconsMap(data.iconsMap);
-        setPages(data.pages);
-        setSearchDataReady(true);
-      } catch (error) {
-        console.error("Failed to fetch app data:", error);
-        setSearchDataReady(true);
-      }
-    })();
+  useEffect(() => {
+    const handleMutationSuccess = () => {
+      void setEntriesData();
+    };
 
-    return () => {};
-  }, []);
+    document.addEventListener("app:mutation-success", handleMutationSuccess);
+
+    return () => {
+      document.removeEventListener("app:mutation-success", handleMutationSuccess);
+    };
+  }, [setEntriesData]);
 
   return (
     <AppContext.Provider
@@ -136,10 +125,10 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
         setLabEntries,
         iconsMap,
         setIconsMap,
-        files,
-        setFiles,
         fileList,
         setFileList,
+        iconList,
+        setIconList,
         pages,
         setPages,
         tags,
@@ -147,7 +136,6 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
         projects,
         setProjects,
         searchDataReady,
-        setFilesData,
         setEntriesData,
       }}
     >

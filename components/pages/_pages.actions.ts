@@ -9,6 +9,7 @@ import { type PageCardData, type PageCardDocPopulated } from "@/interfaces/PageC
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import { PageCardDocuments_toData, pageFormData_toNewEntryData } from "@/lib/process-data-pages";
+import { redis, redis_cache_app_data_key } from "@/lib/redis";
 import { msgs } from "@/messages";
 import PageCard from "@/models/page-card";
 
@@ -72,6 +73,7 @@ export const createPageCard = async (data: FormData, paths: string[]): Promise<b
 
     return null;
   } finally {
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -140,6 +142,7 @@ export const updatePageCard = async (
 
     return null;
   } finally {
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -173,6 +176,7 @@ export const deletePageCard = async (page_id: string, paths: string[]): Promise<
 
     return false;
   } finally {
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };

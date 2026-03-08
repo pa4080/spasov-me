@@ -48,12 +48,16 @@ const TimeLine: React.FC<Props> = ({
     ?.filter(({ entryType }) => entryType === type)
     .sort((b, a) => a.dateFrom.getTime() - b.dateFrom.getTime());
 
+  const count = entriesByType?.length || 0;
+  const displayCountAll = ` | ${visibleItems}/${count}`;
+  const displayCountLess = ` | ${count}/${count}`;
+
   return (
     <div className={className} id={toggle_target_id}>
       <SectionHeader className="pop-header" title={section_title}>
         <ToggleCollapsible
           target_id={toggle_target_id}
-          text={[t("btnAll"), t("btnLess")]}
+          text={[t("btnAll") + displayCountAll, t("btnLess") + displayCountLess]}
           type="section"
         />
       </SectionHeader>

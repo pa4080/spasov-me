@@ -8,6 +8,7 @@ import { type PostData, type PostDocPopulated } from "@/interfaces/Post";
 import deleteFalsyKeys from "@/lib/delete-falsy-object-keys";
 import { connectToMongoDb } from "@/lib/mongodb-mongoose";
 import { postDocuments_toData, postFormData_toNewPostData } from "@/lib/process-data-posts";
+import { redis, redis_cache_app_data_key } from "@/lib/redis";
 import { msgs } from "@/messages";
 import Post from "@/models/post";
 
@@ -124,6 +125,7 @@ export const createPost = async (data: FormData, paths: string[]): Promise<boole
 
     return null;
   } finally {
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -181,6 +183,7 @@ export const updatePost = async (
 
     return null;
   } finally {
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -210,6 +213,7 @@ export const deletePost = async (post_id: string, paths: string[]): Promise<bool
 
     return false;
   } finally {
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };

@@ -1,8 +1,7 @@
 import React from "react";
 
 import FilesAdmin_CloudFlare from "@/components/files-cloudflare/admin";
-
-const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
+import { icons_prefix } from "@/lib/redis";
 
 export const dynamic = "force-dynamic";
 
@@ -11,7 +10,7 @@ const Icons: React.FC = () => {
     <FilesAdmin_CloudFlare
       className="margin_vh_top margin_vh_bottom scroll-mt-40"
       files_prefix={icons_prefix}
-      visibleItemsCommon={500}
+      visibleItemsCommon={10}
     />
   );
 };

@@ -13,6 +13,7 @@ interface Props {
   disabled?: boolean;
   type: "section" | "card" | "card-item-single";
   invertButton?: boolean;
+  scrollDisabled?: boolean;
 }
 
 /**
@@ -39,6 +40,7 @@ const ToggleCollapsible: React.FC<Props> = ({
   disabled, // Only for tooltip
   type,
   invertButton,
+  scrollDisabled,
 }) => {
   const id = `#${target_id}`;
   const [isContentShown, setIsContentShown] = useState(invertButton);
@@ -94,6 +96,10 @@ const ToggleCollapsible: React.FC<Props> = ({
     // The auto scroll is disabled when we using 'invertButton',
     // because we need additional flag - otherwise it scrolls to the latest open item...
     if (isContentShown && (invertButton === undefined || invertButton === false)) {
+      if (scrollDisabled) {
+        return;
+      }
+
       setTimeout(() => {
         thisTargetContainer?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 10);

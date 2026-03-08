@@ -80,7 +80,7 @@ const AboutEntryForm: React.FC<Props> = ({
 
   const { theme } = useTheme();
 
-  const form = useForm<Entry_FormSchema>({
+  const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       title: "",

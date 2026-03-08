@@ -49,6 +49,10 @@ const TimeLine: React.FC<Props> = ({
   const section_title = t("title_common");
   const toggle_target_id = sanitizeHtmlTagIdOrClassName(`section_projects_portfolio_page`);
 
+  const count = projectsByType?.length || 0;
+  const displayCountAll = ` | ${visibleItems}/${count}`;
+  const displayCountLess = ` | ${count}/${count}`;
+
   return (
     <>
       <div
@@ -59,7 +63,7 @@ const TimeLine: React.FC<Props> = ({
           <ToggleCollapsible
             invertButton={invertDisplay}
             target_id={toggle_target_id}
-            text={[t("btnAll"), t("btnLess")]}
+            text={[t("btnAll") + displayCountAll, t("btnLess") + displayCountLess]}
             type="section"
           />
         </SectionHeader>

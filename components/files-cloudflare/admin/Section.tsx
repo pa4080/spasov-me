@@ -5,6 +5,7 @@ import SectionHeader from "@/components/shared/SectionHeader";
 import ToggleCollapsible from "@/components/shared/ToggleCollapsible";
 import { type ModelType } from "@/interfaces/_common-data-types";
 import { type FileData } from "@/interfaces/File";
+import { cn } from "@/lib/cn-utils";
 import { hyphenateString } from "@/lib/process-text";
 import { msgs } from "@/messages";
 
@@ -20,6 +21,7 @@ interface Props {
   sortByAttachedTo?: boolean;
   sortByAttachedToVisibleItems?: number;
   files_prefix: string;
+  scrollDisabled?: boolean;
 }
 
 const Section: React.FC<Props> = ({
@@ -30,6 +32,7 @@ const Section: React.FC<Props> = ({
   sortByAttachedTo = true,
   sortByAttachedToVisibleItems = 25,
   files_prefix,
+  scrollDisabled,
 }) => {
   if (!files || files.length === 0) {
     return null;
@@ -68,15 +71,28 @@ const Section: React.FC<Props> = ({
       )
     : undefined;
 
+  const countSection =
+    attachedToDocuments && Object.keys(attachedToDocuments).length > 0
+      ? Object.keys(attachedToDocuments).length
+      : files?.length || 0;
+  const countSectionVisible =
+    attachedToDocuments && Object.keys(attachedToDocuments).length > 0
+      ? sortByAttachedToVisibleItems
+      : visibleItems;
+
+  const displayCountLess = ` | ${countSection}/${countSection}`;
+  const displayCountAll = ` | ${countSectionVisible}/${countSection}`;
+
   return (
-    <div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
+    <div className={cn(styles.section, "list-section", className)} id={toggle_target_id}>
       <SectionHeader title={section_title}>
         <RevalidatePaths />
         <CreateFile files_prefix={files_prefix} />
         <ToggleCollapsible
           tooltip
+          scrollDisabled={scrollDisabled}
           target_id={toggle_target_id}
-          text={[t("btnAll"), t("btnLess")]}
+          text={[t("btnAll") + displayCountAll, t("btnLess") + displayCountLess]}
           type="section"
         />
       </SectionHeader>
@@ -85,42 +101,51 @@ const Section: React.FC<Props> = ({
       {attachedToDocuments && Object.keys(attachedToDocuments).length > 0 ? (
         Object.keys(attachedToDocuments)
           .sort()
-          .map((attachedToDocument, index) => (
-            <div
-              key={attachedToDocument}
-              className={`${styles.feed} scroll-mt-24 3xl:scroll-mt-8 mt-12 list-sub-section ${sortByAttachedToVisibleItems > index ? "" : "sub-section-collapsible"}`}
-              id={`${toggle_target_id}_${index}`}
-            >
-              {/* This is the sub section title - i.e. Projects/Certain project */}
-              <div className="flex flex-row w-full justify-between gap-4 items-center border-4 h-10 border-primary bg-primary rounded-full">
-                <div className="text-xl font-semibold tracking-wide flex-grow pl-5 flex items-center rounded-full">
-                  <h2 className="line-clamp-1">{attachedToDocument}</h2>
-                </div>
-                <ToggleCollapsible
-                  tooltip
-                  className="-mr-1"
-                  target_id={`${toggle_target_id}_${index}`}
-                  text={[t("btnAll"), t("btnLess")]}
-                  type="section"
-                />
-              </div>
+          .map((attachedToDocument, index) => {
+            const filesInSubSectionCount = attachedToDocuments[attachedToDocument]?.length || 0;
+            const displayCountAllSubSection = ` ${filesInSubSectionCount}/${filesInSubSectionCount}`;
+            const displayCountLessSubSection = ` ${visibleItems}/${filesInSubSectionCount}`;
 
-              {/* List the files in the sub section - i.e. Projects/Certain project - files... */}
-              {attachedToDocuments[attachedToDocument]
-                ?.sort((file_b, file_a) =>
-                  /logo/.exec(file_a._id) ? 1 : file_a._id.localeCompare(file_b._id)
-                )
-                ?.map((file, index) => (
-                  <FileCard
-                    key={file._id}
-                    className={visibleItems > index ? "" : "section-card-collapsible"}
-                    file={file}
-                    files_prefix={files_prefix}
-                    section_id={`${toggle_target_id}_${type}_${attachedToDocument.replace(/ /g, "_")}`}
+            return (
+              <div
+                key={attachedToDocument}
+                className={`${styles.feed} scroll-mt-36 3xl:scroll-mt-24 mt-12 list-sub-section ${sortByAttachedToVisibleItems > index ? "" : "sub-section-collapsible"}`}
+                id={`${toggle_target_id}_${index}`}
+              >
+                {/* This is the sub section title - i.e. Projects/Certain project */}
+                <div className="flex flex-row w-full justify-between gap-4 items-center border-4 h-10 border-primary bg-primary rounded-full">
+                  <div className="text-xl font-semibold tracking-wide flex-grow pl-5 flex items-center rounded-full">
+                    <h2 className="line-clamp-1">{attachedToDocument}</h2>
+                  </div>
+                  <ToggleCollapsible
+                    tooltip
+                    className="-mr-1"
+                    target_id={`${toggle_target_id}_${index}`}
+                    text={[
+                      t("btnAll") + displayCountAllSubSection,
+                      t("btnLess") + displayCountLessSubSection,
+                    ]}
+                    type="section"
                   />
-                ))}
-            </div>
-          ))
+                </div>
+
+                {/* List the files in the sub section - i.e. Projects/Certain project - files... */}
+                {attachedToDocuments[attachedToDocument]
+                  ?.sort((file_b, file_a) =>
+                    /logo/.exec(file_a._id) ? 1 : file_a._id.localeCompare(file_b._id)
+                  )
+                  ?.map((file, index) => (
+                    <FileCard
+                      key={file._id}
+                      className={visibleItems > index ? "" : "section-card-collapsible"}
+                      file={file}
+                      files_prefix={files_prefix}
+                      section_id={`${toggle_target_id}_${type}_${attachedToDocument.replace(/ /g, "_")}`}
+                    />
+                  ))}
+              </div>
+            );
+          })
       ) : (
         // Generate a section without sub sections - i.e. "common" section
         <div className={styles.feed}>

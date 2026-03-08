@@ -19,14 +19,14 @@ const CopyEntryUri: React.FC<Props> = ({ className, entry_id }) => {
     return null;
   }
 
-  const handleCopyFileAddress = () => {
+  const handleCopyFileAddress = async () => {
     if (submitting) {
       return;
     }
 
     setSubmitting(true);
 
-    navigator.clipboard.writeText(`${Route.public.ABOUT.uri}?id=entry_${entry_id}`);
+    await navigator.clipboard.writeText(`${Route.public.ABOUT.uri}?id=entry_${entry_id}`);
 
     setTimeout(() => {
       setSubmitting(false);

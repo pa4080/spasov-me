@@ -11,6 +11,7 @@ import {
   labEntryDocuments_toData,
   labEntryFormData_toNewLabEntryData,
 } from "@/lib/process-data-lab-entries";
+import { redis, redis_cache_app_data_key } from "@/lib/redis";
 import { msgs } from "@/messages";
 import LabEntry from "@/models/lab-entry";
 
@@ -74,6 +75,7 @@ export const createLabEntry = async (data: FormData, paths: string[]): Promise<b
 
     return null;
   } finally {
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -133,6 +135,7 @@ export const updateLabEntry = async (
 
     return null;
   } finally {
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -164,6 +167,7 @@ export const deleteLabEntry = async (labEntry_id: string, paths: string[]): Prom
 
     return false;
   } finally {
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };

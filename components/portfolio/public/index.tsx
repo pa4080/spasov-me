@@ -3,12 +3,10 @@ import React from "react";
 import { getFileList, getIconsMap } from "@/components/files-cloudflare/_files.actions";
 import { getTags } from "@/components/tags/_tags.actions";
 import { cn } from "@/lib/cn-utils";
+import { files_prefix, icons_prefix } from "@/lib/redis";
 
 import { getProjects } from "../_portfolio.actions";
 import TimeLine from "./TimeLine";
-
-const files_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES || "files";
-const icons_prefix = process.env?.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_ICONS || "icons";
 
 interface Props {
   className?: string;

@@ -11,6 +11,7 @@ import {
   aboutEntryDocuments_toData,
   aboutEntryFormData_toNewEntryData,
 } from "@/lib/process-data-about-entries";
+import { redis, redis_cache_app_data_key } from "@/lib/redis";
 import { msgs } from "@/messages";
 import AboutEntry from "@/models/about-entry";
 
@@ -72,6 +73,7 @@ export const createEntry = async (data: FormData, paths: string[]): Promise<bool
 
     return null;
   } finally {
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -129,6 +131,7 @@ export const updateEntry = async (
 
     return null;
   } finally {
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
@@ -158,6 +161,7 @@ export const deleteEntry = async (entry_id: string, paths: string[]): Promise<bo
 
     return false;
   } finally {
+    await redis.del(redis_cache_app_data_key);
     void revalidatePaths({ paths, redirectTo: paths[0] });
   }
 };
