@@ -168,7 +168,6 @@
     "vercel": "49.1.0",
     "webpack": "5.96.1"
   },
-  "packageManager": "pnpm@10.20.0",
   "pnpm": {
     "patchedDependencies": {
       "next-themes@0.4.6": "patches/next-themes@0.4.6.patch"
