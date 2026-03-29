@@ -9,6 +9,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 
@@ -42,6 +43,7 @@ interface AppContextProps {
   setPages: Dispatch<SetStateAction<PageCardData[]>>;
   tags: TagData[];
   setTags: Dispatch<SetStateAction<TagData[]>>;
+  techTags: TagData[];
   projects: ProjectData[];
   setProjects: Dispatch<SetStateAction<ProjectData[]>>;
   searchDataReady: boolean;
@@ -66,6 +68,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
   const [tags, setTags] = useState<TagData[]>([]);
   const [projects, setProjects] = useState<ProjectData[]>([]);
   const [searchDataReady, setSearchDataReady] = useState(false);
+
+  const techTags = useMemo(() => tags.filter((t) => t.tagType !== "system"), [tags]);
 
   const { data: session } = useSession();
 
@@ -133,6 +137,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
         setPages,
         tags,
         setTags,
+        techTags,
         projects,
         setProjects,
         searchDataReady,

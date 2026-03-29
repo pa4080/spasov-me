@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { type IconsMap } from "@/interfaces/IconsMap";
+import { useAppContext } from "@/contexts/AppContext";
 import { type TagData } from "@/interfaces/Tag";
 import { type TagType } from "@/interfaces/_common-data-types";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
@@ -27,10 +27,10 @@ interface Props {
   className?: string;
   tag: TagData;
   tagType: TagType;
-  iconsMap: IconsMap;
 }
 
-const UpdateTag: React.FC<Props> = ({ className, tagType, tag, iconsMap }) => {
+const UpdateTag: React.FC<Props> = ({ className, tagType, tag }) => {
+  const { iconsMap } = useAppContext();
   const t = msgs("Tags_Update");
   const tagTypeLabel = (msgs("Tags_Form")("tag_type_list") as unknown as Record<string, string>)[
     tagType

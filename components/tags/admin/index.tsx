@@ -1,9 +1,11 @@
+"use client";
+
 import React from "react";
 
-import { getIconsMap } from "@/components/files-cloudflare/_files.actions";
+import LoadingPage from "@/app/admin/loading";
+import { useAppContext } from "@/contexts/AppContext";
 import { tagTuple } from "@/interfaces/_common-data-types";
 
-import { getTags } from "../_tags.actions";
 import styles from "../_tags.module.css";
 import Section from "./Section";
 import SectionIndex from "./SectionIndex";
@@ -12,19 +14,18 @@ interface Props {
   className?: string;
 }
 
-const TagsAdmin: React.FC<Props> = async ({ className }) => {
-  const data = await Promise.all([getIconsMap(), getTags({ public: false, hyphen: true })]).then(
-    ([iconsMap, tags]) => ({
-      iconsMap,
-      tags,
-    })
-  );
+const TagsAdmin: React.FC<Props> = ({ className }) => {
+  const { tags } = useAppContext();
+
+  if (!tags || tags.length === 0) {
+    return <LoadingPage />;
+  }
 
   return (
     <div className={`${styles.about} ${className}`}>
-      <SectionIndex {...data} />
+      <SectionIndex />
       {tagTuple.map((tagType) => (
-        <Section {...data} key={tagType} type={tagType} />
+        <Section key={tagType} type={tagType} />
       ))}
     </div>
   );

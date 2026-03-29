@@ -6,17 +6,17 @@ import { processMarkdown } from "./md/process-markdown";
 export function tagDocuments_toData({
   tags,
   hyphen = true,
-  visible,
+  hideSystemTags,
   sorted = true,
 }: {
   tags: TagDoc[];
   hyphen?: boolean;
-  visible?: boolean;
+  hideSystemTags?: boolean;
   sorted?: boolean;
 }): TagData[] {
   let tagsFiltered = tags;
 
-  if (visible) {
+  if (hideSystemTags) {
     tagsFiltered = tags.filter(({ tagType }) => tagType !== "system");
   }
 

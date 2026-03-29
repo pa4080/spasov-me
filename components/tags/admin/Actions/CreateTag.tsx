@@ -13,8 +13,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useAppContext } from "@/contexts/AppContext";
 import { type TagType } from "@/interfaces/_common-data-types";
-import { type IconsMap } from "@/interfaces/IconsMap";
 import { generateFormDataFromObject } from "@/lib/gen-form-data-from-object";
 import { msgs } from "@/messages";
 
@@ -25,14 +25,15 @@ import { type Tag_FormSchema } from "../Form/schema";
 interface Props {
   className?: string;
   tagType: TagType;
-  iconsMap: IconsMap;
 }
 
-const CreateTag: React.FC<Props> = ({ className, tagType, iconsMap }) => {
+const CreateTag: React.FC<Props> = ({ className, tagType }) => {
   const t = msgs("Tags_Create");
   const tagTypeLabel = (msgs("Tags_Form")("tag_type_list") as unknown as Record<string, string>)[
     tagType
   ];
+
+  const { iconsMap } = useAppContext();
 
   const [submitting, setSubmitting] = useState(false);
   const [isOpen, setIsOpen] = useState(false); // https://youtu.be/3ijyZllWBwU?t=353

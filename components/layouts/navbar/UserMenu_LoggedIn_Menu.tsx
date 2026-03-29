@@ -26,21 +26,34 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
   const t = msgs("Navigation");
   const { data: session } = useSession();
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = React.useState<string>("");
 
   type tType = Parameters<typeof t>[0];
+
+  const handleMenuOpen = (value: string) => {
+    setIsOpen(isOpen === value ? "" : value);
+  };
 
   return (
     <div className="flex flex-row -ml-2 mr-1">
       <RebuildMasterVercel className="scale-[85%] max-2xs:hidden mt-[1px]" />
       <RevalidatePaths className="scale-[85%] max-2xs:hidden mt-[1px] -mr-2" />
 
-      <NavigationMenu className={className} viewportPosition="-right-16">
+      <NavigationMenu
+        className={className}
+        delayDuration={0}
+        value={isOpen}
+        viewportPosition="-right-16"
+        onMouseLeave={handleMenuOpen.bind(null, "")}
+        onValueChange={() => {}}
+      >
         <NavigationMenuList>
-          <NavigationMenuItem>
+          <NavigationMenuItem value="admin-menu">
             <NavigationMenuTrigger
               chevronLeft
               aria-label={t("loggedInUserMenu")}
               className="text-accent-secondary active:text-accent-secondary focus:text-accent-secondary focus-visible:text-accent-secondary"
+              onClick={() => handleMenuOpen("admin-menu")}
             >
               <IconEmbedSvg
                 className_Path1="icon-embed-svg-override-path-1 fill-secondary-foreground"
