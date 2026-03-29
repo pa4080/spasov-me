@@ -22,7 +22,7 @@ type ViewportPosition =
   | "-right-40";
 
 const NavigationMenu = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Root>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root> & {
     className?: string;
     viewport?: boolean;
@@ -44,7 +44,7 @@ const NavigationMenu = React.forwardRef<
 NavigationMenu.displayName = NavigationMenuPrimitive.Root.displayName;
 
 const NavigationMenuList = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.List>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List> & {
     className?: string;
   }
@@ -65,39 +65,47 @@ const navigationMenuTriggerStyle = cva(
 );
 
 const NavigationMenuTrigger = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Trigger>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Trigger> & {
     className?: string;
     chevronLeft?: boolean;
   }
->(({ className, children, chevronLeft, ...props }, ref) => (
-  <NavigationMenuPrimitive.Trigger
-    ref={ref}
-    className={cn(navigationMenuTriggerStyle(), "group", className)}
-    {...props}
-  >
-    {chevronLeft && (
-      <ChevronDown
-        aria-hidden="true"
-        className="relative top-[1px] mr-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180"
-        strokeWidth={4}
-      />
-    )}
-    {children}
-    {!chevronLeft && (
-      <ChevronDown
-        aria-hidden="true"
-        className="relative top-[1px] ml-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180"
-        strokeWidth={4}
-      />
-    )}
-  </NavigationMenuPrimitive.Trigger>
-));
+>(({ className, children, chevronLeft, ...props }, ref) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    (e.currentTarget as HTMLButtonElement).focus();
+  };
+
+  return (
+    <NavigationMenuPrimitive.Trigger
+      ref={ref}
+      className={cn(navigationMenuTriggerStyle(), "group", className)}
+      onClick={handleClick}
+      {...props}
+    >
+      {chevronLeft && (
+        <ChevronDown
+          aria-hidden="true"
+          className="relative top-[1px] mr-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180"
+          strokeWidth={4}
+        />
+      )}
+      {children}
+      {!chevronLeft && (
+        <ChevronDown
+          aria-hidden="true"
+          className="relative top-[1px] ml-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180"
+          strokeWidth={4}
+        />
+      )}
+    </NavigationMenuPrimitive.Trigger>
+  );
+});
 
 NavigationMenuTrigger.displayName = NavigationMenuPrimitive.Trigger.displayName;
 
 const NavigationMenuContent = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Content>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Content> & {
     className?: string;
   }
@@ -117,7 +125,7 @@ NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName;
 const NavigationMenuLink = NavigationMenuPrimitive.Link;
 
 const NavigationMenu_NextLink_Styled = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Link>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Link>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Link> & {
     className?: string;
     title: string;
@@ -138,7 +146,7 @@ const NavigationMenu_NextLink_Styled = React.forwardRef<
 NavigationMenu_NextLink_Styled.displayName = NavigationMenuPrimitive.Link.displayName;
 
 const NavigationMenuViewport = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Viewport>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Viewport> & {
     className?: string;
     position?: ViewportPosition;
@@ -159,7 +167,7 @@ const NavigationMenuViewport = React.forwardRef<
 NavigationMenuViewport.displayName = NavigationMenuPrimitive.Viewport.displayName;
 
 const NavigationMenuIndicator = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Indicator>,
+  React.ComponentRef<typeof NavigationMenuPrimitive.Indicator>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Indicator> & {
     className?: string;
   }
