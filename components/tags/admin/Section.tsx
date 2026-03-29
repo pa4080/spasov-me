@@ -1,10 +1,11 @@
+"use client";
+
 import React from "react";
 
 import RevalidatePaths from "@/components/shared/RevalidatePaths";
 import SectionHeader from "@/components/shared/SectionHeader";
 import ToggleCollapsible from "@/components/shared/ToggleCollapsible";
-import { type IconsMap } from "@/interfaces/IconsMap";
-import { type TagData } from "@/interfaces/Tag";
+import { useAppContext } from "@/contexts/AppContext";
 import { type TagType } from "@/interfaces/_common-data-types";
 import { hyphenateString } from "@/lib/process-text";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
@@ -16,13 +17,12 @@ import TagCard from "./Card";
 
 interface Props {
   className?: string;
-  tags: TagData[] | null;
   type: TagType;
   visibleItems?: number;
-  iconsMap: IconsMap;
 }
 
-const Section: React.FC<Props> = ({ className, tags, type, visibleItems = 2, iconsMap }) => {
+const Section: React.FC<Props> = ({ className, type, visibleItems = 2 }) => {
+  const { tags } = useAppContext();
   const t = msgs("Tags");
 
   type tType = Parameters<typeof t>[0];
@@ -39,7 +39,7 @@ const Section: React.FC<Props> = ({ className, tags, type, visibleItems = 2, ico
     <div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
       <SectionHeader title={section_title}>
         <RevalidatePaths />
-        <CreateTag iconsMap={iconsMap} tagType={type} />
+        <CreateTag tagType={type} />
         <ToggleCollapsible
           tooltip
           target_id={toggle_target_id}
@@ -55,7 +55,6 @@ const Section: React.FC<Props> = ({ className, tags, type, visibleItems = 2, ico
             <TagCard
               key={index}
               className={visibleItems > index ? "" : "section-card-collapsible"}
-              iconsMap={iconsMap}
               tag={tag}
             />
           ))}

@@ -68,7 +68,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
   const setEntriesData = useCallback(async () => {
     setAboutEntries(await getEntries({ hyphen: true, public: true }));
     setPages(await getPageCards({ hyphen: true, public: true }));
-    setTags(await getTags({ hyphen: true, public: true }));
+    setTags(await getTags({ hyphen: true, hideSystemTags: true }));
     setProjects(await getProjects({ hyphen: true, public: true }));
   }, []);
 
@@ -80,7 +80,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({ children
       setFileList(await getFileList());
       setAboutEntries(await getEntries({ hyphen: true, public: true }));
       setPages(await getPageCards({ hyphen: true, public: true }));
-      setTags(await getTags({ hyphen: true, public: true }));
+      setTags(await getTags({ hyphen: true, hideSystemTags: true }));
       setProjects(await getProjects({ hyphen: true, public: true }));
     })();
   }, []);

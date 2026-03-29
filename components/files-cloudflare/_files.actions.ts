@@ -18,7 +18,14 @@ import {
 } from "@/lib/aws";
 import { getRatio, type GetRatioInput } from "@/lib/get-ratio";
 import { fileObject_toData } from "@/lib/process-data-files-cloudflare";
-import { files_prefix, icons_prefix, redis, redis_app_prefix, redis_ttl } from "@/lib/redis";
+import {
+  files_prefix,
+  icons_map_prefix,
+  icons_prefix,
+  redis,
+  redis_app_prefix,
+  redis_ttl,
+} from "@/lib/redis";
 import { msgs } from "@/messages";
 
 import { attachedTo_detachFromTarget, getSession, revalidatePaths } from "./../_common.actions";
@@ -229,7 +236,13 @@ export const createFile = async ({
       // await redisCacheFile_Flush("files");
       // await redisCacheFile_Flush("icons");
 
-      return await redisCacheFile_Add({ prefix, filename });
+      const addRes = await redisCacheFile_Add({ prefix, filename });
+
+      if (prefix === icons_prefix) {
+        await redisCacheIconsMap_Update();
+      }
+
+      return addRes;
     } else {
       console.error(msgs("Errors")("invalidFile"));
 
@@ -382,7 +395,13 @@ export const updateFile = async ({
 
     await redisCacheFile_Remove({ prefix, file_id });
 
-    return await redisCacheFile_Add({ prefix, filename: filename_final });
+    const addRes = await redisCacheFile_Add({ prefix, filename: filename_final });
+
+    if (prefix === icons_prefix) {
+      await redisCacheIconsMap_Update();
+    }
+
+    return addRes;
   } catch (error) {
     console.error(error);
 
@@ -414,6 +433,10 @@ export const deleteFile = async ({
     const deleteRes = await getObjectListAndDelete({
       prefix: `${prefix}/${filename}`,
     });
+
+    if (prefix === icons_prefix && redisRes) {
+      await redisCacheIconsMap_Update();
+    }
 
     return redisRes && deleteRes;
   } catch (error) {
@@ -602,6 +625,30 @@ async function redisCacheFile_Remove({ prefix, file_id }: { prefix: string; file
   const redisRes = await redis.set(`${redis_app_prefix}_${prefix}`, JSON.stringify(newFiles), {
     ex: redis_ttl,
   });
+
+  return redisRes && redisRes === "OK" ? true : null;
+}
+
+/**
+ * Regenerates the iconsMap from the (already-updated) icons Redis cache
+ * and writes it back to Redis. Called after any create/update/delete
+ * operation on the icons prefix so the iconsMap stays in sync without
+ * requiring a full cache flush.
+ */
+async function redisCacheIconsMap_Update() {
+  const iconsMap = await generateIconsMap();
+
+  if (!iconsMap) {
+    await redis.del(`${redis_app_prefix}_${icons_map_prefix}`);
+
+    return null;
+  }
+
+  const redisRes = await redis.set(
+    `${redis_app_prefix}_${icons_map_prefix}`,
+    JSON.stringify(iconsMap),
+    { ex: redis_ttl }
+  );
 
   return redisRes && redisRes === "OK" ? true : null;
 }

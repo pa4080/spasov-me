@@ -1,10 +1,11 @@
+"use client";
+
 import React from "react";
 
 import DisplayIcon from "@/components/shared/DisplayIcon";
 import RevalidatePaths from "@/components/shared/RevalidatePaths";
 import SectionHeader from "@/components/shared/SectionHeader";
-import { type IconsMap } from "@/interfaces/IconsMap";
-import { type TagData } from "@/interfaces/Tag";
+import { useAppContext } from "@/contexts/AppContext";
 import { sanitizeHtmlTagIdOrClassName } from "@/lib/sanitizeHtmlTagIdOrClassName";
 import { msgs } from "@/messages";
 
@@ -13,12 +14,11 @@ import CreateTag from "./Actions/CreateTag";
 
 interface Props {
   className?: string;
-  tags: TagData[] | null;
   type?: string;
-  iconsMap: IconsMap;
 }
 
-const SectionIndex: React.FC<Props> = ({ className, tags, type = "tagIndex", iconsMap }) => {
+const SectionIndex: React.FC<Props> = ({ className, type = "tagIndex" }) => {
+  const { iconsMap, tags } = useAppContext();
   const t = msgs("Tags");
 
   type tType = Parameters<typeof t>[0];
@@ -30,7 +30,7 @@ const SectionIndex: React.FC<Props> = ({ className, tags, type = "tagIndex", ico
     <div className={`${styles.section} list-section ${className}`} id={toggle_target_id}>
       <SectionHeader title={section_title}>
         <RevalidatePaths />
-        <CreateTag iconsMap={iconsMap} tagType={"informationTechnologies"} />
+        <CreateTag tagType={"informationTechnologies"} />
       </SectionHeader>
 
       <div className="flex flex-wrap gap-2 items-center justify-start">

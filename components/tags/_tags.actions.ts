@@ -17,11 +17,11 @@ import { msgs } from "@/messages";
 import Tag from "@/models/tag";
 
 export const getTags = async ({
-  public: visible,
+  hideSystemTags,
   hyphen = false,
   sorted = true,
 }: {
-  public?: boolean;
+  hideSystemTags?: boolean;
   hyphen?: boolean;
   sorted?: boolean;
 } = {}): Promise<TagData[] | null> => {
@@ -29,7 +29,7 @@ export const getTags = async ({
     await connectToMongoDb();
     const tags: TagDoc[] = await Tag.find({});
 
-    return tagDocuments_toData({ tags, visible, hyphen, sorted });
+    return tagDocuments_toData({ tags, hideSystemTags, hyphen, sorted });
   } catch (error) {
     console.error(error);
 

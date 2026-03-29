@@ -65,7 +65,7 @@ export const getAppData = async () => {
   const [aboutEntries, tags, projects, posts, labEntries, iconsMap, pages, fileList, iconList] =
     await Promise.all([
       getEntries({ hyphen: true, public: true }),
-      getTags({ hyphen: true, public: true }),
+      getTags({ hyphen: true, hideSystemTags: false }),
       getProjects({ hyphen: true, public: true }),
       getPosts({ hyphen: true, public: true }),
       getLabEntries({ hyphen: true, public: true }),

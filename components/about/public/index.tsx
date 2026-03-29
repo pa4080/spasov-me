@@ -32,7 +32,7 @@ const AboutPublic: React.FC<Props> = async ({ className }) => {
     }),
     getFileList({ prefix: files_prefix }),
     getIconsMap(),
-    getTags({ hyphen: true, public: true }),
+    getTags({ hyphen: true, hideSystemTags: true }),
   ]).then(([entriesHyphenated, entriesClear, fileList, iconsMap, tags]) => ({
     entriesHyphenated,
     entriesClear,

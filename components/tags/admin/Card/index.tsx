@@ -1,7 +1,9 @@
+"use client";
+
 import React from "react";
 
 import DisplayIcon from "@/components/shared/DisplayIcon";
-import { type IconsMap } from "@/interfaces/IconsMap";
+import { useAppContext } from "@/contexts/AppContext";
 import { type TagData } from "@/interfaces/Tag";
 import { cn } from "@/lib/cn-utils";
 import { msgs } from "@/messages";
@@ -12,10 +14,10 @@ import UpdateTag from "../Actions/UpdateTag";
 export interface GenericActionProps {
   className?: string;
   tag: TagData;
-  iconsMap: IconsMap;
 }
 
-const TagCard: React.FC<GenericActionProps> = ({ tag, className, iconsMap }) => {
+const TagCard: React.FC<GenericActionProps> = ({ tag, className }) => {
+  const { iconsMap } = useAppContext();
   const {
     name,
     html: { description },
@@ -43,7 +45,7 @@ const TagCard: React.FC<GenericActionProps> = ({ tag, className, iconsMap }) => 
       >
         <div className="flex gap-2 absolute right-0 bottom-0 p-4 rounded-2xl">
           <DeleteTag tag={tag} />
-          <UpdateTag iconsMap={iconsMap} tag={tag} tagType={tag.tagType} />
+          <UpdateTag tag={tag} tagType={tag.tagType} />
         </div>
 
         <div className="">{t("name")}:</div>
