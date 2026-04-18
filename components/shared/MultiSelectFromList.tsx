@@ -131,15 +131,12 @@ export default function MultiSelectFromList<T extends FieldValues>({
     </div>
   );
 
-  const handleUnselect = useCallback(
-    (itemUnselected: Item<T>) => {
-      const newSelectedItemsList =
-        selected?.filter((itemSelected) => itemSelected !== itemUnselected.value) ?? [];
+  const handleUnselect = (itemUnselected: Item<T>) => {
+    const newSelectedItemsList =
+      selected?.filter((itemSelected) => itemSelected !== itemUnselected.value) ?? [];
 
-      onSelect(newSelectedItemsList);
-    },
-    [onSelect, selected]
-  );
+    onSelect(newSelectedItemsList);
+  };
 
   return (
     <FormField

@@ -26,6 +26,7 @@ import { type FileData } from "@/interfaces/File";
 import {
   type AttachedToDocument,
   regexFilesAll,
+  regexFilesDocuments,
   regexFilesImages,
 } from "@/interfaces/_common-data-types";
 import { capitalize } from "@/lib/capitalize";
@@ -144,7 +145,7 @@ const FileForm: React.FC<Props> = ({
         // Then set new "src" attribute
         if (filename.match(regexFilesImages)) {
           displayImageRef.current?.setAttribute("src", URL.createObjectURL(file));
-        } else if (/\.(pdf|pptx|xlsx|csv|txt|docx)$/.exec(filename)) {
+        } else if (regexFilesDocuments.exec(filename)) {
           displayImageRef.current?.setAttribute(
             "src",
             `${Route.assets.MIME_TYPE}/${filename.split(".").pop()}.png`
@@ -191,7 +192,7 @@ const FileForm: React.FC<Props> = ({
 
   if (files_prefix === "mongodb") {
     fileUri = formData
-      ? /\.(pdf|pptx|xlsx|csv|txt|docx)$/.exec(formData.filename)
+      ? regexFilesDocuments.exec(formData.filename)
         ? `${Route.assets.MIME_TYPE}/${formData.filename.split(".").pop()}.png`
         : /\.(svg)$/.exec(formData.filename)
           ? `${Route.api.FILES_MONGODB}/${formData?._id.toString()}/${formData?.filename}`
@@ -201,7 +202,7 @@ const FileForm: React.FC<Props> = ({
       : Route.assets.IMAGE_PLACEHOLDER;
   } else {
     fileUri = formData
-      ? /\.(pdf|pptx|xlsx|csv|txt|docx)$/.exec(formData.filename)
+      ? regexFilesDocuments.exec(formData.filename)
         ? `${Route.assets.MIME_TYPE}/${formData.filename.split(".").pop()}.png`
         : `https://${r2BucketDomain}/${files_prefix}/${formData?.filename}?v=${new Date(formData?.uploadDate).getTime()}`
       : Route.assets.IMAGE_PLACEHOLDER;
@@ -289,22 +290,13 @@ const FileForm: React.FC<Props> = ({
                           type="file"
                           {...form.register("file")}
                           // For refine file types via see: https://v0.dev/chat/1rUMoICXenD
-                          accept="image/*, .pdf, .pptx, .xls, .csv, .txt, .docx"
+                          accept="image/*, .pdf, .pptx, .xls, .csv, .txt, .docx, .md"
                           className={styles.fileInput}
                           placeholder={t("fileInput_placeholder")}
                           onChange={(e) => handleInputFileChange(e, onChange)}
                           {...rest}
                         />
                       </FormControl>
-                      {form.formState.errors.file ? (
-                        <p className="text-sm font-medium text-destructive">
-                          {String(form.formState.errors.file.message)}
-                        </p>
-                      ) : (
-                        t("fileInput_description") && (
-                          <FormDescription>{t("fileInput_description")}</FormDescription>
-                        )
-                      )}
                     </FormItem>
                   )}
                 />
@@ -332,6 +324,17 @@ const FileForm: React.FC<Props> = ({
               />
             </div>
 
+            {/* Error message of the image upload input */}
+            {form.formState.errors.file ? (
+              <p className="text-sm font-medium text-destructive">
+                {String(form.formState.errors.file.message)}
+              </p>
+            ) : (
+              t("fileInput_description") && (
+                <FormDescription>{t("fileInput_description")}</FormDescription>
+              )
+            )}
+
             {/* Filename */}
             <FormField
               control={form.control}
@@ -358,7 +361,6 @@ const FileForm: React.FC<Props> = ({
                 </FormItem>
               )}
             />
-
             {/* Description */}
             <FormField
               control={form.control}
