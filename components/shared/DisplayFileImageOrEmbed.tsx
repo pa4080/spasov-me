@@ -2,7 +2,13 @@ import Image from "next/image";
 import React from "react";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { regexFilesImages } from "@/interfaces/_common-data-types";
+import {
+  regexFilesImages,
+  regexFilesImagesSvg,
+  regexFilesOffice,
+  regexFilesPdf,
+  regexFilesTextDocuments,
+} from "@/interfaces/_common-data-types";
 import { type FileData } from "@/interfaces/File";
 import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
@@ -32,7 +38,7 @@ const DisplayFileImageOrEmbed: React.FC<Props> = ({
     return null;
   }
 
-  const TheImage = /\.(pdf)$/.exec(file.filename) ? (
+  const TheImage = regexFilesPdf.exec(file.filename) ? (
     <div
       className="rounded-lg overflow-hidden border-4 border-foreground-quaternary"
       style={{ width: "100%", height: "100%" }}
@@ -51,9 +57,9 @@ const DisplayFileImageOrEmbed: React.FC<Props> = ({
         }}
       />
     </div>
-  ) : /\.(txt|csv)$/.exec(file.filename) ? (
+  ) : regexFilesTextDocuments.exec(file.filename) ? (
     <div
-      className="rounded-lg overflow-hidden border-4 border-foreground-quaternary"
+      className="rounded-lg overflow-hidden border-4 border-foreground-quaternary bg-gray-200"
       style={{ width: "100%", height: "100%" }}
     >
       <EmbedTxtDoc
@@ -70,7 +76,7 @@ const DisplayFileImageOrEmbed: React.FC<Props> = ({
         }}
       />
     </div>
-  ) : /\.(pptx|xlsx|docx)$/.exec(file.filename) ? (
+  ) : regexFilesOffice.exec(file.filename) ? (
     <div
       className="rounded-lg overflow-hidden border-4 border-foreground-quaternary"
       style={{ width: "100%", height: "100%" }}
@@ -100,7 +106,7 @@ const DisplayFileImageOrEmbed: React.FC<Props> = ({
         file.metadata.html.fileUrl ?? file.metadata.html.fileUri ?? Route.assets.IMAGE_PLACEHOLDER
       }
       style={style}
-      unoptimized={/\.svg$/.exec(file.filename) ? true : false}
+      unoptimized={regexFilesImagesSvg.exec(file.filename) ? true : false}
       width="0"
     />
   ) : (
