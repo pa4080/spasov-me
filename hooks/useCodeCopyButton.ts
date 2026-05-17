@@ -30,6 +30,7 @@ export default function useCodeCopyButton() {
           return;
         }
 
+
         // Skip editor/preview pre tags
         if (
           pre.classList.contains("w-md-editor-text-pre") ||
