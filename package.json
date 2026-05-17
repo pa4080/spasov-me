@@ -120,7 +120,6 @@
     "ts-node": "10.9.2",
     "unified": "11.0.5",
     "unist-util-visit": "5.0.0",
-    "webpac": "0.0.1-security",
     "zod": "4.3.6"
   },
   "devDependencies": {
@@ -169,7 +168,7 @@
     "typescript": "6.0.3",
     "typescript-plugin-css-modules": "5.1.0",
     "vercel": "54.1.0",
-    "webpack": "5.96.1"
+    "webpack": "5.104.1"
   },
   "pnpm": {}
 }
