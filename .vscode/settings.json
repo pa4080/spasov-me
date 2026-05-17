@@ -6,10 +6,10 @@
     // "titleBar.border": "#2e74de",
     "commandCenter.foreground": "#ffffff",
     "commandCenter.activeForeground": "#ffffff",
-    "commandCenter.border": "#2e74de",
-    "commandCenter.background": "#aa0000",
+    "commandCenter.border": "#89abde",
+    // "commandCenter.background": "#000000",
     "titleBar.inactiveBackground": "#2e74de99",
-    "titleBar.inactiveForeground": "#ffffff99"
+    "titleBar.inactiveForeground": "#ffffff"
     // "activityBar.background": "#00AA00",
   },
   "cSpell.words": [
@@ -105,6 +105,8 @@
     "UPSTASH",
     "usehooks",
     "webp",
+    "wmde",
+    "wrksz",
     "Yambol",
     "zipcode"
   ],

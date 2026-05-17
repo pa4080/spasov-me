@@ -1,6 +1,7 @@
 import React from "react";
 
 import ThemeSwitch from "@/components/layouts/theme/ThemeSwitch";
+import AppVersion from "@/components/shared/AppVersion";
 
 import PublicMenu_Desktop from "./PublicMenu_Desktop";
 import PublicMenu_Mobile from "./PublicMenu_Mobile";
@@ -15,7 +16,7 @@ const Navbar: React.FC = () => {
       <PublicMenu_Mobile className="flex mb:hidden items-center justify-center gap-4 pb-0" />
 
       <div className="flex justify-end items-center gap-3 pt-1 -mr-1">
-        <UserMenu />
+        <UserMenu appVersion={<AppVersion />} />
         <Search_Button />
         <ThemeSwitch />
       </div>

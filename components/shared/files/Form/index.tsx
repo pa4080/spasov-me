@@ -1,7 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import MDEditor from "@uiw/react-md-editor";
-import { useTheme } from "next-themes";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -21,6 +20,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { useTheme } from "@/contexts/themes";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { type FileData } from "@/interfaces/File";
 import {

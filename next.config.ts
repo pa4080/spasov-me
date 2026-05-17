@@ -113,6 +113,15 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        source: "/api/ai/deepseek",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "no-store, max-age=0",
+          },
+        ],
+      },
     ];
   },
   allowedDevOrigins: [

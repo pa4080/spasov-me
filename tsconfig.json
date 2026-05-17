@@ -22,10 +22,11 @@
         "name": "typescript-plugin-css-modules"
       }
     ],
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "app/*": ["./app/*"]
+      "app/*": ["./app/*"],
+      "@root": ["."],
+      "@root/*": ["./*"]
     }
   },
   "include": [

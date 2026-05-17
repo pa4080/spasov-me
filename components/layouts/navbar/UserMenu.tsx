@@ -10,14 +10,19 @@ import LoggedIn_Menu from "./UserMenu_LoggedIn_Menu";
 
 interface Props {
   className?: string;
+  appVersion?: React.ReactNode;
 }
 
-const UserMenu: React.FC<Props> = ({ className }) => {
+const UserMenu: React.FC<Props> = ({ className, appVersion }) => {
   const { authProviders, session } = useAppContext();
 
   return (
     <div className={cn("items-center justify-center gap-4 flex", className)}>
-      {session?.user ? <LoggedIn_Menu /> : <LogIn_Button authProviders={authProviders} />}
+      {session?.user ? (
+        <LoggedIn_Menu appVersion={appVersion} />
+      ) : (
+        <LogIn_Button authProviders={authProviders} />
+      )}
     </div>
   );
 };

@@ -8,6 +8,9 @@ export type LoadDataFromApiRoute = <T>(
   controller: AbortController
 ) => Promise<T[]> | null;
 
+/**
+ * @deprecated
+ */
 const loadDataFromApiRoute: LoadDataFromApiRoute = async (route, setCallback, controller) => {
   try {
     const response = await fetch(Route.api[route], {

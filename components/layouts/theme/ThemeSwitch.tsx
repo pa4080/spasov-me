@@ -1,6 +1,5 @@
 "use client";
-import { useTheme } from "next-themes";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import IconEmbedSvg from "@/components/shared/IconEmbedSvg";
 import { Button } from "@/components/ui/button";
@@ -10,21 +9,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useTheme } from "@/contexts/themes";
 import { msgs } from "@/messages";
 
 const ThemeSwitch: React.FC = () => {
   const t = msgs("Theme");
-  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-
-  // useEffect only runs on the client, so now we can safely show the UI
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <DropdownMenu>
