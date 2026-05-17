@@ -1,7 +1,5 @@
-"use client";
-
-import { ThemeProvider } from "next-themes";
-import React, { useEffect, useState } from "react";
+import { ThemeProvider } from "@wrksz/themes/next";
+import React from "react";
 
 interface Props {
   children: React.ReactNode;
@@ -10,24 +8,16 @@ interface Props {
 const themes = ["light", "dark", "system", "light-brown"];
 
 const ThemesProvider: React.FC<Props> = ({ children }) => {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
-    mounted && (
-      <ThemeProvider
-        disableTransitionOnChange
-        attribute="class"
-        defaultTheme="dark"
-        themes={themes}
-        // forcedTheme="dark"
-      >
-        {children}
-      </ThemeProvider>
-    )
+    <ThemeProvider
+      disableTransitionOnChange
+      attribute="class"
+      defaultTheme="dark"
+      themes={themes}
+      // forcedTheme="dark"
+    >
+      {children}
+    </ThemeProvider>
   );
 };
 
