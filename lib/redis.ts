@@ -8,7 +8,7 @@ export const redis_ttl = Number(process.env.UPSTASH_REDIS_TTL ?? 4 * 168 * 3600)
 export const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL,
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
-  cache: "no-store",
+  cache: "default",
 });
 
 export const files_prefix = process.env.NEXT_PUBLIC_CLOUDFLARE_R2_BUCKET_DIR_FILES ?? "files";
