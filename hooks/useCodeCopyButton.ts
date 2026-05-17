@@ -30,6 +30,14 @@ export default function useCodeCopyButton() {
           return;
         }
 
+        // Skip editor/preview pre tags
+        if (
+          pre.classList.contains("w-md-editor-text-pre") ||
+          pre.classList.contains("wmde-markdown-color")
+        ) {
+          return;
+        }
+
         const button = document.createElement("div");
         const buttonInner = document.createElement("div");
         const icon = document.createElement("div");
