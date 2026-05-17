@@ -1,7 +1,8 @@
 {
   "name": "spasov-me",
-  "version": "4.7.0",
+  "version": "4.7.1",
   "private": true,
+  "packageManager": "pnpm@10.33.1",
   "scripts": {
     "env-pull": "pnpm dlx vercel env pull",
     "env-inject": "dotenv -e ./.env.local --",
