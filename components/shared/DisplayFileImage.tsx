@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { regexFilesDocuments } from "@/interfaces/_common-data-types";
 import { type FileData } from "@/interfaces/File";
 import { cn } from "@/lib/cn-utils";
 import { Route } from "@/routes";
@@ -29,7 +30,7 @@ const DisplayFileImage: React.FC<Props> = ({
     return null;
   }
 
-  const TheImage = /\.(pdf|pptx|xlsx|csv|txt|docx)$/.exec(file.filename) ? (
+  const TheImage = regexFilesDocuments.exec(file.filename) ? (
     <Image
       priority
       alt={file.filename}

@@ -1,7 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Paperclip, Tag } from "lucide-react";
-import { useTheme } from "next-themes";
 import React, { memo, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -25,6 +24,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { useTheme } from "@/contexts/themes";
 import { type AboutEntryData } from "@/interfaces/AboutEntry";
 import { type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";

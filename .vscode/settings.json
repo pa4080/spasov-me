@@ -1,10 +1,17 @@
 {
-  // "workbench.colorCustomizations": {
-  // 	"titleBar.activeBackground": "#5c77e5",
-  // 	"titleBar.activeForeground": "#e7e7e7",
-  // 	"titleBar.inactiveBackground": "#D763B6",
-  // 	"titleBar.inactiveForeground": "#e7e7e799"
-  // },
+  // https://code.visualstudio.com/api/references/theme-color
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#2e74de",
+    "titleBar.activeForeground": "#ffffff",
+    // "titleBar.border": "#2e74de",
+    "commandCenter.foreground": "#ffffff",
+    "commandCenter.activeForeground": "#ffffff",
+    "commandCenter.border": "#89abde",
+    // "commandCenter.background": "#000000",
+    "titleBar.inactiveBackground": "#2e74de99",
+    "titleBar.inactiveForeground": "#ffffff"
+    // "activityBar.background": "#00AA00",
+  },
   "cSpell.words": [
     "Appstimate",
     "atrule",
@@ -98,6 +105,8 @@
     "UPSTASH",
     "usehooks",
     "webp",
+    "wmde",
+    "wrksz",
     "Yambol",
     "zipcode"
   ],

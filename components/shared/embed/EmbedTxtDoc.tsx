@@ -13,7 +13,7 @@ const EmbedTxtDoc: React.FC<Props> = ({
 }) => {
   return (
     <div className={`embed-mso-doc-container ${className}`} style={style}>
-      <object data={sourceUrl} height="100%" width="100%" />
+      <object data={sourceUrl} height="100%" type="text/plain" width="100%" />
     </div>
   );
 };

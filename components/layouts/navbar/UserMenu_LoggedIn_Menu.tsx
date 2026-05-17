@@ -20,9 +20,10 @@ import { Route } from "@/routes";
 
 interface Props {
   className?: string;
+  appVersion?: React.ReactNode;
 }
 
-const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
+const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4", appVersion }) => {
   const t = msgs("Navigation");
   const { data: session } = useSession();
   const pathname = usePathname();
@@ -61,7 +62,6 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
                 type="sidebar-flip"
               />
             </NavigationMenuTrigger>
-
             <NavigationMenuContent className="w-64 3xs:w-[22rem] 2xs:w-[26rem]">
               <div className="3xs:columns-2 border-b-2 border-b-primary pb-1 mb-1">
                 {Object.keys(Route.admin).map((key) => (
@@ -74,15 +74,17 @@ const LoggedIn_Menu: React.FC<Props> = ({ className = "-mr-4" }) => {
                   />
                 ))}
               </div>
-
               <div className="3xs:columns-2">
                 <div className="p-3">
                   <p className="font-bold">
                     {t("user")} ({session?.user?.accountProvider})
                   </p>
-                  <p className="text-foreground-tertiary">{session?.user?.name}</p>
-                </div>
+                  <p className="text-foreground-tertiary relative">
+                    {session?.user?.name}
 
+                    {appVersion}
+                  </p>
+                </div>
                 <div
                   className="p-3 block rounded break-inside-avoid-column hover:bg-primary/50 cursor-pointer"
                   onClick={(e) => {

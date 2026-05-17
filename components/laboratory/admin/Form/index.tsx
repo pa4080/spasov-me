@@ -1,7 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Paperclip, Tag } from "lucide-react";
-import { useTheme } from "next-themes";
 import React, { memo, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import slugify from "slugify";
@@ -27,6 +26,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { useTheme } from "@/contexts/themes";
 import { type FileData, type FileListItem } from "@/interfaces/File";
 import { type IconsMap } from "@/interfaces/IconsMap";
 import { type LabEntryData } from "@/interfaces/LabEntry";

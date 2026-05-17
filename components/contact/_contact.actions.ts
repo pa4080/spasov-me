@@ -97,7 +97,7 @@ export const reCaptchaSubmit: reCaptchaSubmit = async (googleReCaptchaToken: str
           "Content-Type": "application/x-www-form-urlencoded",
         },
         body: `secret=${reCaptcha.secretKey}&response=${googleReCaptchaToken}`,
-        cache: "no-cache",
+        cache: "no-store",
       })
     ).json();
 

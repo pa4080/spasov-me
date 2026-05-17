@@ -2,7 +2,7 @@
 
 import { useActualVh } from "@/hooks/useActualVh";
 import { useClearHyphens } from "@/hooks/useClearHyphens";
-import { useCodeCopyButton } from "@/hooks/useCodeCopyButton";
+import useCodeCopyButton from "@/hooks/useCodeCopyButton";
 import { useScrollToAboutEntry } from "@/hooks/useScrollToAboutEntry";
 
 interface Props {

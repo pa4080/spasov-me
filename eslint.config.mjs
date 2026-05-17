@@ -67,7 +67,7 @@ const eslintConfig = defineConfig([
       "@typescript-eslint": typescriptEslint,
       "react-refresh": reactRefresh,
       prettier: fixupPluginRules(prettier),
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
       esLintConfigPrettier,
     },
 
@@ -77,8 +77,7 @@ const eslintConfig = defineConfig([
       sourceType: "script",
 
       parserOptions: {
-        project: true,
-        project: ["./tsconfig.json", "tsconfig.node.json", "tsconfig.app.json"],
+        project: ["./tsconfig.json"],
         tsconfigRootDir: __dirname,
       },
     },

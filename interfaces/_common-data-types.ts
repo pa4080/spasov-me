@@ -101,10 +101,15 @@ export interface AttachedToDocument {
 
 // See @/next.config.js
 export const nextConfigCDNSource =
-  "/:all*(png|jpg|jpeg|svg|webp|gif|jfif|avif|pdf|pptx|xlsx|csv|txt|docx|webm|mkv|avi|mp4|eot|ttf|woff|woff2)";
+  "/:all*(png|jpg|jpeg|svg|webp|gif|jfif|avif|pdf|pptx|xlsx|csv|txt|docx|webm|mkv|avi|mp4|eot|ttf|woff|woff2|md)";
 
 export const regexFilesAll =
-  /\.(png|jpg|jpeg|svg|webp|gif|jfif|avif|bmp|pdf|pptx|xlsx|csv|txt|docx)$/;
+  /\.(png|jpg|jpeg|svg|webp|gif|jfif|avif|bmp|pdf|pptx|xlsx|csv|txt|docx|md)$/;
+export const regexFilesDocuments = /\.(pdf|pptx|xlsx|csv|txt|docx|md)$/;
+export const regexFilesTextDocuments = /\.(txt|csv|md)$/;
+export const regexFilesImagesSvg = /\.svg$/;
+export const regexFilesPdf = /\.(pdf)$/;
+export const regexFilesOffice = /\.(pptx|xlsx|docx)$/;
 export const regexFilesImages = /\.(png|jpg|jpeg|svg|webp|gif|jfif|avif|bmp)$/;
 
 export type FilesImagesExtensions =
@@ -115,4 +120,5 @@ export type FilesImagesExtensions =
   | "webp"
   | "gif"
   | "jfif"
-  | "avif";
+  | "avif"
+  | "bmp";
