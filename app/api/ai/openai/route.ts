@@ -1,10 +1,12 @@
 import { type NextRequest } from "next/server";
 
-import { auth } from "@/lib/auth";
 import { type OpenAiApiRequest } from "@/interfaces/AI";
 import { createForbiddenResponse, isSameOrigin } from "@/lib/api/origin-protection";
+import { auth } from "@/lib/auth";
 
-export const revalidate = 0;
+// export const revalidate = 0;
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 const apiKey = process.env.OPENAI_API_KEY;
 
 export async function POST(request: NextRequest) {
@@ -58,7 +60,7 @@ export async function POST(request: NextRequest) {
 
     const upstream = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
-      cache: "no-cache",
+      cache: "no-store",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,

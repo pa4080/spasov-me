@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 import "server-only";
 
 /**
@@ -24,10 +23,10 @@ export async function redisGet_SSR_Solution<T>(key: string): Promise<T | null> {
     headers: {
       Authorization: `Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`,
     },
-    cache: "reload",
+    cache: "no-store",
   });
 
-  const data = await response.json();
+  const data = (await response.json()) as Awaited<{ result: string | null }>;
 
   return (JSON.parse(data.result) as T) || null;
 }
